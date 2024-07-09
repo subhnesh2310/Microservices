@@ -1,0 +1,302 @@
+{
+    "ne": {
+        "facilities": {
+            "dsc-group": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A generic, configurable name for every facility.",
+                        "key": true,
+                        "mandatory": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "carriers": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The carrier associated to this facility.\nPossible values can be any card/resources/supported-carriers.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "rate": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Carried signal basic rate class",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "instance-id": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "For identifying the dsc-group logic number, is added to the dsc-group model for creation.\nThe attribute is optional and will be automatically created if not specified.\nThe maximum value of the instance-id will be calculated based on the capacity of the line mode and the dsc-group rate\n(ex: for creating an 100G dsc-group from 400G 16QAM line mode, instance can be between 1 and 4)",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "group-id": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Optional parameter on dsc-group creation, specifies the dsc-group group number that the dsc is a member of for a given optical-carrier.\nIf not provided, it is automatically assigned by system.\n(ex: for creating an 100G dsc-group from 400G 16QAM line mode, group-id can be 1/3/5/7)",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "pre-fec-q-sig-deg-threshold": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The threshold based on which the PRE-FEC-Q-SIGNAL-DEGRADE alarm is raised.\n0 implies threshold crossing alarming disabled.\nSpecific sub-range is per carrier use-case.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "pre-fec-q-sig-deg-hysteresis": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Hysteresis to account for raising of the PRE-FEC-Q-SIGNAL-DEGRADE alarm.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.5",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "post-fec-q-sig-deg-threshold": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The threshold based on which the POST-FEC-Q-SIGNAL-DEGRADE alarm is raised.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "18.0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "post-fec-q-sig-deg-hysteresis": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Hysteresis to account for raising of the POST-FEC-Q-SIGNAL-DEGRADE alarm.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.5",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "dgd-high-threshold": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "The threshold to raise the DGD-OORH alarm.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 100,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Card that holds this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "managed-by": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "system",
+                                "user"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Describes whether this facility was system created or not.\nOnly user created facilities can be user deleted.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "system",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Ports that hold this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the parent facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supported-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the children facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-facilities"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-fac="http://infinera.com/yang/ioa/facilities"
+        xmlns:ioa-ots="http://infinera.com/yang/ioa/ots"
+        xmlns:ioa-ots-r="http://infinera.com/yang/ioa/ots-r"
+        xmlns:ioa-osc="http://infinera.com/yang/ioa/osc"
+        xmlns:ioa-ops="http://infinera.com/yang/ioa/ops"
+        xmlns:ioa-oms="http://infinera.com/yang/ioa/oms"
+        xmlns:ioa-mc="http://infinera.com/yang/ioa/mc"
+        xmlns:ioa-nmc="http://infinera.com/yang/ioa/nmc"
+        xmlns:ioa-rsc="http://infinera.com/yang/ioa/rsc"
+        xmlns:ioa-scg="http://infinera.com/yang/ioa/scg"
+        xmlns:ioa-carrier="http://infinera.com/yang/ioa/optical-carrier"
+        xmlns:ioa-sch="http://infinera.com/yang/ioa/sch"
+        xmlns:ioa-och="http://infinera.com/yang/ioa/optical-channel"
+        xmlns:ioa-otu="http://infinera.com/yang/ioa/otu"
+        xmlns:ioa-odu="http://infinera.com/yang/ioa/odu"
+        xmlns:ioa-eth="http://infinera.com/yang/ioa/ethernet"
+        xmlns:ioa-trib="http://infinera.com/yang/ioa/trib-ptp"
+        xmlns:ioa-cc="http://infinera.com/yang/ioa/comm-channel"
+        xmlns:ioa-flexo-group="http://infinera.com/yang/ioa/flexo-group"
+        xmlns:ioa-eth-zr="http://infinera.com/yang/ioa/eth-zr"
+        xmlns:ioa-optical-ptp="http://infinera.com/yang/ioa/optical-ptp"
+        xmlns:ioa-line-ptp="http://infinera.com/yang/ioa/line-ptp"
+        xmlns:ioa-tdm="http://infinera.com/yang/ioa/tdm"
+        xmlns:ioa-fc="http://infinera.com/yang/ioa/fc">
+  <namespace uri="http://infinera.com/yang/ioa/facilities"/>
+  <prefix value="ioa-fac"/>
+  <import module="ioa-ots">
+    <prefix value="ioa-ots"/>
+  </import>
+  <import module="ioa-ots-r">
+    <prefix value="ioa-ots-r"/>
+  </import>
+  <import module="ioa-osc">
+    <prefix value="ioa-osc"/>
+  </import>
+  <import module="ioa-ops">
+    <prefix value="ioa-ops"/>
+  </import>
+  <import module="ioa-oms">
+    <prefix value="ioa-oms"/>
+  </import>
+  <import module="ioa-mc">
+    <prefix value="ioa-mc"/>
+  </import>
+  <import module="ioa-nmc">
+    <prefix value="ioa-nmc"/>
+  </import>
+  <import module="ioa-rsc">
+    <prefix value="ioa-rsc"/>
+  </import>
+  <import module="ioa-scg">
+    <prefix value="ioa-scg"/>
+  </import>
+  <import module="ioa-optical-carrier">
+    <prefix value="ioa-carrier"/>
+  </import>
+  <import module="ioa-sch">
+    <prefix value="ioa-sch"/>
+  </import>
+  <import module="ioa-optical-channel">
+    <prefix value="ioa-och"/>
+  </import>
+  <import module="ioa-otu">
+    <prefix value="ioa-otu"/>
+  </import>
+  <import module="ioa-odu">
+    <prefix value="ioa-odu"/>
+  </import>
+  <import module="ioa-ethernet">
+    <prefix value="ioa-eth"/>
+  </import>
+  <import module="ioa-trib-ptp">
+    <prefix value="ioa-trib"/>
+  </import>
+  <import module="ioa-comm-channel">
+    <prefix value="ioa-cc"/>
+  </import>
+  <import module="ioa-flexo">
+    <prefix value="ioa-flexo"/>
+  </import>
+  <import module="ioa-flexo-group">
+    <prefix value="ioa-flexo-group"/>
+  </import>
+  <import module="ioa-eth-zr">
+    <prefix value="ioa-eth-zr"/>
+  </import>
+  <import module="ioa-optical-ptp">
+    <prefix value="ioa-optical-ptp"/>
+  </import>
+  <import module="ioa-line-ptp">
+    <prefix value="ioa-line-ptp"/>
+  </import>
+  <import module="ioa-tdm">
+    <prefix value="ioa-tdm"/>
+  </import>
+  <import module="ioa-fc">
+    <prefix value="ioa-fc"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module which acts as top level for all facilities.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <grouping name="facilities">
+    <container name="facilities">
+      <description>
+        <text>The top-level facility root node under which all other facilities are present.</text>
+      </description>
+      <uses name="ioa-ots:ots"/>
+      <uses name="ioa-ots-r:ots-r"/>
+      <uses name="ioa-osc:osc"/>
+      <uses name="ioa-ops:ops"/>
+      <uses name="ioa-oms:oms"/>
+      <uses name="ioa-mc:mc"/>
+      <uses name="ioa-nmc:nmc"/>
+      <uses name="ioa-rsc:rsc"/>
+      <uses name="ioa-rsc:raman-pump"/>
+      <uses name="ioa-scg:scg"/>
+      <uses name="ioa-sch:sch"/>
+      <uses name="ioa-carrier:carrier"/>
+      <uses name="ioa-och:optical-channel"/>
+      <uses name="ioa-otu:otu"/>
+      <uses name="ioa-odu:odu"/>
+      <uses name="ioa-eth:ethernet"/>
+      <uses name="ioa-trib:trib-ptp"/>
+      <uses name="ioa-cc:comm-channel"/>
+      <uses name="ioa-optical-ptp:optical-ptp"/>
+      <uses name="ioa-line-ptp:line-ptp"/>
+      <uses name="ioa-flexo:flexo"/>
+      <uses name="ioa-flexo-group:flexo-group"/>
+      <uses name="ioa-eth-zr:eth-zr"/>
+      <uses name="ioa-tdm:oc"/>
+      <uses name="ioa-tdm:stm"/>
+      <uses name="ioa-fc:fc"/>
+    </container>
+  </grouping>
+</module>

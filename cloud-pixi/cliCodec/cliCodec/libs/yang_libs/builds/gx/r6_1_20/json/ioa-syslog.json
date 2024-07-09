@@ -1,0 +1,872 @@
+{
+    "module": {
+        "@name": "ioa-syslog",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-syslog": "http://infinera.com/yang/ioa/syslog",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/syslog"
+        },
+        "prefix": {
+            "@value": "ioa-syslog"
+        },
+        "import": [
+            {
+                "@module": "ietf-inet-types",
+                "prefix": {
+                    "@value": "inet"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module for Syslog and Logging model."
+        },
+        "revision": [
+            {
+                "@date": "2023-03-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.1"
+                }
+            },
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "typedef": {
+            "@name": "syslog-facility",
+            "type": {
+                "@name": "enumeration",
+                "enum": [
+                    {
+                        "@name": "kernel",
+                        "value": {
+                            "@value": "0"
+                        },
+                        "description": {
+                            "text": "Kernel messages."
+                        }
+                    },
+                    {
+                        "@name": "user-level",
+                        "value": {
+                            "@value": "1"
+                        },
+                        "description": {
+                            "text": "User level messages."
+                        }
+                    },
+                    {
+                        "@name": "mail-system",
+                        "value": {
+                            "@value": "2"
+                        },
+                        "description": {
+                            "text": "Mail system."
+                        }
+                    },
+                    {
+                        "@name": "system-daemons",
+                        "value": {
+                            "@value": "3"
+                        },
+                        "description": {
+                            "text": "System daemons."
+                        }
+                    },
+                    {
+                        "@name": "authentication",
+                        "value": {
+                            "@value": "4"
+                        },
+                        "description": {
+                            "text": "Authentication/authorization attempt messages."
+                        }
+                    },
+                    {
+                        "@name": "syslog-internal",
+                        "value": {
+                            "@value": "5"
+                        },
+                        "description": {
+                            "text": "Messages generated internally by syslog."
+                        }
+                    },
+                    {
+                        "@name": "line-printer",
+                        "value": {
+                            "@value": "6"
+                        },
+                        "description": {
+                            "text": "Line printer subsystem."
+                        }
+                    },
+                    {
+                        "@name": "network-news",
+                        "value": {
+                            "@value": "7"
+                        },
+                        "description": {
+                            "text": "Network news subsystem."
+                        }
+                    },
+                    {
+                        "@name": "uucp",
+                        "value": {
+                            "@value": "8"
+                        },
+                        "description": {
+                            "text": "UUCP subsystem."
+                        }
+                    },
+                    {
+                        "@name": "clock-daemon-9",
+                        "value": {
+                            "@value": "9"
+                        },
+                        "description": {
+                            "text": "Clock daemon."
+                        }
+                    },
+                    {
+                        "@name": "security",
+                        "value": {
+                            "@value": "10"
+                        },
+                        "description": {
+                            "text": "Security related events and error messages."
+                        }
+                    },
+                    {
+                        "@name": "ftp-daemon",
+                        "value": {
+                            "@value": "11"
+                        },
+                        "description": {
+                            "text": "FTP daemon."
+                        }
+                    },
+                    {
+                        "@name": "ntp",
+                        "value": {
+                            "@value": "12"
+                        },
+                        "description": {
+                            "text": "NTP subsystem."
+                        }
+                    },
+                    {
+                        "@name": "log-audit",
+                        "value": {
+                            "@value": "13"
+                        },
+                        "description": {
+                            "text": "Log audit."
+                        }
+                    },
+                    {
+                        "@name": "log-alert",
+                        "value": {
+                            "@value": "14"
+                        },
+                        "description": {
+                            "text": "Log alert."
+                        }
+                    },
+                    {
+                        "@name": "clock-daemon-15",
+                        "value": {
+                            "@value": "15"
+                        },
+                        "description": {
+                            "text": "Clock daemon."
+                        }
+                    },
+                    {
+                        "@name": "local0",
+                        "value": {
+                            "@value": "16"
+                        },
+                        "description": {
+                            "text": "Local use 0 (unused)."
+                        }
+                    },
+                    {
+                        "@name": "local1",
+                        "value": {
+                            "@value": "17"
+                        },
+                        "description": {
+                            "text": "Alarm logs."
+                        }
+                    },
+                    {
+                        "@name": "local2",
+                        "value": {
+                            "@value": "18"
+                        },
+                        "description": {
+                            "text": "All commands, in a protocol agnostic format."
+                        }
+                    },
+                    {
+                        "@name": "local3",
+                        "value": {
+                            "@value": "19"
+                        },
+                        "description": {
+                            "text": "All commands, in a protocol specific format (CLI, NETCONF, etc)."
+                        }
+                    },
+                    {
+                        "@name": "local4",
+                        "value": {
+                            "@value": "20"
+                        },
+                        "description": {
+                            "text": "Line card logs above severity level ERROR."
+                        }
+                    },
+                    {
+                        "@name": "local5",
+                        "value": {
+                            "@value": "21"
+                        },
+                        "description": {
+                            "text": "Initial HW initialization and EEPROM status sysinfo log."
+                        }
+                    },
+                    {
+                        "@name": "local6",
+                        "value": {
+                            "@value": "22"
+                        },
+                        "description": {
+                            "text": "Any changes to the configuration DB, both internal or externally triggered."
+                        }
+                    },
+                    {
+                        "@name": "local7",
+                        "value": {
+                            "@value": "23"
+                        },
+                        "description": {
+                            "text": "All Infinera applications."
+                        }
+                    },
+                    {
+                        "@name": "all",
+                        "value": {
+                            "@value": "100"
+                        },
+                        "description": {
+                            "text": "Selects all other syslog facilities."
+                        }
+                    }
+                ]
+            },
+            "description": {
+                "text": "List of syslog facilities."
+            }
+        },
+        "grouping": [
+            {
+                "@name": "source-facilities",
+                "leaf-list": {
+                    "@name": "source-facilities",
+                    "type": {
+                        "@name": "syslog-facility"
+                    },
+                    "max-elements": {
+                        "@value": "24"
+                    },
+                    "description": {
+                        "text": "List of syslog facilities used in this configuration.\nWill default to 'all' facilities if not provided."
+                    }
+                }
+            },
+            {
+                "@name": "syslog",
+                "container": {
+                    "@name": "syslog",
+                    "description": {
+                        "text": "Central configuration for logging functionality via syslog.\nIncludes control of local log files, remote logging configuration and logging in serial console."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "remote-logging-switch",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "If false, disable all remote logging destinations."
+                            }
+                        },
+                        {
+                            "@name": "log-relay",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "If false, disable all remote logging from shelf controller to node controller."
+                            }
+                        },
+                        {
+                            "@name": "source-address",
+                            "type": {
+                                "@name": "ioa-common:host"
+                            },
+                            "default": {
+                                "@value": "localhost"
+                            },
+                            "description": {
+                                "text": "Source address or hostname to inserted in HOST field of log message."
+                            }
+                        },
+                        {
+                            "@name": "log-file-message-coalescence",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "If true, prevent flooding of identical messages during abnormal conditions.\nIf there are multiple identical log messages for log files, there will be one\nmessage logged fully and follow with 'last message repeated n times' message."
+                            }
+                        }
+                    ],
+                    "uses": [
+                        {
+                            "@name": "ioa-common:assignment-method"
+                        },
+                        {
+                            "@name": "ioa-common:arc"
+                        },
+                        {
+                            "@name": "ioa-common:label"
+                        }
+                    ],
+                    "list": [
+                        {
+                            "@name": "log-server",
+                            "key": {
+                                "@value": "name"
+                            },
+                            "max-elements": {
+                                "@value": "13"
+                            },
+                            "description": {
+                                "text": "Grouping the configuration parameters for log forwarding."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "name",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "1..64"
+                                        },
+                                        "pattern": {
+                                            "@value": "[A-Za-z0-9_\\-]*"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "The name for the endpoint to forwarding logs to."
+                                    }
+                                },
+                                {
+                                    "@name": "address",
+                                    "type": {
+                                        "@name": "ioa-common:host"
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "The leaf uniquely specifies the ipv4 or ipv6 address of the remote host."
+                                    }
+                                },
+                                {
+                                    "@name": "transport",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "tcp",
+                                                "value": {
+                                                    "@value": "1"
+                                                }
+                                            },
+                                            {
+                                                "@name": "udp",
+                                                "value": {
+                                                    "@value": "2"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "udp"
+                                    },
+                                    "description": {
+                                        "text": "It is the transport protocol used when forwarding logs."
+                                    }
+                                },
+                                {
+                                    "@name": "port",
+                                    "type": {
+                                        "@name": "inet:port-number",
+                                        "range": {
+                                            "@value": "1..max"
+                                        }
+                                    },
+                                    "default": {
+                                        "@value": "514"
+                                    },
+                                    "description": {
+                                        "text": "This leaf specifies the port number used to deliver messages to the remote server."
+                                    }
+                                },
+                                {
+                                    "@name": "destination-facility-override",
+                                    "type": {
+                                        "@name": "union",
+                                        "type": [
+                                            {
+                                                "@name": "enumeration",
+                                                "enum": {
+                                                    "@name": "disabled",
+                                                    "value": {
+                                                        "@value": "0"
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "@name": "uint8",
+                                                "range": {
+                                                    "@value": "0..11 | 16..23"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "disabled"
+                                    },
+                                    "description": {
+                                        "text": "When not disabled, this leaf specifies the facility used in messages delivered\nto the remote server."
+                                    }
+                                },
+                                {
+                                    "@name": "pattern-match",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..255"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Regex pattern that all entries need to obey."
+                                    }
+                                },
+                                {
+                                    "@name": "message-coalescence",
+                                    "type": {
+                                        "@name": "boolean"
+                                    },
+                                    "default": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "If true, prevent flooding of identical messages during abnormal conditions.\nIf there are multiple identical log messages, there will be one message logged fully\nand follow with 'last message repeated n times' message."
+                                    }
+                                },
+                                {
+                                    "@name": "enabled",
+                                    "type": {
+                                        "@name": "boolean"
+                                    },
+                                    "default": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "Allows to toggle this syslog server."
+                                    }
+                                },
+                                {
+                                    "@name": "message-format",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "rfc5424",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "<${PRI}>1 ${ISODATE} ${HOST} ${PROGRAM} ${PID} ${MSGID} ${SDATA} $MSG\n<45>1 2019-11-20T12:55:50+00:00 localhost syslog-ng 2392 - [meta sequenceId='1'] syslog-ng starting up; version='3.24.1'"
+                                                }
+                                            },
+                                            {
+                                                "@name": "rfc3164",
+                                                "value": {
+                                                    "@value": "2"
+                                                },
+                                                "description": {
+                                                    "text": "<${PRI}> ${TIMESTAMP} ${HOSTNAME} ${TAG} $MSG\n<34>Nov 20 12:55:50 localhost syslog-ng[2392] syslog-ng starting up; version='3.24.1'"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "rfc5424"
+                                    },
+                                    "description": {
+                                        "text": "Identifies the syslog messaging format"
+                                    }
+                                },
+                                {
+                                    "@name": "origin",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "manual",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "Indicates Log-server address has been manually configured."
+                                                }
+                                            },
+                                            {
+                                                "@name": "dhcp",
+                                                "value": {
+                                                    "@value": "2"
+                                                },
+                                                "description": {
+                                                    "text": "Indicates Log-server address  has been assigned to this\nsystem by a DHCP server."
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "manual"
+                                    },
+                                    "description": {
+                                        "text": "Log-server address assignment method, user can convert\nDHCP configured Log-server entry into a manual configured by changing this attribute."
+                                    }
+                                }
+                            ],
+                            "uses": {
+                                "@name": "source-facilities"
+                            },
+                            "list": {
+                                "@name": "log-server-facility-filter",
+                                "key": {
+                                    "@value": "name"
+                                },
+                                "description": {
+                                    "text": "Selector that allows to filter log messages based on their source facilities and severities.\nThis is a filter based on source-facilities leaf-list (can only add filter to the configured\nsource facilities)."
+                                },
+                                "uses": {
+                                    "@name": "log-facility"
+                                }
+                            }
+                        },
+                        {
+                            "@name": "log-file",
+                            "key": {
+                                "@value": "name"
+                            },
+                            "description": {
+                                "text": "Local syslog files supported by the system."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "name",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "1..128"
+                                        },
+                                        "pattern": {
+                                            "@value": "[A-Za-z0-9_\\-]*"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "The file name without the .log extension."
+                                    }
+                                },
+                                {
+                                    "@name": "number-of-files",
+                                    "type": {
+                                        "@name": "uint8",
+                                        "range": {
+                                            "@value": "1..20"
+                                        }
+                                    },
+                                    "default": {
+                                        "@value": "10"
+                                    },
+                                    "description": {
+                                        "text": "Maximum number of log files retained.\nWhen rotating files due to max size being reached, the oldest files will be discarded\nif the total number of files is greater than number-of-files."
+                                    }
+                                },
+                                {
+                                    "@name": "max-file-size",
+                                    "type": {
+                                        "@name": "uint8",
+                                        "range": {
+                                            "@value": "1..30"
+                                        }
+                                    },
+                                    "units": {
+                                        "@name": "megabytes"
+                                    },
+                                    "default": {
+                                        "@value": "30"
+                                    },
+                                    "description": {
+                                        "text": "Maximum file size before rotation."
+                                    }
+                                },
+                                {
+                                    "@name": "pattern-match",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..255"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Regex pattern that all entries need to obey."
+                                    }
+                                }
+                            ],
+                            "uses": {
+                                "@name": "source-facilities"
+                            },
+                            "list": {
+                                "@name": "log-file-facility-filter",
+                                "key": {
+                                    "@value": "name"
+                                },
+                                "description": {
+                                    "text": "Selector that allows to filter log messages based on their source facilities and severities."
+                                },
+                                "uses": {
+                                    "@name": "log-facility"
+                                }
+                            }
+                        }
+                    ],
+                    "container": {
+                        "@name": "log-console",
+                        "description": {
+                            "text": "Console logging supported by the system."
+                        },
+                        "uses": {
+                            "@name": "source-facilities"
+                        },
+                        "list": {
+                            "@name": "log-console-facility-filter",
+                            "key": {
+                                "@value": "name"
+                            },
+                            "description": {
+                                "text": "Selector that allows to filter log messages based on their source facilities and severities."
+                            },
+                            "uses": {
+                                "@name": "log-facility"
+                            }
+                        },
+                        "leaf": {
+                            "@name": "enabled",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Switches on and off the console logging."
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "log-facility",
+                "leaf": [
+                    {
+                        "@name": "name",
+                        "type": {
+                            "@name": "syslog-facility"
+                        },
+                        "description": {
+                            "text": "Identifies a single syslog facility, or all of them if value is 'all'."
+                        }
+                    },
+                    {
+                        "@name": "severity",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "emergency",
+                                    "value": {
+                                        "@value": "0"
+                                    },
+                                    "description": {
+                                        "text": "Level 0 - System is unusable."
+                                    }
+                                },
+                                {
+                                    "@name": "alert",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "Level 1 - Action must be taken immediately."
+                                    }
+                                },
+                                {
+                                    "@name": "critical",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "Level 2 - Critical conditions."
+                                    }
+                                },
+                                {
+                                    "@name": "error",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "Level 3 - Error conditions."
+                                    }
+                                },
+                                {
+                                    "@name": "warning",
+                                    "value": {
+                                        "@value": "4"
+                                    },
+                                    "description": {
+                                        "text": "Level 4 - Warning conditions."
+                                    }
+                                },
+                                {
+                                    "@name": "notice",
+                                    "value": {
+                                        "@value": "5"
+                                    },
+                                    "description": {
+                                        "text": "Level 5 - Normal but significant condition."
+                                    }
+                                },
+                                {
+                                    "@name": "informational",
+                                    "value": {
+                                        "@value": "6"
+                                    },
+                                    "description": {
+                                        "text": "Level 6 - Informational messages."
+                                    }
+                                },
+                                {
+                                    "@name": "debug",
+                                    "value": {
+                                        "@value": "7"
+                                    },
+                                    "description": {
+                                        "text": "Level 7 - Debug-level messages."
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "informational"
+                        },
+                        "description": {
+                            "text": "The system log selected severity level for forwarding.\nThe default severity level is all levels"
+                        },
+                        "reference": {
+                            "text": "THANOS-1489"
+                        }
+                    },
+                    {
+                        "@name": "compare-op",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "equals-or-higher",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "equals",
+                                    "value": {
+                                        "@value": "2"
+                                    }
+                                },
+                                {
+                                    "@name": "not-equals",
+                                    "value": {
+                                        "@value": "3"
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "equals-or-higher"
+                        },
+                        "description": {
+                            "text": "This leaf describes the option to specify how the severity comparison is performed.\nThe default severity level is all levels"
+                        },
+                        "reference": {
+                            "text": "THANOS-1489"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

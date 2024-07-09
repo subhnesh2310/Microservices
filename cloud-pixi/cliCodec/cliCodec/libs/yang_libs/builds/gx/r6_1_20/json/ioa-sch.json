@@ -1,0 +1,304 @@
+{
+    "module": {
+        "@name": "ioa-sch",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-sch": "http://infinera.com/yang/ioa/sch",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "@xmlns:ioa-carrier-types": "http://infinera.com/yang/ioa/carrier-types",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/sch"
+        },
+        "prefix": {
+            "@value": "ioa-sch"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ietf-inet-types",
+                "prefix": {
+                    "@value": "inet"
+                }
+            },
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            },
+            {
+                "@module": "ioa-carrier-types",
+                "prefix": {
+                    "@value": "ioa-carrier-types"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module describing Super-Channel facilities."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "sch",
+                "list": {
+                    "@name": "super-channel",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "description": {
+                        "text": "Unified channel of optical carriers. Can have many optical channels."
+                    },
+                    "uses": [
+                        {
+                            "@name": "ioa-fac-common:facilities-common-attributes"
+                        },
+                        {
+                            "@name": "ioa-common:arc"
+                        },
+                        {
+                            "@name": "ioa-carrier-types:carrier-mode-attributes",
+                            "refine": {
+                                "@target-node": "carrier-mode",
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "Unique identifier of the carrier mode this super-channel is configured as.\nPossible carrier-modes are listed in the golden-carrier-mode list."
+                                }
+                            }
+                        },
+                        {
+                            "@name": "ioa-fac-common:spectral-bw"
+                        },
+                        {
+                            "@name": "ioa-sch:digital-trigger-registration"
+                        }
+                    ],
+                    "leaf-list": {
+                        "@name": "carriers",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "1..32"
+                            }
+                        },
+                        "min-elements": {
+                            "@value": "1"
+                        },
+                        "description": {
+                            "text": "A list of carriers that are bound to this superchannel.\nPossible values can be any card/resources/supported-carriers."
+                        }
+                    },
+                    "leaf": {
+                        "@name": "contention-check-status",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "pending",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "Contention check is pending on DNA side."
+                                    }
+                                },
+                                {
+                                    "@name": "success",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "Successful contention validation by DNA."
+                                    }
+                                },
+                                {
+                                    "@name": "failed",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "Failed contention validation by DNA."
+                                    }
+                                },
+                                {
+                                    "@name": "overridden",
+                                    "value": {
+                                        "@value": "4"
+                                    },
+                                    "description": {
+                                        "text": "Explict user override of this function."
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "pending"
+                        },
+                        "description": {
+                            "text": "Contention Check state, set via DNA in openwave mode.\nOnly applicable if openwave-contention-check is enabled at super-channel-group level."
+                        },
+                        "reference": {
+                            "text": "GX-1096"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "digital-trigger-registration",
+                "container": {
+                    "@name": "digital-trigger-registration",
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Atttributes related to digital trigger fault registration from line system."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "neighbor-id",
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "/ne/topology/inci/inci-neighbor/neighbor-id"
+                                }
+                            },
+                            "description": {
+                                "text": "ID of provisioned neighbor. Local reference to the neighbor."
+                            }
+                        },
+                        {
+                            "@name": "remote-node-name",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..128"
+                                }
+                            },
+                            "description": {
+                                "text": "Remote NE Name."
+                            }
+                        },
+                        {
+                            "@name": "remote-ne-ip",
+                            "type": {
+                                "@name": "inet:ip-address"
+                            },
+                            "default": {
+                                "@value": "0.0.0.0"
+                            },
+                            "description": {
+                                "text": "IP address of the remote NE that has registered for DT fault updates. 0.0.0.0 means that no ip is set to remote-ne-ip."
+                            }
+                        },
+                        {
+                            "@name": "remote-end-point",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..128"
+                                }
+                            },
+                            "description": {
+                                "text": "Name of the remote end point that has registered for DT fault updates."
+                            }
+                        },
+                        {
+                            "@name": "local-flow-id",
+                            "type": {
+                                "@name": "uint8"
+                            },
+                            "description": {
+                                "text": "Flow ID assigned by GX node for this connection."
+                            }
+                        },
+                        {
+                            "@name": "remote-flow-id",
+                            "type": {
+                                "@name": "uint8"
+                            },
+                            "description": {
+                                "text": "Flow ID received from remote NE."
+                            }
+                        },
+                        {
+                            "@name": "dt-encapsulation",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "gre",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Digital trigger encapsulation is Generic Routing Encapsulation."
+                                        }
+                                    },
+                                    {
+                                        "@name": "simple-ip",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Digital trigger encapsulation is Simple IP."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "gre"
+                            },
+                            "description": {
+                                "text": "Encapsulation option."
+                            }
+                        },
+                        {
+                            "@name": "last-update",
+                            "type": {
+                                "@name": "ioa-common:date-time-never"
+                            },
+                            "default": {
+                                "@value": "never"
+                            },
+                            "description": {
+                                "text": "Time of last fault registration request."
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

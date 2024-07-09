@@ -1,0 +1,593 @@
+{
+    "module": {
+        "@name": "ioa-acl",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-acl": "http://infinera.com/yang/ioa-acl",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa-acl"
+        },
+        "prefix": {
+            "@value": "ioa-acl"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ietf-inet-types",
+                "prefix": {
+                    "@value": "inet"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module defining the structure for Layer 2/Layer 3 access control lists (ACL)."
+        },
+        "revision": [
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "typedef": {
+            "@name": "acl-ip-prefix",
+            "type": {
+                "@name": "union",
+                "type": [
+                    {
+                        "@name": "enumeration",
+                        "enum": {
+                            "@name": "any",
+                            "value": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "Applies for all ip ."
+                            }
+                        }
+                    },
+                    {
+                        "@name": "inet:ipv4-prefix"
+                    },
+                    {
+                        "@name": "inet:ipv4-address"
+                    },
+                    {
+                        "@name": "inet:ipv6-prefix"
+                    },
+                    {
+                        "@name": "inet:ipv6-address"
+                    }
+                ]
+            },
+            "default": {
+                "@value": "any"
+            },
+            "description": {
+                "text": "A re-usable type that is used to match both\nsource and destination fields of an IP packet in an ACL."
+            }
+        },
+        "grouping": {
+            "@name": "acl-attributes",
+            "container": {
+                "@name": "access-control-list",
+                "description": {
+                    "text": "Attributes and objects pertaining to ACLs."
+                },
+                "list": {
+                    "@name": "acl",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "description": {
+                        "text": "Set of attributes associated with every access control list (ACL). An ACL can have one or more ACEs."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "name",
+                            "type": {
+                                "@name": "ioa-common:object-name",
+                                "length": {
+                                    "@value": "1..30"
+                                }
+                            },
+                            "description": {
+                                "text": "Name of the ACL."
+                            }
+                        },
+                        {
+                            "@name": "type",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "ipv4",
+                                        "value": {
+                                            "@value": "10"
+                                        }
+                                    },
+                                    {
+                                        "@name": "ipv6",
+                                        "value": {
+                                            "@value": "20"
+                                        }
+                                    }
+                                ]
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Indicates the top-level type of ACL, i.e., what\nfields from the associated IPv4 or IPv6 headers this ACL matches on."
+                            }
+                        },
+                        {
+                            "@name": "interface",
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "../../../../networking/interface/if-name"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "A reference to the interface this filter\nshall be applied to."
+                            }
+                        }
+                    ],
+                    "uses": {
+                        "@name": "ioa-common:common-states"
+                    },
+                    "list": {
+                        "@name": "ace",
+                        "key": {
+                            "@value": "sequence-id"
+                        },
+                        "description": {
+                            "text": "Attributes pertaining to an access control entry (ACE). Every ACL can have one or more ACEs."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "sequence-id",
+                                "type": {
+                                    "@name": "uint8",
+                                    "range": {
+                                        "@value": "1..100"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Sequence number that establishes the relative\norder of the ACE within an ACL"
+                                },
+                                "reference": {
+                                    "text": "THANOSSEC-675"
+                                }
+                            },
+                            {
+                                "@name": "direction",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "input",
+                                            "value": {
+                                                "@value": "10"
+                                            }
+                                        },
+                                        {
+                                            "@name": "output",
+                                            "value": {
+                                                "@value": "20"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "input"
+                                },
+                                "description": {
+                                    "text": "Based on the direction, this filter shall be applied\nto incoming packets, or outgoing packets. Note that Input is\nmandatory and output is an optional function."
+                                }
+                            },
+                            {
+                                "@name": "logging-action",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Flag to indicate if logging needs to be done once the ACE rule is matched."
+                                }
+                            },
+                            {
+                                "@name": "source-ip-address",
+                                "type": {
+                                    "@name": "acl-ip-prefix"
+                                },
+                                "default": {
+                                    "@value": "any"
+                                },
+                                "description": {
+                                    "text": "Specifies the source IP of this filter. The\nvalues could be a valid IPv4/v6-address or Ipv4/v6-address/prefix."
+                                }
+                            },
+                            {
+                                "@name": "source-lower-port",
+                                "when": {
+                                    "@condition": "../protocol != 'icmp'"
+                                },
+                                "type": {
+                                    "@name": "inet:port-number"
+                                },
+                                "default": {
+                                    "@value": "0"
+                                },
+                                "description": {
+                                    "text": "The lower bound on the source Layer 4 TCP/UDP port number.\nA value of zero for both indicates wildcarding."
+                                }
+                            },
+                            {
+                                "@name": "source-upper-port",
+                                "when": {
+                                    "@condition": "../protocol != 'icmp'"
+                                },
+                                "type": {
+                                    "@name": "inet:port-number"
+                                },
+                                "default": {
+                                    "@value": "0"
+                                },
+                                "description": {
+                                    "text": "The upper bound on the source Layer 4 TCP/UDP port number.\nA value of zero for both indicates wildcarding."
+                                }
+                            },
+                            {
+                                "@name": "destination-ip-address",
+                                "type": {
+                                    "@name": "acl-ip-prefix"
+                                },
+                                "default": {
+                                    "@value": "any"
+                                },
+                                "description": {
+                                    "text": "Specifies the destination IP of this filter. The\nvalues could be a valid IPv4/v6-address or Ipv4/v6-address/prefix."
+                                }
+                            },
+                            {
+                                "@name": "destination-lower-port",
+                                "when": {
+                                    "@condition": "../protocol != 'icmp'"
+                                },
+                                "type": {
+                                    "@name": "inet:port-number"
+                                },
+                                "default": {
+                                    "@value": "0"
+                                },
+                                "description": {
+                                    "text": "The lower bound on the destination Layer 4 TCP/UDP port number.\nA value of zero for both indicates wildcarding."
+                                }
+                            },
+                            {
+                                "@name": "destination-upper-port",
+                                "when": {
+                                    "@condition": "../protocol != 'icmp'"
+                                },
+                                "type": {
+                                    "@name": "inet:port-number"
+                                },
+                                "default": {
+                                    "@value": "0"
+                                },
+                                "description": {
+                                    "text": "The upper bound on the destination Layer 4 TCP/UDP port number.\nA value of zero for both indicates wildcarding."
+                                }
+                            },
+                            {
+                                "@name": "ttl",
+                                "type": {
+                                    "@name": "union",
+                                    "type": [
+                                        {
+                                            "@name": "enumeration",
+                                            "enum": {
+                                                "@name": "any",
+                                                "value": {
+                                                    "@value": "0"
+                                                },
+                                                "description": {
+                                                    "text": "Applies for all ttl values."
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "@name": "uint8",
+                                            "range": {
+                                                "@value": "1..255"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "any"
+                                },
+                                "description": {
+                                    "text": "IPv4 and IPv6 packet's time-to-live (TTL) hop limit. Default TTL value 255 is max hop"
+                                }
+                            },
+                            {
+                                "@name": "action",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "accept",
+                                            "value": {
+                                                "@value": "10"
+                                            }
+                                        },
+                                        {
+                                            "@name": "reject",
+                                            "value": {
+                                                "@value": "20"
+                                            }
+                                        },
+                                        {
+                                            "@name": "drop",
+                                            "value": {
+                                                "@value": "30"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "drop"
+                                },
+                                "description": {
+                                    "text": "The action to be taken by the filter."
+                                }
+                            },
+                            {
+                                "@name": "protocol",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "any",
+                                            "value": {
+                                                "@value": "250"
+                                            },
+                                            "description": {
+                                                "text": "Matches any protocol."
+                                            }
+                                        },
+                                        {
+                                            "@name": "ah",
+                                            "value": {
+                                                "@value": "51"
+                                            },
+                                            "description": {
+                                                "text": "Authentication Header."
+                                            },
+                                            "reference": {
+                                                "text": "RFC 2402"
+                                            }
+                                        },
+                                        {
+                                            "@name": "comp",
+                                            "value": {
+                                                "@value": "108"
+                                            },
+                                            "description": {
+                                                "text": "IP Compression"
+                                            },
+                                            "reference": {
+                                                "text": "RFC 3173"
+                                            }
+                                        },
+                                        {
+                                            "@name": "egp",
+                                            "value": {
+                                                "@value": "8"
+                                            },
+                                            "description": {
+                                                "text": "External Gateway Protocol"
+                                            },
+                                            "reference": {
+                                                "text": "RFC 827"
+                                            }
+                                        },
+                                        {
+                                            "@name": "esp",
+                                            "value": {
+                                                "@value": "50"
+                                            },
+                                            "description": {
+                                                "text": "Encapsulating Security Payload"
+                                            },
+                                            "reference": {
+                                                "text": "RFC 2406"
+                                            }
+                                        },
+                                        {
+                                            "@name": "gre",
+                                            "value": {
+                                                "@value": "47"
+                                            },
+                                            "description": {
+                                                "text": "Generic Routing Encapsulation"
+                                            },
+                                            "reference": {
+                                                "text": "RFC 2784"
+                                            }
+                                        },
+                                        {
+                                            "@name": "icmp",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Internet Control Message Protocol"
+                                            },
+                                            "reference": {
+                                                "text": "RFC 2463"
+                                            }
+                                        },
+                                        {
+                                            "@name": "idrp",
+                                            "value": {
+                                                "@value": "45"
+                                            },
+                                            "description": {
+                                                "text": "Inter-Domain Routing Protocol"
+                                            },
+                                            "reference": {
+                                                "text": "RFC 1745"
+                                            }
+                                        },
+                                        {
+                                            "@name": "igmp",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Internet Group Management Protocol"
+                                            },
+                                            "reference": {
+                                                "text": "RFC 3228"
+                                            }
+                                        },
+                                        {
+                                            "@name": "igrp",
+                                            "value": {
+                                                "@value": "88"
+                                            },
+                                            "description": {
+                                                "text": "Interior Gateway Routing Protocol"
+                                            },
+                                            "reference": {
+                                                "text": "RFC 2072"
+                                            }
+                                        },
+                                        {
+                                            "@name": "isis",
+                                            "value": {
+                                                "@value": "124"
+                                            },
+                                            "description": {
+                                                "text": "Intermediate System-to-Intermediate System"
+                                            },
+                                            "reference": {
+                                                "text": "RFC 1142"
+                                            }
+                                        },
+                                        {
+                                            "@name": "ospf",
+                                            "value": {
+                                                "@value": "89"
+                                            },
+                                            "description": {
+                                                "text": "Open Shortest Path First"
+                                            },
+                                            "reference": {
+                                                "text": "RFC 2740"
+                                            }
+                                        },
+                                        {
+                                            "@name": "rsvp",
+                                            "value": {
+                                                "@value": "46"
+                                            },
+                                            "description": {
+                                                "text": "Resource Reservation Protocol"
+                                            },
+                                            "reference": {
+                                                "text": "RFC 2205"
+                                            }
+                                        },
+                                        {
+                                            "@name": "tcp",
+                                            "value": {
+                                                "@value": "6"
+                                            },
+                                            "description": {
+                                                "text": "Transmission Control Protocol"
+                                            },
+                                            "reference": {
+                                                "text": "RFC 1213"
+                                            }
+                                        },
+                                        {
+                                            "@name": "udp",
+                                            "value": {
+                                                "@value": "17"
+                                            },
+                                            "description": {
+                                                "text": "User Datagram Protocol"
+                                            },
+                                            "reference": {
+                                                "text": "RFC 1213"
+                                            }
+                                        },
+                                        {
+                                            "@name": "vrrp",
+                                            "value": {
+                                                "@value": "112"
+                                            },
+                                            "description": {
+                                                "text": "Virtual Router Redundancy Protocol"
+                                            },
+                                            "reference": {
+                                                "text": "RFC 2338"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "any"
+                                },
+                                "description": {
+                                    "text": "Internet Protocol number.  Refers to the protocol\npayload.  In IPv6, this field is known as 'next-header', and\nif extension headers are present, the protocol is present in\nthe 'upper-layer' header."
+                                },
+                                "reference": {
+                                    "text": "RFC 8519"
+                                }
+                            }
+                        ],
+                        "uses": {
+                            "@name": "ioa-common:label",
+                            "refine": {
+                                "@target-node": "label",
+                                "description": {
+                                    "text": "Name of the IP Filter"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

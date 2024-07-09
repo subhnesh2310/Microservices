@@ -1,0 +1,332 @@
+{
+    "ne": {
+        "facilities": {
+            "oms": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A generic, configurable name for every facility.",
+                        "key": true,
+                        "mandatory": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "monitoring-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "intrusive",
+                                "not-monitored",
+                                "non-intrusive",
+                                "dge-fixed-attenuation",
+                                "ila-with-equalization"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "OMS monitoring mode",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "intrusive",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "wss-less": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "True if there is no WSS component in the Degree.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": false,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "assigned-degree": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Display degree number when card is added in modules-degree.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "grid-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "fixed-50G-96ch",
+                                "fixed-100G-48ch",
+                                "fixed-75G-64ch",
+                                "flexible",
+                                "fixed-75G-64ch-oif"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Indicates Grid type of the OMS layer.\n- flexible: allows user to create/ delete of MC with different widths;\n- otherwise, allows user to create MC with specific width (and delete accordingly).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "flexible",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "grid-mode-support": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "not-applicable",
+                                "flexible-c-band-only",
+                                "general-c-band",
+                                "general-fixed-c-band"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Which C-band is supported, for the purpose of grid-mode configuration.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "general-c-band",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "attenuation-control-mode-rx": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "not-applicable",
+                                "auto",
+                                "manual"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Attenuation control mode Rx (input) of the channel applicable to all channels of the OMS.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "auto",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "attenuation-control-mode-tx": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "not-applicable",
+                                "auto",
+                                "manual"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Attenuation control mode Tx (output) of the channel applicable to all channels of the OMS.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "auto",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Card that holds this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "managed-by": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "system",
+                                "user"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Describes whether this facility was system created or not.\nOnly user created facilities can be user deleted.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "system",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Ports that hold this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the parent facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supported-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the children facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "power-actual-rx": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Optical Power Received, actual measurement.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "power-actual-tx": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Optical Power Transmitted, actual measurement.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

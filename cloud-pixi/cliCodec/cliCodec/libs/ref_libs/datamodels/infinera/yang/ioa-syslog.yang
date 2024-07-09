@@ -1,0 +1,412 @@
+module ioa-syslog {
+    namespace "http://infinera.com/yang/ioa/syslog";
+    prefix ioa-syslog;
+
+    import ietf-inet-types { prefix inet; }
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module for Syslog and Logging model.";
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    typedef syslog-facility {
+        type enumeration {
+            enum kernel {
+                value 0;
+                description "Kernel messages.";
+            }
+            enum user-level {
+                value 1;
+                description "User level messages.";
+            }
+            enum mail-system {
+                value 2;
+                description "Mail system.";
+            }
+            enum system-daemons {
+                value 3;
+                description "System daemons.";
+            }
+            enum authentication {
+                value 4;
+                description "Authentication/authorization attempt messages.";
+            }
+            enum syslog-internal {
+                value 5;
+                description "Messages generated internally by syslog.";
+            }
+            enum line-printer {
+                value 6;
+                description "Line printer subsystem.";
+            }
+            enum network-news {
+                value 7;
+                description "Network news subsystem.";
+            }
+            enum uucp {
+                value 8;
+                description "UUCP subsystem.";
+            }
+            enum clock-daemon-9 {
+                value 9;
+                description "Clock daemon.";
+            }
+            enum security {
+                value 10;
+                description "Security related events and error messages.";
+            }
+            enum ftp-daemon {
+                value 11;
+                description "FTP daemon.";
+            }
+            enum ntp {
+                value 12;
+                description "NTP subsystem.";
+            }
+            enum log-audit {
+                value 13;
+                description "Log audit.";
+            }
+            enum log-alert {
+                value 14;
+                description "Log alert.";
+            }
+            enum clock-daemon-15 {
+                value 15;
+                description "Clock daemon.";
+            }
+            enum local0 {
+                value 16;
+                description "Local use 0 (unused).";
+            }
+            enum local1 {
+                value 17;
+                description "Alarm logs.";
+            }
+            enum local2 {
+                value 18;
+                description "All commands, in a protocol agnostic format.";
+            }
+            enum local3 {
+                value 19;
+                description "All commands, in a protocol specific format (CLI, NETCONF, etc).";
+            }
+            enum local4 {
+                value 20;
+                description "Line card logs above severity level ERROR.";
+            }
+            enum local5 {
+                value 21;
+                description "Initial HW initialization and EEPROM status sysinfo log.";
+            }
+            enum local6 {
+                value 22;
+                description "Any changes to the configuration DB, both internal or externally triggered.";
+            }
+            enum local7 {
+                value 23;
+                description "All Infinera applications.";
+            }
+            enum all {
+                value 100;
+                description "Selects all other syslog facilities.";
+            }
+        }
+        description "List of syslog facilities.";
+    }
+
+    grouping source-facilities {
+        leaf-list source-facilities {
+            type syslog-facility;
+            max-elements 24;
+            description "List of syslog facilities used in this configuration.
+                         Will default to 'all' facilities if not provided.";
+        }
+    }
+
+    grouping syslog {
+
+        container syslog {
+            description "Central configuration for logging functionality via syslog.
+                Includes control of local log files, remote logging configuration and logging in serial console.";
+
+            leaf remote-logging-switch {
+                type boolean;
+                default true;
+                description "If false, disable all remote logging destinations.";
+            }
+
+            leaf source-address {
+                type ioa-common:host;
+                default "localhost";
+                description "Source address or hostname to inserted in HOST field of log message.";
+            }
+
+            leaf log-file-message-coalescence {
+                type boolean;
+                default true;
+                description "If true, prevent flooding of identical messages during abnormal conditions.
+                             If there are multiple identical log messages for log files, there will be one
+                             message logged fully and follow with 'last message repeated n times' message.";
+            }
+
+            list log-server {
+                key name;
+                max-elements 10;
+
+                description
+                    "Grouping the configuration parameters for log forwarding.";
+
+                leaf name {
+                    type string {
+                        length 1..64;
+                        pattern '[A-Za-z0-9_\-]*';
+                    }
+                    description
+                        "The name for the endpoint to forwarding logs to.";
+                }
+
+                leaf address {
+                    type ioa-common:host;
+                    mandatory true;
+                    description
+                        "The leaf uniquely specifies the ipv4 or ipv6 address of the remote host.";
+                }
+
+                leaf transport {
+                    type enumeration {
+                        enum tcp   { value 1; }
+                        enum udp   { value 2; }
+                    }
+                    default "udp";
+                    description
+                        "It is the transport protocol used when forwarding logs.";
+                }
+
+                leaf port {
+                    type inet:port-number {
+                        range "1..max";
+                    }
+                    default "514";
+                    description
+                        "This leaf specifies the port number used to deliver messages to the remote server.";
+                }
+
+                 leaf destination-facility-override {
+                    type union {
+                        type enumeration {
+                            enum disabled { value 0; }
+                        }
+                        type uint8 { range "0..11 | 16..23"; }
+                    }
+                    default disabled;
+                    description "When not disabled, this leaf specifies the facility used in messages delivered
+                                 to the remote server.";
+                }
+
+                uses source-facilities;
+
+                leaf pattern-match {
+                    type string { length 0..255; }
+                    description "Regex pattern that all entries need to obey.";
+                }
+
+                leaf message-coalescence {
+                    type boolean;
+                    default true;
+                    description "If true, prevent flooding of identical messages during abnormal conditions.
+                                 If there are multiple identical log messages, there will be one message logged fully
+                                 and follow with 'last message repeated n times' message.";
+                }
+
+                leaf enabled {
+                    type boolean;
+                    default true;
+                    description "Allows to toggle this syslog server.";
+                }
+
+                leaf message-format {
+                    type enumeration {
+                        enum rfc5424 {
+                            value 1;
+                            description "<${PRI}>1 ${ISODATE} ${HOST} ${PROGRAM} ${PID} ${MSGID} ${SDATA} $MSG
+                                         <45>1 2019-11-20T12:55:50+00:00 localhost syslog-ng 2392 - [meta sequenceId='1'] syslog-ng starting up; version='3.24.1'";
+                        }
+                        enum rfc3164 {
+                            value 2;
+                            description "<${PRI}> ${TIMESTAMP} ${HOSTNAME} ${TAG} $MSG
+                                         <34>Nov 20 12:55:50 localhost syslog-ng[2392] syslog-ng starting up; version='3.24.1'";
+                        }
+                    }
+                    default rfc5424;
+                    description "Identifies the syslog messaging format";
+                }
+
+                leaf origin {
+                    type enumeration {
+                        enum manual {
+                            value 1;
+                            description
+                                "Indicates Log-server address has been manually configured.";
+                        }
+                        enum dhcp {
+                            value 2;
+                            description
+                                "Indicates Log-server address  has been assigned to this
+                                system by a DHCP server.";
+                        }
+                    }
+                    default manual;
+                    description
+                        "Log-server address assignment method, user can convert
+                        DHCP configured Log-server entry into a manual configured by changing this attribute.";
+                }
+
+                list log-server-facility-filter {
+                    key name;
+                    description "Selector that allows to filter log messages based on their source facilities and severities.
+                                 This is a filter based on source-facilities leaf-list (can only add filter to the configured
+                                 source facilities).";
+                    uses log-facility;
+                }
+            }
+
+            list log-file {
+                key name;
+                description "Local syslog files supported by the system.";
+
+                leaf name {
+                    type string {
+                        length 1..128;
+                        pattern '[A-Za-z0-9_\-]*';
+                    }
+                    description "The file name without the .log extension.";
+                }
+
+                leaf number-of-files {
+                    type uint8 { range 1..max; }
+                    default 10;
+                    description "Maximum number of log files retained.
+                        When rotating files due to max size being reached, the oldest files will be discarded
+                        if the total number of files is greater than number-of-files.";
+                }
+
+                leaf max-file-size {
+                    type uint8 { range 1..max; }
+                    units megabytes;
+                    default 30;
+                    description "Maximum file size before rotation.";
+                }
+
+                uses source-facilities;
+
+                leaf pattern-match {
+                    type string { length 0..255; }
+                    description "Regex pattern that all entries need to obey.";
+                }
+
+                list log-file-facility-filter {
+                    key name;
+                    description "Selector that allows to filter log messages based on their source facilities and severities.";
+
+                    uses log-facility;
+                }
+            }
+
+            container log-console {
+                description "Console logging supported by the system.";
+
+                uses source-facilities;
+
+                list log-console-facility-filter {
+                    key name;
+                    description "Selector that allows to filter log messages based on their source facilities and severities.";
+
+                    uses log-facility;
+                }
+
+                leaf enabled {
+                    type boolean;
+                    default false;
+                    description "Switches on and off the console logging.";
+                }
+            }
+
+            uses ioa-common:arc;
+            uses ioa-common:label;
+        }
+    }
+
+
+    grouping log-facility {
+
+        leaf name {
+            type syslog-facility;
+            description "Identifies a single syslog facility, or all of them if value is 'all'.";
+        }
+
+        leaf severity {
+            type enumeration {
+                enum emergency {
+                    value 0;
+                    description "System is unusable.";
+                }
+                enum alert {
+                    value 1;
+                    description "Action must be taken immediately.";
+                }
+                enum critical {
+                    value 2;
+                    description "Critical conditions.";
+                }
+                enum error {
+                    value 3;
+                    description "Error conditions.";
+                }
+                enum warning {
+                    value 4;
+                    description "Warning conditions.";
+                }
+                enum notice {
+                    value 5;
+                    description "Normal but significant condition.";
+                }
+                enum informational {
+                    value 6;
+                    description "Informational messages.";
+                }
+                enum debug {
+                    value 7;
+                    description "Debug-level messages.";
+                }
+            }
+            default "informational";
+            description "The system log selected severity level for forwarding.
+                         The default severity level is all levels";
+            reference "THANOS-1489";
+        }
+
+        leaf compare-op {
+            type enumeration {
+                enum equals-or-higher { value 1; }
+                enum equals {value 2; }
+                enum not-equals { value 3; }
+            }
+            default "equals-or-higher";
+            description "This leaf describes the option to specify how the severity comparison is performed.
+                         The default severity level is all levels";
+            reference "THANOS-1489";
+        }
+    }
+}

@@ -1,0 +1,112 @@
+module ioa-trib-ptp {
+    namespace "http://infinera.com/yang/ioa/trib-ptp";
+    prefix ioa-trib;
+
+    import ioa-facilities-common { prefix ioa-fac-common; }
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG model describing the tributary client physical termination layer which exists between the
+                 transceiver equipment and the immediate protocol layer (Ethernet, SONET/SDH, OTUk, ...). 
+                 This entity provides all physical layer configurations that are applicable to the upper-layer client.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    grouping trib-ptp {
+        list trib-ptp {
+            key name;
+            description "Basic TribPTP facility.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-fac-common:auto-in-service;
+
+            leaf service-type {
+                type enumeration {
+                    enum 100GBE { value 1; }
+                    // FUTURE enum 200GBE { value 2; }
+                    enum 400GBE { value 3; }
+                    enum OTU4   { value 4; }
+                    enum 4x100GBE { value 5; }
+                    enum OTU2   { value 6; }
+                    enum OTU2e  { value 7; }
+                    enum 1GBE   { value 8; }
+                    enum 10GBE  { value 9; }
+                    enum OC48   { value 10; }
+                    enum OC192  { value 11; }
+                    enum STM16  { value 12; }
+                    enum STM64  { value 13; }
+                    enum 4x10G  { value 14; }
+                    enum 4x10GBE  { value 15; }
+                    enum 2x100GBE { value 16; }
+                    enum FC1G { value 17; }
+                    enum FC4G { value 18; }
+                    enum not-applicable { value 100; }
+                }
+                default not-applicable;
+                description "The protocol type of the client that is being transported via the tributary optical transceiver module (TOM).";
+            }
+
+            leaf tributary-disable-action {
+                type ioa-fac-common:disable-action;
+                default laser-shut-off;
+                description "Tributary Disable Action (TDA) indicates what action the NE performs towards the client equipment 
+                             (connected over the TOM) when a line-side failure is observed. This includes shutting off laser 
+                             or inserting a appropriate replacement signal.";
+            }
+
+            leaf tributary-disable-holdoff-timer {
+                type uint16 {
+                    range 0..10000;
+                }
+                units "milliseconds";
+                default 0;
+                description "The hold off time of client shutdown or replacement signal at egress direction. 
+                             0 means holdoff functionality disabled";
+            }
+
+            leaf near-end-tda {
+                type ioa-common:enable-switch;
+                default disabled;
+                description "The switching of near end TDA.";
+            }
+
+            leaf tda-degrade-mode {
+                type ioa-common:enable-switch;
+                default disabled;
+                description "The switching of defect BERSD-ODU trig ALS";
+            }			
+
+            leaf forward-defect-trigger {
+                type boolean;
+                default true;
+                description "Forward Defect TDA Trigger indicates on the egress, if NE receives a client forward defect 
+                             (e.g., LF, ODU-AIS) whether to let it flow through towards the line side (network side) or 
+                             trigger an egress TDA action";
+                reference "GX-539";
+            }
+
+            uses ioa-fac-common:power-threshold;
+
+            uses ioa-common:circuit-id;
+        }
+    }
+}

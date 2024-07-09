@@ -1,0 +1,359 @@
+{
+    "module": {
+        "@name": "ioa-eth-zr",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-eth-zr": "http://infinera.com/yang/ioa/eth-zr",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/eth-zr"
+        },
+        "prefix": {
+            "@value": "ioa-eth-zr"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module defining the Eth-ZR facility."
+        },
+        "revision": {
+            "@date": "2021-12-10",
+            "description": {
+                "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+            }
+        },
+        "grouping": {
+            "@name": "eth-zr",
+            "description": {
+                "text": "A Digital Coherent 400ZR interface definitions."
+            },
+            "list": {
+                "@name": "eth-zr",
+                "key": {
+                    "@value": "name"
+                },
+                "description": {
+                    "text": "Facility describing the Eth-ZR."
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-fac-common:facilities-common-attributes"
+                    },
+                    {
+                        "@name": "ioa-common:arc"
+                    },
+                    {
+                        "@name": "ioa-fac-common:loopback"
+                    },
+                    {
+                        "@name": "ioa-common:circuit-id"
+                    }
+                ],
+                "leaf-list": {
+                    "@name": "carriers",
+                    "type": {
+                        "@name": "string",
+                        "length": {
+                            "@value": "1..32"
+                        }
+                    },
+                    "min-elements": {
+                        "@value": "1"
+                    },
+                    "description": {
+                        "text": "A list of carriers that are bound to this facilities.\nPossible values can be any card/resources/supported-carriers."
+                    }
+                },
+                "leaf": [
+                    {
+                        "@name": "interface-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "400ZR",
+                                "value": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "Media-interface 400ZR-CFEC-DP-16QAM"
+                                }
+                            }
+                        },
+                        "default": {
+                            "@value": "400ZR"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Interface type of ZR tom."
+                        }
+                    },
+                    {
+                        "@name": "rate",
+                        "type": {
+                            "@name": "ioa-fac-common:rate"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Carried signal basic rate class"
+                        }
+                    },
+                    {
+                        "@name": "modulation-format",
+                        "type": {
+                            "@name": "ioa-fac-common:modulation-format"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Current modulation format"
+                        }
+                    },
+                    {
+                        "@name": "fec-type",
+                        "type": {
+                            "@name": "ioa-fac-common:fec-type"
+                        },
+                        "default": {
+                            "@value": "ofec"
+                        },
+                        "description": {
+                            "text": "The FEC type"
+                        }
+                    },
+                    {
+                        "@name": "total-time-slots",
+                        "type": {
+                            "@name": "uint16"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The member of the slots to be supported as times of 100G: rate-class/100."
+                        }
+                    },
+                    {
+                        "@name": "available-time-slots",
+                        "type": {
+                            "@name": "ioa-common:number-list"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "A list of time-slots that are available for provisioning new services."
+                        }
+                    },
+                    {
+                        "@name": "fdd-monitoring",
+                        "type": {
+                            "@name": "ioa-common:enable-switch"
+                        },
+                        "default": {
+                            "@value": "disabled"
+                        },
+                        "description": {
+                            "text": "The configured FEC Detected Degrade (FDD) monitoring mode."
+                        }
+                    },
+                    {
+                        "@name": "fdd-threshold",
+                        "type": {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "9"
+                            },
+                            "range": {
+                                "@value": "0.000000001..0.1"
+                            }
+                        },
+                        "units": {
+                            "@name": "avg BER"
+                        },
+                        "default": {
+                            "@value": "0.0195"
+                        },
+                        "description": {
+                            "text": "The threshold for FEC Detected Degrade (FDD) alarm."
+                        }
+                    },
+                    {
+                        "@name": "fdd-clear-threshold",
+                        "type": {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "9"
+                            },
+                            "range": {
+                                "@value": "0.000000001..0.1"
+                            }
+                        },
+                        "units": {
+                            "@name": "avg BER"
+                        },
+                        "default": {
+                            "@value": "0.01062"
+                        },
+                        "description": {
+                            "text": "The threshold for FEC Detected Degrade (FDD) alarm clear."
+                        }
+                    },
+                    {
+                        "@name": "fed-monitoring",
+                        "type": {
+                            "@name": "ioa-common:enable-switch"
+                        },
+                        "default": {
+                            "@value": "disabled"
+                        },
+                        "description": {
+                            "text": "The configured FEC Excessive Degrade (FED) monitoring mode."
+                        }
+                    },
+                    {
+                        "@name": "fed-threshold",
+                        "type": {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "9"
+                            },
+                            "range": {
+                                "@value": "0.000000001..0.1"
+                            }
+                        },
+                        "units": {
+                            "@name": "avg BER"
+                        },
+                        "default": {
+                            "@value": "0.0206"
+                        },
+                        "description": {
+                            "text": "The threshold for FEC Excessive Degrade."
+                        }
+                    },
+                    {
+                        "@name": "fed-clear-threshold",
+                        "type": {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "9"
+                            },
+                            "range": {
+                                "@value": "0.000000001..0.1"
+                            }
+                        },
+                        "units": {
+                            "@name": "avg BER"
+                        },
+                        "default": {
+                            "@value": "0.01125"
+                        },
+                        "description": {
+                            "text": "The threshold for FEC Excessive Degrade (FED) alarm clear."
+                        }
+                    },
+                    {
+                        "@name": "link-degrade-indication",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "none",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "No Link degradation"
+                                    }
+                                },
+                                {
+                                    "@name": "local-degraded",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "Link has local degradation"
+                                    }
+                                },
+                                {
+                                    "@name": "remote-degraded",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "Link has remote degradation"
+                                    }
+                                },
+                                {
+                                    "@name": "local-and-remote-degraded",
+                                    "value": {
+                                        "@value": "4"
+                                    },
+                                    "description": {
+                                        "text": "Link has local and remote degradation"
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "none"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The local and remote link degradation status."
+                        }
+                    },
+                    {
+                        "@name": "loopback-host-interface",
+                        "type": {
+                            "@name": "ioa-fac-common:loopback-type"
+                        },
+                        "default": {
+                            "@value": "none"
+                        },
+                        "description": {
+                            "text": "Loopback on host interface. Useful to debug on the fiber connection."
+                        }
+                    },
+                    {
+                        "@name": "loopback-modem-interface",
+                        "type": {
+                            "@name": "ioa-fac-common:loopback-type"
+                        },
+                        "default": {
+                            "@value": "none"
+                        },
+                        "description": {
+                            "text": "Loopback on modem interface. Useful to debug on the fiber connection."
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

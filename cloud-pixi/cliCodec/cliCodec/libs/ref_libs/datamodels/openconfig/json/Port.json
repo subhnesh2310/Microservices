@@ -1,0 +1,207 @@
+{
+    "components": {
+        "component": [
+            {
+                "name": {
+                    "type": {
+                        "ptype": "str",
+                        "leafref": "../config/name"
+                    },
+                    "isList": false,
+                    "description": "References the component name",
+                    "key": true,
+                    "mandatory": false,
+                    "config": true,
+                    "default": "",
+                    "namespace": null
+                },
+                "config": {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Device name for the component -- this may not be a\nconfigurable parameter on many implementations.  Where\ncomponent preconfiguration is supported, for example,\nthe component name may be configurable.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": null
+                    },
+                    "connected-to": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Indicate neighbour port entity to which the current port is connected to.\n   This is not validated by the NE and can be used by the customers (or NMS) for topology construction.\n   This parameter is available independently on any automated discovery mechanisms that may exist in the port.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "required-type": {
+                        "type": {
+                            "ptype": "str",
+                            "identityref": "CHASSIS_CARD",
+                            "values": [
+                                "G42",
+                                "XMM4-FAN",
+                                "FAN-CTRL",
+                                "CHM6",
+                                "CHM6L",
+                                "UCM4",
+                                "XMM4",
+                                "FRCU",
+                                "IOPANEL",
+                                "FAN",
+                                "PEM",
+                                "BLANK",
+                                "BLANK2"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Chassis/card type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "G42",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "required-subtype": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The subtype of the Card/TOM",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "alias-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    }
+                },
+                "port": {
+                    "breakout-mode": {
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/platform/port",
+                            "prefix": null
+                        },
+                        "config": {
+                            "num-channels": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "Sets the number of channels to 'breakout' on a port\ncapable of channelization",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": 0,
+                                "namespace": null
+                            },
+                            "channel-speed": {
+                                "type": {
+                                    "ptype": "str",
+                                    "identityref": "oc-eth:ETHERNET_SPEED"
+                                },
+                                "isList": false,
+                                "description": "Sets the channel speed on each channel -- the\nsupported values are defined by the\nETHERNET_SPEED identity",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "SPEED_10MB",
+                                "namespace": {
+                                    "namespace": "http://openconfig.net/yang/interfaces/ethernet",
+                                    "prefix": "oc-eth"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ],
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/platform"
+        }
+    }
+}

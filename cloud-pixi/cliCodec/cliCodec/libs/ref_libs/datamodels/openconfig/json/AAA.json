@@ -1,0 +1,371 @@
+{
+    "system": {
+        "aaa": {
+            "authentication": {
+                "users": {
+                    "user": [
+                        {
+                            "username": {
+                                "type": {
+                                    "ptype": "str",
+                                    "leafref": "../config/username"
+                                },
+                                "isList": false,
+                                "description": "References the configured username for the user",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": ""
+                            },
+                            "namespace": null,
+                            "config": {
+                                "username": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "Assigned username for this user",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null
+                                },
+                                "password": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "The user password, supplied as cleartext.  The system\nmust hash the value and only store the hashed value.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null
+                                },
+                                "password-hashed": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "The user password, supplied as a hashed value\nusing the notation described in the definition of the\ncrypt-password-type.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null
+                                },
+                                "ssh-key": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "SSH public key for the user (RSA or DSA)",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null
+                                },
+                                "role": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "Role assigned to the user.  The role may be supplied\nas a string or a role defined by the SYSTEM_DEFINED_ROLES\nidentity.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "authorization": {
+                "events": {
+                    "event": [
+                        {
+                            "event-type": {
+                                "type": {
+                                    "ptype": "str",
+                                    "leafref": "../config/event-type"
+                                },
+                                "isList": false,
+                                "description": "Reference to the event-type list key",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": ""
+                            },
+                            "namespace": null,
+                            "config": {
+                                "event-type": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "identityref": "oc-aaa-types:AAA_AUTHORIZATION_EVENT_TYPE"
+                                    },
+                                    "isList": false,
+                                    "description": "The type of event to record at the AAA authorization\nserver",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "AAA_AUTHORIZATION_EVENT_COMMAND",
+                                    "namespace": {
+                                        "namespace": "http://openconfig.net/yang/aaa/types",
+                                        "prefix": "oc-aaa-types"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "accounting": {
+                "events": {
+                    "event": [
+                        {
+                            "event-type": {
+                                "type": {
+                                    "ptype": "str",
+                                    "leafref": "../config/event-type"
+                                },
+                                "isList": false,
+                                "description": "Reference to the event-type being logged at the\naccounting server",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": ""
+                            },
+                            "namespace": null,
+                            "config": {
+                                "event-type": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "identityref": "oc-aaa-types:AAA_ACCOUNTING_EVENT_TYPE"
+                                    },
+                                    "isList": false,
+                                    "description": "The type of activity to record at the AAA accounting\nserver",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "AAA_ACCOUNTING_EVENT_COMMAND",
+                                    "namespace": {
+                                        "namespace": "http://openconfig.net/yang/aaa/types",
+                                        "prefix": "oc-aaa-types"
+                                    }
+                                },
+                                "record": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "START_STOP",
+                                            "STOP"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Type of record to send to the accounting server for this\nactivity type",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "server-groups": {
+                "server-group": [
+                    {
+                        "name": {
+                            "type": {
+                                "ptype": "str",
+                                "leafref": "../config/name"
+                            },
+                            "isList": false,
+                            "description": "Reference to configured name of the server group",
+                            "key": true,
+                            "mandatory": false,
+                            "config": true,
+                            "default": ""
+                        },
+                        "type": {
+                            "type": {
+                                "ptype": "str",
+                                "identityref": "oc-aaa-types:AAA_SERVER_TYPE"
+                            },
+                            "isList": false,
+                            "description": "Reference to configured name of the server group",
+                            "key": true,
+                            "mandatory": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": {
+                                "prefix": "oc-aaa",
+                                "namespace": "http://openconfig.net/yang/aaa"
+                            }
+                        },
+                        "namespace": null,
+                        "servers": {
+                            "server": [
+                                {
+                                    "address": {
+                                        "type": {
+                                            "ptype": "str",
+                                            "leafref": "../config/address"
+                                        },
+                                        "isList": false,
+                                        "description": "Reference to the configured address of the AAA server",
+                                        "key": true,
+                                        "mandatory": false,
+                                        "config": true,
+                                        "default": ""
+                                    },
+                                    "config": {
+                                        "name": {
+                                            "type": {
+                                                "ptype": "str"
+                                            },
+                                            "isList": false,
+                                            "description": "Reference to the configured address of the AAA server",
+                                            "key": false,
+                                            "mandatory": false,
+                                            "config": true,
+                                            "default": ""
+                                        },
+                                        "address": {
+                                            "type": {
+                                                "ptype": "str"
+                                            },
+                                            "isList": false,
+                                            "description": "Reference to the configured address of the AAA server",
+                                            "key": false,
+                                            "mandatory": false,
+                                            "config": true,
+                                            "default": ""
+                                        },
+                                        "timeout": {
+                                            "type": {
+                                                "ptype": "int"
+                                            },
+                                            "isList": false,
+                                            "description": "Reference to the configured address of the AAA server",
+                                            "key": false,
+                                            "mandatory": false,
+                                            "config": true,
+                                            "default": 5
+                                        },
+                                        "server-priority": {
+                                            "type": {
+                                                "ptype": "str"
+                                            },
+                                            "isList": false,
+                                            "description": "Reference to the configured address of the AAA server",
+                                            "key": false,
+                                            "mandatory": false,
+                                            "config": true,
+                                            "default": "",
+                                            "namespace": {
+                                                "prefix": null,
+                                                "namespace": "http://openconfig.net/yang/infinera/yang/extensions"
+                                            }
+                                        }
+                                    },
+                                    "namespace": null,
+                                    "radius": {
+                                        "config": {
+                                            "auth-port": {
+                                                "type": {
+                                                    "ptype": "int"
+                                                },
+                                                "isList": false,
+                                                "description": "Port number for authentication requests",
+                                                "mandatory": false,
+                                                "key": false,
+                                                "config": true,
+                                                "default": 1812,
+                                                "namespace": null
+                                            },
+                                            "acct-port": {
+                                                "type": {
+                                                    "ptype": "int"
+                                                },
+                                                "isList": false,
+                                                "description": "Port number for accounting requests",
+                                                "mandatory": false,
+                                                "key": false,
+                                                "config": true,
+                                                "default": 1813,
+                                                "namespace": null
+                                            },
+                                            "secret-key": {
+                                                "type": {
+                                                    "ptype": "str"
+                                                },
+                                                "isList": false,
+                                                "description": "The unencrypted shared key used between the authentication\nserver and the device.",
+                                                "mandatory": false,
+                                                "key": false,
+                                                "config": true,
+                                                "default": "",
+                                                "namespace": null
+                                            },
+                                            "source-address": {
+                                                "type": {
+                                                    "ptype": "str"
+                                                },
+                                                "isList": false,
+                                                "description": "Source IP address to use in messages to the RADIUS server",
+                                                "mandatory": false,
+                                                "key": false,
+                                                "config": true,
+                                                "default": "",
+                                                "namespace": null
+                                            },
+                                            "retransmit-attempts": {
+                                                "type": {
+                                                    "ptype": "int"
+                                                },
+                                                "isList": false,
+                                                "description": "Number of times the system may resend a request to the\nRADIUS server when it is unresponsive",
+                                                "mandatory": false,
+                                                "key": false,
+                                                "config": true,
+                                                "default": 0,
+                                                "namespace": null
+                                            }
+                                        }
+                                    },
+                                    "tacacs": {
+                                        "config": {
+                                            "port": {
+                                                "type": {
+                                                    "ptype": "int"
+                                                },
+                                                "isList": false,
+                                                "description": "Port number for authentication requests",
+                                                "mandatory": false,
+                                                "key": false,
+                                                "config": true,
+                                                "default": 1812,
+                                                "namespace": null
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/system"
+        }
+    }
+}

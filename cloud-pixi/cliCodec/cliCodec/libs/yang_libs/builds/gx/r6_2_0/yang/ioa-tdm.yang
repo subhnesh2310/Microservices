@@ -1,0 +1,157 @@
+module ioa-tdm {
+    namespace "http://infinera.com/yang/ioa/tdm";
+    prefix ioa-tdm;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions for OTN optical channel data transport unit (TDM)
+                 clients in a typical Layer 1 optical transponder.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    grouping tdm-common {
+        leaf speed {
+                type decimal64 {
+                    fraction-digits 3;
+                }
+                units "Gbit/s";
+                config false;
+                description "The speed of client interface.";
+        }
+
+       leaf tx-mapping-mode {
+            type ioa-fac-common:mapping-mode;
+            default BMP;
+            description "The tx mapping mode of client port. The possible values are dependent on the HW and configuration.";
+        }
+
+        leaf expected-mapping-mode {
+             type ioa-fac-common:mapping-mode;
+             default BMP;
+             description "The expected mapping mode of client port. The possible values are dependent on the HW and configuration.";
+        }
+
+        leaf service-mode {
+            type ioa-fac-common:service-mode;
+            default none;
+            config false;
+            description "Service mode for the tdm facility.";
+        }
+
+        leaf service-mode-qualifier {
+            type ioa-fac-common:service-mode-qualifier;
+            default none;
+            config false;
+            description "Service mode qualifier for the tdm facility.";
+        }
+
+        leaf tti-style {
+            type enumeration {
+                enum 1              { value 1; description "Single-byte trace (used for section access point identifiers with repetitive byte).";}
+                enum 15             { value 15; description "16-byte trace (used for section access point identifiers acc. to ITU-T G.831, cl. 3) with the first byte representing the CRC-7, which is auto-calculated, and 15 bytes to be configured.";}
+            }
+            default 1;
+            description "The configured mode of the TTI.";
+        }
+
+        leaf tim-monitor {
+            type ioa-common:enable-switch;
+            default disabled;
+            description "The enable switching of tim defect monitor mode.";
+        }
+    }
+
+    grouping oc {
+
+        list oc {
+            key name;
+	        description "Optical Carrier - level M, e.g. M=48, 192.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf oc-type {
+                type enumeration {
+                    enum OC-48  { value 1; }
+                    enum OC-192 { value 2; }
+                }
+		        config false;
+                description "Type of SONET signal.
+                             Level N of OC-N (Optical Carrier level N).";
+            }
+
+            uses tdm-common;
+
+	        uses ioa-fac-common:tti-common;
+
+            uses ioa-fac-common:loopback;
+
+            uses ioa-fac-common:loopback-mode;
+
+            uses ioa-fac-common:test-signal {
+                refine test-signal-direction {
+                    default egress;
+                }
+            }
+
+            uses ioa-common:circuit-id;
+        }
+    }
+
+   grouping stm {
+
+        list stm {
+            key name;
+	        description "Synchronous Transport Module N, e.g. N=16, 64. Reference [ITU-T G.691].";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf stm-type {
+                type enumeration {
+                    enum STM-16 { value 1; }
+                    enum STM-64 { value 2; }
+                }
+		        config false;
+                description "The type of SDH signal (STM-N).";
+            }
+
+            uses tdm-common;
+
+            uses ioa-fac-common:tti-common;
+
+            uses ioa-fac-common:loopback;
+
+            uses ioa-fac-common:loopback-mode;
+
+            uses ioa-fac-common:test-signal {
+                refine test-signal-direction {
+                    default egress;
+                }
+            }
+
+            uses ioa-common:circuit-id;
+        }
+    }
+}

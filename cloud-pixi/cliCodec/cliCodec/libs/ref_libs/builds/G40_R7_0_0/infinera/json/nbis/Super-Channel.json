@@ -1,0 +1,101 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A generic, configurable name for every facility.",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "contention_check_status": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "pending",
+                "success",
+                "failed",
+                "overridden"
+            ]
+        },
+        "description": "Contention Check state, set via DNA in openwave mode.\nOnly applicable if openwave-contention-check is enabled at super-channel-group level.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "pending",
+        "hardcode": false,
+        "argName": "contention_check_status"
+    },
+    "carriers": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A list of carriers that are bound to this superchannel.\nPossible values can be any card/resources/supported-carriers.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "carriers"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "carrier_mode": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "An acronymized code (handle) that is indicative of the optical carrier line mode (4-tuple) combination.\nThe format is as follows:\n   <Capacity><ClientMode>.<Baud Rate><Application ID>\nExamples:\n   - 600E.84P\n   - 100X.73U\n   - 325M.66P",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "carrier_mode"
+    }
+}

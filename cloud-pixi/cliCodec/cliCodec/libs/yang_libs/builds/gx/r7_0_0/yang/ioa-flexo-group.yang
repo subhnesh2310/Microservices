@@ -1,0 +1,66 @@
+module ioa-flexo-group {
+    namespace "http://infinera.com/yang/ioa/flexo-group";
+    prefix ioa-flexo-group;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module defining the flexo-group facility.";
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+
+    grouping flexo-group {
+        list flexo-group {
+            key name;
+            description "Facility describing the flexo-group.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf-list carriers {
+                type string { length "1..32"; }
+                min-elements 1;
+                description "A list of carriers that are bound to this facilities.
+                             Possible values can be any card/resources/supported-carriers.";
+            }
+
+            leaf rate {
+                type ioa-common:rate;
+                mandatory true;
+                description "
+                    Carried signal basic rate class
+                ";
+            }
+
+            leaf modulation-format {
+                type ioa-fac-common:modulation-format;
+                mandatory true;
+                description "
+                    Current modulation format
+                ";
+            }
+
+            leaf fec-type {
+                type ioa-fac-common:fec-type;
+                default ofec;
+                description "The FEC type";
+            }
+
+            leaf group-id {
+                type uint32 { range "1..1048575"; }
+                mandatory true;
+                description "20bits, indicate the interface group instance
+                             that the FlexO-x interface is a member of.
+                             It will be unique in the NE";
+            }
+        }
+    }
+}

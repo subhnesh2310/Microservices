@@ -1,0 +1,963 @@
+module ioa-mgmt-protocols {
+    namespace "http://infinera.com/yang/ioa/mgmt-protocols";
+    prefix ioa-mgmt;
+
+    import ietf-inet-types { prefix inet; }
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG model defining Management Protocols configurations.";
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-09-17" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.1";
+    }
+
+
+    typedef snmp-string {
+        type string {
+            length "1..32";
+            pattern '[!-~\s]*';
+        }
+    }
+
+    grouping ssh-public-key-attributes {
+        leaf public-key-algorithm {
+            type enumeration {
+                enum ecdsa-sha2-nistp256 {
+                    value 1;
+                    reference
+                        "RFC 5656 and RFC 6239";
+                }
+                enum ecdsa-sha2-nistp384 {
+                    value 2;
+                    reference
+                        "RFC 5656 and RFC 6239";
+                }
+                enum ecdsa-sha2-nistp521 {
+                    value 3;
+                    reference
+                        "RFC 5656 and RFC 6239";
+                }
+                enum ssh-rsa2048 {
+                    value 4;
+                    reference
+                        "RFC 4432";
+                }
+                enum ssh-rsa3072 {
+                    value 5;
+                    reference
+                        "RFC 4432";
+                }
+                enum ssh-rsa4096 {
+                    value 6;
+                    reference
+                        "RFC 4432";
+                }
+            }
+            description
+                "The type of host key algorithm in use.";
+        }
+        leaf public-key {
+            type string {
+                length "0..2048";
+            }
+            description
+                "SSHv2(OpenSSH Portable) host public key component encoded in PEM format:
+                 <key type><SPACE>...base64 encoded OpenSSH public key....<SPACE><comment>
+                ";
+        }
+
+        uses ioa-common:label;
+    }
+
+    grouping protocols {
+
+        container protocols {
+            description "Container of management protocol objects.";
+
+            container ssh {
+                description "Control of ssh access.";
+
+                leaf enabled {
+                    type boolean;
+                    default false;
+                    description "Enables direct access to shell via ssh.";
+                }
+
+                leaf port {
+                    type ioa-common:port-number;
+                    default 8022;
+                    description "Port listening for ssh login that goes directly to shell.";
+                }
+
+                leaf pre-login-message {
+                   type string { length 0..1440; }
+                   description "Welcome message displayed before user login.";
+                }
+
+                leaf post-login-message {
+                    type string { length 0..1440; }
+                    default "****************************************** Warning ******************************************
+
+This system is restricted to authorized users for business purposes. Unauthorized access is a
+violation of the law. This service may be monitored for administrative and security reasons.
+By proceeding, you consent to this monitoring.
+
+*********************************************************************************************
+";
+                    description "Welcome message displayed after user login.";
+                }
+
+                list ssh-host-key {
+                    key "public-key-algorithm";
+                    config false;
+                    max-elements 2;
+                    description
+                        "Global(for server and client side SSHv2 based apps) SSHv2 host keys.
+                           There needs to be one host key per supported algorithm.
+                           The system auto-generates a host-key in default DB and
+                           additional host-keys can be added/overwritten via the ssh-keygen RPC.";
+
+                    uses ssh-public-key-attributes;
+                    leaf fingerprint-algorithm {
+                        type enumeration {
+                            enum md5 {
+                                value 1;
+                            }
+                            enum sha256 {
+                                value 2;
+                            }
+                        }
+                        description
+                            "The type of hash algorithm in use for computing the key fingerprint";
+                    }
+                    leaf fingerprint {
+                        type string {
+                            length "1..95";
+                        }
+                        description
+                            "Fingerprint string as a sequence of pairs of hex digits.
+                             SSHv2 public key fingerprint examples for MD5 and SHA256 hash:
+                             md5sum fingerprint => b2:9c:cd:30:b1:38:e3:d1:17:d6:73:eb:03:9a:80:83
+                             sha256sum fingerprint => f4:61:58:e4:90:65:c4:70:98:7f:d1:40:0a:d8:d9:79:14:e6:91:dc:b6:ed:91:8c:c0:df:d9:65:db:dd:a0:18
+                            ";
+                    }
+                }
+
+                list ssh-known-host {
+                    key "id";
+                    max-elements 100;
+                    description
+                        "SSHv2 known hosts entry.";
+                    leaf id {
+                        type ioa-common:object-name;
+                        description
+                            "A unique identifier (name) for this entry.";
+                    }
+                    leaf address {
+                        type ioa-common:host;
+                        mandatory true;
+                        description
+                            "The hostname/IPv4/IPv6 address of the allowed/known peer host.";
+                    }
+                    uses ssh-public-key-attributes {
+                        refine public-key-algorithm {
+                            mandatory true;
+                        }
+                        refine public-key {
+                            mandatory true;
+                        }
+                    }
+                }
+
+                list ssh-authorized-key {
+                    key "user-name key-id";
+                    description
+                        "SSHv2 authorized key.
+                         Each authorized key entry contains a trusted public key for SSHv2 user authentication.";
+                    leaf user-name {
+                        type ioa-common:user-name;
+                        description "User owning the authorized key. Can be local or remote user.";
+                    }
+                    leaf key-id {
+                        type ioa-common:object-name;
+                        description
+                            "A unique identifier (name) for this entry.";
+                    }
+                    uses ssh-public-key-attributes {
+                        refine public-key-algorithm {
+                            config false;
+                            description "The type of key algorithm used. Auto-discovered based on provided public key.";
+                        }
+                        refine public-key {
+                            mandatory true;
+                            description "Base64-encoded OpenSSH public key.";
+                        }
+                    }
+                }
+            }
+
+            container cli {
+                description "Configuration of the Command Line Interface (CLI) management protocol.";
+
+                leaf enabled { 
+                    type boolean; 
+                    default true; 
+                    description "Enables/disables the CLI management protocol.";
+                }
+
+                leaf port { 
+                    type ioa-common:port-number;
+                    default 22; 
+                    description "The port which listens for CLI access via ssh.";
+                }
+
+                leaf script-dir {
+                    type string { length 1..80; }
+                    config false;
+                    description "Location in the filesystem where CLI scripts are stored.";
+                }
+
+                leaf default-interactive-mode {
+                    type boolean;
+                    default true;
+                    description "Defines whether CLI sessions have interactive-mode enabled or disabled by default.
+                        Individual sessions can deviate from this global flag by configuring the interactive-mode at the cli-session-config level.
+                        Note: changing this parameter will not affect existing CLI sessions, only newly created sessions.";
+                }
+
+                list cli-alias {
+                    key "name";
+                    description "List of aliases used in CLI.
+                        Can only be accessed via 'alias/unalias' CLI commands.";
+
+                    leaf name {
+                        type string { length 1..256; }
+                        description "Name of the alias";
+                    }
+
+                    leaf value {
+                        type string { length 1..1024; }
+                        description "Value of the alias";
+                    }
+                }
+
+                list cli-session-config {
+                    key session-id;
+                    description "Configurations associated with individual CLI sessions.";
+
+                    leaf session-id {
+                        type string;
+                        description "The identifier of the CLI session";
+                    }
+
+                    leaf cli-lines {
+                        type uint16 {
+                            range "10..1000";
+                        }
+                        default 40;
+                        description "Number of rows to be used for display. This value is automatically
+                            discovered when possible";
+                    }
+
+                    leaf cli-columns {
+                        type uint16 {
+                            range "80..4000";
+                        }
+                        default 140;
+                        description "Number of columns to be used for display. This value is automatically
+                            discovered when possible";
+                    }
+
+                    leaf interactive-mode {
+                        type boolean;
+                        description " This determines if the CLI shall issue interactive prompt (e.g. for prompting
+                            additional information, or for confirmation of user initiated actions).
+                                Enabled = CLI will prompt user (default)";
+                    }
+                }
+            }
+
+            container serial-console {
+                description "Global configuration of all serial console ports in the system.";
+
+                leaf global-switch {
+                    type ioa-common:enable-switch;
+                    default enabled;
+                    description "Allow access by serial-console. Note: each console port can override this global behavior.";
+                }
+
+                leaf global-timeout {
+                    type uint16;
+                    units minutes;
+                    default 60;
+                    description "Serial console inactivity timeout. Can be set to zero to disable inactivity timer.";
+                }
+            }
+
+            container netconf {
+                description "Configuration of the NETCONF management protocol.";
+
+                leaf enabled {
+                    type boolean;
+                    default true;
+                    description "Enables/disables the NETCONF management protocol.";
+                }
+
+                leaf port {
+                    type ioa-common:port-number;
+                    default 830;
+                    description "The port which listens for NETCONF access via ssh.";
+                }
+
+                leaf annotate-cli-name {
+                    type boolean;
+                    default false;
+                    description "If enabled, annotates NETCONF XML output with cli names for traceability.";
+                }
+
+                leaf hello-timeout {
+                    type uint16 {
+                        range "1..3600";
+                    }
+                    units seconds;
+                    default 2;
+                    description 
+                        "Specifies the number of seconds that a session may exist
+                        before the hello PDU is received/transmitted.  A session will be
+                        dropped if no hello PDU is received/transmitted before this number
+                        of seconds elapses.";
+                }
+            }
+
+            container tl1 {
+                description "TL1 protocol configuration";
+
+                leaf tl1-over-ssh-enabled {
+                    type boolean;
+                    default true;
+                    description "Decides whether TL1 protocol is accessible over SSH or not.";
+                }
+
+                leaf ssh-interactive-port {
+                    type ioa-common:port-number;
+                    default 9095;
+                    description "SSH port that gives access to interactive interface of TL1 protocol server.";
+                }
+
+                leaf ssh-scripting-port {
+                    type ioa-common:port-number;
+                    default 9096;
+                    description "SSH port that gives access to non-interactive or scripting interface of TL1 protocol server. This interface does not echo terminal characters to client.";
+                }
+            }
+
+            container restconf {
+                description "Configuration of the RESTCONF management protocol.";
+
+                leaf enabled {
+                    type boolean;
+                    default true;
+                    description "User configurable switch to enable or disable RESTCONF access.";
+                }
+
+                leaf http-enabled {
+                    type boolean;
+                    default false;
+                    description "User configurable switch to enable or disable RESTCONF HTTP access.";
+                }
+
+                leaf https-enabled {
+                    type boolean;
+                    default true;
+                    description "User configurable switch to enable or disable RESTCONF HTTPS access.";
+                }
+
+                leaf http-port {
+                    type ioa-common:port-number;
+                    default 8080;
+                    description "User configurable RESTCONF HTTP port.";
+                }
+
+                leaf https-port {
+                    type ioa-common:port-number;
+                    default 8181;
+                    description "User configurable RESTCONF HTTPS port.";
+                }
+
+                leaf cookie-timeout {
+                    type uint16 {
+                        range 1..300;
+                    }
+                    units minutes;
+                    default 5;
+                    description "Timeout of a cookie based RESTCONF session.";
+                }
+
+                leaf api-root {
+                    type string { length 0..64; }
+                    config false;
+                    description "Root of the RESTCONF API.";
+                }
+            }
+
+            container grpc {
+                description "Configuration of both gNMI & gNOI /gRPC management protocol.";
+
+                leaf enabled {
+                    type boolean;
+                    default true;
+                    description "Enables/disables the gRPC management protocol.";
+                }
+
+                leaf port {
+                    type ioa-common:port-number;
+                    default 50051; 
+                    description  "The port which listens for gNMI & gNOI access via gRPC.";
+                }
+
+                leaf gnmi-get-encoding-granularity {
+                    type enumeration {
+                        enum per-path   { value 1; description  "Put all path data on a Update message."; }
+                        enum per-object { value 2; description  "Divide the path data into multiple Update messages, one per YANG container/list entry."; }
+                    }
+                    default per-object; 
+                    description  "Allows to configure the granularity of data in gNMI Get responses, when encoded with JSON.";
+                }
+            }
+
+            container snmp {
+                description "Configuration of the SNMP management protocol.";
+
+                leaf enabled {
+                    type boolean;
+                    default true;
+                    description "User configurable switch to enable or disable global SNMP access.";
+                }
+
+                leaf port {
+                    type ioa-common:port-number;
+                    default 161;
+                    description "User configurable port where the NE is listening for SNMP requests.";
+                }
+
+                leaf snmp-engine-id {
+                    type string{ length 0..256; }
+                    config false;
+                    description "SNMP EngineID of the NE.
+                                 The EngineID will follow the EngineID format 3 defined in RFC3411.
+                                 The MAC address in the Engine ID will be the first MAC address of the MAC addresses Pool of the NE.";
+                }
+
+                leaf engine-boot-count {
+                    type uint16;
+                    default 0;
+                    config false;
+                    description "SNMP engine boot count.
+                                 Counts how many times the engine has restarted.";
+                }
+
+                list snmp-community {
+                    key name;
+                    max-elements 20;
+                    description "List of SNMP Community Strings.
+                                 Note: trap-community-string is located in the snmp-target object.";
+
+                    leaf name {
+                        type ioa-common:object-name;
+                        description "Name for the community (different from the community string itself).";
+                    }
+
+                    leaf community-string {
+                        type snmp-string;
+                        mandatory true;
+                        description "Community String.";
+                    }
+
+                    leaf enabled {
+                        type boolean;
+                        default true;
+                        description "User configurable switch to enable or disable this community-string.";
+                    }
+
+                    leaf community-string-access {
+                        type enumeration {
+                            enum read-only { value 1; }
+                        }
+                        default read-only;
+                        description "SNMP access right of this community string.";
+                    }
+                }
+
+
+                list snmp-target {
+                    key target-name;
+                    max-elements 20;
+                    description "List of SNMP targets (trap listeners)";
+                    reference
+                        "RFC 3413: Simple Network Management Protocol (SNMP) Applications.
+                         SNMP-TARGET-MIB.snmpTargetAddrTable";
+
+                    leaf target-name {
+                        type ioa-common:object-name { length "1..32"; }
+                        description "Identifies the SNMP target";
+                        reference
+                        "RFC 3413: Simple Network Management Protocol (SNMP)
+                        Applications.
+                        SNMP-TARGET-MIB.snmpTargetAddrName";
+                    }
+
+                    leaf enabled {
+                        type boolean;
+                        default true;
+                        description "User configurable switch to enable or disable this snmp-target.";
+                    }
+
+                    leaf snmp-version {
+                        type enumeration {
+                            enum v2c { value 2; }
+                            enum v3 { value 3; }
+                        }
+                        default 'v2c';
+                        description "snmp version.";
+                    }
+
+                    leaf trap-community-string {
+                        when "../snmp-version = 'v2c'";
+                        type snmp-string;
+                        default 'infinera';
+                        description "Community string used for SNMP traps";
+                    }
+
+                    leaf snmpv3-user {
+                        when "../snmp-version = 'v3' ";
+                        type leafref {
+                            path ../../snmpv3-user/snmpv3-user-name;
+                        }
+                        mandatory true;
+                        description "Indicate the snmpv3 user.";
+                    }
+
+                    leaf target-address {
+                        type ioa-common:host;
+                        mandatory true;
+                        description "IP address or hostname of the SNMP target";
+                        reference
+                        "RFC 3413: Simple Network Management Protocol (SNMP).
+                        SNMP-TARGET-MIB.snmpTargetAddrTAddress";
+                    }
+
+                    leaf target-port {
+                        type inet:port-number;
+                        default 162;
+                        description
+                        "UDP port number.";
+                        reference
+                        "RFC 3413: Simple Network Management Protocol (SNMP).
+                        SNMP-TARGET-MIB.snmpTargetAddrTAddress";
+                    }
+
+                    leaf target-transport {
+                        type enumeration {
+                            enum udp { value 1; }
+                        }
+                        default udp;
+                        description "Type of transport for the SNMP target";
+                    }
+                }
+
+
+                list snmpv3-user {
+                    key snmpv3-user-name;
+                    max-elements 20;
+                    description "SNMPv3 user configuration.";
+
+                    leaf snmpv3-user-name {
+                        type string {
+                            length 1..32;
+                            pattern '[a-z_.][a-z0-9_\-.]*[$]?';
+                        }
+                        description "SNMPv3 user name.";
+                    }
+
+                    leaf user-sec-level {
+                        type enumeration {
+                            enum auth-priv { value 1; }
+                            enum auth-no-priv { value 2; }
+                            enum no-auth-no-priv { value 3; }
+                        }
+                        default no-auth-no-priv;
+                        description "Specifies the SNMPv3 user security level.
+                                     Note: when NE is in secure-mode, only auth-priv is allowed.";
+                    }
+
+                    leaf auth-protocol {
+                        when "../user-sec-level != 'no-auth-no-priv'";
+                        type enumeration {
+                            enum SHA { value 1; }
+                        }
+                        default SHA;
+                        description "Specifies the authentication protocol that the SNMPv3 user being created will use.";
+                    }
+
+                    leaf auth-passphrase {
+                        when "../user-sec-level != 'no-auth-no-priv'";
+                        type string { length "8..64"; }
+                        mandatory true;
+                        description "Specifies the SNMPv3 authentication pass phrase.";
+                    }
+
+                    leaf priv-protocol {
+                        when "../user-sec-level = 'auth-priv'";
+                        type enumeration {
+                            enum AES128 { value 1; }
+                            enum AES192 { value 2; }
+                            enum AES256 { value 3; }
+                            enum DES    { value 4; }
+                        }
+                        default AES128;
+                        description "Specifies the privacy protocol that the SNMPv3 user being created will use.";
+                    }
+
+                    leaf priv-passphrase {
+                        when "../user-sec-level = 'auth-priv'";
+                        type string { length "8..64"; }
+                        mandatory true;
+                        description "Specifies the SNMPv3 privacy pass phrase.";
+                    }
+                }
+            }
+
+            container http-file-server {
+                description "HTTP file server configuration";
+
+                leaf enabled {
+                    type boolean;
+                    default true;
+                    description "User configurable switch to enable or disable file server access.";
+                }
+
+                leaf http-enabled {
+                    type boolean;
+                    default false;
+                    description "User configurable switch to enable or disable HTTP protocol for file server access.";
+                }
+
+                leaf https-enabled {
+                    type boolean;
+                    default true;
+                    description "User configurable switch to enable or disable HTTPS protocol for file server access.";
+                }
+
+                leaf http-port {
+                    type ioa-common:port-number;
+                    default 8980;
+                    description "User configurable HTTP port.";
+                }
+
+                leaf https-port {
+                    type ioa-common:port-number;
+                    default 8981;
+                    description "User configurable HTTPS port.";
+                }
+
+                leaf url-base {
+                    type string { length 1..100; }
+                    default "/transfer";
+                    config false;
+                    description "The base URL use to redirect to the file transfer application.";
+                }
+            }
+
+            list dial-out-server {
+                key name;
+                max-elements 10;
+                description "Dial-out server configuration and state. 
+A dial-out-server configuration automatically triggers a connection against the server, with client-server functionality is inverted;
+this connection is then used to establish a normal NBI session.";
+
+                leaf name {
+                    type ioa-common:object-name;
+                    description "Dial-out-server name.";
+                }
+
+                leaf address {
+                    type ioa-common:host;
+                    mandatory true;
+                    description "Dial-out-server IPv4/IPv6 address or hostname.";
+                }
+
+                leaf protocol {
+                    type enumeration {
+                        enum netconf            {value 1;}
+                    }
+                    default netconf;
+                    description "Dial-out-server session type.";
+                }
+
+                leaf port {
+                    type ioa-common:port-number;
+                    description "Dial-out-server session port.";
+                }
+
+                leaf transport {
+                    type enumeration {
+                        enum ssh            {value 1;}
+                    }
+                    config false;
+                    description "Dial-out-server transport protocol.";
+                }
+
+                leaf retry-policy {
+                    type enumeration {
+                        enum progressive-back-off   {value 1;
+                                                     description "Try to reconnect with an exponentional time interval."; }
+                        enum retry-then-stop        {value 2;
+                                                     description "Retry a fixed number of times with a fixed timeout interval."; }
+                        enum retry-forever          {value 3;
+                                                     description "Retry forever with a fixed timeout interval.";}
+                    }
+                    default progressive-back-off;
+                    description "Retry policy after a timeout.";
+                }
+
+                leaf retry {
+                    when "../retry-policy = 'retry-then-stop'";
+                    type uint8 {
+                        range "0 .. 5";
+                    }
+                    default 3;
+                    description "Number of retries before giving up.";
+                }
+
+                leaf timeout {
+                    when "../retry-policy != 'progressive-back-off'";
+                    type uint8 {
+                        range "2..255";
+                    }
+                    units seconds;
+                    default 10;
+                    description "Wait time until timeout.";
+                }
+
+                uses ioa-common:label;
+
+                leaf auto-connect {
+                    type boolean;
+                    default true;
+                    description "If true, automatically tries to connect to this dial-out-server. Note that a server with auto-connect false can still be connected manually via the call-home RPC.";
+                }
+
+                leaf connection-state {
+                    type enumeration {
+                        enum connected        { value 1; 
+                                                description "Session is currently established with 'home'."; }
+                        enum connecting       { value 2;
+                                                description "Running through the retries; also used if connected, and session abruptly is terminated.";}
+                        enum failed           { value 3;
+                                                description "All retries have failed, no further attempts are being done to connect to it.";}
+                        enum closed           { value 4;
+                                                description "session was established, and was gracefully closed.";}
+                        enum disabled         { value 5;
+                                                description "Enabled parameter is false.";}
+                    }
+                    default disabled;
+                    config false;
+                    description "Connection state to the dial-out-server.";
+                }
+            }
+
+            list data-model {
+                key name;
+                description "Available YANG Data models for loading/unloading.";
+
+                leaf name {
+                    type string{ length 0..256; }
+                    description "Model name.";
+                }
+
+                leaf description {
+                    type string{ length 0..256; }
+                    config false;
+                    description "Data model description.";
+                }
+
+                leaf enabled {
+                    type boolean;
+                    default false;
+                    description "Allows to load/unload this data model.A loaded data model means that it can be used via the management interfaces.";
+                }
+            }
+
+            container fast-telemetry {
+                description "Fast Telemetry provides an alternative telemetry channel that accesses the hardware directly for specific metrics.
+                                      Please consult documentation to see what metrics are available per card type.";
+
+                leaf enabled {
+                    type boolean;
+                    default false;
+                    description "User configurable switch to enable or disable fast telemetry streaming.";
+                }
+
+                leaf protocol {
+                    type enumeration {
+                        enum gnmi-openconfig { value 1; 
+                                                description "gnmi openconfig streaming."; }
+                    }
+                    default gnmi-openconfig;
+                    description "User configurable attribute to select the desired protocol.";
+                }
+
+                leaf port {
+                    type ioa-common:port-number;
+                    default 57400;
+                    description "User configurable port.";
+                }
+            }
+        }
+
+
+        container scheduled-tasks {
+            description "Container of individual user-configurable scheduled commands.";
+
+            list task {
+                key name;
+                description "User configurable scheduled task. Can define single occurrence or periodic commands.";
+
+                leaf name {
+                    type ioa-common:object-name;
+                    description "Identifier of the scheduled task.";
+                }
+
+                leaf enabled {
+                    type boolean;
+                    default true;
+                    description "Enable switch of this task; allows user to disable a task without deleting it.";
+                }
+
+                uses ioa-common:label;
+
+                uses ioa-common:arc {
+                    refine alarm-report-control {
+                        default inhibited;
+                    }
+                }
+
+                leaf command {
+                    type string { length 1..1024; }
+                    mandatory true;
+                    description "Command that is scheduled. Content will depend on the command-type.";
+                }
+
+                leaf command-type {
+                    type enumeration {
+                        enum cli { value 1; description "CLI command."; }
+                    }
+                    default cli;
+                    description "Type of configured command.";
+                }
+
+                leaf frequency {
+                    type ioa-common:time-interval;
+                    description "Frequency interval for setting up a periodic scheduled task.
+                                 If empty (default value), represents a single-occurrence task.
+                                 Frequency interval is provided using the following syntax:
+                                    '[xw] [xd] [xh] [xm] [xs]'
+                                 where:
+                                     w(eeks), d(ays), h(ours), m(inutes), s(seconds).
+                                 Examples:
+                                    2w          - two weeks
+                                    5d 12h      - 5 days and 12 hours
+                                    1h 7m 30s   - 1 hour and 7 minutes and 30 seconds";
+                }
+
+                leaf start-time {
+                    type ioa-common:date-time-or-time-only;
+                    description "Timestamp to start the task. For periodic tasks, this is the timestamp for the first trigger of the task.
+                                 If not provided, uses current time as start-time.";
+                }
+
+                leaf end-time {
+                    type ioa-common:date-time-or-time-only-or-never;
+                    default never;
+                    description "Timestamp to stop the periodic task.
+                                 Not relevant for single-occurrence tasks.";
+                }
+
+                leaf persistent {
+                    type boolean;
+                    default true;
+                    description "If true, this scheduled task will persist a system restart.";
+                }
+
+                leaf task-status {
+                    type enumeration {
+                        enum scheduled {
+                            value 1;
+                            description "Task is enabled and will run when the time comes.";
+                        }
+                        enum disabled {
+                            value 2;
+                            description "Task is disabled by user.";
+                        }
+                        enum finished {
+                            value 3;
+                            description "Task has reached its end-time, or single occurrence task was already executed.";
+                        }
+                        enum ongoing {
+                            value 4;
+                            description "Task is enabled and is currently running";
+                        }
+                    }
+                    default scheduled;
+                    config false;
+                    description "Current operational state of the scheduled task.";
+                }
+
+                leaf next-run {
+                    type ioa-common:date-time-or-time-only-or-never;
+                    default 'never';
+                    config false;
+                    description "Next run timestamp. May be 'never' for finished tasks.";
+                }
+
+                leaf previous-run {
+                    type ioa-common:date-time-or-time-only-or-never;
+                    default never;
+                    config false;
+                    description "Previous task run timestamp.";
+                }
+
+                leaf previous-result {
+                    type enumeration {
+                        enum success { value 1; }
+                        enum fail { value 2; }
+                    }
+                    config false;
+                    description "Previous task run result.";
+                }
+
+                leaf previous-output {
+                    type string { length 0..1024; }
+                    config false;
+                    description "Output of the previous task run.";
+                }
+            }
+        }
+    }
+}

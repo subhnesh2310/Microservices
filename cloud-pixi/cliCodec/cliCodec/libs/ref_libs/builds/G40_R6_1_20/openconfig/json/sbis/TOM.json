@@ -1,0 +1,281 @@
+{
+    "components": {
+        "component": [
+            {
+                "name": {
+                    "type": {
+                        "ptype": "str",
+                        "leafref": "../config/name"
+                    },
+                    "isList": false,
+                    "description": "References the component name",
+                    "key": true,
+                    "mandatory": true,
+                    "config": true,
+                    "default": "tom-1-6-T1",
+                    "namespace": null,
+                    "hardcode": false
+                },
+                "config": {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Device name for the component -- this may not be a\nconfigurable parameter on many implementations.  Where\ncomponent preconfiguration is supported, for example,\nthe component name may be configurable.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "tom-1-6-T1",
+                        "namespace": null,
+                        "hardcode": false
+                    },
+                    "phy-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "100GE",
+                                "200GE",
+                                "400GE",
+                                "4x100GE",
+                                "100G",
+                                "4x10G",
+                                "4x10GE",
+                                "1GE",
+                                "2G5",
+                                "10G",
+                                "10GE",
+                                "2G5E",
+                                "40GE",
+                                "40G",
+                                "4x100G",
+                                "200G",
+                                "155M",
+                                "2x100GE",
+                                "1G",
+                                "4G"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Configured Phy Mode.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "100G",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "required-subtype": {
+                        "type": {
+                            "ptype": "str",
+                            "length": "0..32",
+                            "values": [
+							    "TOM-100G-Q",
+                                "TOM-100G-Q-AOC10",
+								"TOM-100G-Q-AOC3",
+								"TOM-100G-Q-CWDM4",
+								"TOM-100G-Q-DR1",
+								"TOM-100G-Q-ER4L",
+								"TOM-100G-Q-FR1",
+								"TOM-100G-Q-LR1",
+								"TOM-100G-Q-LR4",
+								"TOM-100G-Q-SR4",
+								"TOM-100GMR-Q-AOC1",
+								"TOM-100GMR-Q-AOC5",
+								"TOM-100GMR-Q-DAC078",
+								"TOM-100GMR-Q-DAC1",
+								"TOM-100GMR-Q-ER4L",
+								"TOM-100GMR-Q-LR4",
+								"TOM-100GMR-Q-SR4",
+								"TOM-400G-Q",
+								"TOM-400G-Q-AOC5",
+								"TOM-400G-Q-DAC3",
+								"TOM-400G-Q-DR4",
+								"TOM-400G-Q-FR4",
+								"TOM-400G-Q-LR4",
+								"TOM-400G-Q-SR4",
+								"TOM-400G-Q-SR8",
+								"TOM-400G-Q-XDR4",
+								"TOM-400G-Q-ZR",
+								"TOM-400G-Q-ZR-DCO"
+							]
+                        },
+                        "isList": false,
+                        "description": "The subtype of the Card/TOM",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "TOM-100GMR-Q-LR4",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str",
+                            "length": "0..256"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "alias-name": {
+                        "type": {
+                            "ptype": "str",
+                            "length": "0..256"
+                        },
+                        "isList": false,
+                        "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "serdes": [{
+                        "name": {
+                            "type": {
+                                "ptype": "str",
+                                "length": "0..256"
+                            },
+                            "isList": false,
+                            "description": "Name of the advanced parameter.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": {
+                                "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                                "prefix": null
+                            },
+                            "hardcode": false
+                        },
+                        "value": {
+                            "type": {
+                                "ptype": "str",
+                                "length": "0..256"
+                            },
+                            "isList": false,
+                            "description": "Value of the advanced parameter.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": {
+                                "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                                "prefix": null
+                            },
+                            "hardcode": false
+                        }
+                    }]
+                },
+                "transceiver": {
+                    "config": {
+                        "enabled": {
+                            "type": {
+                                "ptype": "bool"
+                            },
+                            "isList": false,
+                            "description": "Turns power on / off to the transceiver -- provides a means\nto power on/off the transceiver (in the case of SFP, SFP+,\nQSFP,...) or enable high-power mode (in the case of CFP,\nCFP2, CFP4) and is optionally supported (device can choose to\nalways enable).  True = power on / high power, False =\npowered off",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": true,
+                            "namespace": null,
+                            "hardcode": false
+                        },
+                        "form-factor-preconf": {
+                            "type": {
+                                "ptype": "str",
+                                "identityref": "TRANSCEIVER_FORM_FACTOR_TYPE",
+							    "values": [
+							        "QSFP28",
+                                    "QSFPDD",
+                                    "QSFPDD-ZR"
+							    ]
+                            },
+                            "isList": false,
+                            "description": "Indicates the type of optical transceiver used on this\nport.  If the client port is built into the device and not\npluggable, then non-pluggable is the corresponding state. If\na device port supports multiple form factors (e.g. QSFP28\nand QSFP+, then the value of the transceiver installed shall\nbe reported. If no transceiver is present, then the value of\nthe highest rate form factor shall be reported\n(QSFP28, for example).\n\nThe form factor is included in configuration data to allow\npre-configuring a device with the expected type of\ntransceiver ahead of deployment.  The corresponding state\nleaf should reflect the actual transceiver type plugged into\nthe system.",
+                            "mandatory": true,
+                            "key": false,
+                            "config": true,
+                            "default": "QSFP28",
+                            "namespace": {
+                                "namespace": "http://openconfig.net/yang/transport-types",
+                                "prefix": null
+                            },
+                            "hardcode": false
+                        },
+                        "fec-mode": {
+                            "type": {
+                                "ptype": "str",
+                                "identityref": "FEC_MODE_TYPE",
+                                "values": [
+                                    "FEC_ENABLED",
+                                    "FEC_DISABLED",
+                                    "FEC_AUTO"
+                                    ]
+                            },
+                            "isList": false,
+                            "description": "The FEC mode indicates the mode of operation for the transceiver's FEC. This defines typical operational modes and does not aim to specify more granular FEC capabilities.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": {
+                                "namespace": "http://openconfig.net/yang/platform-types",
+                                "prefix": null
+                            },
+                            "hardcode": false
+                        }
+                    },
+                    "namespace": {
+                        "namespace": "http://openconfig.net/yang/platform/transceiver",
+                        "prefix": null
+                    }
+                }
+            }
+        ],
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/platform"
+        }
+    }
+}

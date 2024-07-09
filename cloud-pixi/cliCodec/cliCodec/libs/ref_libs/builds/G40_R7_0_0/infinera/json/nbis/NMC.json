@@ -1,0 +1,167 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A generic, configurable name for every facility.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "parent_facility": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Parent facility: can be either a Media Channel or an OMS. Only set on creation.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "parent_facility"
+    },
+    "center_frequency": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Nominal Center Frequency of the NMC",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "center_frequency"
+    },
+    "width": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Network Media Channel frequency width; unit is MHz.\nThe value in GHz should be equivalent to the baud rate (GBd) configured on the connected transponder line interface line port.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 35000,
+        "hardcode": false,
+        "argName": "width"
+    },
+    "input_power_min": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Minimum Input Power.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "input_power_min"
+    },
+    "input_power_max": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Maximum Input Power.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "input_power_max"
+    },
+    "input_power_typical": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Typical Input Power.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "input_power_typical"
+    },
+    "input_power_min_offset": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Minimum Input Power offset, of relevance for NMCs within MCs.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0",
+        "hardcode": false,
+        "argName": "input_power_min_offset"
+    },
+    "input_attenuation_target": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Configurable target input attentuation.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "input_attenuation_target"
+    },
+    "output_attenuation_target": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Configurable target output attentuation.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "output_attenuation_target"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    }
+}

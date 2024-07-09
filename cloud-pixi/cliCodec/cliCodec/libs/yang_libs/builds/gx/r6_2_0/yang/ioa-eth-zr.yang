@@ -1,0 +1,161 @@
+module ioa-eth-zr {
+    namespace "http://infinera.com/yang/ioa/eth-zr";
+    prefix ioa-eth-zr;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module defining the Eth-ZR facility.";
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    grouping eth-zr {
+        description "A Digital Coherent 400ZR interface definitions.";
+
+        list eth-zr {
+            key name;
+            description "Facility describing the Eth-ZR.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf-list carriers {
+                type string { length "1..32"; }
+                min-elements 1;
+                description "A list of carriers that are bound to this facilities.
+                             Possible values can be any card/resources/supported-carriers.";
+            }
+
+            leaf interface-type {
+                type enumeration {
+                    enum 400ZR  { value 1; description "Media-interface 400ZR-CFEC-DP-16QAM"; }
+                }
+                default 400ZR;
+                config false;
+                description "Interface type of ZR tom.";
+            }
+
+            leaf rate {
+                type ioa-fac-common:rate;
+                mandatory true;
+                description "
+                    Carried signal basic rate class 
+                ";
+            }
+
+            leaf modulation-format {
+                type ioa-fac-common:modulation-format;
+                mandatory true;
+                description "
+                    Current modulation format
+                ";
+            }
+
+            leaf fec-type {
+                type ioa-fac-common:fec-type;
+                default ofec;
+                description "The FEC type";
+            }
+
+            leaf total-time-slots {
+                type uint16;
+                config false;
+                description "The member of the slots to be supported as times of 100G: rate-class/100.";
+            }
+
+            leaf available-time-slots {
+                type ioa-common:number-list;
+                config false;
+                description "A list of time-slots that are available for provisioning new services.";
+            }
+
+            leaf fdd-monitoring {
+                type ioa-common:enable-switch;
+                default disabled;
+                description "The configured FEC Detected Degrade (FDD) monitoring mode.";
+            }
+
+            leaf fdd-threshold {
+                type decimal64{
+                    fraction-digits 9;
+                    range "0.000000001..0.1"; 
+                }
+                units "avg BER";
+                default 0.0195;
+                description "The threshold for FEC Detected Degrade (FDD) alarm.";
+            }
+
+            leaf fdd-clear-threshold {
+                type decimal64{
+                    fraction-digits 9;
+                    range "0.000000001..0.1";
+                }
+                units "avg BER";
+                default 0.01062;
+                description "The threshold for FEC Detected Degrade (FDD) alarm clear.";
+            }
+
+            leaf fed-monitoring {
+                type ioa-common:enable-switch;
+                default disabled;
+                description "The configured FEC Excessive Degrade (FED) monitoring mode.";
+            }
+
+            leaf fed-threshold {
+                type decimal64{
+                    fraction-digits 9;
+                    range "0.000000001..0.1"; 
+                }
+                units "avg BER";
+                default 0.0206;
+                description "The threshold for FEC Excessive Degrade.";
+            }
+
+
+            leaf fed-clear-threshold {
+                type decimal64{
+                    fraction-digits 9;
+                    range "0.000000001..0.1";
+                }
+                units "avg BER";
+                default 0.01125;
+                description "The threshold for FEC Excessive Degrade (FED) alarm clear.";
+            }
+
+            leaf link-degrade-indication {
+                type enumeration {
+                    enum none                      { value 1; description "No Link degradation"; }
+                    enum local-degraded            { value 2; description "Link has local degradation"; }
+                    enum remote-degraded           { value 3; description "Link has remote degradation"; }
+                    enum local-and-remote-degraded { value 4; description "Link has local and remote degradation"; }
+                }
+                default none;
+                config false;
+                description "The local and remote link degradation status.";
+            }
+
+            leaf loopback-host-interface {
+                type ioa-fac-common:loopback-type;
+                default none;
+                description "Loopback on host interface. Useful to debug on the fiber connection.";
+            }
+
+            leaf loopback-modem-interface {
+                type ioa-fac-common:loopback-type;
+                default none;
+                description "Loopback on modem interface. Useful to debug on the fiber connection.";
+            }
+
+            uses ioa-fac-common:loopback;
+
+            uses ioa-common:circuit-id;
+        }
+    }
+}

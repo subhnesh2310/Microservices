@@ -1,0 +1,65 @@
+module ioa-line-ptp {
+    namespace "http://infinera.com/yang/ioa/line-ptp";
+    prefix ioa-line-ptp;
+
+    import ioa-facilities-common { prefix ioa-fac-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG model describing the line side physical termination layer.";
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+
+    grouping line-ptp {
+        list line-ptp {
+            key name;
+            description "Basic LinePTP facility.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-fac-common:auto-in-service;
+
+            leaf service-type {
+                type enumeration {
+                    enum not-applicable         { value 1;  }
+                    enum DP-16QAM-200G          { value 2;  }
+                    enum DP-QPSK-100G           { value 3;  }
+                    enum DP-8QAM-200G           { value 4;  }
+                    enum DP-16QAM-400G          { value 7;  }
+                    enum DP-8QAM-300G           { value 8;  }
+                    enum DP-QPSK-200G           { value 9;  }
+                    enum OTU2                   { value 10; }
+                    enum OTU2e                  { value 11; }
+                    enum DP-16QAM-E-400G        { value 12; }
+                    enum DP-16QAM-400G-OpenZR+  { value 13; }
+                    enum DP-16QAM-PS-400G       { value 14; }
+                }
+                default not-applicable;
+                description "service-type to provison line side service.";
+            }
+
+            leaf line-system-mode {
+                type enumeration {
+                    enum openwave { value 1; description "Infinera WDM channels over non-Infinera line system."; } 
+                }
+                default openwave;
+                description "Indicates the specific mode of power control configured
+                             on the L1 transponder, and specifically, on this particular SCG port within
+                             the L1 transponder. The attribute indicates the L1 <-> L0 local power controls
+                             to adjust the Tx power from the L1 transponder towards the L0 line-system
+                             card (such as a WSS or Mux or Amplifier).";
+            }
+
+            uses ioa-fac-common:power-threshold;
+        }
+    }
+}

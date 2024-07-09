@@ -1,0 +1,559 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A generic, configurable name for every facility.",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "direction": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "ingress",
+                "egress"
+            ]
+        },
+        "description": "Diagnostics direction.Can be ingress or egress.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "direction"
+    },
+    "test_signal_monitoring_type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "none",
+                "PRBS31Q",
+                "PRBS13Q",
+                "scrambled-idles",
+                "PRBS9",
+                "PRBS31",
+                "PRBS31_NONINV"
+            ]
+        },
+        "description": "The type of test pattern that is monitored.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "none",
+        "hardcode": false,
+        "argName": "test_signal_monitoring_type"
+    },
+    "monitoring_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "unused",
+                "intrusive",
+                "non-intrusive",
+                "limited-non-intrusive"
+            ]
+        },
+        "description": "The monitoring mode on the ODU/OTU client.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "intrusive",
+        "hardcode": false,
+        "argName": "monitoring_mode"
+    },
+    "tti_mismatch_alarm_reporting": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "full-64-bytes",
+                "SAPI",
+                "DAPI",
+                "OPER",
+                "SAPI_DAPI",
+                "SAPI_OPER",
+                "DAPI_OPER",
+                "SAPI_DAPI_OPER"
+            ]
+        },
+        "description": "Indicates if TTI-Mismatch (TIM) alarm is reported or not.\nIf it is to be reported, indicates the criteria based on with the TIM alarm is reported.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "tti_mismatch_alarm_reporting"
+    },
+    "tim_act_enabled": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "enabled"
+            ]
+        },
+        "description": "Support configurable TIM action which decide if insert maintenance signal per TIM: enable or disable, default disable",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "tim_act_enabled"
+    },
+    "tti_style": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "ITU-T-G709",
+                "proprietary"
+            ]
+        },
+        "description": "The configured mode of the TTI for this OTU/ODU client or OTS.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "ITU-T-G709",
+        "hardcode": false,
+        "argName": "tti_style"
+    },
+    "tx_tti": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Transmit TTI - Sent by this facility to the far-end remote facility.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "tx_tti"
+    },
+    "expected_tti": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Expected TTI - The TTI this facility expects to receive from the far-end remote facility.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "expected_tti"
+    },
+    "expected_sapi": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The expected SAPI (Source Access Point Identifier).",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "expected_sapi"
+    },
+    "expected_dapi": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The expected DAPI (Destination Access Point Identifier).",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "expected_dapi"
+    },
+    "tx_sapi": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The transmitted SAPI bytes.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "tx_sapi"
+    },
+    "tx_dapi": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The transmitted DAPI bytes.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "tx_dapi"
+    },
+    "expected_operator": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The expected operator specific bytes.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "expected_operator"
+    },
+    "tx_operator": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The transmitted operator specific bytes.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "tx_operator"
+    },
+    "degrade_interval": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "The consecutive number of 1s intervals with the number of detected block errors exceeding the block error\nthreshold for each of those seconds for the purposes of SDBER detection.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 7,
+        "hardcode": false,
+        "argName": "degrade_interval"
+    },
+    "degrade_threshold": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "The threshold in percentage of block errors versus total blocks at which a degrade-interval number of seconds\nwill be considered degraded for the purposes of SDBER detection.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 30,
+        "hardcode": false,
+        "argName": "degrade_threshold"
+    },
+    "test_signal_type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "none",
+                "PRBS31Q",
+                "PRBS13Q",
+                "scrambled-idles",
+                "PRBS9",
+                "PRBS31",
+                "PRBS31_NONINV"
+            ]
+        },
+        "description": "The type of test pattern that is injected.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "none",
+        "hardcode": false,
+        "argName": "test_signal_type"
+    },
+    "test_signal_direction": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "ingress",
+                "egress",
+                "both"
+            ]
+        },
+        "description": "The direction of the test signal.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "ingress",
+        "hardcode": false,
+        "argName": "test_signal_direction"
+    },
+    "test_signal_monitoring": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Monitor the incoming test signals for diagnostics.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "test_signal_monitoring"
+    },
+    "parent_odu": {
+        "type": {
+            "ptype": "str",
+            "leafref": "../../odu/name"
+        },
+        "description": "For low order ODUs, points to the the parent HO-ODU name.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "parent_odu"
+    },
+    "odu_type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "ODUCn",
+                "ODUCni",
+                "ODUCni-M",
+                "ODU4",
+                "ODU4i",
+                "ODUflexi",
+                "ODUflex",
+                "ODU0",
+                "ODU1",
+                "ODU2",
+                "ODU2e"
+            ]
+        },
+        "description": "The protocol type of the ODUk/ODUCn client.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "odu_type"
+    },
+    "trib_port_number": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Number of OPUk/OPUCn trib port that are part of this ODUk/ODUCn container.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "trib_port_number"
+    },
+    "instance_id": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Optional parameter on LO-ODU creation, identifies the ODU within the parent/high-order ODU.\nIf not provided, it is automatically derived.\nMax value depends on capacity of the HO-ODU and of the odu-type.\n(ex: for creating an ODU4 in a HO ODUC8, instance can be between 1 and 8)",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "instance_id"
+    },
+    "tx_payload_type": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Transmitter payload-type of ODU",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "tx_payload_type"
+    },
+    "delay_measurement_enable": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "enabled"
+            ]
+        },
+        "description": "The enable switching of delay-measurement function, when applicable.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "delay_measurement_enable"
+    },
+    "msim_config": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "enabled"
+            ]
+        },
+        "description": "Specifies MSIM alarm reporting or not when msi value received not followed G.709 definition.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "enabled",
+        "hardcode": false,
+        "argName": "msim_config"
+    },
+    "client_signal_type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "not-applicable",
+                "200GBE",
+                "400GBE",
+                "FC4G",
+                "FC8G",
+                "FC16G",
+                "FC32G"
+            ]
+        },
+        "description": "Client signal type for ODUflex  CBR client.\nApplied to 200/400 GBE client on CHM1R and FC4/8/16 for UTM2\nIt is set automatically for the client side ODU,\nand need to be configured by the user at line side ODUj.\nUsed for rate matching and bandwidth validation in the odu cross connection.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "not-applicable",
+        "hardcode": false,
+        "argName": "client_signal_type"
+    },
+    "expected_payload_type": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Expected payload-type of ODU",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "expected_payload_type"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "time_slots": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Time slots of the ODU.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "time_slots"
+    },
+    "opucn_time_slots": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Opucn Time slots of the ODUCn.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "opucn_time_slots"
+    },
+    "loopback": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "none",
+                "facility",
+                "terminal"
+            ]
+        },
+        "description": "Loopback mode.Useful to debug on the fiber connection.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "none",
+        "hardcode": false,
+        "argName": "loopback"
+    },
+    "loopback_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "loopback",
+                "loopback-and-continue"
+            ]
+        },
+        "description": "Indicates loopback action for facility or terminal.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "loopback_mode"
+    },
+    "expected_trib_port_number": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Expected Tributary Port Number for the LO-ODU entity.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "expected_trib_port_number"
+    },
+    "expected_time_slots": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Expected TS for the LO-ODU entity.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "expected_time_slots"
+    }
+}

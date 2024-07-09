@@ -1,0 +1,476 @@
+module ioa-facilities-common {
+
+    namespace "http://infinera.com/yang/ioa/facilities-common";
+    prefix ioa-fac-common;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-optical-common { prefix ioa-opt; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module containing common types and identities that are applicable to a 
+                 variety of logical interfaces (also called 'facilities') that are supported in a 
+                 transport network element. The interfaces could be Layer 1 (digital) or Layer 0 (optical) interfaces.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    // Typedefs
+
+    typedef ains-signal-time-interval {
+        type uint16 {
+            range 0..7200;
+        }
+        units minutes;
+        description "A custom data type that indicates the AINS valid signal time interval type.";
+    }
+
+
+    typedef disable-action {
+        type enumeration {
+            enum laser-shut-off { value 10; }
+            enum send-idles     { value 20; }
+            enum send-lf        { value 30; }
+            enum send-ais-l     { value 40; }
+            enum odu-ais        { value 50; }
+            enum none           { value 60; }
+            enum send-gais      { value 70; }
+            enum send-ms-ais    { value 80; }
+            enum e-code         { value 90; }
+            enum send-nos       { value 100; }
+        }
+        description "Disable Action indicates what action the NE performs towards the client equipment.";
+    }
+
+    typedef rate {
+        type decimal64 {
+            fraction-digits 3;
+        }
+        units "Gbit/s";
+        description "Rate of facilities in GBit/s.";
+    }
+
+    typedef modulation-format {
+        type enumeration {
+            enum not-applicable { value 0; }
+            enum DP-QPSK        { value 1; }
+            enum DP-16QAM       { value 2; }
+            enum DP-8QAM        { value 3; }	
+            enum BPSK           { value 4; }
+            enum DP-16QAM-E     { value 5; }
+            enum DP-16QAM-PS    { value 6; }
+        }
+        description "
+            Current modulation format
+        ";
+    }
+
+    typedef fec-type {
+        type enumeration {
+            enum cfec  { value 1; }
+            enum ofec  { value 2; }
+            enum G709  { value 3; }
+            enum noFEC { value 4; }
+            enum i4  { value 5; description "EFEC-I4";}
+            enum i7 { value 6;description "EFEC-I7"; } 
+            enum sdfec15 { value 7; description "15% SDFEC-Differential";}
+            enum sdfec15nd  { value 8; description "15% SDFEC-Non-Differential";}             
+            enum staircase7 { value 9; description "7% HDFEC Staircase";}
+            enum ufec7 { value 10;description "7% UFEC"; }
+            enum sdfec20 { value 11; description "20% SD-FEC"; } 
+            enum RS-528_514 {value 12; description "100GbE fec-type";}
+            enum RS-544_514 {value 13; description "100/200/400GbE fec-type";}
+        }
+        default noFEC;
+        description "The FEC type";
+    }
+
+
+    typedef mapping-mode {
+        type enumeration {
+            enum GMP            {value 1; description "Generic Mapping Procedure"; }
+            enum BMP            {value 2; description "BMP mapping";}
+            enum openZR+        {value 3; description "mapping mode for ZR";}
+            enum FlexE-4x100G   {value 4; description "FlexE-4x100G for split lamda feature";}
+            enum GFP-F          {value 5; description "GFP-F";}
+            enum GFP-F-extOPU2  {value 6; description "GFP-F-extOPU2";}
+            enum AMP            {value 7; description "AMP"; }
+        }
+        default GMP;
+        description "The tx mapping mode of client port. The possible values are dependent on the HW and configuration.";
+    }
+
+    typedef direction {
+        type enumeration {
+            enum ingress { value 1; }
+            enum egress  { value 2; }
+        }
+        description "Direction related with test signal and diagnostics.";
+    }
+
+    typedef prbs-direction {
+        type enumeration {
+            enum ingress { value 1; }
+            enum egress  { value 2; }
+            enum both    { value 3; }
+        }
+        description "Direction related with Ethernet test signal.";
+    }
+
+    typedef trail-trace-identifier-hex {
+        type string {
+            pattern '(0x(([0-9A-Fa-f])([0-9A-Fa-f]))*)?';
+        }
+        description "Hex string with '0x' prefix.";
+    }
+
+    typedef trail-trace-identifier-ascii {
+        type string {
+            pattern "[ -~]*";
+        }
+        description "Restrict this to printable ASCII characters.";
+    }
+
+    typedef tti-15 {
+        type union {
+            type trail-trace-identifier-hex { length "0..32"; }
+            type trail-trace-identifier-ascii { length "0..15"; }
+        }
+        description "Hex string starting with '0x' or printable ASCII string with size 15.";
+    }
+
+    typedef tti-32 {
+        type union {
+            type trail-trace-identifier-hex { length "0..66"; }
+            type trail-trace-identifier-ascii { length "0..32"; }
+        }
+        description "Hex string starting with '0x' or printable ASCII string with size 32.";
+    }
+
+    typedef tti-64 {
+        type union {
+            type trail-trace-identifier-hex { length "0..130"; }
+            type trail-trace-identifier-ascii { length "0..64"; }
+        }
+        description "Hex string starting with '0x' or printable ASCII string with size 64.";
+    }  
+
+    typedef loopback-type {
+        type enumeration {
+            enum none     { value 10; description "No loopback."; }
+            enum facility { value 20; description "Facility loopback."; }
+            enum terminal { value 30; description "Terminal loopback."; }
+        }
+        description "Loopback type. Useful to debug on the fiber connection.";
+    }
+
+    typedef service-mode {
+        type enumeration {
+            enum none            { value 10; }
+            enum network-wrapper { value 20; description "Map non-OTN signal into ODUs."; }
+            enum adaptation      { value 30; description "Multiplexing scenarios."; }
+            enum switching       { value 40; description "Map OTN signal (e.g. OTU) into ODUs."; }
+            enum transport       { value 50; description "Transport OTN signal (e.g. OTU) into line side ODUs."; }
+        }
+        description "A custom type for legacy Infinera SM attribute.";
+        reference "Infinera OTN Virtualization System Requirements Document (SRD).";
+    }
+
+    typedef service-mode-qualifier {
+        type union {
+            type enumeration {
+                enum none      { value 10; }
+                enum mux-demux { value 20; }
+                enum nofec     { value 30; }
+            }
+            type string { length 0..32; }
+        }
+        description "A custom type for legacy Infinera SMQ attribute; string here represents the upper-layer protocol (e.g. ODUC4i).";
+        reference "Infinera OTN Virtualization System Requirements Document (SRD).";
+    }
+
+
+    // Groupings
+
+    grouping facilities-common-attributes {
+        description "Common attributes that are applicable to all facility types.";
+
+        leaf name { 
+            type ioa-common:object-name;
+            description "A generic, configurable name for every facility.";
+        }
+
+        leaf supporting-card { 
+            type leafref {
+                path "../../../equipment/card/name";
+            }
+            config false;
+            description "Card that holds this facility";
+        }
+
+        leaf-list supporting-port {
+            type leafref {
+                path "../../../equipment/card/port/name";
+            }
+            config false;
+            description "Ports that hold this facility";
+        }
+
+        leaf-list supporting-facilities {
+            type instance-identifier;
+            config false;
+            description "An XPath reference to the parent facilities.";
+        }
+
+        leaf-list supported-facilities {
+            type instance-identifier;
+            config false;
+            max-elements 20;
+            description "An XPath reference to the children facilities.";
+        }
+
+        uses ioa-common:common-attributes;
+
+        uses ioa-common:common-states;
+
+        leaf managed-by {
+            type enumeration {
+                enum system { value 1; }
+                enum user { value 2; }
+            }
+            default system;
+            config false;
+            description "Describes whether this facility was system created or not.
+                         Only user created facilities can be user deleted.";
+        }
+
+    }
+
+    grouping auto-in-service {
+        description "Attributes associated with auto-in-service functionality";
+
+        leaf auto-in-service-enabled {
+            type boolean;
+            default false;
+            description "Auto-in-service switch for this facility.";
+        }
+
+        leaf valid-signal-time {
+            type ains-signal-time-interval { range 1..7200; }
+            units minutes;
+            default 480; // 8 hours
+            description "Configurable time that represents a detection of a valid signal.
+                         Used for auto-in-service mechanism.";
+        }
+
+        leaf remaining-valid-signal-time {
+            type ains-signal-time-interval;
+            units minutes;
+            config false;
+            description "Actual remaining time for this facility to be automatically enabled by the
+                         auto-in-service mechanism.";
+        }
+
+        uses ioa-common:arc;
+    }
+
+    grouping test-signal {
+        leaf test-signal-type {
+            type enumeration {
+                enum none {
+                    value 0;
+                    description "Indicates that test pattern generation is disabled.";
+                }
+                enum PRBS31Q {
+                    value 10;
+                    description "Defined in G.709 OPU PRBS with inverted PN31 quaternary.";
+                }
+                enum PRBS13Q {
+                    value 20;
+                    description "Defined in G.709 OPU PRBS with inverted PN13 quaternary.";
+                }
+                enum scrambled-idles {
+                    value 30;
+                    description "Idle frame defined in 802.3 Clause 82.2.10.";
+                }
+                enum PRBS9 {
+                    value 40;
+                    description "Defined in G.709 OPU PRBS with non-inverted PN9.";
+                }
+                enum PRBS31 {
+                    value 50;
+                    description "Defined in G.709 OPU PRBS with inverted PN31.";
+                }
+            }
+            default none;
+            description "The type of test pattern that is injected.";
+        }
+
+        leaf test-signal-direction {
+            type prbs-direction;
+            default ingress;
+            description "The direction of the test signal.";
+        }
+
+        leaf test-signal-monitoring {
+            type boolean;
+            default false;
+            description "Monitor the incoming test signals for diagnostics.";
+        }
+    }
+
+    grouping spectral-bw {
+        leaf spectral-bandwidth {
+            type decimal64 {
+                fraction-digits 5;
+            }
+            units GHz;
+            config false;
+            description "Spectral bandwith associated with this carrier(s).";
+        }
+    }
+
+    grouping loopback {
+        description "Loopback data used on facilities.";
+        leaf loopback {
+            type enumeration {
+                enum none     { value 10; }
+                enum facility { value 20; }
+                enum terminal { value 30; }
+            }
+            default none;
+            description "Loopback mode.Useful to debug on the fiber connection.";
+        }
+    }
+
+    grouping loopback-mode {
+	    leaf loopback-mode {
+            type enumeration {
+	            enum loopback              { value 10; description "loopback the signal, insert a maintenance signal";}
+	            enum loopback-and-continue { value 20; description "loopback the signal, insert a maintenance signal and bridge (continue) the signal downstream";}
+	        }
+            description "Indicates loopback action for facility or terminal."; 
+        }
+    }
+
+    grouping tti-common {
+        description "A reusable collection of common/typical 
+                     attributes associated with trail trace identitifiers.";
+
+        leaf tx-tti {
+            type tti-64;
+            description "Transmit TTI - Sent by this facility to the far-end remote facility.";
+        }
+
+        leaf rx-tti {
+            type trail-trace-identifier-ascii {
+                length 0..64;
+            }
+            config false;
+            description "Receive TTI - Received by this facility from the far-end remote facility.";
+        }
+
+        leaf rx-tti-hex {
+            type trail-trace-identifier-hex { length "0..130"; }
+            config false;
+            description "Receive TTI in HEX.";
+        }
+
+        leaf expected-tti {
+            type tti-64;
+            default "";
+            description "Expected TTI - The TTI this facility expects to receive from the far-end remote facility.";
+        }
+    }  
+    grouping power-threshold {
+        description "A reusable collection of common/typical 
+                     attributes associated with power threshold.";
+
+        leaf power-threshold-low {
+            type ioa-opt:optical-power;
+            config false;
+            description "The default system threshold (known as 'Sensitivity') that triggers the OPR-OORL alarm
+                         (i.e., when the optical power received is below this value). Note that this is hardware dependent,
+                         based on the type of the optical transceiver (TOM).";
+        }
+
+        leaf power-threshold-low-offset {
+            type ioa-opt:power-offset;
+            default 0.0;
+            description "A user configurable attribute that results in the 'effective lower threshold' based on which
+                         the system raises the OPR-OORL alarm. The effective threshold will be (threshold-low + threshold-low-offset).";
+        }
+
+        leaf power-threshold-high {
+            type ioa-opt:optical-power;
+            config false;
+            description "The default system threshold (known as 'Overload') that triggers the OPR-OORH alarm 
+                         (i.e., when the optical power received is greater than this value). Note that this is 
+                         hardware dependent, based on the type of the optical transceiver (TOM).";
+        }
+
+        leaf power-threshold-high-offset {
+            type ioa-opt:power-offset;
+            default 0.0;
+            description "A user configurable attribute that results in the 'effective upper threshold' based on 
+                         which the system raises the OPR-OORH alarm. The effective threshold will be (threshold-high + threshold-high-offset).";
+        }
+    }
+
+    grouping nmoper-alarm-reporting {
+        leaf nmoper-alarm-reporting {
+            type ioa-common:enable-switch;
+            default disabled;
+            description "Indicates if a Neighbor Mismatch TTI Operator-Specific field based (NMOPER) alarm is reported or not.";
+        }
+    }
+
+    grouping tti-diagnostics-common {
+        description "Re-usable grouping (by OTU/ OTS) for TTI diagnostics.";
+
+        leaf expected-operator {
+            type tti-32;
+            default "";
+            description "The expected operator specific bytes.";
+        }
+
+        leaf tx-operator {
+            type tti-32;
+            description "The transmitted operator specific bytes.";
+        }
+
+        leaf rx-operator {
+            type ioa-fac-common:trail-trace-identifier-ascii { length "0..32"; }
+            config false;
+            description "The received operation specific bytes as an ASCII string; will not be available if bytes cannot be encoded as a printable string.";
+        }
+    }
+
+    grouping otn-ots-tti-style {
+        description "Generic Infinera TTI styles.";
+        leaf tti-style {
+            type enumeration {
+                enum ITU-T-G709 { value 10; description "TTI is split into SAPI, DAPI and OPER bytes."; }
+                enum proprietary { value 20; description "TTI is a single 64 byte string."; }
+            }
+            default "ITU-T-G709";
+            description "The configured mode of the TTI for this OTU/ODU client or OTS.";
+        }
+    }
+}

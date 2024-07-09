@@ -1,0 +1,406 @@
+{
+    "ne": {
+        "ne-function": {
+            "amplifier-raman": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Non-configurable name: derived from chass/slot and degree.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "pump-power": [
+                        {
+                            "pump-id": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "'pump-id' is an integer identifying the number of the pump.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": 0,
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "namespace": null,
+                            "target-pump-power": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Raman Pump Power required.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "configured-pump-power": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The pump power configured in the hardware.\nValue can be derived automatically, if control-mode is auto, or otherwise via the target-pump-power.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "min-target-pump-power": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Minimum target pump power.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "max-target-pump-power": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Maximum target pump power.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "actual-pump-power": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The actual values which are currently measured in each pump.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "-99",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ],
+                    "control-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "auto",
+                                "manual",
+                                "auto-planned"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Control Mode for this Raman Amplifier.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "auto",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "raman-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "not-specified",
+                                "disabled",
+                                "disabled-from-remote",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The state of the Raman Pump.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "amplifier-enable": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disable-local-and-remote",
+                                "disable-local",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Enable switch for this Raman.\nUser configuration of Local Raman, and optionally control remote Raman card.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disable-local-and-remote",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "connected-amplifier": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "SYSTEM reports the degree that corresponds to the amplifier where Raman is fiber connected to.\nIf Raman is not fiber connected, then SYSTEM returns 'not-specified'.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "not-specified",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "connected-amp-edfa-optimum-gain": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Connected EDFA Optimum Gain; 0 means no known optimum gain, in case of disaggregated Raman.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "total-pump-power": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Operating Total Pump Power.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "number-of-pumps": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Number of pumps for the required-equipped card.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "target-raman-gain": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Target Raman Gain, configurable in case control-mode = manual.\nIn case control-mode = auto, this is then ignored.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "actual-raman-signal-gain": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "PCL output to express the gain for the raman signal",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "actual-raman-osc-gain": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "PCL output to express the gain for the raman OSC",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "function": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "pa",
+                                "ba",
+                                "inline",
+                                "add",
+                                "drop",
+                                "backward-raman"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Amplifier function.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Card that holds this",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-input-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Rx (input) Port that hold this object",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-output-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Tx (output) Port that hold this object",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

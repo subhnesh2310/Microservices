@@ -1,0 +1,3069 @@
+{
+    "module": {
+        "@name": "ioa-equipment",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-eqm": "http://infinera.com/yang/ioa/equipment",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-opt": "http://infinera.com/yang/ioa/optical-common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/equipment"
+        },
+        "prefix": {
+            "@value": "ioa-eqm"
+        },
+        "import": [
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-optical-common",
+                "prefix": {
+                    "@value": "ioa-opt"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module with the equipment model."
+        },
+        "revision": [
+            {
+                "@date": "2023-03-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.1"
+                }
+            },
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-09-17",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.1"
+                }
+            }
+        ],
+        "typedef": [
+            {
+                "@name": "phy-mode",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "100GE",
+                            "value": {
+                                "@value": "1"
+                            },
+                            "description": {
+                                "text": "100GE"
+                            },
+                            "reference": {
+                                "text": "GRD-191; GX-18"
+                            }
+                        },
+                        {
+                            "@name": "200GE",
+                            "value": {
+                                "@value": "2"
+                            },
+                            "description": {
+                                "text": "200GE"
+                            },
+                            "reference": {
+                                "text": "GRD-225"
+                            }
+                        },
+                        {
+                            "@name": "400GE",
+                            "value": {
+                                "@value": "3"
+                            },
+                            "description": {
+                                "text": "400GE"
+                            },
+                            "reference": {
+                                "text": "GRD-225"
+                            }
+                        },
+                        {
+                            "@name": "4x100GE",
+                            "value": {
+                                "@value": "4"
+                            },
+                            "description": {
+                                "text": "4x100GE"
+                            },
+                            "reference": {
+                                "text": "GRD-191"
+                            }
+                        },
+                        {
+                            "@name": "100G",
+                            "value": {
+                                "@value": "5"
+                            },
+                            "description": {
+                                "text": "100G"
+                            },
+                            "reference": {
+                                "text": "GRD-510"
+                            }
+                        },
+                        {
+                            "@name": "4x10G",
+                            "value": {
+                                "@value": "6"
+                            },
+                            "description": {
+                                "text": "4x10G"
+                            },
+                            "reference": {
+                                "text": "GRD-156; GRD-259; GRD-424"
+                            }
+                        },
+                        {
+                            "@name": "4x10GE",
+                            "value": {
+                                "@value": "7"
+                            },
+                            "description": {
+                                "text": "4x10GE"
+                            },
+                            "reference": {
+                                "text": "GRD-156; GRD-353"
+                            }
+                        },
+                        {
+                            "@name": "1GE",
+                            "value": {
+                                "@value": "8"
+                            },
+                            "description": {
+                                "text": "1GE"
+                            },
+                            "reference": {
+                                "text": "GRD-121"
+                            }
+                        },
+                        {
+                            "@name": "2G5",
+                            "value": {
+                                "@value": "9"
+                            },
+                            "description": {
+                                "text": "2G5"
+                            },
+                            "reference": {
+                                "text": "GRD-316; GRD-387"
+                            }
+                        },
+                        {
+                            "@name": "10G",
+                            "value": {
+                                "@value": "10"
+                            },
+                            "description": {
+                                "text": "10G"
+                            },
+                            "reference": {
+                                "text": "GRD-156; GRD-259; GRD-353; GRD-424"
+                            }
+                        },
+                        {
+                            "@name": "10GE",
+                            "value": {
+                                "@value": "11"
+                            },
+                            "description": {
+                                "text": "10GE"
+                            },
+                            "reference": {
+                                "text": "GRD-156"
+                            }
+                        },
+                        {
+                            "@name": "2G5E",
+                            "value": {
+                                "@value": "12"
+                            },
+                            "description": {
+                                "text": "2G5E"
+                            },
+                            "reference": {
+                                "text": "GRD-156"
+                            }
+                        },
+                        {
+                            "@name": "40GE",
+                            "value": {
+                                "@value": "13"
+                            },
+                            "description": {
+                                "text": "40GE"
+                            },
+                            "reference": {
+                                "text": "GRD-156"
+                            }
+                        },
+                        {
+                            "@name": "40G",
+                            "value": {
+                                "@value": "14"
+                            },
+                            "description": {
+                                "text": "40G"
+                            },
+                            "reference": {
+                                "text": "GRD-156"
+                            }
+                        },
+                        {
+                            "@name": "4x100G",
+                            "value": {
+                                "@value": "15"
+                            },
+                            "description": {
+                                "text": "4x100G"
+                            },
+                            "reference": {
+                                "text": "GRD-156"
+                            }
+                        },
+                        {
+                            "@name": "200G",
+                            "value": {
+                                "@value": "16"
+                            },
+                            "description": {
+                                "text": "200G"
+                            },
+                            "reference": {
+                                "text": "GX-9732"
+                            }
+                        },
+                        {
+                            "@name": "155M",
+                            "value": {
+                                "@value": "17"
+                            },
+                            "description": {
+                                "text": "OC-3 (155M/ 1G) OSC"
+                            },
+                            "reference": {
+                                "text": "THANOS-3363"
+                            }
+                        },
+                        {
+                            "@name": "2x100GE",
+                            "value": {
+                                "@value": "18"
+                            },
+                            "description": {
+                                "text": "2x100GE"
+                            },
+                            "reference": {
+                                "text": "GRD-191"
+                            }
+                        },
+                        {
+                            "@name": "1G",
+                            "value": {
+                                "@value": "19"
+                            },
+                            "description": {
+                                "text": "1G"
+                            },
+                            "reference": {
+                                "text": "GRD-1277"
+                            }
+                        },
+                        {
+                            "@name": "4G",
+                            "value": {
+                                "@value": "20"
+                            },
+                            "description": {
+                                "text": "4G"
+                            },
+                            "reference": {
+                                "text": "GRD-1314"
+                            }
+                        },
+                        {
+                            "@name": "400G",
+                            "value": {
+                                "@value": "21"
+                            },
+                            "description": {
+                                "text": "400G"
+                            },
+                            "reference": {
+                                "text": "GRD-225"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Phy mode of a TOM."
+                }
+            },
+            {
+                "@name": "ethernet-rate",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "unknown",
+                            "value": {
+                                "@value": "0"
+                            }
+                        },
+                        {
+                            "@name": "1",
+                            "value": {
+                                "@value": "1"
+                            }
+                        },
+                        {
+                            "@name": "10",
+                            "value": {
+                                "@value": "10"
+                            }
+                        },
+                        {
+                            "@name": "100",
+                            "value": {
+                                "@value": "100"
+                            }
+                        },
+                        {
+                            "@name": "1000",
+                            "value": {
+                                "@value": "1000"
+                            }
+                        },
+                        {
+                            "@name": "10000",
+                            "value": {
+                                "@value": "10000"
+                            }
+                        },
+                        {
+                            "@name": "maximum",
+                            "value": {
+                                "@value": "2147483647"
+                            }
+                        }
+                    ]
+                },
+                "units": {
+                    "@name": "Mbit/s"
+                },
+                "description": {
+                    "text": "The configured, negotiated, or actual speed."
+                }
+            },
+            {
+                "@name": "duplex-mode",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "unknown",
+                            "description": {
+                                "text": "Link is currently disconnected or initializing."
+                            }
+                        },
+                        {
+                            "@name": "full",
+                            "description": {
+                                "text": "Full duplex."
+                            }
+                        },
+                        {
+                            "@name": "half",
+                            "description": {
+                                "text": "Half duplex."
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "The configured, negotiated, or actual duplex mode."
+                }
+            },
+            {
+                "@name": "flow-control",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "unknown",
+                            "description": {
+                                "text": "Link is currently disconnected or initializing."
+                            }
+                        },
+                        {
+                            "@name": "disabled",
+                            "description": {
+                                "text": "No pause frames are supported."
+                            }
+                        },
+                        {
+                            "@name": "bi-directional",
+                            "description": {
+                                "text": "Symmetric flow (transmit and receive)."
+                            }
+                        },
+                        {
+                            "@name": "egress-only",
+                            "description": {
+                                "text": "Transmit direction only."
+                            }
+                        },
+                        {
+                            "@name": "ingress-only",
+                            "description": {
+                                "text": "Receive direction only."
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "The configured, negotiated, or actual flow-control mode."
+                }
+            },
+            {
+                "@name": "console-baud-rate",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "unknown",
+                            "value": {
+                                "@value": "0"
+                            }
+                        },
+                        {
+                            "@name": "9600",
+                            "value": {
+                                "@value": "6"
+                            }
+                        },
+                        {
+                            "@name": "19200",
+                            "value": {
+                                "@value": "7"
+                            }
+                        },
+                        {
+                            "@name": "38400",
+                            "value": {
+                                "@value": "8"
+                            }
+                        },
+                        {
+                            "@name": "57600",
+                            "value": {
+                                "@value": "11"
+                            }
+                        },
+                        {
+                            "@name": "115200",
+                            "value": {
+                                "@value": "12"
+                            }
+                        }
+                    ]
+                },
+                "units": {
+                    "@name": "baud"
+                },
+                "description": {
+                    "text": "Possible baud-rates for a serial console port."
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "card-category",
+                "leaf": {
+                    "@name": "category",
+                    "type": {
+                        "@name": "enumeration",
+                        "enum": [
+                            {
+                                "@name": "controller",
+                                "value": {
+                                    "@value": "1"
+                                }
+                            },
+                            {
+                                "@name": "line-card",
+                                "value": {
+                                    "@value": "2"
+                                }
+                            },
+                            {
+                                "@name": "fan",
+                                "value": {
+                                    "@value": "3"
+                                }
+                            },
+                            {
+                                "@name": "power-supply",
+                                "value": {
+                                    "@value": "4"
+                                }
+                            },
+                            {
+                                "@name": "other",
+                                "value": {
+                                    "@value": "5"
+                                }
+                            },
+                            {
+                                "@name": "carrier-card",
+                                "value": {
+                                    "@value": "6"
+                                }
+                            },
+                            {
+                                "@name": "blank",
+                                "value": {
+                                    "@value": "7"
+                                }
+                            }
+                        ]
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Card category."
+                    }
+                }
+            },
+            {
+                "@name": "port-common",
+                "leaf": [
+                    {
+                        "@name": "port-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "line",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "Refers to line-side 'colored' CWDM or DWDM optical module/transceiver."
+                                    }
+                                },
+                                {
+                                    "@name": "tributary",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "Refers to standard 'grey' interfaces/transceivers to interface with other client equipment."
+                                    }
+                                },
+                                {
+                                    "@name": "usb",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "USB port."
+                                    }
+                                },
+                                {
+                                    "@name": "comm",
+                                    "value": {
+                                        "@value": "4"
+                                    },
+                                    "description": {
+                                        "text": "Communication ports."
+                                    }
+                                },
+                                {
+                                    "@name": "uplink",
+                                    "value": {
+                                        "@value": "5"
+                                    },
+                                    "description": {
+                                        "text": "Refers to ports of an aggregation function that connect to an adjunct line function."
+                                    }
+                                },
+                                {
+                                    "@name": "tributary-subport",
+                                    "value": {
+                                        "@value": "6"
+                                    },
+                                    "description": {
+                                        "text": "Same as tributary, but for scenarios where the main tributary port is split into multiple subports."
+                                    }
+                                },
+                                {
+                                    "@name": "optical",
+                                    "value": {
+                                        "@value": "7"
+                                    },
+                                    "description": {
+                                        "text": "General optical port, with or without monitoring function."
+                                    }
+                                },
+                                {
+                                    "@name": "otdr",
+                                    "value": {
+                                        "@value": "8"
+                                    },
+                                    "description": {
+                                        "text": "Generic OTDR function, except for external OTDR measurement."
+                                    }
+                                },
+                                {
+                                    "@name": "pluggable",
+                                    "value": {
+                                        "@value": "9"
+                                    },
+                                    "description": {
+                                        "text": "Port function represents the L0 module cage for pluggable interfaces."
+                                    }
+                                },
+                                {
+                                    "@name": "ocm",
+                                    "value": {
+                                        "@value": "10"
+                                    },
+                                    "description": {
+                                        "text": "OCM port."
+                                    }
+                                }
+                            ]
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The port type. Each port type supports different features and services."
+                        }
+                    },
+                    {
+                        "@name": "direction",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "not-applicable",
+                                    "value": {
+                                        "@value": "0"
+                                    },
+                                    "description": {
+                                        "text": "Not applicable."
+                                    }
+                                },
+                                {
+                                    "@name": "tx",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "Tx direction."
+                                    }
+                                },
+                                {
+                                    "@name": "rx",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "Rx direction."
+                                    }
+                                },
+                                {
+                                    "@name": "rxtx",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "Both Rx and Tx directions."
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "not-applicable"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Direction of the port."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "max-power-draw",
+                "leaf": {
+                    "@name": "max-power-draw",
+                    "type": {
+                        "@name": "decimal64",
+                        "fraction-digits": {
+                            "@value": "2"
+                        }
+                    },
+                    "units": {
+                        "@name": "W"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Maximum power draw for this card."
+                    },
+                    "reference": {
+                        "text": "GX-740"
+                    }
+                }
+            },
+            {
+                "@name": "eqm-common",
+                "description": {
+                    "text": "Common parameters to all equipment objects."
+                },
+                "leaf": {
+                    "@name": "alias-name",
+                    "type": {
+                        "@name": "string",
+                        "length": {
+                            "@value": "0..256"
+                        },
+                        "pattern": {
+                            "@value": "[A-Za-z0-9_\\-/,\\.]*"
+                        }
+                    },
+                    "description": {
+                        "text": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore."
+                    }
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-common:aid"
+                    },
+                    {
+                        "@name": "ioa-common:common-states"
+                    },
+                    {
+                        "@name": "ioa-common:arc"
+                    },
+                    {
+                        "@name": "ioa-common:label"
+                    }
+                ]
+            },
+            {
+                "@name": "equipment-holder",
+                "description": {
+                    "text": "Attributes associated with all equipment holders (slots and ports)."
+                },
+                "leaf-list": {
+                    "@name": "supported-type",
+                    "type": {
+                        "@name": "string",
+                        "length": {
+                            "@value": "0..32"
+                        }
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "max-elements": {
+                        "@value": "20"
+                    },
+                    "description": {
+                        "text": "List of supported types in this equipment holder.\nIf a specific type is provisioned, the list has only that type."
+                    }
+                },
+                "leaf": {
+                    "@name": "installed-type",
+                    "type": {
+                        "@name": "string",
+                        "length": {
+                            "@value": "0..32"
+                        }
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Currently installed type in this equipment holder. If empty, means no FRU is present."
+                    }
+                }
+            },
+            {
+                "@name": "inventory-core",
+                "description": {
+                    "text": "Inventory data for equipment that are not yet accepted by the node controller in a Multi-chassis NE. This is a reduced set derived from the inventory container"
+                },
+                "leaf": [
+                    {
+                        "@name": "hardware-version",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Hardware version of this FRU."
+                        }
+                    },
+                    {
+                        "@name": "actual-type",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "FRU type of actual equipment."
+                        }
+                    },
+                    {
+                        "@name": "actual-subtype",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "FRU subtype of actual equipment - only available if applicable."
+                        }
+                    },
+                    {
+                        "@name": "PON",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Current PON of the equipment."
+                        }
+                    },
+                    {
+                        "@name": "serial-number",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "1..16"
+                            }
+                        },
+                        "description": {
+                            "text": "Serial number of the equipment."
+                        }
+                    },
+                    {
+                        "@name": "clei",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Common Language Equipment Identifier."
+                        }
+                    },
+                    {
+                        "@name": "vendor",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Vendor of this equipment."
+                        }
+                    },
+                    {
+                        "@name": "part-number",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Part number for this equipment."
+                        }
+                    },
+                    {
+                        "@name": "manufacture-date",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Manufacture Date in a date-time format (YYYY-MM-DDThh:mm:ssZ) or 'NA' if not available."
+                        }
+                    }
+                ],
+                "uses": {
+                    "@name": "ioa-common:sw-support"
+                }
+            },
+            {
+                "@name": "inventory",
+                "container": {
+                    "@name": "inventory",
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Inventory data for a present FRU."
+                    },
+                    "uses": {
+                        "@name": "inventory-core"
+                    },
+                    "leaf": [
+                        {
+                            "@name": "insertion-date",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "Insertion Date in a date-time format (YYYY-MM-DDThh:mm:ssZ) or 'NA' if not available."
+                            }
+                        },
+                        {
+                            "@name": "number-of-lanes",
+                            "type": {
+                                "@name": "uint8"
+                            },
+                            "description": {
+                                "text": "When applicatible, provides number of supported optical lanes in this equipment."
+                            }
+                        },
+                        {
+                            "@name": "vendor-compliance-code",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..128"
+                                }
+                            },
+                            "description": {
+                                "text": "Vendor Compliance Code information for 3rd party TOMs."
+                            }
+                        },
+                        {
+                            "@name": "fw-status",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "not-applicable",
+                                        "value": {
+                                            "@value": "0"
+                                        },
+                                        "description": {
+                                            "text": "Card doesn't have upgradable firmware."
+                                        }
+                                    },
+                                    {
+                                        "@name": "current",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "All components have current firmware."
+                                        }
+                                    },
+                                    {
+                                        "@name": "not-current",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "At least one component does not have current firmare."
+                                        }
+                                    },
+                                    {
+                                        "@name": "unavailable",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Information on all firmware status is currently unavailable."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "not-applicable"
+                            },
+                            "description": {
+                                "text": "Summary status for all the firmware for this card."
+                            }
+                        }
+                    ],
+                    "list": {
+                        "@name": "current-fw",
+                        "key": {
+                            "@value": "fw-name"
+                        },
+                        "description": {
+                            "text": "List of current firmware available in the card."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "fw-name",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..32"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Name of the firmware."
+                                }
+                            },
+                            {
+                                "@name": "fw-version",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..32"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Current version of the firmware."
+                                }
+                            },
+                            {
+                                "@name": "expected-fw-version",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..32"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Expected version of the firmware."
+                                }
+                            },
+                            {
+                                "@name": "fw-status",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "current",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Current firmware is up-to-date."
+                                            }
+                                        },
+                                        {
+                                            "@name": "not-current",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Current firmware is not up-to-date against the expected one."
+                                            }
+                                        },
+                                        {
+                                            "@name": "unavailable",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "Information on firmware status is currently unavailable."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "description": {
+                                    "text": "Status for this particular firmware."
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "@name": "slots",
+                "list": {
+                    "@name": "slot",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Slot equipment holder details."
+                    },
+                    "reference": {
+                        "text": "GX-606"
+                    },
+                    "leaf": [
+                        {
+                            "@name": "name",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "Slot name."
+                            }
+                        },
+                        {
+                            "@name": "current-equipment",
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "../../../card/name"
+                                }
+                            },
+                            "description": {
+                                "text": "Name of the equipment that is currently required in this slot."
+                            }
+                        }
+                    ],
+                    "uses": [
+                        {
+                            "@name": "ioa-common:aid"
+                        },
+                        {
+                            "@name": "equipment-holder"
+                        },
+                        {
+                            "@name": "ioa-common:operational-states"
+                        },
+                        {
+                            "@name": "inventory"
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Existing slots and respective information about them. This grouping represents a general slot."
+                }
+            },
+            {
+                "@name": "upgrade-status",
+                "leaf": {
+                    "@name": "upgrade-status",
+                    "type": {
+                        "@name": "enumeration",
+                        "enum": [
+                            {
+                                "@name": "idle",
+                                "value": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "Upgrade status not available."
+                                }
+                            },
+                            {
+                                "@name": "in-progress",
+                                "value": {
+                                    "@value": "2"
+                                },
+                                "description": {
+                                    "text": "Upgrade install is in progress."
+                                }
+                            },
+                            {
+                                "@name": "success",
+                                "value": {
+                                    "@value": "3"
+                                },
+                                "description": {
+                                    "text": "Upgrade installed."
+                                }
+                            },
+                            {
+                                "@name": "failed",
+                                "value": {
+                                    "@value": "4"
+                                },
+                                "description": {
+                                    "text": "Upgrade instalation failed."
+                                }
+                            },
+                            {
+                                "@name": "unknown",
+                                "value": {
+                                    "@value": "5"
+                                },
+                                "description": {
+                                    "text": "Upgrade status not known."
+                                }
+                            }
+                        ]
+                    },
+                    "default": {
+                        "@value": "idle"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Current upgrade status."
+                    }
+                }
+            },
+            {
+                "@name": "equipment",
+                "container": {
+                    "@name": "equipment",
+                    "description": {
+                        "text": "Container for all equipment related resources."
+                    },
+                    "list": [
+                        {
+                            "@name": "chassis",
+                            "key": {
+                                "@value": "name"
+                            },
+                            "description": {
+                                "text": "Chassis configuration and state."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "name",
+                                    "type": {
+                                        "@name": "ioa-common:object-name"
+                                    },
+                                    "description": {
+                                        "text": "Chassis name."
+                                    }
+                                },
+                                {
+                                    "@name": "is-node-controller",
+                                    "type": {
+                                        "@name": "boolean"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Tells if this chassis the node controller of this NE."
+                                    }
+                                },
+                                {
+                                    "@name": "chassis-role",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "unknown",
+                                                "value": {
+                                                    "@value": "0"
+                                                },
+                                                "description": {
+                                                    "text": "Chassis role is not determined yet"
+                                                }
+                                            },
+                                            {
+                                                "@name": "main-chassis",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "The chassis is designated as a main-chassis of the Multi-chassis NE."
+                                                }
+                                            },
+                                            {
+                                                "@name": "sub-chassis",
+                                                "value": {
+                                                    "@value": "2"
+                                                },
+                                                "description": {
+                                                    "text": "The chassis is designated as a sub-chassis of the Multi-chassis NE."
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "unknown"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Identifies the role of the chassis in a multi-chassis NE."
+                                    }
+                                },
+                                {
+                                    "@name": "expected-serial-number",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..16"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Inform the NC the serial number of a sub-chassis. For the main-chassis, the value is auto-filled with its own serial number"
+                                    }
+                                },
+                                {
+                                    "@name": "required-type",
+                                    "type": {
+                                        "@name": "identityref",
+                                        "base": {
+                                            "@name": "ioa-common:chassis"
+                                        }
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "Chassis type."
+                                    }
+                                },
+                                {
+                                    "@name": "chassis-location",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..128"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "User defined location"
+                                    }
+                                },
+                                {
+                                    "@name": "rack-name",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..128"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "User defined rack name (withing the location)"
+                                    }
+                                },
+                                {
+                                    "@name": "position-in-rack",
+                                    "type": {
+                                        "@name": "uint8"
+                                    },
+                                    "description": {
+                                        "text": "Position of the chassis within the rack."
+                                    }
+                                },
+                                {
+                                    "@name": "expected-pem-type",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "DC",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "DC PEM"
+                                                }
+                                            },
+                                            {
+                                                "@name": "AC-high-line",
+                                                "value": {
+                                                    "@value": "2"
+                                                },
+                                                "description": {
+                                                    "text": "High-line (220V) AC PEM"
+                                                }
+                                            },
+                                            {
+                                                "@name": "AC-low-line",
+                                                "value": {
+                                                    "@value": "3"
+                                                },
+                                                "description": {
+                                                    "text": "Low-line (110V) AC PEM"
+                                                }
+                                            },
+                                            {
+                                                "@name": "HV-DC",
+                                                "value": {
+                                                    "@value": "4"
+                                                },
+                                                "description": {
+                                                    "text": "High Voltage DC PEM"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "DC"
+                                    },
+                                    "description": {
+                                        "text": "Defines what is the expected type of PEMs that this chassis will have.\nIt is not possible to configure each PEM slot individually, as all PEMs need to be of the same type."
+                                    }
+                                },
+                                {
+                                    "@name": "expected-fan-type",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "single-rotar",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "Standard FAN type."
+                                                }
+                                            },
+                                            {
+                                                "@name": "counter-rotating",
+                                                "value": {
+                                                    "@value": "2"
+                                                },
+                                                "description": {
+                                                    "text": "Counter rotating FAN type."
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "counter-rotating"
+                                    },
+                                    "description": {
+                                        "text": "Defines what is the expected type of FANs that this chassis will have.\nIt is not possible to configure each FAN slot individually, this needs to be done at the chassis level."
+                                    }
+                                },
+                                {
+                                    "@name": "pem-under-voltage-threshold",
+                                    "type": {
+                                        "@name": "decimal64",
+                                        "fraction-digits": {
+                                            "@value": "2"
+                                        }
+                                    },
+                                    "units": {
+                                        "@name": "volt"
+                                    },
+                                    "description": {
+                                        "text": "Under voltage threshold on PEM input feed."
+                                    }
+                                },
+                                {
+                                    "@name": "pem-over-voltage-threshold",
+                                    "type": {
+                                        "@name": "decimal64",
+                                        "fraction-digits": {
+                                            "@value": "2"
+                                        }
+                                    },
+                                    "units": {
+                                        "@name": "volt"
+                                    },
+                                    "description": {
+                                        "text": "Over voltage threshold on PEM input feed."
+                                    }
+                                },
+                                {
+                                    "@name": "available-power",
+                                    "type": {
+                                        "@name": "decimal64",
+                                        "fraction-digits": {
+                                            "@value": "2"
+                                        }
+                                    },
+                                    "units": {
+                                        "@name": "W"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Available Power at the chassis based on the current provisioned equipment."
+                                    },
+                                    "reference": {
+                                        "text": "GX-721"
+                                    }
+                                },
+                                {
+                                    "@name": "configured-max-power-draw",
+                                    "type": {
+                                        "@name": "decimal64",
+                                        "fraction-digits": {
+                                            "@value": "2"
+                                        }
+                                    },
+                                    "units": {
+                                        "@name": "W"
+                                    },
+                                    "default": {
+                                        "@value": "10000"
+                                    },
+                                    "description": {
+                                        "text": "User configured limit of power usable by this chassis.\nIf current-estimated-power-draw used in this chassis goes above the configured-max-power-draw,\nthe alarm PWRDRAW is raised. 10000W represents a 'very high' power draw that is beyond any\nchassis possibilities, so having this value means this feature is disabled, and the alarm is never raised."
+                                    },
+                                    "reference": {
+                                        "text": "GX-720, GX-723"
+                                    }
+                                },
+                                {
+                                    "@name": "current-estimated-power-draw",
+                                    "type": {
+                                        "@name": "decimal64",
+                                        "fraction-digits": {
+                                            "@value": "2"
+                                        }
+                                    },
+                                    "units": {
+                                        "@name": "W"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Total estimated power of both installed and pre-provisioned FRUs"
+                                    },
+                                    "reference": {
+                                        "text": "GX-722"
+                                    }
+                                },
+                                {
+                                    "@name": "configured-ambient-temperature",
+                                    "type": {
+                                        "@name": "uint8"
+                                    },
+                                    "units": {
+                                        "@name": "Celsius"
+                                    },
+                                    "description": {
+                                        "text": "Configured ambient temperature for the chassis, used to compute the FRU's power consumption."
+                                    },
+                                    "reference": {
+                                        "text": "GX-726"
+                                    }
+                                },
+                                {
+                                    "@name": "power-redundancy",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "one-plus-one",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "PEM is redundant within a bank of 2 PEMs."
+                                                }
+                                            },
+                                            {
+                                                "@name": "one-for-n",
+                                                "value": {
+                                                    "@value": "2"
+                                                },
+                                                "description": {
+                                                    "text": "PEM is redundant against any other PEM."
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "one-plus-one"
+                                    },
+                                    "description": {
+                                        "text": "Configuration of the PEM redundancy mode."
+                                    }
+                                },
+                                {
+                                    "@name": "no-switchover",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "enabled",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "No switch over"
+                                                }
+                                            },
+                                            {
+                                                "@name": "disabled",
+                                                "value": {
+                                                    "@value": "2"
+                                                },
+                                                "description": {
+                                                    "text": "Switch over possible"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "disabled"
+                                    },
+                                    "description": {
+                                        "text": "If enabled, the standby controller will be locked out from taking over the active card. This means no manual or autonomous switchovers will happen."
+                                    }
+                                },
+                                {
+                                    "@name": "active-controller-slot",
+                                    "type": {
+                                        "@name": "union",
+                                        "type": [
+                                            {
+                                                "@name": "enumeration",
+                                                "enum": {
+                                                    "@name": "none",
+                                                    "value": {
+                                                        "@value": "0"
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "1..64"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "none"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Identifies the active controller slot name. A change to this attribute implies a switchover has happened."
+                                    }
+                                },
+                                {
+                                    "@name": "alarm-report-ready",
+                                    "type": {
+                                        "@name": "boolean"
+                                    },
+                                    "default": {
+                                        "@value": "false"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Represents the alarm monitoring state for this chassis.\nAfter a system restart, alarms are kept persistent for a grace minute period,\nafter which they will be cleared, unless they are reconfirmed.\nThis state provides visibility whether that grace period has passed or not.\nWhen this state is true, there are no more cached alarms raised."
+                                    }
+                                }
+                            ],
+                            "uses": [
+                                {
+                                    "@name": "eqm-common"
+                                },
+                                {
+                                    "@name": "inventory"
+                                },
+                                {
+                                    "@name": "slots"
+                                }
+                            ]
+                        },
+                        {
+                            "@name": "card",
+                            "key": {
+                                "@value": "name"
+                            },
+                            "description": {
+                                "text": "Card base object.This object has parameters that are common to all existing card types (controller, fan, etc)."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "name",
+                                    "type": {
+                                        "@name": "ioa-common:object-name"
+                                    },
+                                    "description": {
+                                        "text": "Card identifier."
+                                    }
+                                },
+                                {
+                                    "@name": "required-type",
+                                    "type": {
+                                        "@name": "identityref",
+                                        "base": {
+                                            "@name": "ioa-common:card"
+                                        }
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "Required card type."
+                                    }
+                                },
+                                {
+                                    "@name": "required-subtype",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..32"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "The subtype of the card"
+                                    }
+                                },
+                                {
+                                    "@name": "card-mode",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..20"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "The configured card-mode, identifies specific card functionality."
+                                    }
+                                },
+                                {
+                                    "@name": "chassis-name",
+                                    "type": {
+                                        "@name": "leafref",
+                                        "path": {
+                                            "@value": "../../chassis/name"
+                                        }
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "Chassis where this card is located."
+                                    }
+                                },
+                                {
+                                    "@name": "slot-name",
+                                    "type": {
+                                        "@name": "string"
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "Slot where this card is located."
+                                    }
+                                },
+                                {
+                                    "@name": "subslot-name",
+                                    "type": {
+                                        "@name": "string"
+                                    },
+                                    "description": {
+                                        "text": "Subslot where this card is located, e.g. 1-2.3 (slot 2, subslot 3).\n'subslot-name' can only be set on (sub)card creation."
+                                    }
+                                },
+                                {
+                                    "@name": "power-profile",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..16"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "User configured power draw for this card."
+                                    }
+                                },
+                                {
+                                    "@name": "last-reboot-reason",
+                                    "type": {
+                                        "@name": "string"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Reason why the last reboot was done."
+                                    }
+                                },
+                                {
+                                    "@name": "parent-card",
+                                    "type": {
+                                        "@name": "leafref",
+                                        "path": {
+                                            "@value": "/ne/equipment/card/name"
+                                        }
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Name of the parent card, only applicable for subcard(s)."
+                                    }
+                                }
+                            ],
+                            "uses": [
+                                {
+                                    "@name": "card-category"
+                                },
+                                {
+                                    "@name": "max-power-draw"
+                                },
+                                {
+                                    "@name": "eqm-common"
+                                },
+                                {
+                                    "@name": "slots"
+                                },
+                                {
+                                    "@name": "ioa-common:properties"
+                                },
+                                {
+                                    "@name": "ioa-opt:optical-card-parameters"
+                                }
+                            ],
+                            "leaf-list": {
+                                "@name": "subcard-list",
+                                "type": {
+                                    "@name": "leafref",
+                                    "path": {
+                                        "@value": "/ne/equipment/card/name"
+                                    }
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "List of sub-cards associated with this card.\nOnly applicable for carrier cards."
+                                }
+                            },
+                            "container": [
+                                {
+                                    "@name": "controller-card",
+                                    "description": {
+                                        "text": "Container of parameters related with controller cards."
+                                    },
+                                    "leaf": [
+                                        {
+                                            "@name": "redundancy-status",
+                                            "type": {
+                                                "@name": "enumeration",
+                                                "enum": [
+                                                    {
+                                                        "@name": "active",
+                                                        "value": {
+                                                            "@value": "1"
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "standby",
+                                                        "value": {
+                                                            "@value": "2"
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "not-in-service",
+                                                        "value": {
+                                                            "@value": "3"
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            "default": {
+                                                "@value": "not-in-service"
+                                            },
+                                            "config": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "Controller state."
+                                            },
+                                            "reference": {
+                                                "text": "GX-697"
+                                            }
+                                        },
+                                        {
+                                            "@name": "redundancy-standby-status",
+                                            "type": {
+                                                "@name": "enumeration",
+                                                "enum": [
+                                                    {
+                                                        "@name": "ready-synchronized",
+                                                        "value": {
+                                                            "@value": "1"
+                                                        },
+                                                        "description": {
+                                                            "text": "Standby controller is sync and ready."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "not-ready-synchronizing",
+                                                        "value": {
+                                                            "@value": "2"
+                                                        },
+                                                        "description": {
+                                                            "text": "Standby controller synchronizing data with active controller."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "not-ready-synchronize-fail",
+                                                        "value": {
+                                                            "@value": "3"
+                                                        },
+                                                        "description": {
+                                                            "text": "Synchronization fail."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "lock-out",
+                                                        "value": {
+                                                            "@value": "4"
+                                                        },
+                                                        "description": {
+                                                            "text": "Protection in lock-out state."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "card-not-present",
+                                                        "value": {
+                                                            "@value": "5"
+                                                        },
+                                                        "description": {
+                                                            "text": "Standby card is not present"
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            "default": {
+                                                "@value": "not-ready-synchronizing"
+                                            },
+                                            "config": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "State of the controller redundancy."
+                                            }
+                                        },
+                                        {
+                                            "@name": "number-of-switchover-events",
+                                            "type": {
+                                                "@name": "uint32"
+                                            },
+                                            "config": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "Number of times that an active controller card has switchover. Value only visibile on active controller card."
+                                            }
+                                        },
+                                        {
+                                            "@name": "time-of-last-switchover",
+                                            "type": {
+                                                "@name": "ioa-common:date-time-never"
+                                            },
+                                            "config": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "Timestamp of the last controller switchover event. Value only visible on active controller card."
+                                            }
+                                        },
+                                        {
+                                            "@name": "additional-details",
+                                            "type": {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "0..128"
+                                                }
+                                            },
+                                            "config": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "Additional details for synchronization status."
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "@name": "console",
+                                    "description": {
+                                        "text": "Parameters associated with this card's serial console port."
+                                    },
+                                    "leaf": [
+                                        {
+                                            "@name": "baud-rate",
+                                            "type": {
+                                                "@name": "enumeration",
+                                                "enum": [
+                                                    {
+                                                        "@name": "auto-sensing",
+                                                        "value": {
+                                                            "@value": "5"
+                                                        },
+                                                        "description": {
+                                                            "text": "System will auto-detect the baud-rate based on 'ENTER' presses on serial console client side.\nThe detected baud-rate is then locked, and shown in the 'actual-baudrate' parameter.\nNote: not all cards support auto-sensing capability."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "9600",
+                                                        "value": {
+                                                            "@value": "6"
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "19200",
+                                                        "value": {
+                                                            "@value": "7"
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "38400",
+                                                        "value": {
+                                                            "@value": "8"
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "57600",
+                                                        "value": {
+                                                            "@value": "11"
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "115200",
+                                                        "value": {
+                                                            "@value": "12"
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            "description": {
+                                                "text": "The configured baud-rate for this card's console port.\nDefault value is card type specific."
+                                            }
+                                        },
+                                        {
+                                            "@name": "actual-baud-rate",
+                                            "type": {
+                                                "@name": "console-baud-rate"
+                                            },
+                                            "config": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "The actual baud-rate for this card's console port.\nIf auto-sensing is enabled, this will reveal the detected baud-rate.\nIf a fixed baud-rate is configured, this will match the configured baud-rate."
+                                            }
+                                        },
+                                        {
+                                            "@name": "auto-sensing-state",
+                                            "when": {
+                                                "@condition": "../baud-rate = 'auto-sensing'"
+                                            },
+                                            "type": {
+                                                "@name": "enumeration",
+                                                "enum": [
+                                                    {
+                                                        "@name": "sensing",
+                                                        "value": {
+                                                            "@value": "1"
+                                                        },
+                                                        "description": {
+                                                            "text": "Represents that the auto-sensing algorithm is active, waiting for 'ENTER' presses\non serial console client side."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "locked",
+                                                        "value": {
+                                                            "@value": "2"
+                                                        },
+                                                        "description": {
+                                                            "text": "Auto-sensing algorithm already discovered the port's baud-rate (visible in the actual-baud-rate parameter),\nand has locked that value. No further auto-sensing is performed until baud-rate is reconfigured or card reboots."
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            "default": {
+                                                "@value": "sensing"
+                                            },
+                                            "config": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "Current state of the auto-sensing mechanism.\nOnly visible if auto-sensing is enabled for this port."
+                                            }
+                                        },
+                                        {
+                                            "@name": "local-switch",
+                                            "type": {
+                                                "@name": "enumeration",
+                                                "enum": [
+                                                    {
+                                                        "@name": "use-global-switch",
+                                                        "value": {
+                                                            "@value": "6"
+                                                        },
+                                                        "description": {
+                                                            "text": "Console switch is using the global switch configuration."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "force-enable",
+                                                        "value": {
+                                                            "@value": "7"
+                                                        },
+                                                        "description": {
+                                                            "text": "Console switch is enabled."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "force-disable",
+                                                        "value": {
+                                                            "@value": "8"
+                                                        },
+                                                        "description": {
+                                                            "text": "Console switch is disabled."
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            "default": {
+                                                "@value": "use-global-switch"
+                                            },
+                                            "description": {
+                                                "text": "Defines the global access to all card's console port. Access can be overridden per console port at the card level."
+                                            }
+                                        },
+                                        {
+                                            "@name": "status",
+                                            "type": {
+                                                "@name": "ioa-common:enable-switch"
+                                            },
+                                            "default": {
+                                                "@value": "enabled"
+                                            },
+                                            "config": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "Current status of the console for this card."
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "list": {
+                                "@name": "port",
+                                "key": {
+                                    "@value": "name"
+                                },
+                                "description": {
+                                    "text": "Generic card port."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "name",
+                                        "type": {
+                                            "@name": "string"
+                                        },
+                                        "description": {
+                                            "text": "Port name."
+                                        }
+                                    },
+                                    {
+                                        "@name": "parent-port",
+                                        "type": {
+                                            "@name": "leafref",
+                                            "path": {
+                                                "@value": "../../port/name"
+                                            }
+                                        },
+                                        "config": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "Name of the parent port. Only applicable for sub-ports."
+                                        }
+                                    },
+                                    {
+                                        "@name": "hosted-interface",
+                                        "type": {
+                                            "@name": "instance-identifier"
+                                        },
+                                        "config": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "Top level interface hosted in this port."
+                                        }
+                                    },
+                                    {
+                                        "@name": "connected-to",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "0..128"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "Indicate neighbour port entity to which the current port is connected to.\nThis is not validated by the NE and can be used by the customers (or NMS) for topology construction.\nThis parameter is available independently on any automated discovery mechanisms that may exist in the port."
+                                        }
+                                    },
+                                    {
+                                        "@name": "external-connectivity",
+                                        "type": {
+                                            "@name": "enumeration",
+                                            "enum": [
+                                                {
+                                                    "@name": "no",
+                                                    "value": {
+                                                        "@value": "0"
+                                                    },
+                                                    "description": {
+                                                        "text": "Port has no NMS external connectivity."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "yes",
+                                                    "value": {
+                                                        "@value": "1"
+                                                    },
+                                                    "description": {
+                                                        "text": "Port has NMS external connectivity."
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "default": {
+                                            "@value": "no"
+                                        },
+                                        "description": {
+                                            "text": "Indicates whether the port is connected or to be connected externally or not."
+                                        }
+                                    }
+                                ],
+                                "uses": [
+                                    {
+                                        "@name": "eqm-common"
+                                    },
+                                    {
+                                        "@name": "port-common"
+                                    },
+                                    {
+                                        "@name": "equipment-holder"
+                                    },
+                                    {
+                                        "@name": "inventory"
+                                    }
+                                ],
+                                "leaf-list": {
+                                    "@name": "subport-list",
+                                    "type": {
+                                        "@name": "leafref",
+                                        "path": {
+                                            "@value": "../../port/name"
+                                        }
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "List of sub-ports associated with this port.\nOnly applicable when this port is a parent port."
+                                    }
+                                },
+                                "container": [
+                                    {
+                                        "@name": "tom",
+                                        "description": {
+                                            "text": "TOM (Transceiver Optical Module) pluggable information."
+                                        },
+                                        "leaf": [
+                                            {
+                                                "@name": "required-type",
+                                                "type": {
+                                                    "@name": "identityref",
+                                                    "base": {
+                                                        "@name": "ioa-common:tom"
+                                                    }
+                                                },
+                                                "mandatory": {
+                                                    "@value": "true"
+                                                },
+                                                "description": {
+                                                    "text": "The type of the TOM."
+                                                }
+                                            },
+                                            {
+                                                "@name": "required-subtype",
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "0..32"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "The subtype of the TOM."
+                                                }
+                                            },
+                                            {
+                                                "@name": "phy-mode",
+                                                "type": {
+                                                    "@name": "ioa-eqm:phy-mode"
+                                                },
+                                                "description": {
+                                                    "text": "Configured Phy Mode."
+                                                }
+                                            },
+                                            {
+                                                "@name": "power-class-override",
+                                                "type": {
+                                                    "@name": "ioa-common:enable-switch"
+                                                },
+                                                "description": {
+                                                    "text": "Used to override the power class for 3rd party TOM."
+                                                }
+                                            },
+                                            {
+                                                "@name": "enable-serdes",
+                                                "type": {
+                                                    "@name": "boolean"
+                                                },
+                                                "default": {
+                                                    "@value": "false"
+                                                },
+                                                "description": {
+                                                    "text": "Controls enabling/disabling of configuring TOM SerDes."
+                                                }
+                                            }
+                                        ],
+                                        "leaf-list": {
+                                            "@name": "supported-phy-modes",
+                                            "type": {
+                                                "@name": "ioa-eqm:phy-mode"
+                                            },
+                                            "config": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "List of supported Phy Modes by this TOM type."
+                                            }
+                                        },
+                                        "uses": [
+                                            {
+                                                "@name": "upgrade-status"
+                                            },
+                                            {
+                                                "@name": "eqm-common"
+                                            }
+                                        ],
+                                        "list": {
+                                            "@name": "serdes",
+                                            "when": {
+                                                "@condition": "../enable-serdes = 'true'"
+                                            },
+                                            "key": {
+                                                "@value": "name"
+                                            },
+                                            "description": {
+                                                "text": "The user configured (or overridden) set of serializer/desserializer."
+                                            },
+                                            "uses": {
+                                                "@name": "ioa-common:advanced-parameter-configuration-base"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "@name": "usb",
+                                        "config": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "Represents the USB function of this port."
+                                        },
+                                        "leaf": [
+                                            {
+                                                "@name": "type",
+                                                "type": {
+                                                    "@name": "enumeration",
+                                                    "enum": [
+                                                        {
+                                                            "@name": "storage",
+                                                            "value": {
+                                                                "@value": "1"
+                                                            },
+                                                            "description": {
+                                                                "text": "USB port can be used for file storage, and supports associated file management operations."
+                                                            }
+                                                        },
+                                                        {
+                                                            "@name": "power-supply",
+                                                            "value": {
+                                                                "@value": "2"
+                                                            },
+                                                            "description": {
+                                                                "text": "USB port can be used to power additional external equipment (for example, passive shelves)."
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                "description": {
+                                                    "text": "The role that this usb port has."
+                                                }
+                                            },
+                                            {
+                                                "@name": "present",
+                                                "type": {
+                                                    "@name": "boolean"
+                                                },
+                                                "default": {
+                                                    "@value": "false"
+                                                },
+                                                "description": {
+                                                    "text": "Describes the presence state of the USB connector."
+                                                }
+                                            },
+                                            {
+                                                "@name": "available-space",
+                                                "when": {
+                                                    "@condition": "../type = 'storage' and ../present = 'true'"
+                                                },
+                                                "type": {
+                                                    "@name": "ioa-common:storage-size"
+                                                },
+                                                "description": {
+                                                    "text": "The current available storage space in the file-system associated with this USB port."
+                                                }
+                                            },
+                                            {
+                                                "@name": "total-space",
+                                                "when": {
+                                                    "@condition": "../type = 'storage' and ../present = 'true'"
+                                                },
+                                                "type": {
+                                                    "@name": "ioa-common:storage-size"
+                                                },
+                                                "description": {
+                                                    "text": "The total storage space available in the file-system associated with this USB port."
+                                                }
+                                            },
+                                            {
+                                                "@name": "usb-path",
+                                                "when": {
+                                                    "@condition": "../type = 'storage' and ../present = 'true'"
+                                                },
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "0..32"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "Local filesystem path on where this USB file-system is mounted; this can be used as a target/source for file transfer operations."
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "@name": "comm-eth",
+                                        "description": {
+                                            "text": "Communication ethernet port."
+                                        },
+                                        "leaf": [
+                                            {
+                                                "@name": "auto-negotiation",
+                                                "type": {
+                                                    "@name": "ioa-common:enable-switch"
+                                                },
+                                                "default": {
+                                                    "@value": "enabled"
+                                                },
+                                                "description": {
+                                                    "text": "Auto negotiation mode."
+                                                }
+                                            },
+                                            {
+                                                "@name": "mtu",
+                                                "type": {
+                                                    "@name": "uint16",
+                                                    "range": {
+                                                        "@value": "1280..9202"
+                                                    }
+                                                },
+                                                "units": {
+                                                    "@name": "octets"
+                                                },
+                                                "default": {
+                                                    "@value": "1500"
+                                                },
+                                                "description": {
+                                                    "text": "The maximum transmission unit size in octets for the physical Ethernet port."
+                                                }
+                                            },
+                                            {
+                                                "@name": "duplex-mode",
+                                                "when": {
+                                                    "@condition": "../auto-negotiation = 'disabled'"
+                                                },
+                                                "type": {
+                                                    "@name": "ioa-eqm:duplex-mode"
+                                                },
+                                                "default": {
+                                                    "@value": "full"
+                                                },
+                                                "description": {
+                                                    "text": "Duplex mode; only valid if auto-negotiation is disabled."
+                                                }
+                                            },
+                                            {
+                                                "@name": "operational-duplex-mode",
+                                                "type": {
+                                                    "@name": "ioa-eqm:duplex-mode"
+                                                },
+                                                "default": {
+                                                    "@value": "unknown"
+                                                },
+                                                "config": {
+                                                    "@value": "false"
+                                                },
+                                                "description": {
+                                                    "text": "Operational duplex mode."
+                                                }
+                                            },
+                                            {
+                                                "@name": "rate",
+                                                "when": {
+                                                    "@condition": "../auto-negotiation = 'disabled'"
+                                                },
+                                                "type": {
+                                                    "@name": "ioa-eqm:ethernet-rate"
+                                                },
+                                                "default": {
+                                                    "@value": "maximum"
+                                                },
+                                                "description": {
+                                                    "text": "Required Ethernet rate; only valid if auto-negotiation is disabled."
+                                                }
+                                            },
+                                            {
+                                                "@name": "operational-rate",
+                                                "type": {
+                                                    "@name": "ioa-eqm:ethernet-rate"
+                                                },
+                                                "default": {
+                                                    "@value": "unknown"
+                                                },
+                                                "config": {
+                                                    "@value": "false"
+                                                },
+                                                "description": {
+                                                    "text": "Operational Ethernet rate."
+                                                }
+                                            },
+                                            {
+                                                "@name": "flow-control",
+                                                "when": {
+                                                    "@condition": "../auto-negotiation = 'disabled'"
+                                                },
+                                                "type": {
+                                                    "@name": "ioa-eqm:flow-control"
+                                                },
+                                                "default": {
+                                                    "@value": "disabled"
+                                                },
+                                                "description": {
+                                                    "text": "Specifies the type of flow control to be supported."
+                                                }
+                                            },
+                                            {
+                                                "@name": "operational-flow-control",
+                                                "type": {
+                                                    "@name": "ioa-eqm:flow-control"
+                                                },
+                                                "default": {
+                                                    "@value": "unknown"
+                                                },
+                                                "config": {
+                                                    "@value": "false"
+                                                },
+                                                "description": {
+                                                    "text": "Operational flow control."
+                                                }
+                                            },
+                                            {
+                                                "@name": "redundancy-state",
+                                                "type": {
+                                                    "@name": "enumeration",
+                                                    "enum": [
+                                                        {
+                                                            "@name": "none",
+                                                            "value": {
+                                                                "@value": "0"
+                                                            },
+                                                            "description": {
+                                                                "text": "No redundancy."
+                                                            }
+                                                        },
+                                                        {
+                                                            "@name": "active",
+                                                            "value": {
+                                                                "@value": "1"
+                                                            },
+                                                            "description": {
+                                                                "text": "Port is active."
+                                                            }
+                                                        },
+                                                        {
+                                                            "@name": "standby",
+                                                            "value": {
+                                                                "@value": "2"
+                                                            },
+                                                            "description": {
+                                                                "text": "Port is on standby."
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                "default": {
+                                                    "@value": "none"
+                                                },
+                                                "config": {
+                                                    "@value": "false"
+                                                },
+                                                "description": {
+                                                    "text": "Redundancy state of the comm port."
+                                                }
+                                            },
+                                            {
+                                                "@name": "mac-address",
+                                                "type": {
+                                                    "@name": "yang:mac-address"
+                                                },
+                                                "default": {
+                                                    "@value": "00:00:00:00:00:00"
+                                                },
+                                                "config": {
+                                                    "@value": "false"
+                                                },
+                                                "description": {
+                                                    "text": "MAC Address of the port."
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "unprovisioned-inventory",
+                            "key": {
+                                "@value": "chassis-serial-number slot-name"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "List of detected inventory but not yet accepted by the Node Controller in Multi-Chassis configuration."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "chassis-serial-number",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..16"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "The residing chassis serial number."
+                                    }
+                                },
+                                {
+                                    "@name": "slot-name",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..16"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "The residing slot name for the equipment. If the equipment is the chassis, the slot-name is empty"
+                                    }
+                                },
+                                {
+                                    "@name": "detection-timestamp",
+                                    "type": {
+                                        "@name": "yang:date-and-time"
+                                    },
+                                    "description": {
+                                        "text": "Timestamp with the last time the unprovisioned equipment was detected by the Node Controller."
+                                    }
+                                }
+                            ],
+                            "uses": {
+                                "@name": "inventory-core"
+                            }
+                        }
+                    ],
+                    "container": [
+                        {
+                            "@name": "leds",
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Container of all equipment LEDs."
+                            },
+                            "list": {
+                                "@name": "led",
+                                "key": {
+                                    "@value": "location name"
+                                },
+                                "description": {
+                                    "text": "Representation of a LED in a FRU.\nObject exists even if FRU is not physically present."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "location",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "1..32"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "AID of equipment location of the LED (may be a chassis, card or a port AID)."
+                                        }
+                                    },
+                                    {
+                                        "@name": "name",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "1..16"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "Name of the LED within the FRU."
+                                        }
+                                    },
+                                    {
+                                        "@name": "status",
+                                        "type": {
+                                            "@name": "enumeration",
+                                            "enum": [
+                                                {
+                                                    "@name": "not-available",
+                                                    "value": {
+                                                        "@value": "0"
+                                                    },
+                                                    "description": {
+                                                        "text": "LED status not available."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "off",
+                                                    "value": {
+                                                        "@value": "1"
+                                                    },
+                                                    "description": {
+                                                        "text": "LED is turned off and has no color."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "yellow",
+                                                    "value": {
+                                                        "@value": "2"
+                                                    },
+                                                    "description": {
+                                                        "text": "LED is turned on with yellow color."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "flashing-yellow",
+                                                    "value": {
+                                                        "@value": "3"
+                                                    },
+                                                    "description": {
+                                                        "text": "LED is flashing, alternating between off and yellow color."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "green",
+                                                    "value": {
+                                                        "@value": "4"
+                                                    },
+                                                    "description": {
+                                                        "text": "LED is turned on with green color."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "flashing-green",
+                                                    "value": {
+                                                        "@value": "5"
+                                                    },
+                                                    "description": {
+                                                        "text": "LED is flashing, alternating between off and green color."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "red",
+                                                    "value": {
+                                                        "@value": "6"
+                                                    },
+                                                    "description": {
+                                                        "text": "LED is turned on with red color."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "flashing-red",
+                                                    "value": {
+                                                        "@value": "7"
+                                                    },
+                                                    "description": {
+                                                        "text": "LED is flashing, alternating between off and red color."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "cycling-with-off",
+                                                    "value": {
+                                                        "@value": "8"
+                                                    },
+                                                    "description": {
+                                                        "text": "LED is cycling between all supported colors, including off state."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "cycling",
+                                                    "value": {
+                                                        "@value": "9"
+                                                    },
+                                                    "description": {
+                                                        "text": "LED is cycling between all supported colors (excluding off state) - used for lamp test."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "amber",
+                                                    "value": {
+                                                        "@value": "10"
+                                                    },
+                                                    "description": {
+                                                        "text": "LED is turned on with amber color."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "flashing-amber",
+                                                    "value": {
+                                                        "@value": "11"
+                                                    },
+                                                    "description": {
+                                                        "text": "LED is flashing, alternating between off and amber color."
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "default": {
+                                            "@value": "not-available"
+                                        },
+                                        "description": {
+                                            "text": "Current color status of the LED."
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "equipment-policies",
+                            "description": {
+                                "text": "Container with all existing equipment policies."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "tom-auto-migration",
+                                    "type": {
+                                        "@name": "ioa-common:enable-switch"
+                                    },
+                                    "default": {
+                                        "@value": "enabled"
+                                    },
+                                    "description": {
+                                        "text": "Enables automatic update of tom subtype based on present equipment.\nThis update may have direct impact on existing configurations.\nNote: this has impact on tom subtype migration, but not for tom type migration (e.g. no update between QSFPDD and QSFP28)."
+                                    }
+                                },
+                                {
+                                    "@name": "chassis-assignment-mode",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": {
+                                            "@name": "manual",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Manual mode where sub-chassis ID is assigned either via user configuration or ZTP mechanism."
+                                            }
+                                        }
+                                    },
+                                    "default": {
+                                        "@value": "manual"
+                                    },
+                                    "description": {
+                                        "text": "Determine if the chassis id assignment is done manually or automatically."
+                                    }
+                                },
+                                {
+                                    "@name": "comm-eth-location",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "prefer-dcn-in-front",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "The DCN port is at the front of the chassis.  Depending on the chassis type, may imply that the CRAFT port is at the back."
+                                                }
+                                            },
+                                            {
+                                                "@name": "prefer-dcn-in-back",
+                                                "value": {
+                                                    "@value": "2"
+                                                },
+                                                "description": {
+                                                    "text": "The DCN port is at the back of the chassis.  If the chassis supports this option, implies that the CRAFT port is at the front."
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "prefer-dcn-in-front"
+                                    },
+                                    "description": {
+                                        "text": "Physical location of the communication ethernet ports."
+                                    }
+                                }
+                            ],
+                            "container": {
+                                "@name": "equipment-templates",
+                                "description": {
+                                    "text": "Container for templates associated with equipment."
+                                },
+                                "leaf": {
+                                    "@name": "use-serdes-templates",
+                                    "type": {
+                                        "@name": "boolean"
+                                    },
+                                    "default": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Whether serdes-templates are globally enabled or not. See description of 'serdes-template' list for details.\nOn enabling: templates are not automatically applies; they'll be applied from that moment onward.\nOn disabling: no impact; existing serdes configuration is kept on all TOMs, independently on whether they were applied via template or manually."
+                                    }
+                                },
+                                "list": {
+                                    "@name": "serdes-template",
+                                    "key": {
+                                        "@value": "tom-part-number"
+                                    },
+                                    "description": {
+                                        "text": "A template that allows to auto-configure serdes for 3rd party TOMs.\nserdes-templates are created by the user per tom-part-number and apply to all line cards that support serdes;\nwhen a TOM is plugged-in with that part-number, the template will be automatically applied.\nUser can narrow down the list of ports to which the template applies, but by default all ports are considered.\nManual configuration of serdes can still be done, and will be kept even if it deviates from the template.\nSwitching a TOM with another TOM with a different part-number will imply a reset of the\nserdes configuration, and re-apply of the new template (if existing).\nApplication of serdes-templates is dependent on the use-serdes-templates flag being set to 'true'.\nUser can force the re-application of a serdes-template by using the 'apply-template' command."
+                                    },
+                                    "leaf": {
+                                        "@name": "tom-part-number",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "1..16"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "The TOM part-number to which this template applies."
+                                        }
+                                    },
+                                    "leaf-list": {
+                                        "@name": "ports-applicable",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "0..16"
+                                            }
+                                        },
+                                        "max-elements": {
+                                            "@value": "20"
+                                        },
+                                        "description": {
+                                            "text": "The list of ports to which this template is applicable, or 'all' if all ports are to be considered (default)."
+                                        }
+                                    },
+                                    "list": {
+                                        "@name": "serdes-template-entry",
+                                        "key": {
+                                            "@value": "name"
+                                        },
+                                        "description": {
+                                            "text": "An individual entry to the serdes-template, composed\nof a serdes parameter name and associated value."
+                                        },
+                                        "leaf": [
+                                            {
+                                                "@name": "name",
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "0..256"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "Name of the serdes parameter."
+                                                }
+                                            },
+                                            {
+                                                "@name": "value",
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "0..256"
+                                                    }
+                                                },
+                                                "mandatory": {
+                                                    "@value": "true"
+                                                },
+                                                "description": {
+                                                    "text": "Value of the serdes parameter."
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

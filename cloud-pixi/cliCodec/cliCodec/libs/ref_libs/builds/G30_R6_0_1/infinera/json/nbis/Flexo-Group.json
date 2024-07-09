@@ -1,0 +1,143 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A generic, configurable name for every facility.",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "rate": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Carried signal basic rate class",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "rate"
+    },
+    "modulation_format": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "not-applicable",
+                "DP-QPSK",
+                "DP-16QAM",
+                "DP-8QAM",
+                "BPSK",
+                "DP-16QAM-E",
+                "DP-16QAM-PS"
+            ]
+        },
+        "description": "Current modulation format",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "modulation_format"
+    },
+    "fec_type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "cfec",
+                "ofec",
+                "G709",
+                "noFEC",
+                "i4",
+                "i7",
+                "sdfec15",
+                "sdfec15nd",
+                "staircase7",
+                "ufec7",
+                "sdfec20",
+                "RS-528_514",
+                "RS-544_514"
+            ]
+        },
+        "description": "The FEC type",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "ofec",
+        "hardcode": false,
+        "argName": "fec_type"
+    },
+    "group_id": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "20bits, indicate the interface group instance\nthat the FlexO-x interface is a member of.\nIt will be unique in the NE",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "group_id"
+    },
+    "carriers": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A list of carriers that are bound to this facilities.\nPossible values can be any card/resources/supported-carriers.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "carriers"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    }
+}

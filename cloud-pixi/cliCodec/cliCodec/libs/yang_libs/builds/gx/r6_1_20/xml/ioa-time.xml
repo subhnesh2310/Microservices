@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-time"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-time="http://infinera.com/yang/ioa/time"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common">
+  <namespace uri="http://infinera.com/yang/ioa/time"/>
+  <prefix value="ioa-time"/>
+  <import module="ietf-yang-types">
+    <prefix value="yang"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG model associated with Time Management, including time objects, clock and NTP.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-09-17">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.1</text>
+    </description>
+  </revision>
+  <typedef name="millisec">
+    <type name="decimal64">
+      <fraction-digits value="3"/>
+    </type>
+    <units name="ms"/>
+  </typedef>
+  <grouping name="clock">
+    <container name="clock">
+      <description>
+        <text>System clock.</text>
+      </description>
+      <leaf name="current-time">
+        <type name="yang:date-and-time"/>
+        <config value="false"/>
+        <description>
+          <text>Indicates the current Date and Time of this NE.</text>
+        </description>
+      </leaf>
+      <leaf name="universal-time">
+        <type name="yang:date-and-time"/>
+        <config value="false"/>
+        <description>
+          <text>Indicates the UTC Date and Time of this NE.</text>
+        </description>
+      </leaf>
+      <leaf name="timezone">
+        <type name="enumeration">
+          <enum name="International_Date_Line_West[GMT-12:00]">
+            <value value="1"/>
+          </enum>
+          <enum name="Midway_Island-Samoa[GMT-11:00]">
+            <value value="2"/>
+          </enum>
+          <enum name="Hawaii[GMT-10:00]">
+            <value value="3"/>
+          </enum>
+          <enum name="Alaska[GMT-09:00]">
+            <value value="4"/>
+          </enum>
+          <enum name="Pacific_Time[US_and_Canada][GMT-08:00]">
+            <value value="5"/>
+          </enum>
+          <enum name="Arizona[GMT-07:00]">
+            <value value="6"/>
+          </enum>
+          <enum name="Mountain_Time[US_and_Canada][GMT-07:00]">
+            <value value="7"/>
+          </enum>
+          <enum name="CentralAmerica[GMT-06:00]">
+            <value value="8"/>
+          </enum>
+          <enum name="Central_Time[US_and_Canada][GMT-06:00]">
+            <value value="9"/>
+          </enum>
+          <enum name="Mexico_City-Tegucigalpa[GMT-06:00]">
+            <value value="10"/>
+          </enum>
+          <enum name="Saskatchewan[GMT-06:00]">
+            <value value="11"/>
+          </enum>
+          <enum name="Bagota-Lima-Quito[GMT-05:00]">
+            <value value="12"/>
+          </enum>
+          <enum name="Eastern_Time[US_and_Canada][GMT-05:00]">
+            <value value="13"/>
+          </enum>
+          <enum name="Indiana[East][GMT-05:00]">
+            <value value="14"/>
+          </enum>
+          <enum name="Caracas-La_Paz[GMT-04:30]">
+            <value value="15"/>
+          </enum>
+          <enum name="Atlantic_Time[Canada][GMT-04:00]">
+            <value value="16"/>
+          </enum>
+          <enum name="Santiago[GMT-04:00]">
+            <value value="17"/>
+          </enum>
+          <enum name="Newfoundland[GMT-03:30]">
+            <value value="18"/>
+          </enum>
+          <enum name="Brasilia[GMT-03:00]">
+            <value value="19"/>
+          </enum>
+          <enum name="Buenos_Aires-Georgetown[GMT-03:00]">
+            <value value="20"/>
+          </enum>
+          <enum name="Greenland[GMT-03:00]">
+            <value value="21"/>
+          </enum>
+          <enum name="Mid-Atlantic[GMT-02:00]">
+            <value value="22"/>
+          </enum>
+          <enum name="Azores[GMT-01:00]">
+            <value value="23"/>
+          </enum>
+          <enum name="Cape_Verde_Is.[GMT-01:00]">
+            <value value="24"/>
+          </enum>
+          <enum name="Casablanca-Monrovia[GMT]">
+            <value value="25"/>
+          </enum>
+          <enum name="Greenwich_Mean_Time:Dublin-Edinburgh-Lisbon-London[GMT]">
+            <value value="26"/>
+          </enum>
+          <enum name="Amsterdam-Copenhagen-Madrid-ParisVilnius[GMT+01:00]">
+            <value value="27"/>
+          </enum>
+          <enum name="Belgrade-Sarajevo-Skopje-Sofija-Zargreb[GMT+01:00]">
+            <value value="28"/>
+          </enum>
+          <enum name="Bratislava-Budapest-Ljublijana-Prague-Wasaw[GMT+01:00]">
+            <value value="29"/>
+          </enum>
+          <enum name="Brussels-Berlin-Bern-Rome-Stockholm-Vienna[GMT+01:00]">
+            <value value="30"/>
+          </enum>
+          <enum name="West_Central_Africa[GMT+01:00]">
+            <value value="31"/>
+          </enum>
+          <enum name="Athens-Istanbul-Minsk[GMT+02:00]">
+            <value value="32"/>
+          </enum>
+          <enum name="Bucharest[GMT+02:00]">
+            <value value="33"/>
+          </enum>
+          <enum name="Cairo[GMT+02:00]">
+            <value value="34"/>
+          </enum>
+          <enum name="Harare-Pretoria[GMT+02:00]">
+            <value value="35"/>
+          </enum>
+          <enum name="Helsinki-Riga-Tallinn[GMT+02:00]">
+            <value value="36"/>
+          </enum>
+          <enum name="Jerusalem[GMT+02:00]">
+            <value value="37"/>
+          </enum>
+          <enum name="Israel[GMT+02:00]">
+            <value value="38"/>
+          </enum>
+          <enum name="Baghdad[GMT+03:00]">
+            <value value="39"/>
+          </enum>
+          <enum name="Kuwait-Riyadh[GMT+03:00]">
+            <value value="40"/>
+          </enum>
+          <enum name="Moscow-St.Petersburg-Volgograd[GMT+03:00]">
+            <value value="41"/>
+          </enum>
+          <enum name="Nairobi[GMT+03:00]">
+            <value value="42"/>
+          </enum>
+          <enum name="Tehran[GMT+03:30]">
+            <value value="43"/>
+          </enum>
+          <enum name="Abu_Dhabi-Muscat[GMT+04:00]">
+            <value value="44"/>
+          </enum>
+          <enum name="Baku[GMT+04:00]">
+            <value value="45"/>
+          </enum>
+          <enum name="Tbilisi[GMT+04:00]">
+            <value value="46"/>
+          </enum>
+          <enum name="Kabul[GMT+04:30]">
+            <value value="47"/>
+          </enum>
+          <enum name="Ekaterinburg[GMT+05:00]">
+            <value value="48"/>
+          </enum>
+          <enum name="Islamabad-Karachi-Tashkent[GMT+05:00]">
+            <value value="49"/>
+          </enum>
+          <enum name="Mumbai-Calcutta-Chennai-New_Delhi[GMT+05:30]">
+            <value value="50"/>
+          </enum>
+          <enum name="Colombo[GMT+05:30]">
+            <value value="51"/>
+          </enum>
+          <enum name="Kathmandu[GMT+05:45]">
+            <value value="52"/>
+          </enum>
+          <enum name="Dhaka[GMT+06:00]">
+            <value value="53"/>
+          </enum>
+          <enum name="Almaty[GMT+06:00]">
+            <value value="54"/>
+          </enum>
+          <enum name="Rangoon[GMT+06:30]">
+            <value value="55"/>
+          </enum>
+          <enum name="Bangkok-Hanoi-Jakarta[GMT+07:00]">
+            <value value="56"/>
+          </enum>
+          <enum name="Beijing-Chongqing-Hong_Kong-Urumqi[GMT+08:00]">
+            <value value="57"/>
+          </enum>
+          <enum name="Perth[GMT+08:00]">
+            <value value="58"/>
+          </enum>
+          <enum name="Singapore-Kuala_Lumpur[GMT+08:00]">
+            <value value="59"/>
+          </enum>
+          <enum name="Taipei[GMT+08:00]">
+            <value value="60"/>
+          </enum>
+          <enum name="Osaka-Sapporo-Tokyo[GMT+09:00]">
+            <value value="61"/>
+          </enum>
+          <enum name="Seoul[GMT+09:00]">
+            <value value="62"/>
+          </enum>
+          <enum name="Yakutsk[GMT+09:00]">
+            <value value="63"/>
+          </enum>
+          <enum name="Adelaide[GMT+09:30]">
+            <value value="64"/>
+          </enum>
+          <enum name="Darwin[GMT+09:30]">
+            <value value="65"/>
+          </enum>
+          <enum name="Brisbane[GMT+10:00]">
+            <value value="66"/>
+          </enum>
+          <enum name="Canberra-Melbourne-Sydney[GMT+10:00]">
+            <value value="67"/>
+          </enum>
+          <enum name="Guam-Port_Moresby[GMT+10:00]">
+            <value value="68"/>
+          </enum>
+          <enum name="Hobart[GMT+10:00]">
+            <value value="69"/>
+          </enum>
+          <enum name="Vladivostok[GMT+10:00]">
+            <value value="70"/>
+          </enum>
+          <enum name="Magadan-Solomon_Is.-New_Caledonia[GMT+11:00]">
+            <value value="71"/>
+          </enum>
+          <enum name="Auckland-Wellington[GMT+12:00]">
+            <value value="72"/>
+          </enum>
+          <enum name="Fiji-Kamchatka-Marshall_Is.[GMT+12:00]">
+            <value value="73"/>
+          </enum>
+          <enum name="Eniwetok-Kwajalein[GMT+12:00]">
+            <value value="74"/>
+          </enum>
+          <enum name="Nuku_alofa[GMT+13:00]">
+            <value value="75"/>
+          </enum>
+          <enum name="Kiritimati[GMT+14:00]">
+            <value value="76"/>
+          </enum>
+          <enum name="Universal-Time-Coordinated">
+            <value value="77"/>
+          </enum>
+        </type>
+        <default value="Universal-Time-Coordinated"/>
+        <description>
+          <text>Indicates the Name of the Time Zone of this NE.</text>
+        </description>
+      </leaf>
+      <leaf name="uptime">
+        <type name="string">
+          <length value="0..200"/>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>Indicates how long the system has been running.</text>
+        </description>
+      </leaf>
+      <leaf name="time-source">
+        <type name="enumeration">
+          <enum name="ntp">
+            <value value="1"/>
+            <description>
+              <text>Indicates that NE uses NTP for synchronization.</text>
+            </description>
+          </enum>
+          <enum name="manual">
+            <value value="2"/>
+            <description>
+              <text>indicates that NE uses NE internal clock for Synchronization.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="manual"/>
+        <config value="false"/>
+        <description>
+          <text>Indicates the source of the system current time.</text>
+        </description>
+      </leaf>
+      <leaf name="DST-active">
+        <type name="boolean"/>
+        <default value="false"/>
+        <config value="false"/>
+        <description>
+          <text>Whether daylight saving is active.</text>
+        </description>
+      </leaf>
+      <leaf name="last-time-jump">
+        <type name="string">
+          <length value="0..200"/>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>Indicates last system time jump in the format '&lt;time1&gt; to &lt;time2&gt;'. Time jumps of less than 10 seconds are ignored.</text>
+        </description>
+      </leaf>
+    </container>
+  </grouping>
+  <grouping name="ntp">
+    <description>
+      <text>Network Time Protocol Configuration</text>
+    </description>
+    <container name="ntp">
+      <description>
+        <text>Network Time Protocol Configuration.</text>
+      </description>
+      <leaf name="ntp-enabled">
+        <type name="boolean"/>
+        <default value="true"/>
+        <description>
+          <text>Whether ntp is enabled.</text>
+        </description>
+      </leaf>
+      <leaf name="ntp-auth-enabled">
+        <type name="boolean"/>
+        <default value="false"/>
+        <description>
+          <text>Whether NTP authentication is enabled.</text>
+        </description>
+      </leaf>
+      <leaf name="ntp-active-server">
+        <type name="string"/>
+        <config value="false"/>
+        <description>
+          <text>Currently active NTP server.</text>
+        </description>
+      </leaf>
+      <uses name="ioa-common:assignment-method"/>
+      <list name="ntp-key">
+        <key value="key-id"/>
+        <max-elements value="20"/>
+        <description>
+          <text>Keys to be used for NTP authentication.</text>
+        </description>
+        <leaf name="key-id">
+          <type name="uint32">
+            <range value="1..65534"/>
+          </type>
+          <description>
+            <text>NTP Key-ID.</text>
+          </description>
+        </leaf>
+        <leaf name="key-type">
+          <type name="enumeration">
+            <enum name="sha-1">
+              <value value="1"/>
+              <description>
+                <text>Use sha-1 hash algorithm for NTP message digest computation</text>
+              </description>
+            </enum>
+            <enum name="aes-cmac">
+              <value value="2"/>
+              <description>
+                <text>Use AES-CMAC hash algorithm for NTP message digest computation</text>
+              </description>
+            </enum>
+            <enum name="sha-256">
+              <value value="3"/>
+              <description>
+                <text>Use sha-256 hash algorithm for NTP message digest computation</text>
+              </description>
+            </enum>
+            <enum name="md5">
+              <value value="4"/>
+              <description>
+                <text>Use md5 hash algorithm for NTP message digest computation</text>
+              </description>
+            </enum>
+          </type>
+          <mandatory value="true"/>
+          <description>
+            <text>Hash algorithm for NTP message digest computation</text>
+          </description>
+        </leaf>
+        <leaf name="key-value">
+          <type name="string">
+            <length value="8..40"/>
+          </type>
+          <mandatory value="true"/>
+          <description>
+            <text>NTP Key-value.</text>
+          </description>
+        </leaf>
+        <leaf name="is-trusted">
+          <type name="boolean"/>
+          <default value="false"/>
+          <description>
+            <text>Is trusted NTP key.</text>
+          </description>
+        </leaf>
+      </list>
+      <list name="ntp-server">
+        <key value="ip-address"/>
+        <max-elements value="6"/>
+        <description>
+          <text>Configured NTP server.</text>
+        </description>
+        <leaf name="ip-address">
+          <type name="ioa-common:host"/>
+          <description>
+            <text>NTP Server IP address. Ipv4/Ipv6/hostname supported.</text>
+          </description>
+        </leaf>
+        <leaf name="origin">
+          <type name="enumeration">
+            <enum name="manual">
+              <value value="1"/>
+              <description>
+                <text>Indicates NTP address has been manually configured.</text>
+              </description>
+            </enum>
+            <enum name="dhcp">
+              <value value="2"/>
+              <description>
+                <text>Indicates NTP address that has been assigned to this
+system by a DHCP server.</text>
+              </description>
+            </enum>
+          </type>
+          <description>
+            <text>NTP address assignment method, user can convert
+DHCP configured NTP entry into a manual configured by changing this attribute.</text>
+          </description>
+        </leaf>
+        <leaf name="auth-key-id">
+          <type name="union">
+            <type name="enumeration">
+              <enum name="not-applicable">
+                <value value="0"/>
+              </enum>
+            </type>
+            <type name="uint32"/>
+          </type>
+          <default value="not-applicable"/>
+          <description>
+            <text>Key ID to be used for this server.</text>
+          </description>
+        </leaf>
+        <uses name="ioa-common:label"/>
+        <uses name="ioa-common:common-states"/>
+        <uses name="ioa-common:arc"/>
+        <container name="ntp-server-status">
+          <config value="false"/>
+          <description>
+            <text>NTP server status.</text>
+          </description>
+          <leaf name="refid">
+            <type name="string">
+              <length value="0..32"/>
+            </type>
+            <description>
+              <text>Reference clock type or address for the peer.</text>
+            </description>
+          </leaf>
+          <leaf name="stratum">
+            <type name="uint8"/>
+            <description>
+              <text>Indicates the stratum of the remote peer.</text>
+            </description>
+          </leaf>
+          <leaf name="type">
+            <type name="string">
+              <length value="0..10"/>
+            </type>
+            <description>
+              <text>Type of the peer ('l' for local reference clock, 'u' for unicast, 'm' for multicast or 'b' for broadcast)</text>
+            </description>
+          </leaf>
+          <leaf name="when">
+            <type name="uint32"/>
+            <units name="sec"/>
+            <description>
+              <text>Indicates time elapsed since last packet was received in seconds.</text>
+            </description>
+          </leaf>
+          <leaf name="poll">
+            <type name="uint32"/>
+            <units name="sec"/>
+            <description>
+              <text>Indicates the polling interval in seconds.</text>
+            </description>
+          </leaf>
+          <leaf name="reach">
+            <type name="uint16"/>
+            <description>
+              <text>Indicates the reachability of the configured server.
+This is an 8-bit shift register with the most recent probe in the 2^0 position.
+The value 377 indicates that all the recent probes have been answered.</text>
+            </description>
+          </leaf>
+          <leaf name="delay">
+            <type name="millisec"/>
+            <description>
+              <text>Delay along path to the server in milliseconds.</text>
+            </description>
+          </leaf>
+          <leaf name="offset">
+            <type name="millisec"/>
+            <description>
+              <text>Offset of clock to the peer in milliseconds.</text>
+            </description>
+          </leaf>
+          <leaf name="jitter">
+            <type name="millisec"/>
+            <description>
+              <text>Jitter along path to the server in milliseconds.</text>
+            </description>
+          </leaf>
+          <leaf name="auth-status">
+            <type name="enumeration">
+              <enum name="ok">
+                <value value="1"/>
+              </enum>
+              <enum name="yes">
+                <value value="2"/>
+              </enum>
+              <enum name="bad">
+                <value value="3"/>
+              </enum>
+              <enum name="none">
+                <value value="4"/>
+              </enum>
+            </type>
+            <default value="none"/>
+            <description>
+              <text>Authentication status of NTP server</text>
+            </description>
+          </leaf>
+          <leaf name="condition">
+            <type name="string">
+              <length value="0..16"/>
+            </type>
+            <description>
+              <text>Condition of NTP server. Some of possible values: sys.peer/reject/candidate/...</text>
+            </description>
+          </leaf>
+        </container>
+      </list>
+    </container>
+  </grouping>
+</module>

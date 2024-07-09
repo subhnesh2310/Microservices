@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  api_web:
+    build: ./apimanager
+    command: bash -c "alembic upgrade head && python ./apimanager/manage.py runserver 0.0.0.0:8001"
+    volumes:
+      - ./apimanager:/code/apimanager
+    ports:
+      - "8001:8001"
+    restart: always
+    depends_on:
+      - cli_web
+      - pixi_db
+
+  cli_web:
+    build: ./cliCodec
+    command: bash -c "python ./cliCodec/manage.py migrate && python ./cliCodec/manage.py runserver 0.0.0.0:8002"
+    volumes:
+      - ./cliCodec:/code/cliCodec
+    ports:
+      - "8002:8002"
+    restart: always
+
+  pixi_db:
+    build: ./pixi_db
+    command: bash -c "python ./pixi_db/manage.py runserver 0.0.0.0:8000"
+    environment:
+      POSTGRES_DB: Pixi_DB
+      POSTGRES_USER: temproot
+      POSTGRES_PASSWORD: infinera
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    restart: always
+
+volumes:
+  postgres_data:

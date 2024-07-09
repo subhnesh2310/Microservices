@@ -1,0 +1,184 @@
+module ioa-image-key {
+    namespace "http://infinera.com/yang/ioa/keys";
+    prefix ioa-image-key;
+
+    import ietf-yang-types { prefix yang; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG model for Image Keys in the system";
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    grouping key-attributes {
+        leaf key-name {
+            type string {
+                length "0..64";
+            }
+            description "Name of the key";
+        }
+
+        leaf key-serial-number {
+            type string;
+            description "Key Serial Number";
+        }
+
+        leaf issuer-name {
+            type string {
+                length "0..20";
+            }
+            description "Name of the CSA (Code Signing Appliance)";
+        }
+
+        leaf key-length {
+            type uint16;
+            units bits;
+            description "Key length in bits";
+        }
+
+        leaf key-payload {
+             type yang:hex-string {
+             length "0..1100";
+             }
+             description "Key Payload (hex format)";
+        }
+    }
+
+    grouping key-common-attributes {
+
+        leaf name {
+            type string;
+            description "Unique representation of the object";
+        }
+
+        leaf CPU {
+            type uint8;
+            description "Identifier for member CPUs on cards starts at 0";
+        }
+
+        uses key-attributes;
+    }
+
+    grouping sign-common-attr {
+        leaf KRK-name {
+            type string;
+            description "Name of the KRK (Image root key) that signed this ISK";
+        }
+
+        leaf signature-hash-scheme {
+            type enumeration {
+                enum SHA2_256 { value 1; }
+                enum SHA2_384 { value 2; }
+                enum SHA2_512 { value 3; }
+            }
+            description "Hashing Scheme";
+        }
+
+        leaf signature-algorithm {
+            type enumeration {
+                enum ECDSA { value 1; }
+                enum RSA { value 2; }
+                enum none { value 3; }
+            }
+            description "Signature Algorithm";
+        }
+
+        leaf signature-payload {
+            type yang:hex-string {
+                length "0..1024";
+            }
+            description "Signature Payload";
+        }
+
+        leaf signature-gen-time {
+            type yang:date-and-time;
+            description "Signature Generation Time";
+        }
+    }
+
+    grouping image-keys {
+
+        container image-keys {
+            config false;
+            description "Container for image keys";
+
+            container ISKs {
+                description "Container for Image Signing Keys";
+
+                list ISK {
+                    key "name";
+                    description "Image Signing Key list.";
+
+                    uses key-common-attributes;
+
+                    leaf is-key-in-use {
+                        type boolean;
+                        default false;
+                        description "Indicates if the key is in use in this FRU";
+                    }
+
+                    leaf is-key-verified {
+                        type boolean;
+                        default false;
+                        description "Indicates if the key is verified in this FRU";
+                    }
+
+                    leaf being-deleted {
+                        type boolean;
+                        default false;
+                        description "System is in the process of deletion for this ISK.";
+                    }
+
+                    uses sign-common-attr;
+                }
+            }
+
+            container KRKs {
+                description "Container for Image Root Keys";
+                list KRK {
+                    key "name";
+                    description "Image Root Key list.";
+
+                    uses key-common-attributes;
+                }
+            }
+        }
+    }
+
+    grouping key-replacement-package {
+
+        container key-replacement-package {
+            config false;
+            description "Container for KRP (Key Replacement Package)";
+
+            leaf KRP-name {
+                type string;
+                description "KRP name";
+            }
+
+            leaf KRP-version {
+                type uint32;
+                description "Package version";
+            }
+
+            uses key-attributes;
+
+            uses sign-common-attr;
+
+            leaf install-status {
+                type enumeration {
+                    enum not-installed { value 1; }
+                    enum installing { value 2; }
+                    enum installed { value 3; }
+                    enum failed { value 4; }
+                }
+                description "Indicates if this KRP has been installed in the system";
+            }
+        }
+    }
+}

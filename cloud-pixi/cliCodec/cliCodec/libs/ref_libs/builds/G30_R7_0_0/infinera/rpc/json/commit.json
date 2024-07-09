@@ -1,0 +1,38 @@
+{
+    "namespace": "urn:ietf:params:xml:ns:netconf:base:1.0",
+    "inputs": {
+        "confirmed": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Requests a confirmed commit.",
+            "mandatory": false
+        },
+        "confirm-timeout": {
+            "type": {
+                "ptype": "int"
+            },
+            "isList": false,
+            "description": "The timeout interval for a confirmed commit.",
+            "mandatory": false
+        },
+        "persist": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "This parameter is used to make a confirmed commit\npersistent.  A persistent confirmed commit is not aborted\nif the NETCONF session terminates.  The only way to abort\na persistent confirmed commit is to let the timer expire,\nor to use the <cancel-commit> operation.\n\nThe value of this parameter is a token that must be given\nin the 'persist-id' parameter of <commit> or\n<cancel-commit> operations in order to confirm or cancel\nthe persistent confirmed commit.\n\nThe token should be a random string.",
+            "mandatory": false
+        },
+        "persist-id": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "This parameter is given in order to commit a persistent\nconfirmed commit.  The value must be equal to the value\ngiven in the 'persist' parameter to the <commit> operation.\nIf it does not match, the operation fails with an\n'invalid-value' error.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

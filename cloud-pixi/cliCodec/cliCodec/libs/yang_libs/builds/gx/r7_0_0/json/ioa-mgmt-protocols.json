@@ -1,0 +1,2234 @@
+{
+    "module": {
+        "@name": "ioa-mgmt-protocols",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-mgmt": "http://infinera.com/yang/ioa/mgmt-protocols",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:gx": "http://infinera.com/yang/gx",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/mgmt-protocols"
+        },
+        "prefix": {
+            "@value": "ioa-mgmt"
+        },
+        "import": [
+            {
+                "@module": "ietf-inet-types",
+                "prefix": {
+                    "@value": "inet"
+                }
+            },
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "gx",
+                "prefix": {
+                    "@value": "gx"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG model defining Management Protocols configurations."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-09-17",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.1"
+                }
+            }
+        ],
+        "typedef": {
+            "@name": "snmp-string",
+            "type": {
+                "@name": "string",
+                "length": {
+                    "@value": "1..32"
+                },
+                "pattern": {
+                    "@value": "[!-~\\s]*"
+                }
+            }
+        },
+        "grouping": [
+            {
+                "@name": "ssh-public-key-attributes",
+                "leaf": [
+                    {
+                        "@name": "public-key-algorithm",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "ecdsa-sha2-nistp256",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "reference": {
+                                        "text": "RFC 5656 and RFC 6239"
+                                    }
+                                },
+                                {
+                                    "@name": "ecdsa-sha2-nistp384",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "reference": {
+                                        "text": "RFC 5656 and RFC 6239"
+                                    }
+                                },
+                                {
+                                    "@name": "ecdsa-sha2-nistp521",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "reference": {
+                                        "text": "RFC 5656 and RFC 6239"
+                                    }
+                                },
+                                {
+                                    "@name": "ssh-rsa2048",
+                                    "value": {
+                                        "@value": "4"
+                                    },
+                                    "reference": {
+                                        "text": "RFC 4432"
+                                    }
+                                },
+                                {
+                                    "@name": "ssh-rsa3072",
+                                    "value": {
+                                        "@value": "5"
+                                    },
+                                    "reference": {
+                                        "text": "RFC 4432"
+                                    }
+                                },
+                                {
+                                    "@name": "ssh-rsa4096",
+                                    "value": {
+                                        "@value": "6"
+                                    },
+                                    "reference": {
+                                        "text": "RFC 4432"
+                                    }
+                                }
+                            ]
+                        },
+                        "description": {
+                            "text": "The type of host key algorithm in use."
+                        }
+                    },
+                    {
+                        "@name": "public-key",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..2048"
+                            }
+                        },
+                        "description": {
+                            "text": "SSHv2(OpenSSH Portable) host public key component encoded in PEM format:\n<key type><SPACE>...base64 encoded OpenSSH public key....<SPACE><comment>"
+                        }
+                    }
+                ],
+                "uses": {
+                    "@name": "ioa-common:label"
+                }
+            },
+            {
+                "@name": "protocols",
+                "container": [
+                    {
+                        "@name": "protocols",
+                        "description": {
+                            "text": "Container of management protocol objects."
+                        },
+                        "container": [
+                            {
+                                "@name": "ssh",
+                                "description": {
+                                    "text": "Control of ssh access."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "enabled",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "Enables direct access to shell via ssh."
+                                        }
+                                    },
+                                    {
+                                        "@name": "port",
+                                        "type": {
+                                            "@name": "ioa-common:port-number"
+                                        },
+                                        "default": {
+                                            "@value": "8022"
+                                        },
+                                        "description": {
+                                            "text": "Port listening for ssh login that goes directly to shell."
+                                        }
+                                    },
+                                    {
+                                        "@name": "pre-login-message",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "0..1440"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "Welcome message displayed before user login."
+                                        }
+                                    },
+                                    {
+                                        "@name": "post-login-message",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "0..1440"
+                                            }
+                                        },
+                                        "default": {
+                                            "@value": "****************************************** Warning ******************************************\n\nThis system is restricted to authorized users for business purposes. Unauthorized access is a\nviolation of the law. This service may be monitored for administrative and security reasons.\nBy proceeding, you consent to this monitoring.\n\n*********************************************************************************************\n"
+                                        },
+                                        "description": {
+                                            "text": "Welcome message displayed after user login."
+                                        }
+                                    }
+                                ],
+                                "list": [
+                                    {
+                                        "@name": "ssh-host-key",
+                                        "key": {
+                                            "@value": "public-key-algorithm"
+                                        },
+                                        "config": {
+                                            "@value": "false"
+                                        },
+                                        "max-elements": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Global(for server and client side SSHv2 based apps) SSHv2 host keys.\n  There needs to be one host key per supported algorithm.\n  The system auto-generates a host-key in default DB and\n  additional host-keys can be added/overwritten via the ssh-keygen RPC."
+                                        },
+                                        "uses": {
+                                            "@name": "ssh-public-key-attributes"
+                                        },
+                                        "leaf": [
+                                            {
+                                                "@name": "fingerprint-algorithm",
+                                                "type": {
+                                                    "@name": "enumeration",
+                                                    "enum": [
+                                                        {
+                                                            "@name": "md5",
+                                                            "value": {
+                                                                "@value": "1"
+                                                            }
+                                                        },
+                                                        {
+                                                            "@name": "sha256",
+                                                            "value": {
+                                                                "@value": "2"
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                "description": {
+                                                    "text": "The type of hash algorithm in use for computing the key fingerprint"
+                                                }
+                                            },
+                                            {
+                                                "@name": "fingerprint",
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "1..95"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "Fingerprint string as a sequence of pairs of hex digits.\nSSHv2 public key fingerprint examples for MD5 and SHA256 hash:\nmd5sum fingerprint => b2:9c:cd:30:b1:38:e3:d1:17:d6:73:eb:03:9a:80:83\nsha256sum fingerprint => f4:61:58:e4:90:65:c4:70:98:7f:d1:40:0a:d8:d9:79:14:e6:91:dc:b6:ed:91:8c:c0:df:d9:65:db:dd:a0:18"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "@name": "ssh-known-host",
+                                        "key": {
+                                            "@value": "id"
+                                        },
+                                        "max-elements": {
+                                            "@value": "100"
+                                        },
+                                        "description": {
+                                            "text": "SSHv2 known hosts entry."
+                                        },
+                                        "leaf": [
+                                            {
+                                                "@name": "id",
+                                                "type": {
+                                                    "@name": "ioa-common:object-name"
+                                                },
+                                                "description": {
+                                                    "text": "A unique identifier (name) for this entry."
+                                                }
+                                            },
+                                            {
+                                                "@name": "address",
+                                                "type": {
+                                                    "@name": "ioa-common:host"
+                                                },
+                                                "mandatory": {
+                                                    "@value": "true"
+                                                },
+                                                "description": {
+                                                    "text": "The hostname/IPv4/IPv6 address of the allowed/known peer host."
+                                                }
+                                            }
+                                        ],
+                                        "uses": {
+                                            "@name": "ssh-public-key-attributes",
+                                            "refine": [
+                                                {
+                                                    "@target-node": "public-key-algorithm",
+                                                    "mandatory": {
+                                                        "@value": "true"
+                                                    }
+                                                },
+                                                {
+                                                    "@target-node": "public-key",
+                                                    "mandatory": {
+                                                        "@value": "true"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "@name": "ssh-authorized-key",
+                                        "key": {
+                                            "@value": "user-name key-id"
+                                        },
+                                        "description": {
+                                            "text": "SSHv2 authorized key.\nEach authorized key entry contains a trusted public key for SSHv2 user authentication."
+                                        },
+                                        "leaf": [
+                                            {
+                                                "@name": "user-name",
+                                                "type": {
+                                                    "@name": "ioa-common:user-name"
+                                                },
+                                                "description": {
+                                                    "text": "User owning the authorized key. Can be local or remote user."
+                                                }
+                                            },
+                                            {
+                                                "@name": "key-id",
+                                                "type": {
+                                                    "@name": "ioa-common:object-name"
+                                                },
+                                                "description": {
+                                                    "text": "A unique identifier (name) for this entry."
+                                                }
+                                            },
+                                            {
+                                                "@name": "key-expiration-date",
+                                                "type": {
+                                                    "@name": "yang:date-and-time"
+                                                },
+                                                "config": {
+                                                    "@value": "false"
+                                                },
+                                                "description": {
+                                                    "text": "Expiration date for SSH authorized key."
+                                                }
+                                            },
+                                            {
+                                                "@name": "key-state",
+                                                "type": {
+                                                    "@name": "ioa-common:enable-switch"
+                                                },
+                                                "default": {
+                                                    "@value": "enabled"
+                                                },
+                                                "config": {
+                                                    "@value": "false"
+                                                },
+                                                "description": {
+                                                    "text": "State is 'disabled' if key is expired, 'enabled' otherwise."
+                                                }
+                                            }
+                                        ],
+                                        "uses": [
+                                            {
+                                                "@name": "ioa-common:arc"
+                                            },
+                                            {
+                                                "@name": "ssh-public-key-attributes",
+                                                "refine": [
+                                                    {
+                                                        "@target-node": "public-key-algorithm",
+                                                        "config": {
+                                                            "@value": "false"
+                                                        },
+                                                        "description": {
+                                                            "text": "The type of key algorithm used. Auto-discovered based on provided public key."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@target-node": "public-key",
+                                                        "mandatory": {
+                                                            "@value": "true"
+                                                        },
+                                                        "description": {
+                                                            "text": "Base64-encoded OpenSSH public key."
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "@name": "cli",
+                                "description": {
+                                    "text": "Configuration of the Command Line Interface (CLI) management protocol."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "enabled",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "Enables/disables the CLI management protocol."
+                                        }
+                                    },
+                                    {
+                                        "@name": "port",
+                                        "type": {
+                                            "@name": "ioa-common:port-number"
+                                        },
+                                        "default": {
+                                            "@value": "22"
+                                        },
+                                        "description": {
+                                            "text": "The port which listens for CLI access via ssh."
+                                        }
+                                    },
+                                    {
+                                        "@name": "script-dir",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "1..80"
+                                            }
+                                        },
+                                        "config": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "Location in the filesystem where CLI scripts are stored."
+                                        }
+                                    },
+                                    {
+                                        "@name": "default-interactive-mode",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "Defines whether CLI sessions have interactive-mode enabled or disabled by default.\nIndividual sessions can deviate from this global flag by configuring the interactive-mode at the cli-session-config level.\nNote: changing this parameter will not affect existing CLI sessions, only newly created sessions."
+                                        }
+                                    }
+                                ],
+                                "leaf-list": {
+                                    "@name": "show-alarm-columns",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "1..128"
+                                        }
+                                    },
+                                    "max-elements": {
+                                        "@value": "32"
+                                    },
+                                    "ordered-by": {
+                                        "@value": "user"
+                                    },
+                                    "description": {
+                                        "text": "Columns to display in the output of 'show alarm' CLI command.\nPossible options are the standard alarm fields, and additionally the following values:\n- default-columns: represents the group of columns shown by default."
+                                    }
+                                },
+                                "list": [
+                                    {
+                                        "@name": "cli-alias",
+                                        "key": {
+                                            "@value": "name"
+                                        },
+                                        "description": {
+                                            "text": "List of aliases used in CLI.\nCan only be accessed via 'alias/unalias' CLI commands."
+                                        },
+                                        "leaf": [
+                                            {
+                                                "@name": "name",
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "1..256"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "Name of the alias"
+                                                }
+                                            },
+                                            {
+                                                "@name": "value",
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "1..1024"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "Value of the alias"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "@name": "cli-session-config",
+                                        "key": {
+                                            "@value": "session-id"
+                                        },
+                                        "description": {
+                                            "text": "Configurations associated with individual CLI sessions."
+                                        },
+                                        "leaf": [
+                                            {
+                                                "@name": "session-id",
+                                                "type": {
+                                                    "@name": "string"
+                                                },
+                                                "description": {
+                                                    "text": "The identifier of the CLI session"
+                                                }
+                                            },
+                                            {
+                                                "@name": "cli-lines",
+                                                "type": {
+                                                    "@name": "uint16",
+                                                    "range": {
+                                                        "@value": "10..1000"
+                                                    }
+                                                },
+                                                "default": {
+                                                    "@value": "40"
+                                                },
+                                                "description": {
+                                                    "text": "Number of rows to be used for display. This value is automatically\ndiscovered when possible"
+                                                }
+                                            },
+                                            {
+                                                "@name": "cli-columns",
+                                                "type": {
+                                                    "@name": "uint16",
+                                                    "range": {
+                                                        "@value": "80..4000"
+                                                    }
+                                                },
+                                                "default": {
+                                                    "@value": "140"
+                                                },
+                                                "description": {
+                                                    "text": "Number of columns to be used for display. This value is automatically\ndiscovered when possible"
+                                                }
+                                            },
+                                            {
+                                                "@name": "interactive-mode",
+                                                "type": {
+                                                    "@name": "boolean"
+                                                },
+                                                "description": {
+                                                    "text": "This determines if the CLI shall issue interactive prompt (e.g. for prompting\nadditional information, or for confirmation of user initiated actions).\nEnabled = CLI will prompt user (default)"
+                                                }
+                                            },
+                                            {
+                                                "@name": "display-timestamp",
+                                                "type": {
+                                                    "@name": "boolean"
+                                                },
+                                                "default": {
+                                                    "@value": "false"
+                                                },
+                                                "description": {
+                                                    "text": "This determines if the current timestamp will be printed on every CLI command."
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "@name": "serial-console",
+                                "description": {
+                                    "text": "Global configuration of all serial console ports in the system."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "global-switch",
+                                        "type": {
+                                            "@name": "ioa-common:enable-switch"
+                                        },
+                                        "default": {
+                                            "@value": "enabled"
+                                        },
+                                        "description": {
+                                            "text": "Allow access by serial-console. Note: each console port can override this global behavior."
+                                        }
+                                    },
+                                    {
+                                        "@name": "global-timeout",
+                                        "type": {
+                                            "@name": "uint16"
+                                        },
+                                        "units": {
+                                            "@name": "minutes"
+                                        },
+                                        "default": {
+                                            "@value": "60"
+                                        },
+                                        "description": {
+                                            "text": "Serial console inactivity timeout. Can be set to zero to disable inactivity timer."
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "@name": "netconf",
+                                "description": {
+                                    "text": "Configuration of the NETCONF management protocol."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "enabled",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "Enables/disables the NETCONF management protocol."
+                                        }
+                                    },
+                                    {
+                                        "@name": "port",
+                                        "type": {
+                                            "@name": "ioa-common:port-number"
+                                        },
+                                        "default": {
+                                            "@value": "830"
+                                        },
+                                        "description": {
+                                            "text": "The port which listens for NETCONF access via ssh."
+                                        }
+                                    },
+                                    {
+                                        "@name": "annotate-cli-name",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "If enabled, annotates NETCONF XML output with cli names for traceability."
+                                        }
+                                    },
+                                    {
+                                        "@name": "hello-timeout",
+                                        "type": {
+                                            "@name": "uint16",
+                                            "range": {
+                                                "@value": "1..3600"
+                                            }
+                                        },
+                                        "units": {
+                                            "@name": "seconds"
+                                        },
+                                        "default": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Specifies the number of seconds that a session may exist\nbefore the hello PDU is received/transmitted.  A session will be\ndropped if no hello PDU is received/transmitted before this number\nof seconds elapses."
+                                        }
+                                    }
+                                ],
+                                "leaf-list": {
+                                    "@name": "static-info-in-notifs",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "1..64"
+                                        }
+                                    },
+                                    "max-elements": {
+                                        "@value": "10"
+                                    },
+                                    "description": {
+                                        "text": "List of YANG identifiers that are statically included in notifications.\nIf they are present in objects that are notified.\nApplicable for management protocols with support for YANG-type notifications (NETCONF, etc).\nFor example, if object user[user-name='tom'] has had the 'timeout' attribute updated,\nand the static-info-in-notifs included the 'user-status' string,\nthe associated notification would include not only the 'timeout' parameter,\nbut also the 'user-status' (despite the fact that it had not changed)."
+                                    }
+                                }
+                            },
+                            {
+                                "@name": "tl1",
+                                "description": {
+                                    "text": "TL1 protocol configuration"
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "tl1-over-ssh-enabled",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "Decides whether TL1 protocol is accessible over SSH or not."
+                                        }
+                                    },
+                                    {
+                                        "@name": "ssh-interactive-port",
+                                        "type": {
+                                            "@name": "ioa-common:port-number"
+                                        },
+                                        "default": {
+                                            "@value": "9095"
+                                        },
+                                        "description": {
+                                            "text": "SSH port that gives access to interactive interface of TL1 protocol server."
+                                        }
+                                    },
+                                    {
+                                        "@name": "ssh-scripting-port",
+                                        "type": {
+                                            "@name": "ioa-common:port-number"
+                                        },
+                                        "default": {
+                                            "@value": "9096"
+                                        },
+                                        "description": {
+                                            "text": "SSH port that gives access to non-interactive or scripting interface of TL1 protocol server. This interface does not echo terminal characters to client."
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "@name": "restconf",
+                                "description": {
+                                    "text": "Configuration of the RESTCONF management protocol."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "enabled",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "User configurable switch to enable or disable RESTCONF access."
+                                        }
+                                    },
+                                    {
+                                        "@name": "http-enabled",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "User configurable switch to enable or disable RESTCONF HTTP access."
+                                        }
+                                    },
+                                    {
+                                        "@name": "https-enabled",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "User configurable switch to enable or disable RESTCONF HTTPS access."
+                                        }
+                                    },
+                                    {
+                                        "@name": "http-port",
+                                        "type": {
+                                            "@name": "ioa-common:port-number"
+                                        },
+                                        "default": {
+                                            "@value": "8080"
+                                        },
+                                        "description": {
+                                            "text": "User configurable RESTCONF HTTP port."
+                                        }
+                                    },
+                                    {
+                                        "@name": "https-port",
+                                        "type": {
+                                            "@name": "ioa-common:port-number"
+                                        },
+                                        "default": {
+                                            "@value": "8181"
+                                        },
+                                        "description": {
+                                            "text": "User configurable RESTCONF HTTPS port."
+                                        }
+                                    },
+                                    {
+                                        "@name": "cookie-timeout",
+                                        "type": {
+                                            "@name": "uint16",
+                                            "range": {
+                                                "@value": "1..300"
+                                            }
+                                        },
+                                        "units": {
+                                            "@name": "minutes"
+                                        },
+                                        "default": {
+                                            "@value": "5"
+                                        },
+                                        "description": {
+                                            "text": "Timeout of a cookie based RESTCONF session."
+                                        }
+                                    },
+                                    {
+                                        "@name": "api-root",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "0..64"
+                                            }
+                                        },
+                                        "config": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "Root of the RESTCONF API."
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "@name": "grpc",
+                                "if-feature": {
+                                    "@name": "gx:grpc"
+                                },
+                                "description": {
+                                    "text": "Configuration of the gNMI/gRPC management protocol."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "enabled",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "Enables/disables the gRPC management protocol."
+                                        }
+                                    },
+                                    {
+                                        "@name": "port",
+                                        "type": {
+                                            "@name": "ioa-common:port-number"
+                                        },
+                                        "default": {
+                                            "@value": "50051"
+                                        },
+                                        "description": {
+                                            "text": "The port which listens for gNMI & gNOI access via gRPC."
+                                        }
+                                    },
+                                    {
+                                        "@name": "gnmi-get-encoding-granularity",
+                                        "type": {
+                                            "@name": "enumeration",
+                                            "enum": [
+                                                {
+                                                    "@name": "per-path",
+                                                    "value": {
+                                                        "@value": "1"
+                                                    },
+                                                    "description": {
+                                                        "text": "Put all path data on a Update message."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "per-object",
+                                                    "value": {
+                                                        "@value": "2"
+                                                    },
+                                                    "description": {
+                                                        "text": "Divide the path data into multiple Update messages, one per YANG container/list entry."
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "default": {
+                                            "@value": "per-object"
+                                        },
+                                        "description": {
+                                            "text": "Allows to configure the granularity of data in gNMI Get responses, when encoded with JSON."
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "@name": "snmp",
+                                "description": {
+                                    "text": "Configuration of the SNMP management protocol."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "enabled",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "User configurable switch to enable or disable global SNMP access."
+                                        }
+                                    },
+                                    {
+                                        "@name": "port",
+                                        "type": {
+                                            "@name": "ioa-common:port-number"
+                                        },
+                                        "default": {
+                                            "@value": "161"
+                                        },
+                                        "description": {
+                                            "text": "User configurable port where the NE is listening for SNMP requests."
+                                        }
+                                    },
+                                    {
+                                        "@name": "snmp-engine-id",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "0..256"
+                                            }
+                                        },
+                                        "config": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "SNMP EngineID of the NE.\nThe EngineID will follow the EngineID format 3 defined in RFC3411.\nThe MAC address in the Engine ID will be the first MAC address of the MAC addresses Pool of the NE."
+                                        }
+                                    },
+                                    {
+                                        "@name": "engine-boot-count",
+                                        "type": {
+                                            "@name": "uint16"
+                                        },
+                                        "default": {
+                                            "@value": "0"
+                                        },
+                                        "config": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "SNMP engine boot count.\nCounts how many times the engine has restarted."
+                                        }
+                                    }
+                                ],
+                                "list": [
+                                    {
+                                        "@name": "snmp-community",
+                                        "key": {
+                                            "@value": "name"
+                                        },
+                                        "max-elements": {
+                                            "@value": "20"
+                                        },
+                                        "description": {
+                                            "text": "List of SNMP Community Strings.\nNote: trap-community-string is located in the snmp-target object."
+                                        },
+                                        "leaf": [
+                                            {
+                                                "@name": "name",
+                                                "type": {
+                                                    "@name": "ioa-common:object-name"
+                                                },
+                                                "description": {
+                                                    "text": "Name for the community (different from the community string itself)."
+                                                }
+                                            },
+                                            {
+                                                "@name": "community-string",
+                                                "type": {
+                                                    "@name": "snmp-string"
+                                                },
+                                                "mandatory": {
+                                                    "@value": "true"
+                                                },
+                                                "description": {
+                                                    "text": "Community String."
+                                                }
+                                            },
+                                            {
+                                                "@name": "enabled",
+                                                "type": {
+                                                    "@name": "boolean"
+                                                },
+                                                "default": {
+                                                    "@value": "true"
+                                                },
+                                                "description": {
+                                                    "text": "User configurable switch to enable or disable this community-string."
+                                                }
+                                            },
+                                            {
+                                                "@name": "community-string-access",
+                                                "type": {
+                                                    "@name": "enumeration",
+                                                    "enum": {
+                                                        "@name": "read-only",
+                                                        "value": {
+                                                            "@value": "1"
+                                                        }
+                                                    }
+                                                },
+                                                "default": {
+                                                    "@value": "read-only"
+                                                },
+                                                "description": {
+                                                    "text": "SNMP access right of this community string."
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "@name": "snmp-target",
+                                        "key": {
+                                            "@value": "target-name"
+                                        },
+                                        "max-elements": {
+                                            "@value": "20"
+                                        },
+                                        "description": {
+                                            "text": "List of SNMP targets (trap listeners)"
+                                        },
+                                        "reference": {
+                                            "text": "RFC 3413: Simple Network Management Protocol (SNMP) Applications.\nSNMP-TARGET-MIB.snmpTargetAddrTable"
+                                        },
+                                        "leaf": [
+                                            {
+                                                "@name": "target-name",
+                                                "type": {
+                                                    "@name": "ioa-common:object-name",
+                                                    "length": {
+                                                        "@value": "1..32"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "Identifies the SNMP target"
+                                                },
+                                                "reference": {
+                                                    "text": "RFC 3413: Simple Network Management Protocol (SNMP)\nApplications.\nSNMP-TARGET-MIB.snmpTargetAddrName"
+                                                }
+                                            },
+                                            {
+                                                "@name": "enabled",
+                                                "type": {
+                                                    "@name": "boolean"
+                                                },
+                                                "default": {
+                                                    "@value": "true"
+                                                },
+                                                "description": {
+                                                    "text": "User configurable switch to enable or disable this snmp-target."
+                                                }
+                                            },
+                                            {
+                                                "@name": "snmp-version",
+                                                "type": {
+                                                    "@name": "enumeration",
+                                                    "enum": [
+                                                        {
+                                                            "@name": "v2c",
+                                                            "value": {
+                                                                "@value": "2"
+                                                            }
+                                                        },
+                                                        {
+                                                            "@name": "v3",
+                                                            "value": {
+                                                                "@value": "3"
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                "default": {
+                                                    "@value": "v2c"
+                                                },
+                                                "description": {
+                                                    "text": "snmp version."
+                                                }
+                                            },
+                                            {
+                                                "@name": "trap-community-string",
+                                                "type": {
+                                                    "@name": "snmp-string"
+                                                },
+                                                "default": {
+                                                    "@value": "infinera"
+                                                },
+                                                "description": {
+                                                    "text": "Community string used for SNMP traps.\n    Only of relevance for snmpv2c."
+                                                }
+                                            },
+                                            {
+                                                "@name": "snmpv3-user",
+                                                "type": {
+                                                    "@name": "leafref",
+                                                    "path": {
+                                                        "@value": "../../snmpv3-user/snmpv3-user-name"
+                                                    }
+                                                },
+                                                "mandatory": {
+                                                    "@value": "true"
+                                                },
+                                                "description": {
+                                                    "text": "Indicate the snmpv3 user.\n    Only of relevance for snmpv3."
+                                                }
+                                            },
+                                            {
+                                                "@name": "target-address",
+                                                "type": {
+                                                    "@name": "ioa-common:host"
+                                                },
+                                                "mandatory": {
+                                                    "@value": "true"
+                                                },
+                                                "description": {
+                                                    "text": "IP address or hostname of the SNMP target"
+                                                },
+                                                "reference": {
+                                                    "text": "RFC 3413: Simple Network Management Protocol (SNMP).\nSNMP-TARGET-MIB.snmpTargetAddrTAddress"
+                                                }
+                                            },
+                                            {
+                                                "@name": "target-port",
+                                                "type": {
+                                                    "@name": "inet:port-number"
+                                                },
+                                                "default": {
+                                                    "@value": "162"
+                                                },
+                                                "description": {
+                                                    "text": "UDP port number."
+                                                },
+                                                "reference": {
+                                                    "text": "RFC 3413: Simple Network Management Protocol (SNMP).\nSNMP-TARGET-MIB.snmpTargetAddrTAddress"
+                                                }
+                                            },
+                                            {
+                                                "@name": "target-transport",
+                                                "type": {
+                                                    "@name": "enumeration",
+                                                    "enum": {
+                                                        "@name": "udp",
+                                                        "value": {
+                                                            "@value": "1"
+                                                        }
+                                                    }
+                                                },
+                                                "default": {
+                                                    "@value": "udp"
+                                                },
+                                                "description": {
+                                                    "text": "Type of transport for the SNMP target"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "@name": "snmpv3-user",
+                                        "key": {
+                                            "@value": "snmpv3-user-name"
+                                        },
+                                        "max-elements": {
+                                            "@value": "20"
+                                        },
+                                        "description": {
+                                            "text": "SNMPv3 user configuration."
+                                        },
+                                        "leaf": [
+                                            {
+                                                "@name": "snmpv3-user-name",
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "1..32"
+                                                    },
+                                                    "pattern": {
+                                                        "@value": "[a-z_.][a-z0-9_\\-.]*[$]?"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "SNMPv3 user name."
+                                                }
+                                            },
+                                            {
+                                                "@name": "user-sec-level",
+                                                "type": {
+                                                    "@name": "enumeration",
+                                                    "enum": [
+                                                        {
+                                                            "@name": "auth-priv",
+                                                            "value": {
+                                                                "@value": "1"
+                                                            }
+                                                        },
+                                                        {
+                                                            "@name": "auth-no-priv",
+                                                            "value": {
+                                                                "@value": "2"
+                                                            }
+                                                        },
+                                                        {
+                                                            "@name": "no-auth-no-priv",
+                                                            "value": {
+                                                                "@value": "3"
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                "default": {
+                                                    "@value": "no-auth-no-priv"
+                                                },
+                                                "description": {
+                                                    "text": "Specifies the SNMPv3 user security level.\nNote: when NE is in secure-mode, only auth-priv is allowed."
+                                                }
+                                            },
+                                            {
+                                                "@name": "auth-protocol",
+                                                "when": {
+                                                    "@condition": "../user-sec-level != 'no-auth-no-priv'"
+                                                },
+                                                "type": {
+                                                    "@name": "enumeration",
+                                                    "enum": {
+                                                        "@name": "SHA",
+                                                        "value": {
+                                                            "@value": "1"
+                                                        }
+                                                    }
+                                                },
+                                                "default": {
+                                                    "@value": "SHA"
+                                                },
+                                                "description": {
+                                                    "text": "Specifies the authentication protocol that the SNMPv3 user being created will use."
+                                                }
+                                            },
+                                            {
+                                                "@name": "auth-passphrase",
+                                                "when": {
+                                                    "@condition": "../user-sec-level != 'no-auth-no-priv'"
+                                                },
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "8..64"
+                                                    }
+                                                },
+                                                "mandatory": {
+                                                    "@value": "true"
+                                                },
+                                                "description": {
+                                                    "text": "Specifies the SNMPv3 authentication pass phrase."
+                                                }
+                                            },
+                                            {
+                                                "@name": "priv-protocol",
+                                                "when": {
+                                                    "@condition": "../user-sec-level = 'auth-priv'"
+                                                },
+                                                "type": {
+                                                    "@name": "enumeration",
+                                                    "enum": [
+                                                        {
+                                                            "@name": "AES128",
+                                                            "value": {
+                                                                "@value": "1"
+                                                            }
+                                                        },
+                                                        {
+                                                            "@name": "AES192",
+                                                            "value": {
+                                                                "@value": "2"
+                                                            }
+                                                        },
+                                                        {
+                                                            "@name": "AES256",
+                                                            "value": {
+                                                                "@value": "3"
+                                                            }
+                                                        },
+                                                        {
+                                                            "@name": "DES",
+                                                            "value": {
+                                                                "@value": "4"
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                "default": {
+                                                    "@value": "AES128"
+                                                },
+                                                "description": {
+                                                    "text": "Specifies the privacy protocol that the SNMPv3 user being created will use."
+                                                }
+                                            },
+                                            {
+                                                "@name": "priv-passphrase",
+                                                "when": {
+                                                    "@condition": "../user-sec-level = 'auth-priv'"
+                                                },
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "8..64"
+                                                    }
+                                                },
+                                                "mandatory": {
+                                                    "@value": "true"
+                                                },
+                                                "description": {
+                                                    "text": "Specifies the SNMPv3 privacy pass phrase."
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "@name": "http-file-server",
+                                "description": {
+                                    "text": "HTTP file server configuration"
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "enabled",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "User configurable switch to enable or disable file server access."
+                                        }
+                                    },
+                                    {
+                                        "@name": "http-enabled",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "User configurable switch to enable or disable HTTP protocol for file server access."
+                                        }
+                                    },
+                                    {
+                                        "@name": "https-enabled",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "User configurable switch to enable or disable HTTPS protocol for file server access."
+                                        }
+                                    },
+                                    {
+                                        "@name": "http-port",
+                                        "type": {
+                                            "@name": "ioa-common:port-number"
+                                        },
+                                        "default": {
+                                            "@value": "8980"
+                                        },
+                                        "description": {
+                                            "text": "User configurable HTTP port."
+                                        }
+                                    },
+                                    {
+                                        "@name": "https-port",
+                                        "type": {
+                                            "@name": "ioa-common:port-number"
+                                        },
+                                        "default": {
+                                            "@value": "8981"
+                                        },
+                                        "description": {
+                                            "text": "User configurable HTTPS port."
+                                        }
+                                    },
+                                    {
+                                        "@name": "url-base",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "1..100"
+                                            }
+                                        },
+                                        "default": {
+                                            "@value": "/transfer"
+                                        },
+                                        "config": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "The base URL use to redirect to the file transfer application."
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "@name": "fast-telemetry",
+                                "description": {
+                                    "text": "Fast Telemetry provides an alternative telemetry channel that accesses the hardware directly for specific metrics.\n         Please consult documentation to see what metrics are available per card type."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "enabled",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "User configurable switch to enable or disable fast telemetry streaming."
+                                        }
+                                    },
+                                    {
+                                        "@name": "protocol",
+                                        "type": {
+                                            "@name": "enumeration",
+                                            "enum": {
+                                                "@name": "gnmi-openconfig",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "gnmi openconfig streaming."
+                                                }
+                                            }
+                                        },
+                                        "default": {
+                                            "@value": "gnmi-openconfig"
+                                        },
+                                        "description": {
+                                            "text": "User configurable attribute to select the desired protocol."
+                                        }
+                                    },
+                                    {
+                                        "@name": "port",
+                                        "type": {
+                                            "@name": "ioa-common:port-number"
+                                        },
+                                        "default": {
+                                            "@value": "57400"
+                                        },
+                                        "description": {
+                                            "text": "User configurable port."
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "@name": "notifications",
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Information on supported NETCONF streams and notifications."
+                                },
+                                "list": [
+                                    {
+                                        "@name": "notification-type",
+                                        "key": {
+                                            "@value": "name"
+                                        },
+                                        "description": {
+                                            "text": "List of supported notifications."
+                                        },
+                                        "leaf": [
+                                            {
+                                                "@name": "name",
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "1..64"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "Notification qualified name (prefix:name)."
+                                                }
+                                            },
+                                            {
+                                                "@name": "namespace",
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "1..64"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "Notification namespace."
+                                                }
+                                            },
+                                            {
+                                                "@name": "description",
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "1..128"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "Description of the notification."
+                                                }
+                                            },
+                                            {
+                                                "@name": "scope",
+                                                "type": {
+                                                    "@name": "leafref",
+                                                    "path": {
+                                                        "@value": "../../../data-model/name"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "Indicates the scope of the notification - which data model it applies to."
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "@name": "notification-stream",
+                                        "key": {
+                                            "@value": "name"
+                                        },
+                                        "description": {
+                                            "text": "List of supported NETCONF streams, their description and other information."
+                                        },
+                                        "leaf": [
+                                            {
+                                                "@name": "name",
+                                                "type": {
+                                                    "@name": "ioa-common:object-name"
+                                                },
+                                                "description": {
+                                                    "text": "The name of the event stream."
+                                                }
+                                            },
+                                            {
+                                                "@name": "description",
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "1..128"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "Description of the event stream."
+                                                }
+                                            },
+                                            {
+                                                "@name": "state",
+                                                "type": {
+                                                    "@name": "ioa-common:enable-switch"
+                                                },
+                                                "description": {
+                                                    "text": "State of the stream (tied with the respective data-model enabled leaf)."
+                                                }
+                                            }
+                                        ],
+                                        "leaf-list": {
+                                            "@name": "supported-notifications",
+                                            "type": {
+                                                "@name": "leafref",
+                                                "path": {
+                                                    "@value": "../../notification-type/name"
+                                                }
+                                            },
+                                            "max-elements": {
+                                                "@value": "50"
+                                            },
+                                            "description": {
+                                                "text": "Contains the list of supported notifications."
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "list": [
+                            {
+                                "@name": "dial-out-server",
+                                "key": {
+                                    "@value": "name"
+                                },
+                                "max-elements": {
+                                    "@value": "10"
+                                },
+                                "description": {
+                                    "text": "Dial-out server configuration and state.\nA dial-out-server configuration automatically triggers a connection against the server, with client-server functionality is inverted;\nthis connection is then used to establish a normal NBI session."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "name",
+                                        "type": {
+                                            "@name": "ioa-common:object-name"
+                                        },
+                                        "description": {
+                                            "text": "Dial-out-server name."
+                                        }
+                                    },
+                                    {
+                                        "@name": "address",
+                                        "type": {
+                                            "@name": "ioa-common:host"
+                                        },
+                                        "mandatory": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "Dial-out-server IPv4/IPv6 address or hostname."
+                                        }
+                                    },
+                                    {
+                                        "@name": "protocol",
+                                        "type": {
+                                            "@name": "enumeration",
+                                            "enum": [
+                                                {
+                                                    "@name": "netconf",
+                                                    "value": {
+                                                        "@value": "1"
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "gnmi-dial-out-tunnel",
+                                                    "value": {
+                                                        "@value": "2"
+                                                    },
+                                                    "description": {
+                                                        "text": "Dial-Out with gRPC Tunnels."
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "default": {
+                                            "@value": "netconf"
+                                        },
+                                        "description": {
+                                            "text": "Dial-out-server session type."
+                                        }
+                                    },
+                                    {
+                                        "@name": "port",
+                                        "type": {
+                                            "@name": "ioa-common:port-number"
+                                        },
+                                        "description": {
+                                            "text": "Dial-out-server session port."
+                                        }
+                                    },
+                                    {
+                                        "@name": "transport",
+                                        "type": {
+                                            "@name": "enumeration",
+                                            "enum": [
+                                                {
+                                                    "@name": "ssh",
+                                                    "value": {
+                                                        "@value": "1"
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "tls",
+                                                    "value": {
+                                                        "@value": "2"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "config": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "Dial-out-server transport protocol."
+                                        }
+                                    },
+                                    {
+                                        "@name": "retry-policy",
+                                        "type": {
+                                            "@name": "enumeration",
+                                            "enum": [
+                                                {
+                                                    "@name": "progressive-back-off",
+                                                    "value": {
+                                                        "@value": "1"
+                                                    },
+                                                    "description": {
+                                                        "text": "Try to reconnect with an exponentional time interval."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "retry-then-stop",
+                                                    "value": {
+                                                        "@value": "2"
+                                                    },
+                                                    "description": {
+                                                        "text": "Retry a fixed number of times with a fixed timeout interval."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "retry-forever",
+                                                    "value": {
+                                                        "@value": "3"
+                                                    },
+                                                    "description": {
+                                                        "text": "Retry forever with a fixed timeout interval."
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "default": {
+                                            "@value": "progressive-back-off"
+                                        },
+                                        "description": {
+                                            "text": "Retry policy after a timeout."
+                                        }
+                                    },
+                                    {
+                                        "@name": "retry",
+                                        "when": {
+                                            "@condition": "../retry-policy = 'retry-then-stop'"
+                                        },
+                                        "type": {
+                                            "@name": "uint8",
+                                            "range": {
+                                                "@value": "0 .. 5"
+                                            }
+                                        },
+                                        "default": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Number of retries before giving up."
+                                        }
+                                    },
+                                    {
+                                        "@name": "timeout",
+                                        "when": {
+                                            "@condition": "../retry-policy != 'progressive-back-off'"
+                                        },
+                                        "type": {
+                                            "@name": "uint8",
+                                            "range": {
+                                                "@value": "2..255"
+                                            }
+                                        },
+                                        "units": {
+                                            "@name": "seconds"
+                                        },
+                                        "default": {
+                                            "@value": "10"
+                                        },
+                                        "description": {
+                                            "text": "Wait time until timeout."
+                                        }
+                                    },
+                                    {
+                                        "@name": "auto-connect",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "If true, automatically tries to connect to this dial-out-server. Note that a server with auto-connect false can still be connected manually via the call-home RPC."
+                                        }
+                                    },
+                                    {
+                                        "@name": "connection-state",
+                                        "type": {
+                                            "@name": "enumeration",
+                                            "enum": [
+                                                {
+                                                    "@name": "connected",
+                                                    "value": {
+                                                        "@value": "1"
+                                                    },
+                                                    "description": {
+                                                        "text": "Session is currently established with 'home'."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "connecting",
+                                                    "value": {
+                                                        "@value": "2"
+                                                    },
+                                                    "description": {
+                                                        "text": "Running through the retries; also used if connected, and session abruptly is terminated."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "failed",
+                                                    "value": {
+                                                        "@value": "3"
+                                                    },
+                                                    "description": {
+                                                        "text": "All retries have failed, no further attempts are being done to connect to it."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "closed",
+                                                    "value": {
+                                                        "@value": "4"
+                                                    },
+                                                    "description": {
+                                                        "text": "session was established, and was gracefully closed."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "disabled",
+                                                    "value": {
+                                                        "@value": "5"
+                                                    },
+                                                    "description": {
+                                                        "text": "Enabled parameter is false."
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "default": {
+                                            "@value": "disabled"
+                                        },
+                                        "config": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "Connection state to the dial-out-server."
+                                        }
+                                    }
+                                ],
+                                "uses": [
+                                    {
+                                        "@name": "ioa-common:arc"
+                                    },
+                                    {
+                                        "@name": "ioa-common:label"
+                                    }
+                                ]
+                            },
+                            {
+                                "@name": "data-model",
+                                "key": {
+                                    "@value": "name"
+                                },
+                                "description": {
+                                    "text": "Available YANG Data models for loading/unloading."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "name",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "0..256"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "Model name."
+                                        }
+                                    },
+                                    {
+                                        "@name": "description",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "0..256"
+                                            }
+                                        },
+                                        "config": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "Data model description."
+                                        }
+                                    },
+                                    {
+                                        "@name": "enabled",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "Allows to load/unload this data model.A loaded data model means that it can be used via the management interfaces."
+                                        }
+                                    },
+                                    {
+                                        "@name": "config-cache",
+                                        "type": {
+                                            "@name": "boolean"
+                                        },
+                                        "default": {
+                                            "@value": "false"
+                                        },
+                                        "description": {
+                                            "text": "Allows caching of config data for the given data-model."
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "@name": "scheduled-tasks",
+                        "description": {
+                            "text": "Container of individual user-configurable scheduled commands."
+                        },
+                        "list": {
+                            "@name": "task",
+                            "key": {
+                                "@value": "name"
+                            },
+                            "description": {
+                                "text": "User configurable scheduled task. Can define single occurrence or periodic commands."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "name",
+                                    "type": {
+                                        "@name": "ioa-common:object-name"
+                                    },
+                                    "description": {
+                                        "text": "Identifier of the scheduled task."
+                                    }
+                                },
+                                {
+                                    "@name": "enabled",
+                                    "type": {
+                                        "@name": "boolean"
+                                    },
+                                    "default": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "Enable switch of this task; allows user to disable a task without deleting it."
+                                    }
+                                },
+                                {
+                                    "@name": "command",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "1..1024"
+                                        }
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "Command that is scheduled. Content will depend on the command-type."
+                                    }
+                                },
+                                {
+                                    "@name": "command-type",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": {
+                                            "@name": "cli",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "CLI command."
+                                            }
+                                        }
+                                    },
+                                    "default": {
+                                        "@value": "cli"
+                                    },
+                                    "description": {
+                                        "text": "Type of configured command."
+                                    }
+                                },
+                                {
+                                    "@name": "frequency",
+                                    "type": {
+                                        "@name": "ioa-common:time-interval"
+                                    },
+                                    "description": {
+                                        "text": "Frequency interval for setting up a periodic scheduled task.\nIf empty (default value), represents a single-occurrence task.\nFrequency interval is provided using the following syntax:\n   '[xw] [xd] [xh] [xm] [xs]'\nwhere:\n    w(eeks), d(ays), h(ours), m(inutes), s(seconds).\nExamples:\n   2w          - two weeks\n   5d 12h      - 5 days and 12 hours\n   1h 7m 30s   - 1 hour and 7 minutes and 30 seconds"
+                                    }
+                                },
+                                {
+                                    "@name": "start-time",
+                                    "type": {
+                                        "@name": "ioa-common:date-time-or-time-only"
+                                    },
+                                    "description": {
+                                        "text": "Timestamp to start the task. For periodic tasks, this is the timestamp for the first trigger of the task.\nIf not provided, uses current time as start-time."
+                                    }
+                                },
+                                {
+                                    "@name": "end-time",
+                                    "type": {
+                                        "@name": "ioa-common:date-time-or-time-only-or-never"
+                                    },
+                                    "default": {
+                                        "@value": "never"
+                                    },
+                                    "description": {
+                                        "text": "Timestamp to stop the periodic task.\nNot relevant for single-occurrence tasks."
+                                    }
+                                },
+                                {
+                                    "@name": "persistent",
+                                    "type": {
+                                        "@name": "boolean"
+                                    },
+                                    "default": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "If true, this scheduled task will persist a system restart."
+                                    }
+                                },
+                                {
+                                    "@name": "task-status",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "scheduled",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "Task is enabled and will run when the time comes."
+                                                }
+                                            },
+                                            {
+                                                "@name": "disabled",
+                                                "value": {
+                                                    "@value": "2"
+                                                },
+                                                "description": {
+                                                    "text": "Task is disabled by user."
+                                                }
+                                            },
+                                            {
+                                                "@name": "finished",
+                                                "value": {
+                                                    "@value": "3"
+                                                },
+                                                "description": {
+                                                    "text": "Task has reached its end-time, or single occurrence task was already executed."
+                                                }
+                                            },
+                                            {
+                                                "@name": "ongoing",
+                                                "value": {
+                                                    "@value": "4"
+                                                },
+                                                "description": {
+                                                    "text": "Task is enabled and is currently running"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "scheduled"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Current operational state of the scheduled task."
+                                    }
+                                },
+                                {
+                                    "@name": "next-run",
+                                    "type": {
+                                        "@name": "ioa-common:date-time-or-time-only-or-never"
+                                    },
+                                    "default": {
+                                        "@value": "never"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Next run timestamp. May be 'never' for finished tasks."
+                                    }
+                                },
+                                {
+                                    "@name": "previous-run",
+                                    "type": {
+                                        "@name": "ioa-common:date-time-or-time-only-or-never"
+                                    },
+                                    "default": {
+                                        "@value": "never"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Previous task run timestamp."
+                                    }
+                                },
+                                {
+                                    "@name": "previous-result",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "success",
+                                                "value": {
+                                                    "@value": "1"
+                                                }
+                                            },
+                                            {
+                                                "@name": "fail",
+                                                "value": {
+                                                    "@value": "2"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Previous task run result."
+                                    }
+                                },
+                                {
+                                    "@name": "previous-output",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..1024"
+                                        }
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Output of the previous task run."
+                                    }
+                                }
+                            ],
+                            "uses": [
+                                {
+                                    "@name": "ioa-common:label"
+                                },
+                                {
+                                    "@name": "ioa-common:arc",
+                                    "refine": {
+                                        "@target-node": "alarm-report-control",
+                                        "default": {
+                                            "@value": "inhibited"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

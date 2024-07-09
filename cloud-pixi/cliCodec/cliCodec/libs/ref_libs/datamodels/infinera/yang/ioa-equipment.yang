@@ -1,0 +1,1106 @@
+module ioa-equipment {
+    namespace "http://infinera.com/yang/ioa/equipment";
+    prefix ioa-eqm;
+
+    import ietf-yang-types { prefix yang; }
+    import ioa-common { prefix ioa-common; }
+    import ioa-optical-common { prefix ioa-opt; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module with the equipment model.";
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-09-17" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.1";
+    }
+
+
+    typedef phy-mode {
+        type enumeration {
+            enum 100GE   { value 1; description "100GE"; reference "GRD-191; GX-18"; }
+            enum 200GE   { value 2; description "200GE"; reference "GRD-225"; }
+            enum 400GE   { value 3; description "400GE"; reference "GRD-225"; }
+            enum 4x100GE { value 4; description "4x100GE"; reference "GRD-191"; }
+            enum 100G    { value 5; description "100G"; reference "GRD-510"; }
+            enum 4x10G   { value 6; description "4x10G"; reference "GRD-156; GRD-259; GRD-424"; }
+            enum 4x10GE  { value 7; description "4x10GE"; reference "GRD-156; GRD-353"; }
+            enum 1GE     { value 8; description "1GE"; reference "GRD-121"; }
+            enum 2G5     { value 9; description "2G5"; reference "GRD-316; GRD-387"; }
+            enum 10G     { value 10; description "10G"; reference "GRD-156; GRD-259; GRD-353; GRD-424"; }
+            enum 10GE    { value 11; description "10GE"; reference "GRD-156"; }
+            enum 2G5E    { value 12; description "2G5E"; reference "GRD-156"; }
+            enum 40GE    { value 13; description "40GE"; reference "GRD-156"; }
+            enum 40G     { value 14; description "40G"; reference "GRD-156"; }
+            enum 4x100G  { value 15; description "4x100G"; reference "GRD-156"; }
+            enum 200G    { value 16; description "200G"; reference "GX-9732"; }
+        }
+        description "Phy mode of a TOM.";
+    }
+
+    typedef ethernet-rate {
+        type enumeration {
+            enum unknown { value 0; }
+            enum 1       { value 1; }
+            enum 10      { value 10; }
+            enum 100     { value 100; }
+            enum 1000    { value 1000; }
+            enum 10000   { value 10000; }
+            enum maximum { value 2147483647; }
+        }
+        units "Mbit/s";
+        description "The configured, negotiated, or actual speed.";
+    }
+
+    typedef duplex-mode {
+        type enumeration {
+            enum unknown {
+                description "Link is currently disconnected or initializing.";
+            }
+            enum full {
+                description "Full duplex.";
+            }
+            enum half {
+                description "Half duplex.";
+            }
+        }
+        description "The configured, negotiated, or actual duplex mode.";
+    }
+
+    typedef flow-control {
+        type enumeration {
+            enum unknown {
+                description "Link is currently disconnected or initializing.";
+            }
+            enum disabled {
+                description "No pause frames are supported.";
+            }
+            enum bi-directional {
+                description "Symmetric flow (transmit and receive).";
+            }
+            enum egress-only {
+                description "Transmit direction only.";
+            }
+            enum ingress-only {
+                description "Receive direction only.";
+            }
+        }
+        description "The configured, negotiated, or actual flow-control mode.";
+    }
+
+    typedef console-baud-rate {
+        type enumeration {
+            enum unknown {
+                value 0;
+            }
+            enum 9600 {
+                value 6;
+            }
+            enum 19200 {
+                value 7;
+            }
+            enum 38400 {
+                value 8;
+            }
+            enum 57600 {
+                value 11;
+            }
+            enum 115200 {
+                value 12;
+            }
+        }
+        units baud;
+        description "Possible baud-rates for a serial console port.";
+    }
+
+    grouping card-category {
+        leaf category {
+            type enumeration {
+                enum controller { value 1; }
+                enum line-card { value 2; }
+                enum fan { value 3; }
+                enum power-supply { value 4; }
+                enum other { value 5; }
+            }
+            config false;
+            description "Card category.";
+        }
+    }
+
+    grouping port-common {
+        leaf port-type {
+            type enumeration {
+                enum line {
+                    value 1;
+                    description "Refers to line-side 'colored' CWDM or DWDM optical module/transceiver.";
+                }
+                enum tributary {
+                    value 2;
+                    description "Refers to standard 'grey' interfaces/transceivers to interface with other client equipment.";
+                }
+                enum usb {
+                    value 3;
+                    description "USB port.";
+                }
+                enum comm {
+                    value 4;
+                    description "Communication ports.";
+                }
+                enum uplink {
+                    value 5;
+                    description "Refers to ports of an aggregation function that connect to an adjunct line function.";
+                }
+                enum tributary-subport {
+                    value 6;
+                    description "Same as tributary, but for scenarios where the main tributary port is split into multiple subports.";
+                }
+            }
+            config false;
+            description "The port type. Each port type supports different features and services.";
+        }
+    }
+
+    grouping max-power-draw {
+        leaf max-power-draw {
+            type decimal64 {
+                fraction-digits 2;
+            }
+            units W;
+            config false;
+            description "Maximum power draw for this card.";
+            reference GX-740;
+        }
+    }
+
+    grouping eqm-common {
+        description "Common parameters to all equipment objects."; 
+
+        leaf alias-name {
+            type string { 
+                length 0..256; 
+                pattern '[A-Za-z0-9_\-/,\.]*';
+            }
+            description "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.";
+        }
+
+        uses ioa-common:aid;
+
+        uses ioa-common:common-states;
+
+        uses ioa-common:arc;
+
+        uses ioa-common:label;
+    }
+
+    grouping equipment-holder {
+        description "Attributes associated with all equipment holders (slots and ports).";
+
+        leaf-list supported-type {
+            type string { length 0..32; }
+            config false;
+            max-elements 20;
+            description "List of supported types in this equipment holder. 
+                        If a specific type is provisioned, the list has only that type.";
+        }
+
+        leaf installed-type {
+            type string { length 0..32; }
+            config false;
+            description "Currently installed type in this equipment holder. If empty, means no FRU is present.";
+        }
+    }
+
+    grouping inventory {
+        container inventory {
+            config false;
+            description "Inventory data for a present FRU.";
+
+            leaf hardware-version {
+                type string;
+                description "Hardware version of this FRU.";
+            }
+
+            leaf actual-type {
+                type string;
+                description "FRU type of actual equipment.";
+            }
+
+            leaf actual-subtype {
+                type string;
+                description "FRU subtype of actual equipment - only available if applicable.";
+            }
+
+            uses ioa-common:sw-support;
+
+            leaf PON {
+                type string;
+                description "Current PON of the equipment.";
+            }
+
+            leaf serial-number {
+                type string;
+                description "Serial number of the equipment.";
+            }
+
+            leaf clei { 
+                type string; 
+                description "Common Language Equipment Identifier.";
+            }
+
+            leaf vendor { 
+                type string; 
+                description "Vendor of this equipment.";
+            }
+
+            leaf part-number { 
+                type string; 
+                description "Part number for this equipment.";
+            }
+
+            leaf manufacture-date {
+                type string;
+                description "Manufacture Date in a date-time format (YYYY-MM-DDThh:mm:ssZ) or 'NA' if not available.";
+            }
+
+            leaf insertion-date {
+                type string;
+                description "Insertion Date in a date-time format (YYYY-MM-DDThh:mm:ssZ) or 'NA' if not available.";
+            }
+
+            leaf number-of-lanes {
+                type uint8;
+                description "When applicatible, provides number of supported optical lanes in this equipment.";
+            }
+
+            leaf fw-status {
+                type enumeration {
+                    enum not-applicable {
+                        value 0;
+                        description "Card doesn't have upgradable firmware.";
+                    }
+                    enum current { 
+                        value 1;
+                        description "All components have current firmware."; 
+                    }
+                    enum not-current {
+                        value 2;
+                        description "At least one component does not have current firmare.";
+                    }
+                    enum unavailable {
+                        value 3;
+                        description "Information on all firmware status is currently unavailable.";
+                    }
+                }
+                default not-applicable;
+                description "Summary status for all the firmware for this card.";
+            }
+
+            list current-fw {
+                key fw-name;
+                description "List of current firmware available in the card.";
+
+                leaf fw-name {
+                    type string { length 0..32; }
+                    description "Name of the firmware.";
+                }
+
+                leaf fw-version {
+                    type string { length 0..32; }
+                    description "Current version of the firmware.";
+                }
+
+                leaf expected-fw-version {
+                    type string { length 0..32; }
+                    description "Expected version of the firmware.";
+                }
+
+                leaf fw-status {
+                    type enumeration {
+                        enum current { 
+                            value 1;
+                            description "Current firmware is up-to-date."; 
+                        }
+                        enum not-current {
+                            value 2;
+                            description "Current firmware is not up-to-date against the expected one.";
+                        }
+                        enum unavailable {
+                            value 3;
+                            description "Information on firmware status is currently unavailable.";
+                        }
+                    }
+                    description "Status for this particular firmware.";
+                }
+            }
+        }
+    }
+
+    grouping slots {
+        list slot {
+            key name;
+            config false;
+            description "Slot equipment holder details.";
+            reference GX-606;
+
+            leaf name {
+                type string;
+                description "Slot name.";
+            }
+
+            uses ioa-common:aid;
+
+            uses equipment-holder;
+
+            uses ioa-common:operational-states;
+
+            leaf current-equipment {
+                type leafref {
+                    path "../../../card/name";
+                }
+                description "Name of the equipment that is currently required in this slot.";
+            }
+
+            uses inventory;
+
+        }
+        description "Existing slots and respective information about them. This grouping represents a general slot.";
+    }
+
+    grouping upgrade-status {
+
+        leaf upgrade-status {
+            type enumeration {
+                enum idle {
+                    value 1;
+                    description "Upgrade status not available.";
+                }
+                enum in-progress {
+                    value 2;
+                    description "Upgrade install is in progress.";
+                }
+                enum success {
+                    value 3;
+                    description "Upgrade installed.";
+                }
+                enum failed {
+                    value 4;
+                    description "Upgrade instalation failed.";
+                }
+                enum unknown {
+                    value 5;
+                    description "Upgrade status not known.";
+                }
+            }
+            default idle;
+            config false;
+            description "Current upgrade status.";
+        }
+    }
+
+    grouping equipment {
+
+        container equipment {
+            description "Container for all equipment related resources.";
+
+            list chassis {
+                key name;
+                description "Chassis configuration and state.";
+
+                leaf name { 
+                    type ioa-common:object-name;
+                    description "Chassis name.";
+                }
+
+                leaf is-node-controller {
+                    type boolean;
+                    config false;
+                    description "Tells if this chassis the the node controller of this NE.";
+                }
+
+                uses eqm-common;
+
+                leaf required-type {
+                    type identityref { base ioa-common:chassis; }
+                    mandatory true;
+                    description "Chassis type.";
+                }
+
+                leaf chassis-location {
+                    type string { length 0..128; }
+                    description "User defined location";
+                }
+
+                leaf rack-name {
+                    type string { length 0..128; }
+                    description "User defined rack name (withing the location)";
+                }
+
+                leaf position-in-rack {
+                    type uint8;
+                    description "Position of the chassis within the rack.";
+                }
+
+                leaf expected-pem-type {
+                    type enumeration {
+                        enum DC { 
+                            value 1; 
+                            description "DC PEM";
+                        }
+                        enum AC-high-line { 
+                            value 2; 
+                            description "High-line (220V) AC PEM";
+                        }
+                        enum AC-low-line {
+                            value 3;
+                            description "Low-line (110V) AC PEM";
+                        }
+                        enum HV-DC {
+                            value 4;
+                            description "High Voltage DC PEM";
+                        }
+                    }
+                    default DC;
+                    description "Defines what is the expected type of PEMs that this chassis will have.
+                                 It is not possible to configure each PEM slot individually, as all PEMs need to be of the same type.";
+                }
+
+                leaf expected-fan-type {
+                    type enumeration {
+                        enum single-rotar {
+                            value 1;
+                            description "Standard FAN type.";
+                        }
+                        enum counter-rotating {
+                            value 2;
+                            description "Counter rotating FAN type.";
+                        }
+                    }
+                    default counter-rotating;
+                    description "Defines what is the expected type of FANs that this chassis will have.
+                                 It is not possible to configure each FAN slot individually, this needs to be done at the chassis level.";
+                }
+
+                leaf pem-under-voltage-threshold {
+                    type decimal64 {
+                        fraction-digits 2;
+                    }
+                    units volt;
+                    description "Under voltage threshold on PEM input feed.";
+                }
+
+                leaf pem-over-voltage-threshold {
+                    type decimal64 {
+                        fraction-digits 2;
+                    } 
+                    units volt;
+                    description "Over voltage threshold on PEM input feed.";
+                }
+
+                leaf available-power {
+                    type decimal64 {
+                        fraction-digits 2;
+                    }
+                    units W;
+                    config false;
+                    description "Available Power at the chassis based on the current provisioned equipment.";
+                    reference GX-721;
+                }
+
+                leaf configured-max-power-draw {
+                    type decimal64 {
+                        fraction-digits 2;
+                    }
+                    units W;
+                    description "User configured limit of power usable by this chassis.";
+                    reference "GX-720, GX-723";
+                }
+
+                leaf current-estimated-power-draw {
+                    type decimal64 {
+                        fraction-digits 2;
+                    }
+                    units W;
+                    config false;
+                    description "Total estimated power of both installed and pre-provisioned FRUs";
+                    reference GX-722;
+                }
+
+                leaf configured-ambient-temperature {
+                    type uint8;
+                    units Celsius;
+                    description "Configured ambient temperature for the chassis, used to compute the FRU's power consumption.";
+                    reference GX-726;
+                }
+
+                leaf power-redundancy {
+                    type enumeration {
+                        enum one-plus-one { 
+                            value 1; 
+                            description "PEM is redundant within a bank of 2 PEMs.";
+                        }
+                        enum one-for-n {
+                            value 2;
+                            description "PEM is redundant against any other PEM.";
+                        }
+                    }
+                    default one-plus-one;
+                    description "Configuration of the PEM redundancy mode.";
+                }
+
+                leaf no-switchover {
+                    type enumeration {
+                        enum enabled { value 1; }
+                        enum disabled { value 2; }
+                    }
+                    default disabled;
+                    description "If enabled, the standby controller will be locked out from taking over the active card. This means no manual or autonomous switchovers will happen.";
+                }
+
+                leaf active-controller-slot {
+                    type union {
+                        type enumeration {
+                            enum none { value 0; }
+                        }
+                        type string { length 1..64; }
+                    }
+
+                    default none;
+                    config false;
+                    description "Identifies the active controller slot name. A change to this attribute implies a switchover has happened.";
+                }
+
+                uses inventory;
+                uses slots;
+            }
+
+            list card {
+                key name;
+                description "Card base object.This object has parameters that are common to all existing card types (controller, fan, etc).";
+
+                leaf name { 
+                    type ioa-common:object-name;
+                    description "Card identifier.";
+                }
+
+                leaf required-type {
+                    type identityref { base ioa-common:card; }
+                    mandatory true;
+                    description "Required card type.";
+                }
+
+                leaf required-subtype {
+                    type string { length 0..32; }
+                    description "The subtype of the card";
+                }
+
+                uses card-category;
+
+                leaf chassis-name {
+                    type leafref {
+                        path ../../chassis/name;
+                    }
+                    mandatory true;
+                    description "Chassis where this card is located.";
+                }
+
+                leaf slot-name {
+                    type string;
+                    mandatory true;
+                    description "Slot where this card is located.";
+                }
+
+                uses max-power-draw;
+
+                leaf last-reboot-reason {
+                    type string;
+                    config false;
+                    description "Reason why the last reboot was done.";
+                }
+
+                uses eqm-common;
+
+                // FUTURE uses slots;
+
+                container controller-card {
+                    description "Container of parameters related with controller cards.";
+
+                    leaf redundancy-status {
+                        type enumeration {
+                            enum active { value 1; }
+                            enum standby { value 2; }
+                            enum not-in-service { value 3; }
+                        }
+                        config false;
+                        description "Controller state.";
+                        reference GX-697;
+                    }
+
+                    leaf redundancy-standby-status {
+                        type enumeration {
+                            enum ready-synchronized {
+                                value 1;
+                                description "Standby controller is sync and ready.";
+                            }
+                            enum not-ready-synchronizing {
+                                value 2;
+                                description "Standby controller synchronizing data with active controller.";
+                            }
+                            enum not-ready-synchronize-fail {
+                                value 3;
+                                description "Synchronization fail.";
+                            }
+                            enum lock-out {
+                                value 4;
+                                description "Protection in lock-out state.";
+                            }
+                            enum card-not-present {
+                                value 5;
+                                description "Standby card is not present";
+                            }
+                        }
+                        default not-ready-synchronizing;
+                        config false;
+                        description "State of the controller redundancy.";
+                    }
+
+                    leaf number-of-switchover-events {
+                        type uint32;
+                        config false;
+                        description "Number of times that an active controller card has switchover. Value only visibile on active controller card.";
+                    }
+
+                    leaf time-of-last-switchover {
+                        type ioa-common:date-time-never;
+                        config false;
+                        description "Timestamp of the last controller switchover event. Value only visible on active controller card.";
+                    }
+
+                    leaf additional-details {
+                        type string { length 0..128; }
+                        config false;
+                        description "Additional details for synchronization status.";
+                    }
+                }
+
+                uses ioa-common:properties;
+
+                list port {
+                    key name;
+                    description "Generic card port.";
+
+                    leaf name {
+                        type string;
+                        description "Port name.";
+                    }
+
+                    uses eqm-common;
+
+                    uses port-common;
+
+                    leaf parent-port {
+                        when "../port-type = 'tributary-subport'";
+                        type leafref {
+                            path "../../port/name";
+                        }
+                        config false;
+                        description "Name of the parent port. Only applicable for sub-ports.";
+                    }
+
+                    leaf-list subport-list {
+                        type leafref {
+                            path "../../port/name";
+                        }
+                        config false;
+                        description "List of sub-ports associated with this port. 
+                                     Only applicable when this port is a parent port.";
+                    }
+
+
+                    leaf hosted-interface {
+                        type instance-identifier;
+                        config false;
+                        description "Top level interface hosted in this port.";
+                    }
+
+                    uses equipment-holder;
+
+                    leaf connected-to {
+                        type string {
+                            length 0..128;
+                        }
+                        description "Indicate neighbour port entity to which the current port is connected to.
+                                     This is not validated by the NE and can be used by the customers (or NMS) for topology construction.
+                                     This parameter is available independently on any automated discovery mechanisms that may exist in the port.";
+                    }
+
+                    container tom {
+                        description "TOM (Transceiver Optical Module) pluggable information.";
+
+                        leaf required-type {
+                            type identityref {
+                                base ioa-common:tom;
+                            }
+                            mandatory true;
+                            description "The type of the TOM.";
+                        }
+
+                        leaf required-subtype {
+                            type string { length 0..32; }
+                            description "The subtype of the TOM.";
+                        }
+
+                        leaf phy-mode {
+                            type ioa-eqm:phy-mode;
+                            description "Configured Phy Mode.";
+                        }
+
+                        leaf-list supported-phy-modes {
+                            type ioa-eqm:phy-mode;
+                            config false;
+                            description "List of supported Phy Modes by this TOM type.";
+                        }
+
+                        leaf power-class-override {
+                            type ioa-common:enable-switch;
+                            description "Used to override the power class for 3rd party TOM.";
+                        }
+
+                        uses upgrade-status;
+
+                        uses eqm-common;
+
+                        leaf enable-serdes {
+                            type boolean;
+                            default false;
+                            description "Controls enabling/disabling of configuring TOM SerDes.";
+                        }
+
+                        list serdes {
+                            when "../enable-serdes = 'true'";
+                            key name;
+                            description "The user configured (or overridden) set of serializer/desserializer.";
+
+                            uses ioa-common:advanced-parameter-configuration-base;
+                        }
+                    }
+
+                    container usb {
+                        config false;
+                        description "Represents the USB function of this port.";
+
+                        leaf type {
+                            type enumeration {
+                                enum storage {
+                                    value 1;
+                                    description "USB port can be used for file storage, and supports associated file management operations.";
+                                }
+                                enum power-supply {
+                                    value 2;
+                                    description "USB port can be used to power additional external equipment (for example, passive shelves).";
+                                }
+                            }
+                            description "The role that this usb port has.";
+                        }
+
+                        leaf present {
+                            type boolean;
+                            default false;
+                            description "Describes the presence state of the USB connector.";
+                        }
+
+                        leaf available-space {
+                            when "../type = 'storage' and ../present = 'true'";
+                            type ioa-common:storage-size;
+                            description "The current available storage space in the file-system associated with this USB port.";
+                        }
+
+                        leaf total-space {
+                            when "../type = 'storage' and ../present = 'true'";
+                            type ioa-common:storage-size;
+                            description "The total storage space available in the file-system associated with this USB port.";
+                        }
+
+                        leaf usb-path {
+                            when "../type = 'storage' and ../present = 'true'";
+                            type string { length 0..32; }
+                            description "Local filesystem path on where this USB file-system is mounted; this can be used as a target/source for file transfer operations.";
+                        }
+                    }
+
+                    container comm-eth {
+                        description "Communication ethernet port.";
+
+                        leaf auto-negotiation {
+                            type ioa-common:enable-switch;
+                            default enabled;
+                            description "Auto negotiation mode.";
+                        }
+
+                        leaf mtu {
+                            type uint16 {
+                                range "1280..9202";
+                            }
+                            units octets;
+                            default 1500;
+                            description
+                            "The maximum transmission unit size in octets for the physical Ethernet port.";
+                        }
+
+                        leaf duplex-mode {
+                            when "../auto-negotiation = 'disabled'";
+                            type ioa-eqm:duplex-mode;
+                            default full;
+                            description "Duplex mode; only valid if auto-negotiation is disabled.";
+                        }
+
+                        leaf operational-duplex-mode {
+                            type ioa-eqm:duplex-mode;
+                            default unknown;
+                            config false;
+                            description "Operational duplex mode.";
+                        }
+
+                        leaf rate {
+                            when "../auto-negotiation = 'disabled'";
+                            type ioa-eqm:ethernet-rate;
+                            default maximum;
+                            description "Required Ethernet rate; only valid if auto-negotiation is disabled.";
+                        }
+
+                        leaf operational-rate {
+                            type ioa-eqm:ethernet-rate;
+                            default unknown;
+                            config false;                            
+                            description "Operational Ethernet rate.";
+                        }
+
+                        leaf flow-control {
+                            when "../auto-negotiation = 'disabled'";
+                            type ioa-eqm:flow-control;
+                            default disabled;
+                            description "Specifies the type of flow control to be supported.";
+                        }
+
+                        leaf operational-flow-control {
+                            type ioa-eqm:flow-control;
+                            default unknown;
+                            config false;
+                            description "Operational flow control.";
+                        }
+
+                        leaf redundancy-state {
+                            type enumeration {
+                                enum none {
+                                    value 0;
+                                    description "No redundancy.";
+                                }
+                                enum active {
+                                    value 1;
+                                    description "Port is active.";
+                                }
+                                enum standby {
+                                    value 2;
+                                    description "Port is on standby.";
+                                }
+                            }
+
+                            default none;
+                            config false;
+
+                            description "Redundancy state of the comm port.";
+                        }
+
+                        leaf mac-address {
+                            type yang:mac-address;
+                            default "00:00:00:00:00:00";
+                            config false;
+                            description "MAC Address of the port.";
+                        }
+                    }
+
+                    uses inventory;
+                }
+
+                container console {
+                    description "Parameters associated with this card's serial console port.";
+
+                    leaf baud-rate {
+                        type enumeration {
+                           enum auto-sensing { 
+                                value 5;
+                                description "System will auto-detect the baud-rate based on 'ENTER' presses on serial console client side.
+                                             The detected baud-rate is then locked, and shown in the 'actual-baudrate' parameter.
+                                             Note: not all cards support auto-sensing capability.";
+                            }
+                            enum 9600 {
+                                value 6;
+                            }
+                            enum 19200 {
+                                value 7;
+                            }
+                            enum 38400 {
+                                value 8;
+                            }
+                            enum 57600 {
+                                value 11;
+                            }
+                            enum 115200 {
+                                value 12;
+                            }
+                        }
+                        description "The configured baud-rate for this card's console port.
+                                     Default value is card type specific.";
+                    }
+
+                    leaf actual-baud-rate {
+                        type console-baud-rate;
+                        config false;
+                        description "The actual baud-rate for this card's console port. 
+                                     If auto-sensing is enabled, this will reveal the detected baud-rate.
+                                     If a fixed baud-rate is configured, this will match the configured baud-rate.";
+                    }
+
+                    leaf auto-sensing-state {
+                        when "../baud-rate = 'auto-sensing'";
+                        type enumeration {
+                            enum sensing { 
+                                value 1; 
+                                description "Represents that the auto-sensing algorithm is active, waiting for 'ENTER' presses
+                                             on serial console client side."; 
+                            }
+                            enum locked {
+                                value 2;
+                                description "Auto-sensing algorithm already discovered the port's baud-rate (visible in the actual-baud-rate parameter), 
+                                             and has locked that value. No further auto-sensing is performed until baud-rate is reconfigured or card reboots.";
+                            }
+                        }
+                        default sensing;
+                        config false;
+                        description "Current state of the auto-sensing mechanism.
+                                     Only visible if auto-sensing is enabled for this port.";
+                    }
+
+                    leaf local-switch {
+                        type enumeration {
+                            enum use-global-switch {value 6; description "Console switch is using the global switch configuration.";}
+                            enum force-enable {value 7; description "Console switch is enabled.";}
+                            enum force-disable {value 8; description "Console switch is disabled.";}
+                        }
+                        default use-global-switch;
+                        description "Defines the global access to all card's console port. Access can be overridden per console port at the card level.";
+                    }
+
+                    leaf status {
+                        type ioa-common:enable-switch;
+                        default enabled;
+                        config false;
+                        description "Current status of the console for this card.";
+                    }
+                }
+
+                uses ioa-opt:optical-card-parameters;
+            }
+
+            container leds {
+                config false;
+                description "Container of all equipment LEDs.";
+
+                list led {
+                    key "location name";
+                    description "Representation of a LED in a FRU.
+                        Object exists even if FRU is not physically present.";
+
+                    leaf location {
+                        type string { length 1..32; }
+                        description "AID of equipment location of the LED (may be a chassis, card or a port AID).";
+                    }
+
+                    leaf name {
+                        type string { length 1..16; }
+                        description "Name of the LED within the FRU.";
+                    }
+
+                    leaf status {
+                        type enumeration {
+                            enum not-available {
+                                value 0;
+                                description "LED status not available.";
+                            }
+                            enum off {
+                                value 1;
+                                description "LED is turned off and has no color."; 
+                            }
+                            enum yellow {
+                                value 2;
+                                description "LED is turned on with yellow color.";
+                            }
+                            enum flashing-yellow {
+                                value 3;
+                                description "LED is flashing, alternating between off and yellow color.";
+                            }
+                            enum green {
+                                value 4;
+                                description "LED is turned on with green color.";
+                            }
+                            enum flashing-green {
+                                value 5;
+                                description "LED is flashing, alternating between off and green color.";
+                            }
+                            enum red {
+                                value 6;
+                                description "LED is turned on with red color.";
+                            }
+                            enum flashing-red {
+                                value 7;
+                                description "LED is flashing, alternating between off and red color.";
+                            }
+                            enum cycling-with-off {
+                                value 8;
+                                description "LED is cycling between all supported colors, including off state.";
+                            }
+                            enum cycling {
+                                value 9;
+                                description "LED is cycling between all supported colors (excluding off state) - used for lamp test.";
+                            }
+                            enum amber {
+                                value 10;
+                                description "LED is turned on with amber color.";
+                            }
+                            enum flashing-amber {
+                                value 11;
+                                description "LED is flashing, alternating between off and amber color.";
+                            }
+                        }
+                        default not-available;
+                        description "Current color status of the LED.";
+                    }
+                }
+            }
+
+            container equipment-policies {
+                description "Container with all existing equipment policies.";
+
+                leaf tom-auto-migration {
+                    type ioa-common:enable-switch;   
+                    default enabled;
+                    description "Enables automatic update of tom subtype based on present equipment.
+This update may have direct impact on existing configurations.
+Note: this has impact on tom subtype migration, but not for tom type migration (e.g. no update between QSFPDD and QSFP28).";
+                }
+            } 
+        }
+    }
+}

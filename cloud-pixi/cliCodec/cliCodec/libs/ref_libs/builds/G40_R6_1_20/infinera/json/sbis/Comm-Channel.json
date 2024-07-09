@@ -1,0 +1,313 @@
+{
+    "ne": {
+        "facilities": {
+            "comm-channel": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A generic, configurable name for every facility.",
+                        "mandatory": true,
+                        "key": true,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "OFEC-CC",
+                                "GCC0",
+                                "GCC1",
+                                "OSCX1",
+                                "OSCX2"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Indicates the type of control channel.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "bandwidth": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Indicates the control channel's bandwidth/capacity.\nThis is system determined based on the underlying facilities that support this control channel.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "mtu": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "The maximum transmission unit size in octets for comm channel.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 1500,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "parent": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Parent object of the comm-channel.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Card that holds this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "managed-by": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "system",
+                                "user"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Describes whether this facility was system created or not.\nOnly user created facilities can be user deleted.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "system",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Ports that hold this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the parent facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supported-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the children facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fcs-length": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "16",
+                                "32"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Specifies whether the Frame Check Sequence(FCS) is a 16-bit or 32-bit value.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "16",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "mru": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Specifies the MRU(Maximum-Receive-Unit) in the Information and Padding fields.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 1500,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "restart-timer": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Specifies the restart timer of the PPP protocol in seconds.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 3,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "max-failure": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Specifies the maximum failure value of the PPP protocol. Max-Failure\nindicates the number of Configure-Nak packets sent without sending\na Configure-Ack before assuming that configuration is not converging.\nAny further Configure-Nak packets for peer requested options are\nconverted to Configure-Reject packets, and locally desired options\nare no longer appended.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 5,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "peer-address": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The IP address on the peer node.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "0.0.0.0",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

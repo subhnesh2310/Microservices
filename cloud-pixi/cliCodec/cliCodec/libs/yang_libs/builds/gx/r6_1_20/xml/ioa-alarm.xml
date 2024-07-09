@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-alarm"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-alarm="http://infinera.com/yang/ioa/alarm"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common">
+  <namespace uri="http://infinera.com/yang/ioa/alarm"/>
+  <prefix value="ioa-alarm"/>
+  <import module="ietf-yang-types">
+    <prefix value="yang"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA module defining Alarm management data model.</text>
+  </description>
+  <revision date="2023-03-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.1</text>
+    </description>
+  </revision>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-06-30">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.2</text>
+    </description>
+  </revision>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <identity name="ALARM-TYPE">
+    <description>
+      <text>Base identity for alarm types.
+It uniquely identifies the alarm, not including the resource.
+Multiple resources may support the same alarm type.
+Product specific alarm types are defined in separate yang modules in a modular way.</text>
+    </description>
+  </identity>
+  <typedef name="severity">
+    <type name="enumeration">
+      <enum name="indeterminate">
+        <value value="0"/>
+      </enum>
+      <enum name="critical">
+        <value value="1"/>
+      </enum>
+      <enum name="major">
+        <value value="2"/>
+      </enum>
+      <enum name="minor">
+        <value value="3"/>
+      </enum>
+      <enum name="warning">
+        <value value="4"/>
+      </enum>
+      <enum name="not-reported">
+        <value value="5"/>
+      </enum>
+      <enum name="event">
+        <value value="6"/>
+      </enum>
+      <enum name="cleared">
+        <value value="7"/>
+      </enum>
+    </type>
+    <description>
+      <text>Possible alarm severities, with 'clear'.</text>
+    </description>
+  </typedef>
+  <typedef name="user-severity">
+    <type name="enumeration">
+      <enum name="critical">
+        <value value="1"/>
+      </enum>
+      <enum name="major">
+        <value value="2"/>
+      </enum>
+      <enum name="minor">
+        <value value="3"/>
+      </enum>
+      <enum name="warning">
+        <value value="4"/>
+      </enum>
+      <enum name="not-reported">
+        <value value="5"/>
+      </enum>
+      <enum name="event">
+        <value value="6"/>
+      </enum>
+    </type>
+    <description>
+      <text>Possible alarm severities configurable by the user.</text>
+    </description>
+  </typedef>
+  <typedef name="service-affecting">
+    <type name="enumeration">
+      <enum name="indeterminate">
+        <value value="0"/>
+      </enum>
+      <enum name="sa">
+        <value value="1"/>
+      </enum>
+      <enum name="nsa">
+        <value value="2"/>
+      </enum>
+      <enum name="sa-nsa">
+        <value value="3"/>
+      </enum>
+    </type>
+    <description>
+      <text>Possible alarm service affecting category</text>
+    </description>
+  </typedef>
+  <typedef name="direction">
+    <type name="enumeration">
+      <enum name="na">
+        <value value="0"/>
+      </enum>
+      <enum name="ingress">
+        <value value="1"/>
+      </enum>
+      <enum name="egress">
+        <value value="2"/>
+      </enum>
+    </type>
+    <description>
+      <text>Direction related with the alarm.</text>
+    </description>
+  </typedef>
+  <typedef name="location">
+    <type name="enumeration">
+      <enum name="na">
+        <value value="0"/>
+      </enum>
+      <enum name="near-end">
+        <value value="1"/>
+      </enum>
+      <enum name="far-end">
+        <value value="2"/>
+      </enum>
+    </type>
+    <description>
+      <text>Location of the alarm.</text>
+    </description>
+  </typedef>
+  <typedef name="operator-state">
+    <type name="enumeration">
+      <enum name="none">
+        <value value="1"/>
+        <description>
+          <text>The alarm is not being taken care of.</text>
+        </description>
+      </enum>
+      <enum name="ack">
+        <value value="2"/>
+        <description>
+          <text>The alarm is being taken care of. Corrective action not taken yet or has failed.</text>
+        </description>
+      </enum>
+      <enum name="closed">
+        <value value="3"/>
+        <description>
+          <text>Corrective action taken successfully.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Possible operator states for alarms.</text>
+    </description>
+  </typedef>
+  <typedef name="alarm-category">
+    <type name="enumeration">
+      <enum name="communication">
+        <value value="1"/>
+      </enum>
+      <enum name="facility">
+        <value value="2"/>
+      </enum>
+      <enum name="equipment">
+        <value value="3"/>
+      </enum>
+      <enum name="environmental">
+        <value value="4"/>
+      </enum>
+      <enum name="processing-error">
+        <value value="5"/>
+      </enum>
+      <enum name="software">
+        <value value="6"/>
+      </enum>
+      <enum name="quality-of-service">
+        <value value="7"/>
+      </enum>
+    </type>
+    <description>
+      <text>Category of the alarm type.</text>
+    </description>
+  </typedef>
+  <grouping name="alarm-info">
+    <description>
+      <text>Set of attributes necessary for representing an alarm event.</text>
+    </description>
+    <leaf name="alarm-id">
+      <type name="string">
+        <length value="0..128"/>
+      </type>
+      <description>
+        <text>Unique identifier of the alarm.
+Based on resource + probable cause.
+Note: this id is intended as an alarm identifier, but it is not intended to provide any additional information.
+Other fields exist to provide this additional information.</text>
+      </description>
+    </leaf>
+    <uses name="ioa-common:resource-instance"/>
+    <uses name="alarm-type"/>
+    <uses name="alarm-type-description"/>
+    <leaf name="direction">
+      <type name="ioa-alarm:direction"/>
+      <description>
+        <text>Direction of the alarm.</text>
+      </description>
+    </leaf>
+    <leaf name="location">
+      <type name="ioa-alarm:location"/>
+      <description>
+        <text>Location of the alarm.</text>
+      </description>
+    </leaf>
+    <leaf name="perceived-severity">
+      <type name="ioa-alarm:severity"/>
+      <description>
+        <text>Severity of the alarm.</text>
+      </description>
+    </leaf>
+    <leaf name="reported-time">
+      <type name="yang:date-and-time"/>
+      <description>
+        <text>Occurrence timestamp for the alarm.</text>
+      </description>
+    </leaf>
+    <leaf name="service-affecting">
+      <type name="ioa-alarm:service-affecting"/>
+      <description>
+        <text>Information on whether this alarm is service affecting or not.</text>
+      </description>
+    </leaf>
+    <leaf name="alarm-category">
+      <type name="ioa-alarm:alarm-category"/>
+      <description>
+        <text>Category of the alarm type.</text>
+      </description>
+    </leaf>
+    <leaf name="additional-details">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <description>
+        <text>Free string with additional relevant information provided by the system.</text>
+      </description>
+    </leaf>
+    <uses name="corrective-action"/>
+    <uses name="ioa-common:label"/>
+    <leaf name="last-changed-time">
+      <type name="yang:date-and-time"/>
+      <description>
+        <text>Timestamp of the last change occured in the alarm.</text>
+      </description>
+    </leaf>
+    <uses name="ioa-common:circuit-id"/>
+  </grouping>
+  <container name="alarms">
+    <description>
+      <text>Top level container for all system alarms, which are defined as an
+undesirable state in a resource that requires corrective action.</text>
+    </description>
+    <container name="current-alarms">
+      <config value="false"/>
+      <description>
+        <text>List of currently raised alarms.</text>
+      </description>
+      <leaf name="number-of-alarms">
+        <type name="uint32"/>
+        <description>
+          <text>Number of currently raised alarms.</text>
+        </description>
+      </leaf>
+      <leaf name="last-changed">
+        <type name="yang:date-and-time"/>
+        <description>
+          <text>Timestamp of the last change in the current alarm list (either a raise or clear event).</text>
+        </description>
+      </leaf>
+      <list name="alarm">
+        <key value="alarm-id"/>
+        <description>
+          <text>Alarm instance that represents a raised alarm, when entry is created, or a cleared alarm,
+when entry is deleted.</text>
+        </description>
+        <uses name="alarm-info"/>
+        <leaf name="operator-state">
+          <type name="operator-state"/>
+          <default value="none"/>
+          <description>
+            <text>State of the alarm according with operator action.</text>
+          </description>
+        </leaf>
+        <leaf name="operator-text">
+          <type name="string">
+            <length value="0..256"/>
+          </type>
+          <description>
+            <text>Text provided by operator when changing alarm state.</text>
+          </description>
+        </leaf>
+        <leaf name="operator-name">
+          <type name="string">
+            <length value="0..256"/>
+          </type>
+          <description>
+            <text>Username that last changed the state of this alarm.</text>
+          </description>
+        </leaf>
+        <leaf name="operator-last-action">
+          <type name="yang:date-and-time"/>
+          <description>
+            <text>Timestamp when the alarm was last changed by operator.</text>
+          </description>
+        </leaf>
+      </list>
+    </container>
+    <container name="alarm-control">
+      <description>
+        <text>Object related with alarm management control</text>
+      </description>
+      <leaf name="arc-behavior">
+        <type name="enumeration">
+          <enum name="leave-alarms">
+            <value value="1"/>
+            <description>
+              <text>When ARC is set to 'inhibit', leaves current alarms in a raised mode.</text>
+            </description>
+          </enum>
+          <enum name="clear-alarms">
+            <value value="2"/>
+            <description>
+              <text>When ARC is set to 'inhibit', clears current alarms.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="leave-alarms"/>
+        <description>
+          <text>System wide alarm-reporting-control (ARC) behavior switch.</text>
+        </description>
+      </leaf>
+      <container name="alarm-severity-profile">
+        <description>
+          <text>Container for all alarm-severity-entries (ASAP table).</text>
+        </description>
+        <list name="alarm-severity-entry">
+          <key value="resource-type alarm-type direction location"/>
+          <description>
+            <text>Individual entry in alarm-severity-profile, allows to configure the severity for one particular alarm.</text>
+          </description>
+          <uses name="ioa-common:resource-type"/>
+          <uses name="alarm-type"/>
+          <leaf name="direction">
+            <type name="ioa-alarm:direction"/>
+            <description>
+              <text>Configured direction for the current resource type.</text>
+            </description>
+          </leaf>
+          <leaf name="location">
+            <type name="ioa-alarm:location"/>
+            <description>
+              <text>Configured location for the current resource type.</text>
+            </description>
+          </leaf>
+          <leaf name="severity">
+            <type name="ioa-alarm:user-severity"/>
+            <description>
+              <text>Configured severity for the current resource type.</text>
+            </description>
+          </leaf>
+          <leaf name="service-affecting">
+            <type name="ioa-alarm:service-affecting"/>
+            <config value="false"/>
+            <description>
+              <text>Configured service affecting for the current resource type.</text>
+            </description>
+          </leaf>
+        </list>
+      </container>
+    </container>
+    <list name="alarm-inventory">
+      <key value="alarm-type"/>
+      <config value="false"/>
+      <description>
+        <text>Inventory with all possible alarm types for the system, containing
+static information for each alarm type.</text>
+      </description>
+      <uses name="alarm-inventory-base"/>
+    </list>
+  </container>
+  <grouping name="alarm-inventory-base">
+    <uses name="alarm-type"/>
+    <leaf-list name="resource-type">
+      <type name="identityref">
+        <base name="ioa-common:RESOURCE-TYPE"/>
+      </type>
+      <max-elements value="50"/>
+      <description>
+        <text>Type of resources to which this alarm applies.</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="alarm-category">
+      <type name="ioa-alarm:alarm-category"/>
+      <max-elements value="10"/>
+      <description>
+        <text>List of possible categories of this alarm type. The same alarm may have different categories, depending on the resource-type it applies to.</text>
+      </description>
+    </leaf-list>
+    <uses name="alarm-type-description"/>
+    <uses name="corrective-action"/>
+    <leaf-list name="default-severity">
+      <type name="ioa-alarm:user-severity"/>
+      <max-elements value="10"/>
+      <description>
+        <text>List of possible default severities for this alarm type. The same alarm may have different default severities depending of the resource-type it applies to.</text>
+      </description>
+    </leaf-list>
+    <leaf name="service-affecting">
+      <type name="ioa-alarm:service-affecting"/>
+      <description>
+        <text>Information on whether this alarm is service affecting or not. In some cases, the same alarm may be simultaneously 'sa' and 'nsa', depending on the resource-type it applies to.</text>
+      </description>
+    </leaf>
+    <leaf name="can-be-cleared-by-user">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>Information on whether this alarm can be cleared by the user or not.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="alarm-type">
+    <leaf name="alarm-type">
+      <type name="identityref">
+        <base name="ALARM-TYPE"/>
+      </type>
+      <description>
+        <text>Type of alarm, based on an abbreviated code.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="alarm-type-description">
+    <leaf name="alarm-type-description">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <description>
+        <text>Human friendly description of the type of the alarm.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="corrective-action">
+    <leaf name="corrective-action">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <description>
+        <text>System provided information on how to correct the situation that triggered this alarm.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <notification name="alarm-notification">
+    <description>
+      <text>Notification that is used to report a raise or clear event for an alarm.</text>
+    </description>
+    <uses name="ioa-common:notif-common"/>
+    <uses name="alarm-info"/>
+  </notification>
+  <rpc name="set-alarm-state">
+    <description>
+      <text>Change the operator state of an alarm.</text>
+    </description>
+    <input>
+      <leaf name="state">
+        <type name="operator-state"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Alarm state.</text>
+        </description>
+      </leaf>
+      <choice name="target">
+        <leaf name="all-alarms">
+          <type name="empty"/>
+          <description>
+            <text>Acknowledge all currently raised alarms.</text>
+          </description>
+        </leaf>
+        <leaf-list name="alarm-id-list">
+          <type name="leafref">
+            <path value="/alarms/current-alarms/alarm/alarm-id"/>
+          </type>
+          <min-elements value="1"/>
+          <max-elements value="10"/>
+          <description>
+            <text>List of alarm-ids to change the state.</text>
+          </description>
+        </leaf-list>
+        <mandatory value="true"/>
+      </choice>
+      <leaf name="acknowledge-text">
+        <type name="string">
+          <length value="0..256"/>
+        </type>
+        <description>
+          <text>Optional text that will be stored in the alarm.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="clear-alarm">
+    <description>
+      <text>Manually clear alarms that have no criteria to be cleared.</text>
+    </description>
+    <input>
+      <leaf name="alarm-type">
+        <type name="leafref">
+          <path value="/ioa-alarm:alarms/ioa-alarm:current-alarms/ioa-alarm:alarm/ioa-alarm:alarm-type"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Type of alarm to be cleared.
+Note: only some alarms are eligible to be cleared using this operation; see alarm-inventory/can-be-cleared-by-user for details.</text>
+        </description>
+      </leaf>
+      <leaf-list name="resource">
+        <type name="leafref">
+          <path value="/ioa-alarm:alarms/ioa-alarm:current-alarms/ioa-alarm:alarm/ioa-alarm:resource"/>
+        </type>
+        <description>
+          <text>Resource of alarm to be cleared.
+May be one or more resources assocaited with the provided alarm-type.</text>
+        </description>
+      </leaf-list>
+    </input>
+  </rpc>
+  <rpc name="get-conditions">
+    <description>
+      <text>Allows to retrieve conditions.
+A condition is an alarm that is not considered current. This can happen for the following reasons:
+- alarm suppressed due to alarm correlation
+- alarms suppressed due to AINS</text>
+    </description>
+    <input>
+      <uses name="ioa-common:resource-instance"/>
+      <uses name="ioa-alarm:alarm-type"/>
+      <leaf name="direction">
+        <type name="enumeration">
+          <enum name="all">
+            <value value="0"/>
+          </enum>
+          <enum name="na">
+            <value value="1"/>
+            <description>
+              <text>Not-applicable</text>
+            </description>
+          </enum>
+          <enum name="ingress">
+            <value value="2"/>
+          </enum>
+          <enum name="egress">
+            <value value="3"/>
+          </enum>
+        </type>
+        <default value="all"/>
+        <description>
+          <text>Direction of the condition.</text>
+        </description>
+      </leaf>
+      <leaf name="location">
+        <type name="enumeration">
+          <enum name="all">
+            <value value="0"/>
+          </enum>
+          <enum name="na">
+            <value value="1"/>
+            <description>
+              <text>Not-applicable</text>
+            </description>
+          </enum>
+          <enum name="near-end">
+            <value value="2"/>
+          </enum>
+          <enum name="far-end">
+            <value value="3"/>
+          </enum>
+        </type>
+        <default value="all"/>
+        <description>
+          <text>Location of the condition.</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <list name="condition">
+        <key value="alarm-id"/>
+        <uses name="ioa-alarm:alarm-info"/>
+      </list>
+    </output>
+  </rpc>
+</module>

@@ -1,0 +1,185 @@
+{
+    "ne": {
+        "facilities": {
+            "dsc": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A generic, configurable name for every facility.",
+                        "key": true,
+                        "mandatory": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Card that holds this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "managed-by": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "system",
+                                "user"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Describes whether this facility was system created or not.\nOnly user created facilities can be user deleted.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "system",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Ports that hold this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the parent facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supported-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the children facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

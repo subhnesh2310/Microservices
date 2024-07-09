@@ -1,0 +1,1002 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-certificate"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-cert="http://infinera.com/yang/ioa/certificate"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common">
+  <namespace uri="http://infinera.com/yang/ioa/certificate"/>
+  <prefix value="ioa-cert"/>
+  <import module="ietf-yang-types">
+    <prefix value="yang"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module covering certificate management.</text>
+  </description>
+  <revision date="2023-03-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.1</text>
+    </description>
+  </revision>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-06-30">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.2</text>
+    </description>
+  </revision>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-09-17">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.1</text>
+    </description>
+  </revision>
+  <typedef name="allowed-key-lengths">
+    <type name="enumeration">
+      <enum name="rsa2048">
+        <value value="1"/>
+      </enum>
+      <enum name="rsa3072">
+        <value value="2"/>
+      </enum>
+      <enum name="rsa4096">
+        <value value="3"/>
+      </enum>
+      <enum name="ecdsa256">
+        <value value="4"/>
+      </enum>
+      <enum name="ecdsa384">
+        <value value="5"/>
+      </enum>
+      <enum name="ecdsa521">
+        <value value="6"/>
+      </enum>
+      <enum name="ecdsa128">
+        <value value="7"/>
+        <status value="obsolete"/>
+      </enum>
+    </type>
+    <description>
+      <text>Public/private key length(only for allowed key types).</text>
+    </description>
+  </typedef>
+  <typedef name="public-key-types">
+    <type name="enumeration">
+      <enum name="rsa">
+        <value value="1"/>
+      </enum>
+      <enum name="ecdsa">
+        <value value="2"/>
+      </enum>
+    </type>
+    <description>
+      <text>Public/private key type for X509v3 certificate and SSHv2 host key.</text>
+    </description>
+  </typedef>
+  <typedef name="cert-subject-name">
+    <type name="string">
+      <length value="1..1024"/>
+    </type>
+    <description>
+      <text>A custom type to represent X.500 distinguished names (DN).</text>
+    </description>
+    <reference>
+      <text>X.500, RFC 5280</text>
+    </reference>
+  </typedef>
+  <typedef name="key-usage-type">
+    <type name="enumeration">
+      <enum name="digitalSignature">
+        <value value="1"/>
+        <description>
+          <text>Allows using public key with a digital sign mechanism.</text>
+        </description>
+      </enum>
+      <enum name="nonRepudiation">
+        <value value="2"/>
+        <description>
+          <text>Allows using public key for verifying digital signatures.</text>
+        </description>
+      </enum>
+      <enum name="keyEncipherment">
+        <value value="3"/>
+        <description>
+          <text>Allows usage with a protocol that uses encryption keys from public key.</text>
+        </description>
+      </enum>
+      <enum name="dataEncipherment">
+        <value value="4"/>
+        <description>
+          <text>Allows public key usage to encrypt user data.</text>
+        </description>
+      </enum>
+      <enum name="keyAgreement">
+        <value value="5"/>
+        <description>
+          <text>Allows deriving of a session key from the public key.</text>
+        </description>
+      </enum>
+      <enum name="keyCertSign">
+        <value value="6"/>
+        <description>
+          <text>Allows public key to verify signature of certificates.</text>
+        </description>
+      </enum>
+      <enum name="cRLSign">
+        <value value="7"/>
+        <description>
+          <text>Allows public key to verify signature of revocation information.</text>
+        </description>
+      </enum>
+      <enum name="encipherOnly">
+        <value value="8"/>
+        <description>
+          <text>For keyEncipherment, allows the public key to be use for encryption only.</text>
+        </description>
+      </enum>
+      <enum name="decipherOnly">
+        <value value="9"/>
+        <description>
+          <text>For keyEncipherment, allows the public key to be use for decryption only.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Key usage is a multi-valued extension consisting of a list of
+names of the permitted key usages.</text>
+    </description>
+  </typedef>
+  <typedef name="extended-key-usage-type">
+    <type name="enumeration">
+      <enum name="serverAuth">
+        <value value="1"/>
+        <description>
+          <text>TLS WWW Server Authentication.</text>
+        </description>
+      </enum>
+      <enum name="clientAuth">
+        <value value="2"/>
+        <description>
+          <text>TLS WWW Client Authentication.</text>
+        </description>
+      </enum>
+      <enum name="codeSigning">
+        <value value="3"/>
+        <description>
+          <text>Code Signing.</text>
+        </description>
+      </enum>
+      <enum name="emailProtection">
+        <value value="4"/>
+        <description>
+          <text>E-mail Protection (S/MIME).</text>
+        </description>
+      </enum>
+      <enum name="timeStamping">
+        <value value="5"/>
+        <description>
+          <text>Trusted Timestamping.</text>
+        </description>
+      </enum>
+      <enum name="OCSPSigning">
+        <value value="6"/>
+        <description>
+          <text>OCSP Signing.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>This extension consists of a list of values indicating purposes
+for which the certificate public key can be used.</text>
+    </description>
+  </typedef>
+  <grouping name="signature-algorithm">
+    <leaf name="signature-key-type">
+      <type name="enumeration">
+        <enum name="rsa">
+          <value value="1"/>
+        </enum>
+        <enum name="ecdsa">
+          <value value="2"/>
+        </enum>
+        <enum name="rsassa-pss">
+          <value value="3"/>
+        </enum>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Signature algorithm key type for certificate/CRL.</text>
+      </description>
+    </leaf>
+    <leaf name="signature-hash-algorithm">
+      <type name="enumeration">
+        <enum name="sha256">
+          <value value="1"/>
+        </enum>
+        <enum name="sha384">
+          <value value="2"/>
+        </enum>
+        <enum name="sha512">
+          <value value="3"/>
+        </enum>
+        <enum name="sha1">
+          <value value="4"/>
+        </enum>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Hash algorithm used for signing certificate/CRL.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="x509-certificate">
+    <leaf name="id">
+      <type name="ioa-common:certificate-name"/>
+      <description>
+        <text>A unique object identifier for the certificate.</text>
+      </description>
+    </leaf>
+    <leaf name="version">
+      <type name="enumeration">
+        <enum name="v3">
+          <value value="1"/>
+        </enum>
+      </type>
+      <default value="v3"/>
+      <config value="false"/>
+      <description>
+        <text>X509 certificate version.</text>
+      </description>
+    </leaf>
+    <leaf name="serial-number">
+      <type name="string">
+        <length value="0..100"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Ascii hexadecimal string representing a positive (long) integer assigned by the CA.
+It must be unique for each certificate issued by a given CA (i.e., the issuer name and
+serial number identify a unique certificate)</text>
+      </description>
+      <reference>
+        <text>Section 4.1.2.2 in RFC 5280</text>
+      </reference>
+    </leaf>
+    <leaf name="subject-name">
+      <type name="cert-subject-name"/>
+      <config value="false"/>
+      <description>
+        <text>The subject field identifies the entity
+associated with the public key stored in the subject
+public key field.</text>
+      </description>
+      <reference>
+        <text>Section 4.1.2.6 in RFC 5280</text>
+      </reference>
+    </leaf>
+    <leaf name="issuer">
+      <type name="cert-subject-name"/>
+      <config value="false"/>
+      <description>
+        <text>The issuer name identifies the entity that has signed
+and issued the certificate. Issuers (such as a CA or
+an RA) also issue CRLs.</text>
+      </description>
+      <reference>
+        <text>Section 4.1.2.4 in RFC 5280</text>
+      </reference>
+    </leaf>
+    <leaf-list name="trust-chain">
+      <type name="leafref">
+        <path value="/ne/system/security/certificates/trusted-certificate/id"/>
+      </type>
+      <config value="false"/>
+      <max-elements value="12"/>
+      <description>
+        <text>List of trusted certificates that constitute this certificate's trust chain.</text>
+      </description>
+    </leaf-list>
+    <leaf name="valid-from">
+      <type name="yang:date-and-time"/>
+      <config value="false"/>
+      <description>
+        <text>The date from which the certificate is valid.</text>
+      </description>
+    </leaf>
+    <leaf name="valid-to">
+      <type name="yang:date-and-time"/>
+      <config value="false"/>
+      <description>
+        <text>The date after which the certificate is deemed to have expired.</text>
+      </description>
+    </leaf>
+    <leaf name="modification-time">
+      <type name="yang:date-and-time"/>
+      <config value="false"/>
+      <description>
+        <text>Timestamp of certificate installation/rotation.
+The timestamp '1970-01-01T00:00:00Z' means the modification time is unknown.</text>
+      </description>
+    </leaf>
+    <leaf name="status">
+      <type name="enumeration">
+        <enum name="in-use">
+          <value value="1"/>
+          <status value="deprecated"/>
+          <description>
+            <text>Certificate is either assigned to a secure-application or otherwise in use by the system.
+This is deprecated; new status is 'valid'.
+Certificate usage is now tracked in the used-by attribute.</text>
+          </description>
+        </enum>
+        <enum name="unused">
+          <value value="2"/>
+          <status value="deprecated"/>
+          <description>
+            <text>Certificate is currently not being used by the system nor a secure-application. Can be assigned/used.
+This is deprecated; new status is 'valid'.
+Certificate usage is now tracked in the used-by attribute.</text>
+          </description>
+        </enum>
+        <enum name="revoked">
+          <value value="3"/>
+          <description>
+            <text>Certificate has been revoked.</text>
+          </description>
+        </enum>
+        <enum name="expired">
+          <value value="4"/>
+          <description>
+            <text>Certificate is past the validity date.</text>
+          </description>
+        </enum>
+        <enum name="available">
+          <value value="5"/>
+          <status value="deprecated"/>
+          <description>
+            <text>Trusted certificate is in use by the system.
+This is deprecated; new status is 'valid'.
+Certificate usage is now tracked in the used-by attribute.</text>
+          </description>
+        </enum>
+        <enum name="pending-import">
+          <value value="6"/>
+          <description>
+            <text>Certificate generated by CSR, but import not yet complete.</text>
+          </description>
+        </enum>
+        <enum name="invalid">
+          <value value="7"/>
+          <status value="deprecated"/>
+          <description>
+            <text>Trusted certificate is invalid due to broken trust-chain (not usable by the system).
+This is deprecated; new status is 'untrusted'.</text>
+          </description>
+        </enum>
+        <enum name="untrusted">
+          <value value="8"/>
+          <description>
+            <text>Certificate has a broken trust-chain.</text>
+          </description>
+        </enum>
+        <enum name="future">
+          <value value="9"/>
+          <description>
+            <text>Certificate has not yet reached the validity period.</text>
+          </description>
+        </enum>
+        <enum name="valid">
+          <value value="10"/>
+          <description>
+            <text>Certificate is not revoked, is in the validity period, and has a valid trust chain.</text>
+          </description>
+        </enum>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>The current status of the X509v3 certificate.</text>
+      </description>
+      <reference>
+        <text>THANOSSEC-225</text>
+      </reference>
+    </leaf>
+    <leaf name="public-key-length">
+      <type name="enumeration">
+        <enum name="rsa2048">
+          <value value="1"/>
+        </enum>
+        <enum name="rsa3072">
+          <value value="2"/>
+        </enum>
+        <enum name="rsa4096">
+          <value value="3"/>
+        </enum>
+        <enum name="ecdsa256">
+          <value value="4"/>
+        </enum>
+        <enum name="ecdsa384">
+          <value value="5"/>
+        </enum>
+        <enum name="ecdsa521">
+          <value value="6"/>
+        </enum>
+        <enum name="ecdsa128">
+          <value value="7"/>
+          <status value="obsolete"/>
+        </enum>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>X509v3 certificate public key algorithm and supported key length.</text>
+      </description>
+      <reference>
+        <text>Section 2.3 in RFC 3279.</text>
+      </reference>
+    </leaf>
+    <leaf name="public-key-type">
+      <type name="enumeration">
+        <enum name="rsa">
+          <value value="1"/>
+        </enum>
+        <enum name="ecdsa">
+          <value value="2"/>
+        </enum>
+        <enum name="rsassa-pss">
+          <value value="3"/>
+        </enum>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Public/private key type for X509v3 certificate.</text>
+      </description>
+    </leaf>
+    <uses name="signature-algorithm"/>
+    <leaf name="certificate-bytes">
+      <type name="string">
+        <length value="0..16384"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>A custom type that encodes the entire X.509v3 certificate
+as string in PEM(base64 encoding) format:
+
+-----BEGIN CERTIFICATE-----
+...base64 encoded X509v3 certificate....
+-----END CERTIFICATE-----
+</text>
+      </description>
+    </leaf>
+    <leaf-list name="key-usage">
+      <type name="key-usage-type"/>
+      <config value="false"/>
+      <max-elements value="9"/>
+      <description>
+        <text>Certificate's key usage purposes.</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="extended-key-usage">
+      <type name="extended-key-usage-type"/>
+      <config value="false"/>
+      <max-elements value="6"/>
+      <description>
+        <text>Certificate's extended key usage purposes.</text>
+      </description>
+    </leaf-list>
+    <leaf name="force-revoked">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>If true, the certificate is forced to the 'revoked' status.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="used-by">
+    <leaf-list name="used-by">
+      <type name="instance-identifier"/>
+      <config value="false"/>
+      <max-elements value="32"/>
+      <description>
+        <text>List of foreign keys representing secure-applications, ikev2-peers, etc., presently using the
+certificate.</text>
+      </description>
+    </leaf-list>
+  </grouping>
+  <grouping name="secure-applications">
+    <container name="secure-applications">
+      <description>
+        <text>A collection of secured applications which
+uses X509v3 certificate as its digital identity</text>
+      </description>
+      <list name="secure-application">
+        <key value="id"/>
+        <description>
+          <text>A secured application represents which
+uses X509v3 certificate as its digital identity</text>
+        </description>
+        <leaf name="id">
+          <type name="string">
+            <length value="1..20"/>
+          </type>
+          <description>
+            <text>A unique object identifier for the secure application.</text>
+          </description>
+        </leaf>
+        <leaf name="type">
+          <type name="enumeration">
+            <enum name="server">
+              <value value="1"/>
+              <description>
+                <text>Secure application is a server.</text>
+              </description>
+            </enum>
+            <enum name="client">
+              <value value="2"/>
+              <description>
+                <text>Secure application is a client.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="server"/>
+          <config value="false"/>
+          <description>
+            <text>Specifies whether secure application acts as a server or client.</text>
+          </description>
+        </leaf>
+        <leaf-list name="active-certificate-id">
+          <type name="string">
+            <length value="0..128"/>
+          </type>
+          <max-elements value="10"/>
+          <description>
+            <text>List of assigned certificates for this secure application.</text>
+          </description>
+        </leaf-list>
+        <leaf name="in-use">
+          <type name="leafref">
+            <path value="../active-certificate-id"/>
+          </type>
+          <config value="false"/>
+          <description>
+            <text>Active certificate for this secure application.</text>
+          </description>
+        </leaf>
+        <leaf name="status">
+          <type name="ioa-common:enable-switch"/>
+          <config value="false"/>
+          <description>
+            <text>Indicates whether this secure application is enabled or disabled.</text>
+          </description>
+        </leaf>
+        <leaf name="verify-client-cert">
+          <type name="enumeration">
+            <enum name="disabled">
+              <value value="1"/>
+              <description>
+                <text>Client certificate not requested or validated.</text>
+              </description>
+            </enum>
+            <enum name="required">
+              <value value="2"/>
+              <description>
+                <text>Client certificate is required and validated (for TLS Mutual Authentication).</text>
+              </description>
+            </enum>
+          </type>
+          <default value="disabled"/>
+          <description>
+            <text>Controls client certificate verification behavior at TLS handshake.
+For TLS Mutual Authentication, this should be set to 'required'.
+Note that changes to this attribute will take effect for new TLS connections; it will have no
+impact on existing connections.</text>
+          </description>
+        </leaf>
+      </list>
+    </container>
+  </grouping>
+  <grouping name="subject-alternative-names">
+    <leaf name="subject-alternative-names">
+      <type name="string">
+        <length value="0..4096"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Contains a list of subject alternative name(X509v3 extension SAN) entries
+separated by &lt;SPACE&gt;&lt;PIPE&gt;&lt;SPACE&gt; delimiters (e.g. 'URI:https://www.example.com | DNS:example.com').</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="certificates">
+    <container name="certificates">
+      <description>
+        <text>All system managed local/trusted/peer X509v3 certificates on the system
+that were imported by download mechanism in PKCS#12 or PKCS#7 secure bundles.
+Also includes all certificate revocation related objects.</text>
+      </description>
+      <list name="trusted-certificate">
+        <key value="id"/>
+        <description>
+          <text>X509v3 CA(Root and Intermediate) certificate that the system trusts.</text>
+        </description>
+        <uses name="x509-certificate"/>
+        <uses name="ioa-common:arc"/>
+        <uses name="ioa-common:label"/>
+      </list>
+      <list name="local-certificate">
+        <key value="id"/>
+        <description>
+          <text>X509v3 end-entity certificate that represents a one of
+various secure application identities.</text>
+        </description>
+        <uses name="x509-certificate"/>
+        <uses name="used-by"/>
+        <leaf name="self-signed">
+          <type name="boolean"/>
+          <default value="false"/>
+          <config value="false"/>
+          <description>
+            <text>True if certificate is self-signed (does not have a trust chain)</text>
+          </description>
+        </leaf>
+        <uses name="subject-alternative-names"/>
+        <uses name="ioa-common:arc"/>
+        <uses name="ioa-common:label"/>
+      </list>
+      <list name="peer-certificate">
+        <key value="id"/>
+        <description>
+          <text>X509v3 end-entity certificate that represents a trusted 'remote peer' certificate
+for L1 encryption secure application.</text>
+        </description>
+        <uses name="x509-certificate"/>
+        <uses name="used-by"/>
+        <uses name="subject-alternative-names"/>
+        <leaf name="white-listed">
+          <type name="boolean"/>
+          <default value="false"/>
+          <config value="false"/>
+          <description>
+            <text>If true, peer-certificate does not have an associated trust-chain, and was explicitly white-listed at import time.
+Otherwise, it has an associated trust-chain.</text>
+          </description>
+        </leaf>
+        <uses name="ioa-common:arc"/>
+        <uses name="ioa-common:label"/>
+      </list>
+      <uses name="secure-applications"/>
+      <container name="certificate-revocation">
+        <description>
+          <text>All objects related to certificate revocation.
+This includes Certificate Revocation Lists (CRLs) and CRL Distribution Points (CDPs).</text>
+        </description>
+        <container name="crls">
+          <config value="false"/>
+          <description>
+            <text>All Certificate Revocation Lists (CRLs) presently on the system.
+This includes manually downloaded CRLs as well as those automatically retrieved from a CRL
+Distribution Point (CDP).</text>
+          </description>
+          <list name="crl">
+            <key value="name"/>
+            <config value="false"/>
+            <max-elements value="20"/>
+            <description>
+              <text>A Certificate Revocation List (CRL) used to check if a certificate has been revoked by its
+issuer.</text>
+            </description>
+            <leaf name="name">
+              <type name="string"/>
+              <description>
+                <text>A unique object identifier for the CRL.
+The format is &lt;issuer-common-name&gt;-&lt;n&gt; where 'n' is an incrementing integer to
+differentiate multiple CRLs from the same issuing CA.</text>
+              </description>
+            </leaf>
+            <leaf name="issuer">
+              <type name="cert-subject-name"/>
+              <description>
+                <text>The issuer name identifies the entity that has signed and issued the CRL.</text>
+              </description>
+              <reference>
+                <text>Section 5.1.2.3 in RFC 5280</text>
+              </reference>
+            </leaf>
+            <leaf name="crl-number">
+              <type name="uint64"/>
+              <description>
+                <text>Monotonically increasing sequence number for a given CRL scope and CRL issuer.</text>
+              </description>
+              <reference>
+                <text>Section 5.2.3 in RFC 5280</text>
+              </reference>
+            </leaf>
+            <leaf-list name="issuing-distribution-point-uri">
+              <type name="string">
+                <length value="1..1024"/>
+              </type>
+              <max-elements value="10"/>
+              <description>
+                <text>Identifies the issuer's distribution point name URI(s) for the CRL.
+Only HTTP URIs are supported.
+This may be an empty list.</text>
+              </description>
+              <reference>
+                <text>Section 5.2.5 in RFC 5280</text>
+              </reference>
+            </leaf-list>
+            <leaf name="effective-date">
+              <type name="yang:date-and-time"/>
+              <description>
+                <text>The issue date of the CRL.</text>
+              </description>
+              <reference>
+                <text>Section 5.1.2.4 in RFC 5280</text>
+              </reference>
+            </leaf>
+            <leaf name="next-update">
+              <type name="yang:date-and-time"/>
+              <description>
+                <text>The date by which the next CRL will be issued.</text>
+              </description>
+              <reference>
+                <text>Section 5.1.2.5 in RFC 5280</text>
+              </reference>
+            </leaf>
+            <uses name="signature-algorithm"/>
+            <leaf name="type">
+              <type name="enumeration">
+                <enum name="manual">
+                  <value value="1"/>
+                  <description>
+                    <text>CRL installed via a manual download.</text>
+                  </description>
+                </enum>
+                <enum name="cached">
+                  <value value="2"/>
+                  <description>
+                    <text>CRL automatically cached from a configured CDP or certificate CDP extension.</text>
+                  </description>
+                </enum>
+              </type>
+              <description>
+                <text>Specifies whether CRL was manually installed or automatically cached from a CDP.</text>
+              </description>
+            </leaf>
+            <leaf name="status">
+              <type name="enumeration">
+                <enum name="valid">
+                  <value value="1"/>
+                  <description>
+                    <text>CRL is in the validity period,
+(effective-time &lt;= current time &lt;= next-update).</text>
+                  </description>
+                </enum>
+                <enum name="future">
+                  <value value="2"/>
+                  <description>
+                    <text>CRL has not entered the validity period (current time &lt; effective-time).
+It will not be used for revocation checking.</text>
+                  </description>
+                </enum>
+                <enum name="expired">
+                  <value value="3"/>
+                  <description>
+                    <text>CRL is no longer in the validity period (current time &gt; next-update).
+An updated version will be required for revocation checking.
+For CRLs with type='manual', it may be necessary to manually download the
+updated CRL.</text>
+                  </description>
+                </enum>
+              </type>
+              <description>
+                <text>The current status of the CRL.</text>
+              </description>
+            </leaf>
+            <leaf name="last-used-time">
+              <type name="ioa-common:date-time-never"/>
+              <description>
+                <text>Timestamp of last usage of this CRL for revocation checking.</text>
+              </description>
+            </leaf>
+            <leaf name="associated-cdp">
+              <type name="leafref">
+                <path value="../../../cdps/cdp/name"/>
+              </type>
+              <description>
+                <text>The configured CDP which downloaded this CRL, if applicable.</text>
+              </description>
+            </leaf>
+            <leaf name="downloaded-from-uri">
+              <when condition="../type = 'cached'"/>
+              <type name="string">
+                <length value="0..1024"/>
+              </type>
+              <description>
+                <text>The HTTP URI from which this CRL was auto-downloaded.
+Not applicable to manually downloaded CRLs.</text>
+              </description>
+            </leaf>
+          </list>
+        </container>
+        <container name="cdps">
+          <description>
+            <text>All manually configured CRL Distribution Points (CDPs).
+Each CDP will support download and auto-refreshing of a specified CRL.</text>
+          </description>
+          <list name="cdp">
+            <key value="name"/>
+            <max-elements value="3"/>
+            <description>
+              <text>A CRL Distribution Point (CDP) for automatic download and periodic refresh of a specified
+CRL.</text>
+            </description>
+            <leaf name="name">
+              <type name="ioa-common:object-name"/>
+              <description>
+                <text>A unique object identifier for the CDP.</text>
+              </description>
+            </leaf>
+            <leaf name="url">
+              <type name="string">
+                <length value="0..1024"/>
+                <pattern value="http://([^\s/$.?#][^\s/]*)/([^\s]+)"/>
+              </type>
+              <mandatory value="true"/>
+              <description>
+                <text>HTTP URL of CRL. The CRL will be fetched from this location.
+The format is 'http://&lt;host&gt;[:&lt;port&gt;]/&lt;path_to_crl_file&gt;' where
+    - '&lt;host&gt;' may be IPv4/v6 address, or DNS name of the distribution point,
+    - '&lt;port&gt;' is optional,
+    - '&lt;path_to_crl_file&gt;' is the path to the CRL file, conventionally with the .crl extension
+For example: http://crl.example.org/pki/myCA.crl</text>
+              </description>
+              <reference>
+                <text>Section 3 in RFC 2585.</text>
+              </reference>
+            </leaf>
+            <leaf name="enabled">
+              <type name="boolean"/>
+              <default value="false"/>
+              <description>
+                <text>Enables automatic download and periodic refresh of the CRL.
+Enabling will immediately trigger a CRL auto-download.
+When disabled, no CRL refresh/updates will be performed, but existing CRLs are
+unaffected.</text>
+              </description>
+            </leaf>
+            <leaf name="refresh-interval">
+              <type name="union">
+                <type name="enumeration">
+                  <enum name="use-next-update">
+                    <value value="0"/>
+                    <description>
+                      <text>Next refresh time is defined by current CRL's next-update field.</text>
+                    </description>
+                  </enum>
+                </type>
+                <type name="ioa-common:time-interval"/>
+              </type>
+              <default value="use-next-update"/>
+              <description>
+                <text>Defines when CRL should be refreshed/updated.
+If 'use-next-update' is specified, the next refresh time is defined by the current CRL
+next-update field.
+Refresh interval is provided using the following syntax:
+   '[xw] [xd] [xh] [xm] [xs]'
+where:
+   w(eeks), d(ays), h(ours), m(inutes), s(seconds).
+Examples:
+   2w        -- two weeks
+   5d 12h    -- 5 days and 12 hours
+   1h 7m 30s -- 1 hour, 7 minutes and 30 seconds</text>
+              </description>
+            </leaf>
+            <leaf name="next-update-time">
+              <type name="ioa-common:date-time-never"/>
+              <config value="false"/>
+              <description>
+                <text>Timestamp of next CRL update.</text>
+              </description>
+            </leaf>
+            <leaf name="last-update-time">
+              <type name="ioa-common:date-time-never"/>
+              <config value="false"/>
+              <description>
+                <text>Timestamp of most recent CRL update.</text>
+              </description>
+            </leaf>
+            <leaf name="last-update-result">
+              <type name="string">
+                <length value="0..255"/>
+              </type>
+              <config value="false"/>
+              <description>
+                <text>Result of the most recent CRL update.</text>
+              </description>
+            </leaf>
+          </list>
+        </container>
+        <container name="ocsp-servers">
+          <description>
+            <text>A prioritized list of Online Certificate Status Protocol (OCSP) responders to consult for certificate revocation status.
+These are employed when no usable OCSP URL is available via the certificate's Authority Information Access (AIA) extension.</text>
+          </description>
+          <list name="ocsp-server">
+            <key value="name"/>
+            <unique tag="priority"/>
+            <max-elements value="3"/>
+            <description>
+              <text>A manually-configured Online Certificate Status Protocol (OCSP) responder for certificate revocation status checking.</text>
+            </description>
+            <leaf name="name">
+              <type name="ioa-common:object-name"/>
+              <description>
+                <text>A unique object identifier for the OCSP responder.</text>
+              </description>
+            </leaf>
+            <leaf name="url">
+              <type name="string">
+                <length value="0..1024"/>
+                <pattern value="http://([^\s/$.?#][^\s/]*)"/>
+              </type>
+              <mandatory value="true"/>
+              <description>
+                <text>HTTP URL of OCSP responder.
+The format is 'http://&lt;host&gt;[:&lt;port&gt;]' where
+    - '&lt;host&gt;' may be IPv4/v6 address, or DNS name of the server hosting the OCSP responder,
+    - '&lt;port&gt;' is the optional port number, otherwise default HTTP port is used (80)
+For example: http://ocsp.example.org</text>
+              </description>
+              <reference>
+                <text>Section 4.2.2.1 in RFC 5280.</text>
+              </reference>
+            </leaf>
+            <leaf name="enabled">
+              <type name="boolean"/>
+              <default value="false"/>
+              <description>
+                <text>Controls whether this OCSP responder can be consulted for certificate revocation status.</text>
+              </description>
+            </leaf>
+            <leaf name="priority">
+              <type name="uint8">
+                <range value="1..10"/>
+              </type>
+              <mandatory value="true"/>
+              <description>
+                <text>This is used to sort the OCSP responders in order of precedence.
+Lower numbered OCSP responders are consulted before higher numbered ones.</text>
+              </description>
+            </leaf>
+            <leaf name="last-query">
+              <type name="ioa-common:date-time-never"/>
+              <config value="false"/>
+              <description>
+                <text>Timestamp of last successful query.</text>
+              </description>
+            </leaf>
+          </list>
+        </container>
+      </container>
+    </container>
+  </grouping>
+</module>

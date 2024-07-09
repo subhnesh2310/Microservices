@@ -1,0 +1,202 @@
+{
+    "ne": {
+        "system": {
+            "security": {
+                "aaa-server": [
+                    {
+                        "server-name": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "specify the name of aaa server.",
+                            "mandatory": true,
+                            "key": true,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "server-priority": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "This is used to sort the servers in the order of precedence.",
+                            "mandatory": true,
+                            "key": false,
+                            "config": true,
+                            "default": 0,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "protocol-supported": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "TACACSPLUS",
+                                    "RADIUS"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "specify the protocol used for AAA.",
+                            "mandatory": true,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "server-address": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "The IP address of AAA server.",
+                            "mandatory": true,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "server-port": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "AAA server port number.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "49",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "server-port-authentication": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "AAA server authentication port number.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "1812",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "server-port-accounting": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "AAA server accounting port number.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "1813",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "shared-secret": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "The shared secret of the aaa server. The shared secret will be displayed as *.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "sharedkey",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "role-supported": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "The configured roles for the AAA server.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "authentication authorization accounting",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "enabled": {
+                            "type": {
+                                "ptype": "bool"
+                            },
+                            "isList": false,
+                            "description": "Enable switch for this aaa-server.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": true,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "timeout": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "Specifies the response timeout of Access-Request messages sent to a AAA server in seconds.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 5,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "retry": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "Specifies the number of attempted Access-Request messages to a single AAA server before failing authentication.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 3,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "source-ip": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Source IP address used for RADIUS communications.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "auto",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "common-password": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Password used for RADIUS authorization after SSH public key authentication.\nIf blank, username is reused as password for RADIUS authorization.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        }
+                    }
+                ]
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

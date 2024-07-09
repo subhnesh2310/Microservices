@@ -1,0 +1,135 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Dial-out-server name.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "address": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Dial-out-server IPv4/IPv6 address or hostname.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "address"
+    },
+    "protocol": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "netconf",
+                "gnmi-dial-out-tunnel"
+            ]
+        },
+        "description": "Dial-out-server session type.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "netconf",
+        "hardcode": false,
+        "argName": "protocol"
+    },
+    "port": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Dial-out-server session port.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "port"
+    },
+    "retry_policy": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "progressive-back-off",
+                "retry-then-stop",
+                "retry-forever"
+            ]
+        },
+        "description": "Retry policy after a timeout.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "progressive-back-off",
+        "hardcode": false,
+        "argName": "retry_policy"
+    },
+    "retry": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Number of retries before giving up.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 3,
+        "hardcode": false,
+        "argName": "retry"
+    },
+    "timeout": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Wait time until timeout.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 10,
+        "hardcode": false,
+        "argName": "timeout"
+    },
+    "auto_connect": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "If true, automatically tries to connect to this dial-out-server. Note that a server with auto-connect false can still be connected manually via the call-home RPC.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": true,
+        "hardcode": false,
+        "argName": "auto_connect"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    }
+}

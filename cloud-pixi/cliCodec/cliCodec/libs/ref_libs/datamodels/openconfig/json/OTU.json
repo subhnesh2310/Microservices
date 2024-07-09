@@ -1,0 +1,360 @@
+{
+    "terminal-device": {
+        "logical-channels": {
+            "channel": [
+                {
+                    "index": {
+                        "type": {
+                            "ptype": "int",
+                            "leafref": "../config/index"
+                        },
+                        "isList": false,
+                        "description": "Reference to the index of the logical channel",
+                        "key": true,
+                        "mandatory": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": null
+                    },
+                    "config": {
+                        "index": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "Index of the current logical channel",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 0,
+                            "namespace": null
+                        },
+                        "description": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Description of the logical channel",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": null
+                        },
+                        "admin-state": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "ENABLED",
+                                    "DISABLED",
+                                    "MAINT"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Sets the admin state of the logical channel",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": null
+                        },
+                        "rate-class": {
+                            "type": {
+                                "ptype": "str",
+                                "identityref": "oc-opt-types:TRIBUTARY_RATE_CLASS_TYPE"
+                            },
+                            "isList": false,
+                            "description": "Rounded bit rate of the tributary signal. Exact bit rate\nwill be refined by protocol selection.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "TRIB_RATE_1G",
+                            "namespace": {
+                                "namespace": "http://openconfig.net/yang/transport-types",
+                                "prefix": "oc-opt-types"
+                            }
+                        },
+                        "trib-protocol": {
+                            "type": {
+                                "ptype": "str",
+                                "identityref": "oc-opt-types:TRIBUTARY_PROTOCOL_TYPE"
+                            },
+                            "isList": false,
+                            "description": "Protocol framing of the tributary signal. If this\nLogicalChannel is directly connected to a Client-Port or\nOptical-Channel, this is the protocol of the associated port.\nIf the LogicalChannel is connected to other LogicalChannels,\nthe TributaryProtocol of the LogicalChannels will define a\nspecific mapping/demapping or multiplexing/demultiplexing\nfunction.\n\nNot all protocols are valid, depending on the value\nof trib-rate-class.  The expectation is that the NMS\nwill validate that a correct combination of rate class\nand protocol are specfied.  Basic combinations are:\n\nrate class: 1G\nprotocols: 1GE\n\nrate class: 2.5G\nprotocols: OC48, STM16\n\nrate class: 10G\nprotocols:  10GE LAN, 10GE WAN, OC192, STM64, OTU2, OTU2e,\n           OTU1e, ODU2, ODU2e, ODU1e\n\nrate class: 40G\nprotocols:  40GE, OC768, STM256, OTU3, ODU3\n\nrate class: 100G\nprotocols:  100GE, 100G MLG, OTU4, OTUCn, ODU4",
+                            "mandatory": true,
+                            "key": false,
+                            "config": true,
+                            "default": "PROT_1GE",
+                            "namespace": {
+                                "namespace": "http://openconfig.net/yang/transport-types",
+                                "prefix": "oc-opt-types"
+                            }
+                        },
+                        "logical-channel-type": {
+                            "type": {
+                                "ptype": "str",
+                                "identityref": "oc-opt-types:LOGICAL_ELEMENT_PROTOCOL_TYPE"
+                            },
+                            "isList": false,
+                            "description": "The type / stage of the logical element determines the\nconfiguration and operational state parameters (PMs)\navailable for the logical element",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "PROT_ETHERNET",
+                            "namespace": {
+                                "namespace": "http://openconfig.net/yang/transport-types",
+                                "prefix": "oc-opt-types"
+                            }
+                        },
+                        "loopback-mode": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "NONE",
+                                    "FACILITY",
+                                    "TERMINAL"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Sets the loopback type on the logical channel. Setting the\nmode to something besides NONE activates the loopback in\nthe specified mode.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": null
+                        },
+                        "test-signal": {
+                            "type": {
+                                "ptype": "bool"
+                            },
+                            "isList": false,
+                            "description": "When enabled the logical channel's DSP will generate a pseudo\nrandmon bit stream (PRBS) which can be used during testing.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": false,
+                            "namespace": null
+                        }
+                    },
+                    "otn": {
+                        "config": {
+                            "tti-msg-transmit": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Trail trace identifier (TTI) message transmitted",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "namespace": null
+                            },
+                            "tti-msg-expected": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Trail trace identifier (TTI) message expected",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "namespace": null
+                            },
+                            "tti-msg-auto": {
+                                "type": {
+                                    "ptype": "bool"
+                                },
+                                "isList": false,
+                                "description": "Trail trace identifier (TTI) transmit message automatically\ncreated.  If true, then setting a custom transmit message\nwould be invalid.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": false,
+                                "namespace": null
+                            },
+                            "tributary-slot-granularity": {
+                                "type": {
+                                    "ptype": "str",
+                                    "identityref": "oc-opt-types:TRIBUTARY_SLOT_GRANULARITY"
+                                },
+                                "isList": false,
+                                "description": "Granularity value of OPUk or OPUCn tributary slots for OTN\nsignal allocation. The currently defined values follow the\nexisting ITU-T G.709 standard, which can be extended as\nneeded in future.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "TRIB_SLOT_1.25G",
+                                "namespace": {
+                                    "namespace": "http://openconfig.net/yang/transport-types",
+                                    "prefix": "oc-opt-types"
+                                }
+                            }
+                        }
+                    },
+                    "ingress": {
+                        "config": {
+                            "transceiver": {
+                                "type": {
+                                    "ptype": "unknown",
+                                    "leafref": "/oc-platform:components/oc-platform:component/oc-platform:name"
+                                },
+                                "isList": false,
+                                "description": "Reference to the transceiver carrying the input signal\nfor the logical channel.  If specific physical channels\nare mapped to the logical channel (as opposed to all\nphysical channels carried by the transceiver), they can be\nspecified in the list of physical channel references.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "namespace": null
+                            },
+                            "physical-channel": {
+                                "type": {
+                                    "ptype": "unknown",
+                                    "leafref": "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:index"
+                                },
+                                "isList": true,
+                                "description": "This list should be populated with references\nto the client physical channels that feed this logical\nchannel from the transceiver specified in the 'transceiver'\nleaf, which must be specified.  If this leaf-list is empty,\nall physical channels in the transceiver are assumed to be\nmapped to the logical channel.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "namespace": null
+                            }
+                        }
+                    },
+                    "logical-channel-assignments": {
+                        "assignment": [
+                            {
+                                "index": {
+                                    "type": {
+                                        "ptype": "int",
+                                        "leafref": "../config/index"
+                                    },
+                                    "isList": false,
+                                    "description": "Reference to the index for the current tributary\nassignment",
+                                    "key": true,
+                                    "mandatory": false,
+                                    "config": true,
+                                    "default": ""
+                                },
+                                "namespace": null,
+                                "config": {
+                                    "index": {
+                                        "type": {
+                                            "ptype": "int"
+                                        },
+                                        "isList": false,
+                                        "description": "Index of the current logical client channel to tributary\nmapping",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": 0,
+                                        "namespace": null
+                                    },
+                                    "description": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "Name assigned to the logical client channel",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "",
+                                        "namespace": null
+                                    },
+                                    "assignment-type": {
+                                        "type": {
+                                            "ptype": "str",
+                                            "values": [
+                                                "LOGICAL_CHANNEL",
+                                                "OPTICAL_CHANNEL"
+                                            ]
+                                        },
+                                        "isList": false,
+                                        "description": "Each logical channel element may be assigned to subsequent\nstages of logical elements to implement further grooming, or\ncan be assigned to a line-side optical channel for\ntransmission.  Each assignment also has an associated\nbandwidth allocation.",
+                                        "mandatory": true,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "",
+                                        "namespace": null
+                                    },
+                                    "logical-channel": {
+                                        "type": {
+                                            "ptype": "unknown",
+                                            "leafref": "/oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:index"
+                                        },
+                                        "isList": false,
+                                        "description": "Reference to another stage of logical channel elements.",
+                                        "mandatory": true,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "",
+                                        "namespace": null
+                                    },
+                                    "optical-channel": {
+                                        "type": {
+                                            "ptype": "unknown",
+                                            "leafref": "/oc-platform:components/oc-platform:component/oc-platform:name"
+                                        },
+                                        "isList": false,
+                                        "description": "Reference to the line-side optical channel that should\ncarry the current logical channel element.  Use this\nreference to exit the logical element stage.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "",
+                                        "namespace": null
+                                    },
+                                    "allocation": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "Allocation of the logical client channel to the tributary\nor sub-channel, expressed in Gbps. Please note that if the\nassignment is to an OTN logical channel, the allocation must\nbe an integer multiplication to tributary-slot-granularity\nof the OTN logical channel.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "",
+                                        "namespace": null
+                                    },
+                                    "tributary-slot-index": {
+                                        "type": {
+                                            "ptype": "int"
+                                        },
+                                        "isList": false,
+                                        "description": "Indicates the first tributary slot index allocated to the\nclient signal or logical channel in the assignment. Valid\nonly when the assignment is to an OTN logical channel.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": 0,
+                                        "namespace": null
+                                    },
+                                    "mapping": {
+                                        "type": {
+                                            "ptype": "str",
+                                            "identityref": "oc-opt-types:FRAME_MAPPING_PROTOCOL"
+                                        },
+                                        "isList": false,
+                                        "description": "Logical channel mapping procedure. Valid only when the\nassignment is to an OTN logical channel.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "AMP",
+                                        "namespace": {
+                                            "namespace": "http://openconfig.net/yang/transport-types",
+                                            "prefix": "oc-opt-types"
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/terminal-device"
+        }
+    }
+}

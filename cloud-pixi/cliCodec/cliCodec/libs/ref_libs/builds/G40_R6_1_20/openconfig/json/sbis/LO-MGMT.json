@@ -1,0 +1,271 @@
+{
+    "interfaces": {
+        "interface": [
+            {
+                "name": {
+                    "type": {
+                        "ptype": "str",
+                        "leafref": "../config/name"
+                    },
+                    "isList": false,
+                    "description": "References the name of the interface",
+                    "key": true,
+                    "mandatory": false,
+                    "config": true,
+                    "default": "LO-MGMT",
+                    "namespace": null,
+                    "hardcode": true
+                },
+                "config": {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The name of the interface.\n\nA device MAY restrict the allowed values for this leaf,\npossibly depending on the type of the interface.\nFor system-controlled interfaces, this leaf is the\ndevice-specific name of the interface.  The 'config false'\nlist interfaces/interface[name]/state contains the currently\nexisting interfaces on the device.\n\nIf a client tries to create configuration for a\nsystem-controlled interface that is not present in the\ncorresponding state list, the server MAY reject\nthe request if the implementation does not support\npre-provisioning of interfaces or if the name refers to\nan interface that can never exist in the system.  A\nNETCONF server MUST reply with an rpc-error with the\nerror-tag 'invalid-value' in this case.\n\nThe IETF model in RFC 7223 provides YANG features for the\nfollowing (i.e., pre-provisioning and arbitrary-names),\nhowever they are omitted here:\n\n If the device supports pre-provisioning of interface\n configuration, the 'pre-provisioning' feature is\n advertised.\n\n If the device allows arbitrarily named user-controlled\n interfaces, the 'arbitrary-names' feature is advertised.\n\nWhen a configured user-controlled interface is created by\nthe system, it is instantiated with the same name in the\n/interfaces/interface[name]/state list.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "LO-MGMT",
+                        "namespace": null,
+                        "hardcode": true
+                    },
+                    "type": {
+                        "type": {
+                            "ptype": "str",
+                            "identityref": "ietf-if:interface-type"
+                        },
+                        "isList": false,
+                        "description": "The type of the interface.\n\nWhen an interface entry is created, a server MAY\ninitialize the type leaf with a valid value, e.g., if it\nis possible to derive the type from the name of the\ninterface.\n\nIf a client tries to set the type of an interface to a\nvalue that can never be used by the system, e.g., if the\ntype is not supported or if the type does not match the\nname of the interface, the server MUST reject the request.\nA NETCONF server MUST reply with an rpc-error with the\nerror-tag 'invalid-value' in this case.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "softwareLoopback",
+                        "namespace": {
+                            "prefix": "ianaift",
+                            "namespace": "urn:ietf:params:xml:ns:yang:iana-if-type"
+                        },
+                        "hardcode": false
+                    }
+                },
+                "subinterfaces": {
+                    "subinterface": [
+                        {
+                            "index": {
+                                "type": {
+                                    "ptype": "int",
+                                    "leafref": "../config/index"
+                                },
+                                "isList": false,
+                                "description": "The index number of the subinterface -- used to address\nthe logical interface",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": 1,
+                                "hardcode": false
+                            },
+                            "namespace": null,
+                            "config": {
+                                "index": {
+                                    "type": {
+                                        "ptype": "int"
+                                    },
+                                    "isList": false,
+                                    "description": "The index of the subinterface, or logical interface number.\nOn systems with no support for subinterfaces, or not using\nsubinterfaces, this value should default to 0, i.e., the\ndefault subinterface.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": 1,
+                                    "namespace": null,
+                                    "hardcode": false
+                                },
+                                "description": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "A textual description of the interface.\n\nA server implementation MAY map this leaf to the ifAlias\nMIB object.  Such an implementation needs to use some\nmechanism to handle the differences in size and characters\nallowed between this leaf and ifAlias.  The definition of\nsuch a mechanism is outside the scope of this document.\n\nSince ifAlias is defined to be stored in non-volatile\nstorage, the MIB implementation MUST map ifAlias to the\nvalue of 'description' in the persistently stored\ndatastore.\n\nSpecifically, if the device supports ':startup', when\nifAlias is read the device MUST return the value of\n'description' in the 'startup' datastore, and when it is\nwritten, it MUST be written to the 'running' and 'startup'\ndatastores.  Note that it is up to the implementation to\n\ndecide whether to modify this single leaf in 'startup' or\nperform an implicit copy-config from 'running' to\n'startup'.\n\nIf the device does not support ':startup', ifAlias MUST\nbe mapped to the 'description' leaf in the 'running'\ndatastore.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null,
+                                    "hardcode": false
+                                },
+                                "enabled": {
+                                    "type": {
+                                        "ptype": "bool"
+                                    },
+                                    "isList": false,
+                                    "description": "This leaf contains the configured, desired state of the\ninterface.\n\nSystems that implement the IF-MIB use the value of this\nleaf in the 'running' datastore to set\nIF-MIB.ifAdminStatus to 'up' or 'down' after an ifEntry\nhas been initialized, as described in RFC 2863.\n\nChanges in this leaf in the 'running' datastore are\nreflected in ifAdminStatus, but if ifAdminStatus is\nchanged over SNMP, this leaf is not affected.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": true,
+                                    "namespace": null,
+                                    "hardcode": false
+                                }
+                            },
+                            "ipv4": {
+                                "addresses": {
+                                    "address": [
+                                        {
+                                            "ip": {
+                                                "type": {
+                                                    "ptype": "str"
+                                                },
+                                                "isList": false,
+                                                "description": "",
+                                                "mandatory": false,
+                                                "key": true,
+                                                "config": true,
+                                                "default": "1.1.1.1",
+                                                "namespace": null,
+                                                "hardcode": false
+                                            },
+                                            "config": {
+                                                "ip": {
+                                                    "type": {
+                                                        "ptype": "str"
+                                                    },
+                                                    "isList": false,
+                                                    "description": "",
+                                                    "mandatory": false,
+                                                    "key": false,
+                                                    "config": true,
+                                                    "default": "1.1.1.1",
+                                                    "namespace": null,
+                                                    "hardcode": false
+                                                },
+                                                "prefix-length": {
+                                                    "type": {
+                                                        "ptype": "int",
+                                                        "range": "0..32"
+                                                    },
+                                                    "isList": false,
+                                                    "description": "",
+                                                    "mandatory": false,
+                                                    "key": false,
+                                                    "config": true,
+                                                    "default": 64,
+                                                    "namespace": null,
+                                                    "hardcode": false
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                "config": {
+                                    "enabled": {
+                                        "type": {
+                                            "ptype": "bool"
+                                        },
+                                        "isList": false,
+                                        "description": "",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": true,
+                                        "namespace": null,
+                                        "hardcode": false
+                                    },
+                                    "dhcp-client": {
+                                        "type": {
+                                            "ptype": "bool"
+                                        },
+                                        "isList": false,
+                                        "description": "",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": false,
+                                        "namespace": null,
+                                        "hardcode": false
+                                    }
+                                }
+                            },
+                            "ipv6": {
+                                "addresses": {
+                                    "address": [
+                                        {
+                                            "ip": {
+                                                "type": {
+                                                    "ptype": "str"
+                                                },
+                                                "isList": false,
+                                                "description": "",
+                                                "mandatory": false,
+                                                "key": true,
+                                                "config": true,
+                                                "default": "fe80::8079:70d6:238:4e0f",
+                                                "namespace": null,
+                                                "hardcode": false
+                                            },
+                                            "config": {
+                                                "ip": {
+                                                    "type": {
+                                                        "ptype": "str"
+                                                    },
+                                                    "isList": false,
+                                                    "description": "",
+                                                    "mandatory": false,
+                                                    "key": false,
+                                                    "config": true,
+                                                    "default": "fe80::8079:70d6:238:4e0f",
+                                                    "namespace": null,
+                                                    "hardcode": false
+                                                },
+                                                "prefix-length": {
+                                                    "type": {
+                                                        "ptype": "int",
+                                                        "range": "0..128"
+                                                    },
+                                                    "isList": false,
+                                                    "description": "",
+                                                    "mandatory": false,
+                                                    "key": false,
+                                                    "config": true,
+                                                    "default": 64,
+                                                    "namespace": null,
+                                                    "hardcode": false
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                "config": {
+                                    "enabled": {
+                                        "type": {
+                                            "ptype": "bool"
+                                        },
+                                        "isList": false,
+                                        "description": "",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": true,
+                                        "namespace": null,
+                                        "hardcode": false
+                                    },
+                                    "dhcp-client": {
+                                        "type": {
+                                            "ptype": "bool"
+                                        },
+                                        "isList": false,
+                                        "description": "",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": false,
+                                        "namespace": null,
+                                        "hardcode": false
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

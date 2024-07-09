@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-ztp"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-ztp="http://infinera.com/yang/ioa/ztp"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common">
+  <namespace uri="http://infinera.com/yang/ioa/ztp"/>
+  <prefix value="ioa-ztp"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module describing Zero Touch Provisioning (ZTP) model.</text>
+  </description>
+  <revision date="2023-03-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <grouping name="ztp">
+    <container name="ztp">
+      <config value="false"/>
+      <description>
+        <text>Zero Touch Provisioning status.
+Please see RPC 'change-ztp-mode' for ZTP configuration.</text>
+      </description>
+      <leaf name="ztp-mode">
+        <type name="enumeration">
+          <enum name="disabled">
+            <value value="0"/>
+          </enum>
+          <enum name="enabled">
+            <value value="1"/>
+          </enum>
+        </type>
+        <default value="enabled"/>
+        <description>
+          <text>User set mode of ZTP. This flag is set via change-ztp-mode RPC that is allowed even when NBI is locked.</text>
+        </description>
+      </leaf>
+      <leaf name="ztp-state">
+        <type name="enumeration">
+          <enum name="ztp-init">
+            <value value="0"/>
+          </enum>
+          <enum name="dhcp-in-progress">
+            <value value="1"/>
+          </enum>
+          <enum name="image-download-in-progress">
+            <value value="2"/>
+          </enum>
+          <enum name="image-install-in-progress">
+            <value value="3"/>
+          </enum>
+          <enum name="custom-script-execution-in-progress">
+            <value value="4"/>
+          </enum>
+          <enum name="multi-chassis-setup-in-progress">
+            <value value="5"/>
+          </enum>
+          <enum name="configuration-apply-in-progress">
+            <value value="6"/>
+          </enum>
+          <enum name="ztp-completed">
+            <value value="7"/>
+          </enum>
+          <enum name="ztp-state-unknown">
+            <value value="8"/>
+          </enum>
+          <enum name="ztp-disabled">
+            <value value="9"/>
+          </enum>
+          <enum name="wait-before-ztp-restart">
+            <value value="10"/>
+          </enum>
+          <enum name="ztp-disable-in-progress">
+            <value value="11"/>
+          </enum>
+          <enum name="cleanup-on-ztp-completion">
+            <value value="12"/>
+          </enum>
+        </type>
+        <default value="ztp-init"/>
+        <description>
+          <text>Current state of ZTP service</text>
+        </description>
+      </leaf>
+      <leaf name="ztp-details">
+        <type name="string">
+          <length value="0..256"/>
+        </type>
+        <description>
+          <text>Additional information on the current state</text>
+        </description>
+      </leaf>
+      <leaf name="ztp-completion-status">
+        <type name="enumeration">
+          <enum name="not-completed">
+            <value value="1"/>
+          </enum>
+          <enum name="completed">
+            <value value="2"/>
+          </enum>
+        </type>
+        <default value="not-completed"/>
+        <description>
+          <text>Summarized completion status of ZTP on the node</text>
+        </description>
+      </leaf>
+    </container>
+  </grouping>
+  <grouping name="recovery">
+    <container name="recovery">
+      <description>
+        <text>Status and configuration of system recovery from chassis storage.</text>
+      </description>
+      <leaf name="restore-from-chassis-storage">
+        <type name="enumeration">
+          <enum name="disabled">
+            <value value="1"/>
+            <description>
+              <text>Chassis storage is not used for restoration in this NE.</text>
+            </description>
+          </enum>
+          <enum name="auto-restore">
+            <value value="2"/>
+            <description>
+              <text>SW and DB are stored on the chassis storage and restored in recovery mode. A manual clear recovery-mode command is then necessary.
+It allows the user to validate the restored system before affecting the HW.</text>
+            </description>
+          </enum>
+          <enum name="auto-in-service">
+            <value value="3"/>
+            <description>
+              <text>SW and DB are stored on the chassis storage and restored in recovery mode. On successful restore, the NC will automatically leave recovery mode.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="auto-in-service"/>
+        <description>
+          <text>This attribute is only relevant when a chassis storage is available.
+It allows the operator to control how the system behaves in such cases.
+When no chassis storage is available, this attribute has no effect.</text>
+        </description>
+      </leaf>
+      <leaf name="restore-status">
+        <type name="enumeration">
+          <enum name="init">
+            <value value="0"/>
+            <description>
+              <text>Provisioning service is starting.</text>
+            </description>
+          </enum>
+          <enum name="image-install-in-progress">
+            <value value="1"/>
+            <description>
+              <text>Installing backup image.</text>
+            </description>
+          </enum>
+          <enum name="db-restore-in-progress">
+            <value value="2"/>
+            <description>
+              <text>Restoring database.</text>
+            </description>
+          </enum>
+          <enum name="check-completed">
+            <value value="3"/>
+            <description>
+              <text>Provisioning service completed provisioning.</text>
+            </description>
+          </enum>
+          <enum name="failed">
+            <value value="4"/>
+            <description>
+              <text>Provisioning failed, requires manual provisioning.</text>
+            </description>
+          </enum>
+          <enum name="disabled">
+            <value value="5"/>
+            <description>
+              <text>Provisioning service is disabled, no backups are being performed.</text>
+            </description>
+          </enum>
+          <enum name="wait-for-upgrade">
+            <value value="6"/>
+            <description>
+              <text>Waiting for system reboot after image upgrade.</text>
+            </description>
+          </enum>
+          <enum name="wait-for-db-restore">
+            <value value="7"/>
+            <description>
+              <text>Waiting for system reboot after database restore.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="init"/>
+        <config value="false"/>
+        <description>
+          <text>Current state of the restoration.</text>
+        </description>
+      </leaf>
+      <leaf name="backup-status">
+        <type name="enumeration">
+          <enum name="successful">
+            <value value="1"/>
+            <description>
+              <text>Provisioning service is enabled, backups are being performed successfully.</text>
+            </description>
+          </enum>
+          <enum name="failed">
+            <value value="2"/>
+            <description>
+              <text>Provisioning service is enabled, a backup failed.</text>
+            </description>
+          </enum>
+          <enum name="in-progress">
+            <value value="3"/>
+            <description>
+              <text>Backup is in progress.</text>
+            </description>
+          </enum>
+          <enum name="unknown">
+            <value value="4"/>
+            <description>
+              <text>Backup is in an unknown status.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="unknown"/>
+        <config value="false"/>
+        <description>
+          <text>Current state of the last backup.</text>
+        </description>
+      </leaf>
+      <leaf name="last-backup">
+        <type name="ioa-common:date-time-or-time-only-or-never"/>
+        <default value="never"/>
+        <config value="false"/>
+        <description>
+          <text>Timestamp with the last backup performed.</text>
+        </description>
+      </leaf>
+      <leaf name="next-backup">
+        <type name="ioa-common:date-time-or-time-only-or-never"/>
+        <default value="never"/>
+        <config value="false"/>
+        <description>
+          <text>Timestamp with the next backup performed.</text>
+        </description>
+      </leaf>
+    </container>
+  </grouping>
+</module>

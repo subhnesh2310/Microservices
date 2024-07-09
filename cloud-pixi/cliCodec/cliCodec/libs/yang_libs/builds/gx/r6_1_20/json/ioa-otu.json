@@ -1,0 +1,265 @@
+{
+    "module": {
+        "@name": "ioa-otu",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-otu": "http://infinera.com/yang/ioa/otu",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "@xmlns:ioa-otn": "http://infinera.com/yang/ioa/otn-common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/otu"
+        },
+        "prefix": {
+            "@value": "ioa-otu"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            },
+            {
+                "@module": "ioa-otn-common",
+                "prefix": {
+                    "@value": "ioa-otn"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG definitions for OTN Optical channel Transport Unit (OTU) facilities\nin a typical Layer 1 optical transponder."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "otu",
+                "description": {
+                    "text": "A re-usable grouping that formulates the standard ITU-T G.709 OTUCn/OTUk facility model structure."
+                },
+                "list": {
+                    "@name": "otu",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "description": {
+                        "text": "Facility describing the OTUCn/OTUk according with standard ITU-T G.709."
+                    },
+                    "uses": [
+                        {
+                            "@name": "ioa-fac-common:facilities-common-attributes"
+                        },
+                        {
+                            "@name": "ioa-common:arc"
+                        },
+                        {
+                            "@name": "ioa-fac-common:loopback"
+                        },
+                        {
+                            "@name": "ioa-fac-common:loopback-mode"
+                        },
+                        {
+                            "@name": "ioa-common:circuit-id"
+                        }
+                    ],
+                    "leaf": [
+                        {
+                            "@name": "otu-type",
+                            "type": {
+                                "@name": "ioa-otn:otu-type"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "The protocol type of the OTUk/OTUCn client."
+                            },
+                            "reference": {
+                                "text": "Section 7.4 in ITU-T G.875 (12/2018) and ITU-T G.709"
+                            }
+                        },
+                        {
+                            "@name": "rate",
+                            "type": {
+                                "@name": "ioa-otn:rate"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "The speed/rate of the OTUk/OTUCn client interface."
+                            },
+                            "reference": {
+                                "text": "Table 7-1 in ITU-T G.709 (June 2016)."
+                            }
+                        },
+                        {
+                            "@name": "otu-name",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..32"
+                                }
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "A system-defined user friendly name for this otu, considering both the type and the rate.\nExamples: OTUC4, OTUC5i90"
+                            }
+                        },
+                        {
+                            "@name": "service-mode",
+                            "type": {
+                                "@name": "ioa-fac-common:service-mode"
+                            },
+                            "default": {
+                                "@value": "none"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "This attribute is to align with legacy Infinera OTN virtualization attribute (SM).\nThe 'service mode' attribute indicates the OTUk/OTUCn client's treatment/processing\nvis-a-vis the service type (OTN multiplexing, OTU transport, ...)"
+                            },
+                            "reference": {
+                                "text": "Infinera OTN Virtualization System Requirements Document (SRD)."
+                            }
+                        },
+                        {
+                            "@name": "service-mode-qualifier",
+                            "type": {
+                                "@name": "ioa-fac-common:service-mode-qualifier"
+                            },
+                            "default": {
+                                "@value": "none"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "This attribute is to align with legacy Infinera OTN virtualization attribute (SMQ).\nThe 'service mode qualifier' attribute further adds to the 'service mode' attribute\nto indicate the OTUk/OTUCn client's contained payload vis-a-vis the service type\n(OTN multiplexing, OTU transport, ...)"
+                            },
+                            "reference": {
+                                "text": "Infinera OTN Virtualization System Requirements Document (SRD)."
+                            }
+                        },
+                        {
+                            "@name": "fec-mode",
+                            "type": {
+                                "@name": "ioa-common:enable-switch"
+                            },
+                            "default": {
+                                "@value": "enabled"
+                            },
+                            "description": {
+                                "text": "The configured Forward Error Correction (FEC) mode on the OTUk/OTUCn client."
+                            },
+                            "reference": {
+                                "text": "ITU-T G.709, G.709.1 and B100G standards."
+                            }
+                        },
+                        {
+                            "@name": "fec-generation-mode",
+                            "type": {
+                                "@name": "ioa-common:enable-switch"
+                            },
+                            "default": {
+                                "@value": "enabled"
+                            },
+                            "description": {
+                                "text": "The configured FEC generation mode on the OTUk/OTUCn client towards the far-end receiver."
+                            }
+                        },
+                        {
+                            "@name": "fec-type",
+                            "type": {
+                                "@name": "ioa-fac-common:fec-type"
+                            },
+                            "default": {
+                                "@value": "noFEC"
+                            },
+                            "description": {
+                                "text": "The FEC type"
+                            }
+                        }
+                    ],
+                    "list": {
+                        "@name": "otu-diagnostics",
+                        "key": {
+                            "@value": "direction"
+                        },
+                        "description": {
+                            "text": "Set of attributes associated with OTU diagnostics.Each direction has their own values."
+                        },
+                        "leaf": {
+                            "@name": "direction",
+                            "type": {
+                                "@name": "ioa-fac-common:direction"
+                            },
+                            "description": {
+                                "text": "Diagnostics direction.Can be ingress or egress."
+                            }
+                        },
+                        "uses": {
+                            "@name": "otu-diagnostics"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "otu-diagnostics",
+                "description": {
+                    "text": "Set of attributes associated with OTU diagnostics."
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-otn:otn-diagnostics"
+                    },
+                    {
+                        "@name": "ioa-fac-common:nmoper-alarm-reporting"
+                    },
+                    {
+                        "@name": "ioa-otn:otn-degrade"
+                    }
+                ]
+            }
+        ]
+    }
+}

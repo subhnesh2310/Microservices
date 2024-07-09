@@ -1,0 +1,24 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/alarm",
+    "inputs": {
+        "alarm-type": {
+            "type": {
+                "ptype": "unknown",
+                "leafref": "/ioa-alarm:alarms/ioa-alarm:current-alarms/ioa-alarm:alarm/ioa-alarm:alarm-type"
+            },
+            "isList": false,
+            "description": "Type of alarm to be cleared.\nNote: only some alarms are eligible to be cleared using this operation; see alarm-inventory/can-be-cleared-by-user for details.",
+            "mandatory": true
+        },
+        "resource": {
+            "type": {
+                "ptype": "unknown",
+                "leafref": "/ioa-alarm:alarms/ioa-alarm:current-alarms/ioa-alarm:alarm/ioa-alarm:resource"
+            },
+            "isList": true,
+            "description": "Resource of alarm to be cleared.\nMay be one or more resources assocaited with the provided alarm-type.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

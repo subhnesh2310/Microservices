@@ -1,0 +1,407 @@
+module ioa-optical-carrier {
+    namespace "http://infinera.com/yang/ioa/optical-carrier";
+    prefix ioa-carrier;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+    import ioa-optical-common { prefix ioa-opt; } 
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG model describing the optical-carrier facility.";
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-09-17" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.1";
+    }
+
+    grouping client-specific-attrs {
+        description "Attributes specific to client port.";
+
+        leaf media-interface {
+            type enumeration {
+                enum 400ZR-CFEC-DP-16QAM  { value 1; }
+            }
+            default 400ZR-CFEC-DP-16QAM;
+            description "Media interface type of ZR tom.";
+        }
+
+        leaf capacity {
+            type uint16;
+            units "Gbps";
+            config false;
+            description "The net capacity of the optical carrier.";
+        }
+
+        leaf baud-rate {
+            type decimal64 {
+                fraction-digits 7;
+            }
+            units GBaud;
+            config false;
+            description "The modulated symbol rate.";
+        }
+
+        leaf grid-spacing {
+            type enumeration {
+                enum 100  { value 1; }
+                enum 75   { value 2; }
+                enum 50   { value 3; }
+                enum 33   { value 4; }
+                enum 25   { value 5; }
+                enum 12.5  { value 6; }
+                enum 6.25  { value 7; }
+                enum 3.125 { value 8; }
+            }
+            units GHz;
+            default 100;
+            description "Fixed Grid tunability for new 3rd party TOM.";
+        }
+        
+        uses ioa-fac-common:spectral-bw;
+        uses ioa-fac-common:loopback;
+    }
+
+    grouping line-specific-attrs {
+        description "Attributes specific to line port.";
+
+        leaf tx-cd {
+            type decimal64 {
+                fraction-digits 2;
+                range "-211000.00..211000.00";
+            }
+            units "ps/nm";
+            default "0.0";
+            description "The configured transmit pre-compensation chromatic dispersion.";
+        }
+
+        leaf dgd-high-threshold {
+            type uint16 {
+                range "180..350"; 
+            }
+            units ps;
+            default 300;
+            description "The threshold to raise the DGD-OORH alarm.";
+        }
+
+        leaf post-fec-q-sig-deg-threshold {
+            type decimal64 {
+                fraction-digits 1;
+                range "12.5..18.0"; 
+            }
+            units dB;
+            default 18;
+            description "The threshold based on which the POST-FEC-Q-SIGNAL-DEGRADE alarm is raised.";
+        }
+
+        leaf post-fec-q-sig-deg-hysteresis {
+            type decimal64 {
+                fraction-digits 1;
+                range "0.1..3.0"; 
+            }
+            units dB;
+            default 2.5;
+            description "Hysteresis to account for raising of the POST-FEC-Q-SIGNAL-DEGRADE alarm.";
+        }
+    }
+ 
+    grouping line-otn-attrs {
+        description "Attributes specific to line otn port.";
+    
+        leaf rate {
+            type ioa-fac-common:rate;
+            description "
+                Carried signal basic rate class. 
+            ";
+        }
+		
+        leaf modulation-format {
+            type ioa-fac-common:modulation-format;
+            description "
+                Current modulation format.
+            ";
+        }					
+
+        leaf line-encoding {
+            type enumeration {
+                enum non-differential { value 1; }
+                enum differential { value 2; }
+            }
+            default non-differential;
+            config false;
+            description "
+                Currently line-encoding mode.
+            ";
+        }	
+
+        leaf rx-frequency {
+            type ioa-opt:optical-frequency-config;
+            units "MHz";
+            default 0;
+            description "
+                The rx laser frequency. Special for 0 means it is same as tx laser frequency.
+            ";
+        }		
+
+        leaf rx-attenuation {
+            type ioa-opt:optical-power {
+                range "0.0..10.0";
+            }
+            default 0.0;
+            description "
+                This is to support configurable optical attenuation at receiver side which is based on the hardware capability on the port.
+            ";
+        }
+
+        leaf tx-filter-roll-off {
+            type decimal64 {
+                fraction-digits 2;
+                range "0.01 .. 1.0";
+            }
+            default 0.2;
+            description "Transmitter filter roll off factor.";
+        }
+            
+        leaf preemphasis {
+            type ioa-common:enable-switch;
+            default enabled;
+            description "Preemphasis of transmitted signal.";
+        } 
+
+        leaf preemphasis-value {                
+            type decimal64{
+                fraction-digits 1;
+                range "0.7..1.3";
+            }
+            default 1.0;
+            description "Preemphasis of transmitted signal.";
+        }         
+
+		
+        leaf cd-range-low {
+            type int32;
+            units ps/nm;
+            default -45000;                    
+            description "Low value of chromatic dispersion search range.";
+        }                
+        
+        leaf cd-range-high {
+            type int32;
+            units ps/nm;
+            default 45000;
+            description "high value of chromatic dispersion search range.";
+        }
+
+        leaf cd-compensation-mode {
+            type enumeration {
+                enum auto { value 1; description "CD auto search by system";}
+                enum manual { value 2; description "CD manual setting by user";}
+            }
+            default auto;
+            description "chromatic dispersion compensation value source mode.";
+        }
+        
+        leaf cd-compensation-value {
+            type int32;
+            units ps/nm;
+            description "manual chromatic dispersion compensation value";
+        }
+
+        leaf fast-sop-mode {
+            type ioa-common:enable-switch;
+            default disabled;
+            description "Specify if enable fast SOP (state of polarization) change tracking; if enabled, the interface 
+                            will tolerate very fast SOP and transient.";
+        }
+
+        leaf BICHM {
+            type int32 {
+                range "0..127";
+            }
+            default 64;
+            description "The BICHM (bit interleaved coded hybrid modulation) incremental step in 1/128 bits/symbol added to base modulation bits/symbol for the hybrid modes modulation-format. 
+                         0: Base modulation format bits/symbol;
+                         1: 1/128 bits/symbol added to base modulation format bits/symbol;
+                         ...
+                         127: 127/128 bits/symbol added to base modulation format bits/symbol";
+        }
+        
+        leaf propagate-shutdown {
+            type ioa-common:enable-switch;
+            default disabled;
+            description "When the attribute value is set to yes, the transmit laser will
+                be shutdown if the whole service of the direction has signal failure,
+                the function mainly used in regeneration node to propagate signal failure as LOS.";
+        }
+        
+        leaf propagate-shutdown-holdoff-timer {
+            type uint16 {
+                range 0..2000;
+            }
+            units "milliseconds";
+            default 0;
+            description "The hold off time of propagate shutdown.";
+        }        
+    }    
+
+    grouping line-otn-actual-frequencies {
+        description "Actual frequencies specific to line otn port.";
+
+        leaf actual-rx-frequency {
+            type ioa-opt:optical-frequency-config;
+            units "MHz";
+            default 0;
+            config false;
+            description "
+                The actual rx laser frequency for coherent interface with separating Lo laser from Tx.
+                0 means Lo and Tx share the same laser where 'frequency' attriute will indicate both Tx and Rx.
+            ";
+        }
+
+        leaf actual-frequency {
+            type ioa-opt:optical-frequency-config;
+            units "MHz";
+            default 0;
+            config false;
+            description "
+                The actual laser frequency.
+                If rx-frequency is 0, it reflects both Rx and Tx frequency for coherent interface.
+            ";
+        }
+    }
+    
+    grouping carrier {
+        description "A re-usable grouping that formulates the basic optical-carrier facility structure.";
+        
+        list optical-carrier {
+            key "name";
+            ordered-by "system";
+            description "Optical carrier facility.";
+            
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf frequency {
+                type ioa-opt:optical-frequency-config;
+                units MHz;
+                default 0;
+                description "The center frequency this carrier is tuned to. Zero means 'not configured'.";
+            }
+
+            leaf frequency-offset {
+                type int16 { range -6000..6000; }
+                units MHz;
+                default 0;
+                description "A super set range for line and client side carrier, specific sub-range is depend on application. Frequency-offset can be used for bright tuning 
+                             of the wavelengths.
+                             Once set, the frequency will slowly change (over 1-10s) without affecting service.";
+            }
+
+            leaf wavelength {
+                type ioa-opt:optical-wavelength;
+                units nm;
+                config false;
+                description "The wavelength of the optical carrier.";
+            }
+
+            leaf tx-power {
+                type ioa-opt:optical-power;
+                default -6.0;
+                description "The optical carrier's transmit power into the fiber from the transponder's optics.
+                             NOTE: The accuracy of the Tx Power can be adjusted in steps of 0.5 dBm.";
+            }
+            
+            leaf pre-fec-q-sig-deg-threshold {
+                type decimal64 {
+                    fraction-digits 2;
+                    range "0|5.60..9.60"; 
+                }
+                units dB;
+                default 6.0;
+                description "The threshold based on which the PRE-FEC-Q-SIGNAL-DEGRADE alarm is raised. 
+                             0 implies threshold crossing alarming disabled.
+                             Specific sub-range is per carrier use-case.";
+            }
+
+            leaf pre-fec-q-sig-deg-hysteresis {
+                type decimal64 {
+                    fraction-digits 1;
+                    range "0.1..1.0"; 
+                }
+                units dB;
+                default 0.5;
+                description "Hysteresis to account for raising of the PRE-FEC-Q-SIGNAL-DEGRADE alarm.";
+            }
+
+            leaf carrier-type {
+                type enumeration {
+                    enum ICE6  { value 1; }
+                    enum ZR  { value 2; }
+                    enum ZR+  { value 3; }
+                    enum OTN  { value 4; }
+                }
+                default "ICE6";
+                config false;
+                description "Intent is to differentiate the multiple CarierCTPs.";
+            }
+
+            uses ioa-carrier:client-specific-attrs {
+                when "carrier-type = 'ZR'";
+            }
+
+            uses ioa-carrier:line-specific-attrs {
+                when "carrier-type != 'ZR'";
+            }
+
+            uses ioa-carrier:line-otn-attrs {
+                when "carrier-type = 'OTN'";
+            }
+
+            uses ioa-carrier:line-otn-actual-frequencies;
+
+            leaf enable-advanced-parameters {
+                type boolean;
+                default false;
+                description "Controls enabling/disabling of configuring advanced parameters for this object.";
+            }
+
+            leaf sop-data-collection {
+                when "../carrier-type = 'ICE6'";
+                type union {
+                    type enumeration {
+                        enum disabled { value 0; description "Disable collection for given optical-carrier.";}
+                    }
+                    type uint16 {
+                        range "10..500";
+                    }
+                }
+                default disabled;
+                description "Controls enabling/disabling sop data collection, providing the collection interval in ms.";
+            }
+
+            list advanced-parameter {
+                when "../enable-advanced-parameters = 'true'";
+                key name;
+                description "The user configured (or overridden) set of advanced parameters.";
+
+                uses ioa-common:advanced-parameter-configuration-base;
+            }
+
+            uses ioa-common:current-advanced-parameter;
+        }
+    }
+}

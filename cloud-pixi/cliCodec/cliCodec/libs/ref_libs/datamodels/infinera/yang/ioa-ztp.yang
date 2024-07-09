@@ -1,0 +1,70 @@
+module ioa-ztp {
+    namespace "http://infinera.com/yang/ioa/ztp";
+    prefix ioa-ztp;
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module describing Zero Touch Provisioning (ZTP) model.";
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    grouping ztp {
+        container ztp {
+            config false;
+            description "Zero Touch Provisioning status.
+                         Please see RPC 'change-ztp-mode' for ZTP configuration.";
+
+            leaf ztp-mode {
+                type enumeration {
+                    enum disabled { value 0; }
+                    enum enabled { value 1; }
+                }
+                default enabled;
+                description "User set mode of ZTP. This flag is set via change-ztp-mode RPC that is allowed even when NBI is locked."; 
+            }
+
+            leaf ztp-state {
+                type enumeration {
+                    enum ztp-init { value 0; }
+                    enum dhcp-in-progress { value 1; }
+                    enum image-download-in-progress { value 2; }
+                    enum image-install-in-progress { value 3; }
+                    enum custom-script-execution-in-progress { value 4; }
+                    enum multi-chassis-setup-in-progress { value 5; }
+                    enum configuration-apply-in-progress { value 6; }
+                    enum ztp-completed { value 7; }
+                    enum ztp-state-unknown { value 8; }
+                    enum ztp-disabled { value 9; }
+                    enum wait-before-ztp-restart { value 10; }
+                    enum ztp-disable-in-progress { value 11; }
+                    enum cleanup-on-ztp-completion { value 12; }
+                }
+                default ztp-init;
+                description "Current state of ZTP service";
+            }
+
+            leaf ztp-details {
+                type string { length 0..256; }
+                description "Additional information on the current state";        
+            }
+
+            leaf ztp-completion-status {
+                type enumeration {
+                    enum not-completed { value 1; }
+                    enum completed { value 2; }                    
+                }
+                default not-completed;
+                description "Summarized completion status of ZTP on the node";
+            }
+        }
+    }
+}

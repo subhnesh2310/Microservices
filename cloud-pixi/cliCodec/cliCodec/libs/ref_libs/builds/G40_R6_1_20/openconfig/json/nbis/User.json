@@ -1,0 +1,63 @@
+{
+    "user_username": {
+        "type": {
+            "ptype": "str",
+            "leafref": "../config/username"
+        },
+        "description": "References the configured username for the user",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "user_username"
+    },
+    "password": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The user password, supplied as cleartext.  The system\nmust hash the value and only store the hashed value.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "password"
+    },
+    "password_hashed": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The user password, supplied as a hashed value\nusing the notation described in the definition of the\ncrypt-password-type.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "password_hashed"
+    },
+    "ssh_key": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "SSH public key for the user (RSA or DSA)",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "ssh_key"
+    },
+    "role": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Role assigned to the user.  The role may be supplied\nas a string or a role defined by the SYSTEM_DEFINED_ROLES\nidentity.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "role"
+    }
+}

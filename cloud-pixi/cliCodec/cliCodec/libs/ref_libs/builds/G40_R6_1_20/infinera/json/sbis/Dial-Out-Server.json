@@ -1,0 +1,196 @@
+{
+    "ne": {
+        "system": {
+            "protocols": {
+                "dial-out-server": [
+                    {
+                        "name": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Dial-out-server name.",
+                            "mandatory": true,
+                            "key": true,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "address": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Dial-out-server IPv4/IPv6 address or hostname.",
+                            "mandatory": true,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "protocol": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "netconf",
+                                    "gnmi-dial-out-tunnel"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Dial-out-server session type.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "netconf",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "port": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "Dial-out-server session port.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 0,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "transport": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "ssh",
+                                    "tls"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Dial-out-server transport protocol.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "retry-policy": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "progressive-back-off",
+                                    "retry-then-stop",
+                                    "retry-forever"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Retry policy after a timeout.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "progressive-back-off",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "retry": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "Number of retries before giving up.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 3,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "timeout": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "Wait time until timeout.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 10,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "auto-connect": {
+                            "type": {
+                                "ptype": "bool"
+                            },
+                            "isList": false,
+                            "description": "If true, automatically tries to connect to this dial-out-server. Note that a server with auto-connect false can still be connected manually via the call-home RPC.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": true,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "connection-state": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "connected",
+                                    "connecting",
+                                    "failed",
+                                    "closed",
+                                    "disabled"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Connection state to the dial-out-server.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "disabled",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "alarm-report-control": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "allowed",
+                                    "inhibited"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Controls the reporting of alarms for this particular object.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "allowed",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "label": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "User label.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        }
+                    }
+                ]
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

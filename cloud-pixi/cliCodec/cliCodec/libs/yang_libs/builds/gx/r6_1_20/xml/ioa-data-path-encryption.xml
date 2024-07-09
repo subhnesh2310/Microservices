@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-data-path-encryption"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-dp-encr="http://infinera.com/yang/ioa/data-path-encryption"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common">
+  <namespace uri="http://infinera.com/yang/ioa/data-path-encryption"/>
+  <prefix value="ioa-dp-encr"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module that defines encryption related entities that are
+part of a typical optical L1 transponder and are applicable
+to all data plane encryption schemes supported on Infinera products.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <grouping name="data-path-encryption">
+    <container name="data-path-encryption">
+      <description>
+        <text>A top-level container for all data path encryption services and entities.</text>
+      </description>
+      <list name="secure-entity">
+        <key value="name"/>
+        <description>
+          <text>List of l1 encryption secure entities.</text>
+        </description>
+        <leaf name="name">
+          <type name="ioa-common:object-name"/>
+          <description>
+            <text>A name for the data path l1 encryption secure entity (SecY).</text>
+          </description>
+        </leaf>
+        <leaf name="supporting-entity-type">
+          <type name="enumeration">
+            <enum name="wavelength-encryption">
+              <value value="1"/>
+              <description>
+                <text>The secure entity type is an optical carrier.</text>
+              </description>
+            </enum>
+            <enum name="odu-encryption">
+              <value value="2"/>
+              <description>
+                <text>The secure entity type is ODU.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="wavelength-encryption"/>
+          <config value="false"/>
+          <description>
+            <text>Indicates supporting entity type.</text>
+          </description>
+        </leaf>
+        <leaf name="enabled">
+          <type name="boolean"/>
+          <default value="false"/>
+          <description>
+            <text>Indicates whether the SecY are configured and attached to any data path entity.</text>
+          </description>
+        </leaf>
+        <leaf name="supporting-facility">
+          <type name="instance-identifier"/>
+          <mandatory value="true"/>
+          <description>
+            <text>The optical carrier that needs data path encryption.</text>
+          </description>
+        </leaf>
+        <leaf name="remote-secure-entity">
+          <type name="ioa-common:object-name"/>
+          <mandatory value="true"/>
+          <description>
+            <text>Refers to the far-end  secure entity's object name (XPath).
+Required by IKEv2 - This will be used by IKEv2 as a traffic selector.</text>
+          </description>
+        </leaf>
+        <uses name="ioa-common:aid">
+          <refine target-node="AID">
+            <description>
+              <text>A system-generated AID for the SecY.</text>
+            </description>
+          </refine>
+        </uses>
+        <uses name="ioa-common:oper-state"/>
+        <uses name="ioa-common:arc"/>
+        <uses name="ioa-common:label"/>
+        <leaf name="re-key-frequency">
+          <type name="uint32">
+            <range value="300..86400"/>
+          </type>
+          <units name="seconds"/>
+          <default value="300"/>
+          <description>
+            <text>The re-key frequency for the data path encryption service.</text>
+          </description>
+        </leaf>
+        <leaf name="re-key-fail-policy">
+          <type name="enumeration">
+            <enum name="kill-traffic">
+              <value value="1"/>
+              <description>
+                <text>Bring down the data path encrypted service if re-key was unsuccessful.</text>
+              </description>
+            </enum>
+            <enum name="continue-traffic">
+              <value value="2"/>
+              <description>
+                <text>Continue the data path encrypted service even if re-key was unsuccessful.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="continue-traffic"/>
+          <description>
+            <text>Indicates the NE's policy and consequent action when re-keying
+the data path security association is unsuccessful.</text>
+          </description>
+        </leaf>
+        <leaf name="traffic-kill-offset">
+          <when condition="../re-key-fail-policy = 'kill-traffic'"/>
+          <type name="uint32">
+            <range value="0..86400"/>
+          </type>
+          <units name="seconds"/>
+          <default value="0"/>
+          <description>
+            <text>If the re-key fail policy is set to KILL-TRAFFIC, this attribute indicates the amount of time
+the system waits before killing encrypted data path.</text>
+          </description>
+        </leaf>
+      </list>
+    </container>
+  </grouping>
+</module>

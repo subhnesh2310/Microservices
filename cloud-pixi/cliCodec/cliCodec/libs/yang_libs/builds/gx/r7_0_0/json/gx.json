@@ -1,0 +1,6114 @@
+{
+    "module": {
+        "@name": "gx",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:gx": "http://infinera.com/yang/gx",
+        "@xmlns:ioa-alarm": "http://infinera.com/yang/ioa/alarm",
+        "@xmlns:ioa-pm": "http://infinera.com/yang/ioa/pm",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/gx"
+        },
+        "prefix": {
+            "@value": "gx"
+        },
+        "import": [
+            {
+                "@module": "ioa-alarm",
+                "prefix": {
+                    "@value": "ioa-alarm"
+                }
+            },
+            {
+                "@module": "ioa-pm",
+                "prefix": {
+                    "@value": "ioa-pm"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "Module that contains GX specific identities, including:\n- equipment types (chassis, cards, toms)\n- PM parameters\n- Alarm types"
+        },
+        "revision": [
+            {
+                "@date": "2023-03-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.1"
+                }
+            },
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-09-17",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.1"
+                }
+            }
+        ],
+        "feature": [
+            {
+                "@name": "grpc",
+                "description": {
+                    "text": "GRPC functionality. Includes gNMI/gNOI."
+                }
+            },
+            {
+                "@name": "ipsec",
+                "description": {
+                    "text": "IPSEC functionality."
+                }
+            },
+            {
+                "@name": "multi-factor-authentication",
+                "description": {
+                    "text": "Multi factor authentication functionality."
+                }
+            },
+            {
+                "@name": "inci-support",
+                "description": {
+                    "text": "This feature enables INCI support for the system."
+                }
+            }
+        ],
+        "identity": [
+            {
+                "@name": "G31",
+                "base": {
+                    "@name": "ioa-common:chassis"
+                },
+                "description": {
+                    "text": "1RU Chassis for G31.\nHas the following features:\n- front panel houses 1 FRCU31 controllers and 4 slots for line cards.\n- rear panel houses 2 PEMs, 3 main Fans and 1 IOPANEL.\n- supports both AC and DC power suply."
+                },
+                "reference": {
+                    "text": "GX-615"
+                }
+            },
+            {
+                "@name": "G42",
+                "base": {
+                    "@name": "ioa-common:chassis"
+                },
+                "description": {
+                    "text": "3RU Chassis for GX.\nHas the following features:\n- front panel houses 2 XMM4 controllers, 1 IO Panel and 4 slots for line cards.\n- rear panel houses 4 PEMs, 2 XMM4 Fans, 5 main Fans and 1 Fan Controller.\n- supports both AC and DC power suply."
+                },
+                "reference": {
+                    "text": "GX-615"
+                }
+            },
+            {
+                "@name": "G34c",
+                "base": {
+                    "@name": "ioa-common:chassis"
+                },
+                "description": {
+                    "text": "4RU Chassis for GX.\nHas the following features:\n- front panel houses 2 FRCU controllers, 4 service rows for double width slot line-card(s).\n- front panel also houses 2 PEMs, 2 Fan trays.\n- Hw support for both AC and DC power supply."
+                },
+                "reference": {
+                    "text": "GX-41881"
+                }
+            },
+            {
+                "@name": "G32",
+                "base": {
+                    "@name": "ioa-common:chassis"
+                },
+                "description": {
+                    "text": "2RU Chassis for GX.\nHas the following features:\n- front panel houses 2 FRCU32 controllers, 8 slots for line cards.\n- rear panel houses 4 PEMs, 3 Fan trays, 2 IO Panel.\n- Hw support for both AC and DC power supply."
+                },
+                "reference": {
+                    "text": "GX-42400"
+                }
+            },
+            {
+                "@name": "FRCU31",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "FRCU31: Field Replaceable Shelf Controller for G31."
+                }
+            },
+            {
+                "@name": "UTM2",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "UTM2: Universal Transponder Muxponder type II"
+                }
+            },
+            {
+                "@name": "CHM1R",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "CHM1R: Coherent Module of type I, with ZR/ZR+/openROADM line optics"
+                }
+            },
+            {
+                "@name": "CHM2T",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "CHM2T: Coherent Module of type II"
+                }
+            },
+            {
+                "@name": "RD09SM",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "RD09SM: dual-sled carrier card with broadcast & select 1x9 ROADM degree including pre-amplifier, booster, 1x9 WSS and 1x9 splitter and 2xOCM"
+                },
+                "reference": {
+                    "text": "GX-8193"
+                }
+            },
+            {
+                "@name": "RD12TI",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "RD12TI: dual-sled carrier card with Route & Select 1x12 ROADM degree including pre-amplifier, booster, 1x12 twin WSS and OCM"
+                }
+            },
+            {
+                "@name": "RD20TM",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "RD20TM: dual-sled carrier card with route & select 1x20 ROADM degree including pre-amplifier, booster, 1x20 twin WSS and 2xOCM"
+                },
+                "reference": {
+                    "text": "GX-8602"
+                }
+            },
+            {
+                "@name": "RD32TH",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "RD32TH: triple-sled carrier card with route & select 1x32 ROADM degree including pre-amplifier, booster, 1x32 twin WSS and 2xOCM"
+                },
+                "reference": {
+                    "text": "GX-72527"
+                }
+            },
+            {
+                "@name": "OCC2T",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "OCC2T: Optical carrier card of type II"
+                }
+            },
+            {
+                "@name": "OCC2E",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "OCC2E: Optical carrier card"
+                }
+            },
+            {
+                "@name": "SPN2",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "SPN2: Switchponder type II"
+                }
+            },
+            {
+                "@name": "SPN2C",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "SPN2C: Switchponder - compact type II"
+                }
+            },
+            {
+                "@name": "CAD10A",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "CAD10A: colorless Add/Drop 10A"
+                }
+            },
+            {
+                "@name": "CAD16AOFP2",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "CAD16AOFP2: colorless Add/Drop 16A Optical Form Factor Pluggable 2"
+                }
+            },
+            {
+                "@name": "CDC8D6",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "CDC86D6: colorless directionless contentionless card"
+                }
+            },
+            {
+                "@name": "CDC4D4OFP2",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "CDC4D4: 4x4 colorless directionless contentionless card"
+                }
+            },
+            {
+                "@name": "BAXOFP2",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "BAX OFP2: High Power Variable Gain Booster Amplifier with High Gain Range"
+                }
+            },
+            {
+                "@name": "PAxOFP2",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "PAX OPF2: High Power Variable Gain Preamplifier with Optical Supervisory Channel"
+                }
+            },
+            {
+                "@name": "DGE2M2OFP2",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "DGE OFP2: High Power Variable Gain Booster Amplifier with High Gain Range"
+                }
+            },
+            {
+                "@name": "OTDR8OFP2",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "OTDR8 OFP2: Optical Time Domain Reflectometer OFP2 Pluggable"
+                }
+            },
+            {
+                "@name": "WS04SOFP2",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "WSS OFP2: Broadcast and Select OFP2 Wavelength Selective Switch"
+                }
+            },
+            {
+                "@name": "RPBM",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "RPBM: Raman card with backward propagation Raman amplification"
+                },
+                "reference": {
+                    "text": "GX-7762"
+                }
+            },
+            {
+                "@name": "RPBL",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "RPBL: Raman card with backward propagation Raman amplification with low span loss support"
+                },
+                "reference": {
+                    "text": "GX-45757"
+                }
+            },
+            {
+                "@name": "OMD48S",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "OMD48S 48 channel optical multiplexer/ demultiplexer - 1RU equipment"
+                },
+                "reference": {
+                    "text": "GX-10216"
+                }
+            },
+            {
+                "@name": "OMD48E",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "OMD48E wide band 48 channel optical multiplexer/ demultiplexer - 2RU equipment"
+                },
+                "reference": {
+                    "text": "GX-10215"
+                }
+            },
+            {
+                "@name": "OMD64",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "OMD64: Optical Multiplexing/Demultiplexing Module 64 - 2RU equipment"
+                },
+                "reference": {
+                    "text": "GX-10214"
+                }
+            },
+            {
+                "@name": "OMD64S",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "OMD64S: Optical Multiplexing/Demultiplexing Module 64 - 2RU equipment (OIF grid)"
+                },
+                "reference": {
+                    "text": "GX-58202"
+                }
+            },
+            {
+                "@name": "ILAx",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "Inline Amplifier"
+                }
+            },
+            {
+                "@name": "XMM4-FAN",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "XMM4 Fan Module - provides cooling to the XMM4 controller cards."
+                }
+            },
+            {
+                "@name": "FAN-CTRL",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "FAN controller module - controls chassis FANs."
+                }
+            },
+            {
+                "@name": "CHM6",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "CHM6 (Coherent Module with ICE6) Transponder."
+                }
+            },
+            {
+                "@name": "CHM6L",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "CHM6L (Coherent Module with ICE6 L-Band) Transponder."
+                }
+            },
+            {
+                "@name": "UCM4",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "UCM4 Aggretator"
+                }
+            },
+            {
+                "@name": "XMM4",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "XMM4 (GX Main Module 4) - Main Controller card"
+                }
+            },
+            {
+                "@name": "FRCU",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "Field Replaceable Chassis Controller."
+                },
+                "reference": {
+                    "text": "GX-38540"
+                }
+            },
+            {
+                "@name": "FRCU32",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "Field Replaceable Shelf Controller for G32."
+                },
+                "reference": {
+                    "text": "GX-42400"
+                }
+            },
+            {
+                "@name": "IOPANEL",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "Input/Output Panel - Auxiliary panel with port and chassis level LEDs"
+                }
+            },
+            {
+                "@name": "IOPANEL32",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "Input/Output Panel for G32 chassis - Auxiliary panel with port and chassis level LEDs"
+                }
+            },
+            {
+                "@name": "FAN",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "Fan Module - provides cooling to the chassis line cards."
+                }
+            },
+            {
+                "@name": "FAN32",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "Fan Module for G32 chassis - provides cooling to the chassis line cards."
+                }
+            },
+            {
+                "@name": "FAN34c",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "Fan Module for G34c chassis - provides cooling to the chassis line cards."
+                }
+            },
+            {
+                "@name": "PEM",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "PEM (Power Entry Module) - Provides AC or DC power to the chassis."
+                }
+            },
+            {
+                "@name": "BLANK",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "Generic Blank card, with multiple form factors (single slot)."
+                },
+                "reference": {
+                    "text": "GX-638"
+                }
+            },
+            {
+                "@name": "BLANK2",
+                "base": {
+                    "@name": "ioa-common:card"
+                },
+                "description": {
+                    "text": "Generic Blank card, with multiple form factors (double slot)."
+                },
+                "reference": {
+                    "text": "GX-44632"
+                }
+            },
+            {
+                "@name": "CFP2-DCO",
+                "base": {
+                    "@name": "ioa-common:tom"
+                },
+                "description": {
+                    "text": "CFP2-DCO line TOM type."
+                }
+            },
+            {
+                "@name": "SFP",
+                "base": {
+                    "@name": "ioa-common:tom"
+                },
+                "description": {
+                    "text": "SFP TOM."
+                }
+            },
+            {
+                "@name": "SFPPLUS",
+                "base": {
+                    "@name": "ioa-common:tom"
+                },
+                "description": {
+                    "text": "SFP+ 10G TOM type."
+                }
+            },
+            {
+                "@name": "QSFPPLUS",
+                "base": {
+                    "@name": "ioa-common:tom"
+                },
+                "description": {
+                    "text": "QSFP+ 40G TOM type."
+                }
+            },
+            {
+                "@name": "QSFP28",
+                "base": {
+                    "@name": "ioa-common:tom"
+                },
+                "description": {
+                    "text": "QSFP28 100G TOM type."
+                }
+            },
+            {
+                "@name": "QSFPDD",
+                "base": {
+                    "@name": "ioa-common:tom"
+                },
+                "description": {
+                    "text": "QSFPDD 400G TOM type."
+                }
+            },
+            {
+                "@name": "QSFPDD-ZR",
+                "base": {
+                    "@name": "ioa-common:tom"
+                },
+                "description": {
+                    "text": "ZR 400G TOM type."
+                }
+            },
+            {
+                "@name": "ETH100G",
+                "base": {
+                    "@name": "ioa-common:ETHERNET"
+                },
+                "description": {
+                    "text": "Ethernet 100G."
+                }
+            },
+            {
+                "@name": "ETH400G",
+                "base": {
+                    "@name": "ioa-common:ETHERNET"
+                },
+                "description": {
+                    "text": "Ethernet 400G."
+                }
+            },
+            {
+                "@name": "ETH10G",
+                "base": {
+                    "@name": "ioa-common:ETHERNET"
+                },
+                "description": {
+                    "text": "Ethernet 10G."
+                }
+            },
+            {
+                "@name": "ETH1G",
+                "base": {
+                    "@name": "ioa-common:ETHERNET"
+                },
+                "description": {
+                    "text": "Ethernet 1G."
+                }
+            },
+            {
+                "@name": "OTUC1i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC2i-30",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC2i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC3i-50",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC3i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC4i-70",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC4i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC5i-90",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC5i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC6i-110",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC6i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC7i-130",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC7i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC8i-150",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC8i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC9i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC10i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC11i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC12i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC13i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC14i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC15i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "OTUC16i",
+                "base": {
+                    "@name": "ioa-common:OTUCni"
+                }
+            },
+            {
+                "@name": "ODUC1i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC2i-30",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC2i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC3i-50",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC3i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC4i-70",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC4i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC5i-90",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC5i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC6i-110",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC6i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC7i-130",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC7i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC8i-150",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC8i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC9i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC10i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC11i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC12i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC13i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC14i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC15i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "ODUC16i",
+                "base": {
+                    "@name": "ioa-common:ODUCni"
+                }
+            },
+            {
+                "@name": "OTUC1",
+                "base": {
+                    "@name": "ioa-common:OTUCn"
+                },
+                "description": {
+                    "text": "Optical Transport Unit-C1"
+                }
+            },
+            {
+                "@name": "OTUC2",
+                "base": {
+                    "@name": "ioa-common:OTUCn"
+                },
+                "description": {
+                    "text": "Optical Transport Unit-C2"
+                }
+            },
+            {
+                "@name": "OTUC3",
+                "base": {
+                    "@name": "ioa-common:OTUCn"
+                },
+                "description": {
+                    "text": "Optical Transport Unit-C3"
+                }
+            },
+            {
+                "@name": "OTUC4",
+                "base": {
+                    "@name": "ioa-common:OTUCn"
+                },
+                "description": {
+                    "text": "Optical Transport Unit-C4"
+                }
+            },
+            {
+                "@name": "ODUC1",
+                "base": {
+                    "@name": "ioa-common:ODUCn"
+                },
+                "description": {
+                    "text": "Optical Data Unit-C1"
+                }
+            },
+            {
+                "@name": "ODUC2",
+                "base": {
+                    "@name": "ioa-common:ODUCn"
+                },
+                "description": {
+                    "text": "Optical Data Unit-C2"
+                }
+            },
+            {
+                "@name": "ODUC3",
+                "base": {
+                    "@name": "ioa-common:ODUCn"
+                },
+                "description": {
+                    "text": "Optical Data Unit-C3"
+                }
+            },
+            {
+                "@name": "ODUC4",
+                "base": {
+                    "@name": "ioa-common:ODUCn"
+                },
+                "description": {
+                    "text": "Optical Data Unit-C4"
+                }
+            },
+            {
+                "@name": "FC1G",
+                "base": {
+                    "@name": "ioa-common:fc"
+                },
+                "description": {
+                    "text": "Fiber Channel 1G."
+                }
+            },
+            {
+                "@name": "FC2G",
+                "base": {
+                    "@name": "ioa-common:fc"
+                },
+                "description": {
+                    "text": "Fiber Channel 2G."
+                }
+            },
+            {
+                "@name": "FC4G",
+                "base": {
+                    "@name": "ioa-common:fc"
+                },
+                "description": {
+                    "text": "Fiber Channel 4G."
+                }
+            },
+            {
+                "@name": "FC8G",
+                "base": {
+                    "@name": "ioa-common:fc"
+                },
+                "description": {
+                    "text": "Fiber Channel 8G."
+                }
+            },
+            {
+                "@name": "FC16G",
+                "base": {
+                    "@name": "ioa-common:fc"
+                },
+                "description": {
+                    "text": "Fiber Channel 16G."
+                }
+            },
+            {
+                "@name": "FC32G",
+                "base": {
+                    "@name": "ioa-common:fc"
+                },
+                "description": {
+                    "text": "Fiber Channel 32G."
+                }
+            },
+            {
+                "@name": "actual-power-draw",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "input-voltage",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "input-current",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "input-power",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "PM parameter for Input Power"
+                },
+                "reference": {
+                    "text": "GX-44667"
+                }
+            },
+            {
+                "@name": "output-voltage",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "PM parameter for PEM Output Voltage"
+                },
+                "reference": {
+                    "text": "GX-44667"
+                }
+            },
+            {
+                "@name": "output-current",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "PM parameter for PEM Output Current"
+                },
+                "reference": {
+                    "text": "GX-44667"
+                }
+            },
+            {
+                "@name": "output-power",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "PM parameter for Output Power"
+                },
+                "reference": {
+                    "text": "GX-44667"
+                }
+            },
+            {
+                "@name": "fan-speed",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "temperature",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "framer-chip-temperature-1",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "framer-chip-temperature-2",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "inlet-temperature",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "outlet-temperature",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "PM parameter for IOPANEL Outlet Temperature"
+                },
+                "reference": {
+                    "text": "GX-27996"
+                }
+            },
+            {
+                "@name": "dsp-chip-temperature",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "PM parameter for DCO Temperature (CHM6/L only)"
+                },
+                "reference": {
+                    "text": "GX-27947"
+                }
+            },
+            {
+                "@name": "link-utilization",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "packets",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "octets",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "err-packets",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "err-octets",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "jabbers",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "fragments",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "crc-aligned-err",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "undersized",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "oversized",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "broadcast-pkts",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "multicast-pkts",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "in-pause-frames",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "out-pause-frames",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "size-64",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "size-65-to-127",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "size-128-to-255",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "size-256-to-511",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "size-512-to-1023",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "size-1024-to-1518",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "size-1519-to-jumbo",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-errored-blocks",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "corrected-words",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-total",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-01",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-02",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-03",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-04",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-05",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-06",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-07",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-08",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-09",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-10",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-11",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-12",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-13",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-14",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-15",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-16",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-17",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-18",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-19",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pcs-bip-20",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "fec-corrected-bits",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "fec-symbol-error",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "fec-symbol-error-rate",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "opt",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "dgd",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "so-dgd",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "opr",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "edfa-opt",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "edfa-opr",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "edfa-lbc",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "errored-blocks",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "severely-errored-seconds",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "unavailable-seconds",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "errored-seconds",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "propagation-delay",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "corrected-bits",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "total-bits",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Total bits"
+                },
+                "reference": {
+                    "text": "GX-58752"
+                }
+            },
+            {
+                "@name": "code-words",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Code words"
+                },
+                "reference": {
+                    "text": "GX-58752"
+                }
+            },
+            {
+                "@name": "uncorrected-code-words",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Uncorrected code words"
+                },
+                "reference": {
+                    "text": "GX-58752"
+                }
+            },
+            {
+                "@name": "uncorrected-words",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-lbc",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opt",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opr",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-lbc1",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opt1",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opr1",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-lbc2",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opt2",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opr2",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-lbc3",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opt3",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opr3",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-lbc4",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opt4",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opr4",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-lbc5",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opt5",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opr5",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-lbc6",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opt6",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opr6",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-lbc7",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opt7",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opr7",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-lbc8",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opt8",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opr8",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-lbc9",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opt9",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opr9",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-lbc10",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opt10",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opr10",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opt-total",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "tom-opr-total",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "cd",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "snr-avg-x",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "snr-avg-y",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "subcarrier0-snr",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "subcarrier1-snr",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "subcarrier2-snr",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "subcarrier3-snr",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "subcarrier4-snr",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "subcarrier5-snr",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "subcarrier6-snr",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "subcarrier7-snr",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "snr-inner",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "snr-outer",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "snr-total",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "snr-diff-left",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "snr-diff-right",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pre-fec-q",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "post-fec-q",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pre-fec-ber",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "post-fec-ber",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "passing-fec-frames",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "failed-fec-frames",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "total-fec-frames",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "frequency",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "osnr",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "phase-correction",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "packets-dropped",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "protection-switch-duration",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "protection-switch-count",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "loss",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "pdl",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "cfo",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "line-test-sig-err",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "status": {
+                    "@value": "obsolete"
+                }
+            },
+            {
+                "@name": "trib-test-sig-err",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "odu-test-sig-err",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "status": {
+                    "@value": "obsolete"
+                }
+            },
+            {
+                "@name": "oof-seconds",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "sef-seconds",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "coding-violation",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "drop-events",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "prbs-errors",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "prbs-sync-errors",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                }
+            },
+            {
+                "@name": "lbc",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Laser Bias Current"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "iae",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Incoming Alignment Error"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "biae",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Backward Incoming Alignment Error"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "utilization-cpu",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Aggregate CPU utilization across all cores"
+                },
+                "reference": {
+                    "text": "THANOS-16594"
+                }
+            },
+            {
+                "@name": "utilization-cpu-core0",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Per-core CPU utilization"
+                },
+                "reference": {
+                    "text": "THANOS-16594"
+                }
+            },
+            {
+                "@name": "utilization-cpu-core1",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Per-core CPU utilization"
+                },
+                "reference": {
+                    "text": "THANOS-16594"
+                }
+            },
+            {
+                "@name": "utilization-cpu-core2",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Per-core CPU utilization"
+                },
+                "reference": {
+                    "text": "THANOS-16594"
+                }
+            },
+            {
+                "@name": "utilization-cpu-core3",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Per-core CPU utilization"
+                },
+                "reference": {
+                    "text": "THANOS-16594"
+                }
+            },
+            {
+                "@name": "utilization-memory",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Memory"
+                },
+                "reference": {
+                    "text": "THANOS-16594"
+                }
+            },
+            {
+                "@name": "system-load-average-1min",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "System load average (1 min)"
+                },
+                "reference": {
+                    "text": "THANOS-16594"
+                }
+            },
+            {
+                "@name": "system-load-average-5min",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "System load average (5 min)"
+                },
+                "reference": {
+                    "text": "THANOS-16594"
+                }
+            },
+            {
+                "@name": "system-load-average-15min",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "System load average (15 min)"
+                },
+                "reference": {
+                    "text": "THANOS-16594"
+                }
+            },
+            {
+                "@name": "number-of-processes",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Number of processes"
+                },
+                "reference": {
+                    "text": "THANOS-16594"
+                }
+            },
+            {
+                "@name": "number-of-threads",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Number of threads"
+                },
+                "reference": {
+                    "text": "THANOS-16594"
+                }
+            },
+            {
+                "@name": "disk-free-space",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Free disk space"
+                },
+                "reference": {
+                    "text": "THANOS-16594"
+                }
+            },
+            {
+                "@name": "disk-used-space",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Used disk space"
+                },
+                "reference": {
+                    "text": "THANOS-16594"
+                }
+            },
+            {
+                "@name": "pic-temp",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Temperature of the PIC"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "pic-case-temp",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Temperature of the PIC Case"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "soa-current-te",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Transverse electric component"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "soa-current-tm",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Transverse magnetic component"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "mzm-sub-phase-te-i",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Transverse electric, in-phase (i) component"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "mzm-sub-phase-te-q",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Transverse electric,  quadrature (q) component"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "mzm-sub-phase-tm-i",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Transverse magnetic, in-phase (i) component"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "mzm-sub-phase-tm-q",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Transverse magnetic,  quadrature (q) component"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "mzm-super-phase-te",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Transverse electric component"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "mzm-super-phase-tm",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Transverse magnetic component"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "pic-output-power",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Transmit Power from PIC to EDFA Input"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "edfa-pump-current",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Transmit EDFA pump laser current"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "edfa-output-power",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Transmit EDFA output power"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "avoa-output-attenuation",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Transmit Attenuation Variable Optical Attenuator"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "tunable-filter-wavelength-drift",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Transmit Tunable Filter's Wavelength Drift"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "output-optical-power",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Transmit Output Optical Power of the CHM6"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "input-optical-power",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Receive Optical Power of the CHM6"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "avoa-input-attenuation",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Receive Attenuation Variable Optical Attenuator"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "pic-input-power",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Receive Optical Power Delivered to the PIC"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "tia-agc-gain-x1",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "This is a tia gain for polarization x branch 1"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "tia-agc-gain-x2",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "This is a tia gain for polarization x branch 2"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "tia-agc-gain-y1",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "This is a tia gain for polarization y branch 1"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "tia-agc-gain-y2",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "This is a tia gain for polarization y branch 2"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "tia-agc-output-amplitude-x",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Receive (TIA) Automatic Gain Control Output Amplitude for X Polarization"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "tia-agc-output-amplitude-y",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Receive (TIA) Automatic Gain Control Output Amplitude for Y Polarization"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "tia-agc-output-balance-x1",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "This is a tia out balance for polarization x branch 1"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "tia-agc-output-balance-x2",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "This is a tia out balance for polarization x branch 2"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "tia-agc-output-balance-y1",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "This is a tia out balance for polarization y branch 1"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "tia-agc-output-balance-y2",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "This is a tia out balance for polarization y branch 2"
+                },
+                "reference": {
+                    "text": "GX-50636"
+                }
+            },
+            {
+                "@name": "symbol-errors",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "A count of the number of 8B/10B Line Code Violations"
+                },
+                "reference": {
+                    "text": "GX-40541"
+                }
+            },
+            {
+                "@name": "gain",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Raman gain for DWDM signal frequency range as calculated by power control library"
+                },
+                "reference": {
+                    "text": "THANOS-3372"
+                }
+            },
+            {
+                "@name": "laser-power",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Total Raman pump power sent out at DWDM Line port input"
+                },
+                "reference": {
+                    "text": "THANOS-3372"
+                }
+            },
+            {
+                "@name": "orl",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "Raman optical return loss"
+                },
+                "reference": {
+                    "text": "THANOS-3372"
+                }
+            },
+            {
+                "@name": "sop-change-rate",
+                "base": {
+                    "@name": "ioa-pm:PM-PARAMETER"
+                },
+                "description": {
+                    "text": "State Of Polarization change rate."
+                },
+                "reference": {
+                    "text": "GX-58689"
+                }
+            },
+            {
+                "@name": "ADMIN-LOCK",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Administrative Lock"
+                },
+                "reference": {
+                    "text": "GX-748"
+                }
+            },
+            {
+                "@name": "PWRDRAW",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Chassis power draw exceeds configured maximum value"
+                },
+                "reference": {
+                    "text": "GX-749"
+                }
+            },
+            {
+                "@name": "PWRCTRL-INIT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Power Control: System needed power is more than available power"
+                },
+                "reference": {
+                    "text": "GX-750"
+                }
+            },
+            {
+                "@name": "PWR-PROT-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Chassis power protection failed"
+                },
+                "reference": {
+                    "text": "GX-752"
+                }
+            },
+            {
+                "@name": "AMBIENT-TEMP-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Ambient (inlet) Temperature Out of Range - High"
+                },
+                "reference": {
+                    "text": "GX-746"
+                }
+            },
+            {
+                "@name": "AMBIENT-TEMP-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Ambient (inlet) Temperature Out of Range - Low"
+                },
+                "reference": {
+                    "text": "GX-746"
+                }
+            },
+            {
+                "@name": "ADMIN-MAINT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Administrative Maintenance"
+                },
+                "reference": {
+                    "text": "GX-747"
+                }
+            },
+            {
+                "@name": "ACTIVE-BLANK-MISSING",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Active blank missing"
+                },
+                "reference": {
+                    "text": "GX-761"
+                }
+            },
+            {
+                "@name": "NO-CTRLR-MODULE-REDUNDANCY",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Redundant Controller Not Present or Not Ready"
+                },
+                "reference": {
+                    "text": "GX-744,THANOS-16833"
+                }
+            },
+            {
+                "@name": "EQPTMSMT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Equipment type mismatch"
+                }
+            },
+            {
+                "@name": "IMPROPRMVL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Equipment improper removal"
+                },
+                "reference": {
+                    "text": "GX-753"
+                }
+            },
+            {
+                "@name": "EQPTFAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Equipment failure"
+                },
+                "reference": {
+                    "text": "GX-753"
+                }
+            },
+            {
+                "@name": "EQPT-PARTFAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Equipment partial failure"
+                },
+                "reference": {
+                    "text": "GX-753"
+                }
+            },
+            {
+                "@name": "EQPTCOMFAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Equipment Communication Fail"
+                },
+                "reference": {
+                    "text": "GX-753"
+                }
+            },
+            {
+                "@name": "PWR-CLASS-UNSUPPORTED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TOMs power class is unsupported (i.e. out-of-range) on the specific port"
+                },
+                "reference": {
+                    "text": "GX-13801"
+                }
+            },
+            {
+                "@name": "TEMP-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Temperature Out Of Range - High"
+                },
+                "reference": {
+                    "text": "GX-753"
+                }
+            },
+            {
+                "@name": "LATCH-OPEN",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Latch opened"
+                },
+                "reference": {
+                    "text": "GX-753"
+                }
+            },
+            {
+                "@name": "EQPT-USB-NOACCESS",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "No access to USB ports"
+                },
+                "reference": {
+                    "text": "GX-753"
+                }
+            },
+            {
+                "@name": "SW-ACTIVATION",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "status": {
+                    "@value": "obsolete"
+                },
+                "description": {
+                    "text": "Software Activation in progress"
+                },
+                "reference": {
+                    "text": "GX-753"
+                }
+            },
+            {
+                "@name": "PWR-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Main Power failure"
+                },
+                "reference": {
+                    "text": "GX-754"
+                }
+            },
+            {
+                "@name": "PWRUV",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Power under voltage"
+                },
+                "reference": {
+                    "text": "GX-754"
+                }
+            },
+            {
+                "@name": "PWROV",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Power over voltage"
+                },
+                "reference": {
+                    "text": "GX-754"
+                }
+            },
+            {
+                "@name": "EQPTDEGRADE",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Equipment degradation"
+                },
+                "reference": {
+                    "text": "GX-753"
+                }
+            },
+            {
+                "@name": "RECOVER-MODE",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Recover mode"
+                },
+                "reference": {
+                    "text": "GX-7882"
+                }
+            },
+            {
+                "@name": "EQPTCPRESET",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Equipment's control plane is resetting"
+                },
+                "reference": {
+                    "text": "GX-753"
+                }
+            },
+            {
+                "@name": "EQPTCPUR",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Equipment's control plane is unreachable"
+                },
+                "reference": {
+                    "text": "GX-753"
+                }
+            },
+            {
+                "@name": "INITFAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Initialization failure"
+                },
+                "reference": {
+                    "text": "GX-753"
+                }
+            },
+            {
+                "@name": "PEER-CTRLR-COMM-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Internal ethernet link failure to peer controller module"
+                },
+                "reference": {
+                    "text": "GX-753"
+                }
+            },
+            {
+                "@name": "NO-NCT-REDUNDANCY",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Redundant NCT connectivity unavailable."
+                },
+                "reference": {
+                    "text": "THANOS-14278"
+                }
+            },
+            {
+                "@name": "UNEXP-CONFIGURED-CHASSIS",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "NC determines the Infinera chassis is not part of the Multi-chassis NE but is connected in the internal communication LAN or has database not belonging to the current NE"
+                },
+                "reference": {
+                    "text": "THANOS-14279,THANOS-20469"
+                }
+            },
+            {
+                "@name": "SCHEDFAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Scheduled Task Failed"
+                },
+                "reference": {
+                    "text": "Management Interfaces SRD - 4.10.2."
+                }
+            },
+            {
+                "@name": "CREDENTIAL-AGING",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "User credential expiration"
+                },
+                "reference": {
+                    "text": "THANOSSEC-215"
+                }
+            },
+            {
+                "@name": "NTPSERVER-FAULT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Configured NTP server unavailable"
+                }
+            },
+            {
+                "@name": "FLASH-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Flash device failed"
+                },
+                "reference": {
+                    "text": "GX-765"
+                }
+            },
+            {
+                "@name": "INIT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Initialization Under Progress"
+                },
+                "reference": {
+                    "text": "GX-579"
+                }
+            },
+            {
+                "@name": "DATAPATH-INIT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Datapath initialization under progress"
+                },
+                "reference": {
+                    "text": "GX-33730"
+                }
+            },
+            {
+                "@name": "TEMP-OOR-DEVICE-SHUTDOWN",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Temperature Out Of Range - device auto shutdown"
+                },
+                "reference": {
+                    "text": "GX-579"
+                }
+            },
+            {
+                "@name": "TEMP-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Temperature Out Of Range - Low"
+                },
+                "reference": {
+                    "text": "GX-579"
+                }
+            },
+            {
+                "@name": "CFG-MSMT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Configuration mismatch"
+                },
+                "reference": {
+                    "text": "GX-577,GX-15433"
+                }
+            },
+            {
+                "@name": "SW-MSMT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Software Version Mismatch"
+                },
+                "reference": {
+                    "text": "THANOS-1299"
+                }
+            },
+            {
+                "@name": "FW-INSTAL-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Firmware Installation Failed"
+                },
+                "reference": {
+                    "text": "THANOS-4655,GX-11551"
+                }
+            },
+            {
+                "@name": "SW-INSTAL-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Software Installation Failed"
+                },
+                "reference": {
+                    "text": "THANOS-1300"
+                }
+            },
+            {
+                "@name": "SW-SERVICE-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Software service failure"
+                },
+                "reference": {
+                    "text": "THANOS-1119"
+                }
+            },
+            {
+                "@name": "OPR-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "OPR Out of Range - Low"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "OPR-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "OPR Out of Range - High"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "OLOS",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Optical Loss of Signal"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "OLOS-REMOTE",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Optical Loss Of Signal on remote Raman sled"
+                },
+                "reference": {
+                    "text": "GX-79272"
+                }
+            },
+            {
+                "@name": "LS-ACTIVE",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Laser Shutdown Active"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "CDR-LOL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "CDR Loss Of Lock"
+                },
+                "reference": {
+                    "text": "GX-580"
+                }
+            },
+            {
+                "@name": "SD",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Signal Degraded"
+                },
+                "reference": {
+                    "text": "GX-580"
+                }
+            },
+            {
+                "@name": "LPBKFACILITY",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Facility loopback enabled"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967,GX-11570"
+                }
+            },
+            {
+                "@name": "LPBKTERM",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Terminal loopback enabled"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967,GX-11570"
+                }
+            },
+            {
+                "@name": "LOSYNC",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Loss of Sync"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "RF",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Remote Fault"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "LF",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Local Fault"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "LOA",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Loss of Alignment"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "LOLM",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Loss of Lane Marker"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "ADTIMEOUT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Auto-Discovery Timeout"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "BDI",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Backward Defect Indication"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "PRE-FEC-Q-SIGNAL-DEGRADE",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Pre-FEC Q-based Signal Degraded"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "DGD-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Differential Group Delay Out Of Range - High"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "POST-FEC-Q-SIGNAL-DEGRADE",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Post-FEC Q-based Signal Degraded"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967,GX-7733"
+                }
+            },
+            {
+                "@name": "POST-FEC-Q-SIGNAL-FAILURE",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Post-FEC Q-based Signal Failure"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967,GX-7733"
+                }
+            },
+            {
+                "@name": "HIBER",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "High BER"
+                },
+                "reference": {
+                    "text": "GX-6886"
+                }
+            },
+            {
+                "@name": "LOF",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Loss of Frame"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "LOM",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Loss of Multi-Frame"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-6620"
+                }
+            },
+            {
+                "@name": "FDI",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Forward Defect Indication"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "TIM",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Trace Identifier Mismatch"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "AIS",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Alarm Indication Signal"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "OCI",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Open Connection Indication"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "LCK",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Locked Indication"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "MSIM",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Multiplex Structure Identifier Mismatch"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "PLM",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Payload Label Mismatch"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "LOFLOM",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Loss of Frame Or Loss of Multi-frame"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "LOOMFI",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Loss of OPU Multi-frame Identifier"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "CSF",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Client Signal Failure"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "CSF-LOS",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Client Signal Failure - Loss of Signal"
+                },
+                "reference": {
+                    "text": "GX-22017"
+                }
+            },
+            {
+                "@name": "LFD",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "GFP Loss of Frame Delineation"
+                },
+                "reference": {
+                    "text": "GX-22017"
+                }
+            },
+            {
+                "@name": "EXM",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "GFP Extension Header Mismatch"
+                },
+                "reference": {
+                    "text": "GX-22017"
+                }
+            },
+            {
+                "@name": "UPM",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "GFP User Payload Mismatch"
+                },
+                "reference": {
+                    "text": "GX-22017"
+                }
+            },
+            {
+                "@name": "LINE-TESTSIG-GEN",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Test signal generation activated, toward network"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "LINE-TESTSIG-OOS",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Test signal out of sync, from network"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "TRIB-TESTSIG-GEN",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Test signal generation activated, toward client"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "TRIB-TESTSIG-OOS",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Test signal out of sync, from client"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "PRBS-GEN",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "PRBS Generation Activated"
+                },
+                "reference": {
+                    "text": "GX-13100"
+                }
+            },
+            {
+                "@name": "PRBS-OOS",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "PRBS Out of Sync"
+                },
+                "reference": {
+                    "text": "GX-13100"
+                }
+            },
+            {
+                "@name": "OPT-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "OPT Out of Range - High"
+                },
+                "reference": {
+                    "text": "GX-7728"
+                }
+            },
+            {
+                "@name": "OPT-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "OPT Out of Range - Low"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "PARTFAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Partial Facility Failure"
+                },
+                "reference": {
+                    "text": "GX-150,GX-53,GX-2967"
+                }
+            },
+            {
+                "@name": "SEVERITY-DEFAULT-LEVEL-CHANGED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Default logging severity level changed"
+                },
+                "reference": {
+                    "text": "THANOS-657"
+                }
+            },
+            {
+                "@name": "CERTIFICATE-EXPIRING",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Certificate expiration"
+                },
+                "reference": {
+                    "text": "THANOSSEC-242"
+                }
+            },
+            {
+                "@name": "CERTIFICATE-EXPIRED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Certificate expired"
+                },
+                "reference": {
+                    "text": "THANOSSEC-242"
+                }
+            },
+            {
+                "@name": "CERTIFICATE-REVOKED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Certificate revoked"
+                }
+            },
+            {
+                "@name": "CERTIFICATE-UNTRUSTED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Certificate trust chain is broken"
+                }
+            },
+            {
+                "@name": "LINKDOWN",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Ethernet link down"
+                },
+                "reference": {
+                    "text": "GX-762,THANOS-11143"
+                }
+            },
+            {
+                "@name": "LINKDOWN-CRAFT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Ethernet link down"
+                },
+                "reference": {
+                    "text": "GX-20780"
+                }
+            },
+            {
+                "@name": "LINKDOWN-NCT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Ethernet link down"
+                },
+                "reference": {
+                    "text": "THANOS-14276"
+                }
+            },
+            {
+                "@name": "DUPLICATE-IPV6-ADDR-DETECT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Duplicated IPv6 address detected"
+                },
+                "reference": {
+                    "text": "THANOS-1427"
+                }
+            },
+            {
+                "@name": "DUPLICATE-IPV4-ADDR-DETECT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Duplicated IPv4 address detected"
+                },
+                "reference": {
+                    "text": "THANOS-1389"
+                }
+            },
+            {
+                "@name": "NO-OSPFV2-NEIGHBOR",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "No OSPFv2 neighbour detected"
+                },
+                "reference": {
+                    "text": "GX-762"
+                }
+            },
+            {
+                "@name": "NO-OSPFV3-NEIGHBOR",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "No OSPFv3 neighbour detected"
+                },
+                "reference": {
+                    "text": "GX-762"
+                }
+            },
+            {
+                "@name": "EQPT-UNSUPPORTED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Equipment not supported"
+                },
+                "reference": {
+                    "text": "NA"
+                }
+            },
+            {
+                "@name": "OPT-CARRIER-FREQ-CONTENTION",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Optical Carrier Frequency Contention Detected"
+                },
+                "reference": {
+                    "text": "GX-1096"
+                }
+            },
+            {
+                "@name": "ALL-CARRIER-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "All Carriers under SCH failed"
+                },
+                "reference": {
+                    "text": "GX-8915"
+                }
+            },
+            {
+                "@name": "BSD",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Rx Backward Indication - Signal Degrade"
+                },
+                "reference": {
+                    "text": "GX-11394,GX-34696"
+                }
+            },
+            {
+                "@name": "COMM-CHNL-DOWN",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Communications channel down"
+                },
+                "reference": {
+                    "text": "THANOS-11143"
+                }
+            },
+            {
+                "@name": "DBRESTOREFAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "The activation of a snapshot failed"
+                },
+                "reference": {
+                    "text": "THANOSSEC-782"
+                }
+            },
+            {
+                "@name": "MANAGEMENT-SESSION-THRESHOLD-HIGH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Number of management sessions above threshold"
+                },
+                "reference": {
+                    "text": "GX-4190"
+                }
+            },
+            {
+                "@name": "PEER-UNREACHABLE",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Unable to reach IKE peer"
+                },
+                "reference": {
+                    "text": "THANOSSEC-985"
+                }
+            },
+            {
+                "@name": "IKE-CONFIG-MSMT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Misconfiguration in IKE peer parameters between the near-end and the far-end"
+                },
+                "reference": {
+                    "text": "THANOSSEC-657"
+                }
+            },
+            {
+                "@name": "ENCR-CONFIG-MSMT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Mismatch in encryption related attributes between the near-end and the far-end"
+                },
+                "reference": {
+                    "text": "THANOSSEC-657"
+                }
+            },
+            {
+                "@name": "PEER-AUTHENTICATION-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Authentication (or re-authentication) with IKE peer failed"
+                },
+                "reference": {
+                    "text": "THANOSSEC-858"
+                }
+            },
+            {
+                "@name": "REKEY-SA-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Re-Key Security Association Failure"
+                },
+                "reference": {
+                    "text": "THANOSSEC-987,THANOSSEC-988"
+                }
+            },
+            {
+                "@name": "ENCRYPTION-UNSUPPORTED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Encryption not supported in line-card, but configurations present"
+                },
+                "reference": {
+                    "text": "THANOSSEC-1025"
+                }
+            },
+            {
+                "@name": "PRE-SHARED-KEY-EXPIRING",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "IKE peer pre-shared key expiration warning"
+                },
+                "reference": {
+                    "text": "THANOSSEC-813"
+                }
+            },
+            {
+                "@name": "PRE-SHARED-KEY-EXPIRED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "IKE peer pre-shared key expiration"
+                },
+                "reference": {
+                    "text": "THANOSSEC-1546"
+                }
+            },
+            {
+                "@name": "FEC-DEGRADED-SER",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "FEC degraded SER"
+                },
+                "reference": {
+                    "text": "GX-5220"
+                }
+            },
+            {
+                "@name": "LOCAL-DEGRADED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Local degraded"
+                },
+                "reference": {
+                    "text": "GX-5220"
+                }
+            },
+            {
+                "@name": "REMOTE-DEGRADED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Remote degraded"
+                },
+                "reference": {
+                    "text": "GX-5220,GX-23187"
+                }
+            },
+            {
+                "@name": "EQPT-INCOMPATIBLE",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Equipment is incompatible with system software"
+                },
+                "reference": {
+                    "text": "THANOS-8254,THANOS-12332"
+                }
+            },
+            {
+                "@name": "SUBCOMPONENT-WARM-RESET",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Subcomponent warm resetting"
+                },
+                "reference": {
+                    "text": "GX-10614"
+                }
+            },
+            {
+                "@name": "SUBCOMPONENT-COLD-RESET",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Subcomponent cold resetting"
+                },
+                "reference": {
+                    "text": "GX-10614"
+                }
+            },
+            {
+                "@name": "LFA",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Loss of FEC word alignment"
+                },
+                "reference": {
+                    "text": "GX-65914"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-BROADCAST-PKTS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-CRC-ALIGNED-ERR-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-ERR-OCTETS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-FRAGMENTS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-IN-PAUSE-FRAMES-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-JABBERS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-MULTICAST-PKTS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-OCTETS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-OUT-PAUSE-FRAMES-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-OVERSIZED-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-PACKETS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-ERR-PACKETS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-PCS-ERRORED-BLOCKS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-SIZE-1024-TO-1518-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-SIZE-128-TO-255-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-SIZE-1519-TO-JUMBO-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-SIZE-256-TO-511-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-SIZE-512-TO-1023-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-SIZE-64-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-SIZE-65-TO-127-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-UNDERSIZED-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-SEVERELY-ERRORED-SECONDS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-ERRORED-BLOCKS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-ERRORED-SECONDS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-UNAVAILABLE-SECONDS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-LINK-UTILIZATION-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-LINK-UTILIZATION-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-PCS-BIP-TOTAL-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-PROPAGATION-DELAY-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-16454,GX-11047"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-PROPAGATION-DELAY-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-16454,GX-11047"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-IAE-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-BIAE-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-UNCORRECTED-WORDS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-CORRECTED-WORDS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-CORRECTED-BITS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-PRE-FEC-BER-OOLH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-OOF-SECONDS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-13342"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-SEF-SECONDS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-13349"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-CODING-VIOLATION-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-13349"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-OPR-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-3372"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-OPR-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-3372"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-OPT-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-3372"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-OPT-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-3372"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-ORL-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-3372"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-UTILIZATION-MEMORY-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-21652"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-UTILIZATION-MEMORY-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (15 min) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-21652"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-BROADCAST-PKTS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-CRC-ALIGNED-ERR-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-ERR-OCTETS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-FRAGMENTS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-IN-PAUSE-FRAMES-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-JABBERS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-MULTICAST-PKTS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-OCTETS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-OUT-PAUSE-FRAMES-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-OVERSIZED-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-PACKETS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-ERR-PACKETS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-PCS-ES-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-PCS-SES-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-PCS-SESS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-SIZE-1024-TO-1518-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-SIZE-128-TO-255-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-SIZE-1519-TO-JUMBO-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-SIZE-256-TO-511-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-SIZE-512-TO-1023-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-SIZE-64-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-SIZE-65-TO-127-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-UNDERSIZED-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-SEVERELY-ERRORED-SECONDS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-ERRORED-BLOCKS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-ERRORED-SECONDS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-UNAVAILABLE-SECONDS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-LINK-UTILIZATION-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-LINK-UTILIZATION-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-PCS-BIP-TOTAL-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-PCS-ERRORED-BLOCKS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-8075"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-PROPAGATION-DELAY-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-16454,GX-11047"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-PROPAGATION-DELAY-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-16454,GX-11047"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-IAE-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-BIAE-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-UNCORRECTED-WORDS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-CORRECTED-WORDS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-CORRECTED-BITS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-PRE-FEC-BER-OOLH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-OOF-SECONDS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-13342"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-SEF-SECONDS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-13349"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-CODING-VIOLATION-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-13349"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-OPR-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-3372"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-OPR-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-3372"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-OPT-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-3372"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-OPT-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-3372"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-ORL-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-3372"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-UTILIZATION-MEMORY-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-21652"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-UTILIZATION-MEMORY-OORL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "TCA (24 h) Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "THANOS-21652"
+                }
+            },
+            {
+                "@name": "PROT-ACTIVE",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Protection entity active"
+                },
+                "reference": {
+                    "text": "GX-6817"
+                }
+            },
+            {
+                "@name": "PROT-LOCKOUT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Protection group lockout"
+                },
+                "reference": {
+                    "text": "GX-6818"
+                }
+            },
+            {
+                "@name": "PROT-FORCED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Protection group forced switch"
+                },
+                "reference": {
+                    "text": "GX-6819"
+                }
+            },
+            {
+                "@name": "PROT-FROZEN",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Protection group frozen"
+                },
+                "reference": {
+                    "text": "GRD-1051"
+                }
+            },
+            {
+                "@name": "PROT-UNAVAILABLE",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Protection group unavailable"
+                },
+                "reference": {
+                    "text": "GX-6820"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-PROTECTION-SWITCH-COUNT-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-6822"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-PROTECTION-SWITCH-COUNT-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-6823"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-PROTECTION-SWITCH-DURATION-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-6824"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-PROTECTION-SWITCH-DURATION-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-6825"
+                }
+            },
+            {
+                "@name": "TCA-PM-15MIN-SYMBOL-ERRORS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-40541"
+                }
+            },
+            {
+                "@name": "TCA-PM-24H-SYMBOL-ERRORS-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Parameter threshold crossed"
+                },
+                "reference": {
+                    "text": "GX-40541"
+                }
+            },
+            {
+                "@name": "IP-MONITOR-FAILED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "The monitoring of an IP address failed"
+                },
+                "reference": {
+                    "text": "THANOS-11373"
+                }
+            },
+            {
+                "@name": "FREQ-PROV-PENDING",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Frequency provision pending"
+                },
+                "reference": {
+                    "text": "GX-11560"
+                }
+            },
+            {
+                "@name": "COH-LOL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Coherent Rx - Loss of lock"
+                },
+                "reference": {
+                    "text": "GX-11570,GX-19682"
+                }
+            },
+            {
+                "@name": "LOL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Loss of lane alignment"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "RDI",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Remote Defect Indication"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "FDD",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "FEC Detected Degrade"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "FED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "FEC Excessive Degrade"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "GIDM",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Group ID Mismatch"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "FMM",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "FlexO PHY Map Mismatch"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "LRC",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Loss Of RC Blocks"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "BERSD",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Bit Error Rate Signal Degrade"
+                },
+                "reference": {
+                    "text": "GX-7698"
+                }
+            },
+            {
+                "@name": "MS-AIS",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Alarm Indication Signal"
+                },
+                "reference": {
+                    "text": "GX-13339"
+                }
+            },
+            {
+                "@name": "AIS-L",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Alarm Indication Signal"
+                },
+                "reference": {
+                    "text": "GX-13339"
+                }
+            },
+            {
+                "@name": "INCI-NBR-CONN-DOWN",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "INCI neighbor connectivity down"
+                },
+                "reference": {
+                    "text": "GX-31334"
+                }
+            },
+            {
+                "@name": "DIAL-OUT-COMM-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Dial-out server connect state changed to Failed state"
+                },
+                "reference": {
+                    "text": "THANOS-18193"
+                }
+            },
+            {
+                "@name": "SW-INIT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Software under initialization"
+                },
+                "reference": {
+                    "text": "GX-31461,GX-32074"
+                }
+            },
+            {
+                "@name": "NMOPER",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Neighbor Mismatch based on Operator-Specific Field in TTI"
+                },
+                "reference": {
+                    "text": "GRD-1193"
+                }
+            },
+            {
+                "@name": "INTERNAL-ERROR",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Internal error"
+                },
+                "reference": {
+                    "text": "GX-32773"
+                }
+            },
+            {
+                "@name": "AUTOSHUTOFF",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Automatic Laser Shutdown triggered by laser safety mechanism"
+                },
+                "reference": {
+                    "text": "GX-31257"
+                }
+            },
+            {
+                "@name": "FORCED-REMOTE-OFF",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Alarm derived from the condition forced-remote-off"
+                },
+                "reference": {
+                    "text": "GX-31258"
+                }
+            },
+            {
+                "@name": "RGAIN-SUSP-LOW",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Large negative deviation  (< -2dB) of measured Raman gain versus expected Raman gain"
+                },
+                "reference": {
+                    "text": "GX-31258"
+                }
+            },
+            {
+                "@name": "RGAIN-SUSP-HIGH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Large positive deviation (> 3dB) of measured Raman gain versus expected Raman gain"
+                },
+                "reference": {
+                    "text": "GX-31258"
+                }
+            },
+            {
+                "@name": "RGAIN-TARGET-LOW",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Raman gain resulting from configuration too low <= 7 dB"
+                },
+                "reference": {
+                    "text": "GX-31258"
+                }
+            },
+            {
+                "@name": "GAIN-OOR",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Gain or tilt not in valid mask range"
+                },
+                "reference": {
+                    "text": "GX-31257"
+                }
+            },
+            {
+                "@name": "INTERSTAGE-LOS",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Open fiber detected at the interstage port"
+                },
+                "reference": {
+                    "text": "GX-31257"
+                }
+            },
+            {
+                "@name": "REQUIRED-GAIN-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Amplifier target gain cannot be achieved due to power limitation or gain limitation"
+                },
+                "reference": {
+                    "text": "GX-31257"
+                }
+            },
+            {
+                "@name": "WRONG-GAIN-RANGE",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Current amplifier gain is better supported in a different gain range than currently"
+                },
+                "reference": {
+                    "text": "GX-33238"
+                }
+            },
+            {
+                "@name": "OPR-SPREAD-OORH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Measured power difference between NMCs added via this SRG is too high"
+                },
+                "reference": {
+                    "text": "THANOS-11697"
+                }
+            },
+            {
+                "@name": "SPAN-LOSS-HIGH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Span loss too high"
+                },
+                "reference": {
+                    "text": "THANOS-11693"
+                }
+            },
+            {
+                "@name": "LASER-SAFETY-MODE-MISMATCH",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "The detected laser safety mode from the peer NE is not consistent with the local laser safety mode"
+                },
+                "reference": {
+                    "text": "GX-24453"
+                }
+            },
+            {
+                "@name": "LASER-SAFETY-MODE-COMMFAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "The NE detects loss of responses from the peer NE during the laser-safety-mode negotiation process"
+                },
+                "reference": {
+                    "text": "GX-24454"
+                }
+            },
+            {
+                "@name": "PUMP-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Pump failure"
+                },
+                "reference": {
+                    "text": "GX-24454"
+                }
+            },
+            {
+                "@name": "PUMP-DEGRADE",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Pump degraded"
+                },
+                "reference": {
+                    "text": "GX-24454"
+                }
+            },
+            {
+                "@name": "DATA-ENCRYPTION-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Data encryption or decryption failed"
+                },
+                "reference": {
+                    "text": "GX-38753"
+                }
+            },
+            {
+                "@name": "AUTOSHUTOFF-OVERPOWER",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Automatic pump shutdown due to overpower"
+                },
+                "reference": {
+                    "text": "GX-46757"
+                }
+            },
+            {
+                "@name": "DBSYNC-TIMEOUT",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Database synchronization Timeout"
+                },
+                "reference": {
+                    "text": "THANOS-21799"
+                }
+            },
+            {
+                "@name": "CHASSIS-UPGRADE-IN-PROGRESS",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Node Controller software management initiates software upgrade to a shelf controller"
+                },
+                "reference": {
+                    "text": "THANOS-24757"
+                }
+            },
+            {
+                "@name": "PPP-NEGO-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "PPP negotiation with peer failed"
+                },
+                "reference": {
+                    "text": "GX-49464"
+                }
+            },
+            {
+                "@name": "LPBKFACILITY-HOST",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Facility Loopback Enabled on Host Interface"
+                },
+                "reference": {
+                    "text": "GX-53922"
+                }
+            },
+            {
+                "@name": "LPBKTERM-HOST",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Terminal Loopback Enabled on Host Interface"
+                },
+                "reference": {
+                    "text": "GX-53922"
+                }
+            },
+            {
+                "@name": "LPBKFACILITY-MODEM",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Facility Loopback Enabled on Modem Interface"
+                },
+                "reference": {
+                    "text": "GX-53922"
+                }
+            },
+            {
+                "@name": "LPBKTERM-MODEM",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Terminal Loopback Enabled on Modem Interface"
+                },
+                "reference": {
+                    "text": "GX-53922"
+                }
+            },
+            {
+                "@name": "LSS",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Loss of PRBS Lock"
+                },
+                "reference": {
+                    "text": "GX-53922"
+                }
+            },
+            {
+                "@name": "TEST-SIG-GEN",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Test Signal Generation Activated"
+                },
+                "reference": {
+                    "text": "GX-53922"
+                }
+            },
+            {
+                "@name": "TEST-SIG-MON",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Test Signal Monitoring Activated"
+                },
+                "reference": {
+                    "text": "GX-53922"
+                }
+            },
+            {
+                "@name": "HIGH-SPEED-LOGGING",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "High speed logging running on at least one card within the NE"
+                },
+                "reference": {
+                    "text": "GX-10533"
+                }
+            },
+            {
+                "@name": "CABLE-MISSING",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Cable problem detected for connection to OCM"
+                },
+                "reference": {
+                    "text": "GX-31262"
+                }
+            },
+            {
+                "@name": "MIN-PEM-REQUIRED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Chassis functional PEM number less than required"
+                },
+                "reference": {
+                    "text": "GX-67337"
+                }
+            },
+            {
+                "@name": "TEMP-OOR-AMPLIFIER-SHUTDOWN",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Temperature Out Of Range - amplifier auto shutdown"
+                },
+                "reference": {
+                    "text": "GX-69951"
+                }
+            },
+            {
+                "@name": "INTERSTAGE-HIGH-LOSS",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Interstage loss between EDFA gain blocks above maximum tolerable value"
+                },
+                "reference": {
+                    "text": "GX-49434"
+                }
+            },
+            {
+                "@name": "SEC-APP-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Secure application failed due to all certificates associated with it are invalid"
+                },
+                "reference": {
+                    "text": "THANOSSEC-2180"
+                }
+            },
+            {
+                "@name": "CONSOLE-USER-PASSWORD-NOT-SET",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Console user password is not set"
+                },
+                "reference": {
+                    "text": "THANOSSEC-2179"
+                }
+            },
+            {
+                "@name": "PARTITION-STORAGE-LOW",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "One or more partitions of the card fell below low storage threshold (15% free for Controller cards)"
+                },
+                "reference": {
+                    "text": "THANOS-27568"
+                }
+            },
+            {
+                "@name": "PARTITION-STORAGE-FULL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "One or more partitions of the card fell below full storage threshold (3% free for Controller cards)"
+                },
+                "reference": {
+                    "text": "THANOS-27568"
+                }
+            },
+            {
+                "@name": "COMM-CHNL-LINK-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Communication channel link failure"
+                },
+                "reference": {
+                    "text": "GX-1736"
+                }
+            },
+            {
+                "@name": "SYSLOG-SERVER-FAIL",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "Syslog server is not reachable via TCP or TLS"
+                },
+                "reference": {
+                    "text": "THANOS-26288"
+                }
+            },
+            {
+                "@name": "SSH-KEY-EXPIRING",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "SSH authorized key will expire soon"
+                },
+                "reference": {
+                    "text": "GX-97130"
+                }
+            },
+            {
+                "@name": "SSH-KEY-EXPIRED",
+                "base": {
+                    "@name": "ioa-alarm:ALARM-TYPE"
+                },
+                "description": {
+                    "text": "SSH authorized key has expired"
+                },
+                "reference": {
+                    "text": "GX-97130"
+                }
+            }
+        ]
+    }
+}

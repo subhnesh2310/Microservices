@@ -1,0 +1,139 @@
+{
+    "component_name": {
+        "type": {
+            "ptype": "str",
+            "leafref": "../config/name"
+        },
+        "description": "References the component name",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "card-1-4",
+        "hardcode": false,
+        "argName": "component_name"
+    },
+    "chassis_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Chassis where this card is located.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "1",
+        "hardcode": false,
+        "argName": "chassis_name"
+    },
+    "slot_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Slot where this card is located.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "4",
+        "hardcode": false,
+        "argName": "slot_name"
+    },
+    "required_type": {
+        "type": {
+            "ptype": "str",
+            "identityref": "CHASSIS_CARD",
+            "values": [
+                "CHM6",
+                "CHM6L",
+                "UCM4",
+                "XMM4",
+                "PEM"
+            ]
+        },
+        "description": "Chassis/card type.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "CHM6",
+        "hardcode": false,
+        "argName": "required_type"
+    },
+    "required_subtype": {
+        "type": {
+            "ptype": "str",
+            "length": "0..32",
+            "values": [
+                "C13",
+                "C14",
+                "C15",
+                "C4",
+                "C6",
+                "C8",
+                "C9"
+            ]
+        },
+        "description": "The subtype of the Card/TOM",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "required_subtype"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "label": {
+        "type": {
+            "ptype": "str",
+            "length": "0..256"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "alias_name": {
+        "type": {
+            "ptype": "str",
+            "length": "0..256"
+        },
+        "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "alias_name"
+    },
+    "power_admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "POWER_ENABLED",
+                "POWER_DISABLED"
+            ]
+        },
+        "description": "Enable or disable power to the linecard",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "POWER_ENABLED",
+        "hardcode": false,
+        "argName": "power_admin_state"
+    }
+}

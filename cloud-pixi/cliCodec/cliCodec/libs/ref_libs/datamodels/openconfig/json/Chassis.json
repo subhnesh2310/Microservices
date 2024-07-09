@@ -1,0 +1,310 @@
+{
+    "components": {
+        "component": [
+            {
+                "name": {
+                    "type": {
+                        "ptype": "str",
+                        "leafref": "../config/name"
+                    },
+                    "isList": false,
+                    "description": "References the component name",
+                    "key": true,
+                    "mandatory": false,
+                    "config": true,
+                    "default": "chassis-1",
+                    "namespace": null
+                },
+                "config": {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Device name for the component -- this may not be a\nconfigurable parameter on many implementations.  Where\ncomponent preconfiguration is supported, for example,\nthe component name may be configurable.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "chassis-1",
+                        "namespace": null
+                    },
+                    "required-type": {
+                        "type": {
+                            "ptype": "str",
+                            "identityref": "CHASSIS_CARD",
+                            "values": [
+                                "G42"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Chassis/card type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "G42",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "alias-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "chassis-location": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User defined location",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "rack-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User defined rack name (withing the location)",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "position-in-rack": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Position of the chassis within the rack.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 0,
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "expected-pem-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "DC",
+                                "AC-high-line",
+                                "AC-low-line",
+                                "HV-DC"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Defines what is the expected type of PEMs that this chassis will have.\nIt is not possible to configure each PEM slot individually, as all PEMs need to be of the same type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "DC",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "expected-fan-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "single-rotar",
+                                "counter-rotating"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Defines what is the expected type of FANs that this chassis will have.\nIt is not possible to configure each FAN slot individually, this needs to be done at the chassis level.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "counter-rotating",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "pem-under-voltage-threshold": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Under voltage threshold on PEM input feed.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "-40.00",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "pem-over-voltage-threshold": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Over voltage threshold on PEM input feed.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "-75.00",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "configured-ambient-temperature": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Configured ambient temperature for the chassis, used to compute the FRU's power consumption.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 55,
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "configured-max-power-draw": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User configured limit of power usable by this chassis.\n   If current-estimated-power-draw used in this chassis goes above the configured-max-power-draw,\n   the alarm PWRDRAW is raised. 10000W represents a 'very high' power draw that is beyond any\n   chassis possibilities, so having this value means this feature is disabled, and the alarm is never raised.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "10000",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "no-switchover": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "If enabled, the standby controller will be locked out from taking over the active card. This means no manual or autonomous switchovers will happen.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "power-redundancy": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "one-plus-one",
+                                "one-for-n"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Configuration of the PEM redundancy mode.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "one-plus-one",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    }
+                }
+            }
+        ],
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/platform"
+        }
+    }
+}

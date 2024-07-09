@@ -1,0 +1,35 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/protection",
+    "protection-switch": {
+        "input": [
+            {
+                "name": "protection-group",
+                "type": "str",
+                "mandatory": true
+            },
+            {
+                "name": "operation-type",
+                "type": "str",
+                "values": [
+                    "force",
+                    "lockout",
+                    "manual",
+                    "clear"
+                ],
+                "mandatory": true
+            },
+            {
+                "name": "switch-target",
+                "type": "str",
+                "values": [
+                    "working",
+                    "protection"
+                ],
+                "when": {
+                    "@condition": "(../operation-type != 'lockout') and (../operation-type != 'clear')"
+                },
+                "mandatory": true
+            }
+        ]
+    }
+}

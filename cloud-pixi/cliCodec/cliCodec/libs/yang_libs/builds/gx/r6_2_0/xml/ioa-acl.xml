@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-acl"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-acl="http://infinera.com/yang/ioa-acl"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:inet="urn:ietf:params:xml:ns:yang:ietf-inet-types">
+  <namespace uri="http://infinera.com/yang/ioa-acl"/>
+  <prefix value="ioa-acl"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ietf-inet-types">
+    <prefix value="inet"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module defining the structure for Layer 2/Layer 3 access control lists (ACL).</text>
+  </description>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <typedef name="acl-ip-prefix">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="any">
+          <value value="0"/>
+          <description>
+            <text>Applies for all ip .</text>
+          </description>
+        </enum>
+      </type>
+      <type name="inet:ipv4-prefix"/>
+      <type name="inet:ipv4-address"/>
+      <type name="inet:ipv6-prefix"/>
+      <type name="inet:ipv6-address"/>
+    </type>
+    <default value="any"/>
+    <description>
+      <text>A re-usable type that is used to match both
+source and destination fields of an IP packet in an ACL.</text>
+    </description>
+  </typedef>
+  <grouping name="acl-attributes">
+    <container name="access-control-list">
+      <description>
+        <text>Attributes and objects pertaining to ACLs.</text>
+      </description>
+      <list name="acl">
+        <key value="name"/>
+        <description>
+          <text>Set of attributes associated with every access control list (ACL). An ACL can have one or more ACEs.</text>
+        </description>
+        <leaf name="name">
+          <type name="ioa-common:object-name">
+            <length value="1..30"/>
+          </type>
+          <description>
+            <text>Name of the ACL.</text>
+          </description>
+        </leaf>
+        <uses name="ioa-common:common-states"/>
+        <leaf name="type">
+          <type name="enumeration">
+            <enum name="ipv4">
+              <value value="10"/>
+            </enum>
+            <enum name="ipv6">
+              <value value="20"/>
+            </enum>
+          </type>
+          <mandatory value="true"/>
+          <description>
+            <text>Indicates the top-level type of ACL, i.e., what
+fields from the associated IPv4 or IPv6 headers this ACL matches on.</text>
+          </description>
+        </leaf>
+        <leaf name="interface">
+          <type name="leafref">
+            <path value="../../../../networking/interface/if-name"/>
+          </type>
+          <mandatory value="true"/>
+          <description>
+            <text>A reference to the interface this filter
+shall be applied to.</text>
+          </description>
+        </leaf>
+        <list name="ace">
+          <key value="sequence-id"/>
+          <description>
+            <text>Attributes pertaining to an access control entry (ACE). Every ACL can have one or more ACEs.</text>
+          </description>
+          <leaf name="sequence-id">
+            <type name="uint8">
+              <range value="1..100"/>
+            </type>
+            <description>
+              <text>Sequence number that establishes the relative
+order of the ACE within an ACL</text>
+            </description>
+            <reference>
+              <text>THANOSSEC-675</text>
+            </reference>
+          </leaf>
+          <uses name="ioa-common:label">
+            <refine target-node="label">
+              <description>
+                <text>Name of the IP Filter</text>
+              </description>
+            </refine>
+          </uses>
+          <leaf name="direction">
+            <type name="enumeration">
+              <enum name="input">
+                <value value="10"/>
+              </enum>
+              <enum name="output">
+                <value value="20"/>
+              </enum>
+            </type>
+            <default value="input"/>
+            <description>
+              <text>Based on the direction, this filter shall be applied
+to incoming packets, or outgoing packets. Note that Input is
+mandatory and output is an optional function.</text>
+            </description>
+          </leaf>
+          <leaf name="logging-action">
+            <type name="boolean"/>
+            <default value="false"/>
+            <description>
+              <text>Flag to indicate if logging needs to be done once the ACE rule is matched.</text>
+            </description>
+          </leaf>
+          <leaf name="source-ip-address">
+            <type name="acl-ip-prefix"/>
+            <default value="any"/>
+            <description>
+              <text>Specifies the source IP of this filter. The
+values could be a valid IPv4/v6-address or Ipv4/v6-address/prefix.</text>
+            </description>
+          </leaf>
+          <leaf name="source-lower-port">
+            <when condition="../protocol != 'icmp'"/>
+            <type name="inet:port-number"/>
+            <default value="0"/>
+            <description>
+              <text>The lower bound on the source Layer 4 TCP/UDP port number.
+A value of zero for both indicates wildcarding.</text>
+            </description>
+          </leaf>
+          <leaf name="source-upper-port">
+            <when condition="../protocol != 'icmp'"/>
+            <type name="inet:port-number"/>
+            <default value="0"/>
+            <description>
+              <text>The upper bound on the source Layer 4 TCP/UDP port number.
+A value of zero for both indicates wildcarding.</text>
+            </description>
+          </leaf>
+          <leaf name="destination-ip-address">
+            <type name="acl-ip-prefix"/>
+            <default value="any"/>
+            <description>
+              <text>Specifies the destination IP of this filter. The
+values could be a valid IPv4/v6-address or Ipv4/v6-address/prefix.</text>
+            </description>
+          </leaf>
+          <leaf name="destination-lower-port">
+            <when condition="../protocol != 'icmp'"/>
+            <type name="inet:port-number"/>
+            <default value="0"/>
+            <description>
+              <text>The lower bound on the destination Layer 4 TCP/UDP port number.
+A value of zero for both indicates wildcarding.</text>
+            </description>
+          </leaf>
+          <leaf name="destination-upper-port">
+            <when condition="../protocol != 'icmp'"/>
+            <type name="inet:port-number"/>
+            <default value="0"/>
+            <description>
+              <text>The upper bound on the destination Layer 4 TCP/UDP port number.
+A value of zero for both indicates wildcarding.</text>
+            </description>
+          </leaf>
+          <leaf name="ttl">
+            <type name="union">
+              <type name="enumeration">
+                <enum name="any">
+                  <value value="0"/>
+                  <description>
+                    <text>Applies for all ttl values.</text>
+                  </description>
+                </enum>
+              </type>
+              <type name="uint8">
+                <range value="1..255"/>
+              </type>
+            </type>
+            <default value="any"/>
+            <description>
+              <text>IPv4 and IPv6 packet's time-to-live (TTL) hop limit. Default TTL value 255 is max hop</text>
+            </description>
+          </leaf>
+          <leaf name="action">
+            <type name="enumeration">
+              <enum name="accept">
+                <value value="10"/>
+              </enum>
+              <enum name="reject">
+                <value value="20"/>
+              </enum>
+              <enum name="drop">
+                <value value="30"/>
+              </enum>
+            </type>
+            <default value="drop"/>
+            <description>
+              <text>The action to be taken by the filter.</text>
+            </description>
+          </leaf>
+          <leaf name="protocol">
+            <type name="enumeration">
+              <enum name="any">
+                <value value="250"/>
+                <description>
+                  <text>Matches any protocol.</text>
+                </description>
+              </enum>
+              <enum name="ah">
+                <value value="51"/>
+                <description>
+                  <text>Authentication Header.</text>
+                </description>
+                <reference>
+                  <text>RFC 2402</text>
+                </reference>
+              </enum>
+              <enum name="comp">
+                <value value="108"/>
+                <description>
+                  <text>IP Compression</text>
+                </description>
+                <reference>
+                  <text>RFC 3173</text>
+                </reference>
+              </enum>
+              <enum name="egp">
+                <value value="8"/>
+                <description>
+                  <text>External Gateway Protocol</text>
+                </description>
+                <reference>
+                  <text>RFC 827</text>
+                </reference>
+              </enum>
+              <enum name="esp">
+                <value value="50"/>
+                <description>
+                  <text>Encapsulating Security Payload</text>
+                </description>
+                <reference>
+                  <text>RFC 2406</text>
+                </reference>
+              </enum>
+              <enum name="gre">
+                <value value="47"/>
+                <description>
+                  <text>Generic Routing Encapsulation</text>
+                </description>
+                <reference>
+                  <text>RFC 2784</text>
+                </reference>
+              </enum>
+              <enum name="icmp">
+                <value value="1"/>
+                <description>
+                  <text>Internet Control Message Protocol</text>
+                </description>
+                <reference>
+                  <text>RFC 2463</text>
+                </reference>
+              </enum>
+              <enum name="idrp">
+                <value value="45"/>
+                <description>
+                  <text>Inter-Domain Routing Protocol</text>
+                </description>
+                <reference>
+                  <text>RFC 1745</text>
+                </reference>
+              </enum>
+              <enum name="igmp">
+                <value value="2"/>
+                <description>
+                  <text>Internet Group Management Protocol</text>
+                </description>
+                <reference>
+                  <text>RFC 3228</text>
+                </reference>
+              </enum>
+              <enum name="igrp">
+                <value value="88"/>
+                <description>
+                  <text>Interior Gateway Routing Protocol</text>
+                </description>
+                <reference>
+                  <text>RFC 2072</text>
+                </reference>
+              </enum>
+              <enum name="isis">
+                <value value="124"/>
+                <description>
+                  <text>Intermediate System-to-Intermediate System</text>
+                </description>
+                <reference>
+                  <text>RFC 1142</text>
+                </reference>
+              </enum>
+              <enum name="ospf">
+                <value value="89"/>
+                <description>
+                  <text>Open Shortest Path First</text>
+                </description>
+                <reference>
+                  <text>RFC 2740</text>
+                </reference>
+              </enum>
+              <enum name="rsvp">
+                <value value="46"/>
+                <description>
+                  <text>Resource Reservation Protocol</text>
+                </description>
+                <reference>
+                  <text>RFC 2205</text>
+                </reference>
+              </enum>
+              <enum name="tcp">
+                <value value="6"/>
+                <description>
+                  <text>Transmission Control Protocol</text>
+                </description>
+                <reference>
+                  <text>RFC 1213</text>
+                </reference>
+              </enum>
+              <enum name="udp">
+                <value value="17"/>
+                <description>
+                  <text>User Datagram Protocol</text>
+                </description>
+                <reference>
+                  <text>RFC 1213</text>
+                </reference>
+              </enum>
+              <enum name="vrrp">
+                <value value="112"/>
+                <description>
+                  <text>Virtual Router Redundancy Protocol</text>
+                </description>
+                <reference>
+                  <text>RFC 2338</text>
+                </reference>
+              </enum>
+            </type>
+            <default value="any"/>
+            <description>
+              <text>Internet Protocol number.  Refers to the protocol
+payload.  In IPv6, this field is known as 'next-header', and
+if extension headers are present, the protocol is present in
+the 'upper-layer' header.</text>
+            </description>
+            <reference>
+              <text>RFC 8519</text>
+            </reference>
+          </leaf>
+        </list>
+      </list>
+    </container>
+  </grouping>
+</module>

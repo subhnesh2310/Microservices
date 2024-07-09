@@ -1,0 +1,407 @@
+{
+    "ne": {
+        "facilities": {
+            "trib-ptp": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A generic, configurable name for every facility.",
+                        "mandatory": true,
+                        "key": true,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "service-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "100GBE",
+                                "400GBE",
+                                "OTU4",
+                                "4x100GBE",
+                                "OTU2",
+                                "OTU2e",
+                                "1GBE",
+                                "10GBE",
+                                "OC48",
+                                "OC192",
+                                "STM16",
+                                "STM64",
+                                "4x10G",
+                                "4x10GBE",
+                                "2x100GBE",
+                                "FC1G",
+                                "FC4G",
+                                "not-applicable"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The protocol type of the client that is being transported via the tributary optical transceiver module (TOM).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "not-applicable",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tributary-disable-action": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "laser-shut-off",
+                                "send-idles",
+                                "send-lf",
+                                "send-ais-l",
+                                "odu-ais",
+                                "none",
+                                "send-gais",
+                                "send-ms-ais",
+                                "e-code",
+                                "send-nos"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Tributary Disable Action (TDA) indicates what action the NE performs towards the client equipment\n(connected over the TOM) when a line-side failure is observed. This includes shutting off laser\nor inserting a appropriate replacement signal.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "laser-shut-off",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tributary-disable-holdoff-timer": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "The hold off time of client shutdown or replacement signal at egress direction.\n0 means holdoff functionality disabled",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "near-end-tda": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The switching of near end TDA.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tda-degrade-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The switching of defect BERSD-ODU trig ALS",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "forward-defect-trigger": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "Forward Defect TDA Trigger indicates on the egress, if NE receives a client forward defect\n(e.g., LF, ODU-AIS) whether to let it flow through towards the line side (network side) or\ntrigger an egress TDA action",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": true,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Card that holds this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "managed-by": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "system",
+                                "user"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Describes whether this facility was system created or not.\nOnly user created facilities can be user deleted.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "system",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Ports that hold this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the parent facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supported-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the children facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "auto-in-service-enabled": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "Auto-in-service switch for this facility.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": false,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "valid-signal-time": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Configurable time that represents a detection of a valid signal.\nUsed for auto-in-service mechanism.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 480,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "remaining-valid-signal-time": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Actual remaining time for this facility to be automatically enabled by the\nauto-in-service mechanism.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "power-threshold-low": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The default system threshold (known as 'Sensitivity') that triggers the OPR-OORL alarm\n(i.e., when the optical power received is below this value). Note that this is hardware dependent,\nbased on the type of the optical transceiver (TOM).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "power-threshold-low-offset": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A user configurable attribute that results in the 'effective lower threshold' based on which\nthe system raises the OPR-OORL alarm. The effective threshold will be (threshold-low + threshold-low-offset).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "power-threshold-high": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The default system threshold (known as 'Overload') that triggers the OPR-OORH alarm\n(i.e., when the optical power received is greater than this value). Note that this is\nhardware dependent, based on the type of the optical transceiver (TOM).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "power-threshold-high-offset": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A user configurable attribute that results in the 'effective upper threshold' based on\nwhich the system raises the OPR-OORH alarm. The effective threshold will be (threshold-high + threshold-high-offset).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "circuit-id": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "System configured circuit ID, present in XCONs and associated facilities.\nFor facilities, circuit-id is only filled in if an associated XCON exists.\n   Format of this ID is:\n   <timestamp>|<ne-name>|<XCON-AID>|<user-configured-sufix>\n   Example:\n   2020-05-05T21:06:02Z|GX|1-4-T9,1-4-L1-1-ODUji#1|my-suffix\n\n   Timestamp is the NE time at xcon creation, in UTC.\n   If necessary, ne-name will be truncated so that total length remains at 128 characters.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

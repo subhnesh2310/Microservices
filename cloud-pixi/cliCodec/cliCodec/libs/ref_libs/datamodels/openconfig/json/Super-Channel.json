@@ -1,0 +1,141 @@
+{
+    "components": {
+        "component": [
+            {
+                "name": {
+                    "type": {
+                        "ptype": "str",
+                        "leafref": "../config/name"
+                    },
+                    "isList": false,
+                    "description": "References the component name",
+                    "key": true,
+                    "mandatory": false,
+                    "config": true,
+                    "default": "super-channel-SCH11",
+                    "namespace": null
+                },
+                "config": {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Device name for the component -- this may not be a\nconfigurable parameter on many implementations.  Where\ncomponent preconfiguration is supported, for example,\nthe component name may be configurable.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "super-channel-SCH11",
+                        "namespace": null
+                    },
+                    "carriers": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A list of carriers that are bound to this superchannel.\n   Possible values can be any card/resources/supported-carriers.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "1-6-L1-1",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        }
+                    }
+                },
+                "optical-channel": {
+                    "namespace": {
+                        "namespace": "http://openconfig.net/yang/terminal-device",
+                        "prefix": null
+                    },
+                    "config": {
+                        "operational-mode": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "Vendor-specific mode identifier -- sets the operational\nmode for the channel.  The specified operational mode must\nexist in the list of supported operational modes supplied\nby the device",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 488,
+                            "namespace": null
+                        },
+                        "line-port": {
+                            "type": {
+                                "ptype": "str",
+                                "leafref": "/oc-platform:components/oc-platform:component/oc-platform:name"
+                            },
+                            "isList": false,
+                            "description": "Reference to the line-side physical port that carries\nthis optical channel.  The target port should be\na component in the physical inventory data model.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "super-channel-group-1-6-L1",
+                            "namespace": null
+                        }
+                    }
+                }
+            }
+        ],
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/platform"
+        }
+    }
+}

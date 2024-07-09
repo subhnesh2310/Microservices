@@ -1,0 +1,173 @@
+module ioa-l0 {
+    namespace "http://infinera.com/yang/ioa/l0";
+    prefix ioa-l0;
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions for common Layer 0 functions.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+
+    typedef optical-power-actual {
+        type decimal64 {
+            fraction-digits 2;
+            range "-99.00..99.00";
+        }
+        units dBm;
+        default -99;
+        description
+            "A custom data type that can be used for optical Tx/Rx power attributes.
+             -99.00 means no power.
+            ";
+    }
+
+    typedef optical-power-config {
+        type union {
+            type enumeration {
+                enum not-specified { value 0; description "Not Applicable/ Not specified."; }
+            }
+            type decimal64 {
+                fraction-digits 2;
+                range "-55.00..55.00";
+            }
+        }
+        units dBm;
+        default not-specified;
+        description "A custom data type that can be used for configuring optical Tx/Rx power attributes.";
+    }
+
+    typedef optical-power-raman {
+        type union {
+            type enumeration {
+                enum not-applicable { value 0; description "Not Applicable/ Not specified."; }
+            }
+            type decimal64 {
+                fraction-digits 2;
+                range "-99.00..99.00";
+            }
+        }
+        units dBm;
+        default 'not-applicable';
+        description
+            "A custom data type that can be used for configuring optical Tx/Rx power attributes;
+             This is higher than the usual optical-power-config range (-55 .. 55 dBm).";
+    }
+
+    typedef frequency-MHz {
+        type uint32;
+        units "MHz";
+        description
+            "Frequency value in MHz.";
+    }
+
+    typedef type-of-attenuation {
+        type decimal64 {
+            fraction-digits 2;
+            range 0..30;
+        }
+        units "dB";
+        default 0;
+        description "Attenuation.";
+    }
+
+    typedef attenuation-mon {
+        type union {
+            type enumeration {
+                enum not-applicable { value 0; description "Not Applicable/ Not specified."; }
+            }
+            type decimal64 {
+                fraction-digits 2;
+                range 0..55;
+            }
+        }
+        units "dB";
+        default 'not-applicable';
+        description "Attenuation monitoring";
+    }
+
+    typedef actual-psd {
+        type union {
+            type enumeration {
+                enum not-applicable { value 0; description "Not Applicable/ Not specified/ Unknown."; }
+            }
+            type decimal64 {
+                fraction-digits 2;
+            }
+        }
+        units "nW/GHz";
+        default 'not-applicable';
+        description "The actual Power Spectral Density.";
+    }
+
+    typedef span-loss {
+        type decimal64 {
+            fraction-digits 2;
+            range '0..80|99';
+        }
+        units "dB";
+        default 0.0;
+        description "Span Loss.";
+    }
+
+    typedef span-loss-info {
+        type decimal64 {
+            fraction-digits 2;
+            range 0..99;
+        }
+        units "dB";
+        description "Span Loss information; 99 dB indicates OSC LOS.";
+    }
+
+    typedef fiber-type {
+        type enumeration {
+            enum not-applicable { value 0; description "Not Applicable"; }
+            enum auto { value 1; description "Automatic fiber-type: only for OTDR"; }
+            enum SSMF { value 2; description "Standard Single Mode Fiber"; }
+            enum LEAF { value 3; description "Large Effective Area Fiber"; }
+            enum TWRS { value 4; description "True Wave Reduced Slope"; }
+            enum TWC { value 5; description "True Wave Classic"; }
+            enum AllWave { value 6; description "AllWave"; }
+            enum DSF { value 7; description "Dispersion Shifted Fiber"; }
+            enum LS { value 8; description "LS Fiber"; }
+            enum PureSilica { value 9; description "Pure Silica"; }
+            enum TWReach { value 10; description "True Wave Reach"; }
+            enum VistaCor { value 11; description "VistaCor"; }
+            enum Teralight { value 12; description "Teralight"; }
+            enum DrakaLL { value 13; description "Draka Long Line"; }
+            enum TWPlus { value 14; description "True Wave Plus"; }
+            enum TWMinus { value 15; description "True Wave Minus"; }
+            enum PSLC { value 16; description "Pure Silice Large Core"; }
+            enum ULL { value 17; description "Ultra Low Loss fiber"; }
+            enum not-configured { value 99; description "Fiber-type is not known, or not configured."; }
+        }
+        default not-configured;
+        description
+            "Fiber Type
+             OTS: It uniquely identifies the fiber-type -- allows PCL to know the intercept and slope.
+             OTDR: allows determination of attenuation (dB/ km) for calculation.
+            ";
+    }
+
+    grouping opm-optical-power-rx {
+        description "OPR";
+        leaf power-actual-rx {
+            type ioa-l0:optical-power-actual;
+            config false;
+            description "Optical Power Received, actual measurement.";
+        }
+    }
+
+    grouping opm-optical-power-tx {
+        description "OPT";
+        leaf power-actual-tx {
+            type ioa-l0:optical-power-actual;
+            config false;
+            description "Optical Power Transmitted, actual measurement.";
+        }
+    }
+}

@@ -1,0 +1,47 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "log-file-name": {
+            "type": {
+                "ptype": "unknown",
+                "leafref": "/ioa-ne:ne/ioa-ne:system/ioa-ne:syslog/ioa-ne:log-file/ioa-ne:name"
+            },
+            "isList": false,
+            "description": "The log file to read; must match a currently configured log-file.",
+            "mandatory": true
+        },
+        "start-time": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Returns log entries starting from this timestamp.\nIf not provided, consider the oldest available logs.",
+            "mandatory": false
+        },
+        "end-time": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Returns log entries ending at this timestamp.\nIf not provided, consider all the logs until the most recent timestamp.",
+            "mandatory": false
+        },
+        "number-of-entries": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Describes the amount of log entries that are to be returned.",
+            "mandatory": false
+        },
+        "pattern-match": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Allows to provide a regex that filters log entries.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

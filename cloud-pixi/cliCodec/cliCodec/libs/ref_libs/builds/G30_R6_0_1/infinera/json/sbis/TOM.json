@@ -1,0 +1,355 @@
+{
+    "ne": {
+        "equipment": {
+            "card": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Card identifier.",
+                        "key": true,
+                        "mandatory": true,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "port": [
+                        {
+                            "name": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Port name.",
+                                "key": true,
+                                "mandatory": true,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "tom": {
+                                "serdes": [
+                                    {
+                                        "name": {
+                                            "type": {
+                                                "ptype": "str"
+                                            },
+                                            "isList": false,
+                                            "description": "Name of the advanced parameter.",
+                                            "mandatory": false,
+                                            "key": false,
+                                            "config": true,
+                                            "default": "",
+                                            "hardcode": false,
+                                            "namespace": null
+                                        },
+                                        "namespace": null,
+                                        "value": {
+                                            "type": {
+                                                "ptype": "str"
+                                            },
+                                            "isList": false,
+                                            "description": "Value of the advanced parameter.",
+                                            "mandatory": false,
+                                            "key": false,
+                                            "config": true,
+                                            "default": "",
+                                            "hardcode": false,
+                                            "namespace": null
+                                        },
+                                        "status": {
+                                            "type": {
+                                                "ptype": "str",
+                                                "values": [
+                                                    "set",
+                                                    "unknown",
+                                                    "in-progress",
+                                                    "failed",
+                                                    "not-supported"
+                                                ]
+                                            },
+                                            "isList": false,
+                                            "description": "State of the advanced parameter (as observable on the system) once it is configured.",
+                                            "mandatory": false,
+                                            "key": false,
+                                            "config": false,
+                                            "default": "unknown",
+                                            "hardcode": false,
+                                            "namespace": null
+                                        }
+                                    }
+                                ],
+                                "required-type": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "identityref": "ioa-common:tom",
+                                        "values": [
+                                            "CFP2-DCO",
+                                            "SFP",
+                                            "SFPPLUS",
+                                            "QSFPPLUS",
+                                            "QSFP28",
+                                            "QSFPDD",
+                                            "QSFPDD-ZR"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "The type of the TOM.",
+                                    "mandatory": true,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "required-subtype": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "The subtype of the TOM.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "phy-mode": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "100GE",
+                                            "200GE",
+                                            "400GE",
+                                            "4x100GE",
+                                            "100G",
+                                            "4x10G",
+                                            "4x10GE",
+                                            "1GE",
+                                            "2G5",
+                                            "10G",
+                                            "10GE",
+                                            "2G5E",
+                                            "40GE",
+                                            "40G",
+                                            "4x100G",
+                                            "200G",
+                                            "155M",
+                                            "2x100GE",
+                                            "1G",
+                                            "4G",
+                                            "400G"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Configured Phy Mode.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "power-class-override": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "disabled",
+                                            "enabled"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Used to override the power class for 3rd party TOM.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "enable-serdes": {
+                                    "type": {
+                                        "ptype": "bool"
+                                    },
+                                    "isList": false,
+                                    "description": "Controls enabling/disabling of configuring TOM SerDes.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": false,
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "supported-phy-modes": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "100GE",
+                                            "200GE",
+                                            "400GE",
+                                            "4x100GE",
+                                            "100G",
+                                            "4x10G",
+                                            "4x10GE",
+                                            "1GE",
+                                            "2G5",
+                                            "10G",
+                                            "10GE",
+                                            "2G5E",
+                                            "40GE",
+                                            "40G",
+                                            "4x100G",
+                                            "200G",
+                                            "155M",
+                                            "2x100GE",
+                                            "1G",
+                                            "4G",
+                                            "400G"
+                                        ]
+                                    },
+                                    "isList": true,
+                                    "description": "List of supported Phy Modes by this TOM type.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": false,
+                                    "default": "",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "upgrade-status": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "idle",
+                                            "in-progress",
+                                            "success",
+                                            "failed",
+                                            "unknown"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Current upgrade status.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": false,
+                                    "default": "idle",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "alias-name": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "AID": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": false,
+                                    "default": "",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "admin-state": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "lock",
+                                            "unlock",
+                                            "maintenance"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "The administrative state of the managed object.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "unlock",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "avail-state": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "Availability state of an entity.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": false,
+                                    "default": "",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "oper-state": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "enabled",
+                                            "disabled"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "The operational state of this object.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": false,
+                                    "default": "disabled",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "alarm-report-control": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "allowed",
+                                            "inhibited"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Controls the reporting of alarms for this particular object.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "allowed",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "label": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "User label.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "hardcode": false,
+                                    "namespace": null
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

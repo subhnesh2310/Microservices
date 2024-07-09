@@ -1,0 +1,162 @@
+{
+    "ne": {
+        "system": {
+            "networking": {
+                "routing": {
+                    "ip-monitoring": [
+                        {
+                            "name": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Name of the monitoring instance.",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "probe-interval": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "The time between two consecutive pings in seconds",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": 5,
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "destination": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The remote host to monitor.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "drop-rate": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "The accepted drop rate of ping in 10% steps",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": 1,
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "enabled": {
+                                "type": {
+                                    "ptype": "bool"
+                                },
+                                "isList": false,
+                                "description": "Start or Stop the monitoring of the destination by setting to true or false.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": true,
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "monitoring-state": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "unknown",
+                                        "ok",
+                                        "failed",
+                                        "disabled"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The current state of the monitoring.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "unknown",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "action": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "none",
+                                        "withdraw"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The action to take when the monitoring goes into 'failed' state.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "withdraw",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "next-hop": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Defines the exit interface to use which can be ipv4/ipv6 source ip address or interface name or empty.\nThe monitoring instance will not be active until the exit-interface is configured.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "static-route": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": true,
+                                "description": "The list of connected static routes for this Monitoring instance.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "alarm-report-control": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "allowed",
+                                        "inhibited"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Controls the reporting of alarms for this particular object.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "allowed",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ]
+                }
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

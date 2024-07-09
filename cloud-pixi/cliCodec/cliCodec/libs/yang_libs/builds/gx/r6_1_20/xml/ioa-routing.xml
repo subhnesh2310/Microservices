@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-routing"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-rt="http://infinera.com/yang/ioa/networking/routing"
+        xmlns:inet="urn:ietf:params:xml:ns:yang:ietf-inet-types"
+        xmlns:ospf="http://infinera.com/yang/ioa/networking/ospf"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common">
+  <namespace uri="http://infinera.com/yang/ioa/networking/routing"/>
+  <prefix value="ioa-rt"/>
+  <import module="ietf-inet-types">
+    <prefix value="inet"/>
+  </import>
+  <import module="ioa-ospf">
+    <prefix value="ospf"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG
+module defining Networking Routing model.</text>
+  </description>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <grouping name="static-route">
+    <list name="ipv4-static-route">
+      <key value="ipv4-destination-prefix vrf"/>
+      <description>
+        <text>A list of IPv4 static routes.</text>
+      </description>
+      <leaf name="ipv4-destination-prefix">
+        <type name="inet:ipv4-prefix"/>
+        <mandatory value="true"/>
+        <description>
+          <text>IPv4 destination prefix.</text>
+        </description>
+      </leaf>
+      <leaf name="advertised">
+        <type name="boolean"/>
+        <default value="false"/>
+        <description>
+          <text>When set to YES, the static route is advertised in the routing
+protocol. For OSPF, the static route will be advertised as an
+AS external route, if OSPF is configured as an ASBR.</text>
+        </description>
+      </leaf>
+      <leaf name="next-hop-address">
+        <type name="inet:ipv4-address"/>
+        <description>
+          <text>IPv4 address of the next-hop.</text>
+        </description>
+      </leaf>
+      <leaf name="vrf">
+        <type name="leafref">
+          <path value="../../../vrf/name"/>
+        </type>
+        <description>
+          <text>VRF associated with this static route.</text>
+        </description>
+      </leaf>
+      <leaf name="distance">
+        <type name="uint8">
+          <range value="1..255"/>
+        </type>
+        <default value="1"/>
+        <description>
+          <text>distance of the next-hop.</text>
+        </description>
+      </leaf>
+      <leaf name="interface">
+        <type name="leafref">
+          <path value="../../../interface/if-name"/>
+        </type>
+        <description>
+          <text>Interface associated with this static route.  The VRF bound
+to this interface needs to match the static-route provided
+vrf.</text>
+        </description>
+      </leaf>
+      <leaf name="monitoring-state">
+        <type name="enumeration">
+          <enum name="unmonitored">
+            <value value="1"/>
+            <description>
+              <text>static-route is not part of any ip monitoring instance.</text>
+            </description>
+          </enum>
+          <enum name="ok">
+            <value value="2"/>
+            <description>
+              <text>static-route is part of an ip monitoring instance in 'ok' state.</text>
+            </description>
+          </enum>
+          <enum name="failed">
+            <value value="3"/>
+            <description>
+              <text>static-route is part of an ip monitoring instance in 'failed' state.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="unmonitored"/>
+        <config value="false"/>
+        <description>
+          <text>The current state of the monitoring.</text>
+        </description>
+      </leaf>
+      <leaf name="monitoring-instance">
+        <type name="string">
+          <length value="0..64"/>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>Monitoring instance name, applicable only if this route is being monitored.</text>
+        </description>
+      </leaf>
+      <leaf name="origin">
+        <type name="enumeration">
+          <enum name="manual">
+            <value value="1"/>
+            <description>
+              <text>Indicates the ipv4 route has been manually configured.</text>
+            </description>
+          </enum>
+          <enum name="dhcp">
+            <value value="2"/>
+            <description>
+              <text>Indicates ipv4 route has been assigned to this
+system by a DHCP server.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="manual"/>
+        <description>
+          <text>Route address assignment method.</text>
+        </description>
+      </leaf>
+      <uses name="ioa-common:label"/>
+    </list>
+    <list name="ipv6-static-route">
+      <key value="ipv6-destination-prefix vrf"/>
+      <description>
+        <text>A list of IPv6 static routes.</text>
+      </description>
+      <leaf name="ipv6-destination-prefix">
+        <type name="inet:ipv6-prefix"/>
+        <mandatory value="true"/>
+        <description>
+          <text>IPv6 destination prefix.</text>
+        </description>
+      </leaf>
+      <leaf name="vrf">
+        <type name="leafref">
+          <path value="../../../vrf/name"/>
+        </type>
+        <description>
+          <text>VRF associated with this static route.</text>
+        </description>
+      </leaf>
+      <leaf name="advertised">
+        <type name="boolean"/>
+        <default value="false"/>
+        <description>
+          <text>When set to YES, the static route is advertised in the routing
+protocol. For OSPF, the static route will be advertised as an
+AS external route, if OSPF is configured as an ASBR.</text>
+        </description>
+      </leaf>
+      <leaf name="next-hop-address">
+        <type name="inet:ipv6-address"/>
+        <description>
+          <text>IPv6 address of the next-hop.</text>
+        </description>
+      </leaf>
+      <leaf name="distance">
+        <type name="uint8">
+          <range value="1..255"/>
+        </type>
+        <default value="1"/>
+        <description>
+          <text>distance of the next-hop.</text>
+        </description>
+      </leaf>
+      <leaf name="interface">
+        <type name="leafref">
+          <path value="../../../interface/if-name"/>
+        </type>
+        <description>
+          <text>Interface associated with this static route.  The VRF bound
+to this interface needs to match the static-route provided
+vrf.</text>
+        </description>
+      </leaf>
+      <leaf name="monitoring-state">
+        <type name="enumeration">
+          <enum name="unmonitored">
+            <value value="1"/>
+            <description>
+              <text>Indicates that this static-route is not part of any ip monitoring instance.</text>
+            </description>
+          </enum>
+          <enum name="ok">
+            <value value="2"/>
+            <description>
+              <text>Indicates that this static-route is not part of a ip monitoring instance whose monitoring status is ok.</text>
+            </description>
+          </enum>
+          <enum name="failed">
+            <value value="3"/>
+            <description>
+              <text>Indicates that this static-route is not part of a ip monitoring instance whose monitoring status is failed.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="unmonitored"/>
+        <config value="false"/>
+        <description>
+          <text>The current state of the monitoring</text>
+        </description>
+      </leaf>
+      <leaf name="monitoring-instance">
+        <type name="string">
+          <length value="0..64"/>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>Monitoring Instance Name.</text>
+        </description>
+      </leaf>
+      <leaf name="origin">
+        <type name="enumeration">
+          <enum name="manual">
+            <value value="1"/>
+            <description>
+              <text>Indicates the ipv6 route has been manually configured.</text>
+            </description>
+          </enum>
+          <enum name="dhcp">
+            <value value="2"/>
+            <description>
+              <text>Indicates ipv6 route has been assigned to this
+system by a DHCP server.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="manual"/>
+        <description>
+          <text>route address assignment method.</text>
+        </description>
+      </leaf>
+      <uses name="ioa-common:label"/>
+    </list>
+  </grouping>
+  <grouping name="routing">
+    <container name="routing">
+      <description>
+        <text>Container of routing subsystem.</text>
+      </description>
+      <uses name="static-route"/>
+      <uses name="ospf:ospf"/>
+      <uses name="ip-monitoring"/>
+    </container>
+  </grouping>
+  <grouping name="ip-monitoring">
+    <list name="ip-monitoring">
+      <key value="name"/>
+      <max-elements value="20"/>
+      <description>
+        <text>Monitoring instance configuration and state. A monitoring instance allows to periodically ping certain destinations whose result takes action on configured static-routes.</text>
+      </description>
+      <leaf name="name">
+        <type name="ioa-common:object-name">
+          <length value="1..64"/>
+        </type>
+        <description>
+          <text>Name of the monitoring instance.</text>
+        </description>
+      </leaf>
+      <leaf name="probe-interval">
+        <type name="uint8">
+          <range value="1..60"/>
+        </type>
+        <units name="seconds"/>
+        <default value="5"/>
+        <description>
+          <text>The time between two consecutive pings in seconds</text>
+        </description>
+      </leaf>
+      <leaf name="destination">
+        <type name="union">
+          <type name="inet:ipv4-address"/>
+          <type name="inet:ipv6-address"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>The remote host to monitor.</text>
+        </description>
+      </leaf>
+      <leaf name="drop-rate">
+        <type name="uint8">
+          <range value="1..10"/>
+        </type>
+        <default value="1"/>
+        <description>
+          <text>The accepted drop rate of ping in 10% steps</text>
+        </description>
+      </leaf>
+      <leaf name="enabled">
+        <type name="boolean"/>
+        <default value="true"/>
+        <description>
+          <text> Start or Stop the monitoring of the destination by setting to true or false.</text>
+        </description>
+      </leaf>
+      <leaf name="monitoring-state">
+        <type name="enumeration">
+          <enum name="unknown">
+            <value value="1"/>
+            <description>
+              <text>Initial state before ping responses are received.</text>
+            </description>
+          </enum>
+          <enum name="ok">
+            <value value="2"/>
+            <description>
+              <text>Successfully pinging the Destination IP address.</text>
+            </description>
+          </enum>
+          <enum name="failed">
+            <value value="3"/>
+            <description>
+              <text>Pinging the destination IP Address has failed beyond the configured drop-rate.</text>
+            </description>
+          </enum>
+          <enum name="disabled">
+            <value value="4"/>
+            <description>
+              <text>Monitoring instance is administratively locked. No pings are sent, routes are active.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="unknown"/>
+        <config value="false"/>
+        <description>
+          <text>The current state of the monitoring.</text>
+        </description>
+      </leaf>
+      <leaf name="action">
+        <type name="enumeration">
+          <enum name="none">
+            <value value="1"/>
+            <description>
+              <text>Indicates that no action will be take on the static routes under monitoring instance.</text>
+            </description>
+          </enum>
+          <enum name="withdraw">
+            <value value="2"/>
+            <description>
+              <text>Indicates that all static routes under monitoring instance will be withdrawn.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="withdraw"/>
+        <description>
+          <text>The action to take when the monitoring goes into 'failed' state.</text>
+        </description>
+      </leaf>
+      <leaf-list name="static-route">
+        <type name="instance-identifier"/>
+        <max-elements value="10"/>
+        <description>
+          <text>The list of connected static routes for this Monitoring instance.</text>
+        </description>
+      </leaf-list>
+      <leaf name="next-hop">
+        <type name="union">
+          <type name="inet:ipv4-address"/>
+          <type name="inet:ipv6-address"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Defines the exit interface to use which can be ipv4/ipv6 source ip address or interface name or empty.
+The monitoring instance will not be active until the exit-interface is configured.</text>
+        </description>
+      </leaf>
+      <uses name="ioa-common:arc"/>
+    </list>
+  </grouping>
+</module>

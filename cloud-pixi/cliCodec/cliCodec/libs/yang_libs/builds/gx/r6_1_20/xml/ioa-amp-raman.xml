@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-amp-raman"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-amp-raman="http://infinera.com/yang/ioa/amp-raman"
+        xmlns:ioa-l0="http://infinera.com/yang/ioa/l0"
+        xmlns:ioa-amp="http://infinera.com/yang/ioa/amp"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common">
+  <namespace uri="http://infinera.com/yang/ioa/amp-raman"/>
+  <prefix value="ioa-amp-raman"/>
+  <import module="ioa-l0">
+    <prefix value="ioa-l0"/>
+  </import>
+  <import module="ioa-amp">
+    <prefix value="ioa-amp"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG model describing the amplifier-raman function.</text>
+  </description>
+  <revision date="2023-03-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.1</text>
+    </description>
+  </revision>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <grouping name="amplifier-list">
+    <description>
+      <text>Re-usable grouping for Raman amplifier(s).</text>
+    </description>
+    <list name="amplifier-raman">
+      <key value="name"/>
+      <description>
+        <text>Amplifier Raman container.</text>
+      </description>
+      <uses name="ioa-amp:amplifier-common"/>
+      <uses name="ioa-common:arc"/>
+      <leaf name="control-mode">
+        <type name="enumeration">
+          <enum name="auto">
+            <value value="1"/>
+            <description>
+              <text>Automatic gain control.</text>
+            </description>
+          </enum>
+          <enum name="manual">
+            <value value="2"/>
+            <description>
+              <text>Manual gain control</text>
+            </description>
+          </enum>
+          <enum name="auto-planned">
+            <value value="3"/>
+            <description>
+              <text>Auto-planned</text>
+            </description>
+          </enum>
+        </type>
+        <default value="auto"/>
+        <description>
+          <text>Control Mode for this Raman Amplifier.</text>
+        </description>
+      </leaf>
+      <leaf name="raman-state">
+        <type name="enumeration">
+          <enum name="not-specified">
+            <value value="0"/>
+            <description>
+              <text>Not Applicable/ Not specified.</text>
+            </description>
+          </enum>
+          <enum name="disabled">
+            <value value="1"/>
+            <description>
+              <text>Disabled local and remote Raman.</text>
+            </description>
+          </enum>
+          <enum name="disabled-from-remote">
+            <value value="2"/>
+            <description>
+              <text>Disabled locally because of remote Raman disabled.</text>
+            </description>
+          </enum>
+          <enum name="enabled">
+            <value value="3"/>
+            <description>
+              <text>Local Raman enabled, operating with remote Raman.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="disabled"/>
+        <config value="false"/>
+        <description>
+          <text>The state of the Raman Pump.</text>
+        </description>
+      </leaf>
+      <leaf name="amplifier-enable">
+        <type name="enumeration">
+          <enum name="disable-local-and-remote">
+            <value value="1"/>
+            <description>
+              <text>Fully disable local and remote Raman.</text>
+            </description>
+          </enum>
+          <enum name="disable-local">
+            <value value="2"/>
+            <description>
+              <text>Local Raman manually disabled.</text>
+            </description>
+          </enum>
+          <enum name="enabled">
+            <value value="3"/>
+            <description>
+              <text>Enable local and remote Raman to operate.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="disable-local-and-remote"/>
+        <description>
+          <text>Enable switch for this Raman.
+User configuration of Local Raman, and optionally control remote Raman card.
+</text>
+        </description>
+      </leaf>
+      <leaf name="connected-amplifier">
+        <type name="union">
+          <type name="enumeration">
+            <enum name="not-specified">
+              <value value="0"/>
+              <description>
+                <text>Not Applicable/ Not specified.</text>
+              </description>
+            </enum>
+          </type>
+          <type name="uint16">
+            <range value="1..20"/>
+          </type>
+        </type>
+        <default value="not-specified"/>
+        <config value="false"/>
+        <description>
+          <text>SYSTEM reports the degree that corresponds to the amplifier where Raman is fiber connected to.
+If Raman is not fiber connected, then SYSTEM returns 'not-specified'.
+</text>
+        </description>
+      </leaf>
+      <leaf name="connected-amp-edfa-optimum-gain">
+        <type name="decimal64">
+          <fraction-digits value="2"/>
+          <range value="0.00..55.00"/>
+        </type>
+        <units name="dB"/>
+        <default value="0"/>
+        <description>
+          <text>Connected EDFA Optimum Gain; 0 means no known optimum gain, in case of disaggregated Raman.</text>
+        </description>
+      </leaf>
+      <leaf name="total-pump-power">
+        <type name="ioa-l0:optical-power-actual"/>
+        <config value="false"/>
+        <description>
+          <text>Operating Total Pump Power.</text>
+        </description>
+      </leaf>
+      <leaf name="target-raman-gain">
+        <type name="ioa-amp:gain-value">
+          <range value="0|5..30"/>
+        </type>
+        <description>
+          <text>Target Raman Gain, configurable in case control-mode = manual.
+In case control-mode = auto, this is then ignored.</text>
+        </description>
+      </leaf>
+      <leaf name="actual-raman-signal-gain">
+        <type name="ioa-amp:gain-value"/>
+        <config value="false"/>
+        <description>
+          <text>PCL output to express the gain for the raman signal</text>
+        </description>
+      </leaf>
+      <leaf name="actual-raman-osc-gain">
+        <type name="ioa-amp:gain-value"/>
+        <config value="false"/>
+        <description>
+          <text>PCL output to express the gain for the raman OSC</text>
+        </description>
+      </leaf>
+      <list name="pump-power">
+        <key value="pump-id"/>
+        <description>
+          <text>Target Pump Power, as configured by the user, for each pump.
+If control-mode = auto, value(s) configured are irrelevant.
+</text>
+        </description>
+        <leaf name="pump-id">
+          <type name="uint8"/>
+          <description>
+            <text>'pump-id' is an integer identifying the number of the pump.</text>
+          </description>
+        </leaf>
+        <leaf name="target-pump-power">
+          <when condition="../../control-mode = 'manual'"/>
+          <type name="ioa-l0:optical-power-raman"/>
+          <description>
+            <text>Raman Pump Power required.</text>
+          </description>
+        </leaf>
+        <leaf name="configured-pump-power">
+          <type name="ioa-l0:optical-power-raman"/>
+          <config value="false"/>
+          <description>
+            <text>The pump power configured in the hardware.
+Value can be derived automatically, if control-mode is auto, or otherwise via the target-pump-power.</text>
+          </description>
+        </leaf>
+        <leaf name="actual-pump-power">
+          <type name="ioa-l0:optical-power-actual"/>
+          <default value="-99"/>
+          <config value="false"/>
+          <description>
+            <text>The actual values which are currently measured in each pump.</text>
+          </description>
+        </leaf>
+      </list>
+    </list>
+  </grouping>
+</module>

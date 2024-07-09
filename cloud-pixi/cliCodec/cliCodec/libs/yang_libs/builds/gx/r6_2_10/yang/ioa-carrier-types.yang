@@ -1,0 +1,277 @@
+module ioa-carrier-types {
+
+    namespace "http://infinera.com/yang/ioa/carrier-types";
+    prefix ioa-carrier-types;
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module that defines carrier mode and advanced parameter types and groupings 
+                 that are common to controller module and line module (e.g. CHM6.).";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    typedef application-id-type {
+        type string {
+            length "1..15";
+        }
+		description "Appication ID is a string.";
+	}
+
+
+	grouping carrier-mode-attributes {
+		description "Collection of attributes that uniquely identifies the mode of operation of each carrier within the SCH.";
+
+        leaf carrier-mode {
+            type string {
+                length "1..15";
+            }
+            description "An acronymized code (handle) that is indicative of the optical carrier line mode (4-tuple) combination. 
+                         The format is as follows:
+                            <Capacity><ClientMode>.<Baud Rate><Application ID>
+                         Examples:
+                            - 600E.84P
+                            - 100X.73U
+                            - 325M.66P";
+        }
+
+        leaf capacity {
+            type uint16;
+            units "Gbps";
+            config false;
+            description "The net capacity of the optical carrier.";
+        }
+
+        leaf client-mode {
+            type enumeration {
+                enum ethernet { value 10; }
+                enum ethernet-otn { value 20; }
+            }
+            config false;
+            description "This indicates digital client modes of the signal
+                         that is mapped into, and transported by the carriers within this
+                         superchannel.";
+        }
+
+        leaf baud-rate {
+            type decimal64 {
+                fraction-digits 7;
+            }
+            units GBaud;
+            config false;
+            description "The modulated symbol rate.";
+        }
+
+        leaf application {
+            type application-id-type;  
+            config false;
+            description "The optical transport application ID this mode is optimized for.";
+        }
+    }
+
+    grouping golden-carrier-modes {
+        list golden-carrier-mode {
+            key carrier-mode;
+            config false;
+            description "List of golden carrier modes.";
+
+            uses supported-carrier-mode-attributes;
+        }
+    }
+
+    grouping supported-carrier-modes {
+    	list supported-carrier-mode {
+            key carrier-mode;
+            config false;
+            status obsolete;
+            description "List of supported carrier modes.
+                         Note: this object is obsolete - this is kept for temporary backward compatibility.
+                         The equivalent data can be found in the golden-carrier-mode list.
+                         However, instead of defining the list per card, the golden-carrier-mode list defines it globally.";
+
+            uses supported-carrier-mode-attributes;
+    	}
+    }
+
+    grouping supported-carrier-mode-attributes {
+
+        uses carrier-mode-attributes;
+
+        leaf compatibility-id {
+            type uint16;
+            description "Identifies the compatible carrier modes that can be applied simultaneously";
+        }
+
+        leaf status {
+            type enumeration {
+                enum supported {value 1; }
+                enum candidate {value 2; }
+                enum experimental {value 3; }
+                enum deprecated {value 4; }
+                enum diagnostic {value 5; }
+            }
+            description "Describes carrier mode release status.";
+        }
+
+        leaf-list supported-subtypes {
+            type string {length 0..32; }
+            max-elements 20;
+            description "Subtypes that each carrier mode supports.";
+        }
+    }
+
+    grouping golden-advanced-parameters {
+        list golden-advanced-parameter {
+            key name;
+            config false;
+            description "A set of all optical carrier advanced parameters discovered from the equipment.";
+
+            uses advanced-parameters-attributes;
+        }
+    }
+
+    grouping advanced-parameters-attributes {
+        leaf name {
+            type string { length 0..256; }
+            description "The name of the advanced parameter.";
+        }
+
+        leaf description {
+            type string { length 0..256; }
+            description "A human readable description of this advanced parameter.";
+        }
+
+        leaf type {
+            type string {length 0..255; }
+            description "Indicates the data type of the advanced parameter.";
+        }
+
+        leaf supported-values {
+            type string { length 0..256; }
+            description "This list indicates the possible values that this parameter can take as input. It is a list of ranges. 
+                            E.g.'1-4, 10-14' indicating two ranges from 1 to 4 and 10 to 14. Or it could be a list of discrete 
+                            numbers like '10, 20, 30, 40'. Spaces are optional.";
+        }
+
+        leaf direction {
+            type enumeration {
+                enum transmit {value 10;}
+                enum receive {value 20;}
+                enum transmit-and-receive {value 30;}
+            }
+            description "Advanced parameter is applicable to the specified direction.";
+        }
+
+        leaf multiplicity {
+            type uint8;
+            description "Identifies number of values user need to enter for this advanced parameter. 
+                            Same range or allowed-values will apply for each entry.";
+        }
+
+        leaf configuration-impact {
+            type enumeration {
+                enum no-change { value 10; }
+                enum no-reacquire { value 20; }
+                enum reacquire { value 30; }
+                enum full-config-pll-change { value 40; }
+                enum full-config-no-pll-change { value 50; }
+            }
+            config false;
+            description "Identifies the configuration steps to apply the change.";
+        }
+
+        leaf service-impact {
+            type enumeration {
+                enum service-affecting { value 10; }
+                enum non-service-affecting { value 20; }
+            }
+            config false;
+            description "Identifies if applying this parameter change causes service impact. If it is service impacting, user must perform admin lock/maintenance/ToDO operation.";
+        }
+    }
+
+    grouping supported-advanced-parameters {
+
+        list supported-advanced-parameter {
+            key name;
+            config false;
+            description "A set of all optical carrier advanced parameters discovered from the equipment.";
+            reference "Discovered Advanced Parameter Table (DAPT).";
+
+            uses advanced-parameters-attributes;
+        }
+    }
+
+
+    grouping golden-application-descriptions {
+
+    	list application-description {
+    		key application;
+    		config false;
+            description "Detailed description of application ID";
+
+        	leaf application {
+           		type application-id-type;
+           		description "The optical transport application ID this mode is optimized for.";
+        	}
+
+    		leaf application-description {
+        		type string {length 0..1024; }
+        		description "Detailed description of application ID";
+        	}
+    	}
+    }
+
+    grouping golden-subtype-constraints {
+
+    	list subtype-constraint {
+    		key subtype;
+        	config false;
+            description "List of subtype constraints.";
+
+    		leaf subtype {
+        		type string {length 1..20; }
+            	description "Card Subtype. Represents a group of related PONs for a card type to which these constraints applies.";
+        	}
+
+            leaf min-capacity {
+	            type int16;
+	            units "Gbps";
+	            description "The minimum capacity supported by this subtype.";
+	        }
+
+	        leaf max-capacity {
+	            type int16;
+	            units "Gbps";
+	            description "The maximum capacity supported by this subtype. -1 means there is no maximum capacity constraint.";
+	        }
+
+	    	leaf-list supported-applications {
+	        	type application-id-type;
+	            description "List of applications supported by this subtype. If this list is empty, then this constraint is not applicable.";
+	        }
+
+	     	leaf-list unsupported-applications {
+	        	type application-id-type;
+	            description "List of applications not supported by this subtype. If this list is empty, then this constraint is not applicable.";
+	        }
+
+            leaf description {
+                type string { length 0..255; }
+                description "Subtype description.";
+            }
+	    }
+    }
+}

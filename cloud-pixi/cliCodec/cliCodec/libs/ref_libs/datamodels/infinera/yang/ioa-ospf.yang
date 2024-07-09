@@ -1,0 +1,401 @@
+module ioa-ospf {
+  namespace "http://infinera.com/yang/ioa/networking/ospf";
+  prefix ospf;
+
+  import ietf-yang-types { prefix yang;}
+  import ietf-inet-types { prefix inet;}
+
+  organization "Infinera";
+
+  contact "Infinera Technical Support <techsupport@infinera.com>";
+
+  description "IOA YANG module with OSPF data model.";
+
+  revision "2022-06-30" {
+    description "YANG Models for Infinera Open API (IOA) for release R5.2";
+  }
+
+  revision "2022-02-28" {
+    description "YANG Models for Infinera Open API (IOA) for release R5.1";
+  }
+
+  revision "2021-12-10" {
+    description "YANG Models for Infinera Open API (IOA) for release R5.0";
+  }
+
+  revision "2021-06-01" {
+      description "YANG Models for Infinera Open API (IOA) for release R4.0";
+  }
+
+
+  identity ospfv3-ipsec-integrity-algorithm {
+    description
+      "A base identity for all OSPFv3 IPsec integrity algorithms.";
+  }
+
+  identity AUTH_HMAC_SHA2_256_128 {
+    base ospfv3-ipsec-integrity-algorithm;
+    reference "RFC 8221, IANA IKEv2 Transform Type 3, NIST SP.800-77";
+  }
+
+  identity AUTH_HMAC_SHA2_384_192 {
+    base ospfv3-ipsec-integrity-algorithm;
+    reference "IANA IKEv2 Transform Type 3, NIST SP.800-77";
+  }
+
+  identity AUTH_HMAC_SHA2_512_256 {
+    base ospfv3-ipsec-integrity-algorithm;
+    reference "RFC 8221, IANA IKEv2 Transform Type 3, NIST SP.800-77";
+  }
+
+  identity AUTH_HMAC_SHA1_160 {
+    base ospfv3-ipsec-integrity-algorithm;
+    reference "IANA IKEv2 Transform Type 3, NIST SP.800-77";
+  }
+
+  identity AUTH_HMAC_SHA1_96 {
+    base ospfv3-ipsec-integrity-algorithm;
+    reference "IANA IKEv2 Transform Type 3, NIST SP.800-77";
+  }
+
+  grouping ospf-authentication {
+        leaf ospf-auth-enable {
+            when "(../../../version = 'ospfv2' or ../../../version = 'ospfv3')";
+            type boolean;
+            default false;
+            description
+                "Enable/Disable Authentication.";
+        }
+
+        leaf ospf-auth-algorithm {
+            when "(../../../version = 'ospfv2')";
+            type enumeration {
+                enum "none" { value 1; }
+                enum "HMAC_SHA_256" { value 2; }
+            }
+            default "HMAC_SHA_256";
+            description
+                "Cryptographic algorithm associated with key";
+        }
+
+        leaf ospf-auth-key {
+            when "(../../../version = 'ospfv2')";
+            type string { length 0..256; }
+            description
+                "Authentication key string in ASCII format.";
+        }
+
+      list ospfv3-ipsec-security-association {
+        when "(../../../version = 'ospfv3') and (../ospf-auth-enable = 'true')";
+
+        key "spi";
+
+        leaf spi {
+          type uint32 { range "256..4294967295"; }
+          description
+            "A unique security parameter index (SPI) for this SA.";
+        }
+
+        leaf ipsec-protocol {
+          type enumeration {
+            enum ESP { value 100; }
+          }
+          default ESP;
+          description
+            "Indicates the use of ESP or AH protocols.";
+        }
+
+        leaf ipsec-mode {
+          type enumeration {
+            enum transport { value 200; }
+          }
+          default transport;
+          description
+            "Indicates IPsec mode. Only transport mode is supported " +
+            "in the initial releases.";
+        }
+
+        /*
+        TODO: FUTURE:
+          For now, this attribute is not needed. In ThanOS, we will always
+          create both INBOUND and OUTBOUND SAs automatically (i.e., for
+          one user-created entry, there will be two SAs automatically created).
+
+        leaf direction {
+          type enumeration {
+            enum inbound  { value 10; }
+            enum outbound { value 20; }
+          }
+          config false;
+          description
+            "Indicates if the IPsec protection is on the inbound or outbound " +
+            "OSPFv3 packets.";
+        }
+        */
+
+        leaf integrity-algorithm {
+          type identityref {
+            base ospfv3-ipsec-integrity-algorithm;
+          }
+          mandatory true;
+          description
+            "The cryptographic algorithm used to perform IPsec integrity protection.";
+        }
+
+        container auth-key {
+          leaf type {
+            type enumeration {
+                enum ascii { value 1; }
+                enum hex   { value 2; }
+            }
+            default "ascii";
+            description
+              "Indicates whether the integrity key is ASCII or hexadecimal encoded.";
+          }
+
+          leaf key {
+            type string { length "8..256"; }
+            mandatory true;
+            description
+              "The pre-shared key for OSPFv3 IPsec integrity protection.
+              Valid key length range for ascii type is 8..128 and
+              16..256 for hex type.";
+          }
+        }
+        description
+          "A list of SAs created to protect OSPFv3 traffic. NOTE that
+          in ThanOS, we will always create both INBOUND and OUTBOUND
+          SAs automatically (i.e., for one user-created entry, there
+          will be two SAs automatically created).";
+      }
+   }
+  grouping ospf-interface-attributes {
+    leaf enable {
+        type boolean;
+        default true;
+        description
+          "Enable/disable OSPF protocol on the interface.";
+      }
+    leaf hello-interval {
+        type uint16 { range "1..32767"; }
+        units seconds;
+        default 10;
+        description
+          "Specifies the Hello Interval in seconds.";
+      }
+
+      leaf router-dead-interval {
+        type uint16 { range "4..65535"; }
+        units seconds;
+        default 40;
+        description
+          "Specifies the Router Dead Interval in seconds.";
+      }
+
+      leaf retransmission-interval {
+        type uint16 { range "2..3600"; }
+        units seconds;
+        default 5;
+        description
+          "Specifies the Retransmission Interval in seconds.";
+      }
+
+      leaf transmit-delay {
+        type uint16 { range "1..450";}
+        units seconds;
+        default 1;
+        description
+          "Estimated time needed to transmit Link State Update
+          (LSU) packets on the interface (seconds). LSAs have
+          their age incremented by this amount when advertised
+          on the interface. A sample value would be 1 second.";
+      }
+
+      leaf ospf-cost {
+        type uint32 { range "1..65535"; }
+        default 10;
+        description
+          "OSPF link cost.";
+      }
+
+      leaf ospf-network-type {
+        type enumeration {
+          enum broadcast     {
+            value 1;
+          }
+          enum point-to-point    {
+            value 2;
+          }
+        }
+        default broadcast;
+        config false;
+        description "OSPF Interface Network Types.";
+      }
+
+      leaf priority {
+        type uint8 { range "0..255"; }
+        default 1;
+        description
+          "Configure OSPF router priority. On multi-access network
+          this value is for Designated Router (DR) election. The
+          priority is ignored on other interface types. A router
+          with a higher priority will be preferred in the election
+          and a value of 0 indicates the router is not eligible to
+          become Designated Router or Backup Designated Router
+          (BDR).";
+      }
+  }
+
+  grouping ospf-interface {
+    list ospf-interface {
+      key "ospf-if-name";
+      description "Configuration of interface in an ospf area.";
+
+      leaf ospf-if-name {
+        type leafref {
+          path "../../../../../interface/if-name";
+        }
+        description "Reference of the interface in OSPF area.";
+      }
+
+      leaf ospf-if-routing {
+        type enumeration {
+          enum active     {
+            value 1;
+            description
+              "ACTIVE - This link is advertised and routing messages are transported over this link.";
+          }
+          enum passive    {
+            value 2;
+            description
+              "PASSIVE - This link is advertised, routing messages are not transported over this link.";
+          }
+          enum auto
+          {
+              value 3;
+              description
+              "Auto - ospf-if-routing will be automatically derived from the interface type.";
+          }
+        }
+        default auto;
+        description
+          "Specifies if routing is enabled and if so, if Routing is passive or active.";
+      }
+
+      uses ospf-interface-attributes {
+        when "(ospf-if-routing != 'passive') and (ospf-if-name != 'LO-MGMT')";
+      }
+
+      uses ospf-authentication {
+        when "((../../version = 'ospfv2') or (../../version = 'ospfv3')) and (ospf-if-name != 'LO-MGMT')  and (ospf-if-routing != 'passive')";
+      }
+
+    }
+  }
+
+  grouping ospf-area-config {
+    list ospf-area-range {
+      key "prefix";
+      description
+        "Summarize routes matching address/mask -
+        Applicable to Area Border Routers (ABRs) only.";
+      leaf prefix {
+        type inet:ip-prefix;
+        description
+          "IPv4 or IPv6 prefix";
+      }
+      leaf advertise {
+        type boolean;
+        default true;
+        description
+          "Advertise or hide.";
+      }
+    }
+  }
+
+  grouping ospf-area {
+    list ospf-area {
+      key "ospf-area-id";
+      description "Configuration of ospf area.";
+
+      leaf ospf-area-id {
+        type yang:dotted-quad;
+        description "OSPF Router Area ID.";
+      }
+
+      leaf ospf-area-type {
+        type enumeration {
+          enum normal     {
+            value 1;
+          }
+        }
+        default normal;
+        description "OSPF Router Area Type.";
+      }
+      uses ospf-area-config;
+      uses ospf-interface;
+    }
+  }
+
+  grouping ospf {
+      list ospf-instance {
+        key instance-id;
+        description "OSPF protocol instances.";
+
+        leaf router-id {
+          when "../router-id-mode = 'manual'";
+          type yang:dotted-quad;
+          mandatory true;
+          description "OSPF Router ID.";
+        }
+
+        leaf instance-id {
+          type uint8 {
+            range "0 .. 255";
+          }
+          description
+            "OSPF instance ID.";
+        }
+
+        leaf version {
+          type enumeration {
+          enum ospfv2     {
+            value 1;
+          }
+          enum ospfv3    {
+            value 2;
+          }
+        }
+          default ospfv2;
+          description
+            "OSPF version v2 or v3";
+        }
+
+        leaf description {
+          type string {
+            length 0..128;
+          }
+          description "Textual description of the OSPF instance.";
+        }
+
+        leaf vrf {
+            type leafref {
+                path "../../../vrf/name";
+            }
+            config false;
+            description "VRF associated with this OSPF instance.";
+        }
+
+        leaf router-id-mode {
+           type enumeration {
+              enum "use-loopback" { value 1; }
+              enum "manual" { value 2; }
+          }
+          default "use-loopback";
+          description "Flag to indicate router-id is loopback IP or manual configured.";
+        }
+
+        uses ospf-area;
+      }
+  }
+}

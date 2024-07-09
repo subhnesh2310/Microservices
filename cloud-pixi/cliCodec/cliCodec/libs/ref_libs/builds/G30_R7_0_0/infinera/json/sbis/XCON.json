@@ -1,0 +1,341 @@
+{
+    "ne": {
+        "services": {
+            "xcon": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A user configured name for the XCON.",
+                        "key": true,
+                        "mandatory": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "source": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The source end-point between which the XCON needs to be created.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "destination": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The destination end-point between which the XCON needs to be created.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "src-time-slots": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Time-slots allocated to the source lo-oduj in this xcon. Not applicable if source facility is not an ODU facility.\nNote: parameter is obsolete - no longer supported.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "dst-time-slots": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Time-slots allocated to the destination lo-oduj in this xcon. Not applicable if destination facility is not an ODU facility.\nNote: parameter is obsolete - no longer supported.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "managed-by": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "system",
+                                "user"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Describes whether this xcon was system created or not. Only user created xcon can be user deleted.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "user",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "payload-treatment": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "transport",
+                                "transport-without-fec",
+                                "switching",
+                                "regen",
+                                "regen-switching"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Indicates a generic payload treatment value of the digital XCON.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "network-mapping": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "NA",
+                                "ODUCn",
+                                "ODUCni",
+                                "ODUCni-M",
+                                "ODU4",
+                                "ODU4i",
+                                "ODUflexi",
+                                "ODUflex",
+                                "ODU0",
+                                "ODU1",
+                                "ODU2",
+                                "ODU2e",
+                                "ODU2_AMP",
+                                "ODU2_BMP"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Indicates the server layer protocol type that supports this XCON.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "add",
+                                "drop",
+                                "add-drop",
+                                "express"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Type of XCON.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "protection-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "y-cable",
+                                "snc-n",
+                                "unprotected"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Represents the protection type this XCON has.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "from-adaptation": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Indicate server layer adaptation at client side.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "to-adaptation": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Indicate server layer adaptation at line side.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "used-resources": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "List of resources being used by this XCON besides the two main source/destination end-points.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "payload-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "100GBE",
+                                "400GBE",
+                                "OTU4",
+                                "100G",
+                                "ODU2",
+                                "ODU2e",
+                                "10GBE",
+                                "OC192",
+                                "STM64",
+                                "10G",
+                                "empty"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Indicates a generic, high-level source (from) client payload type of the digital XCON.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "direction": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "two-way"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Indicates whether the digital XCON is uni-directional (1-WAY) or bi-directional (2-WAY).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "two-way",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "circuit-id-suffix": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User configured circuit ID suffix.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "circuit-id": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "System configured circuit ID, present in XCONs and associated facilities.\nFor facilities, circuit-id is only filled in if an associated XCON exists.\n   Format of this ID is:\n   <timestamp>|<ne-name>|<XCON-AID>|<user-configured-sufix>\n   Example:\n   2020-05-05T21:06:02Z|GX|1-4-T9,1-4-L1-1-ODUji#1|my-suffix\n\n   Timestamp is the NE time at xcon creation, in UTC.\n   If necessary, ne-name will be truncated so that total length remains at 128 characters.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

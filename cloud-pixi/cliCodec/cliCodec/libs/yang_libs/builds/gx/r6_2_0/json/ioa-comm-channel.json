@@ -1,0 +1,326 @@
+{
+    "module": {
+        "@name": "ioa-comm-channel",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-cc": "http://infinera.com/yang/ioa/comm-channel",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/comm-channel"
+        },
+        "prefix": {
+            "@value": "ioa-cc"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            },
+            {
+                "@module": "ietf-inet-types",
+                "prefix": {
+                    "@value": "inet"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module describing Communication Channel facilities."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-09-17",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.1"
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "ppp",
+                "leaf": [
+                    {
+                        "@name": "fcs-length",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "16",
+                                    "value": {
+                                        "@value": "16"
+                                    }
+                                },
+                                {
+                                    "@name": "32",
+                                    "value": {
+                                        "@value": "32"
+                                    }
+                                }
+                            ]
+                        },
+                        "units": {
+                            "@name": "bits"
+                        },
+                        "default": {
+                            "@value": "16"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Specifies whether the Frame Check Sequence(FCS) is a 16-bit or 32-bit value."
+                        }
+                    },
+                    {
+                        "@name": "mru",
+                        "type": {
+                            "@name": "uint16",
+                            "range": {
+                                "@value": "64..1500"
+                            }
+                        },
+                        "units": {
+                            "@name": "octets"
+                        },
+                        "default": {
+                            "@value": "1500"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Specifies the MRU(Maximum-Receive-Unit) in the Information and Padding fields."
+                        },
+                        "reference": {
+                            "text": "RFC 1661: The Point-to-Point Protocol (PPP)"
+                        }
+                    },
+                    {
+                        "@name": "restart-timer",
+                        "type": {
+                            "@name": "uint8",
+                            "range": {
+                                "@value": "1..10"
+                            }
+                        },
+                        "units": {
+                            "@name": "seconds"
+                        },
+                        "default": {
+                            "@value": "3"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Specifies the restart timer of the PPP protocol in seconds."
+                        }
+                    },
+                    {
+                        "@name": "max-failure",
+                        "type": {
+                            "@name": "uint8",
+                            "range": {
+                                "@value": "2..10"
+                            }
+                        },
+                        "default": {
+                            "@value": "5"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Specifies the maximum failure value of the PPP protocol. Max-Failure\nindicates the number of Configure-Nak packets sent without sending\na Configure-Ack before assuming that configuration is not converging.\nAny further Configure-Nak packets for peer requested options are\nconverted to Configure-Reject packets, and locally desired options\nare no longer appended."
+                        },
+                        "reference": {
+                            "text": "RFC 1661: The Point-to-Point Protocol (PPP)"
+                        }
+                    },
+                    {
+                        "@name": "peer-address",
+                        "type": {
+                            "@name": "inet:ip-address-no-zone"
+                        },
+                        "default": {
+                            "@value": "0.0.0.0"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The IP address on the peer node."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "comm-channel",
+                "description": {
+                    "text": "A re-usable grouping that formulates the basic comm-channel facility structure."
+                },
+                "list": {
+                    "@name": "comm-channel",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "description": {
+                        "text": "Communication Channel facility."
+                    },
+                    "uses": [
+                        {
+                            "@name": "ioa-fac-common:facilities-common-attributes"
+                        },
+                        {
+                            "@name": "ioa-common:arc"
+                        },
+                        {
+                            "@name": "ppp",
+                            "when": {
+                                "@condition": "(type = 'GCC0' or type = 'GCC1')"
+                            }
+                        }
+                    ],
+                    "leaf": [
+                        {
+                            "@name": "type",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "OFEC-CC",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Control channel available due to Infinera's proprietry optical FEC overhead.\nThe rate of OFEC-CC (in case of Gen6) is 17.6 Mbps for each 100G optical carrier capacity.\nFor instance, in an 800G optical carrier, the OFEC-CC will be (8 x 17.6 = 140.8 Mbps)."
+                                        }
+                                    },
+                                    {
+                                        "@name": "GCC0",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "GCC0 bytes within OTUk overhead."
+                                        }
+                                    },
+                                    {
+                                        "@name": "GCC1",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "GCC1 bytes within ODUk overhead."
+                                        }
+                                    },
+                                    {
+                                        "@name": "OSCX1",
+                                        "value": {
+                                            "@value": "4"
+                                        },
+                                        "description": {
+                                            "text": "OSCX1 bytes."
+                                        }
+                                    },
+                                    {
+                                        "@name": "OSCX2",
+                                        "value": {
+                                            "@value": "5"
+                                        },
+                                        "description": {
+                                            "text": "OSCX2 bytes."
+                                        }
+                                    }
+                                ]
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Indicates the type of control channel."
+                            }
+                        },
+                        {
+                            "@name": "bandwidth",
+                            "type": {
+                                "@name": "decimal64",
+                                "fraction-digits": {
+                                    "@value": "2"
+                                }
+                            },
+                            "units": {
+                                "@name": "Mbps"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Indicates the control channel's bandwidth/capacity.\nThis is system determined based on the underlying facilities that support this control channel."
+                            }
+                        },
+                        {
+                            "@name": "mtu",
+                            "type": {
+                                "@name": "uint16",
+                                "range": {
+                                    "@value": "1280..9202"
+                                }
+                            },
+                            "units": {
+                                "@name": "octets"
+                            },
+                            "default": {
+                                "@value": "1500"
+                            },
+                            "description": {
+                                "text": "The maximum transmission unit size in octets for comm channel."
+                            }
+                        },
+                        {
+                            "@name": "parent",
+                            "when": {
+                                "@condition": "(../type = 'GCC0' or ../type = 'GCC1')"
+                            },
+                            "type": {
+                                "@name": "instance-identifier"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Parent object of the comm-channel."
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

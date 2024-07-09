@@ -1,0 +1,239 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A generic, configurable name for every facility.",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "tx_mapping_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "GMP",
+                "BMP",
+                "openZR+",
+                "FlexE-4x100G",
+                "GFP-F",
+                "GFP-F-extOPU2",
+                "AMP"
+            ]
+        },
+        "description": "The tx mapping mode of client port. The possible values are dependent on the HW and configuration.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "BMP",
+        "hardcode": false,
+        "argName": "tx_mapping_mode"
+    },
+    "expected_mapping_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "GMP",
+                "BMP",
+                "openZR+",
+                "FlexE-4x100G",
+                "GFP-F",
+                "GFP-F-extOPU2",
+                "AMP"
+            ]
+        },
+        "description": "The expected mapping mode of client port. The possible values are dependent on the HW and configuration.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "BMP",
+        "hardcode": false,
+        "argName": "expected_mapping_mode"
+    },
+    "tti_style": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "1",
+                "15"
+            ]
+        },
+        "description": "The configured mode of the TTI.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "1",
+        "hardcode": false,
+        "argName": "tti_style"
+    },
+    "tim_monitor": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "enabled"
+            ]
+        },
+        "description": "The enable switching of tim defect monitor mode.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "tim_monitor"
+    },
+    "tx_tti": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Transmit TTI - Sent by this facility to the far-end remote facility.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "tx_tti"
+    },
+    "expected_tti": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Expected TTI - The TTI this facility expects to receive from the far-end remote facility.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "expected_tti"
+    },
+    "loopback": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "none",
+                "facility",
+                "terminal"
+            ]
+        },
+        "description": "Loopback mode.Useful to debug on the fiber connection.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "none",
+        "hardcode": false,
+        "argName": "loopback"
+    },
+    "loopback_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "loopback",
+                "loopback-and-continue"
+            ]
+        },
+        "description": "Indicates loopback action for facility or terminal.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "loopback_mode"
+    },
+    "test_signal_type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "none",
+                "PRBS31Q",
+                "PRBS13Q",
+                "scrambled-idles",
+                "PRBS9",
+                "PRBS31"
+            ]
+        },
+        "description": "The type of test pattern that is injected.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "none",
+        "hardcode": false,
+        "argName": "test_signal_type"
+    },
+    "test_signal_direction": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "ingress",
+                "egress",
+                "both"
+            ]
+        },
+        "description": "The direction of the test signal.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "ingress",
+        "hardcode": false,
+        "argName": "test_signal_direction"
+    },
+    "test_signal_monitoring": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Monitor the incoming test signals for diagnostics.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "test_signal_monitoring"
+    }
+}

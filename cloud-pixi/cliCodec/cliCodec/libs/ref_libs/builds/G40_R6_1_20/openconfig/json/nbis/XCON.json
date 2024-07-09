@@ -1,0 +1,81 @@
+{
+    "source": {
+        "type": {
+            "ptype": "str",
+            "leafref": "../config/index"
+        },
+        "description": "The source end-point between which the XCON needs to be created.",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "ethernet-1-4-T1",
+        "hardcode": false,
+        "argName": "source"
+    },
+    "assignment_index": {
+        "type": {
+            "ptype": "int",
+            "leafref": "../config/index"
+        },
+        "description": "Reference to the index for the current tributary\nassignment",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": 1,
+        "hardcode": true,
+        "argName": "assignment_index"
+    },
+    "description": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Name assigned to the logical client channel",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "flexible",
+        "hardcode": true,
+        "argName": "description"
+    },
+    "assignment_type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "LOGICAL_CHANNEL",
+                "OPTICAL_CHANNEL"
+            ]
+        },
+        "description": "Each logical channel element may be assigned to subsequent\nstages of logical elements to implement further grooming, or\ncan be assigned to a line-side optical channel for\ntransmission.  Each assignment also has an associated\nbandwidth allocation.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "LOGICAL_CHANNEL",
+        "hardcode": true,
+        "argName": "assignment_type"
+    },
+    "destination_index": {
+        "type": {
+            "ptype": "int",
+            "leafref": "/oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:index"
+        },
+        "description": "Index of the destination channel between which the XCON needs to be created.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": 10,
+        "hardcode": false,
+        "argName": "destination_index"
+    },
+    "allocation": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Allocation of the logical client channel to the tributary\nor sub-channel, expressed in Gbps. Please note that if the\nassignment is to an OTN logical channel, the allocation must\nbe an integer multiplication to tributary-slot-granularity\nof the OTN logical channel.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "100",
+        "hardcode": false,
+        "argName": "allocation"
+    }
+}

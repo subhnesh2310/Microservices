@@ -1,0 +1,583 @@
+{
+    "module": {
+        "@name": "ioa-line-ptp",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-line-ptp": "http://infinera.com/yang/ioa/line-ptp",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/line-ptp"
+        },
+        "prefix": {
+            "@value": "ioa-line-ptp"
+        },
+        "import": {
+            "@module": "ioa-facilities-common",
+            "prefix": {
+                "@value": "ioa-fac-common"
+            }
+        },
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG model describing the line side physical termination layer."
+        },
+        "revision": [
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            }
+        ],
+        "grouping": {
+            "@name": "line-ptp",
+            "list": {
+                "@name": "line-ptp",
+                "key": {
+                    "@value": "name"
+                },
+                "description": {
+                    "text": "Basic LinePTP facility."
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-fac-common:facilities-common-attributes"
+                    },
+                    {
+                        "@name": "ioa-fac-common:auto-in-service"
+                    },
+                    {
+                        "@name": "ioa-fac-common:power-threshold"
+                    }
+                ],
+                "leaf": [
+                    {
+                        "@name": "service-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "not-applicable",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "No service mode."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-200G",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "200G rate class carrier signal with DP-16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-QPSK-100G",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "100G rate class carrier signal with DP-QPSK modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-8QAM-200G",
+                                    "value": {
+                                        "@value": "4"
+                                    },
+                                    "description": {
+                                        "text": "200G rate class carrier signal with DP-8QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-100G",
+                                    "value": {
+                                        "@value": "5"
+                                    },
+                                    "description": {
+                                        "text": "200G rate class carrier signal with DP-16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-100G-EX",
+                                    "value": {
+                                        "@value": "6"
+                                    },
+                                    "description": {
+                                        "text": "200G rate class carrier signal with DP-16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-400G",
+                                    "value": {
+                                        "@value": "7"
+                                    },
+                                    "description": {
+                                        "text": "400G rate class carrier signal with DP-16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-8QAM-300G",
+                                    "value": {
+                                        "@value": "8"
+                                    },
+                                    "description": {
+                                        "text": "300G rate class carrier signal with DP-8QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-QPSK-200G",
+                                    "value": {
+                                        "@value": "9"
+                                    },
+                                    "description": {
+                                        "text": "200G rate class carrier signal with DP-QPSK modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "OTU2",
+                                    "value": {
+                                        "@value": "10"
+                                    },
+                                    "description": {
+                                        "text": "ITUT G.709 10.70 gigabits per second Optical channel Transport Unit."
+                                    }
+                                },
+                                {
+                                    "@name": "OTU2e",
+                                    "value": {
+                                        "@value": "11"
+                                    },
+                                    "description": {
+                                        "text": "ITUT G.709 11.09 gigabits per second Optical channel Transport Unit."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-E-400G",
+                                    "value": {
+                                        "@value": "12"
+                                    },
+                                    "description": {
+                                        "text": "400G rate class E signal with DP-16QAM-E modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-400G-OpenZR+",
+                                    "value": {
+                                        "@value": "13"
+                                    },
+                                    "description": {
+                                        "text": "400G rate class OpenZR+ signal with DP-16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-PS-400G",
+                                    "value": {
+                                        "@value": "14"
+                                    },
+                                    "description": {
+                                        "text": "400G rate class PS mode signal with DP-16QAM-PS modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-200G-EX",
+                                    "value": {
+                                        "@value": "15"
+                                    }
+                                },
+                                {
+                                    "@name": "DP-QPSK-100G-EX",
+                                    "value": {
+                                        "@value": "16"
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-400G-EX",
+                                    "value": {
+                                        "@value": "17"
+                                    }
+                                },
+                                {
+                                    "@name": "DP-8QAM-300G-EX",
+                                    "value": {
+                                        "@value": "18"
+                                    }
+                                },
+                                {
+                                    "@name": "DP-QPSK-200G-EX",
+                                    "value": {
+                                        "@value": "19"
+                                    }
+                                },
+                                {
+                                    "@name": "DP-SPQPSK-100G",
+                                    "value": {
+                                        "@value": "20"
+                                    },
+                                    "description": {
+                                        "text": "100G rate class carrier signal with DP-SPQPSK modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-SPQPSK-QPSK-100G",
+                                    "value": {
+                                        "@value": "21"
+                                    },
+                                    "description": {
+                                        "text": "100G rate class carrier signal with DP-SPQPSK-QPSK modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-SP16QAM-200G",
+                                    "value": {
+                                        "@value": "22"
+                                    },
+                                    "description": {
+                                        "text": "200G rate class carrier signal with DP-SP16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-32QAM-200G",
+                                    "value": {
+                                        "@value": "23"
+                                    },
+                                    "description": {
+                                        "text": "200G rate class carrier signal with DP-32QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-SP16QAM-16QAM-200G",
+                                    "value": {
+                                        "@value": "24"
+                                    },
+                                    "description": {
+                                        "text": "200G rate class carrier signal with DP-SP16QAM-16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-QPSK-SP16QAM-200G",
+                                    "value": {
+                                        "@value": "25"
+                                    },
+                                    "description": {
+                                        "text": "200G rate class carrier signal with DP-QPSK-SP16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-SPQPSK-QPSK-200G",
+                                    "value": {
+                                        "@value": "26"
+                                    },
+                                    "description": {
+                                        "text": "200G rate class carrier signal with DP-SPQPSK-QPSK modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-300G",
+                                    "value": {
+                                        "@value": "27"
+                                    },
+                                    "description": {
+                                        "text": "300G rate class carrier signal with DP-16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-SP16QAM-300G",
+                                    "value": {
+                                        "@value": "28"
+                                    },
+                                    "description": {
+                                        "text": "300G rate class carrier signal with DP-SP16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-32QAM-300G",
+                                    "value": {
+                                        "@value": "29"
+                                    },
+                                    "description": {
+                                        "text": "300G rate class carrier signal with DP-32QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-64QAM-300G",
+                                    "value": {
+                                        "@value": "30"
+                                    },
+                                    "description": {
+                                        "text": "300G rate class carrier signal with DP-64QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-32QAM-64QAM-300G",
+                                    "value": {
+                                        "@value": "31"
+                                    },
+                                    "description": {
+                                        "text": "300G rate class carrier signal with DP-32QAM-64QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-SP16QAM-16QAM-300G",
+                                    "value": {
+                                        "@value": "32"
+                                    },
+                                    "description": {
+                                        "text": "300G rate class carrier signal with DP-SP16QAM-16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-QPSK-SP16QAM-300G",
+                                    "value": {
+                                        "@value": "33"
+                                    },
+                                    "description": {
+                                        "text": "300G rate class carrier signal with DP-QPSK-SP16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-32QAM-400G",
+                                    "value": {
+                                        "@value": "34"
+                                    },
+                                    "description": {
+                                        "text": "400G rate class carrier signal with DP-32QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-64QAM-400G",
+                                    "value": {
+                                        "@value": "35"
+                                    },
+                                    "description": {
+                                        "text": "400G rate class carrier signal with DP-64QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-32QAM-400G",
+                                    "value": {
+                                        "@value": "36"
+                                    },
+                                    "description": {
+                                        "text": "400G rate class carrier signal with DP-16QAM-32QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-SP16QAM-16QAM-400G",
+                                    "value": {
+                                        "@value": "37"
+                                    },
+                                    "description": {
+                                        "text": "400G rate class carrier signal with DP-SP16QAM-16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-32QAM-500G",
+                                    "value": {
+                                        "@value": "38"
+                                    },
+                                    "description": {
+                                        "text": "500G rate class carrier signal with DP-32QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-64QAM-500G",
+                                    "value": {
+                                        "@value": "39"
+                                    },
+                                    "description": {
+                                        "text": "500G rate class carrier signal with DP-64QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-32QAM-64QAM-500G",
+                                    "value": {
+                                        "@value": "40"
+                                    },
+                                    "description": {
+                                        "text": "500G rate class carrier signal with DP-32QAM-64QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-32QAM-500G",
+                                    "value": {
+                                        "@value": "41"
+                                    },
+                                    "description": {
+                                        "text": "500G rate class carrier signal with DP-16QAM-32QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-64QAM-600G",
+                                    "value": {
+                                        "@value": "42"
+                                    },
+                                    "description": {
+                                        "text": "600G rate class carrier signal with DP-64QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-32QAM-64QAM-600G",
+                                    "value": {
+                                        "@value": "43"
+                                    },
+                                    "description": {
+                                        "text": "600G rate class carrier signal with DP-32QAM-64QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-SP16QAM-300G-C",
+                                    "value": {
+                                        "@value": "44"
+                                    },
+                                    "description": {
+                                        "text": "couple 2*150G rate class carrier signal with DP-SP16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-QPSK-SP16QAM-300G-C",
+                                    "value": {
+                                        "@value": "45"
+                                    },
+                                    "description": {
+                                        "text": "couple 2*150G rate class carrier signal with DP-QPSK-SP16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-32QAM-500G-C",
+                                    "value": {
+                                        "@value": "46"
+                                    },
+                                    "description": {
+                                        "text": "couple 2*250G rate class carrier signal with DP-16QAM-32QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-500G-C",
+                                    "value": {
+                                        "@value": "47"
+                                    },
+                                    "description": {
+                                        "text": "couple 2*250G rate class carrier signal with DP-16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-SP16QAM-500G-C",
+                                    "value": {
+                                        "@value": "48"
+                                    },
+                                    "description": {
+                                        "text": "couple 2*250G rate class carrier signal with DP-SP16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-QPSK-SP16QAM-500G-C",
+                                    "value": {
+                                        "@value": "49"
+                                    },
+                                    "description": {
+                                        "text": "couple 2*250G rate class carrier signal with DP-QPSK-SP16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-32QAM-64QAM-700G-C",
+                                    "value": {
+                                        "@value": "50"
+                                    },
+                                    "description": {
+                                        "text": "couple 2*350G rate class carrier signal with DP-32QAM-64QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-700G-C",
+                                    "value": {
+                                        "@value": "51"
+                                    },
+                                    "description": {
+                                        "text": "couple 2*350G rate class carrier signal with DP-16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-SP16QAM-16QAM-700G-C",
+                                    "value": {
+                                        "@value": "52"
+                                    },
+                                    "description": {
+                                        "text": "couple 2*350G rate class carrier signal with DP-SP16QAM-16QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-32QAM-900G-C",
+                                    "value": {
+                                        "@value": "53"
+                                    },
+                                    "description": {
+                                        "text": "couple 2*450G rate class carrier signal with DP-32QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-32QAM-900G-C",
+                                    "value": {
+                                        "@value": "54"
+                                    },
+                                    "description": {
+                                        "text": "couple 2*450G rate class carrier signal with DP-16QAM-32QAM modulation format."
+                                    }
+                                },
+                                {
+                                    "@name": "DP-32QAM-64QAM-1100G-C",
+                                    "value": {
+                                        "@value": "55"
+                                    },
+                                    "description": {
+                                        "text": "couple 2*550G rate class carrier signal with DP-32QAM-64QAM modulation format."
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "not-applicable"
+                        },
+                        "description": {
+                            "text": "service-type to provison line side service."
+                        }
+                    },
+                    {
+                        "@name": "line-system-mode",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "openwave",
+                                "value": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "Infinera WDM channels over non-Infinera line system."
+                                }
+                            }
+                        },
+                        "default": {
+                            "@value": "openwave"
+                        },
+                        "description": {
+                            "text": "Indicates the specific mode of power control configured\non the L1 transponder, and specifically, on this particular SCG port within\nthe L1 transponder. The attribute indicates the L1 <-> L0 local power controls\nto adjust the Tx power from the L1 transponder towards the L0 line-system\ncard (such as a WSS or Mux or Amplifier)."
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

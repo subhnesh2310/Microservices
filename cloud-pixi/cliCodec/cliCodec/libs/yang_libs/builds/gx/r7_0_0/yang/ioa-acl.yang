@@ -1,0 +1,277 @@
+module ioa-acl {
+    namespace "http://infinera.com/yang/ioa-acl";
+    prefix ioa-acl;
+
+    import ioa-common      { prefix ioa-common; }
+    import ietf-inet-types { prefix inet; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module defining the structure for Layer 2/Layer 3 access control lists (ACL).";
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+    typedef acl-ip-prefix {
+        type union {
+            type enumeration {
+                enum any {
+                    value 0;
+                    description "Applies for all ip .";
+                }
+            }
+            type inet:ipv4-prefix; // 1.2.1.1/x
+            type inet:ipv4-address; // 1.1.1.1
+            type inet:ipv6-prefix; //3001::2/64
+            type inet:ipv6-address; //2001::2
+        }
+        default any;
+
+        description "A re-usable type that is used to match both
+                     source and destination fields of an IP packet in an ACL.";
+    }
+
+
+    grouping acl-attributes {
+        container access-control-list {
+            description "Attributes and objects pertaining to ACLs.";
+
+            list acl {
+                key "name";
+                description "Set of attributes associated with every access control list (ACL). An ACL can have one or more ACEs.";
+
+                leaf name {
+                    type ioa-common:object-name {
+                        length 1..30;
+                    }
+                    description "Name of the ACL.";
+                }
+
+                uses ioa-common:common-states;
+
+                leaf type {
+                    type enumeration {
+                        enum ipv4     { value 10; }
+                        enum ipv6     { value 20; }
+                    }
+                    mandatory true;
+                    description "Indicates the top-level type of ACL, i.e., what
+                                 fields from the associated IPv4 or IPv6 headers this ACL matches on.";
+                }
+
+                leaf interface {
+                    type leafref {
+                        path "../../../../networking/interface/if-name";
+                    }
+                    mandatory true;
+                    description "A reference to the interface this filter
+                    shall be applied to.";
+                }
+
+                list ace {
+                    key "sequence-id";
+                    description "Attributes pertaining to an access control entry (ACE). Every ACL can have one or more ACEs.";
+
+                    leaf sequence-id {
+                        type uint8{range "1..100";}
+                        description "Sequence number that establishes the relative
+                        order of the ACE within an ACL";
+                        reference "THANOSSEC-675";
+                    }
+
+                    uses ioa-common:label {
+                        refine label {
+                            description "Name of the IP Filter";
+                        }
+                    }
+
+
+                    leaf direction {
+                        type enumeration {
+                            enum input  { value 10; }
+                            enum output { value 20; }
+                        }
+                        default input;
+                        description "Based on the direction, this filter shall be applied
+                                     to incoming packets, or outgoing packets. Note that Input is
+                                     mandatory and output is an optional function.";
+                    }
+
+                    leaf logging-action {
+                        type boolean;
+                        default false;
+                        description "Flag to indicate if logging needs to be done once the ACE rule is matched.";
+                    }
+
+                    leaf source-ip-address {
+                        type acl-ip-prefix;
+                        default any;
+                        description "Specifies the source IP of this filter. The
+                            values could be a valid IPv4/v6-address or Ipv4/v6-address/prefix.";
+                    }
+
+                    leaf source-lower-port {
+                        when "../protocol != 'icmp'";
+                        type inet:port-number;
+                        default 0;
+                        description "The lower bound on the source Layer 4 TCP/UDP port number.
+                                     A value of zero for both indicates wildcarding.";
+                    }
+
+                    leaf source-upper-port {
+                        when "../protocol != 'icmp'";
+                        type inet:port-number;
+                        default 0;
+                        description "The upper bound on the source Layer 4 TCP/UDP port number.
+                                     A value of zero for both indicates wildcarding.";
+                    }
+
+                    leaf destination-ip-address {
+                        type acl-ip-prefix;
+                        default any;
+                        description "Specifies the destination IP of this filter. The
+                            values could be a valid IPv4/v6-address or Ipv4/v6-address/prefix.";
+                    }
+
+
+                    leaf destination-lower-port {
+                        when "../protocol != 'icmp'";
+                        type inet:port-number;
+                        default 0;
+                        description "The lower bound on the destination Layer 4 TCP/UDP port number.
+                                     A value of zero for both indicates wildcarding.";
+                    }
+
+                    leaf destination-upper-port {
+                        when "../protocol != 'icmp'";
+                        type inet:port-number;
+                        default 0;
+                        description "The upper bound on the destination Layer 4 TCP/UDP port number.
+                                     A value of zero for both indicates wildcarding.";
+                    }
+
+                    leaf ttl {
+                        type union {
+                            type enumeration {
+                                enum any {
+                                    value 0;
+                                    description "Applies for all ttl values.";
+                                }
+                            }
+                            type uint8{range "1..255";}
+                        }
+                        default any;
+                        description "IPv4 and IPv6 packet's time-to-live (TTL) hop limit. Default TTL value 255 is max hop";
+                    }
+
+                    leaf action {
+                        type enumeration {
+                            enum accept { value 10; }
+                            enum reject { value 20; }
+                            enum drop   { value 30; }
+                        }
+                        default drop;
+                        description "The action to be taken by the filter.";
+                    }
+
+                    leaf protocol {
+                        type enumeration {
+                            enum any {
+                                value 250;
+                                description "Matches any protocol.";
+                            }
+                            enum ah {
+                                value 51;
+                                description "Authentication Header.";
+                                reference "RFC 2402";
+                            }
+                            enum comp {
+                                value 108;
+                                description "IP Compression";
+                                reference "RFC 3173";
+                            }
+                            enum egp {
+                                value 8;
+                                description "External Gateway Protocol";
+                                reference "RFC 827";
+                            }
+                            enum esp {
+                                value 50;
+                                description "Encapsulating Security Payload";
+                                reference "RFC 2406";
+                            }
+                            enum gre {
+                                value 47;
+                                description "Generic Routing Encapsulation";
+                                reference "RFC 2784";
+                            }
+                            enum icmp {
+                                value 1;
+                                description "Internet Control Message Protocol";
+                                reference "RFC 2463";
+                            }
+                            enum idrp {
+                                value 45;
+                                description "Inter-Domain Routing Protocol";
+                                reference "RFC 1745";
+                            }
+                            enum igmp {
+                                value 2;
+                                description "Internet Group Management Protocol";
+                                reference "RFC 3228";
+                            }
+                            enum igrp {
+                                value 88;
+                                description "Interior Gateway Routing Protocol";
+                                reference "RFC 2072";
+                            }
+                            enum isis {
+                                value 124;
+                                description "Intermediate System-to-Intermediate System";
+                                reference "RFC 1142";
+                            }
+                            enum ospf {
+                                value 89;
+                                description "Open Shortest Path First";
+                                reference "RFC 2740";
+                            }
+                            enum rsvp {
+                                value 46;
+                                description "Resource Reservation Protocol";
+                                reference "RFC 2205";
+                            }
+                            enum tcp {
+                                value 6;
+                                description "Transmission Control Protocol";
+                                reference "RFC 1213";
+                            }
+                            enum udp {
+                                value 17;
+                                description "User Datagram Protocol";
+                                reference "RFC 1213";
+                            }
+                            enum vrrp {
+                                value 112;
+                                description "Virtual Router Redundancy Protocol";
+                                reference "RFC 2338";
+                            }
+                        }
+                        default any;
+                        description "Internet Protocol number.  Refers to the protocol
+                                     payload.  In IPv6, this field is known as 'next-header', and
+                                     if extension headers are present, the protocol is present in
+                                     the 'upper-layer' header.";
+                        reference "RFC 8519";
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,907 @@
+{
+    "module": {
+        "@name": "ioa-amp",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-amp": "http://infinera.com/yang/ioa/amp",
+        "@xmlns:ioa-l0": "http://infinera.com/yang/ioa/l0",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-ne-function": "http://infinera.com/yang/ioa/ne-function",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/amp"
+        },
+        "prefix": {
+            "@value": "ioa-amp"
+        },
+        "import": [
+            {
+                "@module": "ioa-l0",
+                "prefix": {
+                    "@value": "ioa-l0"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-ne-function",
+                "prefix": {
+                    "@value": "ioa-ne-function"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG model describing the amplifier function."
+        },
+        "revision": [
+            {
+                "@date": "2023-03-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.1"
+                }
+            },
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            }
+        ],
+        "typedef": [
+            {
+                "@name": "dge-mode-type",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "none"
+                        },
+                        {
+                            "@name": "dge-mode"
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "gain-range-type",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "standard",
+                            "value": {
+                                "@value": "1"
+                            },
+                            "description": {
+                                "text": "standard gain"
+                            }
+                        },
+                        {
+                            "@name": "low",
+                            "value": {
+                                "@value": "2"
+                            },
+                            "description": {
+                                "text": "low gain"
+                            }
+                        },
+                        {
+                            "@name": "high",
+                            "value": {
+                                "@value": "3"
+                            },
+                            "description": {
+                                "text": "high gain"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Type of gain-range."
+                }
+            },
+            {
+                "@name": "gain-value",
+                "type": {
+                    "@name": "decimal64",
+                    "fraction-digits": {
+                        "@value": "2"
+                    }
+                },
+                "units": {
+                    "@name": "dB"
+                },
+                "default": {
+                    "@value": "0.0"
+                },
+                "description": {
+                    "text": "A type representing an amplifier gain. 0 dB means no gain (e.g. amplifier not in operation)"
+                }
+            },
+            {
+                "@name": "gain-adjustable-value",
+                "type": {
+                    "@name": "union",
+                    "type": [
+                        {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "not-applicable",
+                                "value": {
+                                    "@value": "0"
+                                },
+                                "description": {
+                                    "text": "Not Applicable/ Not specified."
+                                }
+                            }
+                        },
+                        {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "2"
+                            },
+                            "range": {
+                                "@value": "0..30"
+                            }
+                        }
+                    ]
+                },
+                "units": {
+                    "@name": "dB"
+                },
+                "default": {
+                    "@value": "not-applicable"
+                },
+                "description": {
+                    "text": "The adjustable gain value at the EDFA."
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "amplifier-list",
+                "list": {
+                    "@name": "amplifier",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "description": {
+                        "text": "Amplifier container."
+                    },
+                    "uses": [
+                        {
+                            "@name": "amplifier-common"
+                        },
+                        {
+                            "@name": "ioa-common:arc"
+                        }
+                    ],
+                    "leaf": [
+                        {
+                            "@name": "partner-amplifier",
+                            "type": {
+                                "@name": "union",
+                                "type": [
+                                    {
+                                        "@name": "enumeration",
+                                        "enum": {
+                                            "@name": "not-applicable",
+                                            "value": {
+                                                "@value": "0"
+                                            },
+                                            "description": {
+                                                "text": "Not Applicable/ Not specified."
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "@name": "instance-identifier"
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "not-applicable"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "The partner amplifier for PAx/ BAX instalments"
+                            }
+                        },
+                        {
+                            "@name": "amplifier-enable",
+                            "type": {
+                                "@name": "ioa-common:enable-switch"
+                            },
+                            "description": {
+                                "text": "The enable switch of the amplifier."
+                            }
+                        },
+                        {
+                            "@name": "control-mode",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "auto-max-pw",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Automatic Maximum Power."
+                                        }
+                                    },
+                                    {
+                                        "@name": "manual",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Manual gain."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "auto-max-pw"
+                            },
+                            "description": {
+                                "text": "Type of control-mode."
+                            }
+                        },
+                        {
+                            "@name": "amp-control-support",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "auto",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Manual and auto-max-pw 'control-mode' supported."
+                                        }
+                                    },
+                                    {
+                                        "@name": "manual-only",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Only manual 'control-mode' supported."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "auto"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Whether 'control-mode' can be configured as 'auto-max-pw' or not."
+                            }
+                        },
+                        {
+                            "@name": "amplifier-mode",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "constant-power",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Contant Power"
+                                        }
+                                    },
+                                    {
+                                        "@name": "constant-gain",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Constant Gain"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "constant-gain"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "The operating mode of the amplifier (gain or power control)."
+                            }
+                        },
+                        {
+                            "@name": "pump-state",
+                            "type": {
+                                "@name": "ioa-common:enable-switch"
+                            },
+                            "default": {
+                                "@value": "disabled"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "The state of the pump."
+                            }
+                        },
+                        {
+                            "@name": "actual-transmission-band",
+                            "type": {
+                                "@name": "ioa-l0:band-of-transmission"
+                            },
+                            "default": {
+                                "@value": "c-band-4.85THz"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Currently assigned transmission band. If amplifier is not at a degree, it will be 4.85 THz by convention."
+                            }
+                        },
+                        {
+                            "@name": "gain-range-control",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "auto",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Automatic Gain Range"
+                                        }
+                                    },
+                                    {
+                                        "@name": "manual",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Manual Gain Range"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "auto"
+                            },
+                            "description": {
+                                "text": "Automatic or Manual Gain Range configuration."
+                            }
+                        },
+                        {
+                            "@name": "span-loss-control",
+                            "type": {
+                                "@name": "ioa-common:enable-switch"
+                            },
+                            "default": {
+                                "@value": "enabled"
+                            },
+                            "description": {
+                                "text": "Span Loss Control configuration.\n    Only of relevance for inline amplifier(s) and preamp(s)."
+                            }
+                        },
+                        {
+                            "@name": "gain-range-target",
+                            "when": {
+                                "@condition": "../gain-range-control = 'manual'",
+                                "description": {
+                                    "text": "Gain range specific control is only applicable when gain-range-control is 'manual'."
+                                }
+                            },
+                            "type": {
+                                "@name": "gain-range-type"
+                            },
+                            "default": {
+                                "@value": "standard"
+                            },
+                            "description": {
+                                "text": "Gain Range Target"
+                            }
+                        },
+                        {
+                            "@name": "gain-range-actual",
+                            "type": {
+                                "@name": "gain-range-type"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Actual Gain Range"
+                            }
+                        },
+                        {
+                            "@name": "gain-target",
+                            "type": {
+                                "@name": "gain-value",
+                                "range": {
+                                    "@value": "0..40.0"
+                                }
+                            },
+                            "default": {
+                                "@value": "0.0"
+                            },
+                            "description": {
+                                "text": "For manual control mode: setting gain to the amplifier for constant-gain mode."
+                            }
+                        },
+                        {
+                            "@name": "gain-operating",
+                            "type": {
+                                "@name": "gain-value"
+                            },
+                            "default": {
+                                "@value": "0.0"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Operating gain of the amplifier that is the actually configured gain on the amplifier.\nWhen card is plugged out, or EDFA disabled, gain-operating is 0.0."
+                            }
+                        },
+                        {
+                            "@name": "optimum-edfa-gain",
+                            "type": {
+                                "@name": "decimal64",
+                                "fraction-digits": {
+                                    "@value": "2"
+                                }
+                            },
+                            "units": {
+                                "@name": "dB"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "System reports the optimum EDFA gain the required equipped EDFA has.\nBy convention system reports 0 dB when card is not required equipped."
+                            }
+                        },
+                        {
+                            "@name": "gain-adjustment",
+                            "when": {
+                                "@condition": "../control-mode != 'manual'",
+                                "description": {
+                                    "text": "Only of relevance in automatic control-mode."
+                                }
+                            },
+                            "type": {
+                                "@name": "gain-value",
+                                "range": {
+                                    "@value": "-20.00..20.00"
+                                }
+                            },
+                            "default": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "Gain range adjustment:\nFor auto control mode: gain offset defined by the user.\nThe value is used for adjustment of gain when the amplifier is in automatic control mode, the automatically calculated gain will include offset of this attribute.\nOnly supported on amplifiers with 'function' = 'pa' or 'inline'."
+                            }
+                        },
+                        {
+                            "@name": "amplifier-type",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "fixed-gain-EDFA",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Fixed Gain EDFA"
+                                        }
+                                    },
+                                    {
+                                        "@name": "variable-gain-EDFA",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Variable Gain EDFA"
+                                        }
+                                    }
+                                ]
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Type of the amplifier HW."
+                            }
+                        },
+                        {
+                            "@name": "output-power-mon",
+                            "type": {
+                                "@name": "ioa-l0:optical-power-actual"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Monitored aggregate signal output power."
+                            }
+                        },
+                        {
+                            "@name": "output-power-mon-with-ase",
+                            "type": {
+                                "@name": "ioa-l0:optical-power-actual"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Monitored aggregate total output power including both signal and ASE."
+                            }
+                        },
+                        {
+                            "@name": "input-power-mon",
+                            "type": {
+                                "@name": "ioa-l0:optical-power-actual"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Monitored aggregate input power."
+                            }
+                        },
+                        {
+                            "@name": "output-voa-attenuation",
+                            "type": {
+                                "@name": "ioa-l0:type-of-attenuation"
+                            },
+                            "default": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "For control-mode = 'manual': target VOA attenuation at output of the amplifier (line padding VOA)."
+                            }
+                        },
+                        {
+                            "@name": "output-voa-actual",
+                            "type": {
+                                "@name": "ioa-l0:attenuation-mon"
+                            },
+                            "default": {
+                                "@value": "not-applicable"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Actual VOA output."
+                            }
+                        },
+                        {
+                            "@name": "power-before-output-voa",
+                            "type": {
+                                "@name": "ioa-l0:optical-power-actual"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Measured optical power before output VOA."
+                            }
+                        },
+                        {
+                            "@name": "interstage-support",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "'true' if interstage port is supported in this amplifier."
+                            }
+                        },
+                        {
+                            "@name": "interstage-loss",
+                            "type": {
+                                "@name": "decimal64",
+                                "fraction-digits": {
+                                    "@value": "2"
+                                }
+                            },
+                            "units": {
+                                "@name": "dB"
+                            },
+                            "default": {
+                                "@value": "0"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Amplifier interstage loss.\n   Only of relevance when amplifier has an interstage port."
+                            }
+                        },
+                        {
+                            "@name": "tilt-control-mode",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "manual",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "User manually controls amplifier tilt"
+                                        }
+                                    },
+                                    {
+                                        "@name": "auto",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "System implicitly control amplifier tilt per configured fiber parameters"
+                                        }
+                                    },
+                                    {
+                                        "@name": "auto-planned",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "System implicitly controls amplifier tilt per planning tool configured parameters"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "auto"
+                            },
+                            "description": {
+                                "text": "Specify the tilt control mode. Defines whether amplifier tilt is automatically set by system or configured manually by the user"
+                            }
+                        },
+                        {
+                            "@name": "tilt-target",
+                            "when": {
+                                "@condition": "../tilt-control-mode = 'manual'",
+                                "description": {
+                                    "text": "For manual control mode: target tilt of the amplifier."
+                                }
+                            },
+                            "type": {
+                                "@name": "decimal64",
+                                "fraction-digits": {
+                                    "@value": "2"
+                                },
+                                "range": {
+                                    "@value": "-5..5"
+                                }
+                            },
+                            "units": {
+                                "@name": "dB"
+                            },
+                            "default": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "For manual control mode: target tilt, to be configured on the amplifier."
+                            }
+                        },
+                        {
+                            "@name": "tilt-adjustment",
+                            "when": {
+                                "@condition": "../tilt-control-mode != 'manual'",
+                                "description": {
+                                    "text": "For auto control mode: tilt adjustment of the amplifier."
+                                }
+                            },
+                            "type": {
+                                "@name": "decimal64",
+                                "fraction-digits": {
+                                    "@value": "2"
+                                },
+                                "range": {
+                                    "@value": "-5..5"
+                                }
+                            },
+                            "units": {
+                                "@name": "dB"
+                            },
+                            "default": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "Used to offset the target tilt when tilt-control-mode = 'auto' / 'auto-planned'"
+                            }
+                        },
+                        {
+                            "@name": "tilt-actual",
+                            "type": {
+                                "@name": "decimal64",
+                                "fraction-digits": {
+                                    "@value": "2"
+                                }
+                            },
+                            "units": {
+                                "@name": "dB"
+                            },
+                            "default": {
+                                "@value": "0"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Actual setting of tilt on the amplifier.\nSpectrum Tilt (measured by the EDFA): 0 means both no tilt, or amplifier not available."
+                            }
+                        },
+                        {
+                            "@name": "raman-signal-gain",
+                            "type": {
+                                "@name": "gain-adjustable-value"
+                            },
+                            "description": {
+                                "text": "Raman Gain of C-Band (signal)\n- if there is a fiber-connection from/to Raman, the API raman-signal-gain at amplifier needs to be appropriately configured autonomously;\n- if there is no fiber-connection from/to Raman, user reads out the amplifier-raman.raman-signal-gain and should configure it on the amplifier."
+                            }
+                        },
+                        {
+                            "@name": "raman-osc-gain",
+                            "type": {
+                                "@name": "gain-adjustable-value"
+                            },
+                            "description": {
+                                "text": "Raman Gain OSC (see raman-signal-gain)."
+                            }
+                        }
+                    ],
+                    "list": {
+                        "@name": "supported-gain-range",
+                        "key": {
+                            "@value": "gain-range-type"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Supported gain range(s), min. and max. gain"
+                        },
+                        "leaf": [
+                            {
+                                "@name": "gain-range-type",
+                                "type": {
+                                    "@name": "gain-range-type"
+                                },
+                                "description": {
+                                    "text": "Type of Gain Range"
+                                }
+                            },
+                            {
+                                "@name": "gain-range-min",
+                                "type": {
+                                    "@name": "gain-value"
+                                },
+                                "description": {
+                                    "text": "The minimum settable gain-target for this type of range ('standard'/ 'low'/ 'high')."
+                                }
+                            },
+                            {
+                                "@name": "gain-range-max",
+                                "type": {
+                                    "@name": "gain-value"
+                                },
+                                "description": {
+                                    "text": "The maximum settable gain-target for this type of range ('standard'/ 'low'/ 'high')."
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "@name": "amplifier-common",
+                "description": {
+                    "text": "Generic Amplifier definition."
+                },
+                "uses": {
+                    "@name": "ioa-ne-function:ne-function-common-attributes"
+                },
+                "leaf": {
+                    "@name": "function",
+                    "type": {
+                        "@name": "enumeration",
+                        "enum": [
+                            {
+                                "@name": "pa",
+                                "value": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "pre-amplifier"
+                                }
+                            },
+                            {
+                                "@name": "ba",
+                                "value": {
+                                    "@value": "2"
+                                },
+                                "description": {
+                                    "text": "booster (booster-amplifier)"
+                                }
+                            },
+                            {
+                                "@name": "inline",
+                                "value": {
+                                    "@value": "3"
+                                },
+                                "description": {
+                                    "text": "inline amplifier (ILA node-types)"
+                                }
+                            },
+                            {
+                                "@name": "add",
+                                "value": {
+                                    "@value": "4"
+                                },
+                                "description": {
+                                    "text": "add amplifier"
+                                }
+                            },
+                            {
+                                "@name": "drop",
+                                "value": {
+                                    "@value": "5"
+                                },
+                                "description": {
+                                    "text": "drop amplifier"
+                                }
+                            },
+                            {
+                                "@name": "backward-raman",
+                                "value": {
+                                    "@value": "20"
+                                },
+                                "description": {
+                                    "text": "raman amplifier"
+                                }
+                            }
+                        ]
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Amplifier function."
+                    }
+                }
+            }
+        ]
+    }
+}

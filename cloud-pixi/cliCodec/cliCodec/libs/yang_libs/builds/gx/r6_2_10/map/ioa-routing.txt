@@ -1,0 +1,99 @@
+ioa-rt
+	ipv4-static-route
+		+ipv4-destination-prefix : str
+		advertised : bool
+		next-hop-address : str
+		vrf : unknown
+		distance : int
+		interface : unknown
+		-monitoring-state : str
+		-monitoring-instance : str
+		origin : str
+	ipv6-static-route
+		+ipv6-destination-prefix : str
+		vrf : unknown
+		advertised : bool
+		next-hop-address : str
+		distance : int
+		interface : unknown
+		-monitoring-state : str
+		-monitoring-instance : str
+		origin : str
+	routing
+		ipv4-static-route
+			+ipv4-destination-prefix : str
+			advertised : bool
+			next-hop-address : str
+			vrf : unknown
+			distance : int
+			interface : unknown
+			-monitoring-state : str
+			-monitoring-instance : str
+			origin : str
+		ipv6-static-route
+			+ipv6-destination-prefix : str
+			vrf : unknown
+			advertised : bool
+			next-hop-address : str
+			distance : int
+			interface : unknown
+			-monitoring-state : str
+			-monitoring-instance : str
+			origin : str
+		ospf-instance
+			+router-id : str
+			instance-id : int
+			version : str
+			description : str
+			-vrf : unknown
+			router-id-mode : str
+			ospf-area
+				ospf-area-id : str
+				ospf-area-type : str
+				ospf-area-range
+					prefix : str
+					advertise : bool
+				ospf-interface
+					ospf-if-name : unknown
+					ospf-if-routing : str
+					enable : bool
+					hello-interval : int
+					router-dead-interval : int
+					retransmission-interval : int
+					transmit-delay : int
+					ospf-cost : int
+					-ospf-network-type : str
+					priority : int
+					ospf-auth-enable : bool
+					ospf-auth-algorithm : str
+					ospf-auth-key : str
+					ospfv3-ipsec-security-association
+						spi : int
+						ipsec-protocol : str
+						ipsec-mode : str
+						+integrity-algorithm : str
+						auth-key
+							type : str
+							+key : str
+		ip-monitoring
+			name : str
+			probe-interval : int
+			+destination : str
+			drop-rate : int
+			enabled : bool
+			-monitoring-state : str
+			action : str
+			+next-hop : str
+			static-route : str
+			alarm-report-control : str
+	ip-monitoring
+		name : str
+		probe-interval : int
+		+destination : str
+		drop-rate : int
+		enabled : bool
+		-monitoring-state : str
+		action : str
+		+next-hop : str
+		static-route : str
+		alarm-report-control : str

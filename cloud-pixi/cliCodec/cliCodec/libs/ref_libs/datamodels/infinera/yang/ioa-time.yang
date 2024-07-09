@@ -1,0 +1,365 @@
+module ioa-time {
+    namespace "http://infinera.com/yang/ioa/time";
+    prefix ioa-time;
+
+    import ietf-yang-types { prefix yang; }
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG model associated with Time Management, including time objects, clock and NTP.";
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-09-17" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.1";
+    }
+
+
+    typedef millisec {
+      type decimal64 {
+        fraction-digits 3;
+      }
+      units "ms";
+    }
+
+
+    grouping clock {
+
+        container clock {
+            description "System clock.";
+
+            leaf current-time {
+                type yang:date-and-time;
+                config false;
+                description "Indicates the current Date and Time of this NE.";
+            }
+
+            leaf universal-time {
+                type yang:date-and-time;
+                config false;
+                description "Indicates the UTC Date and Time of this NE.";
+            }
+
+            leaf timezone {
+                type enumeration{
+                    enum International_Date_Line_West[GMT-12:00]    {value     1;}
+                    enum Midway_Island-Samoa[GMT-11:00]   {value     2;}
+                    enum Hawaii[GMT-10:00]     {value     3;}
+                    enum Alaska[GMT-09:00]     {value     4;}
+                    enum Pacific_Time[US_and_Canada][GMT-08:00] {value     5;}
+                    enum Arizona[GMT-07:00]    {value     6;}
+                    enum Mountain_Time[US_and_Canada][GMT-07:00]     {value      7;}
+                    enum CentralAmerica[GMT-06:00]  {value     8;}
+                    enum Central_Time[US_and_Canada][GMT-06:00] {value     9;}
+                    enum Mexico_City-Tegucigalpa[GMT-06:00]    {value     10;}
+                    enum Saskatchewan[GMT-06:00]    {value     11;}
+                    enum Bagota-Lima-Quito[GMT-05:00]     {value     12;}
+                    enum Eastern_Time[US_and_Canada][GMT-05:00] {value     13;}
+                    enum Indiana[East][GMT-05:00]   {value     14;}
+                    enum Caracas-La_Paz[GMT-04:30]  {value     15;}
+                    enum Atlantic_Time[Canada][GMT-04:00] {value     16;}
+                    enum Santiago[GMT-04:00]   {value     17;}
+                    enum Newfoundland[GMT-03:30]    {value     18;}
+                    enum Brasilia[GMT-03:00]   {value     19;}
+                    enum Buenos_Aires-Georgetown[GMT-03:00]    {value     20;}
+                    enum Greenland[GMT-03:00]  {value     21;}
+                    enum Mid-Atlantic[GMT-02:00]    {value     22;}
+                    enum Azores[GMT-01:00]     {value     23;}
+                    enum Cape_Verde_Is.[GMT-01:00]  {value     24;}
+                    enum Casablanca-Monrovia[GMT]   {value     25;}
+                    enum Greenwich_Mean_Time:Dublin-Edinburgh-Lisbon-London[GMT]     {value     26;}
+                    enum Amsterdam-Copenhagen-Madrid-ParisVilnius[GMT+01:00]     {value     27;}
+                    enum Belgrade-Sarajevo-Skopje-Sofija-Zargreb[GMT+01:00]     {value     28;}
+                    enum Bratislava-Budapest-Ljublijana-Prague-Wasaw[GMT+01:00]     {value     29;}
+                    enum Brussels-Berlin-Bern-Rome-Stockholm-Vienna[GMT+01:00]     {value     30;}
+                    enum West_Central_Africa[GMT+01:00]   {value     31;}
+                    enum Athens-Istanbul-Minsk[GMT+02:00] {value     32;}
+                    enum Bucharest[GMT+02:00]  {value     33;}
+                    enum Cairo[GMT+02:00] {value     34;}
+                    enum Harare-Pretoria[GMT+02:00] {value     35;}
+                    enum Helsinki-Riga-Tallinn[GMT+02:00] {value     36;}
+                    enum Jerusalem[GMT+02:00]  {value     37;}
+                    enum Israel[GMT+02:00]     {value     38;}
+                    enum Baghdad[GMT+03:00]    {value     39;}
+                    enum Kuwait-Riyadh[GMT+03:00]   {value     40;}
+                    enum Moscow-St.Petersburg-Volgograd[GMT+03:00]   {value      41;}
+                    enum Nairobi[GMT+03:00]    {value     42;}
+                    enum Tehran[GMT+03:30]     {value     43;}
+                    enum Abu_Dhabi-Muscat[GMT+04:00] {value     44;}
+                    enum Baku[GMT+04:00] {value     45;}
+                    enum Tbilisi[GMT+04:00]    {value     46;}
+                    enum Kabul[GMT+04:30] {value     47;}
+                    enum Ekaterinburg[GMT+05:00]    {value     48;}
+                    enum Islamabad-Karachi-Tashkent[GMT+05:00] {value     49;}
+                    enum Mumbai-Calcutta-Chennai-New_Delhi[GMT+05:30]     {value      50;}
+                    enum Colombo[GMT+05:30]    {value     51;}
+                    enum Kathmandu[GMT+05:45]  {value     52;}
+                    enum Dhaka[GMT+06:00] {value     53;}
+                    enum Almaty[GMT+06:00]     {value     54;}
+                    enum Rangoon[GMT+06:30]    {value     55;}
+                    enum Bangkok-Hanoi-Jakarta[GMT+07:00] {value     56;}
+                    enum Beijing-Chongqing-Hong_Kong-Urumqi[GMT+08:00]    {value      57;}
+                    enum Perth[GMT+08:00] {value     58;}
+                    enum Singapore-Kuala_Lumpur[GMT+08:00]     {value     59;}
+                    enum Taipei[GMT+08:00]     {value     60;}
+                    enum Osaka-Sapporo-Tokyo[GMT+09:00]   {value     61;}
+                    enum Seoul[GMT+09:00] {value     62;}
+                    enum Yakutsk[GMT+09:00]    {value     63;}
+                    enum Adelaide[GMT+09:30]   {value     64;}
+                    enum Darwin[GMT+09:30]     {value     65;}
+                    enum Brisbane[GMT+10:00]   {value     66;}
+                    enum Canberra-Melbourne-Sydney[GMT+10:00]  {value     67;}
+                    enum Guam-Port_Moresby[GMT+10:00]     {value     68;}
+                    enum Hobart[GMT+10:00]     {value     69;}
+                    enum Vladivostok[GMT+10:00]     {value     70;}
+                    enum Magadan-Solomon_Is.-New_Caledonia[GMT+11:00]     {value      71;}
+                    enum Auckland-Wellington[GMT+12:00]   {value     72;}
+                    enum Fiji-Kamchatka-Marshall_Is.[GMT+12:00] {value     73;}
+                    enum Eniwetok-Kwajalein[GMT+12:00]    {value     74;}
+                    enum Nuku_alofa[GMT+13:00] {value     75;}
+                    enum Kiritimati[GMT+14:00] {value     76;}
+                    enum Universal-Time-Coordinated {value  77;}
+                }
+                default Universal-Time-Coordinated;
+                description "Indicates the Name of the Time Zone of this NE.";
+            }
+
+            leaf uptime {
+                type string { length 0..200; }
+                config false;
+                description "Indicates how long the system has been running.";
+            }
+
+            leaf time-source {
+                type enumeration {
+                    enum ntp {
+                        value 1;
+                        description "Indicates that NE uses NTP for synchronization.";
+                    }
+                    enum manual {
+                        value 2;
+                        description "indicates that NE uses NE internal clock for Synchronization.";
+                    }
+                }
+                default manual;
+                config false;
+                description "Indicates the source of the system current time.";
+            }
+
+            leaf DST-active {
+                type boolean;
+                default "false";
+                config false;
+                description "Whether daylight saving is active.";
+            }
+
+            leaf last-time-jump {
+                type string { length 0..200; }
+                config false;
+                description "Indicates last system time jump in the format '<time1> to <time2>'. Time jumps of less than 10 seconds are ignored.";
+            }
+        }
+    }
+
+
+
+    grouping ntp {
+        description "Network Time Protocol Configuration";
+        container ntp {
+            description "Network Time Protocol Configuration.";
+
+            leaf ntp-enabled {
+                type boolean;
+                default "true";
+                description "Whether ntp is enabled.";
+            }
+
+            leaf ntp-auth-enabled {
+                type boolean;
+                default false;
+                description "Whether NTP authentication is enabled.";
+            }
+
+            leaf ntp-active-server {
+                type string; 
+                config false;
+                description "Currently active NTP server.";
+            }
+
+            list ntp-key {
+                key "key-id";
+                max-elements 20;
+                description "Keys to be used for NTP authentication.";
+
+                leaf key-id {
+                    type uint32 {range "1..65534";}
+                    description "NTP Key-ID.";
+                }
+
+                leaf key-type {
+                    type enumeration {
+                        enum sha-1 {
+                            value 1;
+                            description "Use sha-1 hash algorithm for NTP message digest computation";
+                        }
+                        enum aes-cmac {
+                            value 2;
+                            description "Use AES-CMAC hash algorithm for NTP message digest computation";
+                        }
+                        enum sha-256 {
+                            value 3;
+                            description "Use sha-256 hash algorithm for NTP message digest computation";
+                        }
+                        enum md5 {
+                            value 4;
+                            description "Use md5 hash algorithm for NTP message digest computation";
+                        }
+                    }
+                    mandatory true;
+                    description "Hash algorithm for NTP message digest computation";
+                }
+
+                leaf key-value {
+                    type string {
+                       length "8..40";
+                    }
+                    mandatory true;
+                    description "NTP Key-value.";
+                }
+
+                leaf is-trusted {
+                    type boolean;
+                    default "false";
+                    description "Is trusted NTP key.";
+                }
+            }
+
+            list ntp-server {
+                key "ip-address";
+                max-elements 3;
+                description "Configured NTP server.";
+                leaf ip-address {
+                    type ioa-common:host;
+                    description "NTP Server IP address. Ipv4/Ipv6/hostname supported.";
+                }
+                leaf origin {
+                    type enumeration {
+                        enum manual {
+                            value 1;
+                            description
+                                "Indicates NTP address has been manually configured.";
+                        }
+                        enum dhcp {
+                            value 2;
+                            description
+                                "Indicates NTP address that has been assigned to this
+                                system by a DHCP server.";
+                        }
+                    }
+                    description
+                        "NTP address assignment method, user can convert
+                        DHCP configured NTP entry into a manual configured by changing this attribute.";
+                }
+
+                leaf auth-key-id {
+                    type union {
+                        type enumeration {
+                            enum not-applicable { value 0; }
+                        }
+                        type uint32;
+                    }
+                    default not-applicable;
+                    description "Key ID to be used for this server.";
+                }
+
+                uses ioa-common:label;
+
+                uses ioa-common:common-states;
+                uses ioa-common:arc;
+                container ntp-server-status {
+                    config false;
+                    description "NTP server status.";
+
+                    leaf refid {
+                        type string {
+                            length "0..32";
+                        }
+                        description "Reference clock type or address for the peer.";
+                    }
+
+                    leaf stratum {
+                        type uint8;
+                        description "Indicates the stratum of the remote peer.";
+                    }
+
+                    leaf type {
+                        type string {
+                            length "0..10";
+                        }
+                        description "Type of the peer ('l' for local reference clock, 'u' for unicast, 'm' for multicast or 'b' for broadcast)";
+                    }
+
+                    leaf when {
+                        type uint32;
+                        units "sec";
+                        description "Indicates time elapsed since last packet was received in seconds.";
+                    }
+
+                    leaf poll {
+                        type uint32;
+                        units "sec";
+                        description "Indicates the polling interval in seconds.";
+                    }
+
+                    leaf reach {
+                        type uint16;
+                        description
+                            "Indicates the reachability of the configured server.
+                             This is an 8-bit shift register with the most recent probe in the 2^0 position.
+                             The value 377 indicates that all the recent probes have been answered.";
+                    }
+
+                    leaf delay {
+                        type millisec;
+                        description "Delay along path to the server in milliseconds.";
+                    }
+
+                    leaf offset {
+                        type millisec;
+                        description "Offset of clock to the peer in milliseconds.";
+                    }
+
+                    leaf jitter {
+                        type millisec;
+                        description "Jitter along path to the server in milliseconds.";
+                    }
+                    leaf auth-status {
+                        type enumeration {
+                            enum ok { value 1; }
+                            enum yes { value 2; }
+                            enum bad { value 3; }
+                            enum none { value 4; }
+                        }
+                        default none;
+                        description "Authentication status of NTP server";
+                    }
+                    leaf condition {
+                        type string {
+                            length "0..16";
+                        }
+                        description "Condition of NTP server. Some of possible values: sys.peer/reject/candidate/...";
+                    }
+                }
+            }
+        }
+    }
+}

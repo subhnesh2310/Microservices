@@ -1,0 +1,174 @@
+{
+    "server_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "specify the name of aaa server.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "server_name"
+    },
+    "server_priority": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "This is used to sort the servers in the order of precedence.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "server_priority"
+    },
+    "protocol_supported": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "TACACSPLUS",
+                "RADIUS"
+            ]
+        },
+        "description": "specify the protocol used for AAA.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "protocol_supported"
+    },
+    "server_address": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The IP address of AAA server.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "server_address"
+    },
+    "server_port": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "AAA server port number.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "49",
+        "hardcode": false,
+        "argName": "server_port"
+    },
+    "server_port_authentication": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "AAA server authentication port number.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "1812",
+        "hardcode": false,
+        "argName": "server_port_authentication"
+    },
+    "server_port_accounting": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "AAA server accounting port number.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "1813",
+        "hardcode": false,
+        "argName": "server_port_accounting"
+    },
+    "shared_secret": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The shared secret of the aaa server. The shared secret will be displayed as *.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "sharedkey",
+        "hardcode": false,
+        "argName": "shared_secret"
+    },
+    "role_supported": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The configured roles for the AAA server.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "authentication authorization accounting",
+        "hardcode": false,
+        "argName": "role_supported"
+    },
+    "enabled": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Enable switch for this aaa-server.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": true,
+        "hardcode": false,
+        "argName": "enabled"
+    },
+    "timeout": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Specifies the response timeout of Access-Request messages sent to a AAA server in seconds.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 5,
+        "hardcode": false,
+        "argName": "timeout"
+    },
+    "retry": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Specifies the number of attempted Access-Request messages to a single AAA server before failing authentication.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 3,
+        "hardcode": false,
+        "argName": "retry"
+    },
+    "source_ip": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Source IP address used for RADIUS communications.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "auto",
+        "hardcode": false,
+        "argName": "source_ip"
+    },
+    "common_password": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Password used for RADIUS authorization after SSH public key authentication.\nIf blank, username is reused as password for RADIUS authorization.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "common_password"
+    }
+}

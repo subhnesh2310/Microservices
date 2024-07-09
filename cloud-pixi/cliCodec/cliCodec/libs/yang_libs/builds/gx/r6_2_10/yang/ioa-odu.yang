@@ -1,0 +1,242 @@
+module ioa-odu {
+    namespace "http://infinera.com/yang/ioa/odu";
+    prefix ioa-odu;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }   
+    import ioa-otn-common { prefix ioa-otn; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions for OTN optical channel data transport unit (ODU) 
+                 facilities in a typical Layer 1 optical transponder.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-09-17" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.1";
+    }
+
+
+    grouping odu {
+
+        list odu {
+            key name;
+            description "ODUCni/ODUki facility, representing both line side and client side ODUs.
+                         Represents both Infinera proprietary line-side ODUki/ODUCni protocol, as well as ITU standard ODUk/OCUCn protocol
+                         Represents both high order and low order ODUs.";
+
+            uses ioa-fac-common:facilities-common-attributes {
+                refine managed-by {
+                    default user;
+                }
+            }
+
+            uses ioa-common:arc;
+
+            leaf parent-odu {
+                type leafref {
+                    path ../../odu/name;
+                }
+                description "For low order ODUs, points to the the parent HO-ODU name.";
+            }
+
+            leaf odu-type {
+                type ioa-otn:odu-type;
+                mandatory true;
+                description "The protocol type of the ODUk/ODUCn client.";
+                reference "Section 7.5 in ITU-T G.875 (12/2018) and ITU-T G.709";
+            }
+
+            leaf rate {
+                type ioa-otn:rate;
+                config false;
+                description "The speed/rate of the ODUk/ODUCn client interface.";
+                reference "Table 7-1 in ITU-T G.709 (June 2016).";
+            }
+
+            leaf odu-name {
+                type string { length 0..32; }
+                config false;
+                description "A system-defined user friendly name for this odu, considering both the type and the rate.
+                             Examples: ODU4, ODUC8i";
+            }
+
+            leaf class {
+                type enumeration {
+                    enum high-order {
+                        value 10;
+                        description "Indicates all HO-ODUCn/HO-ODUk entities";
+                    }
+                    enum low-order {
+                        value 20;
+                        description "Indicates all LO-ODUCn/LO-ODUk/LO-ODUj entities";
+                    }
+                    enum mapped {
+                        value 30;
+                        description "Indicates a mapped non-OTN or OTN client signal, i.e. a terminated ODUk or and adapted ODUk acc. to the functional model.";
+                    }
+                }
+                default low-order;
+                config false;
+                description "This attribute indicates the class/category of the ODUCn/ODUk entity. 
+                             'High order' refers to the top-most ODUCn/ODUk entity that is created by the system. 
+                             All other children ODUk/ODUj entites are categorized as 'low order' (i.e., supported 
+                             by another high-order ODUCn/ODUk). This attribute is set by the system based on the order 
+                             of creation of these entities (system created v/s user created).";
+            }
+
+            leaf service-mode {
+                type ioa-fac-common:service-mode;
+                default none;
+                config false;
+                description "This attribute is to align with legacy Infinera OTN virtualization attribute (SM). 
+                             The 'service mode' attribute indicates the ODUk/ODUCn client's treatment/processing 
+                             vis-a-vis the service type (OTN multiplexing, OTU transport, ...)";                
+                reference "Infinera OTN Virtualization System Requirements Document (SRD).";
+            }
+
+            leaf service-mode-qualifier {
+                type ioa-fac-common:service-mode-qualifier;
+                default none;
+                config false;
+                description "This attribute is to align with legacy Infinera OTN virtualization attribute (SMQ). 
+                             The 'service mode qualifier' attribute further adds to the 'service mode' attribute 
+                             to indicate the ODUk/ODUCn client's contained payload vis-a-vis the service type 
+                             (OTN multiplexing, OTU transport, ...)";
+                reference "Infinera OTN Virtualization System Requirements Document (SRD).";
+            }
+
+            leaf trib-port-number {
+                type uint8{
+                    range "1..max";
+                }
+                description "Number of OPUk/OPUCn trib port that are part of this ODUk/ODUCn container.";
+            }
+
+            uses ioa-otn:time-slots;
+
+            uses ioa-otn:opucn-time-slots;
+
+            leaf instance-id {
+                type uint8 { range 1..max; }
+                description "Optional parameter on LO-ODU creation, identifies the ODU within the parent/high-order ODU.
+                             If not provided, it is automatically derived.
+                             Max value depends on capacity of the HO-ODU and of the odu-type.
+                             (ex: for creating an ODU4 in a HO ODUC8, instance can be between 1 and 8)";
+            }
+
+            leaf total-time-slots {
+                when "../class = 'high-order'";
+                type uint16;
+                config false;
+                description "Number of OPUk/OPUCn time slots that are part of this ODUk/ODUCn container.";
+            }
+
+            leaf available-time-slots {
+                when "../class='high-order'";
+                type ioa-common:number-list;
+                config false;
+                description "A list of all OPUk/OPUCn time-slots that are available for provisioning new services.";
+            }
+
+            uses ioa-fac-common:loopback;
+
+            uses ioa-fac-common:loopback-mode;
+            
+            uses ioa-otn:odu-mux-info;
+
+            leaf client-defect-indicator {
+                type enumeration {
+                    enum local-degraded { value 1; }
+                    enum remote-degraded { value 2; }
+                    enum local-and-remote-degraded { value 3; }
+                    enum none { value 4; }
+                    enum unknown { value 5; }
+                }
+                default none;
+                config false;
+                description "Indicates current defect status on client side.";
+            }
+
+            uses ioa-common:circuit-id;
+
+            list odu-diagnostics {
+                key direction;
+                description "Set of attributes associated with ODU diagnostics.Each direction has their own values.";
+
+                leaf direction {
+                    type ioa-fac-common:direction;
+                    description "Diagnostics direction.Can be ingress or egress.";
+                }
+                uses odu-diagnostics;
+            }
+
+            leaf rx-payload-type {
+                type ioa-otn:payload-type;
+                config false;
+                description "Received payload-type of ODU."; 
+            }	
+
+            leaf tx-payload-type {
+                type ioa-otn:payload-type;
+                description "Transmitter payload-type of ODU";
+            }
+
+            leaf-list expected-payload-type {
+                type ioa-otn:payload-type;
+                max-elements 2;
+                description "Expected payload-type of ODU";
+            }
+
+            leaf delay-measurement-enable {
+                type ioa-common:enable-switch;
+                default disabled;  
+                description "The enable switching of delay-measurement function, when applicable.";
+            }
+
+            leaf msim-config {
+                type ioa-common:enable-switch;
+                default enabled;
+                description "Specifies MSIM alarm reporting or not when msi value received not followed G.709 definition.";
+            }
+
+            leaf client-signal-type {
+                type enumeration {
+                    enum not-applicable {value 0;}
+                    enum 200GBE {value 1;}
+                    enum 400GBE {value 2;}
+                }
+                default not-applicable;
+                description "Client signal type for ODUflex  CBR client. 
+                            Applied to 200/400 GBE client on CHM1R. 
+                            It is set automatically for the client side ODU, 
+                            and need to be configured by the user at line side ODUj. 
+                            Used for rate matching and bandwidth validation in the odu cross connection.";
+            }
+        }
+    }
+
+    grouping odu-diagnostics {
+        description "Set of attributes associated with ODU diagnostics.";
+        uses ioa-otn:otn-diagnostics;
+        uses ioa-otn:otn-degrade;
+        uses ioa-fac-common:test-signal;
+    }
+}

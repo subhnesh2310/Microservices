@@ -1,0 +1,216 @@
+{
+    "module": {
+        "@name": "ioa-dsc-group",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-dsc-group": "http://infinera.com/yang/ioa/dsc-group",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/dsc-group"
+        },
+        "prefix": {
+            "@value": "ioa-dsc-group"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module defining the dsc-group facility."
+        },
+        "revision": {
+            "@date": "2022-12-22",
+            "description": {
+                "text": "YANG Models for Infinera Open API (IOA) for release R7.0"
+            }
+        },
+        "grouping": {
+            "@name": "dsc-group",
+            "list": {
+                "@name": "dsc-group",
+                "key": {
+                    "@value": "name"
+                },
+                "description": {
+                    "text": "Facility describing the dsc-group."
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-fac-common:facilities-common-attributes"
+                    },
+                    {
+                        "@name": "ioa-common:arc"
+                    }
+                ],
+                "leaf": [
+                    {
+                        "@name": "carriers",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "1..32"
+                            }
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "The carrier associated to this facility.\nPossible values can be any card/resources/supported-carriers."
+                        }
+                    },
+                    {
+                        "@name": "rate",
+                        "type": {
+                            "@name": "ioa-common:rate"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Carried signal basic rate class"
+                        }
+                    },
+                    {
+                        "@name": "instance-id",
+                        "type": {
+                            "@name": "uint8",
+                            "range": {
+                                "@value": "1..max"
+                            }
+                        },
+                        "description": {
+                            "text": "For identifying the dsc-group logic number, is added to the dsc-group model for creation.\nThe attribute is optional and will be automatically created if not specified.\nThe maximum value of the instance-id will be calculated based on the capacity of the line mode and the dsc-group rate\n(ex: for creating an 100G dsc-group from 400G 16QAM line mode, instance can be between 1 and 4)"
+                        }
+                    },
+                    {
+                        "@name": "group-id",
+                        "type": {
+                            "@name": "uint8",
+                            "range": {
+                                "@value": "1..max"
+                            }
+                        },
+                        "description": {
+                            "text": "Optional parameter on dsc-group creation, specifies the dsc-group group number that the dsc is a member of for a given optical-carrier.\nIf not provided, it is automatically assigned by system.\n(ex: for creating an 100G dsc-group from 400G 16QAM line mode, group-id can be 1/3/5/7)"
+                        }
+                    },
+                    {
+                        "@name": "pre-fec-q-sig-deg-threshold",
+                        "type": {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "3"
+                            },
+                            "range": {
+                                "@value": "0|5.600..9.600"
+                            }
+                        },
+                        "units": {
+                            "@name": "dB"
+                        },
+                        "description": {
+                            "text": "The threshold based on which the PRE-FEC-Q-SIGNAL-DEGRADE alarm is raised.\n0 implies threshold crossing alarming disabled.\nSpecific sub-range is per carrier use-case."
+                        }
+                    },
+                    {
+                        "@name": "pre-fec-q-sig-deg-hysteresis",
+                        "type": {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "1"
+                            },
+                            "range": {
+                                "@value": "0.1..1.0"
+                            }
+                        },
+                        "units": {
+                            "@name": "dB"
+                        },
+                        "default": {
+                            "@value": "0.5"
+                        },
+                        "description": {
+                            "text": "Hysteresis to account for raising of the PRE-FEC-Q-SIGNAL-DEGRADE alarm."
+                        }
+                    },
+                    {
+                        "@name": "post-fec-q-sig-deg-threshold",
+                        "type": {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "1"
+                            },
+                            "range": {
+                                "@value": "12.5..18.0"
+                            }
+                        },
+                        "units": {
+                            "@name": "dB"
+                        },
+                        "default": {
+                            "@value": "18.0"
+                        },
+                        "description": {
+                            "text": "The threshold based on which the POST-FEC-Q-SIGNAL-DEGRADE alarm is raised."
+                        }
+                    },
+                    {
+                        "@name": "post-fec-q-sig-deg-hysteresis",
+                        "type": {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "1"
+                            },
+                            "range": {
+                                "@value": "0.1..1.0"
+                            }
+                        },
+                        "units": {
+                            "@name": "dB"
+                        },
+                        "default": {
+                            "@value": "0.5"
+                        },
+                        "description": {
+                            "text": "Hysteresis to account for raising of the POST-FEC-Q-SIGNAL-DEGRADE alarm."
+                        }
+                    },
+                    {
+                        "@name": "dgd-high-threshold",
+                        "type": {
+                            "@name": "uint16",
+                            "range": {
+                                "@value": "25..400"
+                            }
+                        },
+                        "units": {
+                            "@name": "ps"
+                        },
+                        "default": {
+                            "@value": "100"
+                        },
+                        "description": {
+                            "text": "The threshold to raise the DGD-OORH alarm."
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

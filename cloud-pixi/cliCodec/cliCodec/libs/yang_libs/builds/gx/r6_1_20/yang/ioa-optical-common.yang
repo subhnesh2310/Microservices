@@ -1,0 +1,115 @@
+module ioa-optical-common {
+    namespace "http://infinera.com/yang/ioa/optical-common";
+    prefix ioa-opt;
+
+    import ioa-carrier-types { prefix ioa-carrier-types; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module that defines common data types and groupings that are used in optical facilities.";
+
+    revision "2023-03-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.1";
+    }
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    // Typedefs
+
+    typedef optical-power {
+        type decimal64 {
+            fraction-digits 2;
+            range "-55.00..55.00";
+        }
+        units dBm;
+        description "A custom data type that can be used for optical Tx/Rx power attributes.";
+    }
+
+    typedef power-offset {
+        type ioa-opt:optical-power {
+            range "-10.00..10.00";
+        }
+        units dB;
+        description "Offset from a standard optical-power value.";
+    }
+
+    typedef optical-frequency {
+        type uint64 {
+            range "0 | 186050000..191050000 | 191250000..196125000";
+        }
+        units MHz;
+        description "A super set for line and client side carrier frequency, specific sub-range is depend on application. 0 represents a non-initialized frequency.";
+    }
+
+    typedef optical-frequency-config {
+        type union {
+            type enumeration {
+                enum tunes-out-of-band { value 1; }
+            }
+            type ioa-opt:optical-frequency;
+        }
+        description "The center frequency this carrier is tuned to.";
+    }
+
+    typedef optical-wavelength {
+        type decimal64 {
+            fraction-digits 3;
+        }
+        units nm;
+        description "A custom data type for optical wavelength.
+                     The data type allows specific range of values for optical
+                     carriers in C-Band and L-Band regions.";
+    }
+
+
+    grouping optical-card-parameters {
+        description "Adds line card resources/capabilites, as discovered from the equipment.";
+
+        container resources {
+            config false;
+            description "Resources of this particular card. Resource details will differ with each card type.";
+
+            leaf-list supported-carriers {
+                type string { length 1..32; }
+                description "Names of the carriers that are supported by this card.
+                             To be used upon super-channel creation.";
+            }
+
+            leaf-list unassigned-carriers {
+                type string { length 1..32; }
+                description "Names of the carriers that are not yet assigned to a super-channel in this card.";
+            }
+
+            leaf-list supported-sub-components {
+                type string { length 1..32; }
+                description "Names of sub-components present in this card, which can be addressed for certain operations like restart.";
+            }
+        }
+
+        container capabilities {
+            config false;
+            description "Generic card capabilities. Capabilities details will differ with each card type.";
+
+            uses ioa-carrier-types:supported-advanced-parameters;
+
+            uses ioa-carrier-types:supported-carrier-modes;
+        }
+    }
+}

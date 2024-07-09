@@ -1,0 +1,40 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/protection-group",
+    "inputs": {
+        "protection-group": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "The target of the switch command.",
+            "mandatory": true
+        },
+        "operation-type": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "force",
+                    "lockout",
+                    "manual",
+                    "clear"
+                ]
+            },
+            "isList": false,
+            "description": "The type of protection switch command",
+            "mandatory": true
+        },
+        "switch-target": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "working",
+                    "protection"
+                ]
+            },
+            "isList": false,
+            "description": "The target of the switch command, which is not needed for release and lockout operation.",
+            "mandatory": true
+        }
+    },
+    "cases": {}
+}

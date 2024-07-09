@@ -1,0 +1,1056 @@
+{
+    "module": {
+        "@name": "ioa-alarm",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-alarm": "http://infinera.com/yang/ioa/alarm",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/alarm"
+        },
+        "prefix": {
+            "@value": "ioa-alarm"
+        },
+        "import": [
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA module defining Alarm management data model."
+        },
+        "revision": [
+            {
+                "@date": "2023-03-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.1"
+                }
+            },
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "identity": {
+            "@name": "ALARM-TYPE",
+            "description": {
+                "text": "Base identity for alarm types.\nIt uniquely identifies the alarm, not including the resource.\nMultiple resources may support the same alarm type.\nProduct specific alarm types are defined in separate yang modules in a modular way."
+            }
+        },
+        "typedef": [
+            {
+                "@name": "severity",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "indeterminate",
+                            "value": {
+                                "@value": "0"
+                            }
+                        },
+                        {
+                            "@name": "critical",
+                            "value": {
+                                "@value": "1"
+                            }
+                        },
+                        {
+                            "@name": "major",
+                            "value": {
+                                "@value": "2"
+                            }
+                        },
+                        {
+                            "@name": "minor",
+                            "value": {
+                                "@value": "3"
+                            }
+                        },
+                        {
+                            "@name": "warning",
+                            "value": {
+                                "@value": "4"
+                            }
+                        },
+                        {
+                            "@name": "not-reported",
+                            "value": {
+                                "@value": "5"
+                            }
+                        },
+                        {
+                            "@name": "event",
+                            "value": {
+                                "@value": "6"
+                            }
+                        },
+                        {
+                            "@name": "cleared",
+                            "value": {
+                                "@value": "7"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Possible alarm severities, with 'clear'."
+                }
+            },
+            {
+                "@name": "user-severity",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "critical",
+                            "value": {
+                                "@value": "1"
+                            }
+                        },
+                        {
+                            "@name": "major",
+                            "value": {
+                                "@value": "2"
+                            }
+                        },
+                        {
+                            "@name": "minor",
+                            "value": {
+                                "@value": "3"
+                            }
+                        },
+                        {
+                            "@name": "warning",
+                            "value": {
+                                "@value": "4"
+                            }
+                        },
+                        {
+                            "@name": "not-reported",
+                            "value": {
+                                "@value": "5"
+                            }
+                        },
+                        {
+                            "@name": "event",
+                            "value": {
+                                "@value": "6"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Possible alarm severities configurable by the user."
+                }
+            },
+            {
+                "@name": "service-affecting",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "indeterminate",
+                            "value": {
+                                "@value": "0"
+                            }
+                        },
+                        {
+                            "@name": "sa",
+                            "value": {
+                                "@value": "1"
+                            }
+                        },
+                        {
+                            "@name": "nsa",
+                            "value": {
+                                "@value": "2"
+                            }
+                        },
+                        {
+                            "@name": "sa-nsa",
+                            "value": {
+                                "@value": "3"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Possible alarm service affecting category"
+                }
+            },
+            {
+                "@name": "direction",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "na",
+                            "value": {
+                                "@value": "0"
+                            }
+                        },
+                        {
+                            "@name": "ingress",
+                            "value": {
+                                "@value": "1"
+                            }
+                        },
+                        {
+                            "@name": "egress",
+                            "value": {
+                                "@value": "2"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Direction related with the alarm."
+                }
+            },
+            {
+                "@name": "location",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "na",
+                            "value": {
+                                "@value": "0"
+                            }
+                        },
+                        {
+                            "@name": "near-end",
+                            "value": {
+                                "@value": "1"
+                            }
+                        },
+                        {
+                            "@name": "far-end",
+                            "value": {
+                                "@value": "2"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Location of the alarm."
+                }
+            },
+            {
+                "@name": "operator-state",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "none",
+                            "value": {
+                                "@value": "1"
+                            },
+                            "description": {
+                                "text": "The alarm is not being taken care of."
+                            }
+                        },
+                        {
+                            "@name": "ack",
+                            "value": {
+                                "@value": "2"
+                            },
+                            "description": {
+                                "text": "The alarm is being taken care of. Corrective action not taken yet or has failed."
+                            }
+                        },
+                        {
+                            "@name": "closed",
+                            "value": {
+                                "@value": "3"
+                            },
+                            "description": {
+                                "text": "Corrective action taken successfully."
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Possible operator states for alarms."
+                }
+            },
+            {
+                "@name": "alarm-category",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "communication",
+                            "value": {
+                                "@value": "1"
+                            }
+                        },
+                        {
+                            "@name": "facility",
+                            "value": {
+                                "@value": "2"
+                            }
+                        },
+                        {
+                            "@name": "equipment",
+                            "value": {
+                                "@value": "3"
+                            }
+                        },
+                        {
+                            "@name": "environmental",
+                            "value": {
+                                "@value": "4"
+                            }
+                        },
+                        {
+                            "@name": "processing-error",
+                            "value": {
+                                "@value": "5"
+                            }
+                        },
+                        {
+                            "@name": "software",
+                            "value": {
+                                "@value": "6"
+                            }
+                        },
+                        {
+                            "@name": "quality-of-service",
+                            "value": {
+                                "@value": "7"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Category of the alarm type."
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "alarm-info",
+                "description": {
+                    "text": "Set of attributes necessary for representing an alarm event."
+                },
+                "leaf": [
+                    {
+                        "@name": "alarm-id",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..128"
+                            }
+                        },
+                        "description": {
+                            "text": "Unique identifier of the alarm.\nBased on resource + probable cause.\nNote: this id is intended as an alarm identifier, but it is not intended to provide any additional information.\nOther fields exist to provide this additional information."
+                        }
+                    },
+                    {
+                        "@name": "direction",
+                        "type": {
+                            "@name": "ioa-alarm:direction"
+                        },
+                        "description": {
+                            "text": "Direction of the alarm."
+                        }
+                    },
+                    {
+                        "@name": "location",
+                        "type": {
+                            "@name": "ioa-alarm:location"
+                        },
+                        "description": {
+                            "text": "Location of the alarm."
+                        }
+                    },
+                    {
+                        "@name": "perceived-severity",
+                        "type": {
+                            "@name": "ioa-alarm:severity"
+                        },
+                        "description": {
+                            "text": "Severity of the alarm."
+                        }
+                    },
+                    {
+                        "@name": "reported-time",
+                        "type": {
+                            "@name": "yang:date-and-time"
+                        },
+                        "description": {
+                            "text": "Occurrence timestamp for the alarm."
+                        }
+                    },
+                    {
+                        "@name": "service-affecting",
+                        "type": {
+                            "@name": "ioa-alarm:service-affecting"
+                        },
+                        "description": {
+                            "text": "Information on whether this alarm is service affecting or not."
+                        }
+                    },
+                    {
+                        "@name": "alarm-category",
+                        "type": {
+                            "@name": "ioa-alarm:alarm-category"
+                        },
+                        "description": {
+                            "text": "Category of the alarm type."
+                        }
+                    },
+                    {
+                        "@name": "additional-details",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..256"
+                            }
+                        },
+                        "description": {
+                            "text": "Free string with additional relevant information provided by the system."
+                        }
+                    },
+                    {
+                        "@name": "last-changed-time",
+                        "type": {
+                            "@name": "yang:date-and-time"
+                        },
+                        "description": {
+                            "text": "Timestamp of the last change occured in the alarm."
+                        }
+                    }
+                ],
+                "uses": [
+                    {
+                        "@name": "ioa-common:resource-instance"
+                    },
+                    {
+                        "@name": "alarm-type"
+                    },
+                    {
+                        "@name": "alarm-type-description"
+                    },
+                    {
+                        "@name": "corrective-action"
+                    },
+                    {
+                        "@name": "ioa-common:label"
+                    },
+                    {
+                        "@name": "ioa-common:circuit-id"
+                    }
+                ]
+            },
+            {
+                "@name": "alarm-inventory-base",
+                "uses": [
+                    {
+                        "@name": "alarm-type"
+                    },
+                    {
+                        "@name": "alarm-type-description"
+                    },
+                    {
+                        "@name": "corrective-action"
+                    }
+                ],
+                "leaf-list": [
+                    {
+                        "@name": "resource-type",
+                        "type": {
+                            "@name": "identityref",
+                            "base": {
+                                "@name": "ioa-common:RESOURCE-TYPE"
+                            }
+                        },
+                        "max-elements": {
+                            "@value": "50"
+                        },
+                        "description": {
+                            "text": "Type of resources to which this alarm applies."
+                        }
+                    },
+                    {
+                        "@name": "alarm-category",
+                        "type": {
+                            "@name": "ioa-alarm:alarm-category"
+                        },
+                        "max-elements": {
+                            "@value": "10"
+                        },
+                        "description": {
+                            "text": "List of possible categories of this alarm type. The same alarm may have different categories, depending on the resource-type it applies to."
+                        }
+                    },
+                    {
+                        "@name": "default-severity",
+                        "type": {
+                            "@name": "ioa-alarm:user-severity"
+                        },
+                        "max-elements": {
+                            "@value": "10"
+                        },
+                        "description": {
+                            "text": "List of possible default severities for this alarm type. The same alarm may have different default severities depending of the resource-type it applies to."
+                        }
+                    }
+                ],
+                "leaf": [
+                    {
+                        "@name": "service-affecting",
+                        "type": {
+                            "@name": "ioa-alarm:service-affecting"
+                        },
+                        "description": {
+                            "text": "Information on whether this alarm is service affecting or not. In some cases, the same alarm may be simultaneously 'sa' and 'nsa', depending on the resource-type it applies to."
+                        }
+                    },
+                    {
+                        "@name": "can-be-cleared-by-user",
+                        "type": {
+                            "@name": "boolean"
+                        },
+                        "default": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Information on whether this alarm can be cleared by the user or not."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "alarm-type",
+                "leaf": {
+                    "@name": "alarm-type",
+                    "type": {
+                        "@name": "identityref",
+                        "base": {
+                            "@name": "ALARM-TYPE"
+                        }
+                    },
+                    "description": {
+                        "text": "Type of alarm, based on an abbreviated code."
+                    }
+                }
+            },
+            {
+                "@name": "alarm-type-description",
+                "leaf": {
+                    "@name": "alarm-type-description",
+                    "type": {
+                        "@name": "string",
+                        "length": {
+                            "@value": "0..256"
+                        }
+                    },
+                    "description": {
+                        "text": "Human friendly description of the type of the alarm."
+                    }
+                }
+            },
+            {
+                "@name": "corrective-action",
+                "leaf": {
+                    "@name": "corrective-action",
+                    "type": {
+                        "@name": "string",
+                        "length": {
+                            "@value": "0..256"
+                        }
+                    },
+                    "description": {
+                        "text": "System provided information on how to correct the situation that triggered this alarm."
+                    }
+                }
+            }
+        ],
+        "container": {
+            "@name": "alarms",
+            "description": {
+                "text": "Top level container for all system alarms, which are defined as an\nundesirable state in a resource that requires corrective action."
+            },
+            "container": [
+                {
+                    "@name": "current-alarms",
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "List of currently raised alarms."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "number-of-alarms",
+                            "type": {
+                                "@name": "uint32"
+                            },
+                            "description": {
+                                "text": "Number of currently raised alarms."
+                            }
+                        },
+                        {
+                            "@name": "last-changed",
+                            "type": {
+                                "@name": "yang:date-and-time"
+                            },
+                            "description": {
+                                "text": "Timestamp of the last change in the current alarm list (either a raise or clear event)."
+                            }
+                        }
+                    ],
+                    "list": {
+                        "@name": "alarm",
+                        "key": {
+                            "@value": "alarm-id"
+                        },
+                        "description": {
+                            "text": "Alarm instance that represents a raised alarm, when entry is created, or a cleared alarm,\nwhen entry is deleted."
+                        },
+                        "uses": {
+                            "@name": "alarm-info"
+                        },
+                        "leaf": [
+                            {
+                                "@name": "operator-state",
+                                "type": {
+                                    "@name": "operator-state"
+                                },
+                                "default": {
+                                    "@value": "none"
+                                },
+                                "description": {
+                                    "text": "State of the alarm according with operator action."
+                                }
+                            },
+                            {
+                                "@name": "operator-text",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..256"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Text provided by operator when changing alarm state."
+                                }
+                            },
+                            {
+                                "@name": "operator-name",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..256"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Username that last changed the state of this alarm."
+                                }
+                            },
+                            {
+                                "@name": "operator-last-action",
+                                "type": {
+                                    "@name": "yang:date-and-time"
+                                },
+                                "description": {
+                                    "text": "Timestamp when the alarm was last changed by operator."
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "@name": "alarm-control",
+                    "description": {
+                        "text": "Object related with alarm management control"
+                    },
+                    "leaf": {
+                        "@name": "arc-behavior",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "leave-alarms",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "When ARC is set to 'inhibit', leaves current alarms in a raised mode."
+                                    }
+                                },
+                                {
+                                    "@name": "clear-alarms",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "When ARC is set to 'inhibit', clears current alarms."
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "leave-alarms"
+                        },
+                        "description": {
+                            "text": "System wide alarm-reporting-control (ARC) behavior switch."
+                        }
+                    },
+                    "container": {
+                        "@name": "alarm-severity-profile",
+                        "description": {
+                            "text": "Container for all alarm-severity-entries (ASAP table)."
+                        },
+                        "list": {
+                            "@name": "alarm-severity-entry",
+                            "key": {
+                                "@value": "resource-type alarm-type direction location"
+                            },
+                            "description": {
+                                "text": "Individual entry in alarm-severity-profile, allows to configure the severity for one particular alarm."
+                            },
+                            "uses": [
+                                {
+                                    "@name": "ioa-common:resource-type"
+                                },
+                                {
+                                    "@name": "alarm-type"
+                                }
+                            ],
+                            "leaf": [
+                                {
+                                    "@name": "direction",
+                                    "type": {
+                                        "@name": "ioa-alarm:direction"
+                                    },
+                                    "description": {
+                                        "text": "Configured direction for the current resource type."
+                                    }
+                                },
+                                {
+                                    "@name": "location",
+                                    "type": {
+                                        "@name": "ioa-alarm:location"
+                                    },
+                                    "description": {
+                                        "text": "Configured location for the current resource type."
+                                    }
+                                },
+                                {
+                                    "@name": "severity",
+                                    "type": {
+                                        "@name": "ioa-alarm:user-severity"
+                                    },
+                                    "description": {
+                                        "text": "Configured severity for the current resource type."
+                                    }
+                                },
+                                {
+                                    "@name": "service-affecting",
+                                    "type": {
+                                        "@name": "ioa-alarm:service-affecting"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Configured service affecting for the current resource type."
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            ],
+            "list": {
+                "@name": "alarm-inventory",
+                "key": {
+                    "@value": "alarm-type"
+                },
+                "config": {
+                    "@value": "false"
+                },
+                "description": {
+                    "text": "Inventory with all possible alarm types for the system, containing\nstatic information for each alarm type."
+                },
+                "uses": {
+                    "@name": "alarm-inventory-base"
+                }
+            }
+        },
+        "notification": {
+            "@name": "alarm-notification",
+            "description": {
+                "text": "Notification that is used to report a raise or clear event for an alarm."
+            },
+            "uses": [
+                {
+                    "@name": "ioa-common:notif-common"
+                },
+                {
+                    "@name": "alarm-info"
+                }
+            ]
+        },
+        "rpc": [
+            {
+                "@name": "set-alarm-state",
+                "description": {
+                    "text": "Change the operator state of an alarm."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "state",
+                            "type": {
+                                "@name": "operator-state"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Alarm state."
+                            }
+                        },
+                        {
+                            "@name": "acknowledge-text",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..256"
+                                }
+                            },
+                            "description": {
+                                "text": "Optional text that will be stored in the alarm."
+                            }
+                        }
+                    ],
+                    "choice": {
+                        "@name": "target",
+                        "leaf": {
+                            "@name": "all-alarms",
+                            "type": {
+                                "@name": "empty"
+                            },
+                            "description": {
+                                "text": "Acknowledge all currently raised alarms."
+                            }
+                        },
+                        "leaf-list": {
+                            "@name": "alarm-id-list",
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "/alarms/current-alarms/alarm/alarm-id"
+                                }
+                            },
+                            "min-elements": {
+                                "@value": "1"
+                            },
+                            "max-elements": {
+                                "@value": "10"
+                            },
+                            "description": {
+                                "text": "List of alarm-ids to change the state."
+                            }
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "clear-alarm",
+                "description": {
+                    "text": "Manually clear alarms that have no criteria to be cleared."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "alarm-type",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "/ioa-alarm:alarms/ioa-alarm:current-alarms/ioa-alarm:alarm/ioa-alarm:alarm-type"
+                            }
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Type of alarm to be cleared.\nNote: only some alarms are eligible to be cleared using this operation; see alarm-inventory/can-be-cleared-by-user for details."
+                        }
+                    },
+                    "leaf-list": {
+                        "@name": "resource",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "/ioa-alarm:alarms/ioa-alarm:current-alarms/ioa-alarm:alarm/ioa-alarm:resource"
+                            }
+                        },
+                        "description": {
+                            "text": "Resource of alarm to be cleared.\nMay be one or more resources assocaited with the provided alarm-type."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "get-conditions",
+                "description": {
+                    "text": "Allows to retrieve conditions.\nA condition is an alarm that is not considered current. This can happen for the following reasons:\n- alarm suppressed due to alarm correlation\n- alarms suppressed due to AINS"
+                },
+                "input": {
+                    "uses": [
+                        {
+                            "@name": "ioa-common:resource-instance"
+                        },
+                        {
+                            "@name": "ioa-alarm:alarm-type"
+                        }
+                    ],
+                    "leaf": [
+                        {
+                            "@name": "direction",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "all",
+                                        "value": {
+                                            "@value": "0"
+                                        }
+                                    },
+                                    {
+                                        "@name": "na",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Not-applicable"
+                                        }
+                                    },
+                                    {
+                                        "@name": "ingress",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    },
+                                    {
+                                        "@name": "egress",
+                                        "value": {
+                                            "@value": "3"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "all"
+                            },
+                            "description": {
+                                "text": "Direction of the condition."
+                            }
+                        },
+                        {
+                            "@name": "location",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "all",
+                                        "value": {
+                                            "@value": "0"
+                                        }
+                                    },
+                                    {
+                                        "@name": "na",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Not-applicable"
+                                        }
+                                    },
+                                    {
+                                        "@name": "near-end",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    },
+                                    {
+                                        "@name": "far-end",
+                                        "value": {
+                                            "@value": "3"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "all"
+                            },
+                            "description": {
+                                "text": "Location of the condition."
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "list": {
+                        "@name": "condition",
+                        "key": {
+                            "@value": "alarm-id"
+                        },
+                        "uses": {
+                            "@name": "ioa-alarm:alarm-info"
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

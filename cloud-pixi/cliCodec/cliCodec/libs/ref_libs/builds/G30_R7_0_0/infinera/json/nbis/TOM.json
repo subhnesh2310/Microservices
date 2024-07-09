@@ -1,0 +1,212 @@
+{
+    "card_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Card identifier.",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "card_name"
+    },
+    "port_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Port name.",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "port_name"
+    },
+    "serdes_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Name of the advanced parameter.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "serdes_name"
+    },
+    "value": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Value of the advanced parameter.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "value"
+    },
+    "required_type": {
+        "type": {
+            "ptype": "str",
+            "identityref": "ioa-common:tom",
+            "values": [
+                "CFP2-DCO",
+                "SFP",
+                "SFPPLUS",
+                "QSFPPLUS",
+                "QSFP28",
+                "QSFPDD",
+                "QSFPDD-ZR"
+            ]
+        },
+        "description": "The type of the TOM.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "required_type"
+    },
+    "required_subtype": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The subtype of the TOM.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "required_subtype"
+    },
+    "phy_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "100GE",
+                "200GE",
+                "400GE",
+                "4x100GE",
+                "100G",
+                "4x10G",
+                "4x10GE",
+                "1GE",
+                "2G5",
+                "10G",
+                "10GE",
+                "2G5E",
+                "40GE",
+                "40G",
+                "4x100G",
+                "200G",
+                "155M",
+                "2x100GE",
+                "1G",
+                "4G",
+                "400G",
+                "2G",
+                "8G",
+                "16G",
+                "32G",
+                "622M",
+                "4x16G",
+                "4x8G",
+                "2x32G"
+            ]
+        },
+        "description": "Configured Phy Mode.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "phy_mode"
+    },
+    "power_class_override": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "enabled"
+            ]
+        },
+        "description": "Used to override the power class for 3rd party TOM.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "power_class_override"
+    },
+    "enable_serdes": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Controls enabling/disabling of configuring TOM SerDes.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "enable_serdes"
+    },
+    "alias_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "alias_name"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    }
+}

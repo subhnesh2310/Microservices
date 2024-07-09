@@ -1,0 +1,55 @@
+{
+    "rib_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The name of the RIB.",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "rib_name"
+    },
+    "destination_prefix": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "IP destination prefix.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "destination_prefix"
+    },
+    "vrf": {
+        "type": {
+            "ptype": "unknown",
+            "leafref": "../../vrf/name"
+        },
+        "description": "VRF to which this RIB is bound.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "vrf"
+    },
+    "address_family": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "ipv4-unicast",
+                "ipv6-unicast"
+            ]
+        },
+        "description": "Address family.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "ipv4-unicast",
+        "hardcode": false,
+        "argName": "address_family"
+    }
+}

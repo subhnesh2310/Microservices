@@ -1,0 +1,149 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/pm",
+    "get-pm": {
+        "input": [
+            {
+                "name": "data-type",
+                "type": "enum",
+                "values": [
+                    "current",
+                    "history",
+                    "real-time"
+                ],
+                "default": "real-time"
+            },
+            {
+                "name": "number-of-records",
+                "type": "int",
+                "default": 1000
+            },
+            {
+                "name": "skip-records",
+                "type": "int",
+                "default": 0
+            },
+            {
+                "name": "period",
+                "type": "str",
+                "when": {
+                    "@condition": "data-type != 'real-time'"
+                }
+            },
+            {
+                "name": "start-time",
+                "type": "str",
+                "when": {
+                    "@condition": "data-type = 'history'"
+                }
+            },
+            {
+                "name": "end-time",
+                "type": "str",
+                "when": {
+                    "@condition": "data-type = 'history'"
+                }
+            },
+            {
+                "name": "start-bin",
+                "type": "int",
+                "when": {
+                    "@condition": "data-type = 'history'"
+                }
+            },
+            {
+                "name": "end-bin",
+                "type": "int",
+                "when": {
+                    "@condition": "data-type = 'history'"
+                }
+            },
+            {
+                "name": "filter",
+                "type": "list",
+                "input": [
+                    {
+                        "name": "filter-id",
+                        "type": "int"
+                    },
+                    {
+                        "name": "resource",
+                        "type": "str"
+                    },
+                    {
+                        "name": "parameter",
+                        "type": "str"
+                    },
+                    {
+                        "name": "direction",
+                        "type": "enum",
+                        "values": [
+                            "all",
+                            "na",
+                            "ingress",
+                            "egress"
+                        ],
+                        "default": "all"
+                    },
+                    {
+                        "name": "location",
+                        "type": "enum",
+                        "values": [
+                            "all",
+                            "na",
+                            "near-end",
+                            "far-end"
+                        ],
+                        "default": "all"
+                    }
+                ]
+            }
+        ]
+    },
+    "clear-pm": {
+        "input": [
+            {
+                "name": "data-type",
+                "type": "enum",
+                "values": [
+                    "current",
+                    "history",
+                    "real-time"
+                ],
+                "mandatory": true
+            },
+            {
+                "name": "period",
+                "type": "str",
+                "when": {
+                    "@condition": "data-type != 'real-time'"
+                }
+            },
+            {
+                "name": "direction",
+                "type": "enum",
+                "values": [
+                    "all",
+                    "na",
+                    "ingress",
+                    "egress"
+                ],
+                "default": "all"
+            },
+            {
+                "name": "location",
+                "type": "enum",
+                "values": [
+                    "all",
+                    "na",
+                    "near-end",
+                    "far-end"
+                ],
+                "default": "all"
+            },
+            {
+                "name": "resource",
+                "type": "str"
+            }
+        ]
+    }
+}

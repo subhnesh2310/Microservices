@@ -1,0 +1,56 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "option": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "validate",
+                    "apply"
+                ]
+            },
+            "isList": false,
+            "description": "Predefined options available for prepare-upgrade",
+            "mandatory": true
+        },
+        "manifest": {
+            "type": {
+                "ptype": "unknown",
+                "leafref": "/ioa-ne:ne/ioa-ne:system/ioa-ne:sw-management/ioa-ne:downloads/ioa-ne:manifest/ioa-ne:manifest-file"
+            },
+            "isList": false,
+            "description": "manifest to be prepared for upgrade",
+            "mandatory": true
+        },
+        "ignore-precheck-failures": {
+            "type": {
+                "ptype": "bool"
+            },
+            "isList": false,
+            "description": "Ignore validation failures.",
+            "mandatory": false
+        },
+        "unattended": {
+            "type": {
+                "ptype": "bool"
+            },
+            "isList": false,
+            "description": "Auto activate software after prepare upgrade.",
+            "mandatory": false
+        },
+        "db-action": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "empty-db",
+                    "upgrade-db",
+                    "rollback"
+                ]
+            },
+            "isList": false,
+            "description": "Specify the expected database operation during activating software image.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

@@ -1,0 +1,78 @@
+{
+    "ne": {
+        "system": {
+            "networking": {
+                "rib": [
+                    {
+                        "rib-name": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "The name of the RIB.",
+                            "mandatory": true,
+                            "key": true,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "route": [
+                            {
+                                "destination-prefix": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "IP destination prefix.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "namespace": null
+                            }
+                        ],
+                        "vrf": {
+                            "type": {
+                                "ptype": "unknown",
+                                "leafref": "../../vrf/name"
+                            },
+                            "isList": false,
+                            "description": "VRF to which this RIB is bound.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "address-family": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "ipv4-unicast",
+                                    "ipv6-unicast"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Address family.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "ipv4-unicast",
+                            "hardcode": false,
+                            "namespace": null
+                        }
+                    }
+                ]
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

@@ -1,0 +1,132 @@
+module ioa-ots-r {
+    namespace "http://infinera.com/yang/ioa/ots-r";
+    prefix ioa-ots-r;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+    import ioa-l0 { prefix ioa-l0; }
+    import ioa-ots { prefix ioa-ots; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions for Optical Transmission Section Reduced (OTS-R) facilities.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+
+    grouping ots-r {
+
+        list ots-r {
+            key "name";
+            description "OTS: Optical Transmission Section facility.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf required-fiber-type-rx {
+                type ioa-l0:fiber-type;
+                default SSMF;
+                description
+                    "The required Fiber Type on the DWDM Line, with reference for the Rx fiber.
+                    Only of relevance if control-mode = auto.
+                    And: when there is no fiber-connection.
+                    ";
+            }
+
+            leaf configured-fiber-type-rx {
+                type ioa-l0:fiber-type;
+                config false;
+                description
+                    "The configured fiber-type-rx on EDFA.
+                    If control-mode = auto, it is simply the rx.required-fiber-type.
+                    ";
+            }
+
+            leaf fiber-length-rx {
+                type union {
+                    type enumeration {
+                        enum unspecified { value 2; description "For OTS (atomatic fiber-length configuration)"; }
+                    }
+                    type decimal64 {
+                        fraction-digits 3;
+                        range 0..500.0;
+                    }
+                }
+                units km;
+                default 'unspecified';
+                description "Receiving Fiber Length";
+            }
+
+            leaf configured-fiber-length-rx {
+                type ioa-ots:type-of-fiber-length;
+                config false;
+                description "The configured (receiving) fiber-length-rx on the amplifier.";
+            }
+
+            leaf span-loss-receive {
+                type ioa-l0:span-loss-info;
+                default 99;
+                description "The Span Loss at the receiving dwdm-line.";
+            }
+
+            leaf span-loss-at-amplifier {
+                when ". != 99" {
+                    description "Value is only exposed when meaningful.";
+                }
+                type ioa-l0:span-loss-info;
+                default 99;
+                config false;
+                description "The Span Loss detected at amplifier, when there is a fiber-connection from/ RPB to the amplifier.";
+            }
+
+            uses ioa-ots:external-attenuation-rx {
+                refine external-attenuation-rx {
+                    description
+                        "Loss between Patch panel and the Raman dwdm-line Rx.";
+                }
+            }
+
+            uses ioa-ots:span-loss-transmit;
+
+            leaf delta-pointloss {
+                type union {
+                    type enumeration {
+                        enum not-applicable { value 0; description "Not Applicable/ Not specified."; }
+                    }
+                    type decimal64 {
+                        fraction-digits 2;
+                        range -1..3.5;
+                    }
+                }
+                units "dB";
+                default 'not-applicable';
+                description
+                    "Delta Pointloss (Rx)
+                    Additional attenuation that can be determined after turning up pumps.
+                    This is the fiber contribution for the pointloss: to be fine tuned in the field.
+                    This additional optical attenuation may be due to e.g. bad splice at dwdm-line Rx, higher att. than 0.1 dB.
+                    ";
+            }
+
+            leaf power-actual-rx {
+                type ioa-l0:optical-power-actual;
+                config false;
+                description "Optical power received, where applicable.";
+            }
+
+            leaf connected-reference {
+                type uint8;
+                default 0;
+                config false;
+                description
+                    "Indicates the degree the Raman is connected to.
+                    In ILA node-type(s), the direction the Raman is connected to (1 means direction 1-2, 2 means 2-1).";
+            }
+        }
+    }
+}

@@ -1,0 +1,4019 @@
+{
+    "/alarmList": {
+        "get": {
+            "summary": "Retrieve list of raised alarms"
+        }
+    },
+    "/alarms": {
+        "get": {
+            "summary": "Retrieve list of alarm in the system"
+        }
+    },
+    "/alarms/{alarmId}": {
+        "parameters": {
+            "alarmId": {
+                "name": "alarmId",
+                "in": "path",
+                "description": "Index into the DFM alarm list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific dfm alarm data"
+        }
+    },
+    "/ietf-alarms:alarms/alarm-list": {
+        "get": {
+            "summary": "Returns ietf.alarms.alarms.alarmList"
+        }
+    },
+    "/ietf-alarms:alarms/alarm-list/alarm": {
+        "get": {
+            "summary": "Returns ietf.alarms.alarms.alarm"
+        }
+    },
+    "/subscriptions/events": {
+        "get": {
+            "summary": "Retrieve list of event subscriptions"
+        },
+        "post": {
+            "summary": "Create event Subscriptions",
+            "requestBody": {
+                "description": "Event subscription info",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/cm.eventSubscription.request"
+                            },
+                            "maxLength": 30
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/subscriptions/events/{subscriptionIdx}": {
+        "parameters": {
+            "subscriptionIdx": {
+                "name": "subscriptionIdx",
+                "in": "path",
+                "description": "Index into the Hosts list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific event subscription data"
+        },
+        "put": {
+            "summary": "Update event subscription data",
+            "requestBody": {
+                "description": "Event subscription data to be updated",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.eventSubscription.request"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "Delete event subscription"
+        }
+    },
+    "/subscriptions/alarms": {
+        "get": {
+            "summary": "Retrieve list of alarm subscriptions"
+        },
+        "post": {
+            "summary": "Create alarm Subscriptions",
+            "requestBody": {
+                "description": "Alarm subscription data",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/cm.alarmSubscription.request"
+                            },
+                            "maxLength": 30
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/subscriptions/alarms/{subscriptionIdx}": {
+        "parameters": {
+            "subscriptionIdx": {
+                "name": "subscriptionIdx",
+                "in": "path",
+                "description": "Index into the Hosts list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific alarm subscription data"
+        },
+        "put": {
+            "summary": "Update alarm subscription data",
+            "requestBody": {
+                "description": "Subscription data to be updated",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.alarmSubscription.request"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "Delete alarm subscription"
+        }
+    },
+    "/events/{subscriptionIdx}": {
+        "parameters": {
+            "subscriptionIdx": {
+                "name": "subscriptionIdx",
+                "in": "path",
+                "description": "Index into the Hosts list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        }
+    },
+    "/alarms/{subscriptionIdx}": {
+        "parameters": {
+            "subscriptionIdx": {
+                "name": "subscriptionIdx",
+                "in": "path",
+                "description": "Index into the Hosts list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        }
+    },
+    "/hosts": {
+        "get": {
+            "summary": "Retrieve list of all hosts"
+        },
+        "post": {
+            "summary": "Create hosts",
+            "requestBody": {
+                "description": "Host info",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/cm.host.create"
+                            },
+                            "maxLength": 30
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/hosts/{hostId}": {
+        "parameters": {
+            "hostId": {
+                "name": "hostId",
+                "in": "path",
+                "description": "Index into the Hosts list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific host data"
+        },
+        "put": {
+            "summary": "update host",
+            "requestBody": {
+                "description": "Update Host",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.host.update"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "delete specific host"
+        }
+    },
+    "/hosts/{hostId}/ports": {
+        "parameters": {
+            "hostId": {
+                "name": "hostId",
+                "in": "path",
+                "description": "Index into the Hosts list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve host' ports"
+        },
+        "post": {
+            "summary": "Create host ports",
+            "requestBody": {
+                "description": "Host ports info",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/cm.host.port.create"
+                            },
+                            "maxLength": 30
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/hosts/{hostId}/ports/{portIdx}": {
+        "parameters": {
+            "hostId": {
+                "name": "hostId",
+                "in": "path",
+                "description": "Index into the Hosts list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "portIdx": {
+                "name": "portIdx",
+                "in": "path",
+                "description": "Index into the Ports list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific host's port"
+        },
+        "put": {
+            "summary": "update hosts' Port",
+            "requestBody": {
+                "description": "Update Host Port",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.host.port.update"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "delete specific host port"
+        }
+    },
+    "/modules": {
+        "get": {
+            "summary": "Retrieve list of all modules"
+        }
+    },
+    "/modules/{moduleId}": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific module data"
+        },
+        "put": {
+            "summary": "Update module data",
+            "requestBody": {
+                "description": "Update Module",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.module.update"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "Delete specific module"
+        }
+    },
+    "/modules/{moduleId}/coldStart": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "post": {
+            "summary": "Cold Start operation",
+            "requestBody": {
+                "description": "Cold Start operation",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/modules/{moduleId}/warmStart": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "post": {
+            "summary": "Warm Start operation",
+            "requestBody": {
+                "description": "Warm Start operation",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/modules/{moduleId}/factoryReset": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "post": {
+            "summary": "Factory reset operation",
+            "requestBody": {
+                "description": "Factory reset operation",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/modules/{moduleId}/linePtps": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all module line ports"
+        }
+    },
+    "/modules/{moduleId}/linePtps/{linePtpColId}": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "linePtpColId": {
+                "name": "linePtpColId",
+                "in": "path",
+                "description": "Line port identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific module line port data"
+        }
+    },
+    "/modules/{moduleId}/ethernetClients": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all module client ethernet interfaces"
+        }
+    },
+    "/modules/{moduleId}/ethernetClients/{ethernetColId}": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "ethernetColId": {
+                "name": "ethernetColId",
+                "in": "path",
+                "description": "Ethernet client signal identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific client ethernet interface data"
+        },
+        "put": {
+            "summary": "Update module client ethernet interface data",
+            "requestBody": {
+                "description": "Update client ethernet interface",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.module.ethernetClient.update"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/modules/{moduleId}/ethernetClients/{ethernetColId}/clrLldpStats": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "ethernetColId": {
+                "name": "ethernetColId",
+                "in": "path",
+                "description": "Ethernet client signal identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Clear LLDP statistics operation",
+            "requestBody": {
+                "description": "Action to clear LLDP statistics.",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/modules/{moduleId}/ethernetClients/{ethernetColId}/flushLldpHostDb": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "ethernetColId": {
+                "name": "ethernetColId",
+                "in": "path",
+                "description": "Ethernet client signal identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Flush LLDP database operation",
+            "requestBody": {
+                "description": "Action to flush the learned LLDP host system information.",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/modules/{moduleId}/ethernetClients/{ethernetColId}/acs": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "ethernetColId": {
+                "name": "ethernetColId",
+                "in": "path",
+                "description": "Ethernet client signal identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all attachment circuits of a module client ethernet interface"
+        }
+    },
+    "/modules/{moduleId}/ethernetClients/{ethernetColId}/acs/{acColId}": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "ethernetColId": {
+                "name": "ethernetColId",
+                "in": "path",
+                "description": "Ethernet client signal identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "acColId": {
+                "name": "acColId",
+                "in": "path",
+                "description": "attachment circuit identifier within module client ethernet interface.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific client ethernet attachment circuit data"
+        }
+    },
+    "/modules/{moduleId}/localConnections": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all module localConnections"
+        }
+    },
+    "/modules/{moduleId}/localConnections/{lcColId}": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "lcColId": {
+                "name": "lcColId",
+                "in": "path",
+                "description": "local connection identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific module local connection data"
+        }
+    },
+    "/modules/{moduleId}/otus": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all module OTUs"
+        }
+    },
+    "/modules/{moduleId}/otus/{otuColId}": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "otuColId": {
+                "name": "otuColId",
+                "in": "path",
+                "description": "OTU signal identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific module OTU data"
+        },
+        "put": {
+            "summary": "Update module OTU data",
+            "requestBody": {
+                "description": "Update OTU",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.module.otu.update"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/modules/{moduleId}/otus/{otuColId}/odus": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "otuColId": {
+                "name": "otuColId",
+                "in": "path",
+                "description": "OTU signal identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all module ODUs"
+        }
+    },
+    "/modules/{moduleId}/otus/{otuColId}/odus/{oduColId}": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "otuColId": {
+                "name": "otuColId",
+                "in": "path",
+                "description": "OTU signal identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "oduColId": {
+                "name": "oduColId",
+                "in": "path",
+                "description": "ODU signal identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific module ODU data"
+        },
+        "put": {
+            "summary": "Update module ODU data",
+            "requestBody": {
+                "description": "Update ODU",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.module.otu.odu.update"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/modules/{moduleId}/linePtps/{linePtpColId}/carriers": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "linePtpColId": {
+                "name": "linePtpColId",
+                "in": "path",
+                "description": "Line port identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all module carriers"
+        }
+    },
+    "/modules/{moduleId}/linePtps/{linePtpColId}/carriers/{carrierColId}": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "linePtpColId": {
+                "name": "linePtpColId",
+                "in": "path",
+                "description": "Line port identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "carrierColId": {
+                "name": "carrierColId",
+                "in": "path",
+                "description": "Carrier identifier within module line port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific module carrier data"
+        },
+        "put": {
+            "summary": "Update module Carrier data",
+            "requestBody": {
+                "description": "Update Carrier",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.module.linePtp.carrier.update"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/modules/{moduleId}/linePtps/{linePtpColId}/carriers/{carrierColId}/dscgs": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "linePtpColId": {
+                "name": "linePtpColId",
+                "in": "path",
+                "description": "Line port identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "carrierColId": {
+                "name": "carrierColId",
+                "in": "path",
+                "description": "Carrier identifier within module line port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all module Dscgs"
+        }
+    },
+    "/modules/{moduleId}/linePtps/{linePtpColId}/carriers/{carrierColId}/dscgs/{dscgColId}": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "linePtpColId": {
+                "name": "linePtpColId",
+                "in": "path",
+                "description": "Line port identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "carrierColId": {
+                "name": "carrierColId",
+                "in": "path",
+                "description": "Carrier identifier within module line port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "dscgColId": {
+                "name": "dscgColId",
+                "in": "path",
+                "description": "DSCG identifier within module carrier.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific module dscg data"
+        }
+    },
+    "/modules/{moduleId}/linePtps/{linePtpColId}/carriers/{carrierColId}/dscs": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "linePtpColId": {
+                "name": "linePtpColId",
+                "in": "path",
+                "description": "Line port identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "carrierColId": {
+                "name": "carrierColId",
+                "in": "path",
+                "description": "Carrier identifier within module line port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all carrier dscs"
+        }
+    },
+    "/modules/{moduleId}/linePtps/{linePtpColId}/carriers/{carrierColId}/dscs/{dscColId}": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "linePtpColId": {
+                "name": "linePtpColId",
+                "in": "path",
+                "description": "Line port identifier within module.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "carrierColId": {
+                "name": "carrierColId",
+                "in": "path",
+                "description": "Carrier identifier within module line port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "dscColId": {
+                "name": "dscColId",
+                "in": "path",
+                "description": "DSC identifier within module carrier.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific carrier dsc data"
+        },
+        "put": {
+            "summary": "Update carrier DSC data",
+            "requestBody": {
+                "description": "Update carrier DSC",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.module.linePtp.carrier.dsc.update"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/modules/{moduleId}/resources/{resourceAid}": {
+        "parameters": {
+            "moduleId": {
+                "name": "moduleId",
+                "in": "path",
+                "description": "Module identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "resourceAid": {
+                "name": "resourceAid",
+                "in": "path",
+                "description": "resource access identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific resource data by AID"
+        }
+    },
+    "/network-connections": {
+        "get": {
+            "summary": "Retrieve list of all network connections"
+        },
+        "post": {
+            "summary": "Create network connections",
+            "requestBody": {
+                "description": "Network connection configuration data",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/cm.network-connection.create"
+                            },
+                            "maxLength": 30
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/network-connections/{ncId}": {
+        "parameters": {
+            "ncId": {
+                "name": "ncId",
+                "in": "path",
+                "description": "Connection identifier within the connection list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific network connection data"
+        },
+        "put": {
+            "summary": "Update specific network connection data",
+            "requestBody": {
+                "description": "Update connection",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.network-connection.update"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "Delete specific network connection"
+        }
+    },
+    "/network-connections/{ncId}/endpoints": {
+        "parameters": {
+            "ncId": {
+                "name": "ncId",
+                "in": "path",
+                "description": "Connection identifier within the connection list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve network connection endpoints"
+        },
+        "post": {
+            "summary": "Create network connection endpoints",
+            "requestBody": {
+                "description": "Connection endpoints info",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/cm.network-connection.endpoint.create"
+                            },
+                            "maxLength": 30
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/network-connections/{ncId}/endpoints/{epId}": {
+        "parameters": {
+            "ncId": {
+                "name": "ncId",
+                "in": "path",
+                "description": "Connection identifier within the connection list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "epId": {
+                "name": "epId",
+                "in": "path",
+                "description": "Endpoint identifier within the connection",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific endpoint data from a network connection"
+        },
+        "put": {
+            "summary": "Update specific network connection endpoint data",
+            "requestBody": {
+                "description": "Update connection endpoint",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.network-connection.endpoint.update"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "Delete specific network connection endpoint"
+        }
+    },
+    "/lcs": {
+        "get": {
+            "summary": "Retrieve list of all local connections with associated network connections information"
+        }
+    },
+    "/lcs/{lcId}": {
+        "parameters": {
+            "lcId": {
+                "name": "lcId",
+                "in": "path",
+                "description": "Local connection identifier within the connection scope",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific local connection data with associated network connections"
+        }
+    },
+    "/acs": {
+        "get": {
+            "summary": "Retrieve list of all attachment circuits with associated network connections information"
+        }
+    },
+    "/acs/{acId}": {
+        "parameters": {
+            "acId": {
+                "name": "acId",
+                "in": "path",
+                "description": "Attachment circuit identifier within the connection scope",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific attachment circuit data with associated network connections"
+        }
+    },
+    "/ndus": {
+        "get": {
+            "summary": "Retrieve list of all NDUs"
+        }
+    },
+    "/ndus/{nduId}": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU data"
+        },
+        "put": {
+            "summary": "update NDU data",
+            "requestBody": {
+                "description": "Update NDU",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.update"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "delete specific NDU"
+        }
+    },
+    "/ndus/{nduId}/fanUnit": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU fan unit data"
+        }
+    },
+    "/ndus/{nduId}/pem": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU PEM unit data"
+        }
+    },
+    "/ndus/{nduId}/leds": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU leds data"
+        }
+    },
+    "/ndus/{nduId}/coldStart": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "post": {
+            "summary": "NDU Cold Start operation",
+            "requestBody": {
+                "description": "Cold Start operation",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/warmStart": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "post": {
+            "summary": "NDU Warm Start operation",
+            "requestBody": {
+                "description": "Warm Start operation",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/factoryReset": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "post": {
+            "summary": "NDU Factory reset operation",
+            "requestBody": {
+                "description": "Factory reset operation",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/retry": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "post": {
+            "summary": "Retry operation for NDU configurations",
+            "requestBody": {
+                "description": "Retry operation for NDU configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/adopt": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "post": {
+            "summary": "Adopt operation for NDU configurations",
+            "requestBody": {
+                "description": "Adopt operation for NDU configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all NDU ports"
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU port data"
+        },
+        "put": {
+            "summary": "Update NDU port data",
+            "requestBody": {
+                "description": "Update NDU port",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.port.update"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/retry": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Retry operation for NDU port configurations",
+            "requestBody": {
+                "description": "Retry operation for NDU port configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/adopt": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Adopt operation for NDU port configurations",
+            "requestBody": {
+                "description": "Adopt operation for NDU port configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tom": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all NDU TOMs"
+        },
+        "post": {
+            "summary": "Create NDU TOM",
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.port.tom.config"
+                        }
+                    }
+                },
+                "required": true
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tom/{nduTomColId}": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduTomColId": {
+                "name": "nduTomColId",
+                "in": "path",
+                "description": "Tom identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU port TOM data"
+        },
+        "put": {
+            "summary": "Update NDU port TOM data",
+            "requestBody": {
+                "description": "Update NDU TOM",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.port.tom.update"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "Delete specific NDU port TOM"
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tom/{nduTomColId}/retry": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduTomColId": {
+                "name": "nduTomColId",
+                "in": "path",
+                "description": "Tom identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Retry operation for TOM configurations",
+            "requestBody": {
+                "description": "Retry operation for NDU TOM configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tom/{nduTomColId}/adopt": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduTomColId": {
+                "name": "nduTomColId",
+                "in": "path",
+                "description": "Tom identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Adopt operation for TOM configurations",
+            "requestBody": {
+                "description": "Adopt operation for NDU TOM configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/xr": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all NDU XR pluggable interfaces"
+        },
+        "post": {
+            "summary": "Create NDU XR",
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.port.xr.config"
+                        }
+                    }
+                },
+                "required": true
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/xr/{nduXrColId}": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduXrColId": {
+                "name": "nduXrColId",
+                "in": "path",
+                "description": "XR pluggable identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU port XR pluggable data"
+        },
+        "put": {
+            "summary": "Update NDU port XR pluggable data",
+            "requestBody": {
+                "description": "Update NDU XR pluggable",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.port.xr.update"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "Delete specific NDU port Xr pluggable interface"
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/xr/{nduXrColId}/coldStart": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduXrColId": {
+                "name": "nduXrColId",
+                "in": "path",
+                "description": "XR pluggable identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "NDU XR Cold Start operation",
+            "requestBody": {
+                "description": "Cold Start operation",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/xr/{nduXrColId}/warmStart": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduXrColId": {
+                "name": "nduXrColId",
+                "in": "path",
+                "description": "XR pluggable identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "NDU XR Warm Start operation",
+            "requestBody": {
+                "description": "Warm Start operation",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/xr/{nduXrColId}/factoryReset": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduXrColId": {
+                "name": "nduXrColId",
+                "in": "path",
+                "description": "XR pluggable identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "NDU XR Factory reset operation",
+            "requestBody": {
+                "description": "Factory reset operation",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/xr/{nduXrColId}/retry": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduXrColId": {
+                "name": "nduXrColId",
+                "in": "path",
+                "description": "XR pluggable identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Retry operation for NDU XR configurations",
+            "requestBody": {
+                "description": "Retry operation for NDU XR configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/xr/{nduXrColId}/adopt": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduXrColId": {
+                "name": "nduXrColId",
+                "in": "path",
+                "description": "XR pluggable identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Adopt operation for NDU XR configurations",
+            "requestBody": {
+                "description": "Adopt operation for NDU XR configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/edfa": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all NDU EDFAa"
+        },
+        "post": {
+            "summary": "Create NDU EDFA",
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.port.edfa.config"
+                        }
+                    }
+                },
+                "required": true
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/edfa/{nduEdfaColId}": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduEdfaColId": {
+                "name": "nduEdfaColId",
+                "in": "path",
+                "description": "Edfa identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU port EDFA data"
+        },
+        "put": {
+            "summary": "Update NDU port EDFA data",
+            "requestBody": {
+                "description": "Update NDU EDFA",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.port.edfa.update"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "Delete specific NDU port EDFA"
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/edfa/{nduEdfaColId}/retry": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduEdfaColId": {
+                "name": "nduEdfaColId",
+                "in": "path",
+                "description": "Edfa identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Retry operation for NDU EDFA configurations",
+            "requestBody": {
+                "description": "Retry operation for NDU EDFA configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/edfa/{nduEdfaColId}/adopt": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduEdfaColId": {
+                "name": "nduEdfaColId",
+                "in": "path",
+                "description": "Edfa identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Adopt operation for NDU EDFA configurations",
+            "requestBody": {
+                "description": "Adopt operation for NDU EDFA configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/voa": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all NDU VOAs"
+        },
+        "post": {
+            "summary": "Create NDU VOA",
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.port.voa.config"
+                        }
+                    }
+                },
+                "required": true
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/voa/{nduVoaColId}": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduVoaColId": {
+                "name": "nduVoaColId",
+                "in": "path",
+                "description": "VOA identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU port VOA data"
+        },
+        "put": {
+            "summary": "Update NDU port VOA data",
+            "requestBody": {
+                "description": "Update NDU VOA",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.port.voa.update"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "Delete specific NDU port VOA"
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/voa/{nduVoaColId}/retry": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduVoaColId": {
+                "name": "nduVoaColId",
+                "in": "path",
+                "description": "VOA identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Retry operation for NDU VOA configurations",
+            "requestBody": {
+                "description": "Retry operation for NDU VOA configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/voa/{nduVoaColId}/adopt": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduVoaColId": {
+                "name": "nduVoaColId",
+                "in": "path",
+                "description": "VOA identifier within NDU port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Adopt operation for NDU VOA configurations",
+            "requestBody": {
+                "description": "Adopt operation for NDU VOA configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of NDU line physical termination points"
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps/{nduLinePtpColId}": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduLinePtpColId": {
+                "name": "nduLinePtpColId",
+                "in": "path",
+                "description": "Line PTP identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU line physical termination point data"
+        },
+        "put": {
+            "summary": "Update NDU XR port line physical termination point data",
+            "requestBody": {
+                "description": "Update XR port line PTP",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.linePtp.update"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps/{nduLinePtpColId}/retry": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduLinePtpColId": {
+                "name": "nduLinePtpColId",
+                "in": "path",
+                "description": "Line PTP identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Retry operation for NDU port linePtp configurations",
+            "requestBody": {
+                "description": "Retry operation for NDU port line PTP configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps/{nduLinePtpColId}/adopt": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduLinePtpColId": {
+                "name": "nduLinePtpColId",
+                "in": "path",
+                "description": "Line PTP identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Adopt operation for NDU port linePtp configurations",
+            "requestBody": {
+                "description": "Adopt operation for NDU port line PTP configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/polPtps": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of NDU pluggable optical layer physical termination points"
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/polPtps/{nduPolPtpColId}": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduPolPtpColId": {
+                "name": "nduPolPtpColId",
+                "in": "path",
+                "description": "Pluggable optical layer PTP identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU pluggable optical layer physical termination point data"
+        },
+        "put": {
+            "summary": "Update NDU pluggable optical layer physical termination point data",
+            "requestBody": {
+                "description": "Update NDU optical port",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.polPtp.update"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/polPtps/{nduPolPtpColId}/retry": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduPolPtpColId": {
+                "name": "nduPolPtpColId",
+                "in": "path",
+                "description": "Pluggable optical layer PTP identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Retry operation for NDU port polPtp configurations",
+            "requestBody": {
+                "description": "Retry operation for NDU port POL PTP configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/polPtps/{nduPolPtpColId}/adopt": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduPolPtpColId": {
+                "name": "nduPolPtpColId",
+                "in": "path",
+                "description": "Pluggable optical layer PTP identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Adopt operation for NDU port polPtp configurations",
+            "requestBody": {
+                "description": "Adopt operation for NDU port POL PTP configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tribPtps": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of NDU port tributary physical termination points"
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tribPtps/{nduTribPtpColId}": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduTribPtpColId": {
+                "name": "nduTribPtpColId",
+                "in": "path",
+                "description": "Tributary PTP identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU port tributary physical termination point data"
+        },
+        "put": {
+            "summary": "Update NDU tributary port physical termination points data",
+            "requestBody": {
+                "description": "Update NDU tributary port",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.tribPtp.update"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tribPtps/{nduTribPtpColId}/retry": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduTribPtpColId": {
+                "name": "nduTribPtpColId",
+                "in": "path",
+                "description": "Tributary PTP identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Retry operation for NDU port tribPtp configurations",
+            "requestBody": {
+                "description": "Retry operation for NDU port tributary PTP configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tribPtps/{nduTribPtpColId}/adopt": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduTribPtpColId": {
+                "name": "nduTribPtpColId",
+                "in": "path",
+                "description": "Tributary PTP identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Adopt operation for NDU port tribPtp configurations",
+            "requestBody": {
+                "description": "Adopt operation for NDU port tributary PTP configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps/{nduLinePtpColId}/carrier": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduLinePtpColId": {
+                "name": "nduLinePtpColId",
+                "in": "path",
+                "description": "Line PTP identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all NDU line port carriers"
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps/{nduLinePtpColId}/carrier/{nduCarrierColId}": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduLinePtpColId": {
+                "name": "nduLinePtpColId",
+                "in": "path",
+                "description": "Line PTP identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduCarrierColId": {
+                "name": "nduCarrierColId",
+                "in": "path",
+                "description": "Carrier identifier within NDU line port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU line port carrier data"
+        },
+        "put": {
+            "summary": "Update NDU XR port carrier data",
+            "requestBody": {
+                "description": "Update XR port carrier",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.linePtp.carrier.update"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps/{nduLinePtpColId}/carrier/{nduCarrierColId}/retry": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduLinePtpColId": {
+                "name": "nduLinePtpColId",
+                "in": "path",
+                "description": "Line PTP identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduCarrierColId": {
+                "name": "nduCarrierColId",
+                "in": "path",
+                "description": "Carrier identifier within NDU line port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Retry operation for NDU carrier configurations",
+            "requestBody": {
+                "description": "Retry operation for NDU carrier configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps/{nduLinePtpColId}/carrier/{nduCarrierColId}/adopt": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduPortColId": {
+                "name": "nduPortColId",
+                "in": "path",
+                "description": "NDU port identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduLinePtpColId": {
+                "name": "nduLinePtpColId",
+                "in": "path",
+                "description": "Line PTP identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "nduCarrierColId": {
+                "name": "nduCarrierColId",
+                "in": "path",
+                "description": "Carrier identifier within NDU line port.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Adopt operation for NDU carrier configurations",
+            "requestBody": {
+                "description": "Adopt operation for NDU carrier configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/otus": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all NDU OTU clients"
+        }
+    },
+    "/ndus/{nduId}/otus/{nduOtuColId}": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduOtuColId": {
+                "name": "nduOtuColId",
+                "in": "path",
+                "description": "OTU signal identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU OTU data"
+        },
+        "put": {
+            "summary": "Update NDU OTU data",
+            "requestBody": {
+                "description": "Update NDU OTU",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.otu.update"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/otus/{nduOtuColId}/retry": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduOtuColId": {
+                "name": "nduOtuColId",
+                "in": "path",
+                "description": "OTU signal identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Retry operation for NDU OTU configurations",
+            "requestBody": {
+                "description": "Retry operation for NDU OTU configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/otus/{nduOtuColId}/adopt": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduOtuColId": {
+                "name": "nduOtuColId",
+                "in": "path",
+                "description": "OTU signal identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Adopt operation for NDU OTU configurations",
+            "requestBody": {
+                "description": "Adopt operation for NDU OTU configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ethernets": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all NDU ethernet clients"
+        }
+    },
+    "/ndus/{nduId}/ethernets/{nduEthernetColId}": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduEthernetColId": {
+                "name": "nduEthernetColId",
+                "in": "path",
+                "description": "Ethernet client signal identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU ethernet client data"
+        },
+        "put": {
+            "summary": "Update NDU Ethernet client data",
+            "requestBody": {
+                "description": "Update NDU Ethernet client",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.ndu.ethernet.update"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ethernets/{nduEthernetColId}/retry": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduEthernetColId": {
+                "name": "nduEthernetColId",
+                "in": "path",
+                "description": "Ethernet client signal identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Retry operation for NDU ethernet configurations",
+            "requestBody": {
+                "description": "Retry operation for NDU ethernet configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/ethernets/{nduEthernetColId}/adopt": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduEthernetColId": {
+                "name": "nduEthernetColId",
+                "in": "path",
+                "description": "Ethernet client signal identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "post": {
+            "summary": "Adopt operation for NDU ethernet configurations",
+            "requestBody": {
+                "description": "Adopt operation for NDU ethernet configurations",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/ndus/{nduId}/lcs": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all NDU lcs"
+        }
+    },
+    "/ndus/{nduId}/lcs/{nduLcColId}": {
+        "parameters": {
+            "nduId": {
+                "name": "nduId",
+                "in": "path",
+                "description": "NDU identifier.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nduLcColId": {
+                "name": "nduLcColId",
+                "in": "path",
+                "description": "Local connection identifier within NDU.",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific NDU lc data"
+        }
+    },
+    "/xr-networks": {
+        "get": {
+            "summary": "Retrieve list of all xr-network objects"
+        },
+        "post": {
+            "summary": "Create xr-network",
+            "requestBody": {
+                "description": "Constellation info",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/cm.xr-network.createRequest"
+                            },
+                            "maxLength": 30
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/xr-networks/{networkId}": {
+        "parameters": {
+            "networkId": {
+                "name": "networkId",
+                "in": "path",
+                "description": "Index into the xr-network list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific xr-network data"
+        },
+        "put": {
+            "summary": "Update xr-network",
+            "requestBody": {
+                "description": "Update xr-network",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.xr-network.update"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "delete specific xr-network"
+        }
+    },
+    "/xr-networks/{networkId}/hubModule": {
+        "parameters": {
+            "networkId": {
+                "name": "networkId",
+                "in": "path",
+                "description": "Index into the xr-network list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve xr-network hub info"
+        },
+        "put": {
+            "summary": "Update hub module constellation parameters",
+            "requestBody": {
+                "description": "Update hub module constellation parameters",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.xr-network.node.update"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/xr-networks/{networkId}/leafModules": {
+        "parameters": {
+            "networkId": {
+                "name": "networkId",
+                "in": "path",
+                "description": "Index into the xr-network list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve xr-network leaf modules"
+        },
+        "post": {
+            "summary": "Add xr-network leaf modules",
+            "requestBody": {
+                "description": "Constellation leaf module info",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/cm.xr-network.node.create"
+                            },
+                            "maxLength": 30
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/xr-networks/{networkId}/leafModules/{nodeId}": {
+        "parameters": {
+            "networkId": {
+                "name": "networkId",
+                "in": "path",
+                "description": "Index into the xr-network list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nodeId": {
+                "name": "nodeId",
+                "in": "path",
+                "description": "Index of leaf module into xr-network list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific xr-network leaf module data"
+        },
+        "put": {
+            "summary": "Update leaf module constellation parameters",
+            "requestBody": {
+                "description": "Update leaf module constellation parameters",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.xr-network.node.update"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "delete specific xr-network leaf module"
+        }
+    },
+    "/xr-networks/{networkId}/reachableModules": {
+        "parameters": {
+            "networkId": {
+                "name": "networkId",
+                "in": "path",
+                "description": "Index into the xr-network list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve xr-network reachableModules"
+        }
+    },
+    "/xr-networks/{networkId}/reachableModules/{nodeId}": {
+        "parameters": {
+            "networkId": {
+                "name": "networkId",
+                "in": "path",
+                "description": "Index into the xr-network list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "nodeId": {
+                "name": "nodeId",
+                "in": "path",
+                "description": "Index of leaf module into xr-network list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific xr-network reachableModule data"
+        }
+    },
+    "/sw/actions": {
+        "get": {
+            "summary": "Retrieve list of software control action objects"
+        },
+        "post": {
+            "summary": "Create software control actions",
+            "requestBody": {
+                "description": "Software control actions",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/cm.sw.action.create"
+                            },
+                            "maxLength": 1
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/sw/actions/{actionId}": {
+        "parameters": {
+            "actionId": {
+                "name": "actionId",
+                "in": "path",
+                "description": "Software control action identifier within the sw action list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific software control action data"
+        }
+    },
+    "/sw/moduleActions/": {
+        "get": {
+            "summary": "Retrieve list of module software control actions of an action request"
+        }
+    },
+    "/sw/moduleActions/{moduleActionId}": {
+        "parameters": {
+            "moduleActionId": {
+                "name": "moduleActionId",
+                "in": "path",
+                "description": "Software control action identifier within the module sw action list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific module software control action data"
+        }
+    },
+    "/sw/inventory/ctrl": {
+        "get": {
+            "summary": "Retrieve list of all XR module SW images"
+        }
+    },
+    "/sw/inventory/device/{deviceId}/ctrl": {
+        "parameters": {
+            "deviceId": {
+                "name": "deviceId",
+                "in": "path",
+                "description": "Device identifier (XR pluggable module or NDU).",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific software control object data"
+        }
+    },
+    "/sw/inventory/device/{deviceId}/swBanks": {
+        "parameters": {
+            "deviceId": {
+                "name": "deviceId",
+                "in": "path",
+                "description": "Device identifier (XR pluggable module or NDU).",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve list of all software banks in a XR pluggable module or ndu device"
+        }
+    },
+    "/sw/inventory/device/{deviceId}/swBanks/{swBankColId}": {
+        "parameters": {
+            "deviceId": {
+                "name": "deviceId",
+                "in": "path",
+                "description": "Device identifier (XR pluggable module or NDU).",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "swBankColId": {
+                "name": "swBankColId",
+                "in": "path",
+                "description": "Software bank identifier within module.\n- '1': Refers to Bank A\n- '2': Refers to Bank B\n",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific software bank data"
+        }
+    },
+    "/transport-capacities": {
+        "get": {
+            "summary": "Retrieve list of all transport-capacity services"
+        },
+        "post": {
+            "summary": "Create transport-capacity services",
+            "requestBody": {
+                "description": "transport-capacity configuration data",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/cm.transport-capacity.createRequest"
+                            },
+                            "maxLength": 30
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/transport-capacities/{tcId}": {
+        "parameters": {
+            "tcId": {
+                "name": "tcId",
+                "in": "path",
+                "description": "Index into the transport-connection list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific transport-capacity data"
+        },
+        "put": {
+            "summary": "Update specific transport-capacity data",
+            "requestBody": {
+                "description": "Update transport-capacity",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.transport-capacity.update"
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "Delete specific transport-capacity"
+        }
+    },
+    "/transport-capacities/{tcId}/endpoints": {
+        "parameters": {
+            "tcId": {
+                "name": "tcId",
+                "in": "path",
+                "description": "Index into the transport-connection list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve transport-capacity connection endpoints"
+        }
+    },
+    "/transport-capacities/{tcId}/endpoints/{epId}": {
+        "parameters": {
+            "tcId": {
+                "name": "tcId",
+                "in": "path",
+                "description": "Index into the transport-connection list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            },
+            "epId": {
+                "name": "epId",
+                "in": "path",
+                "description": "Endpoint identifier within the transport-connection",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific endpoint data from a transport-capacity connection"
+        },
+        "put": {
+            "summary": "Update specific transport-capacity connection endpoint data",
+            "requestBody": {
+                "description": "Update transport-capacity endpoint",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cm.transport-capacity.endpoint.update"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/capacity-links": {
+        "get": {
+            "summary": "Retrieve list of all capacity-links"
+        }
+    },
+    "/capacity-links/{clId}": {
+        "parameters": {
+            "clId": {
+                "name": "clId",
+                "in": "path",
+                "description": "Index into the capacity-link list",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+                }
+            }
+        },
+        "get": {
+            "summary": "Retrieve specific capacity-link data"
+        }
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/alarm",
+    "inputs": {
+        "state": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "none",
+                    "ack",
+                    "closed"
+                ]
+            },
+            "isList": false,
+            "description": "Alarm state.",
+            "mandatory": true
+        },
+        "acknowledge-text": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Optional text that will be stored in the alarm.",
+            "mandatory": false
+        },
+        "all-alarms": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": true,
+            "description": "Acknowledge all currently raised alarms.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

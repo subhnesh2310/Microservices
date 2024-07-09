@@ -1,0 +1,306 @@
+module ioa-otn-common {
+    namespace "http://infinera.com/yang/ioa/otn-common";
+    prefix ioa-otn;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions defining custom data types for OTN facilities in a typical Layer 1 optical transponder.";
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    // Typedefs
+
+    typedef odu-type {
+        type enumeration {
+            enum ODUCn    { value 1; description "OTUCn protocol layer."; }
+            enum ODUCni   { value 2; description "Infinera proprietary OTUCni protocol layer."; }
+            enum ODUCni-M { value 3; description "Infinera proprietary OTUCni protocol layer."; }
+            enum ODU4     { value 4; description "ODU4 protocol layer."; }
+            enum ODU4i    { value 5; description "Infinera proprietary ODU4i protocol layer."; }
+            enum ODUflexi { value 6; description "Infinera proprietary ODUflexi protocol layer."; }
+            enum ODUflex  { value 7; description "ODU-flex protocol layer."; }
+            enum ODU0     { value 8; description "ODU0 protocol layer."; }
+            enum ODU1     { value 9; description "ODU1 protocol layer."; }
+            enum ODU2     { value 10; description "ODU2 protocol layer."; }
+            enum ODU2e    { value 11; description "ODU2e protocol layer."; }
+        }
+        description "A custom data type for ODUk/ODUCn clients.";
+    }
+
+    typedef otu-type {
+        type enumeration {
+            enum OTUCn    { value 1; description "OTUCn protocol layer."; }
+            enum OTUCni   { value 2; description "Infinera proprietary OTUCni protocol layer."; }
+            enum OTUCni-M { value 3; description "Infinera proprietary OTUCni protocol layer."; }
+            enum OTU4     { value 4; description "OTU4 protocol layer."; }
+            enum OTU2     { value 5; description "OTU2 protocol layer."; }
+            enum OTU2e    { value 6; description "OTU2e protocol layer."; }
+        }
+        description "The protocol type of the OTUk/OTUCn client.";
+        reference "Section 7.4 in ITU-T G.875 (12/2018) and ITU-T G.709";
+    }    
+
+    typedef monitoring-mode {
+        type enumeration {
+            enum unused { value 10; }
+            enum intrusive { value 20; }
+            enum non-intrusive { value 30; }
+            enum limited-non-intrusive { value 40; }
+        }
+        description "Possible modes for monitoring in OTN entities.";        
+    }
+
+    typedef rate {
+        type decimal64 {
+            fraction-digits 3;
+        }             
+        units "Gbit/s";
+        description "Rate of a OTN facilities in GBit/s.";
+    }
+    
+    typedef payload-type {
+        type string {
+            pattern '(0x(([0-9A-Fa-f])([0-9A-Fa-f]))*)?';
+        }
+        description "Hex string with '0x' prefix.";
+    }
+    
+    // Groupings
+
+    grouping tti-itu {
+        description "Collection of TTI attributes when the TTI style is configured to be ITU-T G.709 style.";
+        reference "Section 15.2 in ITU-T-G709 (June 2016).";
+
+        leaf expected-sapi {
+            type ioa-fac-common:tti-15;
+            default "";
+            description "The expected SAPI (Source Access Point Identifier).";
+        }
+        
+        leaf expected-dapi {
+            type ioa-fac-common:tti-15;
+            default "";
+            description "The expected DAPI (Destination Access Point Identifier).";
+        }
+
+        leaf expected-operator {
+            type ioa-fac-common:tti-32;
+            default "";
+            description "The expected operator specific bytes.";
+        }
+
+       leaf tx-sapi {
+            type ioa-fac-common:tti-15;
+            default "";
+            description "The transmitted SAPI bytes.";
+        }
+
+        leaf tx-dapi {
+            type ioa-fac-common:tti-15;
+            default "";
+            description "The transmitted DAPI bytes.";
+        }
+
+        leaf tx-operator {
+            type ioa-fac-common:tti-32;
+            description "The transmitted operator specific bytes.";
+        }
+        
+        leaf rx-sapi {
+            type ioa-fac-common:trail-trace-identifier-ascii { length "0..15"; }
+            config false;
+            description "The received SAPI bytes as an ASCII string; will not be available if bytes cannot be encoded as a printable string.";
+        }
+
+        leaf rx-sapi-hex {
+            type ioa-fac-common:trail-trace-identifier-hex { length "0..32"; }
+            config false;
+            description "Received SAPI in HEX.";
+        }
+        
+        leaf rx-dapi {
+            type ioa-fac-common:trail-trace-identifier-ascii { length "0..15"; }
+            config false;
+            description "The received DAPI bytes as an ASCII string; will not be available if bytes cannot be encoded as a printable string.";
+        }
+
+        leaf rx-dapi-hex {
+            type ioa-fac-common:trail-trace-identifier-hex { length "0..32"; }
+            config false;
+            description "Received DAPI in HEX.";
+        }
+        
+        leaf rx-operator {
+            type ioa-fac-common:trail-trace-identifier-ascii { length "0..32"; }
+            config false;
+            description "The received operation specific bytes as an ASCII string; will not be available if bytes cannot be encoded as a printable string.";
+        }
+
+        leaf rx-operator-hex {
+            type ioa-fac-common:trail-trace-identifier-hex { length "0..66"; }
+            config false;
+            description "Received operator in HEX.";
+        }
+    }
+
+    grouping msi {
+        leaf rx-msi {
+            type string { length 0..512; }
+            config false;
+            description "Received and accepted MSI values (up to 80), including a valid/invalid indication 
+                        (valid if acceptance process successful, invalid if not; when invalid the last accepted MSI set is shown).";
+        }
+
+        leaf rx-msi-hex {
+            type string { length 0..512; }
+            config false;
+            description "Received and accepted MSI hex values (up to 80) (if acceptance process was not successful the last accepted MSI set is shown).";
+       }
+
+        leaf expected-msi {
+            type string { length 0..512; }
+            config false;
+            description "Expected MSI values (up to 80). For format see rx-msi without valid/invalid flag.
+                         User-friendly representation of expected-msi-hex.";           
+        }
+
+        leaf expected-msi-hex {
+            type string { length 0..512; }
+            config false;
+            description "Expected MSI hex values (up to 80).";    
+        }
+    }
+
+    grouping odu-mux-info{
+
+        leaf accepted-trib-port-number {
+            type ioa-common:number-list {
+                length "0..255";
+            }
+            config false;
+            description "Received and accepted Tributary Port Number for the LO-ODU entity.";
+        }
+        
+        leaf expected-trib-port-number {
+            type uint8{
+                range "1..max";
+            }
+            description "Expected Tributary Port Number for the LO-ODU entity.";
+        }
+
+        leaf accepted-time-slots {
+            type ioa-common:number-list {
+                length "0..255";
+            }
+            config false;
+            description "Received and accepted TS for the LO-ODU entity.";
+        }
+
+        leaf expected-time-slots {
+            type ioa-common:number-list {
+                length "0..255";
+            }
+            description "Expected TS for the LO-ODU entity.";
+        }
+
+        uses msi;
+    }    
+
+    grouping otn-diagnostics {
+        description "Set of attributes associated with OTU/ODU diagnostics.";
+
+        leaf monitoring-mode {
+            type monitoring-mode;
+            default intrusive;
+            description "The monitoring mode on the ODU/OTU client.";
+        }
+
+        leaf tti-style {
+            type enumeration {
+                enum ITU-T-G709 { value 10; description "TTI is split into SAPI, DAPI and OPER bytes."; }
+                enum proprietary { value 20; description "TTI is a single 64 byte string."; }
+            }
+            default "ITU-T-G709";
+            description "The configured mode of the TTI for this OTU/ODU client.";
+        }
+
+        leaf tti-mismatch-alarm-reporting {
+            type enumeration {
+                enum disabled { value 0; description "No TTI match checking"; }
+                enum full-64-bytes { value 1; description "Compares entire TTI 64 bytes (proprietary style)"; }
+                enum SAPI { value 2; description "Comparing SAPI only (ITU style)"; }
+                enum DAPI { value 3; description "Comparing DAPI only (ITU style)"; }
+                enum OPER { value 4; description "Comparing Operator Specific only (ITU style)"; }
+                enum SAPI_DAPI { value 5; description "Comparing SAPI + DAPI (ITU style)"; }
+                enum SAPI_OPER { value 6; description "Comparing SAPI + OPER (ITU style)"; }
+                enum DAPI_OPER { value 7; description "Comparing DAPI + OPER (ITU style)"; }
+                enum SAPI_DAPI_OPER { value 8; description "Comparing SAPI + DAPI + OPER (ITU style)"; }
+            }            
+            default disabled;
+            description "Indicates if TTI-Mismatch (TIM) alarm is reported or masked.
+                         If it is to be reported, indicates the criteria based on with the TIM alarm is reported.";
+        }
+
+        uses ioa-fac-common:tti-common {
+            when "tti-style = 'proprietary'";
+        }
+
+        uses tti-itu {
+            when "tti-style = 'ITU-T-G709'";
+        }
+        
+        leaf tim-act-enabled {
+            type ioa-common:enable-switch;
+            default disabled;
+            description "Support configurable TIM action which decide if insert maintenance signal per TIM: enable or disable, default disable";
+        }
+    }    
+
+    grouping otn-degrade {
+
+        leaf degrade-interval {
+            type uint8 { range 2..10; }
+            units seconds;
+            default 7;
+            description "The consecutive number of 1s intervals with the number of detected block errors exceeding the block error 
+                         threshold for each of those seconds for the purposes of SDBER detection.";
+        }
+
+        leaf degrade-threshold {
+            type ioa-common:percent;
+            default 30;
+            description "The threshold in percentage of block errors versus total blocks at which a degrade-interval number of seconds
+                         will be considered degraded for the purposes of SDBER detection.";
+        }
+    }
+
+    grouping time-slots {
+        leaf time-slots {
+            type ioa-common:number-list {
+                length "0..255";
+            }
+            description "Time slots of the ODU.";
+        }
+    }
+    
+    grouping opucn-time-slots {
+        leaf opucn-time-slots {
+            type ioa-common:decimal-list {
+                length "0..500";
+            }
+            description "Opucn Time slots of the ODUCn.";
+        }
+    }    
+}

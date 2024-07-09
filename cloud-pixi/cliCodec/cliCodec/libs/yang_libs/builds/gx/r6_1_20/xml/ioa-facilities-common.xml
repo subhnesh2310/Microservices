@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-facilities-common"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-fac-common="http://infinera.com/yang/ioa/facilities-common"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-opt="http://infinera.com/yang/ioa/optical-common">
+  <namespace uri="http://infinera.com/yang/ioa/facilities-common"/>
+  <prefix value="ioa-fac-common"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-optical-common">
+    <prefix value="ioa-opt"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module containing common types and identities that are applicable to a
+variety of logical interfaces (also called 'facilities') that are supported in a
+transport network element. The interfaces could be Layer 1 (digital) or Layer 0 (optical) interfaces.</text>
+  </description>
+  <revision date="2023-03-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.1</text>
+    </description>
+  </revision>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <typedef name="ains-signal-time-interval">
+    <type name="uint16">
+      <range value="0..7200"/>
+    </type>
+    <units name="minutes"/>
+    <description>
+      <text>A custom data type that indicates the AINS valid signal time interval type.</text>
+    </description>
+  </typedef>
+  <typedef name="disable-action">
+    <type name="enumeration">
+      <enum name="laser-shut-off">
+        <value value="10"/>
+      </enum>
+      <enum name="send-idles">
+        <value value="20"/>
+      </enum>
+      <enum name="send-lf">
+        <value value="30"/>
+      </enum>
+      <enum name="send-ais-l">
+        <value value="40"/>
+      </enum>
+      <enum name="odu-ais">
+        <value value="50"/>
+      </enum>
+      <enum name="none">
+        <value value="60"/>
+      </enum>
+      <enum name="send-gais">
+        <value value="70"/>
+      </enum>
+      <enum name="send-ms-ais">
+        <value value="80"/>
+      </enum>
+      <enum name="e-code">
+        <value value="90"/>
+      </enum>
+      <enum name="send-nos">
+        <value value="100"/>
+      </enum>
+    </type>
+    <description>
+      <text>Disable Action indicates what action the NE performs towards the client equipment.</text>
+    </description>
+  </typedef>
+  <typedef name="rate">
+    <type name="decimal64">
+      <fraction-digits value="3"/>
+    </type>
+    <units name="Gbit/s"/>
+    <description>
+      <text>Rate of facilities in GBit/s.</text>
+    </description>
+  </typedef>
+  <typedef name="modulation-format">
+    <type name="enumeration">
+      <enum name="not-applicable">
+        <value value="0"/>
+      </enum>
+      <enum name="DP-QPSK">
+        <value value="1"/>
+      </enum>
+      <enum name="DP-16QAM">
+        <value value="2"/>
+      </enum>
+      <enum name="DP-8QAM">
+        <value value="3"/>
+      </enum>
+      <enum name="BPSK">
+        <value value="4"/>
+      </enum>
+      <enum name="DP-16QAM-E">
+        <value value="5"/>
+      </enum>
+      <enum name="DP-16QAM-PS">
+        <value value="6"/>
+      </enum>
+    </type>
+    <description>
+      <text>
+Current modulation format
+</text>
+    </description>
+  </typedef>
+  <typedef name="fec-type">
+    <type name="enumeration">
+      <enum name="cfec">
+        <value value="1"/>
+      </enum>
+      <enum name="ofec">
+        <value value="2"/>
+      </enum>
+      <enum name="G709">
+        <value value="3"/>
+      </enum>
+      <enum name="noFEC">
+        <value value="4"/>
+      </enum>
+      <enum name="i4">
+        <value value="5"/>
+        <description>
+          <text>EFEC-I4</text>
+        </description>
+      </enum>
+      <enum name="i7">
+        <value value="6"/>
+        <description>
+          <text>EFEC-I7</text>
+        </description>
+      </enum>
+      <enum name="sdfec15">
+        <value value="7"/>
+        <description>
+          <text>15% SDFEC-Differential</text>
+        </description>
+      </enum>
+      <enum name="sdfec15nd">
+        <value value="8"/>
+        <description>
+          <text>15% SDFEC-Non-Differential</text>
+        </description>
+      </enum>
+      <enum name="staircase7">
+        <value value="9"/>
+        <description>
+          <text>7% HDFEC Staircase</text>
+        </description>
+      </enum>
+      <enum name="ufec7">
+        <value value="10"/>
+        <description>
+          <text>7% UFEC</text>
+        </description>
+      </enum>
+      <enum name="sdfec20">
+        <value value="11"/>
+        <description>
+          <text>20% SD-FEC</text>
+        </description>
+      </enum>
+      <enum name="RS-528_514">
+        <value value="12"/>
+        <description>
+          <text>100GbE fec-type</text>
+        </description>
+      </enum>
+      <enum name="RS-544_514">
+        <value value="13"/>
+        <description>
+          <text>100/200/400GbE fec-type</text>
+        </description>
+      </enum>
+    </type>
+    <default value="noFEC"/>
+    <description>
+      <text>The FEC type</text>
+    </description>
+  </typedef>
+  <typedef name="mapping-mode">
+    <type name="enumeration">
+      <enum name="GMP">
+        <value value="1"/>
+        <description>
+          <text>Generic Mapping Procedure</text>
+        </description>
+      </enum>
+      <enum name="BMP">
+        <value value="2"/>
+        <description>
+          <text>BMP mapping</text>
+        </description>
+      </enum>
+      <enum name="openZR+">
+        <value value="3"/>
+        <description>
+          <text>mapping mode for ZR</text>
+        </description>
+      </enum>
+      <enum name="FlexE-4x100G">
+        <value value="4"/>
+        <description>
+          <text>FlexE-4x100G for split lamda feature</text>
+        </description>
+      </enum>
+      <enum name="GFP-F">
+        <value value="5"/>
+        <description>
+          <text>GFP-F</text>
+        </description>
+      </enum>
+      <enum name="GFP-F-extOPU2">
+        <value value="6"/>
+        <description>
+          <text>GFP-F-extOPU2</text>
+        </description>
+      </enum>
+      <enum name="AMP">
+        <value value="7"/>
+        <description>
+          <text>AMP</text>
+        </description>
+      </enum>
+    </type>
+    <default value="GMP"/>
+    <description>
+      <text>The tx mapping mode of client port. The possible values are dependent on the HW and configuration.</text>
+    </description>
+  </typedef>
+  <typedef name="direction">
+    <type name="enumeration">
+      <enum name="ingress">
+        <value value="1"/>
+      </enum>
+      <enum name="egress">
+        <value value="2"/>
+      </enum>
+    </type>
+    <description>
+      <text>Direction related with test signal and diagnostics.</text>
+    </description>
+  </typedef>
+  <typedef name="prbs-direction">
+    <type name="enumeration">
+      <enum name="ingress">
+        <value value="1"/>
+      </enum>
+      <enum name="egress">
+        <value value="2"/>
+      </enum>
+      <enum name="both">
+        <value value="3"/>
+      </enum>
+    </type>
+    <description>
+      <text>Direction related with Ethernet test signal.</text>
+    </description>
+  </typedef>
+  <typedef name="trail-trace-identifier-hex">
+    <type name="string">
+      <pattern value="(0x(([0-9A-Fa-f])([0-9A-Fa-f]))*)?"/>
+    </type>
+    <description>
+      <text>Hex string with '0x' prefix.</text>
+    </description>
+  </typedef>
+  <typedef name="trail-trace-identifier-ascii">
+    <type name="string">
+      <pattern value="[ -~]*"/>
+    </type>
+    <description>
+      <text>Restrict this to printable ASCII characters.</text>
+    </description>
+  </typedef>
+  <typedef name="tti-15">
+    <type name="union">
+      <type name="trail-trace-identifier-hex">
+        <length value="0..32"/>
+      </type>
+      <type name="trail-trace-identifier-ascii">
+        <length value="0..15"/>
+      </type>
+    </type>
+    <description>
+      <text>Hex string starting with '0x' or printable ASCII string with size 15.</text>
+    </description>
+  </typedef>
+  <typedef name="tti-32">
+    <type name="union">
+      <type name="trail-trace-identifier-hex">
+        <length value="0..66"/>
+      </type>
+      <type name="trail-trace-identifier-ascii">
+        <length value="0..32"/>
+      </type>
+    </type>
+    <description>
+      <text>Hex string starting with '0x' or printable ASCII string with size 32.</text>
+    </description>
+  </typedef>
+  <typedef name="tti-64">
+    <type name="union">
+      <type name="trail-trace-identifier-hex">
+        <length value="0..130"/>
+      </type>
+      <type name="trail-trace-identifier-ascii">
+        <length value="0..64"/>
+      </type>
+    </type>
+    <description>
+      <text>Hex string starting with '0x' or printable ASCII string with size 64.</text>
+    </description>
+  </typedef>
+  <typedef name="loopback-type">
+    <type name="enumeration">
+      <enum name="none">
+        <value value="10"/>
+        <description>
+          <text>No loopback.</text>
+        </description>
+      </enum>
+      <enum name="facility">
+        <value value="20"/>
+        <description>
+          <text>Facility loopback.</text>
+        </description>
+      </enum>
+      <enum name="terminal">
+        <value value="30"/>
+        <description>
+          <text>Terminal loopback.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Loopback type. Useful to debug on the fiber connection.</text>
+    </description>
+  </typedef>
+  <typedef name="service-mode">
+    <type name="enumeration">
+      <enum name="none">
+        <value value="10"/>
+      </enum>
+      <enum name="network-wrapper">
+        <value value="20"/>
+        <description>
+          <text>Map non-OTN signal into ODUs.</text>
+        </description>
+      </enum>
+      <enum name="adaptation">
+        <value value="30"/>
+        <description>
+          <text>Multiplexing scenarios.</text>
+        </description>
+      </enum>
+      <enum name="switching">
+        <value value="40"/>
+        <description>
+          <text>Map OTN signal (e.g. OTU) into ODUs.</text>
+        </description>
+      </enum>
+      <enum name="transport">
+        <value value="50"/>
+        <description>
+          <text>Transport OTN signal (e.g. OTU) into line side ODUs.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>A custom type for legacy Infinera SM attribute.</text>
+    </description>
+    <reference>
+      <text>Infinera OTN Virtualization System Requirements Document (SRD).</text>
+    </reference>
+  </typedef>
+  <typedef name="service-mode-qualifier">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="none">
+          <value value="10"/>
+        </enum>
+        <enum name="mux-demux">
+          <value value="20"/>
+        </enum>
+        <enum name="nofec">
+          <value value="30"/>
+        </enum>
+      </type>
+      <type name="string">
+        <length value="0..32"/>
+      </type>
+    </type>
+    <description>
+      <text>A custom type for legacy Infinera SMQ attribute; string here represents the upper-layer protocol (e.g. ODUC4i).</text>
+    </description>
+    <reference>
+      <text>Infinera OTN Virtualization System Requirements Document (SRD).</text>
+    </reference>
+  </typedef>
+  <grouping name="facilities-common-attributes">
+    <description>
+      <text>Common attributes that are applicable to all facility types.</text>
+    </description>
+    <leaf name="name">
+      <type name="ioa-common:object-name"/>
+      <description>
+        <text>A generic, configurable name for every facility.</text>
+      </description>
+    </leaf>
+    <leaf name="supporting-card">
+      <type name="leafref">
+        <path value="../../../equipment/card/name"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Card that holds this facility</text>
+      </description>
+    </leaf>
+    <leaf-list name="supporting-port">
+      <type name="leafref">
+        <path value="../../../equipment/card/port/name"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Ports that hold this facility</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="supporting-facilities">
+      <type name="instance-identifier"/>
+      <config value="false"/>
+      <description>
+        <text>An XPath reference to the parent facilities.</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="supported-facilities">
+      <type name="instance-identifier"/>
+      <config value="false"/>
+      <max-elements value="20"/>
+      <description>
+        <text>An XPath reference to the children facilities.</text>
+      </description>
+    </leaf-list>
+    <uses name="ioa-common:common-attributes"/>
+    <uses name="ioa-common:common-states"/>
+    <leaf name="managed-by">
+      <type name="enumeration">
+        <enum name="system">
+          <value value="1"/>
+        </enum>
+        <enum name="user">
+          <value value="2"/>
+        </enum>
+      </type>
+      <default value="system"/>
+      <config value="false"/>
+      <description>
+        <text>Describes whether this facility was system created or not.
+Only user created facilities can be user deleted.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="auto-in-service">
+    <description>
+      <text>Attributes associated with auto-in-service functionality</text>
+    </description>
+    <leaf name="auto-in-service-enabled">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>Auto-in-service switch for this facility.</text>
+      </description>
+    </leaf>
+    <leaf name="valid-signal-time">
+      <type name="ains-signal-time-interval">
+        <range value="1..7200"/>
+      </type>
+      <units name="minutes"/>
+      <default value="480"/>
+      <description>
+        <text>Configurable time that represents a detection of a valid signal.
+Used for auto-in-service mechanism.</text>
+      </description>
+    </leaf>
+    <leaf name="remaining-valid-signal-time">
+      <type name="ains-signal-time-interval"/>
+      <units name="minutes"/>
+      <config value="false"/>
+      <description>
+        <text>Actual remaining time for this facility to be automatically enabled by the
+auto-in-service mechanism.</text>
+      </description>
+    </leaf>
+    <uses name="ioa-common:arc"/>
+  </grouping>
+  <grouping name="test-signal">
+    <leaf name="test-signal-type">
+      <type name="enumeration">
+        <enum name="none">
+          <value value="0"/>
+          <description>
+            <text>Indicates that test pattern generation is disabled.</text>
+          </description>
+        </enum>
+        <enum name="PRBS31Q">
+          <value value="10"/>
+          <description>
+            <text>Defined in G.709 OPU PRBS with inverted PN31 quaternary.</text>
+          </description>
+        </enum>
+        <enum name="PRBS13Q">
+          <value value="20"/>
+          <description>
+            <text>Defined in G.709 OPU PRBS with inverted PN13 quaternary.</text>
+          </description>
+        </enum>
+        <enum name="scrambled-idles">
+          <value value="30"/>
+          <description>
+            <text>Idle frame defined in 802.3 Clause 82.2.10.</text>
+          </description>
+        </enum>
+        <enum name="PRBS9">
+          <value value="40"/>
+          <description>
+            <text>Defined in G.709 OPU PRBS with non-inverted PN9.</text>
+          </description>
+        </enum>
+        <enum name="PRBS31">
+          <value value="50"/>
+          <description>
+            <text>Defined in G.709 OPU PRBS with inverted PN31.</text>
+          </description>
+        </enum>
+      </type>
+      <default value="none"/>
+      <description>
+        <text>The type of test pattern that is injected.</text>
+      </description>
+    </leaf>
+    <leaf name="test-signal-direction">
+      <type name="prbs-direction"/>
+      <default value="ingress"/>
+      <description>
+        <text>The direction of the test signal.</text>
+      </description>
+    </leaf>
+    <leaf name="test-signal-monitoring">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>Monitor the incoming test signals for diagnostics.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="spectral-bw">
+    <leaf name="spectral-bandwidth">
+      <type name="decimal64">
+        <fraction-digits value="5"/>
+      </type>
+      <units name="GHz"/>
+      <config value="false"/>
+      <description>
+        <text>Spectral bandwith associated with this carrier(s).</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="loopback">
+    <description>
+      <text>Loopback data used on facilities.</text>
+    </description>
+    <leaf name="loopback">
+      <type name="enumeration">
+        <enum name="none">
+          <value value="10"/>
+        </enum>
+        <enum name="facility">
+          <value value="20"/>
+        </enum>
+        <enum name="terminal">
+          <value value="30"/>
+        </enum>
+      </type>
+      <default value="none"/>
+      <description>
+        <text>Loopback mode.Useful to debug on the fiber connection.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="loopback-mode">
+    <leaf name="loopback-mode">
+      <type name="enumeration">
+        <enum name="loopback">
+          <value value="10"/>
+          <description>
+            <text>loopback the signal, insert a maintenance signal</text>
+          </description>
+        </enum>
+        <enum name="loopback-and-continue">
+          <value value="20"/>
+          <description>
+            <text>loopback the signal, insert a maintenance signal and bridge (continue) the signal downstream</text>
+          </description>
+        </enum>
+      </type>
+      <description>
+        <text>Indicates loopback action for facility or terminal.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="tti-common">
+    <description>
+      <text>A reusable collection of common/typical
+attributes associated with trail trace identitifiers.</text>
+    </description>
+    <leaf name="tx-tti">
+      <type name="tti-64"/>
+      <description>
+        <text>Transmit TTI - Sent by this facility to the far-end remote facility.</text>
+      </description>
+    </leaf>
+    <leaf name="rx-tti">
+      <type name="trail-trace-identifier-ascii">
+        <length value="0..64"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Receive TTI - Received by this facility from the far-end remote facility.</text>
+      </description>
+    </leaf>
+    <leaf name="rx-tti-hex">
+      <type name="trail-trace-identifier-hex">
+        <length value="0..130"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Receive TTI in HEX.</text>
+      </description>
+    </leaf>
+    <leaf name="expected-tti">
+      <type name="tti-64"/>
+      <default value=""/>
+      <description>
+        <text>Expected TTI - The TTI this facility expects to receive from the far-end remote facility.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="power-threshold">
+    <description>
+      <text>A reusable collection of common/typical
+attributes associated with power threshold.</text>
+    </description>
+    <leaf name="power-threshold-low">
+      <type name="ioa-opt:optical-power"/>
+      <config value="false"/>
+      <description>
+        <text>The default system threshold (known as 'Sensitivity') that triggers the OPR-OORL alarm
+(i.e., when the optical power received is below this value). Note that this is hardware dependent,
+based on the type of the optical transceiver (TOM).</text>
+      </description>
+    </leaf>
+    <leaf name="power-threshold-low-offset">
+      <type name="ioa-opt:power-offset"/>
+      <default value="0.0"/>
+      <description>
+        <text>A user configurable attribute that results in the 'effective lower threshold' based on which
+the system raises the OPR-OORL alarm. The effective threshold will be (threshold-low + threshold-low-offset).</text>
+      </description>
+    </leaf>
+    <leaf name="power-threshold-high">
+      <type name="ioa-opt:optical-power"/>
+      <config value="false"/>
+      <description>
+        <text>The default system threshold (known as 'Overload') that triggers the OPR-OORH alarm
+(i.e., when the optical power received is greater than this value). Note that this is
+hardware dependent, based on the type of the optical transceiver (TOM).</text>
+      </description>
+    </leaf>
+    <leaf name="power-threshold-high-offset">
+      <type name="ioa-opt:power-offset"/>
+      <default value="0.0"/>
+      <description>
+        <text>A user configurable attribute that results in the 'effective upper threshold' based on
+which the system raises the OPR-OORH alarm. The effective threshold will be (threshold-high + threshold-high-offset).</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="nmoper-alarm-reporting">
+    <leaf name="nmoper-alarm-reporting">
+      <type name="ioa-common:enable-switch"/>
+      <default value="disabled"/>
+      <description>
+        <text>Indicates if a Neighbor Mismatch TTI Operator-Specific field based (NMOPER) alarm is reported or not.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="tti-diagnostics-common">
+    <description>
+      <text>Re-usable grouping (by OTU/ OTS) for TTI diagnostics.</text>
+    </description>
+    <leaf name="expected-operator">
+      <type name="tti-32"/>
+      <default value=""/>
+      <description>
+        <text>The expected operator specific bytes.</text>
+      </description>
+    </leaf>
+    <leaf name="tx-operator">
+      <type name="tti-32"/>
+      <description>
+        <text>The transmitted operator specific bytes.</text>
+      </description>
+    </leaf>
+    <leaf name="rx-operator">
+      <type name="ioa-fac-common:trail-trace-identifier-ascii">
+        <length value="0..32"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>The received operation specific bytes as an ASCII string; will not be available if bytes cannot be encoded as a printable string.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="otn-ots-tti-style">
+    <description>
+      <text>Generic Infinera TTI styles.</text>
+    </description>
+    <leaf name="tti-style">
+      <type name="enumeration">
+        <enum name="ITU-T-G709">
+          <value value="10"/>
+          <description>
+            <text>TTI is split into SAPI, DAPI and OPER bytes.</text>
+          </description>
+        </enum>
+        <enum name="proprietary">
+          <value value="20"/>
+          <description>
+            <text>TTI is a single 64 byte string.</text>
+          </description>
+        </enum>
+      </type>
+      <default value="ITU-T-G709"/>
+      <description>
+        <text>The configured mode of the TTI for this OTU/ODU client or OTS.</text>
+      </description>
+    </leaf>
+  </grouping>
+</module>

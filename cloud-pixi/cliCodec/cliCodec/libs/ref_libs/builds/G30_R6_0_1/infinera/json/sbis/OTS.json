@@ -1,0 +1,548 @@
+{
+    "ne": {
+        "facilities": {
+            "ots": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A generic, configurable name for every facility.",
+                        "mandatory": true,
+                        "key": true,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "ots-diagnostics": {
+                        "tti-style": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "ITU-T-G709",
+                                    "proprietary"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "The configured mode of the TTI for this OTU/ODU client or OTS.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "ITU-T-G709",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "nmoper-alarm-reporting": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "disabled",
+                                    "enabled"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Indicates if a Neighbor Mismatch TTI Operator-Specific field based (NMOPER) alarm is reported or not.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "disabled",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "expected-operator": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "The expected operator specific bytes.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "tx-operator": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "The transmitted operator specific bytes.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "rx-operator": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "The received operation specific bytes as an ASCII string; will not be available if bytes cannot be encoded as a printable string.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        }
+                    },
+                    "osc-less": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "OSC-less mode is required to provide interworking with systems with no compatible OSC\nor spans with losses not compatible with the OSC budget.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fiber-type-rx": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "not-applicable",
+                                "auto",
+                                "SSMF",
+                                "LEAF",
+                                "TWRS",
+                                "TWC",
+                                "AllWave",
+                                "DSF",
+                                "LS",
+                                "PureSilica",
+                                "TWReach",
+                                "VistaCor",
+                                "Teralight",
+                                "DrakaLL",
+                                "TWPlus",
+                                "TWMinus",
+                                "PSLC",
+                                "ULL",
+                                "not-configured"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Fiber Type (OTS receiver) allows PCL to know the 'intercept' and 'slope'.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "SSMF",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fiber-type-tx": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "not-applicable",
+                                "auto",
+                                "SSMF",
+                                "LEAF",
+                                "TWRS",
+                                "TWC",
+                                "AllWave",
+                                "DSF",
+                                "LS",
+                                "PureSilica",
+                                "TWReach",
+                                "VistaCor",
+                                "Teralight",
+                                "DrakaLL",
+                                "TWPlus",
+                                "TWMinus",
+                                "PSLC",
+                                "ULL",
+                                "not-configured"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Fiber Type (OTS transmitter) allows PCL to know the 'intercept' and 'slope'.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "SSMF",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fiber-length-tx": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Transmitting Fiber Length",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "auto",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fiber-length-rx": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Receiving Fiber Length.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "auto",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fiber-length-derived-rx": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Estimated fiber length, calculated from the configured fiber-type\nand span loss measured via OSC powers.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fiber-spectral-attenuation-tilt-tx": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Since different transmission bands are supported, it is simpler\nto enter this parameter independent of the transmission bandwidth,\nhence per Terahertz.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unspecified",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fiber-spectral-attenuation-tilt-rx": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Since different transmission bands are supported, it is simpler\nto enter this parameter independent of the transmission bandwidth,\nhence per Terahertz.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unspecified",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "raman-coefficient-tx": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Raman coefficient per Terahertz.\nSince different transmission bands are supported, it is simpler to enter this parameter\nindependent of the transmission bandwidth, hence per Terahertz.\nRequired for tilt control (if tilt-control-mode = auto).\nConfiguration mode depends on tilt-control-mode.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "not-applicable",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "raman-coefficient-rx": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Raman coefficient per Terahertz.\nSince different transmission bands are supported, it is simpler to enter this parameter\nindependent of the transmission bandwidth, hence per Terahertz.\nRequired for tilt control (if tilt-control-mode = auto).\nConfiguration mode depends on tilt-control-mode.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "not-applicable",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "span-loss-receive": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Fiber loss on the receiver side. (OTS-sk)\nThis is only the loss of the fiber.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "span-loss-derived-rx": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Measured span loss (based on OSC).\nThe value includes the losses external to the fiber.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "external-attenuation-tx": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "External padding attenuation at transmitting direction.\nRequired for tilt control.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "span-loss-aging-margin-rx": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "In native operating-mode: used by system for defining value of NMC input power range and span loss high alarm.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "target-power-setting": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "manual",
+                                "auto"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Allows automatic configuration of target values for oxcon.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "auto",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "laser-safety-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "OPLM",
+                                "APSD"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Laser Safety Mode of the OTS instance.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "OPLM",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Card that holds this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "managed-by": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "system",
+                                "user"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Describes whether this facility was system created or not.\nOnly user created facilities can be user deleted.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "system",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Ports that hold this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the parent facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supported-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the children facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "span-loss-transmit": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Fiber loss on the transmitter side (OTS-so).\nThis is only the loss of the fiber.\nAdditional loss such as coming from patch panel is entered via the external-attenuation parameters.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "external-attenuation-rx": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "External Attenuation, configured by the user.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

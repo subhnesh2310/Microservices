@@ -1,0 +1,175 @@
+{
+    "module": {
+        "@name": "ioa-line-ptp",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-line-ptp": "http://infinera.com/yang/ioa/line-ptp",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/line-ptp"
+        },
+        "prefix": {
+            "@value": "ioa-line-ptp"
+        },
+        "import": {
+            "@module": "ioa-facilities-common",
+            "prefix": {
+                "@value": "ioa-fac-common"
+            }
+        },
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG model describing the line side physical termination layer."
+        },
+        "revision": [
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            }
+        ],
+        "grouping": {
+            "@name": "line-ptp",
+            "list": {
+                "@name": "line-ptp",
+                "key": {
+                    "@value": "name"
+                },
+                "description": {
+                    "text": "Basic LinePTP facility."
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-fac-common:facilities-common-attributes"
+                    },
+                    {
+                        "@name": "ioa-fac-common:auto-in-service"
+                    },
+                    {
+                        "@name": "ioa-fac-common:power-threshold"
+                    }
+                ],
+                "leaf": [
+                    {
+                        "@name": "service-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "not-applicable",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-200G",
+                                    "value": {
+                                        "@value": "2"
+                                    }
+                                },
+                                {
+                                    "@name": "DP-QPSK-100G",
+                                    "value": {
+                                        "@value": "3"
+                                    }
+                                },
+                                {
+                                    "@name": "DP-8QAM-200G",
+                                    "value": {
+                                        "@value": "4"
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-400G",
+                                    "value": {
+                                        "@value": "7"
+                                    }
+                                },
+                                {
+                                    "@name": "DP-8QAM-300G",
+                                    "value": {
+                                        "@value": "8"
+                                    }
+                                },
+                                {
+                                    "@name": "DP-QPSK-200G",
+                                    "value": {
+                                        "@value": "9"
+                                    }
+                                },
+                                {
+                                    "@name": "OTU2",
+                                    "value": {
+                                        "@value": "10"
+                                    }
+                                },
+                                {
+                                    "@name": "OTU2e",
+                                    "value": {
+                                        "@value": "11"
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-E-400G",
+                                    "value": {
+                                        "@value": "12"
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-400G-OpenZR+",
+                                    "value": {
+                                        "@value": "13"
+                                    }
+                                },
+                                {
+                                    "@name": "DP-16QAM-PS-400G",
+                                    "value": {
+                                        "@value": "14"
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "not-applicable"
+                        },
+                        "description": {
+                            "text": "service-type to provison line side service."
+                        }
+                    },
+                    {
+                        "@name": "line-system-mode",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "openwave",
+                                "value": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "Infinera WDM channels over non-Infinera line system."
+                                }
+                            }
+                        },
+                        "default": {
+                            "@value": "openwave"
+                        },
+                        "description": {
+                            "text": "Indicates the specific mode of power control configured\non the L1 transponder, and specifically, on this particular SCG port within\nthe L1 transponder. The attribute indicates the L1 <-> L0 local power controls\nto adjust the Tx power from the L1 transponder towards the L0 line-system\ncard (such as a WSS or Mux or Amplifier)."
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

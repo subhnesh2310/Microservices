@@ -1,0 +1,177 @@
+module ioa-ztp {
+    namespace "http://infinera.com/yang/ioa/ztp";
+    prefix ioa-ztp;
+
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module describing Zero Touch Provisioning (ZTP) model.";
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+    grouping ztp {
+        container ztp {
+            config false;
+            description "Zero Touch Provisioning status.
+                         Please see RPC 'change-ztp-mode' for ZTP configuration.";
+
+            leaf ztp-mode {
+                type enumeration {
+                    enum disabled { value 0; }
+                    enum enabled { value 1; }
+                }
+                default enabled;
+                description "User set mode of ZTP. This flag is set via change-ztp-mode RPC that is allowed even when NBI is locked."; 
+            }
+
+            leaf ztp-state {
+                type enumeration {
+                    enum ztp-init { value 0; }
+                    enum dhcp-in-progress { value 1; }
+                    enum image-download-in-progress { value 2; }
+                    enum image-install-in-progress { value 3; }
+                    enum custom-script-execution-in-progress { value 4; }
+                    enum multi-chassis-setup-in-progress { value 5; }
+                    enum configuration-apply-in-progress { value 6; }
+                    enum ztp-completed { value 7; }
+                    enum ztp-state-unknown { value 8; }
+                    enum ztp-disabled { value 9; }
+                    enum wait-before-ztp-restart { value 10; }
+                    enum ztp-disable-in-progress { value 11; }
+                    enum cleanup-on-ztp-completion { value 12; }
+                }
+                default ztp-init;
+                description "Current state of ZTP service";
+            }
+
+            leaf ztp-details {
+                type string { length 0..256; }
+                description "Additional information on the current state";        
+            }
+
+            leaf ztp-completion-status {
+                type enumeration {
+                    enum not-completed { value 1; }
+                    enum completed { value 2; }                    
+                }
+                default not-completed;
+                description "Summarized completion status of ZTP on the node";
+            }
+        }
+    }
+
+    grouping recovery{
+        container recovery{
+            description "Status and configuration of system recovery from chassis storage.";
+            leaf restore-from-chassis-storage {
+                type enumeration {
+                    enum disabled {
+                        value 1;
+                        description "Chassis storage is not used for restoration in this NE.";
+                    }
+                    enum auto-restore {
+                        value 2;
+                        description "SW and DB are stored on the chassis storage and restored in recovery mode. A manual clear recovery-mode command is then necessary.
+                                     It allows the user to validate the restored system before affecting the HW.";
+                    }
+                    enum auto-in-service {
+                        value 3;
+                        description "SW and DB are stored on the chassis storage and restored in recovery mode. On successful restore, the NC will automatically leave recovery mode.";
+                    }
+                }
+                default "auto-in-service";
+                description "This attribute is only relevant when a chassis storage is available.
+                            It allows the operator to control how the system behaves in such cases.
+                            When no chassis storage is available, this attribute has no effect.";
+            }
+
+            leaf restore-status {
+                type enumeration {
+                    enum init { 
+                        value 0;
+                        description "Provisioning service is starting."; 
+                    }
+                    enum image-install-in-progress {
+                        value 1;
+                        description "Installing backup image.";
+                    }
+                    enum db-restore-in-progress {
+                        value 2;
+                        description "Restoring database.";
+                    }
+                    enum check-completed {
+                        value 3;
+                        description "Provisioning service completed provisioning.";    
+                    }
+                    enum failed {
+                        value 4;
+                        description "Provisioning failed, requires manual provisioning."; 
+                    }
+                    enum disabled {
+                        value 5;
+                        description "Provisioning service is disabled, no backups are being performed."; 
+                    }
+                    enum wait-for-upgrade {
+                        value 6;
+                        description "Waiting for system reboot after image upgrade.";
+                    }
+                    enum wait-for-db-restore {
+                        value 7;
+                        description "Waiting for system reboot after database restore.";
+                    }
+                }
+                default init;
+                config false;
+                description "Current state of the restoration.";
+            }
+            
+            leaf backup-status {
+                type enumeration {
+                    enum successful {
+                        value 1;
+                        description "Provisioning service is enabled, backups are being performed successfully.";
+                    }
+                    enum failed {
+                        value 2;
+                        description "Provisioning service is enabled, a backup failed.";
+                    }
+                    enum in-progress {
+                        value 3;
+                        description "Backup is in progress.";
+                    }
+                    enum unknown {
+                        value 4;
+                        description "Backup is in an unknown status.";
+                    }
+                }
+                default unknown;
+                config false;
+                description "Current state of the last backup.";  
+            }
+
+            leaf last-backup {
+                type ioa-common:date-time-or-time-only-or-never;
+                default never;
+                config false;
+                description "Timestamp with the last backup performed.";
+            }
+
+            leaf next-backup {
+                type ioa-common:date-time-or-time-only-or-never;
+                default never;
+                config false;
+                description "Timestamp with the next backup performed.";
+            }
+        }
+    }
+
+}

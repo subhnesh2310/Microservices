@@ -1,0 +1,855 @@
+{
+    "module": {
+        "@name": "ioa-protection",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-protection": "http://infinera.com/yang/ioa/protection-group",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/protection-group"
+        },
+        "prefix": {
+            "@value": "ioa-protection"
+        },
+        "import": {
+            "@module": "ioa-common",
+            "prefix": {
+                "@value": "ioa-common"
+            }
+        },
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module that defines the data model for traffic protection group."
+        },
+        "revision": [
+            {
+                "@date": "2023-03-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.1"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            }
+        ],
+        "grouping": {
+            "@name": "protection",
+            "container": {
+                "@name": "protection",
+                "description": {
+                    "text": "The top-level protection root node under which all other protection entities are present."
+                },
+                "list": {
+                    "@name": "protection-group",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "description": {
+                        "text": "Protection Group associates two Protection Units that are redundant to each other, one said Working, the other Protection Unit.\nEach Protection Group entity forms a YPG."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "name",
+                            "type": {
+                                "@name": "ioa-common:object-name"
+                            },
+                            "description": {
+                                "text": "A user configured name for the protection group."
+                            }
+                        },
+                        {
+                            "@name": "protection-type",
+                            "type": {
+                                "@name": "ioa-common:protection-type"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Represents the protection type this PG has."
+                            }
+                        },
+                        {
+                            "@name": "pg-state",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "no-request",
+                                        "value": {
+                                            "@value": "10"
+                                        },
+                                        "description": {
+                                            "text": "No request."
+                                        }
+                                    },
+                                    {
+                                        "@name": "do-not-revert",
+                                        "value": {
+                                            "@value": "20"
+                                        },
+                                        "description": {
+                                            "text": "Do not revert."
+                                        }
+                                    },
+                                    {
+                                        "@name": "manual-to-working",
+                                        "value": {
+                                            "@value": "30"
+                                        },
+                                        "description": {
+                                            "text": "Manual to working."
+                                        }
+                                    },
+                                    {
+                                        "@name": "manual-to-protection",
+                                        "value": {
+                                            "@value": "40"
+                                        },
+                                        "description": {
+                                            "text": "Manual to protection."
+                                        }
+                                    },
+                                    {
+                                        "@name": "forced-to-working",
+                                        "value": {
+                                            "@value": "50"
+                                        },
+                                        "description": {
+                                            "text": "Force to working."
+                                        }
+                                    },
+                                    {
+                                        "@name": "forced-to-protection",
+                                        "value": {
+                                            "@value": "60"
+                                        },
+                                        "description": {
+                                            "text": "Force to protection."
+                                        }
+                                    },
+                                    {
+                                        "@name": "protection-lockout",
+                                        "value": {
+                                            "@value": "70"
+                                        },
+                                        "description": {
+                                            "text": "Lockout of protection."
+                                        }
+                                    },
+                                    {
+                                        "@name": "sf-on-working",
+                                        "value": {
+                                            "@value": "80"
+                                        },
+                                        "description": {
+                                            "text": "Signal fail on working."
+                                        }
+                                    },
+                                    {
+                                        "@name": "sf-on-protection",
+                                        "value": {
+                                            "@value": "90"
+                                        },
+                                        "description": {
+                                            "text": "Signal fail on protection."
+                                        }
+                                    },
+                                    {
+                                        "@name": "sd-on-working",
+                                        "value": {
+                                            "@value": "100"
+                                        },
+                                        "description": {
+                                            "text": "Signal degrade on working."
+                                        }
+                                    },
+                                    {
+                                        "@name": "sd-on-protection",
+                                        "value": {
+                                            "@value": "110"
+                                        },
+                                        "description": {
+                                            "text": "Signal degrade on protection."
+                                        }
+                                    },
+                                    {
+                                        "@name": "wait-to-restore",
+                                        "value": {
+                                            "@value": "120"
+                                        },
+                                        "description": {
+                                            "text": "Wait to restore."
+                                        }
+                                    },
+                                    {
+                                        "@name": "frozen",
+                                        "value": {
+                                            "@value": "130"
+                                        },
+                                        "description": {
+                                            "text": "state machine is frozen."
+                                        }
+                                    },
+                                    {
+                                        "@name": "unavailable",
+                                        "value": {
+                                            "@value": "140"
+                                        },
+                                        "description": {
+                                            "text": "Unavailable."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "unavailable"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Protection group state"
+                            }
+                        },
+                        {
+                            "@name": "pg-request",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "clear",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "manual-to-working",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    },
+                                    {
+                                        "@name": "manual-to-protection",
+                                        "value": {
+                                            "@value": "3"
+                                        }
+                                    },
+                                    {
+                                        "@name": "forced-to-working",
+                                        "value": {
+                                            "@value": "4"
+                                        }
+                                    },
+                                    {
+                                        "@name": "forced-to-protection",
+                                        "value": {
+                                            "@value": "5"
+                                        }
+                                    },
+                                    {
+                                        "@name": "protection-lockout",
+                                        "value": {
+                                            "@value": "6"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "clear"
+                            },
+                            "description": {
+                                "text": "The management of protection switching action."
+                            }
+                        },
+                        {
+                            "@name": "pg-control-request",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "freeze",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "clear-freeze",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "clear-freeze"
+                            },
+                            "description": {
+                                "text": "local command of protection."
+                            }
+                        },
+                        {
+                            "@name": "switching-mode",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": {
+                                    "@name": "unidirectional",
+                                    "value": {
+                                        "@value": "10"
+                                    }
+                                }
+                            },
+                            "default": {
+                                "@value": "unidirectional"
+                            },
+                            "description": {
+                                "text": "Protection switching mode."
+                            }
+                        },
+                        {
+                            "@name": "reversion-mode",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "revertive",
+                                        "value": {
+                                            "@value": "10"
+                                        }
+                                    },
+                                    {
+                                        "@name": "non-revertive",
+                                        "value": {
+                                            "@value": "20"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "non-revertive"
+                            },
+                            "description": {
+                                "text": "Enable or disable automatic reversion protection status after wtr-time delay."
+                            }
+                        },
+                        {
+                            "@name": "hold-off-timer",
+                            "type": {
+                                "@name": "uint16",
+                                "range": {
+                                    "@value": "0..10000"
+                                }
+                            },
+                            "units": {
+                                "@name": "milliseconds"
+                            },
+                            "default": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "Switching trigger soaking time before switching, measured and set in 1-millisecond steps."
+                            }
+                        },
+                        {
+                            "@name": "wtr-timer",
+                            "when": {
+                                "@condition": "../reversion-mode = 'revertive'"
+                            },
+                            "type": {
+                                "@name": "uint16",
+                                "range": {
+                                    "@value": "60..720"
+                                }
+                            },
+                            "units": {
+                                "@name": "seconds"
+                            },
+                            "default": {
+                                "@value": "300"
+                            },
+                            "description": {
+                                "text": "Trigger clearance soaking time before reverting to the working protection unit, measured and set in 1-second steps. Only applicable in revertive mode."
+                            }
+                        },
+                        {
+                            "@name": "remaining-wtr",
+                            "when": {
+                                "@condition": "../reversion-mode = 'revertive'"
+                            },
+                            "type": {
+                                "@name": "uint16",
+                                "range": {
+                                    "@value": "0..720"
+                                }
+                            },
+                            "units": {
+                                "@name": "seconds"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "The remaining time in the WTR timer, in seconds. Only applicable in Revertive mode."
+                            }
+                        },
+                        {
+                            "@name": "last-switch-trigger",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "clear",
+                                        "value": {
+                                            "@value": "10"
+                                        }
+                                    },
+                                    {
+                                        "@name": "manual-to-working",
+                                        "value": {
+                                            "@value": "20"
+                                        }
+                                    },
+                                    {
+                                        "@name": "manual-to-protection",
+                                        "value": {
+                                            "@value": "30"
+                                        }
+                                    },
+                                    {
+                                        "@name": "forced-to-working",
+                                        "value": {
+                                            "@value": "40"
+                                        }
+                                    },
+                                    {
+                                        "@name": "forced-to-protection",
+                                        "value": {
+                                            "@value": "50"
+                                        }
+                                    },
+                                    {
+                                        "@name": "lockout",
+                                        "value": {
+                                            "@value": "60"
+                                        }
+                                    },
+                                    {
+                                        "@name": "sf-on-working",
+                                        "value": {
+                                            "@value": "70"
+                                        }
+                                    },
+                                    {
+                                        "@name": "sf-on-protection",
+                                        "value": {
+                                            "@value": "80"
+                                        }
+                                    },
+                                    {
+                                        "@name": "sd-on-working",
+                                        "value": {
+                                            "@value": "90"
+                                        }
+                                    },
+                                    {
+                                        "@name": "sd-on-protection",
+                                        "value": {
+                                            "@value": "100"
+                                        }
+                                    },
+                                    {
+                                        "@name": "wtr-timer-expiration",
+                                        "value": {
+                                            "@value": "110"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "clear"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Last switch trigger."
+                            }
+                        },
+                        {
+                            "@name": "working-pu",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..32"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The working unit associated with the protection group."
+                            }
+                        },
+                        {
+                            "@name": "protection-pu",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..32"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The protection unit associated with the protection group."
+                            }
+                        },
+                        {
+                            "@name": "reliable-cp",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..32"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The reliable connection point associated with the protection group.\n    Only of relevance for protection type snc-n."
+                            }
+                        },
+                        {
+                            "@name": "client-side-olos-trigger",
+                            "when": {
+                                "@condition": "../protection-type = 'y-cable'"
+                            },
+                            "type": {
+                                "@name": "ioa-common:enable-switch"
+                            },
+                            "default": {
+                                "@value": "disabled"
+                            },
+                            "description": {
+                                "text": "Considers a local client-side RX OLOS defect as a trigger for switch-over.\n    Only of relevance for protection type y-cable."
+                            }
+                        },
+                        {
+                            "@name": "client-side-sd-trigger",
+                            "type": {
+                                "@name": "ioa-common:enable-switch"
+                            },
+                            "default": {
+                                "@value": "disabled"
+                            },
+                            "description": {
+                                "text": "Considers a local client-side RX SD defect as a trigger for switch-over.\n    Only of relevance for protection type y-cable."
+                            }
+                        },
+                        {
+                            "@name": "network-side-csf-trigger",
+                            "type": {
+                                "@name": "ioa-common:enable-switch"
+                            },
+                            "default": {
+                                "@value": "disabled"
+                            },
+                            "description": {
+                                "text": "Considers a network-side ingress CSF defect as a trigger for switch-over."
+                            }
+                        },
+                        {
+                            "@name": "network-side-sd-trigger",
+                            "type": {
+                                "@name": "ioa-common:enable-switch"
+                            },
+                            "default": {
+                                "@value": "disabled"
+                            },
+                            "description": {
+                                "text": "Considers a network-side ingress SD defect as a trigger for switch-over.\n    Only of relevance for protection type snc-n."
+                            }
+                        },
+                        {
+                            "@name": "switch-failure-reason",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "none",
+                                        "value": {
+                                            "@value": "10"
+                                        }
+                                    },
+                                    {
+                                        "@name": "request-timer-expiry",
+                                        "value": {
+                                            "@value": "20"
+                                        }
+                                    },
+                                    {
+                                        "@name": "switch-status-failed",
+                                        "value": {
+                                            "@value": "30"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "none"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "switch failure reason."
+                            }
+                        }
+                    ],
+                    "uses": [
+                        {
+                            "@name": "ioa-common:aid"
+                        },
+                        {
+                            "@name": "ioa-common:label"
+                        },
+                        {
+                            "@name": "ioa-common:arc"
+                        }
+                    ],
+                    "list": {
+                        "@name": "protection-unit",
+                        "key": {
+                            "@value": "name"
+                        },
+                        "description": {
+                            "text": "Protection unit that identifier protection entitiy"
+                        },
+                        "leaf": [
+                            {
+                                "@name": "name",
+                                "type": {
+                                    "@name": "ioa-common:object-name"
+                                },
+                                "description": {
+                                    "text": "Protection unit name"
+                                }
+                            },
+                            {
+                                "@name": "transport-entity",
+                                "type": {
+                                    "@name": "instance-identifier"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "The transport entity associated with this protection unit."
+                                }
+                            },
+                            {
+                                "@name": "state",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "active",
+                                            "value": {
+                                                "@value": "10"
+                                            }
+                                        },
+                                        {
+                                            "@name": "standby",
+                                            "value": {
+                                                "@value": "20"
+                                            }
+                                        },
+                                        {
+                                            "@name": "unavailable",
+                                            "value": {
+                                                "@value": "30"
+                                            }
+                                        },
+                                        {
+                                            "@name": "unknown",
+                                            "value": {
+                                                "@value": "40"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "unknown"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Protection unit state"
+                                }
+                            },
+                            {
+                                "@name": "role",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "working",
+                                            "value": {
+                                                "@value": "10"
+                                            }
+                                        },
+                                        {
+                                            "@name": "protection",
+                                            "value": {
+                                                "@value": "20"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Protection unit role"
+                                }
+                            }
+                        ],
+                        "uses": [
+                            {
+                                "@name": "ioa-common:aid"
+                            },
+                            {
+                                "@name": "ioa-common:arc"
+                            },
+                            {
+                                "@name": "ioa-common:label"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "rpc": {
+            "@name": "protection-switch",
+            "description": {
+                "text": "Operating command for protection group switch"
+            },
+            "input": {
+                "leaf": [
+                    {
+                        "@name": "protection-group",
+                        "type": {
+                            "@name": "instance-identifier"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "The target of the switch command."
+                        }
+                    },
+                    {
+                        "@name": "operation-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "force",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "Forced switch to a target, e.g. working or protection."
+                                    }
+                                },
+                                {
+                                    "@name": "lockout",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "Lockout of protection."
+                                    }
+                                },
+                                {
+                                    "@name": "manual",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "Manual switch to a target, e.g. working or protection."
+                                    }
+                                },
+                                {
+                                    "@name": "clear",
+                                    "value": {
+                                        "@value": "4"
+                                    },
+                                    "description": {
+                                        "text": "clear current command."
+                                    }
+                                }
+                            ]
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "The type of protection switch command"
+                        }
+                    },
+                    {
+                        "@name": "switch-target",
+                        "when": {
+                            "@condition": "(../operation-type != 'lockout') and (../operation-type != 'clear')"
+                        },
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "working",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "protection",
+                                    "value": {
+                                        "@value": "2"
+                                    }
+                                }
+                            ]
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "The target of the switch command, which is not needed for release and lockout operation."
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

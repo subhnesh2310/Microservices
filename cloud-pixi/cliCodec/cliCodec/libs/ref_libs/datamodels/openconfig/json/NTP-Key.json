@@ -1,0 +1,74 @@
+{
+    "system": {
+        "ntp": {
+            "ntp-keys": {
+                "ntp-key": [
+                    {
+                        "key-id": {
+                            "type": {
+                                "ptype": "int",
+                                "leafref": "../config/key-id"
+                            },
+                            "isList": false,
+                            "description": "Reference to auth key-id list key",
+                            "key": true,
+                            "mandatory": false,
+                            "config": true,
+                            "default": ""
+                        },
+                        "namespace": null,
+                        "config": {
+                            "key-id": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "Integer identifier used by the client and server to\ndesignate a secret key.  The client and server must use\nthe same key id.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": 0,
+                                "namespace": null
+                            },
+                            "key-type": {
+                                "type": {
+                                    "ptype": "str",
+                                    "identityref": "NTP_AUTH_TYPE",
+                                    "values": [
+                                        "NTP_AUTH_MD5"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Encryption type used for the NTP authentication key",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "NTP_AUTH_MD5",
+                                "namespace": {
+                                    "namespace": "http://openconfig.net/yang/system",
+                                    "prefix": null
+                                }
+                            },
+                            "key-value": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "NTP authentication key value",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "namespace": null
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/system"
+        }
+    }
+}

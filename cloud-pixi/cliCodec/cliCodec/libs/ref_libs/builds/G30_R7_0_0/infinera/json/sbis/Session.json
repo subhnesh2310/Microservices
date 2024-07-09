@@ -1,0 +1,129 @@
+{
+    "ne": {
+        "system": {
+            "security": {
+                "session": [
+                    {
+                        "session-id": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Specifies a unique identifier of the current session. It indicates the\nIP address and transport layer port number associated with this session.\nIf the session is initiated from the serial port, the value is 'NA'.",
+                            "key": true,
+                            "mandatory": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "session-user": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "User name associated with this session.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "session-type": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "none",
+                                    "cli",
+                                    "snmp",
+                                    "netconf",
+                                    "restconf",
+                                    "webgui",
+                                    "gnmi",
+                                    "tl1",
+                                    "gnmi-gnoi"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Session type.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "session-protocol": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "none",
+                                    "telnet",
+                                    "telnet-raw",
+                                    "serial",
+                                    "ssh",
+                                    "ssh-raw",
+                                    "https",
+                                    "http"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Indicates which protocol has been used to establish the session.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "created-time": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "The timestamp the user has created this session.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "local-ip-address": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Local ip address of the session",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "dial-out-server-name": {
+                            "type": {
+                                "ptype": "unknown",
+                                "leafref": "../../../protocols/dial-out-server/name"
+                            },
+                            "isList": false,
+                            "description": "Name of the dial-out-server associated with this session.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        }
+                    }
+                ]
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

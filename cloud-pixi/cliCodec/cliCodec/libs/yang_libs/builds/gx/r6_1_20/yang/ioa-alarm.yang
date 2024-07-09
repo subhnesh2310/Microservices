@@ -1,0 +1,476 @@
+module ioa-alarm {
+    namespace "http://infinera.com/yang/ioa/alarm";
+    prefix ioa-alarm;
+
+    import ietf-yang-types { prefix yang; }
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA module defining Alarm management data model.";
+
+    revision "2023-03-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.1";
+    }
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    identity ALARM-TYPE {
+        description "Base identity for alarm types.
+            It uniquely identifies the alarm, not including the resource.
+            Multiple resources may support the same alarm type.
+            Product specific alarm types are defined in separate yang modules in a modular way.";
+    }
+
+
+    typedef severity {
+        type enumeration {
+            enum indeterminate {value 0; }
+            enum critical {value 1; }
+            enum major {value 2; }
+            enum minor {value 3; }
+            enum warning { value 4; }
+            enum not-reported { value 5; }
+            enum event { value 6; }
+            enum cleared { value 7; }
+        }
+        description "Possible alarm severities, with 'clear'.";
+    }
+
+
+    typedef user-severity {
+        type enumeration {
+            enum critical {value 1; }
+            enum major {value 2; }
+            enum minor {value 3; }
+            enum warning { value 4; }
+            enum not-reported { value 5; }
+            enum event { value 6; }
+        }
+        description "Possible alarm severities configurable by the user.";
+    }
+
+
+    typedef service-affecting {
+        type enumeration {
+            enum indeterminate {value 0; }
+            enum sa     {value 1; }
+            enum nsa    {value 2; }
+            enum sa-nsa {value 3; }
+        }
+        description "Possible alarm service affecting category";
+    }
+
+
+    typedef direction {
+        type enumeration {
+            enum na { value 0; }
+            enum ingress { value 1; }
+            enum egress { value 2; }
+        }
+        description "Direction related with the alarm.";
+    }
+
+
+    typedef location {
+        type enumeration {
+            enum na { value 0; }
+            enum near-end { value 1; }
+            enum far-end { value 2; }
+        }
+        description "Location of the alarm.";
+    }
+
+
+    typedef operator-state {
+        type enumeration {
+            enum none { 
+                value 1; 
+                description "The alarm is not being taken care of.";
+            }
+            enum ack { 
+                value 2; 
+                description "The alarm is being taken care of. Corrective action not taken yet or has failed.";
+            }
+            enum closed {
+                value 3;
+                description "Corrective action taken successfully.";
+            }
+        }
+        description "Possible operator states for alarms.";
+    }
+
+    typedef alarm-category {
+        type enumeration {
+            enum communication { value 1; }
+            enum facility { value 2; }
+            enum equipment { value 3; }
+            enum environmental { value 4; }
+            enum processing-error { value 5; }
+            enum software { value 6; }
+            enum quality-of-service { value 7; }
+        }
+
+        description "Category of the alarm type.";
+    }
+
+    grouping alarm-info {
+        description "Set of attributes necessary for representing an alarm event.";
+
+        leaf alarm-id {
+            type string { length 0..128; }
+            description "Unique identifier of the alarm.
+                Based on resource + probable cause.
+                Note: this id is intended as an alarm identifier, but it is not intended to provide any additional information.
+                Other fields exist to provide this additional information.";
+        }
+
+        uses ioa-common:resource-instance;
+
+        uses alarm-type;
+
+        uses alarm-type-description;
+
+        leaf direction {
+            type ioa-alarm:direction;
+            description "Direction of the alarm.";
+        }
+
+        leaf location {
+            type ioa-alarm:location;
+            description "Location of the alarm.";
+        }
+
+        leaf perceived-severity {
+            type ioa-alarm:severity;
+            description "Severity of the alarm.";
+        }
+
+        leaf reported-time {
+            type yang:date-and-time;
+            description "Occurrence timestamp for the alarm.";
+        }
+
+        leaf service-affecting {
+            type ioa-alarm:service-affecting;
+            description "Information on whether this alarm is service affecting or not.";
+        }
+
+        leaf alarm-category {
+            type ioa-alarm:alarm-category;
+            description "Category of the alarm type.";
+        }
+
+        leaf additional-details {
+            type string { length 0..256; }
+            description "Free string with additional relevant information provided by the system.";
+        }
+
+        uses corrective-action;
+
+        uses ioa-common:label;
+
+        leaf last-changed-time {
+            type yang:date-and-time;
+            description "Timestamp of the last change occured in the alarm.";
+        }
+
+        uses ioa-common:circuit-id;
+    }
+
+    container alarms {
+        description "Top level container for all system alarms, which are defined as an
+                     undesirable state in a resource that requires corrective action.";
+
+        container current-alarms {
+            config false;
+            description "List of currently raised alarms.";
+
+            leaf number-of-alarms {
+                type uint32;
+                description "Number of currently raised alarms.";
+            }
+
+            leaf last-changed {
+                type yang:date-and-time;
+                description "Timestamp of the last change in the current alarm list (either a raise or clear event).";
+            }
+
+
+            list alarm {
+                key alarm-id;
+                description "Alarm instance that represents a raised alarm, when entry is created, or a cleared alarm,
+                             when entry is deleted.";
+
+                uses alarm-info;
+
+                leaf operator-state {
+                    type operator-state;
+                    default none;
+                    description "State of the alarm according with operator action.";
+                }
+
+                leaf operator-text {
+                    type string { length 0..256; }
+                    description "Text provided by operator when changing alarm state.";
+                }
+
+                leaf operator-name {
+                    type string { length 0..256; }
+                    description "Username that last changed the state of this alarm.";
+                }
+
+                leaf operator-last-action {
+                    type yang:date-and-time;
+                    description "Timestamp when the alarm was last changed by operator.";
+                }
+            }
+        }
+
+        container alarm-control {
+            description "Object related with alarm management control";
+
+            leaf arc-behavior {
+                type enumeration {
+                    enum leave-alarms { value 1; description "When ARC is set to 'inhibit', leaves current alarms in a raised mode."; }
+                    enum clear-alarms { value 2; description "When ARC is set to 'inhibit', clears current alarms."; }
+                }
+                default leave-alarms;
+                description "System wide alarm-reporting-control (ARC) behavior switch.";
+            }
+
+            container alarm-severity-profile {
+                description "Container for all alarm-severity-entries (ASAP table).";
+
+                list alarm-severity-entry {
+                    key "resource-type alarm-type direction location";
+                    description "Individual entry in alarm-severity-profile, allows to configure the severity for one particular alarm.";
+
+                    uses ioa-common:resource-type;
+
+                    uses alarm-type;
+
+                    leaf direction {
+                        type ioa-alarm:direction;
+                        description "Configured direction for the current resource type.";
+                    }
+
+                    leaf location {
+                        type ioa-alarm:location;
+                        description "Configured location for the current resource type.";
+                    }
+
+                    leaf severity {
+                        type ioa-alarm:user-severity;
+                        description "Configured severity for the current resource type.";
+                    }
+
+                    leaf service-affecting {
+                        type ioa-alarm:service-affecting;
+                        config false;
+                        description "Configured service affecting for the current resource type.";
+                    }
+                }
+            }
+        }
+
+        list alarm-inventory {
+            key alarm-type;
+            config false;
+            description "Inventory with all possible alarm types for the system, containing
+                         static information for each alarm type.";
+
+            uses alarm-inventory-base;
+        }
+    }
+
+    //
+    // Groupings
+
+    grouping alarm-inventory-base {
+        uses alarm-type;
+
+        leaf-list resource-type {
+            type identityref {
+                base ioa-common:RESOURCE-TYPE;
+            }
+            max-elements 50;
+            description "Type of resources to which this alarm applies.";
+        } 
+
+        leaf-list alarm-category {
+            type ioa-alarm:alarm-category;
+            max-elements 10;
+            description "List of possible categories of this alarm type. The same alarm may have different categories, depending on the resource-type it applies to.";
+        }
+
+        uses alarm-type-description;
+
+        uses corrective-action;
+
+        leaf-list default-severity {
+            type ioa-alarm:user-severity;
+            max-elements 10;
+            description "List of possible default severities for this alarm type. The same alarm may have different default severities depending of the resource-type it applies to.";
+        }
+
+        leaf service-affecting {
+            type ioa-alarm:service-affecting;
+            description "Information on whether this alarm is service affecting or not. In some cases, the same alarm may be simultaneously 'sa' and 'nsa', depending on the resource-type it applies to.";
+        }
+
+        leaf can-be-cleared-by-user {
+            type boolean;
+            default false;
+            description "Information on whether this alarm can be cleared by the user or not.";
+        }
+    }
+
+    grouping alarm-type {
+        leaf alarm-type {
+            type identityref {
+                base ALARM-TYPE;
+            }
+            description "Type of alarm, based on an abbreviated code.";
+        }
+    }
+
+    grouping alarm-type-description {
+        leaf alarm-type-description {
+            type string { length 0..256; }
+            description "Human friendly description of the type of the alarm.";
+        }
+    }
+
+    grouping corrective-action {
+        leaf corrective-action {
+            type string { length 0..256; }
+            description "System provided information on how to correct the situation that triggered this alarm.";
+        }
+    }
+
+
+
+    notification alarm-notification {
+        description "Notification that is used to report a raise or clear event for an alarm.";
+
+        uses ioa-common:notif-common;
+        uses alarm-info;
+    }
+
+
+    rpc set-alarm-state {
+        description "Change the operator state of an alarm.";
+        input {
+            leaf state {
+                type operator-state;
+                mandatory true;
+                description "Alarm state.";
+            }
+            choice target {
+                leaf all-alarms {
+                    type empty;
+                    description "Acknowledge all currently raised alarms.";
+                }
+                leaf-list alarm-id-list {
+                    type leafref {
+                        path "/alarms/current-alarms/alarm/alarm-id";
+                    }
+                    min-elements 1;
+                    max-elements 10;
+                    description "List of alarm-ids to change the state.";
+                }
+                mandatory true;
+            }
+            leaf acknowledge-text {
+                type string { length 0..256; }
+                description "Optional text that will be stored in the alarm.";
+            }
+        }
+    }
+
+    rpc clear-alarm {
+        description "Manually clear alarms that have no criteria to be cleared.";
+        input {
+            leaf alarm-type {
+                type leafref {
+                    path /ioa-alarm:alarms/ioa-alarm:current-alarms/ioa-alarm:alarm/ioa-alarm:alarm-type;
+                }
+                mandatory true;
+                description "Type of alarm to be cleared.
+                    Note: only some alarms are eligible to be cleared using this operation; see alarm-inventory/can-be-cleared-by-user for details.";
+            }
+            leaf-list resource {
+                type leafref {
+                    path /ioa-alarm:alarms/ioa-alarm:current-alarms/ioa-alarm:alarm/ioa-alarm:resource;
+                }
+                description "Resource of alarm to be cleared.
+                             May be one or more resources assocaited with the provided alarm-type.";
+            }
+        }
+    }
+
+    rpc get-conditions {
+        description "Allows to retrieve conditions. 
+                     A condition is an alarm that is not considered current. This can happen for the following reasons:
+                     - alarm suppressed due to alarm correlation
+                     - alarms suppressed due to AINS";
+        input {
+            uses ioa-common:resource-instance;
+
+            uses ioa-alarm:alarm-type;
+
+            // The direction/location typedefs cannot be used here, due to the absence of a default, which is "all"
+
+            leaf direction {
+                type enumeration {
+                    enum all { value 0; }
+                    enum na { value 1; description "Not-applicable"; }
+                    enum ingress { value 2; }
+                    enum egress { value 3; }
+                }
+                default all;
+                description "Direction of the condition.";
+            }
+
+            leaf location {
+                type enumeration {
+                    enum all { value 0; }
+                    enum na { value 1; description "Not-applicable"; }
+                    enum near-end { value 2; }
+                    enum far-end { value 3; }
+                }
+                default all;
+                description "Location of the condition.";
+            }
+        }
+        output {
+            list condition {
+                key alarm-id;
+
+                uses ioa-alarm:alarm-info;
+            }
+        }
+    }
+}

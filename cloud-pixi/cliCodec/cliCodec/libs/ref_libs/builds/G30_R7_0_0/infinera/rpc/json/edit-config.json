@@ -1,0 +1,53 @@
+{
+    "namespace": "urn:ietf:params:xml:ns:netconf:base:1.0",
+    "inputs": {
+        "default-operation": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "merge",
+                    "replace",
+                    "none"
+                ]
+            },
+            "isList": false,
+            "description": "The default operation to use.",
+            "mandatory": false
+        },
+        "test-option": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "test-then-set",
+                    "set",
+                    "test-only"
+                ]
+            },
+            "isList": false,
+            "description": "The test option to use.",
+            "mandatory": false
+        },
+        "error-option": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "stop-on-error",
+                    "continue-on-error",
+                    "rollback-on-error"
+                ]
+            },
+            "isList": false,
+            "description": "The error option to use.",
+            "mandatory": false
+        },
+        "url": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "URL-based config content.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

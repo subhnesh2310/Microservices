@@ -1,0 +1,55 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "echo": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "on",
+                    "off"
+                ]
+            },
+            "isList": false,
+            "description": "If echo on, result includes commands and their output;\notherwise it will only include the commands output",
+            "mandatory": false
+        },
+        "error-option": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "stop-on-error",
+                    "continue-on-error",
+                    "rollback-on-error"
+                ]
+            },
+            "isList": false,
+            "description": "How the command execution should behave when errors occur.",
+            "mandatory": false
+        },
+        "replace": {
+            "type": {
+                "ptype": "bool"
+            },
+            "isList": false,
+            "description": "If true, it tries to push the entire script/commands as a replace operation",
+            "mandatory": false
+        },
+        "script-file": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "The filepath of the previously downloaded CLI script",
+            "mandatory": false
+        },
+        "commands": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "CLI commands to execute; multiple commands can be provided, one per line",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

@@ -1,0 +1,148 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A generic, configurable name for every facility.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "service_type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "not-applicable",
+                "DP-16QAM-200G",
+                "DP-QPSK-100G",
+                "DP-8QAM-200G",
+                "DP-16QAM-400G",
+                "DP-8QAM-300G",
+                "DP-QPSK-200G",
+                "OTU2",
+                "OTU2e",
+                "DP-16QAM-E-400G",
+                "DP-16QAM-400G-OpenZR+",
+                "DP-16QAM-PS-400G"
+            ]
+        },
+        "description": "service-type to provison line side service.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "not-applicable",
+        "hardcode": false,
+        "argName": "service_type"
+    },
+    "line_system_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "openwave"
+            ]
+        },
+        "description": "Indicates the specific mode of power control configured\non the L1 transponder, and specifically, on this particular SCG port within\nthe L1 transponder. The attribute indicates the L1 <-> L0 local power controls\nto adjust the Tx power from the L1 transponder towards the L0 line-system\ncard (such as a WSS or Mux or Amplifier).",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "openwave",
+        "hardcode": false,
+        "argName": "line_system_mode"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "auto_in_service_enabled": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Auto-in-service switch for this facility.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "auto_in_service_enabled"
+    },
+    "valid_signal_time": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Configurable time that represents a detection of a valid signal.\nUsed for auto-in-service mechanism.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 480,
+        "hardcode": false,
+        "argName": "valid_signal_time"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "power_threshold_low_offset": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A user configurable attribute that results in the 'effective lower threshold' based on which\nthe system raises the OPR-OORL alarm. The effective threshold will be (threshold-low + threshold-low-offset).",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0.0",
+        "hardcode": false,
+        "argName": "power_threshold_low_offset"
+    },
+    "power_threshold_high_offset": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A user configurable attribute that results in the 'effective upper threshold' based on\nwhich the system raises the OPR-OORH alarm. The effective threshold will be (threshold-high + threshold-high-offset).",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0.0",
+        "hardcode": false,
+        "argName": "power_threshold_high_offset"
+    }
+}

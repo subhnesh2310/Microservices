@@ -1,0 +1,283 @@
+{
+    "module": {
+        "@name": "ioa-trib-ptp",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-trib": "http://infinera.com/yang/ioa/trib-ptp",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/trib-ptp"
+        },
+        "prefix": {
+            "@value": "ioa-trib"
+        },
+        "import": [
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG model describing the tributary client physical termination layer which exists between the\ntransceiver equipment and the immediate protocol layer (Ethernet, SONET/SDH, OTUk, ...).\nThis entity provides all physical layer configurations that are applicable to the upper-layer client."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "grouping": {
+            "@name": "trib-ptp",
+            "list": {
+                "@name": "trib-ptp",
+                "key": {
+                    "@value": "name"
+                },
+                "description": {
+                    "text": "Basic TribPTP facility."
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-fac-common:facilities-common-attributes"
+                    },
+                    {
+                        "@name": "ioa-fac-common:auto-in-service"
+                    },
+                    {
+                        "@name": "ioa-fac-common:power-threshold"
+                    },
+                    {
+                        "@name": "ioa-common:circuit-id"
+                    }
+                ],
+                "leaf": [
+                    {
+                        "@name": "service-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "100GBE",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "400GBE",
+                                    "value": {
+                                        "@value": "3"
+                                    }
+                                },
+                                {
+                                    "@name": "OTU4",
+                                    "value": {
+                                        "@value": "4"
+                                    }
+                                },
+                                {
+                                    "@name": "4x100GBE",
+                                    "value": {
+                                        "@value": "5"
+                                    }
+                                },
+                                {
+                                    "@name": "OTU2",
+                                    "value": {
+                                        "@value": "6"
+                                    }
+                                },
+                                {
+                                    "@name": "OTU2e",
+                                    "value": {
+                                        "@value": "7"
+                                    }
+                                },
+                                {
+                                    "@name": "1GBE",
+                                    "value": {
+                                        "@value": "8"
+                                    }
+                                },
+                                {
+                                    "@name": "10GBE",
+                                    "value": {
+                                        "@value": "9"
+                                    }
+                                },
+                                {
+                                    "@name": "OC48",
+                                    "value": {
+                                        "@value": "10"
+                                    }
+                                },
+                                {
+                                    "@name": "OC192",
+                                    "value": {
+                                        "@value": "11"
+                                    }
+                                },
+                                {
+                                    "@name": "STM16",
+                                    "value": {
+                                        "@value": "12"
+                                    }
+                                },
+                                {
+                                    "@name": "STM64",
+                                    "value": {
+                                        "@value": "13"
+                                    }
+                                },
+                                {
+                                    "@name": "4x10G",
+                                    "value": {
+                                        "@value": "14"
+                                    }
+                                },
+                                {
+                                    "@name": "4x10GBE",
+                                    "value": {
+                                        "@value": "15"
+                                    }
+                                },
+                                {
+                                    "@name": "2x100GBE",
+                                    "value": {
+                                        "@value": "16"
+                                    }
+                                },
+                                {
+                                    "@name": "FC1G",
+                                    "value": {
+                                        "@value": "17"
+                                    }
+                                },
+                                {
+                                    "@name": "FC4G",
+                                    "value": {
+                                        "@value": "18"
+                                    }
+                                },
+                                {
+                                    "@name": "not-applicable",
+                                    "value": {
+                                        "@value": "100"
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "not-applicable"
+                        },
+                        "description": {
+                            "text": "The protocol type of the client that is being transported via the tributary optical transceiver module (TOM)."
+                        }
+                    },
+                    {
+                        "@name": "tributary-disable-action",
+                        "type": {
+                            "@name": "ioa-fac-common:disable-action"
+                        },
+                        "default": {
+                            "@value": "laser-shut-off"
+                        },
+                        "description": {
+                            "text": "Tributary Disable Action (TDA) indicates what action the NE performs towards the client equipment\n(connected over the TOM) when a line-side failure is observed. This includes shutting off laser\nor inserting a appropriate replacement signal."
+                        }
+                    },
+                    {
+                        "@name": "tributary-disable-holdoff-timer",
+                        "type": {
+                            "@name": "uint16",
+                            "range": {
+                                "@value": "0..10000"
+                            }
+                        },
+                        "units": {
+                            "@name": "milliseconds"
+                        },
+                        "default": {
+                            "@value": "0"
+                        },
+                        "description": {
+                            "text": "The hold off time of client shutdown or replacement signal at egress direction.\n0 means holdoff functionality disabled"
+                        }
+                    },
+                    {
+                        "@name": "near-end-tda",
+                        "type": {
+                            "@name": "ioa-common:enable-switch"
+                        },
+                        "default": {
+                            "@value": "disabled"
+                        },
+                        "description": {
+                            "text": "The switching of near end TDA."
+                        }
+                    },
+                    {
+                        "@name": "tda-degrade-mode",
+                        "type": {
+                            "@name": "ioa-common:enable-switch"
+                        },
+                        "default": {
+                            "@value": "disabled"
+                        },
+                        "description": {
+                            "text": "The switching of defect BERSD-ODU trig ALS"
+                        }
+                    },
+                    {
+                        "@name": "forward-defect-trigger",
+                        "type": {
+                            "@name": "boolean"
+                        },
+                        "default": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Forward Defect TDA Trigger indicates on the egress, if NE receives a client forward defect\n(e.g., LF, ODU-AIS) whether to let it flow through towards the line side (network side) or\ntrigger an egress TDA action"
+                        },
+                        "reference": {
+                            "text": "GX-539"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

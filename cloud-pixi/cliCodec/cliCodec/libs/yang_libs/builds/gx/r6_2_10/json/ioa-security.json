@@ -1,0 +1,1941 @@
+{
+    "module": {
+        "@name": "ioa-security",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-sec": "http://infinera.com/yang/ioa/security",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-image-key": "http://infinera.com/yang/ioa/keys",
+        "@xmlns:ioa-cert": "http://infinera.com/yang/ioa/certificate",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/security"
+        },
+        "prefix": {
+            "@value": "ioa-sec"
+        },
+        "import": [
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            },
+            {
+                "@module": "ietf-inet-types",
+                "prefix": {
+                    "@value": "inet"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-image-key",
+                "prefix": {
+                    "@value": "ioa-image-key"
+                }
+            },
+            {
+                "@module": "ioa-certificate",
+                "prefix": {
+                    "@value": "ioa-cert"
+                }
+            },
+            {
+                "@module": "ioa-ikev2",
+                "prefix": {
+                    "@value": "ioa-ike"
+                }
+            },
+            {
+                "@module": "ioa-fips",
+                "prefix": {
+                    "@value": "ioa-fips"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module describing the Security model."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-09-17",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.1"
+                }
+            }
+        ],
+        "typedef": {
+            "@name": "ssh-key-algorithm",
+            "type": {
+                "@name": "enumeration",
+                "enum": [
+                    {
+                        "@name": "ssh-rsa",
+                        "value": {
+                            "@value": "1"
+                        },
+                        "description": {
+                            "text": "RSA key algorithm using SHA-1 hash."
+                        }
+                    },
+                    {
+                        "@name": "rsa-sha2-256",
+                        "value": {
+                            "@value": "2"
+                        },
+                        "description": {
+                            "text": "RSA key algorithm using SHA-256 hash."
+                        }
+                    },
+                    {
+                        "@name": "rsa-sha2-512",
+                        "value": {
+                            "@value": "3"
+                        },
+                        "description": {
+                            "text": "RSA key algorithm using SHA-512 hash."
+                        }
+                    },
+                    {
+                        "@name": "ecdsa-sha2-nistp256",
+                        "value": {
+                            "@value": "4"
+                        },
+                        "description": {
+                            "text": "ECDSA key algorithm on the nistp256 curve using SHA-256 hash."
+                        }
+                    },
+                    {
+                        "@name": "ecdsa-sha2-nistp384",
+                        "value": {
+                            "@value": "5"
+                        },
+                        "description": {
+                            "text": "ECDSA key algorithm on the nistp384 curve using SHA-384 hash."
+                        }
+                    },
+                    {
+                        "@name": "ecdsa-sha2-nistp521",
+                        "value": {
+                            "@value": "6"
+                        },
+                        "description": {
+                            "text": "ECDSA key algorithm on the nistp521 curve using SHA-512 hash."
+                        }
+                    }
+                ]
+            },
+            "description": {
+                "text": "Key algorithms (and signatures) supported for SSH host keys and public keys."
+            }
+        },
+        "grouping": {
+            "@name": "security",
+            "container": {
+                "@name": "security",
+                "description": {
+                    "text": "Top level security container."
+                },
+                "container": [
+                    {
+                        "@name": "security-policies",
+                        "description": {
+                            "text": "Container with several flags that represent security policies of the system."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "secure-mode",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "If enabled, non-secure protocols are not supported.\nIf disabled, non-secure protocols can be used, including:\n- HTTP protocol for file transfer, REST API, or any other HTTP based application\n- FTP protocol for file transfer\n- SNMPv2c or SNMPv3 without encryption\n\nEnabling secure-mode will be rejected if any non-secure protocol is in use.\nNote: exception for SNMPv2c, which is allowed outside secure mode if system is in\nFIPS mode."
+                                }
+                            },
+                            {
+                                "@name": "strict-password-check",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "If enabled, ensures the strict password complexity rules. Including:\n- minimum length of 8 characters (by default, configurable via the minimum-password-length policy)\n- at least one lower case letter (a-z)\n- at least one upper case letter (A-Z)\n- at least one number (0-9)\n- at least one symbol ()\n- user name cannot be part of the password\nIf disabled, all these rules are not enforced, except:\n- minimum length is 1 character (by default, configurable via the minimum-password-length policy)\nOnce enabled, this policy only has impact on newly defined passwords."
+                                }
+                            },
+                            {
+                                "@name": "minimum-password-length",
+                                "type": {
+                                    "@name": "uint8",
+                                    "range": {
+                                        "@value": "1..200"
+                                    }
+                                },
+                                "default": {
+                                    "@value": "8"
+                                },
+                                "description": {
+                                    "text": "Configurable minimum length for user passwords. When a password is changed, the password length will be verified according with this policy.\nNote that changing this policy will not have impact on already set passwords, only on newly set passwords.\nThe default value will depend on whether the policy strict-password-check is enabled or not (min length is 8 if enabled, 1 if disabled),\nbut the user is able to override this value by editing this policy manually.\nNote: this policy can only be enforced when the password is provided in a non-hashed way."
+                                }
+                            },
+                            {
+                                "@name": "ssh-authentication-method",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "password",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Use password-based authentication for SSH access."
+                                            }
+                                        },
+                                        {
+                                            "@name": "public-key",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Use public key authentication for SSH access."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "password"
+                                },
+                                "description": {
+                                    "text": "The method used to authenticate user for SSH access.\nNote: For two-factor authentication, use public-key method and employ PIN/password-protected hardware device (e.g.: smart card or USB token.)"
+                                }
+                            },
+                            {
+                                "@name": "enforce-password-history-check",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "If enabled, ensures that a new password being set cannot match any of the previous 5 password\nfor the user.\nIf disabled, password repetition is allowed.\nOnce enabled, this policy only has impact on newly defined passwords."
+                                }
+                            },
+                            {
+                                "@name": "aaa-authentication-method",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "local-only",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Authentication locally only"
+                                            }
+                                        },
+                                        {
+                                            "@name": "local-first-then-remote",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "Authentication locally first, if not pass, then use remote AAA server"
+                                            }
+                                        },
+                                        {
+                                            "@name": "remote-first-then-local",
+                                            "value": {
+                                                "@value": "4"
+                                            },
+                                            "description": {
+                                                "text": "Authentication use remote AAA server first, if remote authentication failed or all servers could not be contacted, then authenticate locally"
+                                            }
+                                        },
+                                        {
+                                            "@name": "remote-unavailable-then-local",
+                                            "value": {
+                                                "@value": "5"
+                                            },
+                                            "description": {
+                                                "text": "Authentication use remote AAA server first, if all servers could not be contacted, then authenticate locally"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "local-only"
+                                },
+                                "description": {
+                                    "text": "Specify authentication method for the user login to the NE."
+                                }
+                            },
+                            {
+                                "@name": "aaa-authorization-method",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "local-only",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Authorization locally only."
+                                            }
+                                        },
+                                        {
+                                            "@name": "remote-if-authenticated-else-local",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Local users should follow local permissions and remote users should follow the remote ones."
+                                            }
+                                        },
+                                        {
+                                            "@name": "remote-unavailable-then-local",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "All users (local or remote) should follow remote permissions. If the permissions return unavailable, then use local ones."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "local-only"
+                                },
+                                "description": {
+                                    "text": "Specify authorization policy for the logged user. If the user changes this parameter, it should logout and login again to apply the rules."
+                                }
+                            },
+                            {
+                                "@name": "ssh-strict-host-key-checking",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "strict",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Only allow connection to a remote ssh/sftp/scp host if identity provided by remote host is known"
+                                            }
+                                        },
+                                        {
+                                            "@name": "relaxed",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Allow connection to a remote ssh/sftp/scp host, regardless if identity provided by remote host is known"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "relaxed"
+                                },
+                                "description": {
+                                    "text": "Specify the strictness of remote ssh/sftp/scp host identity checking."
+                                }
+                            },
+                            {
+                                "@name": "root-password",
+                                "type": {
+                                    "@name": "ioa-common:password"
+                                },
+                                "description": {
+                                    "text": "The password of the root user."
+                                }
+                            },
+                            {
+                                "@name": "console-user-password",
+                                "type": {
+                                    "@name": "ioa-common:password"
+                                },
+                                "description": {
+                                    "text": "The password of the console-user."
+                                }
+                            },
+                            {
+                                "@name": "console-user-enabled",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "A switch to enable/disable console-user.\nThe console-user account is an emergency account that is only usable through the serial console.\nDisabling this account may put the device in a position where recovery is not possible,\nso it is recommended to keep this account enabled."
+                                }
+                            },
+                            {
+                                "@name": "csp-symmetrical-key",
+                                "type": {
+                                    "@name": "ioa-common:password",
+                                    "length": {
+                                        "@value": "1..32"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Critical Security Parameters symmetrical key."
+                                }
+                            },
+                            {
+                                "@name": "max-system-sessions",
+                                "type": {
+                                    "@name": "uint8"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "The maximum number of management sessions that the system supports.\nNote: session via serial console does not count against this maximum."
+                                }
+                            },
+                            {
+                                "@name": "max-local-users",
+                                "type": {
+                                    "@name": "uint8"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "The maximum number of local users that can be configured in the system."
+                                }
+                            },
+                            {
+                                "@name": "disable-user-lockout",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "This policy allows to enable/disable user lockout when multiple invalid logins are detected.\nThe number of invalid logins that trigger the lockout is configurable at the individual user level with the max-invalid-logins parameter.\nThe time the user is locked-out is also configurable at user level with the suspension-time parameter."
+                                }
+                            },
+                            {
+                                "@name": "supported-tls-version",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "1.2-only",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Use TLS version 1.2 only."
+                                            }
+                                        },
+                                        {
+                                            "@name": "1.3-only",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Use TLS version 1.3 only."
+                                            }
+                                        },
+                                        {
+                                            "@name": "1.3-with-fallback-to-1.2",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "Try to use TLS version 1.3 but if it fails use version 1.2."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "1.2-only"
+                                },
+                                "description": {
+                                    "text": "Transport Layer Security (TLS) supported version(s). Changing this attribute will not affect existing connections."
+                                }
+                            },
+                            {
+                                "@name": "crl-based-revocation",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "This policy allows to enable/disable CRL-based certificate revocation."
+                                }
+                            },
+                            {
+                                "@name": "crl-download-timeout",
+                                "type": {
+                                    "@name": "uint16",
+                                    "range": {
+                                        "@value": "1..60"
+                                    }
+                                },
+                                "units": {
+                                    "@name": "seconds"
+                                },
+                                "default": {
+                                    "@value": "15"
+                                },
+                                "description": {
+                                    "text": "Specifies the maximum time to wait (in seconds) for automatic CRL downloads.\nNote: This timeout does not apply to manual CRL downloads."
+                                }
+                            },
+                            {
+                                "@name": "ocsp-based-revocation",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "This policy defines whether OCSP responders can be consulted for certificate revocation checking."
+                                }
+                            }
+                        ],
+                        "leaf-list": [
+                            {
+                                "@name": "default-user-group",
+                                "type": {
+                                    "@name": "leafref",
+                                    "path": {
+                                        "@value": "../../user-group/name"
+                                    }
+                                },
+                                "max-elements": {
+                                    "@value": "10"
+                                },
+                                "description": {
+                                    "text": "Default roles for users access."
+                                }
+                            },
+                            {
+                                "@name": "ssh-ciphers",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "aes128-ctr",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Advanced Encryption Standard with 128-bit key in Counter mode."
+                                            }
+                                        },
+                                        {
+                                            "@name": "aes192-ctr",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Advanced Encryption Standard with 192-bit key in Counter mode."
+                                            }
+                                        },
+                                        {
+                                            "@name": "aes256-ctr",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "Advanced Encryption Standard with 256-bit key in Counter mode."
+                                            }
+                                        },
+                                        {
+                                            "@name": "aes128-gcm-at-openssh-com",
+                                            "value": {
+                                                "@value": "4"
+                                            },
+                                            "description": {
+                                                "text": "Advanced Encryption Standard with 128-bit key in Galois/Counter mode."
+                                            }
+                                        },
+                                        {
+                                            "@name": "aes256-gcm-at-openssh-com",
+                                            "value": {
+                                                "@value": "5"
+                                            },
+                                            "description": {
+                                                "text": "Advanced Encryption Standard with 256-bit key in Galois/Counter mode."
+                                            }
+                                        },
+                                        {
+                                            "@name": "chacha20-poly1305-at-openssh-com",
+                                            "value": {
+                                                "@value": "6"
+                                            },
+                                            "description": {
+                                                "text": "ChaCha20 stream cipher and Poly1305 MAC."
+                                            }
+                                        },
+                                        {
+                                            "@name": "aes128-cbc",
+                                            "value": {
+                                                "@value": "7"
+                                            },
+                                            "description": {
+                                                "text": "Advanced Encryption Standard with 128-bit key in Cipher Block Chaining mode."
+                                            }
+                                        },
+                                        {
+                                            "@name": "aes256-cbc",
+                                            "value": {
+                                                "@value": "8"
+                                            },
+                                            "description": {
+                                                "text": "Advanced Encryption Standard with 256-bit key in Cipher Block Chaining mode."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "min-elements": {
+                                    "@value": "1"
+                                },
+                                "max-elements": {
+                                    "@value": "20"
+                                },
+                                "description": {
+                                    "text": "Allowed symmetric ciphers for SSH."
+                                }
+                            },
+                            {
+                                "@name": "ssh-macs",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "hmac-sha2-256",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "256-bit hash-based MAC using Secure Hash Algorithm-2."
+                                            }
+                                        },
+                                        {
+                                            "@name": "hmac-sha2-512",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "512-bit hash-based MAC using Secure Hash Algorithm-2."
+                                            }
+                                        },
+                                        {
+                                            "@name": "hmac-sha2-256-etm-at-openssh-com",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "256-bit Encrypt-then-MAC using Secure Hash Algorithm-2."
+                                            }
+                                        },
+                                        {
+                                            "@name": "hmac-sha2-512-etm-at-openssh-com",
+                                            "value": {
+                                                "@value": "4"
+                                            },
+                                            "description": {
+                                                "text": "512-bit Encrypt-then-MAC using Secure Hash Algorithm-2."
+                                            }
+                                        },
+                                        {
+                                            "@name": "hmac-sha1",
+                                            "value": {
+                                                "@value": "5"
+                                            },
+                                            "description": {
+                                                "text": "160-bit hash-based MAC using Secure Hash Algorithm-1."
+                                            }
+                                        },
+                                        {
+                                            "@name": "hmac-sha1-96",
+                                            "value": {
+                                                "@value": "6"
+                                            },
+                                            "description": {
+                                                "text": "Truncated 160-bit hash-based MAC using Secure Hash Algorithm-1."
+                                            }
+                                        },
+                                        {
+                                            "@name": "hmac-sha1-etm-at-openssh-com",
+                                            "value": {
+                                                "@value": "7"
+                                            },
+                                            "description": {
+                                                "text": "160-bit Encrypt-then-MAC using Secure Hash Algorithm-1."
+                                            }
+                                        },
+                                        {
+                                            "@name": "hmac-sha1-96-etm-at-openssh-com",
+                                            "value": {
+                                                "@value": "8"
+                                            },
+                                            "description": {
+                                                "text": "Truncated 160-bit Encrypt-then-MAC using Secure Hash Algorithm-1."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "min-elements": {
+                                    "@value": "1"
+                                },
+                                "max-elements": {
+                                    "@value": "20"
+                                },
+                                "description": {
+                                    "text": "Allowed message authentication code algorithms for SSH."
+                                }
+                            },
+                            {
+                                "@name": "ssh-key-exchanges",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "diffie-hellman-group-exchange-sha256",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Diffie-Hellman group exchange algorithm using Secure Hash Algorithm-2."
+                                            }
+                                        },
+                                        {
+                                            "@name": "ecdh-sha2-nistp256",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "ECDH key exchange algorithm with ephemeral keys generated on the nistp256 curve using\nSecure Hash Algorithm-2."
+                                            }
+                                        },
+                                        {
+                                            "@name": "ecdh-sha2-nistp384",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "ECDH key exchange algorithm with ephemeral keys generated on the nistp384 curve using\nSecure Hash Algorithm-2."
+                                            }
+                                        },
+                                        {
+                                            "@name": "ecdh-sha2-nistp521",
+                                            "value": {
+                                                "@value": "4"
+                                            },
+                                            "description": {
+                                                "text": "ECDH key exchange algorithm with ephemeral keys generated on the nistp521 curve using\nSecure Hash Algorithm-2."
+                                            }
+                                        },
+                                        {
+                                            "@name": "diffie-hellman-group14-sha1",
+                                            "value": {
+                                                "@value": "5"
+                                            },
+                                            "description": {
+                                                "text": "Diffie-Hellman group 14 key exchange algorithm using Secure Hash Algorithm-1."
+                                            }
+                                        },
+                                        {
+                                            "@name": "diffie-hellman-group-exchange-sha1",
+                                            "value": {
+                                                "@value": "6"
+                                            },
+                                            "description": {
+                                                "text": "Diffie-Hellman group exchange algorithm using Secure Hash Algorithm-1."
+                                            }
+                                        },
+                                        {
+                                            "@name": "diffie-hellman-group14-sha256",
+                                            "value": {
+                                                "@value": "7"
+                                            },
+                                            "description": {
+                                                "text": "Diffie-Hellman group 14 key exchange algorithm using Secure Hash Algorithm-2."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "min-elements": {
+                                    "@value": "1"
+                                },
+                                "max-elements": {
+                                    "@value": "20"
+                                },
+                                "description": {
+                                    "text": "Allowed key exchange algorithms for SSH."
+                                }
+                            },
+                            {
+                                "@name": "ssh-host-key-algorithms",
+                                "type": {
+                                    "@name": "ssh-key-algorithm"
+                                },
+                                "min-elements": {
+                                    "@value": "1"
+                                },
+                                "max-elements": {
+                                    "@value": "20"
+                                },
+                                "description": {
+                                    "text": "Allowed host key algorithms for SSH."
+                                }
+                            },
+                            {
+                                "@name": "ssh-public-key-algorithms",
+                                "type": {
+                                    "@name": "ssh-key-algorithm"
+                                },
+                                "min-elements": {
+                                    "@value": "1"
+                                },
+                                "max-elements": {
+                                    "@value": "20"
+                                },
+                                "description": {
+                                    "text": "Allowed public key algorithms for SSH."
+                                }
+                            },
+                            {
+                                "@name": "tls-1.2-cipher-suites",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "TLS_DHE_RSA_WITH_AES_128_CBC_SHA256",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Diffie-Hellman Ephemeral,\nRivest Shamir Adleman algorithm,\nAdvanced Encryption Standard with 128-bit key in Cipher Block Chaining mode,\nSecure Hash Algorithm 256."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Diffie-Hellman Ephemeral,\nRivest Shamir Adleman algorithm,\nAdvanced Encryption Standard with 128-bit key in Galois/Counter mode,\nSecure Hash Algorithm 256."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_DHE_RSA_WITH_AES_256_CBC_SHA256",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "Diffie-Hellman Ephemeral,\nRivest Shamir Adleman algorithm,\nAdvanced Encryption Standard with 256-bit key in Cipher Block Chaining mode,\nSecure Hash Algorithm 256."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384",
+                                            "value": {
+                                                "@value": "4"
+                                            },
+                                            "description": {
+                                                "text": "Diffie-Hellman Ephemeral,\nRivest Shamir Adleman algorithm,\nAdvanced Encryption Standard with 256-bit key in Galois/Counter mode,\nSecure Hash Algorithm 384."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+                                            "value": {
+                                                "@value": "5"
+                                            },
+                                            "description": {
+                                                "text": "Elliptic Curve Diffie-Hellman Ephemeral,\nElliptic Curve Digital Signature Algorithm,\nAdvanced Encryption Standard with 128-bit key in Cipher Block Chaining mode,\nSecure Hash Algorithm 256."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+                                            "value": {
+                                                "@value": "6"
+                                            },
+                                            "description": {
+                                                "text": "Elliptic Curve Diffie-Hellman Ephemeral,\nElliptic Curve Digital Signature Algorithm,\nAdvanced Encryption Standard with 128-bit key in Galois/Counter mode,\nSecure Hash Algorithm 256."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384",
+                                            "value": {
+                                                "@value": "7"
+                                            },
+                                            "description": {
+                                                "text": "Elliptic Curve Diffie-Hellman Ephemeral,\nElliptic Curve Digital Signature Algorithm,\nAdvanced Encryption Standard with 256-bit key in Cipher Block Chaining mode,\nSecure Hash Algorithm 384."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+                                            "value": {
+                                                "@value": "8"
+                                            },
+                                            "description": {
+                                                "text": "Elliptic Curve Diffie-Hellman Ephemeral,\nElliptic Curve Digital Signature Algorithm,\nAdvanced Encryption Standard with 256-bit key in Galois/Counter mode,\nSecure Hash Algorithm 384."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256",
+                                            "value": {
+                                                "@value": "9"
+                                            },
+                                            "description": {
+                                                "text": "Elliptic Curve Diffie-Hellman Ephemeral,\nRivest Shamir Adleman algorithm,\nAdvanced Encryption Standard with 128-bit key in Cipher Block Chaining mode,\nSecure Hash Algorithm 256."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+                                            "value": {
+                                                "@value": "10"
+                                            },
+                                            "description": {
+                                                "text": "Elliptic Curve Diffie-Hellman Ephemeral,\nRivest Shamir Adleman algorithm,\nAdvanced Encryption Standard with 128-bit key in Galois/Counter mode,\nSecure Hash Algorithm 256."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384",
+                                            "value": {
+                                                "@value": "11"
+                                            },
+                                            "description": {
+                                                "text": "Elliptic Curve Diffie-Hellman Ephemeral,\nRivest Shamir Adleman algorithm,\nAdvanced Encryption Standard with 256-bit key in Cipher Block Chaining mode,\nSecure Hash Algorithm 384."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+                                            "value": {
+                                                "@value": "12"
+                                            },
+                                            "description": {
+                                                "text": "Elliptic Curve Diffie-Hellman Ephemeral,\nRivest Shamir Adleman algorithm,\nAdvanced Encryption Standard with 256-bit key in Galois/Counter mode,\nSecure Hash Algorithm 384."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_RSA_WITH_AES_128_CBC_SHA256",
+                                            "value": {
+                                                "@value": "13"
+                                            },
+                                            "status": {
+                                                "@value": "obsolete"
+                                            },
+                                            "description": {
+                                                "text": "Rivest Shamir Adleman algorithm,\nAdvanced Encryption Standard with 128-bit key in Cipher Block Chaining mode,\nSecure Hash Algorithm 256."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_RSA_WITH_AES_128_GCM_SHA256",
+                                            "value": {
+                                                "@value": "14"
+                                            },
+                                            "status": {
+                                                "@value": "obsolete"
+                                            },
+                                            "description": {
+                                                "text": "Rivest Shamir Adleman algorithm,\nAdvanced Encryption Standard with 128-bit key in Galois/Counter mode,\nSecure Hash Algorithm 256."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_RSA_WITH_AES_256_CBC_SHA256",
+                                            "value": {
+                                                "@value": "15"
+                                            },
+                                            "status": {
+                                                "@value": "obsolete"
+                                            },
+                                            "description": {
+                                                "text": "Rivest Shamir Adleman algorithm,\nAdvanced Encryption Standard with 256-bit key in Cipher Block Chaining mode,\nSecure Hash Algorithm 256."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_RSA_WITH_AES_256_GCM_SHA384",
+                                            "value": {
+                                                "@value": "16"
+                                            },
+                                            "status": {
+                                                "@value": "obsolete"
+                                            },
+                                            "description": {
+                                                "text": "Rivest Shamir Adleman algorithm,\nAdvanced Encryption Standard with 256-bit key in Galois/Counter mode,\nSecure Hash Algorithm 384."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "min-elements": {
+                                    "@value": "1"
+                                },
+                                "max-elements": {
+                                    "@value": "16"
+                                },
+                                "ordered-by": {
+                                    "@value": "user"
+                                },
+                                "description": {
+                                    "text": "Supported TLS 1.2 cipher suites. Changing this attribute will not affect existing connections."
+                                }
+                            },
+                            {
+                                "@name": "tls-1.3-cipher-suites",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "TLS_AES_128_GCM_SHA256",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Advanced Encryption Standard with 128-bit key in Galois/Counter mode (Secure Hash Algorithm 256)."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_AES_256_GCM_SHA384",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Advanced Encryption Standard with 256-bit key in Galois/Counter mode (Secure Hash Algorithm 384)."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_CHACHA20_POLY1305_SHA256",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "ChaCha stream cipher and Poly1305 authenticator (Secure Hash Algorithm 256)."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_AES_128_CCM_SHA256",
+                                            "value": {
+                                                "@value": "4"
+                                            },
+                                            "description": {
+                                                "text": "Advanced Encryption Standard with 128-bit key in Counter with CBC-MAC mode (Secure Hash Algorithm 256)."
+                                            }
+                                        },
+                                        {
+                                            "@name": "TLS_AES_128_CCM_8_SHA256",
+                                            "value": {
+                                                "@value": "5"
+                                            },
+                                            "description": {
+                                                "text": "Advanced Encryption Standard with 128-bit key in Counter with CBC-MAC mode with 8-Octet ICV (Secure Hash Algorithm 256)."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "min-elements": {
+                                    "@value": "1"
+                                },
+                                "ordered-by": {
+                                    "@value": "user"
+                                },
+                                "description": {
+                                    "text": "Supported TLS 1.3 cipher suites. Changing this attribute will not affect existing connections.\nTLS_CHACHA20_POLY1305_SHA256 note:\nIf present and requested by the client, it will be prioritized regardless of cipher-suite order."
+                                }
+                            },
+                            {
+                                "@name": "tls-curves",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "secp256r1",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "256-bit Elliptic-curve Diffie-Hellman using curve SECP256r1."
+                                            }
+                                        },
+                                        {
+                                            "@name": "secp384r1",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "384-bit Elliptic-curve Diffie-Hellman using curve SECP384r1."
+                                            }
+                                        },
+                                        {
+                                            "@name": "secp521r1",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "521-bit Elliptic-curve Diffie-Hellman using curve SECP521r1."
+                                            }
+                                        },
+                                        {
+                                            "@name": "x25519",
+                                            "value": {
+                                                "@value": "4"
+                                            },
+                                            "description": {
+                                                "text": "256-bit Elliptic-curve Diffie-Hellman using curve 25519."
+                                            }
+                                        },
+                                        {
+                                            "@name": "x448",
+                                            "value": {
+                                                "@value": "5"
+                                            },
+                                            "description": {
+                                                "text": "448-bit Elliptic-curve Diffie-Hellman using curve 448."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "min-elements": {
+                                    "@value": "1"
+                                },
+                                "ordered-by": {
+                                    "@value": "user"
+                                },
+                                "description": {
+                                    "text": "Supported elliptic curve algorithms.\nThe tls-curve algorithm affects both key-exchange and authentication stages of TLS handshake.\nChanging this attribute will not affect existing connections.\nApplies to both TLS 1.2 and 1.3.\nNOTE: Restricting curves can cause interoperability issues.\nTLS 1.2 remark: if the configured curve is not sent by the client, handshake may fail.\nTLS 1.3 remark: for the Authentication stage, it is possible that the server\nselects another curve different from the certificate signing algorithm."
+                                }
+                            },
+                            {
+                                "@name": "supported-signature-hash-algorithms",
+                                "type": {
+                                    "@name": "ioa-cert:signature-hash-algorithm-type"
+                                },
+                                "min-elements": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "Supported hash algorithms for digital signatures for certificates.\nThis applies to locally-managed certificates as well as certificates received from a remote peer.\nNOTE: If algorithms are removed from this list, any installed certificates using them will become unusable\nand transition to the 'unsupported' status, potentially disabling secure-applications and services.\nIt also will prevent TLS connections to remote peers using unsupported signature hashes.\nAlso, note that SHA-1 support is limited to root CA certificates."
+                                }
+                            }
+                        ],
+                        "uses": {
+                            "@name": "ioa-common:db-passphrase"
+                        }
+                    },
+                    {
+                        "@name": "niap",
+                        "description": {
+                            "text": "Container for NIAP (National Information Assurance Partnership) compliance configuration and status.\nNIAP is responsible for the United States implementation of Common Criteria, see niap-ccevs.org for details.\nThis container allows configuration of whether NIAP compliance is expected and provides information about the current NIAP compliance status."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "expected-niap-compliance",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "The user configurable expected NIAP compliance status.\nIf set to true and the actual niap-compliance is false, the NIAP-COMPLIANCE-MISMATCH alarm will be raised."
+                                }
+                            },
+                            {
+                                "@name": "niap-compliance",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "The current system NIAP compliance status."
+                                }
+                            }
+                        ],
+                        "leaf-list": {
+                            "@name": "non-compliance-reason",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..255"
+                                }
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "max-elements": {
+                                "@value": "10"
+                            },
+                            "description": {
+                                "text": "Provides the first 10 reasons why the system is not NIAP compliant.\nList is empty if system is NIAP compliant."
+                            }
+                        }
+                    }
+                ],
+                "list": [
+                    {
+                        "@name": "user",
+                        "key": {
+                            "@value": "user-name"
+                        },
+                        "description": {
+                            "text": "User details. Can represent both locally configured users, as well as temporary remote users."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "user-name",
+                                "type": {
+                                    "@name": "ioa-common:user-name"
+                                },
+                                "description": {
+                                    "text": "The name of the user."
+                                }
+                            },
+                            {
+                                "@name": "password",
+                                "type": {
+                                    "@name": "ioa-common:password"
+                                },
+                                "description": {
+                                    "text": "The password of the user."
+                                }
+                            },
+                            {
+                                "@name": "password-hashed",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..106"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Hashed password of the user. It is made of three mandatory fields,\nwhere the dollar sign is the field separator. The structure is: $id$salt$encrypted\nOnly id 6 (SHA512) is supported. Salt minimum size is 2.\nreference: https://www.man7.org/linux/man-pages/man3/crypt.3.html"
+                                }
+                            },
+                            {
+                                "@name": "display-name",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..128"
+                                    }
+                                },
+                                "description": {
+                                    "text": "The display name for this user."
+                                }
+                            },
+                            {
+                                "@name": "max-invalid-login",
+                                "type": {
+                                    "@name": "uint8"
+                                },
+                                "default": {
+                                    "@value": "5"
+                                },
+                                "description": {
+                                    "text": "This attribute is the maximum number of consecutive and invalid login attempts\nbefore an account is suspended (lockedout). Zero disables escalation on login failure."
+                                }
+                            },
+                            {
+                                "@name": "suspension-time",
+                                "type": {
+                                    "@name": "uint16",
+                                    "range": {
+                                        "@value": "0..1440"
+                                    }
+                                },
+                                "units": {
+                                    "@name": "minutes"
+                                },
+                                "default": {
+                                    "@value": "5"
+                                },
+                                "description": {
+                                    "text": "This attribute is the duration of UID suspension following consecutive invalid login attempts.\nSetting the value to 0 disables this behavior."
+                                }
+                            },
+                            {
+                                "@name": "timeout",
+                                "type": {
+                                    "@name": "uint16",
+                                    "range": {
+                                        "@value": "0..1440"
+                                    }
+                                },
+                                "units": {
+                                    "@name": "minutes"
+                                },
+                                "default": {
+                                    "@value": "60"
+                                },
+                                "description": {
+                                    "text": "This attribute is the Session Time Out Interval. If there are no messages between the user\nand the NE over the Time Out interval, the session is logged off. Setting the value to 0 disables\nthis attribute (meaning the session will not time out)."
+                                }
+                            },
+                            {
+                                "@name": "password-aging-interval",
+                                "type": {
+                                    "@name": "uint16",
+                                    "range": {
+                                        "@value": "0..365"
+                                    }
+                                },
+                                "units": {
+                                    "@name": "days"
+                                },
+                                "default": {
+                                    "@value": "90"
+                                },
+                                "description": {
+                                    "text": "This attribute is the Password Aging Interval. Setting the value to 0 disables password aging."
+                                }
+                            },
+                            {
+                                "@name": "password-expiration-date",
+                                "type": {
+                                    "@name": "yang:date-and-time"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "This attribute shows the password expiration date."
+                                }
+                            },
+                            {
+                                "@name": "enabled",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "Enable switch for the user, allows admins to explicitly disable users."
+                                }
+                            },
+                            {
+                                "@name": "user-status",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "enabled",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "User account has access to the system."
+                                            }
+                                        },
+                                        {
+                                            "@name": "disabled",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "User account does not have access to the system."
+                                            }
+                                        },
+                                        {
+                                            "@name": "password-aged",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "User will be forced to change password upon next login."
+                                            }
+                                        },
+                                        {
+                                            "@name": "lockout",
+                                            "value": {
+                                                "@value": "4"
+                                            },
+                                            "description": {
+                                                "text": "User account is locked out due to unsuccessful login attempts.\nNote that 'lockout' only applies to remote connections.\nConnections from local (i.e. directly attached) terminals including console and CRAFT port access cannot trigger 'lockout' and are not influenced by it."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "disabled"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "This attribute shows the status of the user account."
+                                }
+                            },
+                            {
+                                "@name": "force-password-change",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Allows administrator to force user to change password on next login."
+                                }
+                            },
+                            {
+                                "@name": "max-sessions",
+                                "type": {
+                                    "@name": "uint8",
+                                    "range": {
+                                        "@value": "1..20"
+                                    }
+                                },
+                                "default": {
+                                    "@value": "10"
+                                },
+                                "description": {
+                                    "text": "This attribute specifies the maximum number of sessions allowed for this user."
+                                }
+                            },
+                            {
+                                "@name": "last-login-date",
+                                "type": {
+                                    "@name": "yang:date-and-time"
+                                },
+                                "default": {
+                                    "@value": "1970-01-01T00:00:00Z"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "The last login date/time of the user."
+                                }
+                            },
+                            {
+                                "@name": "failed-logins",
+                                "type": {
+                                    "@name": "uint8"
+                                },
+                                "default": {
+                                    "@value": "0"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Number of previous failed logins. Resets to zero upon a successful login.\nNote that login failures from local (i.e. directly attached) terminals do not contribute to this count.\nThis includes CLI, NETCONF, and direct shell access from the console and CRAFT ports."
+                                }
+                            },
+                            {
+                                "@name": "user-aaa-type",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "local",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "User is authenticated locally."
+                                            }
+                                        },
+                                        {
+                                            "@name": "remote",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "User is authenticated through remote AAA server."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "local"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Indicates the authentication method of the user."
+                                }
+                            }
+                        ],
+                        "leaf-list": {
+                            "@name": "user-group",
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "../../user-group/name"
+                                }
+                            },
+                            "max-elements": {
+                                "@value": "10"
+                            },
+                            "description": {
+                                "text": "Associated user groups for this user."
+                            }
+                        },
+                        "uses": [
+                            {
+                                "@name": "ioa-common:arc"
+                            },
+                            {
+                                "@name": "ioa-common:label"
+                            }
+                        ]
+                    },
+                    {
+                        "@name": "user-group",
+                        "key": {
+                            "@value": "name"
+                        },
+                        "description": {
+                            "text": "List of user groups, each one with its own access permissions.\nEach user will be associated with a list of groups, and will derive its permissions from them."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "name",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "1..32"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Name of the group."
+                                }
+                            },
+                            {
+                                "@name": "description",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..128"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Long description of the user group."
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "@name": "session",
+                        "key": {
+                            "@value": "session-id"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "max-elements": {
+                            "@value": "100"
+                        },
+                        "description": {
+                            "text": "List of currently established management layer sessions."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "session-id",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "Specifies a unique identifier of the current session. It indicates the\nIP address and transport layer port number associated with this session.\nIf the session is initiated from the serial port, the value is 'NA'."
+                                }
+                            },
+                            {
+                                "@name": "session-user",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "User name associated with this session."
+                                }
+                            },
+                            {
+                                "@name": "session-type",
+                                "type": {
+                                    "@name": "ioa-common:session-type"
+                                },
+                                "description": {
+                                    "text": "Session type."
+                                }
+                            },
+                            {
+                                "@name": "session-protocol",
+                                "type": {
+                                    "@name": "ioa-common:session-protocol"
+                                },
+                                "description": {
+                                    "text": "Indicates which protocol has been used to establish the session."
+                                }
+                            },
+                            {
+                                "@name": "created-time",
+                                "type": {
+                                    "@name": "yang:date-and-time"
+                                },
+                                "description": {
+                                    "text": "The timestamp the user has created this session."
+                                }
+                            },
+                            {
+                                "@name": "local-ip-address",
+                                "type": {
+                                    "@name": "inet:ip-address"
+                                },
+                                "description": {
+                                    "text": "Local ip address of the session"
+                                }
+                            },
+                            {
+                                "@name": "dial-out-server-name",
+                                "type": {
+                                    "@name": "leafref",
+                                    "path": {
+                                        "@value": "../../../protocols/dial-out-server/name"
+                                    }
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Name of the dial-out-server associated with this session."
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "@name": "aaa-server",
+                        "key": {
+                            "@value": "server-name"
+                        },
+                        "unique": {
+                            "@tag": "server-priority"
+                        },
+                        "description": {
+                            "text": "Configuration of AAA servers - RADIUS or TACACS+."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "server-name",
+                                "type": {
+                                    "@name": "ioa-common:object-name",
+                                    "length": {
+                                        "@value": "1..32"
+                                    }
+                                },
+                                "description": {
+                                    "text": "specify the name of aaa server."
+                                }
+                            },
+                            {
+                                "@name": "server-priority",
+                                "type": {
+                                    "@name": "uint32",
+                                    "range": {
+                                        "@value": "1..10"
+                                    }
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "This is used to sort the servers in the order of precedence."
+                                }
+                            },
+                            {
+                                "@name": "protocol-supported",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "TACACSPLUS",
+                                            "value": {
+                                                "@value": "1"
+                                            }
+                                        },
+                                        {
+                                            "@name": "RADIUS",
+                                            "value": {
+                                                "@value": "2"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "specify the protocol used for AAA."
+                                }
+                            },
+                            {
+                                "@name": "server-address",
+                                "type": {
+                                    "@name": "ioa-common:host"
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "The IP address of AAA server."
+                                }
+                            },
+                            {
+                                "@name": "server-port",
+                                "when": {
+                                    "@condition": "../protocol-supported = 'TACACSPLUS'"
+                                },
+                                "type": {
+                                    "@name": "inet:port-number"
+                                },
+                                "default": {
+                                    "@value": "49"
+                                },
+                                "description": {
+                                    "text": "AAA server port number."
+                                }
+                            },
+                            {
+                                "@name": "server-port-authentication",
+                                "when": {
+                                    "@condition": "../protocol-supported = 'RADIUS'"
+                                },
+                                "type": {
+                                    "@name": "inet:port-number"
+                                },
+                                "default": {
+                                    "@value": "1812"
+                                },
+                                "description": {
+                                    "text": "AAA server authentication port number."
+                                }
+                            },
+                            {
+                                "@name": "server-port-accounting",
+                                "when": {
+                                    "@condition": "../protocol-supported = 'RADIUS'"
+                                },
+                                "type": {
+                                    "@name": "inet:port-number"
+                                },
+                                "default": {
+                                    "@value": "1813"
+                                },
+                                "description": {
+                                    "text": "AAA server accounting port number."
+                                }
+                            },
+                            {
+                                "@name": "shared-secret",
+                                "type": {
+                                    "@name": "ioa-common:password",
+                                    "length": {
+                                        "@value": "0..128"
+                                    }
+                                },
+                                "default": {
+                                    "@value": "sharedkey"
+                                },
+                                "description": {
+                                    "text": "The shared secret of the aaa server. The shared secret will be displayed as *."
+                                }
+                            },
+                            {
+                                "@name": "role-supported",
+                                "type": {
+                                    "@name": "bits",
+                                    "bit": [
+                                        {
+                                            "@name": "authentication",
+                                            "position": {
+                                                "@value": "0"
+                                            }
+                                        },
+                                        {
+                                            "@name": "authorization",
+                                            "position": {
+                                                "@value": "1"
+                                            }
+                                        },
+                                        {
+                                            "@name": "accounting",
+                                            "position": {
+                                                "@value": "2"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "authentication authorization accounting"
+                                },
+                                "description": {
+                                    "text": "The configured roles for the AAA server."
+                                }
+                            },
+                            {
+                                "@name": "enabled",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "Enable switch for this aaa-server."
+                                }
+                            },
+                            {
+                                "@name": "timeout",
+                                "type": {
+                                    "@name": "uint16",
+                                    "range": {
+                                        "@value": "1..90"
+                                    }
+                                },
+                                "units": {
+                                    "@name": "seconds"
+                                },
+                                "default": {
+                                    "@value": "5"
+                                },
+                                "description": {
+                                    "text": "Specifies the response timeout of Access-Request messages sent to a AAA server in seconds."
+                                }
+                            },
+                            {
+                                "@name": "retry",
+                                "type": {
+                                    "@name": "uint8",
+                                    "range": {
+                                        "@value": "0..5"
+                                    }
+                                },
+                                "default": {
+                                    "@value": "3"
+                                },
+                                "description": {
+                                    "text": "Specifies the number of attempted Access-Request messages to a single AAA server before failing authentication."
+                                }
+                            },
+                            {
+                                "@name": "source-ip",
+                                "when": {
+                                    "@condition": "../protocol-supported = 'RADIUS'"
+                                },
+                                "type": {
+                                    "@name": "union",
+                                    "type": [
+                                        {
+                                            "@name": "enumeration",
+                                            "enum": {
+                                                "@name": "auto",
+                                                "value": {
+                                                    "@value": "0"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "@name": "inet:ipv4-address"
+                                        },
+                                        {
+                                            "@name": "inet:ipv6-address"
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "auto"
+                                },
+                                "description": {
+                                    "text": "Source IP address used for RADIUS communications."
+                                }
+                            },
+                            {
+                                "@name": "common-password",
+                                "when": {
+                                    "@condition": "../protocol-supported = 'RADIUS'"
+                                },
+                                "type": {
+                                    "@name": "ioa-common:password",
+                                    "length": {
+                                        "@value": "0..128"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Password used for RADIUS authorization after SSH public key authentication.\nIf blank, username is reused as password for RADIUS authorization."
+                                }
+                            }
+                        ],
+                        "uses": {
+                            "@name": "ioa-common:oper-state"
+                        }
+                    }
+                ],
+                "uses": [
+                    {
+                        "@name": "ioa-image-key:image-keys"
+                    },
+                    {
+                        "@name": "ioa-image-key:key-replacement-package"
+                    },
+                    {
+                        "@name": "ioa-cert:certificates"
+                    },
+                    {
+                        "@name": "ioa-ike:ikev2"
+                    },
+                    {
+                        "@name": "ioa-fips:fips"
+                    }
+                ]
+            }
+        }
+    }
+}

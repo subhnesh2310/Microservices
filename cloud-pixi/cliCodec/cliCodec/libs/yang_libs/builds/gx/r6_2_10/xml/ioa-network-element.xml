@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-network-element"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-ne="http://infinera.com/yang/ioa/ne"
+        xmlns:ioa-eqm="http://infinera.com/yang/ioa/equipment"
+        xmlns:ioa-ne-function="http://infinera.com/yang/ioa/ne-function"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-sec="http://infinera.com/yang/ioa/security"
+        xmlns:ioa-syslog="http://infinera.com/yang/ioa/syslog"
+        xmlns:ioa-mgmt="http://infinera.com/yang/ioa/mgmt-protocols"
+        xmlns:ioa-ztp="http://infinera.com/yang/ioa/ztp"
+        xmlns:ioa-transfer="http://infinera.com/yang/ioa/transfer"
+        xmlns:ioa-time="http://infinera.com/yang/ioa/time"
+        xmlns:networking="http://infinera.com/yang/ioa/networking"
+        xmlns:ioa-sw-svc="http://infinera.com/yang/ioa/sw-services"
+        xmlns:ioa-swm="http://infinera.com/yang/ioa/swm"
+        xmlns:ioa-tlm="http://infinera.com/yang/ioa/telemetry"
+        xmlns:ioa-services="http://infinera.com/yang/ioa/services"
+        xmlns:ioa-fac="http://infinera.com/yang/ioa/facilities"
+        xmlns:ioa-prot="http://infinera.com/yang/ioa/protection-group"
+        xmlns:ioa-amp="http://infinera.com/yang/ioa/amp"
+        xmlns:ioa-amp-raman="http://infinera.com/yang/ioa/amp-raman">
+  <namespace uri="http://infinera.com/yang/ioa/ne"/>
+  <prefix value="ioa-ne"/>
+  <import module="ioa-equipment">
+    <prefix value="ioa-eqm"/>
+  </import>
+  <import module="ioa-ne-function">
+    <prefix value="ioa-ne-function"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-security">
+    <prefix value="ioa-sec"/>
+  </import>
+  <import module="ioa-syslog">
+    <prefix value="ioa-syslog"/>
+  </import>
+  <import module="ioa-mgmt-protocols">
+    <prefix value="ioa-mgmt"/>
+  </import>
+  <import module="ioa-ztp">
+    <prefix value="ioa-ztp"/>
+  </import>
+  <import module="ioa-transfer">
+    <prefix value="ioa-transfer"/>
+  </import>
+  <import module="ioa-time">
+    <prefix value="ioa-time"/>
+  </import>
+  <import module="ioa-networking">
+    <prefix value="networking"/>
+  </import>
+  <import module="ioa-sw-services">
+    <prefix value="ioa-sw-svc"/>
+  </import>
+  <import module="ioa-sw-management">
+    <prefix value="ioa-swm"/>
+  </import>
+  <import module="ioa-telemetry">
+    <prefix value="ioa-tlm"/>
+  </import>
+  <import module="ioa-services">
+    <prefix value="ioa-services"/>
+  </import>
+  <import module="ioa-topology">
+    <prefix value="ioa-top"/>
+  </import>
+  <import module="ioa-facilities">
+    <prefix value="ioa-fac"/>
+  </import>
+  <import module="ioa-capabilities">
+    <prefix value="ioa-cap"/>
+  </import>
+  <import module="ioa-protection">
+    <prefix value="ioa-prot"/>
+  </import>
+  <import module="ioa-amp">
+    <prefix value="ioa-amp"/>
+  </import>
+  <import module="ioa-amp-raman">
+    <prefix value="ioa-amp-raman"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module that defines the network element top level node under which all other NE resources appear.
+Module also includes system level information parameters.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-09-17">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.1</text>
+    </description>
+  </revision>
+  <container name="ne">
+    <description>
+      <text>Top level entity of the model, represents the entire Network Element.</text>
+    </description>
+    <uses name="ne-info"/>
+    <uses name="ioa-eqm:equipment"/>
+    <uses name="ioa-fac:facilities"/>
+    <uses name="ioa-services:services"/>
+    <uses name="system"/>
+    <uses name="ne-functions"/>
+    <uses name="ioa-top:topology"/>
+    <uses name="ioa-cap:capabilities"/>
+    <uses name="ioa-prot:protection"/>
+  </container>
+  <grouping name="ne-info">
+    <description>
+      <text>NE information</text>
+    </description>
+    <leaf name="ne-id">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Unique identifier of the NE defined by the system.</text>
+      </description>
+    </leaf>
+    <leaf name="ne-name">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <description>
+        <text>User assigned name for this NE.</text>
+      </description>
+    </leaf>
+    <uses name="ioa-common:label"/>
+    <leaf name="ne-type">
+      <type name="string">
+        <length value="0..64"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Type of the NE.</text>
+      </description>
+    </leaf>
+    <leaf name="node-type">
+      <type name="enumeration">
+        <enum name="ILA">
+          <value value="10"/>
+          <description>
+            <text>In-Line Amplifier, two-directions.</text>
+          </description>
+        </enum>
+        <enum name="OADM">
+          <value value="20"/>
+          <description>
+            <text>Optical Add/Drop Multiplexer</text>
+          </description>
+        </enum>
+      </type>
+      <default value="OADM"/>
+      <description>
+        <text>Node Type refers to the main function NE agent operates.</text>
+      </description>
+    </leaf>
+    <leaf name="ne-vendor">
+      <type name="string">
+        <length value="0..64"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Vendor name of the NE.</text>
+      </description>
+    </leaf>
+    <leaf name="ne-site">
+      <type name="string">
+        <length value="0..64"/>
+      </type>
+      <description>
+        <text>Name or CLLI of the site where this NE is located.</text>
+      </description>
+    </leaf>
+    <leaf name="ne-location">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <description>
+        <text>Name of the location of this particular NE.</text>
+      </description>
+    </leaf>
+    <leaf name="ne-sub-location">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <description>
+        <text>Name of the secondary location of this particular NE.</text>
+      </description>
+    </leaf>
+    <leaf name="clli">
+      <type name="string">
+        <length value="0..20"/>
+      </type>
+      <description>
+        <text>Common Language Location Identifier (CLLI) is a 20-character standardized geographic
+identifier that uniquely identifies the functional category of the equipment.</text>
+      </description>
+    </leaf>
+    <leaf name="node-controller-chassis-name">
+      <type name="string">
+        <length value="0..64"/>
+      </type>
+      <description>
+        <text>Configures the name of the node-controller chassis; only takes effect after
+the database is cleared. Needs to be a number between 1 and 254.</text>
+      </description>
+    </leaf>
+    <leaf name="altitude">
+      <type name="int16"/>
+      <units name="meters"/>
+      <description>
+        <text>Altitude of the NE.</text>
+      </description>
+    </leaf>
+    <leaf name="latitude">
+      <type name="decimal64">
+        <fraction-digits value="16"/>
+        <range value="-90 .. 90"/>
+      </type>
+      <units name="degrees"/>
+      <description>
+        <text>Latitude of the NE.</text>
+      </description>
+    </leaf>
+    <leaf name="longitude">
+      <type name="decimal64">
+        <fraction-digits value="16"/>
+        <range value="-180 .. 180"/>
+      </type>
+      <units name="degrees"/>
+      <description>
+        <text>Longitude of the NE.</text>
+      </description>
+    </leaf>
+    <leaf name="equipment-discovery-ready">
+      <type name="boolean"/>
+      <default value="false"/>
+      <config value="false"/>
+      <description>
+        <text>Represents the equipment discovery state for the Node Controller chassis.
+It will remain as 'false' until all equipment was discovered during startup.
+Equipment added after startup will not contribute to the update of this state.</text>
+      </description>
+    </leaf>
+    <leaf name="alarm-report-ready">
+      <type name="boolean"/>
+      <default value="false"/>
+      <config value="false"/>
+      <description>
+        <text>Represents the alarm monitoring state for the entire NE.
+It is 'true' if the alarm-report-ready flag of all chassis instances is 'true'.
+It is 'false' otherwise.</text>
+      </description>
+    </leaf>
+    <leaf name="contact">
+      <type name="string">
+        <length value="0..128"/>
+      </type>
+      <description>
+        <text>The administrator contact information for the system.</text>
+      </description>
+    </leaf>
+    <leaf name="recover-mode">
+      <type name="boolean"/>
+      <default value="true"/>
+      <config value="false"/>
+      <description>
+        <text>A system is in recover-mode to represent an error state that requires manual intervention.
+Several specific sanity checks are done during system startup, and if any of them fail
+the system will enter recover-mode.
+
+While in recover mode, the following happens:
+- the reason for the recover mode can be visualized in the ne recover-mode-reason attribute
+- a system-wide alarm RECOVER-MODE is raised
+- CLI sessions get an extra banner at login reminding the user the current system state
+- connection to existing line cards is severed, effectively keeping previous hardware configuration untouched
+- new configurations are accepted, but will not take effect until the recover mode is cleared
+
+Recover mode can be resolved in multiple ways:
+- simply confirming that current configuration is the desired one
+- restoring a valid Database backup
+In all cases, the recover mode requires an explicit command to be cleared.
+
+Use command 'clear recover-mode' to confirm current configuration and return to normal system operation.
+
+(!) Warning: clearing the recover mode may have traffic impact; please confirm settings before this action.</text>
+      </description>
+    </leaf>
+    <leaf name="original-recover-mode-reason">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Original reason for recover mode.
+Displays the original recover mode reason, available only when current reason has changed.</text>
+      </description>
+    </leaf>
+    <leaf name="recover-mode-reason">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Reason for recover mode.
+Available only when ne is in recover mode.</text>
+      </description>
+    </leaf>
+    <uses name="ioa-common:operational-states"/>
+    <uses name="ioa-common:arc"/>
+  </grouping>
+  <grouping name="system">
+    <container name="system">
+      <description>
+        <text>System Configuration container</text>
+      </description>
+      <uses name="ioa-sec:security"/>
+      <uses name="ioa-syslog:syslog"/>
+      <uses name="ioa-mgmt:protocols"/>
+      <uses name="ioa-ztp:ztp"/>
+      <uses name="ioa-transfer:transfer"/>
+      <uses name="networking:networking"/>
+      <uses name="ioa-time:clock"/>
+      <uses name="ioa-time:ntp"/>
+      <uses name="ioa-sw-svc:sw-services"/>
+      <uses name="ioa-swm:sw-management"/>
+      <uses name="ioa-swm:database"/>
+      <uses name="ioa-tlm:telemetry"/>
+      <uses name="ioa-transfer:fdr"/>
+      <uses name="ioa-ztp:recovery"/>
+    </container>
+  </grouping>
+  <grouping name="ne-functions">
+    <container name="ne-function">
+      <description>
+        <text>NE generic functions</text>
+      </description>
+      <uses name="ioa-amp:amplifier-list"/>
+      <uses name="ioa-amp-raman:amplifier-list"/>
+      <uses name="ioa-ne-function:ne-composition"/>
+    </container>
+  </grouping>
+  <notification name="db-change">
+    <description>
+      <text>Generated when the system detects that the &lt;running&gt; configuration datastore has changed.
+Contains both state and config changes.</text>
+    </description>
+    <uses name="ioa-common:notif-common"/>
+    <container name="changed-by">
+      <description>
+        <text>Information regarding the agent that caused this change.</text>
+      </description>
+      <choice name="server-or-user">
+        <mandatory value="true"/>
+        <leaf name="server">
+          <type name="empty"/>
+          <description>
+            <text>If present, the change was caused by the server.</text>
+          </description>
+        </leaf>
+        <case name="by-user">
+          <leaf name="user-name">
+            <type name="string"/>
+            <description>
+              <text>User name that made the change</text>
+            </description>
+          </leaf>
+          <leaf name="session-id">
+            <type name="string"/>
+            <description>
+              <text>Session ID that made the change</text>
+            </description>
+          </leaf>
+          <leaf name="message-id">
+            <type name="string"/>
+            <description>
+              <text>Message ID that matches the request</text>
+            </description>
+          </leaf>
+        </case>
+      </choice>
+    </container>
+    <anyxml name="change">
+      <description>
+        <text>
+Copy of the running datastore subset and state data that changed.
+The following metadata is used in this content:
+- 'operation' attribute, used for containers and lists. May have values 'create' and 'delete',
+representing that this node was created or deleted.
+- 'old-value' attribute, used for leaf and leaf-lists. Will contain the previous value of the
+attribute it refers to.
+These two metadata attributes are qualified with the same namespace as the datastore itself, and
+are defined according with RFC7952.
+
+XML Example:
+&lt;object operation='create'&gt;
+...
+&lt;/object&gt;
+&lt;attribute old-value='x'&gt;y&lt;/attribute&gt;
+</text>
+      </description>
+    </anyxml>
+  </notification>
+  <notification name="audit">
+    <description>
+      <text>Contains configuration commands performed by users.
+Only sent for  successful commands that have impact on system configuration.</text>
+    </description>
+    <uses name="ioa-common:notif-common"/>
+    <leaf name="user-name">
+      <type name="string"/>
+      <description>
+        <text>User name that made the change</text>
+      </description>
+    </leaf>
+    <leaf name="session-id">
+      <type name="string"/>
+      <description>
+        <text>Session ID that made the change</text>
+      </description>
+    </leaf>
+    <leaf name="session-type">
+      <type name="ioa-common:session-type"/>
+      <description>
+        <text>Type of the session that made the change.</text>
+      </description>
+    </leaf>
+    <leaf name="message-id">
+      <type name="string"/>
+      <description>
+        <text>Message ID that associated with the request</text>
+      </description>
+    </leaf>
+    <anyxml name="command">
+      <description>
+        <text>
+Copy of the inputted command, using an abstract XML representation.
+Effectively, contains the command as if it was converted to NETCONF XML.
+</text>
+      </description>
+    </anyxml>
+    <leaf name="original-command">
+      <type name="string"/>
+      <description>
+        <text>Contains original command, if applicable (e.g. for CLI commands).</text>
+      </description>
+    </leaf>
+  </notification>
+</module>

@@ -1,0 +1,191 @@
+module ioa-ethernet {
+    namespace "http://infinera.com/yang/ioa/ethernet";
+    prefix ioa-eth;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+    import ioa-topology { prefix ioa-top; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions for Ethernet clients in a typical Layer 1 optical transponder.";
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-09-17" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.1";
+    }
+
+
+    identity ETHERNET-CLIENT {
+        description "Base identity for all rates/types of Ethernet clients.";
+    }
+
+    identity ETHERNET-1GBASE-R {
+        base ETHERNET-CLIENT;
+        description "Base identity for all 1G Ethernet clients.";
+    }
+ 
+    identity ETHERNET-10GBASE-R {
+        base ETHERNET-CLIENT;
+        description "Base identity for all 10G Ethernet clients.";
+    }
+
+    identity ETHERNET-100GBASE-R {
+        base ETHERNET-CLIENT;
+        description "Base identity for all 100G Ethernet clients.";
+    }
+
+    identity ETHERNET-400GBASE-R {
+        base ETHERNET-CLIENT;
+        description "Base identity for all 400G Ethernet clients.";
+        reference "IEEE 802.3bs and Std 802.3, Clause 119.";
+    }
+
+    identity ETHERNET-4x100GBASE-R {
+        base ETHERNET-100GBASE-R;
+    }
+
+
+    grouping ethernet {
+        description "A re-usable grouping that formulates the basic TribPTP facility structure.";
+
+        list ethernet {
+            key name;
+            description "Ethernet facility.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf client-type {
+                type identityref {
+                    base ETHERNET-CLIENT;
+                }
+                config false;
+                description "The protocol type of the Ethernet client.";
+            }
+
+            leaf service-mode {
+                type ioa-fac-common:service-mode;
+                default transport;
+                config false;
+                description "Service mode for the ethernet facility.";
+            }
+
+            leaf service-mode-qualifier {
+                type ioa-fac-common:service-mode-qualifier;
+                default none;
+                config false;
+                description "Service mode qualifier for the ethernet facility.";
+            }            
+
+            leaf max-packet-length {
+                type uint16 { range "1280..18000"; }
+                units octets;
+                default 1518;
+                description "Maximum transfer unit for ethernet facility, in octets.";
+            }
+
+            leaf speed {
+                type decimal64 {
+                    fraction-digits 3;
+                }
+                units "Gbit/s";
+                config false;
+                description "The speed/rate of the Ethernet client interfaces.";
+            }
+
+            leaf fec-ability {
+                type enumeration {
+                    enum supported  { value 10; }
+                    enum not-supported { value 20; }
+                }
+                default not-supported;
+                config false;
+                description "Indicates the Ethernet client's capability to support FEC (Forward Error Correction).";
+            }
+
+            leaf fec-mode {
+                type ioa-common:enable-switch;
+                default disabled;
+                description "The configured FEC mode on the Ethernet client. Default is dependent on configured client type.";
+                reference "IEEE 802.3bj RS-FEC";
+            }
+			
+            leaf tx-mapping-mode {
+                type ioa-fac-common:mapping-mode;
+                description "The tx mapping mode of client port. The possible values are dependent on the HW and configuration.";
+            }
+            
+            leaf expected-mapping-mode {
+                 type ioa-fac-common:mapping-mode;
+                description "The expected mapping mode of client port. The possible values are dependent on the HW and configuration.";
+            }            
+
+            leaf time-slots {
+                type ioa-common:number-list; 
+                description "Time slots of the ethernet.";
+            } 
+                            
+            leaf line-port {
+                type leafref {
+                    path "../../../equipment/card/port/name";
+                }
+                description "Specify the line port for the client. Can only be configured when mapping mode is openZR+.";
+            }
+            
+            uses ioa-fac-common:loopback;
+            uses ioa-fac-common:loopback-mode;
+
+            leaf fec-degraded-ser-monitoring {
+                type ioa-common:enable-switch;
+                default disabled;
+                description "Allows to enable monitoring for FEC-DEGRADED-SER alarm.";
+            }
+
+            leaf fec-degraded-ser-activate-threshold {
+                type decimal64 {
+                    fraction-digits 10;
+                    range "0.0000000001..0.0001";
+                }
+                units averageSER;
+                default 0.00001;
+                description "FEC-DEGRADED-SER alarm asserted if average SER, computed over accumulated
+                             FEC symbol errors in the monitoring period exceed this threshold.";
+            }
+
+            leaf fec-degraded-ser-deactivate-threshold {
+                type decimal64 {
+                    fraction-digits 11;
+                    range "0.00000000008..0.00008";
+                }
+                units averageSER;
+                default 0.000008;
+                description "FEC-DEGRADED-SER alarm cleared if average SER, computed over accumulated FEC 
+                             symbol errors in the monitoring period is below this threshold.";
+            }
+
+            leaf fec-degraded-ser-monitoring-period {
+                type uint8 { range 1..50; }
+                units seconds;
+                default 10;
+                description "Monitoring period duration over which FEC symbol errors are accumulated for asserting or clearing of FEC-DEGRADED-SER alarm.";
+            }
+            
+            uses ioa-fac-common:test-signal;             
+
+            uses ioa-top:lldp-port;
+
+            uses ioa-common:circuit-id;
+        }
+    }
+}

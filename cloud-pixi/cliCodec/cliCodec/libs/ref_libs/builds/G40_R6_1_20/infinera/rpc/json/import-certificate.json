@@ -1,0 +1,51 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "type": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "local-certificate",
+                    "peer-certificate",
+                    "trusted-certificate"
+                ]
+            },
+            "isList": false,
+            "description": "Certificate types available for import.",
+            "mandatory": true
+        },
+        "certificate-name": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "X509v3 local/peer/trusted certificate ID.",
+            "mandatory": false
+        },
+        "certificate-pem": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Certificate bytes or certificates bundle in PEM format.",
+            "mandatory": true
+        },
+        "passphrase": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "To decode encrypted input certificates.",
+            "mandatory": true
+        },
+        "intermediate-import": {
+            "type": {
+                "ptype": "bool"
+            },
+            "isList": false,
+            "description": "Allow to import any intermediate certificates present in a PEM string bundle. If certificate-name\nis not provided, it will be auto-generated from the topmost certificate issuer CN plus a numeric suffix.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

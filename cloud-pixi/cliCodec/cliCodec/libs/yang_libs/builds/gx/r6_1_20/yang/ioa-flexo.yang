@@ -1,0 +1,73 @@
+module ioa-flexo {
+    namespace "http://infinera.com/yang/ioa/flexo";
+    prefix ioa-flexo;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; } 
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module defining the flexo facility.";
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+
+    grouping flexo {
+        list flexo {
+            key name;
+            description "Facility describing the flexo. Refer to G.709.1 and G.709.3";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+	        leaf foic-type {
+                type enumeration {
+                    enum foic1.2 { value 1; }
+                    enum foic1.4 { value 2; }
+                    enum foic2.4 { value 3; }
+                    enum foic2.8 { value 4; }
+                    enum foic3.6 { value 5; }
+                    enum foic4.8 { value 6; }
+                    enum foic4.16 { value 7; }
+                }	
+                default foic4.8;
+                config false;
+                description "FOICx.k lanes means using k parallel lanes to carry a FlexO-x interface, where order x signifies the interface rate in units of 100G.
+                             A unique FOICx.k identification (G.709.3 FlexO-LR and G.709.1 FlexO-SR).";				
+            }
+
+            leaf fec-type {
+                type ioa-fac-common:fec-type;
+                default ofec;
+                config false;
+                description "The FEC type";
+            }
+
+            leaf-list iid {
+                type uint8{
+                    range "1..254";
+                }
+                description "Uniquely identify each member of a group and the order of each member in the group. 
+                             This information is required in the reordering process. 
+                             Don't need to be sequential.";
+            }
+
+            leaf-list accepted-group-id {
+                type uint32;
+                config false;
+                description "The received group instance on the FlexO interface.";
+            }
+
+            leaf-list accepted-iid {
+                type uint8;
+                config false;
+                description "The received iid on the FlexO interface.";
+            }
+        }
+    }
+}

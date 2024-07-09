@@ -1,0 +1,846 @@
+module ioa-certificate {
+    namespace "http://infinera.com/yang/ioa/certificate";
+    prefix ioa-cert;
+
+    import ietf-yang-types { prefix yang; }
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module covering certificate management.";
+
+    revision "2023-03-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.1";
+    }
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-09-17" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.1";
+    }
+
+    typedef allowed-key-lengths {
+        type enumeration {
+            enum rsa2048 {
+                value 1;
+            }
+            enum rsa3072 {
+                value 2;
+            }
+            enum rsa4096 {
+                value 3;
+            }
+            enum ecdsa256 {
+                value 4;
+            }
+            enum ecdsa384 {
+                value 5;
+            }
+            enum ecdsa521 {
+                value 6;
+            }
+            enum ecdsa128 {
+                value 7;
+                status obsolete;
+            }
+        }
+        description
+            "Public/private key length(only for allowed key types).";
+    }
+
+    typedef public-key-types {
+        type enumeration {
+            enum rsa {
+                value 1;
+            }
+            enum ecdsa {
+                value 2;
+            }
+        }
+        description
+            "Public/private key type for X509v3 certificate and SSHv2 host key.";
+    }
+
+    typedef cert-subject-name {
+        type string {
+            length "1..1024";
+        }
+        description
+            "A custom type to represent X.500 distinguished names (DN).";
+        reference
+            "X.500, RFC 5280";
+    }
+
+    typedef key-usage-type {
+        type enumeration {
+            enum digitalSignature {
+                value 1;
+                description "Allows using public key with a digital sign mechanism.";
+            }
+            enum nonRepudiation {
+                value 2;
+                description "Allows using public key for verifying digital signatures.";
+            }
+            enum keyEncipherment {
+                value 3;
+                description "Allows usage with a protocol that uses encryption keys from public key.";
+            }
+            enum dataEncipherment {
+                value 4;
+                description "Allows public key usage to encrypt user data.";
+            }
+            enum keyAgreement {
+                value 5;
+                description "Allows deriving of a session key from the public key.";
+            }
+            enum keyCertSign {
+                value 6;
+                description "Allows public key to verify signature of certificates.";
+            }
+            enum cRLSign {
+                value 7;
+                description "Allows public key to verify signature of revocation information.";
+            }
+            enum encipherOnly {
+                value 8;
+                description "For keyEncipherment, allows the public key to be use for encryption only.";
+            }
+            enum decipherOnly {
+                value 9;
+                description "For keyEncipherment, allows the public key to be use for decryption only.";
+            }
+        }
+        description "Key usage is a multi-valued extension consisting of a list of
+                     names of the permitted key usages.";
+    }
+
+    typedef extended-key-usage-type {
+        type enumeration {
+            enum serverAuth {
+                value 1;
+                description "TLS WWW Server Authentication.";
+            }
+            enum clientAuth {
+                value 2;
+                description "TLS WWW Client Authentication.";
+            }
+            enum codeSigning {
+                value 3;
+                description "Code Signing.";
+            }
+            enum emailProtection {
+                value 4;
+                description "E-mail Protection (S/MIME).";
+            }
+            enum timeStamping {
+                value 5;
+                description "Trusted Timestamping.";
+            }
+            enum OCSPSigning {
+                value 6;
+                description "OCSP Signing.";
+            }
+        }
+        description "This extension consists of a list of values indicating purposes
+                     for which the certificate public key can be used.";
+    }
+
+    grouping signature-algorithm {
+        leaf signature-key-type {
+            type enumeration {
+                enum rsa {
+                    value 1;
+                }
+                enum ecdsa {
+                    value 2;
+                }
+                enum rsassa-pss {
+                    value 3;
+                }
+            }
+            config false;
+            description
+                "Signature algorithm key type for certificate/CRL.";
+        }
+        leaf signature-hash-algorithm {
+            type enumeration {
+                enum sha256 {
+                    value 1;
+                }
+                enum sha384 {
+                    value 2;
+                }
+                enum sha512 {
+                    value 3;
+                }
+                enum sha1 {
+                    value 4;
+                }
+            }
+            config false;
+            description
+                "Hash algorithm used for signing certificate/CRL.";
+        }
+    }
+
+    grouping x509-certificate {
+        leaf id {
+            type ioa-common:certificate-name;
+            description
+                "A unique object identifier for the certificate.";
+        }
+        leaf version {
+            type enumeration {
+                enum v3 {
+                    value 1;
+                }
+            }
+
+            default v3;
+            config false;
+            description
+                "X509 certificate version.";
+        }
+        leaf serial-number {
+            type string {
+                length "0..100";
+            }
+            config false;
+            description
+                "Ascii hexadecimal string representing a positive (long) integer assigned by the CA.
+                 It must be unique for each certificate issued by a given CA (i.e., the issuer name and
+                 serial number identify a unique certificate)";
+            reference
+                "Section 4.1.2.2 in RFC 5280";
+        }
+        leaf subject-name {
+            type cert-subject-name;
+            config false;
+            description
+                "The subject field identifies the entity
+                 associated with the public key stored in the subject
+                 public key field.";
+            reference
+                "Section 4.1.2.6 in RFC 5280";
+        }
+        leaf issuer {
+            type cert-subject-name;
+            config false;
+            description
+                "The issuer name identifies the entity that has signed
+                 and issued the certificate. Issuers (such as a CA or
+                 an RA) also issue CRLs.";
+            reference
+                "Section 4.1.2.4 in RFC 5280";
+        }
+        leaf-list trust-chain {
+            type leafref {
+                path "/ne/system/security/certificates/trusted-certificate/id";
+            }
+            config false;
+            max-elements 12;
+            description "List of trusted certificates that constitute this certificate's trust chain.";
+        }
+        leaf valid-from {
+            type yang:date-and-time;
+            config false;
+            description
+                "The date from which the certificate is valid.";
+        }
+        leaf valid-to {
+            type yang:date-and-time;
+            config false;
+            description
+                "The date after which the certificate is deemed to have expired.";
+        }
+        leaf modification-time {
+            type yang:date-and-time;
+            config false;
+            description
+                "Timestamp of certificate installation/rotation.
+                 The timestamp '1970-01-01T00:00:00Z' means the modification time is unknown.";
+        }
+        leaf status {
+            type enumeration {
+                enum in-use {
+                    value 1;
+                    status deprecated;
+                    description
+                        "Certificate is either assigned to a secure-application or otherwise in use by the system.
+                         This is deprecated; new status is 'valid'.
+                         Certificate usage is now tracked in the used-by attribute.";
+                }
+                enum unused {
+                    value 2;
+                    status deprecated;
+                    description
+                        "Certificate is currently not being used by the system nor a secure-application. Can be assigned/used.
+                         This is deprecated; new status is 'valid'.
+                         Certificate usage is now tracked in the used-by attribute.";
+                }
+                enum revoked {
+                    value 3;
+                    description "Certificate has been revoked.";
+                }
+                enum expired {
+                    value 4;
+                    description "Certificate is past the validity date.";
+                }
+                enum available {
+                    value 5;
+                    status deprecated;
+                    description
+                        "Trusted certificate is in use by the system.
+                         This is deprecated; new status is 'valid'.
+                         Certificate usage is now tracked in the used-by attribute.";
+                }
+                enum pending-import {
+                    value 6;
+                    description "Certificate generated by CSR, but import not yet complete.";
+                }
+                enum invalid {
+                    value 7;
+                    status deprecated;
+                    description
+                        "Trusted certificate is invalid due to broken trust-chain (not usable by the system).
+                         This is deprecated; new status is 'untrusted'.";
+                }
+                enum untrusted {
+                    value 8;
+                    description "Certificate has a broken trust-chain.";
+                }
+                enum future {
+                    value 9;
+                    description "Certificate has not yet reached the validity period.";
+                }
+                enum valid {
+                    value 10;
+                    description "Certificate is not revoked, is in the validity period, and has a valid trust chain.";
+                }
+            }
+            config false;
+            description
+                "The current status of the X509v3 certificate.";
+            reference
+                "THANOSSEC-225";
+        }
+        leaf public-key-length {
+            type enumeration {
+                enum rsa2048 {
+                    value 1;
+                }
+                enum rsa3072 {
+                    value 2;
+                }
+                enum rsa4096 {
+                    value 3;
+                }
+                enum ecdsa256 {
+                    value 4;
+                }
+                enum ecdsa384 {
+                    value 5;
+                }
+                enum ecdsa521 {
+                    value 6;
+                }
+                enum ecdsa128 {
+                    value 7;
+                    status obsolete;
+                }
+            }
+            config false;
+            description
+                "X509v3 certificate public key algorithm and supported key length.";
+            reference
+                "Section 2.3 in RFC 3279.";
+        }
+        leaf public-key-type {
+            type enumeration {
+                enum rsa {
+                    value 1;
+                }
+                enum ecdsa {
+                    value 2;
+                }
+                enum rsassa-pss {
+                    value 3;
+                }
+            }
+            config false;
+            description
+                "Public/private key type for X509v3 certificate.";
+        }
+        uses signature-algorithm;
+        leaf certificate-bytes {
+            type string {
+                length "0..16384";
+            }
+            config false;
+            description
+                "A custom type that encodes the entire X.509v3 certificate
+                 as string in PEM(base64 encoding) format:
+
+                 -----BEGIN CERTIFICATE-----
+                 ...base64 encoded X509v3 certificate....
+                 -----END CERTIFICATE-----
+                ";
+        }
+        leaf-list key-usage {
+            type key-usage-type;
+            config false;
+            max-elements 9;
+            description "Certificate's key usage purposes.";
+        }
+        leaf-list extended-key-usage {
+            type extended-key-usage-type;
+            config false;
+            max-elements 6;
+            description "Certificate's extended key usage purposes.";
+        }
+        leaf revocation-mode {
+            type enumeration {
+                enum auto {
+                    value 1;
+                    description
+                        "Revocation status is determined based on configured CRL/CDP/OCSP policies.";
+                }
+                enum force-revoked {
+                    value 2;
+                    description
+                        "Certificate is considered revoked, without consulting CRLs or OCSP responders.";
+                }
+                enum force-unrevoked {
+                    value 3;
+                    description
+                        "Certificate is considered not revoked, without consulting CRLs or OCSP responders.
+                         Note that the certificate may still be invalid and unusable if it is expired or has an invalid trust-chain.";
+                }
+            }
+            default auto;
+            description
+                "Controls how the revocation status of the certificate is determined.";
+        }
+    }
+
+    grouping used-by {
+        leaf-list used-by {
+            type instance-identifier;
+            config false;
+            max-elements 32;
+            description
+                "List of foreign keys representing secure-applications, ikev2-peers, etc., presently using the
+                 certificate.";
+        }
+    }
+
+    grouping secure-applications {
+        container secure-applications {
+            description
+                "A collection of secured applications which
+                 uses X509v3 certificate as its digital identity";
+            list secure-application {
+                key "id";
+                description
+                    "A secured application represents which
+                     uses X509v3 certificate as its digital identity";
+                leaf id {
+                    type string {
+                        length "1..20";
+                    }
+                    description
+                        "A unique object identifier for the secure application.";
+                }
+                leaf type {
+                    type enumeration {
+                        enum server {
+                            value 1;
+                            description
+                                "Secure application is a server.";
+                        }
+                        enum client {
+                            value 2;
+                            description
+                                "Secure application is a client.";
+                        }
+                    }
+                    default server;
+                    config false;
+                    description
+                        "Specifies whether secure application acts as a server or client.";
+                }
+                leaf-list active-certificate-id {
+                    type string {
+                        length "0..128";
+                    }
+                    max-elements 10;
+                    description "List of assigned certificates for this secure application.";
+                }
+                leaf in-use {
+                    type leafref {
+                        path "../active-certificate-id";
+                    }
+                    config false;
+                    description "Active certificate for this secure application.";
+                }
+                leaf status {
+                    type ioa-common:enable-switch;
+                    config false;
+                    description "Indicates whether this secure application is enabled or disabled.";
+                }
+                leaf verify-client-cert {
+                    type enumeration {
+                        enum disabled {
+                            value 1;
+                            description
+                                "Client certificate not requested or validated.";
+                        }
+                        enum required {
+                            value 2;
+                            description
+                                "Client certificate is required and validated (for TLS Mutual Authentication).";
+                        }
+                    }
+                    default disabled;
+                    description
+                        "Controls client certificate verification behavior at TLS handshake.
+                         For TLS Mutual Authentication, this should be set to 'required'.
+                         Note that changes to this attribute will take effect for new TLS connections; it will have no
+                         impact on existing connections.";
+                }
+            }
+        }
+    }
+
+    grouping subject-alternative-names {
+        leaf subject-alternative-names {
+            type string {
+                length "0..4096";
+            }
+            config false;
+            description
+                "Contains a list of subject alternative name(X509v3 extension SAN) entries
+                separated by <SPACE><PIPE><SPACE> delimiters (e.g. 'URI:https://www.example.com | DNS:example.com').";
+        }
+    }
+
+    grouping certificates {
+        container certificates {
+            description
+                "All system managed local/trusted/peer X509v3 certificates on the system
+                 that were imported by download mechanism in PKCS#12 or PKCS#7 secure bundles.
+                 Also includes all certificate revocation related objects.";
+            list trusted-certificate {
+                key "id";
+                description
+                    "X509v3 CA(Root and Intermediate) certificate that the system trusts.";
+                uses x509-certificate;
+                uses ioa-common:arc;
+                uses ioa-common:label;
+            }
+            list local-certificate {
+                key "id";
+                description
+                    "X509v3 end-entity certificate that represents a one of
+                     various secure application identities.";
+                uses x509-certificate;
+                uses used-by;
+                leaf self-signed {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "True if certificate is self-signed (does not have a trust chain)";
+                }
+                uses subject-alternative-names;
+                uses ioa-common:arc;
+                uses ioa-common:label;
+            }
+            list peer-certificate {
+                key "id";
+                description
+                    "X509v3 end-entity certificate that represents a trusted 'remote peer' certificate
+                     for L1 encryption secure application.";
+                uses x509-certificate;
+                uses used-by;
+                uses subject-alternative-names;
+                uses ioa-common:arc;
+                uses ioa-common:label;
+            }
+            uses secure-applications;
+
+            container certificate-revocation {
+                description
+                    "All objects related to certificate revocation.
+                     This includes Certificate Revocation Lists (CRLs) and CRL Distribution Points (CDPs).";
+
+                container crls {
+                    config false;
+                    description
+                        "All Certificate Revocation Lists (CRLs) presently on the system.
+                         This includes manually downloaded CRLs as well as those automatically retrieved from a CRL
+                         Distribution Point (CDP).";
+                    list crl {
+                        key "name";
+                        config false;
+                        max-elements 20;
+                        description
+                            "A Certificate Revocation List (CRL) used to check if a certificate has been revoked by its
+                             issuer.";
+
+                        leaf name {
+                            type string;
+                            description
+                                "A unique object identifier for the CRL.
+                                 The format is <issuer-common-name>-<n> where 'n' is an incrementing integer to
+                                 differentiate multiple CRLs from the same issuing CA.";
+                        }
+                        leaf issuer {
+                            type cert-subject-name;
+                            description
+                                "The issuer name identifies the entity that has signed and issued the CRL.";
+                            reference "Section 5.1.2.3 in RFC 5280";
+                        }
+                        leaf crl-number {
+                            type uint64;
+                            description
+                                "Monotonically increasing sequence number for a given CRL scope and CRL issuer.";
+                            reference "Section 5.2.3 in RFC 5280";
+                        }
+                        leaf-list issuing-distribution-point-uri {
+                            type string {
+                                length "1..1024";
+                            }
+                            max-elements 10;
+                            description
+                                "Identifies the issuer's distribution point name URI(s) for the CRL.
+                                 Only HTTP URIs are supported.
+                                 This may be an empty list.";
+                            reference "Section 5.2.5 in RFC 5280";
+                        }
+                        leaf effective-date {
+                            type yang:date-and-time;
+                            description "The issue date of the CRL.";
+                            reference "Section 5.1.2.4 in RFC 5280";
+                        }
+                        leaf next-update {
+                            type yang:date-and-time;
+                            description "The date by which the next CRL will be issued.";
+                            reference "Section 5.1.2.5 in RFC 5280";
+                        }
+                        uses signature-algorithm;
+                        leaf type {
+                            type enumeration {
+                                enum manual {
+                                    value 1;
+                                    description
+                                        "CRL installed via a manual download.";
+                                }
+                                enum cached {
+                                    value 2;
+                                    description
+                                        "CRL automatically cached from a configured CDP or certificate CDP extension.";
+                                }
+                            }
+                            description
+                                "Specifies whether CRL was manually installed or automatically cached from a CDP.";
+                        }
+                        leaf status {
+                            type enumeration {
+                                enum valid {
+                                    value 1;
+                                    description
+                                        "CRL is in the validity period,
+                                        (effective-time <= current time <= next-update).";
+                                }
+                                enum future {
+                                    value 2;
+                                    description
+                                        "CRL has not entered the validity period (current time < effective-time).
+                                         It will not be used for revocation checking.";
+                                }
+                                enum expired {
+                                    value 3;
+                                    description
+                                        "CRL is no longer in the validity period (current time > next-update).
+                                         An updated version will be required for revocation checking.
+                                         For CRLs with type='manual', it may be necessary to manually download the
+                                         updated CRL.";
+                                }
+                            }
+                            description "The current status of the CRL.";
+                        }
+                        leaf last-used-time {
+                            type ioa-common:date-time-never;
+                            description "Timestamp of last usage of this CRL for revocation checking.";
+                        }
+                        leaf associated-cdp {
+                            type leafref {
+                                path "../../../cdps/cdp/name";
+                            }
+                            description "The configured CDP which downloaded this CRL, if applicable.";
+                        }
+                        leaf downloaded-from-uri {
+                            type string {
+                                length "0..1024";
+                            }
+                            description "The HTTP URI from which this CRL was auto-downloaded.
+                                         Not applicable to manually downloaded CRLs.
+                                             Only of relevance when type is cached.";
+                        }
+                    }
+                }
+
+                container cdps {
+                    description
+                        "All manually configured CRL Distribution Points (CDPs).
+                         Each CDP will support download and auto-refreshing of a specified CRL.";
+                    list cdp {
+                        key "name";
+                        max-elements 3;
+                        description
+                            "A CRL Distribution Point (CDP) for automatic download and periodic refresh of a specified
+                             CRL.";
+
+                        leaf name {
+                            type ioa-common:object-name;
+                            description
+                                "A unique object identifier for the CDP.";
+                        }
+                        leaf url {
+                            type string {
+                                length 0..1024;
+                                pattern 'http://([^\s/$.?#][^\s/]*)/([^\s]+)';
+                            }
+                            mandatory true;
+                            description
+                                "HTTP URL of CRL. The CRL will be fetched from this location.
+                                 The format is 'http://<host>[:<port>]/<path_to_crl_file>' where
+                                     - '<host>' may be IPv4/v6 address, or DNS name of the distribution point,
+                                     - '<port>' is optional,
+                                     - '<path_to_crl_file>' is the path to the CRL file, conventionally with the .crl extension
+                                 For example: http://crl.example.org/pki/myCA.crl";
+                            reference "Section 3 in RFC 2585.";
+                        }
+                        leaf enabled {
+                            type boolean;
+                            default false;
+                            description
+                                "Enables automatic download and periodic refresh of the CRL.
+                                 Enabling will immediately trigger a CRL auto-download.
+                                 When disabled, no CRL refresh/updates will be performed, but existing CRLs are
+                                 unaffected.";
+                        }
+                        leaf refresh-interval {
+                            type union {
+                                type enumeration {
+                                    enum use-next-update {
+                                        value 0;
+                                        description
+                                            "Next refresh time is defined by current CRL's next-update field.";
+                                    }
+                                }
+                                type ioa-common:time-interval;
+                            }
+                            default use-next-update;
+                            description
+                                "Defines when CRL should be refreshed/updated.
+                                 If 'use-next-update' is specified, the next refresh time is defined by the current CRL
+                                 next-update field.
+                                 Refresh interval is provided using the following syntax:
+                                    '[xw] [xd] [xh] [xm] [xs]'
+                                 where:
+                                    w(eeks), d(ays), h(ours), m(inutes), s(seconds).
+                                 Examples:
+                                    2w        -- two weeks
+                                    5d 12h    -- 5 days and 12 hours
+                                    1h 7m 30s -- 1 hour, 7 minutes and 30 seconds";
+                        }
+                        leaf next-update-time {
+                            type ioa-common:date-time-never;
+                            config false;
+                            description "Timestamp of next CRL update.";
+                        }
+                        leaf last-update-time {
+                            type ioa-common:date-time-never;
+                            config false;
+                            description "Timestamp of most recent CRL update.";
+                        }
+                        leaf last-update-result {
+                            type string {
+                                length "0..255";
+                            }
+                            config false;
+                            description "Result of the most recent CRL update.";
+                        }
+                    }
+                }
+
+                container ocsp-servers {
+                    description
+                        "A prioritized list of Online Certificate Status Protocol (OCSP) responders to consult for certificate revocation status.
+                         These are employed when no usable OCSP URL is available via the certificate's Authority Information Access (AIA) extension.";
+                    list ocsp-server {
+                        key "name";
+                        unique "priority";
+                        max-elements 3;
+                        description
+                            "A manually-configured Online Certificate Status Protocol (OCSP) responder for certificate revocation status checking.";
+
+                        leaf name {
+                            type ioa-common:object-name;
+                            description
+                                "A unique object identifier for the OCSP responder.";
+                        }
+                        leaf url {
+                            type string {
+                                length 0..1024;
+                                pattern 'http://([^\s/$.?#][^\s/]*)';
+                            }
+                            mandatory true;
+                            description
+                                "HTTP URL of OCSP responder.
+                                 The format is 'http://<host>[:<port>]' where
+                                     - '<host>' may be IPv4/v6 address, or DNS name of the server hosting the OCSP responder,
+                                     - '<port>' is the optional port number, otherwise default HTTP port is used (80)
+                                 For example: http://ocsp.example.org";
+                            reference "Section 4.2.2.1 in RFC 5280.";
+                        }
+                        leaf enabled {
+                            type boolean;
+                            default false;
+                            description
+                                "Controls whether this OCSP responder can be consulted for certificate revocation status.";
+                        }
+                        leaf priority {
+                            type uint8 { range "1..10"; }
+                            mandatory true;
+                            description "This is used to sort the OCSP responders in order of precedence.
+                                         Lower numbered OCSP responders are consulted before higher numbered ones.";
+                        }
+                        leaf last-query {
+                            type ioa-common:date-time-never;
+                            config false;
+                            description "Timestamp of last successful query.";
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,231 @@
+ioa-sec
+	security
+		security-policies
+			secure-mode : bool
+			strict-password-check : bool
+			minimum-password-length : int
+			ssh-authentication-method : str
+			enforce-password-history-check : bool
+			aaa-authentication-method : str
+			aaa-authorization-method : str
+			ssh-strict-host-key-checking : str
+			root-password : str
+			console-user-password : str
+			console-user-enabled : bool
+			csp-symmetrical-key : str
+			-max-system-sessions : int
+			-max-local-users : int
+			disable-user-lockout : bool
+			supported-tls-version : str
+			crl-based-revocation : bool
+			crl-download-timeout : int
+			ocsp-based-revocation : bool
+			default-user-group : str
+			ssh-ciphers : str
+			ssh-macs : str
+			ssh-key-exchanges : str
+			ssh-host-key-algorithms : str
+			ssh-public-key-algorithms : str
+			tls-1.2-cipher-suites : str
+			tls-1.3-cipher-suites : str
+			tls-curves : str
+			supported-signature-hash-algorithms : str
+			db-passphrase : str
+		image-keys
+			ISKs
+				ISK
+					is-key-in-use : bool
+					is-key-verified : bool
+					being-deleted : bool
+					name : str
+					CPU : int
+					key-name : str
+					key-serial-number : str
+					issuer-name : str
+					key-length : int
+					key-payload : str
+					KRK-name : str
+					signature-hash-scheme : str
+					signature-algorithm : str
+					signature-payload : str
+					signature-gen-time : str
+			KRKs
+				KRK
+					name : str
+					CPU : int
+					key-name : str
+					key-serial-number : str
+					issuer-name : str
+					key-length : int
+					key-payload : str
+		key-replacement-package
+			KRP-name : str
+			KRP-version : int
+			install-status : str
+			key-name : str
+			key-serial-number : str
+			issuer-name : str
+			key-length : int
+			key-payload : str
+			KRK-name : str
+			signature-hash-scheme : str
+			signature-algorithm : str
+			signature-payload : str
+			signature-gen-time : str
+		certificates
+			certificate-revocation
+				crls
+					crl
+						name : str
+						issuer : str
+						crl-number : int
+						effective-date : str
+						next-update : str
+						type : str
+						status : str
+						last-used-time : str
+						associated-cdp : str
+						downloaded-from-uri : str
+						issuing-distribution-point-uri : str
+						-signature-key-type : str
+						-signature-hash-algorithm : str
+				cdps
+					cdp
+						name : str
+						+url : str
+						enabled : bool
+						refresh-interval : str
+						-next-update-time : str
+						-last-update-time : str
+						-last-update-result : str
+				ocsp-servers
+					ocsp-server
+						name : str
+						+url : str
+						enabled : bool
+						+priority : int
+						-last-query : str
+			secure-applications
+				secure-application
+					id : str
+					-type : str
+					-in-use : str
+					-status : str
+					verify-client-cert : str
+					active-certificate-id : str
+			trusted-certificate
+				id : str
+				-version : str
+				-serial-number : str
+				-subject-name : str
+				-issuer : str
+				-valid-from : str
+				-valid-to : str
+				-modification-time : str
+				-status : str
+				-public-key-length : str
+				-public-key-type : str
+				-certificate-bytes : str
+				revocation-mode : str
+				-trust-chain : unknown
+				-key-usage : str
+				-extended-key-usage : str
+				-signature-key-type : str
+				-signature-hash-algorithm : str
+				alarm-report-control : str
+				label : str
+			local-certificate
+				-self-signed : bool
+				id : str
+				-version : str
+				-serial-number : str
+				-subject-name : str
+				-issuer : str
+				-valid-from : str
+				-valid-to : str
+				-modification-time : str
+				-status : str
+				-public-key-length : str
+				-public-key-type : str
+				-certificate-bytes : str
+				revocation-mode : str
+				-trust-chain : unknown
+				-key-usage : str
+				-extended-key-usage : str
+				-signature-key-type : str
+				-signature-hash-algorithm : str
+				-used-by : str
+				-subject-alternative-names : str
+				alarm-report-control : str
+				label : str
+			peer-certificate
+				-white-listed : bool
+				id : str
+				-version : str
+				-serial-number : str
+				-subject-name : str
+				-issuer : str
+				-valid-from : str
+				-valid-to : str
+				-modification-time : str
+				-status : str
+				-public-key-length : str
+				-public-key-type : str
+				-certificate-bytes : str
+				revocation-mode : str
+				-trust-chain : unknown
+				-key-usage : str
+				-extended-key-usage : str
+				-signature-key-type : str
+				-signature-hash-algorithm : str
+				-used-by : str
+				-subject-alternative-names : str
+				alarm-report-control : str
+				label : str
+		user
+			user-name : str
+			password : str
+			password-hashed : str
+			display-name : str
+			max-invalid-login : int
+			suspension-time : int
+			timeout : int
+			password-aging-interval : int
+			-password-expiration-date : str
+			enabled : bool
+			-user-status : str
+			force-password-change : bool
+			max-sessions : int
+			-last-login-date : str
+			-failed-logins : int
+			-user-aaa-type : str
+			user-group : str
+			alarm-report-control : str
+			label : str
+		user-group
+			name : str
+			description : str
+		session
+			session-id : str
+			session-user : str
+			session-type : str
+			session-protocol : str
+			created-time : str
+			local-ip-address : str
+			-dial-out-server-name : unknown
+		aaa-server
+			server-name : str
+			+server-priority : int
+			+protocol-supported : str
+			+server-address : str
+			server-port : str
+			server-port-authentication : str
+			server-port-accounting : str
+			shared-secret : str
+			role-supported : str
+			enabled : bool
+			timeout : int
+			retry : int
+			source-ip : str
+			common-password : str
+			-oper-state : str

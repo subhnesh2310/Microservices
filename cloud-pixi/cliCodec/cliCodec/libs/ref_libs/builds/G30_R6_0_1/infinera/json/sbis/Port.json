@@ -1,0 +1,468 @@
+{
+    "ne": {
+        "equipment": {
+            "card": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Card identifier.",
+                        "key": true,
+                        "mandatory": true,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "port": [
+                        {
+                            "name": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Port name.",
+                                "mandatory": true,
+                                "key": true,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "comm-eth": {
+                                "auto-negotiation": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "disabled",
+                                            "enabled"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Auto negotiation mode.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "enabled",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "mtu": {
+                                    "type": {
+                                        "ptype": "int"
+                                    },
+                                    "isList": false,
+                                    "description": "The maximum transmission unit size in octets for the physical Ethernet port.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": 1500,
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "duplex-mode": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "unknown",
+                                            "full",
+                                            "half"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Duplex mode; only valid if auto-negotiation is disabled.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "full",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "operational-duplex-mode": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "unknown",
+                                            "full",
+                                            "half"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Operational duplex mode.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": false,
+                                    "default": "unknown",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "rate": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "unknown",
+                                            "1",
+                                            "10",
+                                            "100",
+                                            "1000",
+                                            "10000",
+                                            "maximum"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Required Ethernet rate; only valid if auto-negotiation is disabled.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "maximum",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "operational-rate": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "unknown",
+                                            "1",
+                                            "10",
+                                            "100",
+                                            "1000",
+                                            "10000",
+                                            "maximum"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Operational Ethernet rate.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": false,
+                                    "default": "unknown",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "flow-control": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "unknown",
+                                            "disabled",
+                                            "bi-directional",
+                                            "egress-only",
+                                            "ingress-only"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Specifies the type of flow control to be supported.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "disabled",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "operational-flow-control": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "unknown",
+                                            "disabled",
+                                            "bi-directional",
+                                            "egress-only",
+                                            "ingress-only"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Operational flow control.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": false,
+                                    "default": "unknown",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "redundancy-state": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "none",
+                                            "active",
+                                            "standby"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Redundancy state of the comm port.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": false,
+                                    "default": "none",
+                                    "hardcode": false,
+                                    "namespace": null
+                                },
+                                "mac-address": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "MAC Address of the port.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": false,
+                                    "default": "00:00:00:00:00:00",
+                                    "hardcode": false,
+                                    "namespace": null
+                                }
+                            },
+                            "parent-port": {
+                                "type": {
+                                    "ptype": "unknown",
+                                    "leafref": "../../port/name"
+                                },
+                                "isList": false,
+                                "description": "Name of the parent port. Only applicable for sub-ports.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "hosted-interface": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Top level interface hosted in this port.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "connected-to": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Indicate neighbour port entity to which the current port is connected to.\nThis is not validated by the NE and can be used by the customers (or NMS) for topology construction.\nThis parameter is available independently on any automated discovery mechanisms that may exist in the port.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "external-connectivity": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "no",
+                                        "yes"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Indicates whether the port is connected or to be connected externally or not.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "no",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "subport-list": {
+                                "type": {
+                                    "ptype": "unknown",
+                                    "leafref": "../../port/name"
+                                },
+                                "isList": true,
+                                "description": "List of sub-ports associated with this port.\nOnly applicable when this port is a parent port.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "alias-name": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "AID": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "admin-state": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "lock",
+                                        "unlock",
+                                        "maintenance"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The administrative state of the managed object.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "unlock",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "avail-state": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Availability state of an entity.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "oper-state": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "enabled",
+                                        "disabled"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The operational state of this object.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "disabled",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "alarm-report-control": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "allowed",
+                                        "inhibited"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Controls the reporting of alarms for this particular object.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "allowed",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "label": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "User label.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "port-type": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "line",
+                                        "tributary",
+                                        "usb",
+                                        "comm",
+                                        "uplink",
+                                        "tributary-subport",
+                                        "optical",
+                                        "otdr",
+                                        "pluggable",
+                                        "ocm"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The port type. Each port type supports different features and services.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "direction": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "not-applicable",
+                                        "tx",
+                                        "rx",
+                                        "rxtx"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Direction of the port.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "not-applicable",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "installed-type": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Currently installed type in this equipment holder. If empty, means no FRU is present.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "supported-type": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": true,
+                                "description": "List of supported types in this equipment holder.\nIf a specific type is provisioned, the list has only that type.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

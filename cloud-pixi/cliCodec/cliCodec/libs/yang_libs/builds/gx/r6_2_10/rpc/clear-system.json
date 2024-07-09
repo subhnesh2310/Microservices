@@ -1,0 +1,50 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "type": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "factory-reset",
+                    "full-wipe",
+                    "inactive"
+                ]
+            },
+            "isList": false,
+            "description": "Clear system type.",
+            "mandatory": true
+        },
+        "target": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Entire system (main controller chassis) or specific chassis/card AID.",
+            "mandatory": false
+        },
+        "restart-behavior": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "restart",
+                    "shutdown"
+                ]
+            },
+            "isList": false,
+            "description": "Action to do after the clean operation.",
+            "mandatory": false
+        },
+        "action": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "delete"
+                ]
+            },
+            "isList": false,
+            "description": "Action to clean the partition.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

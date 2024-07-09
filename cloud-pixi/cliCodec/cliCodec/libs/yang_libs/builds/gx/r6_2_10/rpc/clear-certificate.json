@@ -1,0 +1,32 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "type": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "trusted",
+                    "peer",
+                    "local",
+                    "purge-all-invalid",
+                    "purge-expired",
+                    "purge-local-unused",
+                    "purge-peer-unused",
+                    "purge-all-unused"
+                ]
+            },
+            "isList": false,
+            "description": "Defines the type of 'clear certificate' that the system must do.",
+            "mandatory": true
+        },
+        "id": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Foreign Key pointing to the id of the certificate to delete.",
+            "mandatory": true
+        }
+    },
+    "cases": {}
+}

@@ -1,0 +1,102 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A user configured name for the XCON.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "source": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The source end-point between which the XCON needs to be created.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "source"
+    },
+    "destination": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The destination end-point between which the XCON needs to be created.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "destination"
+    },
+    "payload_type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "100GBE",
+                "400GBE",
+                "OTU4",
+                "100G",
+                "ODU2",
+                "ODU2e",
+                "10GBE",
+                "OC192",
+                "STM64",
+                "10G",
+                "empty"
+            ]
+        },
+        "description": "Indicates a generic, high-level source (from) client payload type of the digital XCON.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "payload_type"
+    },
+    "direction": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "two-way"
+            ]
+        },
+        "description": "Indicates whether the digital XCON is uni-directional (1-WAY) or bi-directional (2-WAY).",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "two-way",
+        "hardcode": false,
+        "argName": "direction"
+    },
+    "circuit_id_suffix": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User configured circuit ID suffix.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "circuit_id_suffix"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    }
+}

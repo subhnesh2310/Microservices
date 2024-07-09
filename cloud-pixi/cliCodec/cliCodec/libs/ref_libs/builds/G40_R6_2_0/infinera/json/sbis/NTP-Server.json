@@ -1,0 +1,137 @@
+{
+    "ne": {
+        "system": {
+            "ntp": {
+                "ntp-server": [
+                    {
+                        "ip-address": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "NTP Server IP address. Ipv4/Ipv6/hostname supported.",
+                            "key": true,
+                            "mandatory": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "origin": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "manual",
+                                    "dhcp"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "NTP address assignment method, user can convert\nDHCP configured NTP entry into a manual configured by changing this attribute.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "auth-key-id": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Key ID to be used for this server.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "not-applicable",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "label": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "User label.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "admin-state": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "lock",
+                                    "unlock",
+                                    "maintenance"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "The administrative state of the managed object.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "unlock",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "avail-state": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Availability state of an entity.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "oper-state": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "enabled",
+                                    "disabled"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "The operational state of this object.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "disabled",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "alarm-report-control": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "allowed",
+                                    "inhibited"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Controls the reporting of alarms for this particular object.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "allowed",
+                            "hardcode": false,
+                            "namespace": null
+                        }
+                    }
+                ]
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

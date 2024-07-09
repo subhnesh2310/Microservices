@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-flexo"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-flexo="http://infinera.com/yang/ioa/flexo"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-fac-common="http://infinera.com/yang/ioa/facilities-common">
+  <namespace uri="http://infinera.com/yang/ioa/flexo"/>
+  <prefix value="ioa-flexo"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-facilities-common">
+    <prefix value="ioa-fac-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module defining the flexo facility.</text>
+  </description>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <grouping name="flexo">
+    <list name="flexo">
+      <key value="name"/>
+      <description>
+        <text>Facility describing the flexo. Refer to G.709.1 and G.709.3</text>
+      </description>
+      <uses name="ioa-fac-common:facilities-common-attributes"/>
+      <uses name="ioa-common:arc"/>
+      <leaf name="foic-type">
+        <type name="enumeration">
+          <enum name="foic1.2">
+            <value value="1"/>
+          </enum>
+          <enum name="foic1.4">
+            <value value="2"/>
+          </enum>
+          <enum name="foic2.4">
+            <value value="3"/>
+          </enum>
+          <enum name="foic2.8">
+            <value value="4"/>
+          </enum>
+          <enum name="foic3.6">
+            <value value="5"/>
+          </enum>
+          <enum name="foic4.8">
+            <value value="6"/>
+          </enum>
+          <enum name="foic4.16">
+            <value value="7"/>
+          </enum>
+        </type>
+        <default value="foic4.8"/>
+        <config value="false"/>
+        <description>
+          <text>FOICx.k lanes means using k parallel lanes to carry a FlexO-x interface, where order x signifies the interface rate in units of 100G.
+A unique FOICx.k identification (G.709.3 FlexO-LR and G.709.1 FlexO-SR).</text>
+        </description>
+      </leaf>
+      <leaf name="fec-type">
+        <type name="ioa-fac-common:fec-type"/>
+        <default value="ofec"/>
+        <config value="false"/>
+        <description>
+          <text>The FEC type</text>
+        </description>
+      </leaf>
+      <leaf-list name="iid">
+        <type name="uint8">
+          <range value="1..254"/>
+        </type>
+        <description>
+          <text>Uniquely identify each member of a group and the order of each member in the group.
+This information is required in the reordering process.
+Don't need to be sequential.</text>
+        </description>
+      </leaf-list>
+      <leaf-list name="accepted-group-id">
+        <type name="uint32"/>
+        <config value="false"/>
+        <description>
+          <text>The received group instance on the FlexO interface.</text>
+        </description>
+      </leaf-list>
+      <leaf-list name="accepted-iid">
+        <type name="uint8"/>
+        <config value="false"/>
+        <description>
+          <text>The received iid on the FlexO interface.</text>
+        </description>
+      </leaf-list>
+    </list>
+  </grouping>
+</module>

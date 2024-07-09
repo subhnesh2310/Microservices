@@ -1,0 +1,46 @@
+ioa-syslog
+	source-facilities : str
+	syslog
+		remote-logging-switch : bool
+		log-relay : bool
+		source-address : str
+		log-file-message-coalescence : bool
+		assignment-method : str
+		alarm-report-control : str
+		label : str
+		log-console
+			enabled : bool
+			source-facilities : str
+			log-console-facility-filter
+				name : str
+				severity : str
+				compare-op : str
+		log-server
+			name : str
+			+address : str
+			transport : str
+			port : str
+			destination-facility-override : str
+			pattern-match : str
+			message-coalescence : bool
+			enabled : bool
+			message-format : str
+			origin : str
+			source-facilities : str
+			log-server-facility-filter
+				name : str
+				severity : str
+				compare-op : str
+		log-file
+			name : str
+			number-of-files : int
+			max-file-size : int
+			pattern-match : str
+			source-facilities : str
+			log-file-facility-filter
+				name : str
+				severity : str
+				compare-op : str
+	name : str
+	severity : str
+	compare-op : str

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-carrier-types"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-carrier-types="http://infinera.com/yang/ioa/carrier-types">
+  <namespace uri="http://infinera.com/yang/ioa/carrier-types"/>
+  <prefix value="ioa-carrier-types"/>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module that defines carrier mode and advanced parameter types and groupings
+that are common to controller module and line module (e.g. CHM6.).</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <typedef name="application-id-type">
+    <type name="string">
+      <length value="1..15"/>
+    </type>
+    <description>
+      <text>Appication ID is a string.</text>
+    </description>
+  </typedef>
+  <grouping name="carrier-mode-attributes">
+    <description>
+      <text>Collection of attributes that uniquely identifies the mode of operation of each carrier within the SCH.</text>
+    </description>
+    <leaf name="carrier-mode">
+      <type name="string">
+        <length value="1..15"/>
+      </type>
+      <description>
+        <text>An acronymized code (handle) that is indicative of the optical carrier line mode (4-tuple) combination.
+The format is as follows:
+   &lt;Capacity&gt;&lt;ClientMode&gt;.&lt;Baud Rate&gt;&lt;Application ID&gt;
+Examples:
+   - 600E.84P
+   - 100X.73U
+   - 325M.66P</text>
+      </description>
+    </leaf>
+    <leaf name="capacity">
+      <type name="uint16"/>
+      <units name="Gbps"/>
+      <config value="false"/>
+      <description>
+        <text>The net capacity of the optical carrier.</text>
+      </description>
+    </leaf>
+    <leaf name="client-mode">
+      <type name="enumeration">
+        <enum name="ethernet">
+          <value value="10"/>
+        </enum>
+        <enum name="ethernet-otn">
+          <value value="20"/>
+        </enum>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>This indicates digital client modes of the signal
+that is mapped into, and transported by the carriers within this
+superchannel.</text>
+      </description>
+    </leaf>
+    <leaf name="baud-rate">
+      <type name="decimal64">
+        <fraction-digits value="7"/>
+      </type>
+      <units name="GBaud"/>
+      <config value="false"/>
+      <description>
+        <text>The modulated symbol rate.</text>
+      </description>
+    </leaf>
+    <leaf name="application">
+      <type name="application-id-type"/>
+      <config value="false"/>
+      <description>
+        <text>The optical transport application ID this mode is optimized for.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="golden-carrier-modes">
+    <list name="golden-carrier-mode">
+      <key value="carrier-mode"/>
+      <config value="false"/>
+      <description>
+        <text>List of golden carrier modes.</text>
+      </description>
+      <uses name="supported-carrier-mode-attributes"/>
+    </list>
+  </grouping>
+  <grouping name="supported-carrier-modes">
+    <list name="supported-carrier-mode">
+      <key value="carrier-mode"/>
+      <config value="false"/>
+      <status value="obsolete"/>
+      <description>
+        <text>List of supported carrier modes.
+Note: this object is obsolete - this is kept for temporary backward compatibility.
+The equivalent data can be found in the golden-carrier-mode list.
+However, instead of defining the list per card, the golden-carrier-mode list defines it globally.</text>
+      </description>
+      <uses name="supported-carrier-mode-attributes"/>
+    </list>
+  </grouping>
+  <grouping name="supported-carrier-mode-attributes">
+    <uses name="carrier-mode-attributes"/>
+    <leaf name="compatibility-id">
+      <type name="uint16"/>
+      <description>
+        <text>Identifies the compatible carrier modes that can be applied simultaneously</text>
+      </description>
+    </leaf>
+    <leaf name="status">
+      <type name="enumeration">
+        <enum name="supported">
+          <value value="1"/>
+        </enum>
+        <enum name="candidate">
+          <value value="2"/>
+        </enum>
+        <enum name="experimental">
+          <value value="3"/>
+        </enum>
+        <enum name="deprecated">
+          <value value="4"/>
+        </enum>
+        <enum name="diagnostic">
+          <value value="5"/>
+        </enum>
+      </type>
+      <description>
+        <text>Describes carrier mode release status.</text>
+      </description>
+    </leaf>
+    <leaf-list name="supported-subtypes">
+      <type name="string">
+        <length value="0..32"/>
+      </type>
+      <max-elements value="20"/>
+      <description>
+        <text>Subtypes that each carrier mode supports.</text>
+      </description>
+    </leaf-list>
+  </grouping>
+  <grouping name="golden-advanced-parameters">
+    <list name="golden-advanced-parameter">
+      <key value="name"/>
+      <config value="false"/>
+      <description>
+        <text>A set of all optical carrier advanced parameters discovered from the equipment.</text>
+      </description>
+      <uses name="advanced-parameters-attributes"/>
+    </list>
+  </grouping>
+  <grouping name="advanced-parameters-attributes">
+    <leaf name="name">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <description>
+        <text>The name of the advanced parameter.</text>
+      </description>
+    </leaf>
+    <leaf name="description">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <description>
+        <text>A human readable description of this advanced parameter.</text>
+      </description>
+    </leaf>
+    <leaf name="type">
+      <type name="string">
+        <length value="0..255"/>
+      </type>
+      <description>
+        <text>Indicates the data type of the advanced parameter.</text>
+      </description>
+    </leaf>
+    <leaf name="supported-values">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <description>
+        <text>This list indicates the possible values that this parameter can take as input. It is a list of ranges.
+   E.g.'1-4, 10-14' indicating two ranges from 1 to 4 and 10 to 14. Or it could be a list of discrete
+   numbers like '10, 20, 30, 40'. Spaces are optional.</text>
+      </description>
+    </leaf>
+    <leaf name="direction">
+      <type name="enumeration">
+        <enum name="transmit">
+          <value value="10"/>
+        </enum>
+        <enum name="receive">
+          <value value="20"/>
+        </enum>
+        <enum name="transmit-and-receive">
+          <value value="30"/>
+        </enum>
+      </type>
+      <description>
+        <text>Advanced parameter is applicable to the specified direction.</text>
+      </description>
+    </leaf>
+    <leaf name="multiplicity">
+      <type name="uint8"/>
+      <description>
+        <text>Identifies number of values user need to enter for this advanced parameter.
+   Same range or allowed-values will apply for each entry.</text>
+      </description>
+    </leaf>
+    <leaf name="configuration-impact">
+      <type name="enumeration">
+        <enum name="no-change">
+          <value value="10"/>
+        </enum>
+        <enum name="no-reacquire">
+          <value value="20"/>
+        </enum>
+        <enum name="reacquire">
+          <value value="30"/>
+        </enum>
+        <enum name="full-config-pll-change">
+          <value value="40"/>
+        </enum>
+        <enum name="full-config-no-pll-change">
+          <value value="50"/>
+        </enum>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Identifies the configuration steps to apply the change.</text>
+      </description>
+    </leaf>
+    <leaf name="service-impact">
+      <type name="enumeration">
+        <enum name="service-affecting">
+          <value value="10"/>
+        </enum>
+        <enum name="non-service-affecting">
+          <value value="20"/>
+        </enum>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Identifies if applying this parameter change causes service impact. If it is service impacting, user must perform admin lock/maintenance/ToDO operation.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="supported-advanced-parameters">
+    <list name="supported-advanced-parameter">
+      <key value="name"/>
+      <config value="false"/>
+      <description>
+        <text>A set of all optical carrier advanced parameters discovered from the equipment.</text>
+      </description>
+      <reference>
+        <text>Discovered Advanced Parameter Table (DAPT).</text>
+      </reference>
+      <uses name="advanced-parameters-attributes"/>
+    </list>
+  </grouping>
+  <grouping name="golden-application-descriptions">
+    <list name="application-description">
+      <key value="application"/>
+      <config value="false"/>
+      <description>
+        <text>Detailed description of application ID</text>
+      </description>
+      <leaf name="application">
+        <type name="application-id-type"/>
+        <description>
+          <text>The optical transport application ID this mode is optimized for.</text>
+        </description>
+      </leaf>
+      <leaf name="application-description">
+        <type name="string">
+          <length value="0..1024"/>
+        </type>
+        <description>
+          <text>Detailed description of application ID</text>
+        </description>
+      </leaf>
+    </list>
+  </grouping>
+  <grouping name="golden-subtype-constraints">
+    <list name="subtype-constraint">
+      <key value="subtype"/>
+      <config value="false"/>
+      <description>
+        <text>List of subtype constraints.</text>
+      </description>
+      <leaf name="subtype">
+        <type name="string">
+          <length value="1..20"/>
+        </type>
+        <description>
+          <text>Card Subtype. Represents a group of related PONs for a card type to which these constraints applies.</text>
+        </description>
+      </leaf>
+      <leaf name="min-capacity">
+        <type name="int16"/>
+        <units name="Gbps"/>
+        <description>
+          <text>The minimum capacity supported by this subtype.</text>
+        </description>
+      </leaf>
+      <leaf name="max-capacity">
+        <type name="int16"/>
+        <units name="Gbps"/>
+        <description>
+          <text>The maximum capacity supported by this subtype. -1 means there is no maximum capacity constraint.</text>
+        </description>
+      </leaf>
+      <leaf-list name="supported-applications">
+        <type name="application-id-type"/>
+        <description>
+          <text>List of applications supported by this subtype. If this list is empty, then this constraint is not applicable.</text>
+        </description>
+      </leaf-list>
+      <leaf-list name="unsupported-applications">
+        <type name="application-id-type"/>
+        <description>
+          <text>List of applications not supported by this subtype. If this list is empty, then this constraint is not applicable.</text>
+        </description>
+      </leaf-list>
+      <leaf name="description">
+        <type name="string">
+          <length value="0..255"/>
+        </type>
+        <description>
+          <text>Subtype description.</text>
+        </description>
+      </leaf>
+    </list>
+  </grouping>
+</module>

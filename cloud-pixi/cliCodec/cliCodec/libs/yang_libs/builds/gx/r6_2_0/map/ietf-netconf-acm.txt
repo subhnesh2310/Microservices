@@ -1,0 +1,23 @@
+nacm
+	nacm
+		enable-nacm : bool
+		read-default : str
+		write-default : str
+		exec-default : str
+		enable-external-groups : bool
+		+-denied-operations : str
+		+-denied-data-writes : str
+		+-denied-notifications : str
+		groups
+			group
+				name : str
+				user-name : str
+		rule-list
+			name : str
+			group : str
+			rule
+				name : str
+				module-name : str
+				access-operations : str
+				+action : str
+				comment : str

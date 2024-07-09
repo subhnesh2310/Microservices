@@ -1,0 +1,35 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "resource": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Resource to restart.\nIf not provided, by default restarts the node controller.",
+            "mandatory": false
+        },
+        "type": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "warm",
+                    "cold",
+                    "shutdown"
+                ]
+            },
+            "isList": false,
+            "description": "Restart type",
+            "mandatory": false
+        },
+        "sub-component": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Allows to target a card sub-component to restart.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

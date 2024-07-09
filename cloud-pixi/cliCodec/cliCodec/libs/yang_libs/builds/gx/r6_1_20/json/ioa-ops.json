@@ -1,0 +1,154 @@
+{
+    "module": {
+        "@name": "ioa-ops",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-ops": "http://infinera.com/yang/ioa/ops",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/ops"
+        },
+        "prefix": {
+            "@value": "ioa-ops"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG definitions for Optical Physical Section (OPS) facilities."
+        },
+        "revision": {
+            "@date": "2022-10-31",
+            "description": {
+                "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+            }
+        },
+        "grouping": {
+            "@name": "ops",
+            "description": {
+                "text": "A re-usable grouping that formulates the basic OPS facility structure."
+            },
+            "list": {
+                "@name": "ops",
+                "key": {
+                    "@value": "name"
+                },
+                "description": {
+                    "text": "OPS: Optical Physical Section facility."
+                },
+                "reference": {
+                    "text": "ITU-T G.798; ITU-T G.709 Table XII.1 -- Terminology mapping"
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-fac-common:facilities-common-attributes"
+                    },
+                    {
+                        "@name": "ioa-common:arc"
+                    }
+                ],
+                "leaf": [
+                    {
+                        "@name": "role",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "general-purpose",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "Indicates the underlying (L0) port may be used for express connections,\nor to add/ drop traffic."
+                                    }
+                                },
+                                {
+                                    "@name": "tributary",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "Single Wavlength.\nIndicates the underlying (L0) port is connected to a transponder,\nor ellegible to be connected to a transponder."
+                                    }
+                                },
+                                {
+                                    "@name": "multi-carrier",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "Multiple Wavlength.\nIndicates the underlying (L0) port is connected to several carriers,\neither directly or indirectly (using a coupler/ splitter or AWG)."
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "general-purpose"
+                        },
+                        "description": {
+                            "text": "Allows the user to configure:\n- tributary: a single add/ drop to a local transponder, or to a remote transponder;\nlocal transponder: using port.external-connectivity = no;\nremote transponder: using port.external-connectivity = yes;\n\n- multi-carrier: multiple-carriers on the underlying (filter) port;\nlocally connected filter: using port.external-connectivity = no;\nremote (disaggregated) filter: using port.external-connectivity = yes;\n\n- general-purpose: other cases:\nexpress cross-connection to another filter (created, or to be created.)"
+                        }
+                    },
+                    {
+                        "@name": "supported-roles",
+                        "type": {
+                            "@name": "bits",
+                            "bit": [
+                                {
+                                    "@name": "general-purpose",
+                                    "position": {
+                                        "@value": "0"
+                                    },
+                                    "description": {
+                                        "text": "role general-purpose supported"
+                                    }
+                                },
+                                {
+                                    "@name": "tributary",
+                                    "position": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "role tributary supported"
+                                    }
+                                },
+                                {
+                                    "@name": "multi-carrier",
+                                    "position": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "role multi-carrier supported"
+                                    }
+                                }
+                            ]
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The SYSTEM exposes what configurations are possible, for the purpose\nof managers being able to offer the appropriate options for the configuration of OPS role.\nBits indicate the role possibilities:\n- this is fully dependent on card (and sometimes on card-mode), refer to the 'portsdata' definition."
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

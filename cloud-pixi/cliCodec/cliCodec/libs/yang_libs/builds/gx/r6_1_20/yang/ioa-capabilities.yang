@@ -1,0 +1,547 @@
+module ioa-capabilities {
+    namespace "http://infinera.com/yang/ioa/capabilities";
+    prefix ioa-cap;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-equipment { prefix ioa-eqm; }
+    import ioa-carrier-types { prefix ioa-carrier-types; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module which describes a model to describe system capabilities.";
+
+    revision "2023-03-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.1";
+    }
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+    grouping configuration-mode
+    {
+        description "Re-usable grouping for the configuration-mode attribute.";
+
+        leaf configuration-mode {
+            type enumeration {
+                enum system-configured {
+                    value 1;
+                    description "Means system automaticaly configures the card in slot (or tom in this port), and user cannot
+                                 make changes to that.";
+                }
+                enum user-configured {
+                    value 2;
+                    description "Means that user can provision or unprovision cards in this slot (or toms in this port).";
+                }
+            }
+            default user-configured;
+            description "Configuration mode for the cards in this slot (or toms in this port).";
+        }
+    }
+
+    grouping supported-slot-grouping {
+        description "Re-usable grouping.";
+        list supported-slot {
+            key slot-name ;
+            description "Capability for each slot. The supported-slots can be within each supported-chassis or supported-card.";
+
+            leaf slot-name { 
+                type string; 
+                description "Name of the slot.";
+            }
+
+            leaf slot-location { 
+                type enumeration {
+                    enum front { value 1; }
+                    enum rear { value 2; }
+                }
+                description "Physical location of the slot in the chassis";
+            }
+
+            leaf slot-vertical-position {
+                type uint8;
+                description "Position of the slot vertically in the chassis, counting
+                             from the top of the chassis/card, in RUs.
+                             Example: position 3 means third RU starting from the top of the chassis/card.";
+            }
+
+            leaf slot-horizontal-position {
+                type uint8;
+                description "Position of the slot horizontally in the chassis/card within the current RU, counting
+                             from the left of the chassis/card.
+                             For back slots, the position is counted also from the left, from a point of view facing
+                             the rear of the chassis/card.";
+            }
+
+            leaf-list possible-card-types {
+                type identityref { base ioa-common:card; }
+                description "List of possible card types in this slot.";
+            }
+
+            uses configuration-mode;
+
+            leaf auto-provision-capable {
+                type boolean;
+                description "Whether this slot supports card auto-provisioning.";
+            }
+
+            leaf default-card {
+                type string;
+                description "Card that exists in this slot by default.";
+            }
+
+            leaf requires-blank-when-empty {
+                type enumeration {
+                    enum not-applicable { value 0; }
+                    enum optional { value 1; }
+                    enum required { value 2; }
+                }
+                description "Whether this slot requires a BLANK filler card when empty.";
+            }
+
+            leaf reset-power {
+                type decimal64 {
+                    fraction-digits 4;
+                }
+                units W;
+                description "Reset power consumption for this card, at 55ºC";
+            }
+
+            leaf virtual-slot {
+                type boolean;
+                default false;
+                description "Describes whether this slot is virtual.";
+            }
+
+            leaf-list leds {
+                type string { length 1..20; }
+                max-elements 10;
+                description "List of LEDs available in the slot.";
+            }
+        }
+    }
+
+    grouping capabilities {
+
+        container system-capabilities {
+            config false;
+            description "Top level container for all capability information.
+                         This data is read-only, and expected to be informative to the user
+                         regarding what are the system capabilities.
+                         This information is static and independent on current configuration.
+                         Capabilities can be updated only:
+                         - with SW upgrade
+                         - with a dedicated capabilities file update (for specific cases only)";
+
+            container equipment-capabilities {
+                description "Top level container for all equipment capabilities.";
+
+                container gadt {
+                    description "Golden Application Description Table - provides human readable details for carrier-mode applications.";
+
+                    leaf version {
+                        type string { length 0..5; }
+                        description "Table version.";
+                    }
+
+                    uses ioa-carrier-types:golden-application-descriptions;
+                }
+
+                list supported-chassis {
+                    key chassis-type;
+                    description "Capability information for supported chassis.";
+
+                    leaf chassis-type {
+                        type identityref { base ioa-common:chassis; }
+                        description "Chassis type name.";
+                    }
+
+                    leaf description {
+                        type string { length 0..255; }
+                        description "Human readable description for this chassis-type.";
+                    }
+
+                    leaf controller-redundancy-supported {
+                        type boolean;
+                        description "Whether this chassis supports controller redundancy or not.";
+                    }
+
+                    leaf power-control-supported {
+                        type boolean;
+                        description "Whether this chassis supports power control, i.e. the ability to evaluate 
+                                    the power supply currently provided by the PEMs against the configured equipment.
+                                    A chassis that has power control support may put some cards into low power mode 
+                                    when not enough power is enabled, as well as raising alarms when power protection fail.";
+                    }
+
+                    leaf depth {
+                        type uint16;
+                        units mm;
+                        description "Chassis depth in millimeters.";    
+                    }
+
+                    leaf height {
+                        type uint8;
+                        units RUs;
+                        description "Chassis height in RUs (Rack Units).";
+                    }
+
+                    leaf number-of-front-slots { 
+                        type uint8; 
+                        description "Number of equipment holder slots in the front plate on the chassis.";
+                    }
+
+                    leaf number-of-rear-slots { 
+                        type uint8; 
+                        description "Number of equipment holder slots in the back plate on the chassis.";
+                    }
+
+                    leaf-list leds {
+                        type string { length 1..20; }
+                        max-elements 10;
+                        description "List of LEDs available in the chassis.";
+                    }
+
+                    leaf-list supported-subchassis-type {
+                        type leafref {
+                            path ../../supported-chassis/chassis-type;
+                        }
+                        max-elements 5;
+                        description "List of chassis-types that this chassis supports as sub-chassis.
+                                     If empty, means this chassis-type does not support multi-chassis feature.";
+                    }
+
+                    uses supported-slot-grouping; 
+                }
+
+                list supported-card {
+                    key card-type;
+                    description "Capability information for supported card.";
+
+                    leaf card-type {
+                        type identityref { base ioa-common:card; }
+                        description "Card type name.";
+                    }
+
+                    uses ioa-common:sw-support;
+
+                    leaf-list supported-subtype {
+                        type string;
+                        description "Supported card subtypes; may be empty if card doesn't support subtypes.";
+                    }
+
+                    leaf description { 
+                        type string { length 0..255; }
+                        description "Human readable description for this card-type.";
+                    }
+
+                    leaf default-card-mode {
+                        type string { length 0..20; }
+                        description "The default card-mode, for cards whose supported-card-mode is not empty.
+                                     Only relevant if card has the concept of card-mode.";
+                    }
+
+                    leaf-list supported-card-mode {
+                        type string { length 0..20; }
+                        description "Supported card-modes; may be empty if card does not support any card-mode.";
+                    }
+
+                    leaf card-width {
+                        type enumeration {
+                            enum na { value 0; description "Not Applicable."; }
+                            enum single-slot { value 1; description "Single slot width."; }
+                            enum double-slot { value 2; description "Double slot width."; }
+                            enum half-slot { value 3; description "Half slot width."; }
+                        }
+                        description "Number of slots this card occupies; not-applicable for RU equipment.";
+                    }
+
+                    leaf card-height {
+                        type uint8;
+                        units RUs;
+                        description "Card height in RUs.";
+                    }
+
+                    leaf is-field-replaceable {
+                        type boolean;
+                        description "Whether this card-type is a field replaceable unit (FRU).";
+                    }
+
+                    uses ioa-eqm:card-category;
+
+                    uses ioa-eqm:max-power-draw;
+
+                    list supported-power-profile {
+                        key name;
+                        description "Supported power profile for this card-type.
+                        Different power profiles can be supported to reflect different scenarios when using this card.
+                        User is able to define, per card instance, which profile is in effect.
+                        This will have impact on the power estimation for the system.";
+
+                        leaf name {
+                            type string;
+                            description "Profile name.";
+                        }
+
+                        leaf profile-description {
+                            type string { length 0..255; }
+                            description "Description of the profile.";
+                        }
+
+                        leaf power-draw {
+                            type decimal64 {
+                                fraction-digits 2;
+                            }
+                            units W;
+                            description "Power draw of associated equipment when not in low-power.";
+                        }
+
+                        leaf default {
+                            type boolean;
+                            description "Whether is the default value or not.";
+                        }
+                    }
+
+                    leaf-list leds {
+                        type string { length 1..20; }
+                        max-elements 10;
+                        description "List of LEDs available in the card.";
+                    }
+
+                    leaf location-led-support {
+                        type boolean;
+                        description "Whether this card-type support location-led operation.";
+                    }
+
+                    leaf console-port-support {
+                        type enumeration {
+                            enum no { 
+                                value 0; 
+                                description "Card-type does not have a serial console port.";
+                            }
+                            enum yes-with-auto-sensing-baud-rate { 
+                                value 1;
+                                description "Card-type has a serial console port, supporting auto-sensing of baud-rate.";
+                            }
+                            enum yes-with-fixed-baud-rate { 
+                                value 2; 
+                                description "Card-type has a serial console port, supporting manually configured baud-rate.";
+                            }
+                        }
+                        default no;
+                        description "Whether this card-type supports a serial console port, with or without auto-sensing capabilities.";
+                    }
+
+                    leaf default-console-baud-rate {
+                        type ioa-eqm:console-baud-rate;
+                        description "For cards with fixed baud-rate, defines the default baud-rate.";
+                    }
+
+                    leaf support-serdes-config {
+                        type boolean;
+                        default false;
+                        description
+                            "If true, it means this card-type allows user to configure 3rd Party TOM SerDes values. If false, the card has no need for such customization.";
+                    }
+
+                    list supported-port {
+                        key port-name;
+                        description "Capabilities for each port in each supported card.";
+
+                        leaf port-name { 
+                            type string; 
+                            description "The port name.";
+                        }
+
+                        uses ioa-eqm:port-common;
+                        uses configuration-mode;
+
+                        leaf faceplate-label {
+                            type string { length 0..36; }
+                            description "Label on the hardware faceplate.";
+                        }
+
+                        leaf-list leds {
+                            type string { length 1..20; }
+                            max-elements 10;
+                            description "List of LEDs available for each port of this card.";
+                        }
+
+                        leaf present {
+                            type enumeration {
+                                enum always { 
+                                    value 1;
+                                    description "This port is always present for this card type.";
+                                }
+                                enum in-node-controller-only {
+                                    value 2;
+                                    description "This port is only present if this card is instanciated in a node controller chassis.
+                                                 Will not be instanciated for sub-chassis cards.";
+                                }
+                            }
+                            default always;
+                            description "Provides information regarding when is this port present (e.g. instanciated as a managed object).
+                                         The majority of ports are statically available for each card type, but some 
+                                         are only available in specific scenarios, described here.";
+                        }
+
+                        leaf default-tom {
+                            type string;
+                            default "none";
+                            description "Tom that exists in this port by default.";
+                        }
+
+                        leaf parent-port {
+                            type string { length 0..32; }
+                            description "Name of the parent port. Only applicable for sub-ports.";
+                        }
+
+                        leaf-list subport-list {
+                            type string { length 1..30; }
+                            description "List of sub-ports associated with this port. 
+                                     Only applicable when this port is a parent port.";
+                        }
+
+                        list supported-tom {
+                            key "tom-type tom-subtype-group";
+                            description "Capability information for supported TOM (Transceiver Optical Module) in the scope
+                                         of this particular card.";
+
+                            leaf tom-type {
+                                type identityref { base ioa-common:tom; }
+                                description "TOM type name.";
+                            }
+
+                            leaf tom-subtype-group {
+                                type string { length 0..32; }
+                                description "TOM subtype group.";
+                            }
+
+                            leaf-list supported-subtype {
+                                type string;
+                                max-elements 30;
+                                description "Supported subtypes for this TOM type in this particular card/port.";                             
+                            }
+
+                            leaf-list supported-phy-modes {
+                                type ioa-eqm:phy-mode;
+                                description "The phy-mode that are supported in this TOM for this card.";
+                            }
+
+                            leaf default-phy-mode {
+                                type ioa-eqm:phy-mode;
+                                description "The phy-mode that is used by default in this TOM for this card.";
+                            }
+                        }
+                    }
+
+                    container gsct {
+                        description "Golden Subtype Constraint Table - contains additional restrictions on supported
+                                     carrier modes (defined by gcmt), based on card subtype.";
+
+                        leaf version {
+                            type string { length 0..5; }
+                            description "Table version.";
+                        }
+
+                        uses ioa-carrier-types:golden-subtype-constraints;
+                    }
+
+                    uses supported-slot-grouping; 
+
+                    container gcmt {
+                        description "Golden Carrier Mode Table - provides list of supported carrier modes in this card.
+                                     Applicable for cards that support configurable optical carriers (transponders).
+                                     To be used as reference, and in pre-provisioning scenarios.
+                                     Once card is physically present, its discovered supported modes will be used instead of these.";
+
+                        leaf version {
+                            type string { length 0..5; }
+                            description "Table version.";
+                        }
+
+                        uses ioa-carrier-types:golden-carrier-modes;
+                    }
+
+                    container gapt {
+                        description "Golden Advanced Parameters Table - provides a list of known advanced parameters that this card supports.";
+
+                        leaf version {
+                            type string { length 0..5; }
+                            description "Table version.";
+                        }
+
+                        uses ioa-carrier-types:golden-advanced-parameters;
+
+                        leaf-list applicable-resource-type {
+                            type string;
+                            description "The managed resource type(s) that are applicable for this particular advanced parameter.";
+                        }
+                    }
+
+                }
+
+                list tom-type {
+                    key tom-type;
+                    description "Capability information for supported TOM (Transceiver Optical Module).";
+
+                    leaf tom-type {
+                        type identityref { base ioa-common:tom; }
+                        description "TOM type name.";
+                    }
+
+                    leaf data-rate {
+                        type uint16;
+                        units "Gbps";
+                        description "The approximate data-rate for this TOM type.";
+                    }
+
+                    leaf description {
+                        type string { length 0..255; }
+                        description "Human readable description for this TOM type.";
+                    }
+
+                    leaf support-third-party-toms {
+                        type boolean;
+                        description "Whether this TOM type accepts third party TOMs in addition to supported Infinera TOMs.";
+                    }
+
+                    leaf generic-subtype {
+                        when "../support-third-party-toms = true()";
+                        type string;
+                        description "3rd party subtype for this TOM.";
+                    }
+                }
+            }
+
+            container l0-capabilities {
+                description "Layer 0 Capabilities.";
+                container oadm-capabilities {
+                    description "OADM capabilities";
+                    leaf max-degrees {
+                        type uint8;
+                        description "Maximum number of degrees.";
+                    }
+                    leaf max-adgs {
+                        type uint8;
+                        description "Maximum number of ADGs (Add/ Drop Group(s))";
+                    }
+                }
+            }
+        }
+    }
+}

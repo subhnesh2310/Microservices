@@ -1,0 +1,51 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "type": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "db-backup",
+                    "system-backup"
+                ]
+            },
+            "isList": false,
+            "description": "Location where the snapshot will be stored.",
+            "mandatory": false
+        },
+        "db-instance": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "active",
+                    "onehour",
+                    "oneday",
+                    "oneweek",
+                    "temp",
+                    "manual",
+                    "rollback"
+                ]
+            },
+            "isList": false,
+            "description": "Target db-instance name which will hold the DB snapshot.",
+            "mandatory": false
+        },
+        "description": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Optional description for this DB snapshot.",
+            "mandatory": false
+        },
+        "db-passphrase": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Passphrase used for encrypting and decrypting DB snapshots.\nFor each command associated with DB snapshots (backup, restore, etc),\nthis db-passphrase will be used, except when it is directly provided in each command.\nAutomatic DB snapshots will not be enabled until this parameter is set.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

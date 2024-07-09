@@ -1,0 +1,289 @@
+[
+    {
+        "name": "Card",
+        "actions": [
+            "create",
+            "get",
+            "delete"
+        ],
+        "examples": {
+            "create": "gxctrl.create_card('g40', component_name='card-1-6', chassis_name='1', slot_name='6', required_type='CHM6', yang_type='openconfig')",
+            "get": "card_data = gxctrl.get_card('g40', 'card-1-6')"
+        }
+    },
+    {
+        "name": "TOM",
+        "actions": [
+            "create",
+            "get",
+            "delete"
+        ],
+        "examples": {
+            "create": "gxctrl.create_tom('g40', component_name='tom-1-6-T1', phy_mode='100G', required_subtype='TOM-100GMR-Q-LR4', form_factor_preconf='QSFP28', yang_type='openconfig')"
+        }
+    },
+    {
+        "name": "Super-Channel",
+        "actions": [
+            "create",
+            "get",
+            "delete"
+        ],
+        "examples": {
+            "create": "gxctrl.create_super_channel('g40', component_name='super-channel-SCH11', carriers='1-6-L1-1', operational_mode=488, yang_type='openconfig')"
+        }
+    },
+    {
+        "name": "Super-Channel-Group",
+        "actions": [
+            "update",
+            "get"
+        ],
+        "examples": {
+        }
+    },
+    {
+        "name": "Optical-Carrier-Line",
+        "actions": [
+            "update",
+            "get"
+        ],
+        "examples": {
+            "create": "gxctrl.update_optical_carrier_line('g40', component_name='optical-carrier-1-6-L1-1', frequency='191333755', target_output_power='-6.00', yang_type='openconfig')"
+        }
+    },
+    {
+        "name": "Optical-Carrier-Client",
+        "actions": [
+            "update",
+            "get"
+        ],
+        "examples": {
+            "create": "gxctrl.update_optical_carrier_client('g40', component_name='optical-carrier-1-6-L1-1', frequency='191333755', target_output_power='-6.00', yang_type='openconfig')"
+        }
+    },
+    {
+        "name": "LO-ODU",
+        "actions": [
+            "create",
+            "get",
+            "delete"
+        ],
+        "aids": {
+            "logical_channel": {
+                "facility": "ODU",
+                "name": "parent_odu",
+                "description": "For low order ODUs, points to the the parent HO-ODU name."
+            }
+        },
+        "examples": {
+            "create": "gxctrl.create_lo_odu('g40', channel_index=42, trib_protocol='PROT_ODU4i', parent_odu='odu-1-6-L1-1', tributary_slot_index=81, yang_type='openconfig')"
+        }
+    },
+    {
+        "name": "XCON",
+        "actions": [
+            "create",
+            "get",
+            "delete"
+        ],
+        "override_key": "/terminal-device/logical-channels/channel/logical-channel-assignments/assignment",
+        "aids": {
+            "channel_index": {
+                "facility": "Ethernet",
+                "name": "source",
+                "description": "The source end-point between which the XCON needs to be created."
+            }
+        },
+        "renames": {
+            "logical_channel": {
+                "name": "destination_index",
+                "description": "Index of the destination channel between which the XCON needs to be created."
+            }
+        },
+        "examples": {
+            "create": "gxctrl.create_xcon('g40', source='ethernet-1-6-T1', destination_index=42, yang_type='openconfig')"
+        }
+    },
+    {
+        "name": "Chassis",
+        "actions": [
+            "update",
+            "get"
+        ]
+    },
+    {
+        "name": "System",
+        "actions": [
+            "update",
+            "get"
+        ],
+        "override_key": "/system"
+    },
+    {
+        "name": "Clock",
+        "actions": [
+            "update",
+            "get"
+        ],
+        "override_key": "/system/clock"
+    },
+    {
+        "name": "AAA-RADIUS",
+        "actions": [
+            "create",
+            "get",
+            "delete"
+        ],
+        "examples": {
+            "create": "gxctrl.create_aaa_radius('g40', '1.1.1.1', 2, timeout=5, auth_port=1812, acct_port=1813, source_address='auto')"
+        }
+    },
+    {
+        "name": "AAA-TACACS",
+        "actions": [
+            "create",
+            "get",
+            "delete"
+        ],
+        "examples": {
+            "create": "gxctrl.create_aaa_tacacs('g40', '2.2.2.2', 3, timeout=5, port=1815)"
+        }
+    },
+    {
+        "name": "NTP",
+        "actions": [
+            "update",
+            "get"
+        ],
+        "override_key": "/system/ntp"
+    },
+    {
+        "name": "NTP-Key",
+        "actions": [
+            "create",
+            "get",
+            "delete"
+        ],
+        "examples": {
+            "create": "gxctrl.create_ntp_key('g40', 123, 'NTP_AUTH_MD5', 'myntpkeyval')"
+        }
+    },
+    {
+        "name": "NTP-Server",
+        "actions": [
+            "create",
+            "get",
+            "delete"
+        ],
+        "examples": {
+            "create": "gxctrl.create_ntp_server('g40', '4.4.4.4')"
+        }
+    },
+    {
+        "name": "GRPC-Server",
+        "actions": [
+            "update",
+            "get"
+        ],
+        "override_key": "/system/grpc-server",
+        "examples": {
+            "update": "gxctrl.update_grpc_server('g40', enable=True, port=1014)"
+        }
+    },
+    {
+        "name": "DNS",
+        "actions": [
+            "create",
+            "update",
+            "get",
+            "delete"
+        ]
+    },
+    {
+        "name": "LLDP",
+        "actions": [
+            "update",
+            "get"
+        ]
+    },
+    {
+        "name": "Static-Route",
+        "actions": [
+            "create",
+            "update",
+            "get",
+            "delete"
+        ]
+    },
+    {
+        "name": "Static-Route-DCN",
+        "actions": [
+            "create",
+            "update",
+            "get",
+            "delete"
+        ]
+    },
+    {
+        "name": "LO-MGMT",
+        "actions": [
+            "create",
+            "update",
+            "get",
+            "delete"
+        ]
+    },
+    {
+        "name": "Interface",
+        "actions": [
+            "update",
+            "get"
+        ]
+    },
+    {
+        "name": "Ethernet-Interface",
+        "actions": [
+            "update",
+            "get"
+        ]
+    },
+    {
+        "name": "AUX-Interface",
+        "actions": [
+            "update",
+            "get"
+        ]
+    },
+    {
+        "name": "DCN-Interface",
+        "actions": [
+            "update",
+            "get"
+        ]
+    },
+    {
+        "name": "CRAFT-Interface",
+        "actions": [
+            "update",
+            "get"
+        ]
+    },
+    {
+        "name": "Dial-Out-Server",
+        "actions": [
+            "create",
+            "get",
+            "delete"
+        ]
+    },
+    {
+        "name": "User",
+        "actions": [
+            "create",
+            "update",
+            "get",
+            "delete"
+        ]
+    }
+]

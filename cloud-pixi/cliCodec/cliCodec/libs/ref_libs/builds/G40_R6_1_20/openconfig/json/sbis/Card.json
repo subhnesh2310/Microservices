@@ -1,0 +1,202 @@
+{
+    "components": {
+        "component": [
+            {
+                "name": {
+                    "type": {
+                        "ptype": "str",
+                        "leafref": "../config/name"
+                    },
+                    "isList": false,
+                    "description": "References the component name",
+                    "key": true,
+                    "mandatory": true,
+                    "config": true,
+                    "default": "card-1-4",
+                    "namespace": null,
+                    "hardcode": false
+                },
+                "config": {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Device name for the component -- this may not be a\nconfigurable parameter on many implementations.  Where\ncomponent preconfiguration is supported, for example,\nthe component name may be configurable.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "card-1-4",
+                        "namespace": null,
+                        "hardcode": false
+                    },
+                    "chassis-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Chassis where this card is located.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "1",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "slot-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Slot where this card is located.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "4",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "required-type": {
+                        "type": {
+                            "ptype": "str",
+                            "identityref": "CHASSIS_CARD",
+                            "values": [
+                                "CHM6",
+                                "CHM6L",
+                                "UCM4",
+                                "XMM4",
+                                "PEM"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Chassis/card type.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "CHM6",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "required-subtype": {
+                        "type": {
+                            "ptype": "str",
+                            "length": "0..32",
+                            "values": [
+							    "C13",
+								"C14",
+								"C15",
+								"C4",
+								"C6",
+								"C8",
+								"C9"
+							]
+                        },
+                        "isList": false,
+                        "description": "The subtype of the Card/TOM",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str",
+                            "length": "0..256"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "alias-name": {
+                        "type": {
+                            "ptype": "str",
+                            "length": "0..256"
+                        },
+                        "isList": false,
+                        "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    }
+                },
+                "linecard": {
+                    "namespace": {
+                        "namespace": "http://openconfig.net/yang/platform/linecard",
+                        "prefix": null
+                    },
+                    "config": {
+                        "power-admin-state": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "POWER_ENABLED",
+                                    "POWER_DISABLED"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Enable or disable power to the linecard",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "POWER_ENABLED",
+                            "namespace": null,
+                            "hardcode": false
+                        }
+                    }
+                }
+            }
+        ],
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/platform"
+        }
+    }
+}

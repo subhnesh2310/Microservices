@@ -1,0 +1,85 @@
+{
+    "component_name": {
+        "type": {
+            "ptype": "str",
+            "leafref": "../config/name"
+        },
+        "description": "References the component name",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "super-channel-SCH11",
+        "hardcode": false,
+        "argName": "component_name"
+    },
+    "carriers": {
+        "type": {
+            "ptype": "str",
+            "length": "1..32"
+        },
+        "description": "A list of carriers that are bound to this superchannel.\n   Possible values can be any card/resources/supported-carriers.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "1-6-L1-1",
+        "hardcode": false,
+        "argName": "carriers"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "operational_mode": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Vendor-specific mode identifier -- sets the operational\nmode for the channel.  The specified operational mode must\nexist in the list of supported operational modes supplied\nby the device",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": 488,
+        "hardcode": false,
+        "argName": "operational_mode"
+    }
+}

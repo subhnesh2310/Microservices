@@ -1,0 +1,42 @@
+{
+    "enabled": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Enables/disables the gRPC management protocol.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": true,
+        "hardcode": false,
+        "argName": "enabled"
+    },
+    "port": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "The port which listens for gNMI & gNOI access via gRPC.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 50051,
+        "hardcode": false,
+        "argName": "port"
+    },
+    "gnmi_get_encoding_granularity": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "per-path",
+                "per-object"
+            ]
+        },
+        "description": "Allows to configure the granularity of data in gNMI Get responses, when encoded with JSON.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "per-object",
+        "hardcode": false,
+        "argName": "gnmi_get_encoding_granularity"
+    }
+}

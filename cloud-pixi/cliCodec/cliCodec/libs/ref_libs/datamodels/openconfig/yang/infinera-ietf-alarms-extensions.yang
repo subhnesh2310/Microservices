@@ -1,0 +1,767 @@
+module infinera-ietf-alarms-extensions {
+
+    namespace "http://openconfig.net/yang/infinera/yang/ietf-alarms/extensions";
+
+    prefix "infinera-ietf-alarms-ext";
+
+    import ietf-alarms {prefix al;}
+
+    organization
+      "Infinera Corporation";
+
+    description
+      "User visible extensions for the openconfig yangs";
+
+
+    identity ACTIVE-BLANK-MISSING {
+        base al:alarm-type-id;
+    }
+    identity PWRUV {
+        base al:alarm-type-id;
+    }
+    identity CFG-MSMT {
+        base al:alarm-type-id; 
+    }
+    identity ADMIN-LOCK {
+        base al:alarm-type-id;
+    }
+    identity EQPT-PARTFAIL {
+        base al:alarm-type-id;
+    }
+    identity EQPTCPRESET {
+        base al:alarm-type-id;
+    }
+    identity EQPTCPUR {
+        base al:alarm-type-id;
+    }
+    identity EQPTDEGRADE {
+        base al:alarm-type-id;
+    }
+    identity PEER-CTRLR-COMM-FAILEQPTFAIL {
+        base al:alarm-type-id;
+    }
+    identity EQPTMSMT {
+        base al:alarm-type-id;
+    }
+
+    identity FW-INSTAL-FAIL {
+        base al:alarm-type-id;
+    }
+    identity IMPROPRMVL {
+        base al:alarm-type-id;
+    }
+    identity INIT {
+        base al:alarm-type-id;
+    }
+    identity SW-MSMT {
+        base al:alarm-type-id;
+    }
+    identity TEMP-OOR-DEVICE-SHUTDOWN {
+        base al:alarm-type-id;
+    }
+    identity TEMP-OORH {
+        base al:alarm-type-id;
+    }
+    identity PWR-CLASS-UNSUPPORTED {
+	base al:alarm-type-id;
+    }
+    identity TEMP-OORL {
+        base al:alarm-type-id;
+    }
+    identity EQPTCOMFAIL {
+        base al:alarm-type-id;
+    }
+    identity ADMIN-MAINT {
+        base al:alarm-type-id;
+    }
+    identity AMBIENT-TEMP-OORH {
+        base al:alarm-type-id;
+    }
+    identity PWR-PROT-FAIL {
+        base al:alarm-type-id;
+    }
+    identity PWRCTRL-INIT {
+        base al:alarm-type-id;
+    }
+    identity PWRDRAW {
+        base al:alarm-type-id;
+    }
+    identity SW-INSTAL-FAIL {
+        base al:alarm-type-id;
+    }
+    identity PWR-FAIL {
+        base al:alarm-type-id;
+    }
+    identity PWROV {
+        base al:alarm-type-id;
+    }
+    identity INITFAIL {
+        base al:alarm-type-id;
+    }
+    identity NO-CTRLR-MODULE-REDUNDANCY {
+        base al:alarm-type-id;
+    }
+    identity PEER-CTRLR-COMM-FAIL {
+        base al:alarm-type-id;
+    }
+    identity  FEC-DEGRADED-SER {
+        base al:alarm-type-id;
+    }
+    identity HIBER {
+        base al:alarm-type-id;
+    }
+    identity LF {
+        base al:alarm-type-id;
+    }
+    identity LINE-TESTSIG-GEN {
+        base al:alarm-type-id;
+    }
+    identity LINE-TESTSIG-OOS {
+        base al:alarm-type-id;
+    }
+    identity LOA {
+        base al:alarm-type-id;
+    }
+    identity LOCAL-DEGRADED {
+        base al:alarm-type-id;
+    }
+    identity LOLM {
+        base al:alarm-type-id;
+    }
+    identity LOSYNC {
+        base al:alarm-type-id;
+    }
+    identity LPBKFACILITY {
+        base al:alarm-type-id;
+    }
+    identity LPBKTERM {
+        base al:alarm-type-id;
+    }
+    identity REMOTE-DEGRADED {
+        base al:alarm-type-id;
+    }
+    identity RF {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-BROADCAST-PKTS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-CRC-ALIGNED-ERR-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-FRAGMENTS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-ERR-OCTETS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-IN-PAUSE-FRAMES-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-JABBERS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-LOAD-UTILIZATION-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-MULTICAST-PKTS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-OCTETS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-OUT-PAUSE-FRAMES-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-OVERSIZED-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-PACKETS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-PCS-BIP-TOTAL-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-PCS-ES-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-PCS-SES-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-PCS-SESS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-SIZE-1024-TO-1518-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-SIZE-128-TO-255-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-SIZE-1519-TO-JUMBO-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-SIZE-256-TO-511-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-SIZE-512-TO-1023-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-SIZE-64-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-SIZE-65-TO-127-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-UNDERSIZED-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-BROADCAST-PKTS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-CRC-ALIGNED-ERR-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-ERR-OCTETS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-FRAGMENTS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-IN-PAUSE-FRAMES-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-JABBERS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-LOAD-UTILIZATION-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-MULTICAST-PKTS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-OCTETS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-OUT-PAUSE-FRAMES-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-OVERSIZED-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-PACKETS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-PCS-BIP-TOTAL-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-PCS-ES-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-PCS-SES-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-PCS-SESS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-SIZE-1024-TO-1518-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-SIZE-128-TO-255-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-SIZE-1519-TO-JUMBO-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-SIZE-256-TO-511-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-SIZE-512-TO-1023-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-SIZE-64-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-SIZE-65-TO-127-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-UNDERSIZED-OORH {
+        base al:alarm-type-id;
+    }
+    identity TRIB-TESTSIG-GEN {
+        base al:alarm-type-id;
+    }
+    identity TRIB-TESTSIG-OOS {
+        base al:alarm-type-id;
+    }
+    identity AIS {
+        base al:alarm-type-id;
+    }
+    identity BDI {
+        base al:alarm-type-id;
+    }
+    identity CSF {
+        base al:alarm-type-id;
+    }
+    identity LCK {
+        base al:alarm-type-id;
+    }
+    identity LOFLOM {
+        base al:alarm-type-id;
+    }
+    identity MSIM {
+        base al:alarm-type-id;
+    }
+    identity OCI {
+        base al:alarm-type-id;
+    }
+    identity PLM {
+        base al:alarm-type-id;
+    }
+    identity SD {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-ERRORED-BLOCKS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-ERRORED-SECONDS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-SEVERELY-ERRORED-SECONDS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-15MIN-UNAVAILABLE-SECONDS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-ERRORED-BLOCKS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-ERRORED-SECONDS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-SEVERELY-ERRORED-SECONDS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TCA-PM-24H-UNAVAILABLE-SECONDS-OORH {
+        base al:alarm-type-id;
+    }
+    identity TIM {
+        base al:alarm-type-id;
+    }
+    identity DUPLICATE-IPV4-ADDR-DETECT {
+        base al:alarm-type-id;
+    }
+    identity DUPLICATE-IPV6-ADDR-DETECT {
+        base al:alarm-type-id;
+    }
+    identity NO-OSPFV2-NEIGHBOR {
+        base al:alarm-type-id;
+    }
+    identity NO-OSPFV3-NEIGHBOR {
+        base al:alarm-type-id;
+    }
+    identity CERTIFICATE-EXPIRED {
+        base al:alarm-type-id;
+    }
+    identity CERTIFICATE-EXPIRING {
+        base al:alarm-type-id;
+    }
+    identity DBRESTOREFAIL {
+        base al:alarm-type-id;
+    }
+    identity RECOVER-MODE {
+        base al:alarm-type-id;
+    }
+    identity NTPSERVER-FAULT {
+        base al:alarm-type-id;
+    }
+    identity DGD-OORH {
+        base al:alarm-type-id;
+    }
+    identity LOF {
+        base al:alarm-type-id;
+    }
+    identity OPT-OORH {
+        base al:alarm-type-id;
+    }
+    identity OPT-OORL {
+        base al:alarm-type-id;
+    }
+    identity POST-FEC-Q-SIGNAL-DEGRADE {
+        base al:alarm-type-id;
+    }
+    identity POST-FEC-Q-SIGNAL-FAILURE {
+        base al:alarm-type-id;
+    }
+    identity PRE-FEC-Q-SIGNAL-DEGRADE {
+        base al:alarm-type-id;
+    }
+    identity FLASH-FAIL {
+        base al:alarm-type-id;
+    }
+    identity LINKDOWN {
+        base al:alarm-type-id;
+    }
+    identity LINKDOWN-CRAFT {
+        base al:alarm-type-id;
+    }
+    identity CARD-NOT-COMPATIBLE {
+        base al:alarm-type-id;
+    }
+    identity EQPT-UNSUPPORTED {
+        base al:alarm-type-id;
+    }
+    identity EQPTFAIL {
+        base al:alarm-type-id;
+    }
+    identity ALL-CARRIER-FAIL {
+        base al:alarm-type-id;
+    }
+    identity OPT-CARRIER-FREQ-CONTENTION {
+        base al:alarm-type-id;
+    }
+    identity OLOS {
+        base al:alarm-type-id;
+    }
+    identity severity-default-level-changed {
+        base al:alarm-type-id;
+    }
+    identity SCHEDFAIL {
+        base al:alarm-type-id;
+    }
+    identity CDR-LOL {
+        base al:alarm-type-id;
+    }
+    identity LS-ACTIVE {
+        base al:alarm-type-id;
+    }
+    identity OPR-OORH {
+        base al:alarm-type-id;
+    }
+    identity OPR-OORL {
+        base al:alarm-type-id;
+    }
+    identity CREDENTIAL-AGING {
+        base al:alarm-type-id;
+    }
+
+    identity COMM-CHNL-DOWN {
+        base al:alarm-type-id;
+    }
+
+    identity PROT-ACTIVE {
+        base al:alarm-type-id;
+    }
+
+    identity PROT-LOCKOUT {
+        base al:alarm-type-id;
+    }
+
+    identity PROT-FORCED {
+        base al:alarm-type-id;
+    }
+
+    identity PROT-UNAVAILABLE {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-15MIN-PROTECTION-SWITCH-COUNT-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-24H-PROTECTION-SWITCH-COUNT-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-15MIN-PROTECTION-SWITCH-DURATION-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-24H-PROTECTION-SWITCH-DURATION-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-15MIN-PROPAGATION-DELAY-OORL {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-15MIN-PROPAGATION-DELAY-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-15MIN-ERR-PACKETS-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-15MIN-LINK-UTILIZATION-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-15MIN-LINK-UTILIZATION-OORL {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-24H-ERR-PACKETS-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-24H-LINK-UTILIZATION-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-24H-LINK-UTILIZATION-OORL {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-24H-PROPAGATION-DELAY-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-24H-PROPAGATION-DELAY-OORL {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-15MIN-SEF-SECONDS-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-15MIN-CODING-VIOLATION-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-24H-CODING-VIOLATION-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-24H-SEF-SECONDS-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-15MIN-OOF-SECONDS-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-24H-OOF-SECONDS-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-15MIN-BIAE-OORH  {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-15MIN-IAE-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-24H-BIAE-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-24H-IAE-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity IP-MONITOR-FAILED {
+        base al:alarm-type-id;
+    }
+
+    identity COH-LOL {
+        base al:alarm-type-id;
+    }
+
+    identity FREQ-PROV-PENDING {
+        base al:alarm-type-id;
+    }
+
+    identity MANAGEMENT-SESSION-THRESHOLD-HIGH {
+        base al:alarm-type-id;
+    }
+
+    identity LATCH-OPEN {
+        base al:alarm-type-id;
+    }
+
+    identity EQPT-USB-NOACCESS {
+        base al:alarm-type-id;
+    }
+
+    identity SW-ACTIVATION {
+        base al:alarm-type-id;
+    }
+
+    identity ADTIMEOUT {
+        base al:alarm-type-id;
+    }
+
+    identity FDI {
+        base al:alarm-type-id;
+    }
+
+    identity PRBS-GEN {
+        base al:alarm-type-id;
+    }
+
+    identity PRBS-OOS {
+        base al:alarm-type-id;
+    }
+
+    identity EQPT-INCOMPATIBLE {
+        base al:alarm-type-id;
+    }
+
+    identity PARTFAIL {
+        base al:alarm-type-id;
+    }
+
+    identity SUBCOMPONENT-WARM-RESET {
+        base al:alarm-type-id;
+    }
+
+    identity SUBCOMPONENT-COLD-RESET {
+        base al:alarm-type-id;
+    }
+    identity LOM {
+        base al:alarm-type-id;
+    }
+    identity LOL {
+        base al:alarm-type-id;
+    }
+
+    identity LOOMFI {
+        base al:alarm-type-id;
+    }
+
+    identity SW-SERVICE-FAIL {
+        base al:alarm-type-id;
+    }
+
+    identity AIS-L {
+        base al:alarm-type-id;
+    }
+
+    identity CSF-LOS {
+        base al:alarm-type-id;
+    }
+
+    identity EXM {
+        base al:alarm-type-id;
+    }
+
+    identity UPM {
+        base al:alarm-type-id;
+    }
+
+    identity MS-AIS {
+        base al:alarm-type-id;
+    }
+
+    identity ENCRYPTION-UNSUPPORTED {
+        base al:alarm-type-id;
+    }
+
+    identity IKE-CONFIG-MSMT {
+        base al:alarm-type-id;
+    }
+
+    identity PEER-AUTHENTICATION-FAIL {
+        base al:alarm-type-id;
+    }
+
+    identity PEER-UNREACHABLE {
+        base al:alarm-type-id;
+    }
+
+    identity PRE-SHARED-KEY-EXPIRING {
+        base al:alarm-type-id;
+    }
+
+    identity PRE-SHARED-KEY-EXPIRED {
+        base al:alarm-type-id;
+    }
+
+    identity REKEY-SA-FAIL {
+        base al:alarm-type-id;
+    }
+
+    identity ENCR-CONFIG-MSMT {
+        base al:alarm-type-id;
+    }
+
+    identity SW-INIT {
+        base al:alarm-type-id;
+    }
+
+    identity LFD {
+        base al:alarm-type-id;
+    }
+
+    identity NMOPER {
+        base al:alarm-type-id;
+    }
+
+    identity INCI-NBR-CONN-DOWN {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-24H-PCS-ERRORED-BLOCKS-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity TCA-PM-15MIN-PCS-ERRORED-BLOCKS-OORH {
+        base al:alarm-type-id;
+    }
+
+    identity BSD {
+        base al:alarm-type-id;
+    }
+
+    typedef severity-ietf {
+        type enumeration {
+            enum indeterminate {value 0; }
+            enum critical {value 1; }
+            enum major {value 2; }
+            enum minor {value 3; }
+            enum warning { value 4; }
+            enum not-reported { value 5; }
+            enum event { value 6; }
+        }
+        description "Possible alarm severities, with additional values 'not-reported', 'event'";
+    }
+    deviation /al:alarms/al:alarm-profile/al:alarm-severity-assignment-profile/al:severity-level {
+        deviate replace {
+            type severity-ietf;
+        }
+    }
+    deviation /al:alarms/al:alarm-list/al:alarm/al:perceived-severity {
+        deviate replace {
+            type severity-ietf;
+        }
+    }
+
+    deviation /al:alarms/al:alarm-inventory/al:alarm-type/al:severity-level {
+        deviate replace {
+            type severity-ietf;
+        }
+    }
+
+    deviation /al:alarms/al:alarm-list/al:purge-alarms {
+        deviate not-supported;
+    }
+    deviation /al:alarms/al:control {
+        deviate not-supported;
+    }
+    deviation /al:alarm-inventory-changed {
+        deviate not-supported;
+    }
+
+    deviation /al:alarms/al:alarm-profile/al:description {
+        deviate replace {
+            config false;
+        }
+    }
+    augment "/al:alarms/al:alarm-inventory/al:alarm-type" {
+	    leaf corrective-action {
+            type string { length 0..256; }
+            description "System provided information on how to correct the situation that triggered this alarm.";
+        }
+    }
+}

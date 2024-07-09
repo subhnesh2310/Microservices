@@ -1,0 +1,407 @@
+ {
+		"config": {
+			"hostname": "GoogleNE206",
+			"login-banner": "This is a private system,unauthorized access is denied",
+			"motd-banner": "*************************************This is a private system,unauthorized access is denied******************************"
+		},
+		"clock": {
+			"config": {
+				"timezone-name": "Mumbai-Calcutta-Chennai-New_Delhi[GMT+05:30]"
+			}
+		},
+		"dns": {
+			"config": {
+				"search": ["infinera.local"]
+			},
+			"servers": {
+				"server": [{
+						"address": "1.2.3.4",
+						"config": {
+							"address": "1.2.3.4"
+						}
+					},
+					{
+						"address": "10.220.0.11",
+						"config": {
+							"address": "10.220.0.11"
+						}
+					},
+					{
+						"address": "2221:abcd:1234:5678::1",
+						"config": {
+							"address": "2221:abcd:1234:5678::1"
+						}
+					}
+				]
+			}
+		},
+		"ntp": {
+			"config": {
+				"enabled": true,
+				"enable-ntp-auth": true
+			},
+			"ntp-keys": {
+				"ntp-key": [{
+						"key-id": 1,
+						"config": {
+							"key-id": 1,
+							"key-value": "Infinera1",
+							"key-type": "infinera-openconfig-extensions:AES-CMAC"
+						}
+					},
+					{
+						"key-id": 2,
+						"config": {
+							"key-id": 2,
+							"key-value": "Infinera2",
+							"key-type": "NTP_AUTH_MD5"
+						}
+					},
+					{
+						"key-id": 3,
+						"config": {
+							"key-id": 3,
+							"key-value": "Infinera3",
+							"key-type": "infinera-openconfig-extensions:SHA-1"
+						}
+					},
+					{
+						"key-id": 4,
+						"config": {
+							"key-id": 4,
+							"key-value": "Infinera4",
+							"key-type": "infinera-openconfig-extensions:SHA-256"
+						}
+					}
+				]
+			},
+			"servers": {
+				"server": [{
+						"address": "10.220.0.75",
+						"config": {
+							"address": "10.220.0.75"
+						}
+					},
+					{
+						"address": "2221:abcd:1234:5678::1",
+						"config": {
+							"address": "2221:abcd:1234:5678::1"
+						}
+					},
+					{
+						"address": "In-mgsoft01-vd.infinera.com",
+						"config": {
+							"address": "In-mgsoft01-vd.infinera.com"
+						}
+					}
+				]
+			}
+		},
+		"grpc-server": {
+			"config": {
+				"enable": true,
+				"port": 10161,
+				"certificate-id": "Selfsigned"
+			}
+		},
+		"ssh-server": {
+			"config": {
+				"enable": true
+			}
+		},
+		"logging": {
+			"console": {
+				"selectors": {
+					"selector": [{
+							"facility": "oc-log:ALL",
+							"severity": "CRITICAL",
+							"config": {
+								"facility": "openconfig-system-logging:ALL",
+								"severity": "CRITICAL"
+							}
+						},
+						{
+							"facility": "oc-log:AUTHPRIV",
+							"severity": "NOTICE",
+							"config": {
+								"facility": "openconfig-system-logging:AUTHPRIV",
+								"severity": "NOTICE"
+							}
+						},
+						{
+							"facility": "oc-log:KERNEL",
+							"severity": "ALERT",
+							"config": {
+								"facility": "openconfig-system-logging:KERNEL",
+								"severity": "ALERT"
+							}
+						}
+					]
+				}
+			},
+		"remote-servers": {
+			"remote-server": [{
+				"host": "syslog_server",
+				"config": {
+					"host": "syslog_server",
+					"transport": "udp",
+					"source-address": "127.0.0.1",
+					"remote-port": 65535
+					
+				}
+			},
+			{
+				"host": "10.220.24.184",
+				"config": {
+					"host": "10.220.24.184",
+					"transport": "tcp",
+					"source-address": "127.0.0.1",
+					"remote-port": 1155
+				}
+			}, {
+				"host": "10.220.24.185",
+				"config": {
+					"host": "10.220.24.185",
+					"transport": "tcp"
+				},
+					"selectors": {
+						"selector": [{
+								"facility": "oc-log:ALL",
+								"severity": "CRITICAL",
+								"config": {
+									"facility": "openconfig-system-logging:ALL",
+									"severity": "CRITICAL"
+								}
+							},
+							{
+								"facility": "oc-log:AUTHPRIV",
+								"severity": "NOTICE",
+								"config": {
+									"facility": "openconfig-system-logging:AUTHPRIV",
+									"severity": "NOTICE"
+								}
+							},
+							{
+								"facility": "oc-log:KERNEL",
+								"severity": "ALERT",
+								"config": {
+									"facility": "openconfig-system-logging:KERNEL",
+									"severity": "ALERT"
+								}
+							}
+						]
+					}
+				}
+			]
+		   }
+		},
+	"aaa": {
+		"authentication": {
+			"config": {
+				"authentication-method": [
+					"LOCAL,TACACS_ALL"
+				]
+			},
+			"admin-user": {
+				"config": {
+				}
+			},
+			"users": {
+				"user": [{
+						"username": "Google123",
+						"config": {
+							"username": "Google123",
+							"role": "EA,MA,NA,NE,PR,SA,TT"
+						}
+					},
+					{
+						"username": "secadmin",
+						"config": {
+							"username": "secadmin",
+							"password": "Infinera#1",
+							"role": "EA,MA,NA,NE,PR,SA,TT"
+						}
+					},
+					{
+						"username": "tempAll",
+						"config": {
+							"username": "tempAll",
+							"password": "Infinera@1",
+							"role": "EA,MA,NA,NE,PR,SA,TT"
+						}
+					},
+					{
+						"username": "tempEA",
+						"config": {
+							"username": "tempEA",
+							"password-hashed": "$6$MyRandomSalt9876$pkhU5fyQHfO78mAFVr7NyBQdo7o9tll5Ku7bH5xNdwOD11UI1ZAPyNbI8ikk0ampgCpMZIDbgu656U.PwatuB.",
+							"ssh-key": "AAAAB3NzaC1yc2EAAAADAQABAAACAQCtAvOil8KDEldSSfOXVdvHOraLa6eU2GD5+CcyJuVJuKpCrVqzDBnIxVMxsSQ+RaLlh9fle5NiSswaaenKJSftYJTaOuw8XNpf0sAc39NuPRNbi6ma+/7fqo/9FIV4sv/e0wK2dqDYup8+UZFbq3LBE5ZthlrGR/fL0++uSH2Dl9AIqSk9T2c9c+R33ktLrcb+8U42vUoiI8KVKnIJiM3sgr96Qx0vNSiFwA1TZyOvmhKdRpLpwK9NDpS9lSlTMmFF+J4C2wgwgwPV5PJ/BboDr/uu80WMqGyTVGqocopzXrT4sXYMju62jIURZf82rzLLalhvbOxTRtwO1XiPo8UEiZ+FLJgxOQmrnsgcxSxhCIj7c8ay5sy1wilDVCNuCgd/BhyFzY2rJzsbcTXmy7ITpj5DkmHTtJXCtFsb2z+gp/cGN8AJdZatbjiTC+cDy3SHyGjL/WDbFc1cG4qs9rIP1MvoMZ1gMLbb6Bye11vwaBOFwCaOHBy97YHmF1noWNzyxEQYwxlHgrJC7PYKNItDqgWevmJ22RCs4KPgQSDKqyIPuDyav+PoYaVKawrDld5Ytkyoycr7hTRI8bfQVy/URkr2jhxpWsYuVZCIVgy4373JR3Ocylk7IR7/1o/j9LZ3hE08lDVm2/xUuz1Ni8KAJPF3t8u997xZnkN2DlGMCQ==",
+							"role": "EA"
+						}
+					},
+					{
+						"username": "tempMA",
+						"config": {
+							"username": "tempMA",
+							"password": "Infinera@1",
+							"role": "infinera-openconfig-extensions:SYSTEM_ROLE_MAINT"
+						}
+					},
+					{
+						"username": "sshuserkey",
+						"config": {
+							"username": "sshuserkey",
+							"ssh-key": "AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEunGky0WstCeBCD21vJZytIecJKi0jCtXq6XHrQCc45OP40HswqAdmlwDDBn3YdfID/JUnU5c/FwKCmMMs7zps=",
+							"role": "EA,NA,SA"
+						}
+					},
+					{
+						"username": "sshuserkey1",
+						"config": {
+							"username": "sshuserkey1",
+							"ssh-key": "AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBOqspRxf9yiRUoBxy0OrPslYglcesPWLI1/UyTVh+6bZTvHTz4qLdGBqWfu3DSXLyExbAAnFZrffCKhKrI40L9flVrRNfzxFvJh3+WS65FBokqO9sc7bpMaLFaMIic5fnA==",
+							"role": "openconfig-aaa-types:SYSTEM_ROLE_ADMIN"
+						}
+					},
+					{
+						"username": "sshuserkey2",
+						"config": {
+							"username": "sshuserkey2",
+							"ssh-key": "AAAAB3NzaC1yc2EAAAADAQABAAABAQDKZoMfZjhiEr+L5ZlZgCJcfA2Gdj01RT6yDl+cQYu5AdDIvras0cBJm4p5XpmfsKtPSYc48YoZ5OJjnYlg9zFRyqnGcyd+gCgS/yZyUhKJ9zinYoGD3a4dWN8YnRPaFf/6SyCm6iuYBpJ8TY4KjQJKSicG7+/ErKdjSQpgeOqCFht4Ga+KtYSxi3IaLCO9lf6W5+lES+Rh8n6adhHOxlYTMayRl98FuE+2ia7XjW5cfsf8sF4aganhWbsde+ZhYi8koW8hW2FgEeZwd3V5fguGtfbL9t7x9j9rrj5Pw7wL7PYBUOMnqqxoDgDjJ0XOgKMG61ZHQe1fp4s/KdMjOPu/",
+							"role": "NA,SA,EA,MA"
+						}
+					},
+					{
+						"username": "sshuserkey3",
+						"config": {
+							"username": "sshuserkey3",
+							"ssh-key": "AAAAB3NzaC1yc2EAAAADAQABAAABgQC485RRTDFPum3qWGP2w+vpOPNtBdh7DtBQyl89Yc58xPYTq6qneFyUdSv9TkU1BKi++QFwQVFhlchsTJEzVn4Zyiy3/ztj2LMQBn+EmF34OhvQLgKJpYK9PXbDjr8SFk0fI41DcWccs+aLnLC4+sT/VSw4nWpfncIShzmX3GM0yfnqvvr1kRpAOHU8Scvp247ll+5zffgP2NxibvWhC2ba+ILASWijI8kCUSgJrkXyHUSNPHANXuCec9KoALX5T2O3rCVb7z11qYiY8EJZArq/MFlwtSPWxEv1YbXd0rvwPy9CYIiFmC/LDjcY25PYOB2QdKkiG4vz/eNrH5mpbm0A4o4IybI+aIBXZeP5iPRHxIrJIkLx+nvLb4QYfMnlhE4/oUnqRr8oMwTVaeNwpYgWRJa7Di5S+vn7VGrqhPBxzsRrVzmW2Qd8r79dJ+EQ8m0Umrdu6n1NZuMBw+Zj6CmCmVj5riGRegzF6hlxS5mcEraboqp1lF3BKyYd5weCXYs=",
+							"role": "infinera-openconfig-extensions:SYSTEM_ROLE_MAINT"
+						}
+					},
+					{
+						"username": "tempNANESA",
+						"config": {
+							"username": "tempNANESA",
+							"password-hashed": "$6$MyRandomSalt9876$pkhU5fyQHfO78mAFVr7NyBQdo7o9tll5Ku7bH5xNdwOD11UI1ZAPyNbI8ikk0ampgCpMZIDbgu656U.PwatuB.",
+							"role": "NA,NE,SA"
+						}
+					},
+					{
+						"username": "tempNEPRTT",
+						"config": {
+							"username": "tempNEPRTT",
+							"password-hashed": "$6$MyRandomSalt9876$pkhU5fyQHfO78mAFVr7NyBQdo7o9tll5Ku7bH5xNdwOD11UI1ZAPyNbI8ikk0ampgCpMZIDbgu656U.PwatuB.",
+							"role": "infinera-openconfig-extensions:SYSTEM_ROLE_CONF"
+						}
+					},
+					{
+						"username": "user-tempNASA",
+						"config": {
+							"username": "user-tempNASA",
+							"password": "Infinera@1",
+							"ssh-key": "AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAA90LL0RqByJP1c5J6DbXznjkrbmgQW+R5a5gSX7ajmM9nSGWrrE0OqLFRgWfkA/3/QLUktEE1QRNntRlSXJgd1cACa6aaH5sWjKzFYa65rPPz++imbwvW8V7TK1gV8ZKxpcLb8fSHpJzGQkYrfHfwiIpb37FW+gWkKqCa+crWi5Icd6A==",
+							"role": "openconfig-aaa-types:SYSTEM_ROLE_ADMIN"
+						}
+					}
+				]
+			}
+		},
+		"authorization": {
+			"config": {
+				"authorization-method": [
+					"TACACS_ALL,LOCAL"
+				]
+			}
+		},
+		"server-groups": {
+			"server-group": [{
+					"name": "RADIUS",
+					"config": {
+						"name": "RADIUS",
+						"type": "openconfig-aaa:RADIUS"
+					},
+					"servers": {
+						"server": [{
+								"address": "10.100.210.243",
+								"config": {
+									"address": "10.100.210.243",
+									"infinera-openconfig-extensions:server-priority": 8
+								}
+							},
+							{
+								"address": "20.20.20.20",
+								"config": {
+									"address": "20.20.20.20",
+									"timeout": 60,
+									"infinera-openconfig-extensions:server-priority": 10
+								},
+								"radius": {
+									"config": {
+										"auth-port": 11812,
+										"acct-port": 11813,
+										"source-address": "10.100.210.218",
+										"secret-key": "testing123",
+										"retransmit-attempts": 10
+									}
+								}
+							},
+							{
+								"address": "2620:38:4001:224:d5f9:4a:883:902a",
+								"config": {
+									"address": "2620:38:4001:224:d5f9:4a:883:902a",
+									"timeout": 1,
+									"infinera-openconfig-extensions:server-priority": 9
+								},
+								"radius": {
+									"config": {
+										"source-address": "2620:38:4001:196:10:220:196:206",
+										"retransmit-attempts": 0
+									}
+								}
+							}
+						]
+					}
+				},
+				{
+					"name": "TACACSPLUS",
+					"config": {
+						"name": "TACACSPLUS",
+						"type": "openconfig-aaa:TACACS"
+					},
+					"servers": {
+						"server": [{
+								"address": "10.220.225.165",
+								"config": {
+									"address": "10.220.225.165",
+									"timeout": 10,
+									"infinera-openconfig-extensions:server-priority": 3
+								},
+								"tacacs": {
+									"config": {
+										"port": 50,
+										"secret-key": "testing123"
+									}
+								}
+							},
+							{
+								"address": "10.220.225.176",
+								"config": {
+									"address": "10.220.225.176",
+									"infinera-openconfig-extensions:server-priority": 1
+								}
+							},
+							{
+								"address": "2620:38:4001::3:9000:2176",
+								"config": {
+									"address": "2620:38:4001::3:9000:2176",
+									"infinera-openconfig-extensions:server-priority": 2
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

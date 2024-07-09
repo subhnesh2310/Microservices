@@ -1,0 +1,190 @@
+module ioa-transfer {
+    namespace "http://infinera.com/yang/ioa/transfer";
+    prefix ioa-transfer;
+
+    import ietf-yang-types { prefix yang; }
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG model associated File Transfer status.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    typedef fts-filetype {
+        type enumeration {
+            enum database {
+                value 1;
+                description "Database";
+            }
+            enum swimage {
+                value 2;
+                description "SW Image";
+            }
+            enum krp {
+                value 3;
+                description "Key replacement package (KRP)";
+            }
+            enum script {
+                value 5;
+                description " Scripts to download from the remote Server" ;
+            }
+            enum debug-log {
+                value 6;
+                description "Debug Logs";
+            }
+            enum pm-logs {
+                value 7;
+                description "PM Logs";
+            }
+            enum local-certificate {
+                value 8;
+                description
+                    "Either an x509 certificate in PKCS#12 format (with password-protected private key) or PKCS#7 format.";
+            }
+            enum trusted-certificate {
+                value 9;
+                description
+                    "x509v3 PKCS#7 trusted certificate, either Root or Intermediate CA";
+            }
+            enum fdr-log {
+                value 10;
+                description "Flight Data Recorder(FDR) Logs";
+            }
+            enum logs {
+                value 11;
+                description "Specific logs";
+            }
+            enum file {
+                value 12;
+                description "Generic file";
+            }
+            enum peer-certificate {
+                value 13;
+                description
+                    "An x509v3 certificate in PKCS#12 format (with password-protected private key)";
+            }
+            enum crl {
+                value 14;
+                description "Certificate Revocation List (CRL) in PEM format";
+            }
+        }
+        description "Global list of file-types supported in the system for both upload and download.
+                 Note that not all file-types support both upload and download operations, some support only one of them.";
+    }
+
+    grouping transfer {
+        container transfer {
+            description "Information associated with file transfer.";
+            leaf-list debug-log-optional-content {
+                type string { length "0..64"; }
+                config false;
+                description "List of keywords associated with optional content to be selected for debug-log upload.";
+            }
+            leaf http-proxy {
+                type string {
+                    length 0..1024;
+                    pattern '((http://)?([^\s/$.?#][^\s/]*))?';
+                }
+                description
+                    "Proxy server for internally-generated HTTP requests leaving the NE.
+                     This includes certificate revocation-related requests, i.e.: CRL downloads and OCSP requests.
+                     The format is '[http://]<host>[:<port>]' where
+                         - 'http://' is optional,
+                         - '<host>' may be the IPv4 address, IPv6 address, or DNS name of the proxy server,
+                         - '<port>' is optional
+                     If <port> is omitted, the default is 1080.
+                     Note: This proxy is not used for file transfers.";
+            }
+            list transfer-status {
+                key "filetype operation";
+                config false;
+                description "Status of the last operation for this filetype.
+                            This object will only exist if at least one of the operation of that kind was done for that filetype.";
+
+                leaf filetype {
+                   type fts-filetype;
+                   description "File transfer status per filetype.";
+                }
+                leaf operation {
+                    type enumeration {
+                        enum upload   { value 1;  description "last operation upload.";}
+                        enum download { value 2;  description "last operation download."; }
+                    }
+                    description "Last transfer operation." ;
+                }
+
+                leaf last-completion-status {
+                   type string{
+                       length "0..128";
+                   }
+                   description "Success indicates a successful operation.";
+                }
+
+                leaf last-transfer {
+                    type yang:date-and-time;
+                    description "Last transfer Start Timestamp.";
+                }
+
+                leaf last-duration {
+                    type ioa-common:time-interval;
+                    description "Last transfer duration." ;
+                }
+
+                leaf transfer-type {
+                    type enumeration {
+                        enum sync {value 1; description "last transfer type sync.";}
+                        enum async{value 2; description "last transfer type async";}
+                    }
+                    description "Last transfer type." ;
+                }
+
+                leaf session-id {
+                    type string { length "0..100"; }
+                    description "Last transfer session-id." ;
+                }
+
+                leaf session-user-name {
+                    type ioa-common:user-name;
+                    description "Last transfer session-user-name." ;
+                }
+
+                leaf filename {
+                    type string { length "0..512"; }
+                    description "Last transferred file URL." ;
+                }
+            }
+        }
+    }
+
+    grouping fdr {
+        container fdr { 
+            description "Flight Data Recorder(FDR)";
+            leaf streaming-mode { 
+                type enumeration {
+                    enum disabled { value 0; }
+                    enum enabled { value 1; }
+                }
+                default disabled;
+                description "Allows live streaming of FDR information when Enabled";
+            }
+        }
+    }
+}

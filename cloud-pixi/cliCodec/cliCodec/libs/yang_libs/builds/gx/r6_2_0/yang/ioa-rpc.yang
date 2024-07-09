@@ -1,0 +1,2060 @@
+module ioa-rpc {
+    namespace "http://infinera.com/yang/ioa/rpc";
+    prefix ioa-rpc;
+
+    import ietf-yang-types { prefix yang; }
+    import ietf-inet-types { prefix inet; }
+    import ioa-network-element { prefix ioa-ne; }
+    import ioa-common { prefix ioa-common; }
+    import ioa-certificate { prefix ioa-cert; }
+    import ietf-netconf { prefix nc; }
+    import ioa-pm { prefix ioa-pm; }
+    import ioa-transfer { prefix ioa-transfer; }
+    import ioa-alarm { prefix ioa-alarm; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module dedicated for Operations (YANG RPCs).";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-09-17" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.1";
+    }
+
+
+    typedef db-instance-type{
+        type enumeration {
+            enum active { value 1; }
+            enum onehour{ value 2; }
+            enum oneday { value 3; }
+            enum oneweek { value 4; }
+            enum temp  { value 5; }
+            enum manual{ value 6; }
+            enum rollback {value 7;}
+        }
+    }
+
+    rpc no-op {
+        description "No operation - used for session keep-alive.";
+    }
+
+    rpc default {
+        description "Assign default values to the specified attributes";
+        input {
+            leaf-list entity-id {
+                type instance-identifier;
+                min-elements 1;
+                description "Instances to be defaulted.";
+            }
+
+            leaf-list attribute {
+                type string;
+                description "Attribute names to be defaulted. If empty, default all entities' attributes.";
+            }
+        }
+    }
+
+    rpc clear-file{
+        description "Clears file in the system.";
+        input {
+            leaf filetype {
+                type ioa-transfer:fts-filetype;
+                mandatory true;
+                description "Predefined filetype available for clearing the file";
+            }
+            leaf target-file {
+                when "../filetype != 'krp'";
+                type string;
+                mandatory true;
+                description "Filepath of the file to be deleted";
+            }
+        }
+        output {
+            leaf clear-result {
+                type string;
+                description "Result of the clear operation";
+            }
+        }
+    }
+
+    rpc clear-app {
+        description "Allows to clear 3rd party app.";
+        input {
+            leaf app-name {
+                type leafref {
+                    path /ioa-ne:ne/ioa-ne:system/ioa-ne:sw-management/ioa-ne:third-party-app/ioa-ne:app-name;
+                }
+                mandatory true;
+                description "Third party app name.";
+            }
+        }
+    }
+
+    rpc clear-database {
+        description "Sets NE to default by deleting the system database.
+                     This request will wipe the whole DB, and reboot the system.";
+        input {
+            leaf clear-type {
+                type enumeration {
+                    enum full {
+                        value 2;
+                        description "Full wipe of DB contents; reset to factory defaults";
+                    }
+                }
+                default "full";
+                description "Defines the type of 'clear database' that the system must do.";
+            }
+        }
+    }
+
+    // Security RPCs
+
+    rpc kill-session {
+        description "Forces the termination of any established session.
+                     Can target an session, independently on the type of management protocol.
+                     A user cannot use this command to kill its own session.";
+        input {
+            leaf session-id {
+                type leafref {
+                    path /ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:session/ioa-ne:session-id;
+                }
+                mandatory true;
+                description "Identifier of the session that will be killed.";
+            }
+        }
+    }
+
+    // X509v3 Certificate/CRL RPCs
+
+    rpc clear-certificate {
+        description
+            "Deletes one or more trusted/local/peer certificates.";
+        input {
+            leaf type {
+                type enumeration {
+                    enum trusted {
+                        value 1;
+                        description
+                            "Deletes a trusted certificate.";
+                    }
+                    enum peer {
+                        value 2;
+                        description
+                            "Deletes a peer certificate.";
+                    }
+                    enum local {
+                        value 3;
+                        description
+                            "Deletes a local certificate.";
+                    }
+                    enum purge-all-invalid {
+                        value 4;
+                        description
+                            "Purges all revoked, expired, untrusted, and unsupported certificates.";
+                    }
+                    enum purge-expired {
+                        value 5;
+                        description
+                            "Purges all expired certificates.";
+                    }
+                    enum purge-local-unused {
+                        value 6;
+                        description
+                            "Purges unused local certificates.";
+                    }
+                    enum purge-peer-unused {
+                        value 7;
+                        description
+                            "Purges unused peer certificates.";
+                    }
+                    enum purge-all-unused {
+                        value 8;
+                        description
+                            "Purges all unused local, peer, and trusted certificates.";
+                    }
+                }
+                mandatory true;
+                description
+                    "Defines the type of 'clear certificate' that the system must do.";
+            }
+            leaf id {
+                when "../type = 'trusted' or ../type = 'local' or ../type = 'peer'";
+                type ioa-common:certificate-name;
+                mandatory true;
+                description
+                    "Foreign Key pointing to the id of the certificate to delete.";
+            }
+        }
+        output {
+            leaf clear-result {
+                type string {
+                    length "0..13096";
+                }
+                description "Result of the clear operation.";
+            }
+        }
+    }
+
+    rpc display-cert {
+        description "Show the details of a certificate or CSR in a human-readable form, or display a tree reflecting the
+                     trust-chains of one or all certificates.";
+        input {
+            leaf display-type {
+                type enumeration {
+                    enum certificate-details {
+                        value 1;
+                        description
+                            "Displays details of the certificate or CSR in human-readable form.";
+                    }
+                    enum certificate-hierarchy {
+                        value 2;
+                        description
+                            "Displays a tree reflecting the trust-chain of a specified certificate.";
+                    }
+                    enum all-certificate-hierarchy {
+                        value 3;
+                        description
+                            "Displays a tree reflecting the full trust graph including all certificates.";
+                    }
+                }
+                default certificate-details;
+                description
+                    "Defines the requested type of display operation.";
+            }
+            leaf certificate {
+                when "../display-type != 'all-certificate-hierarchy'";
+                type instance-identifier;
+                description "The target certificate to display details or trust-chain.";
+            }
+        }
+        output {
+            leaf result {
+                type string;
+                description "Certificate or CSR in text form, or tree reflecting trust-chain(s).";
+            }
+        }
+    }
+
+    rpc clear-crl {
+        description
+            "Deletes one or more manual or auto-downloaded Certificate Revocation Lists (CRLs).";
+        input {
+            leaf clear-target {
+                type enumeration {
+                    enum single-crl {
+                        value 1;
+                        description "Deletes a single CRL.";
+                    }
+                    enum purge-invalid-crls {
+                        value 2;
+                        description "Purges all invalid CRL.";
+                    }
+                    enum purge-cached-crls {
+                        value 3;
+                        description
+                            "Purges all CRLs that were automatically cached from a configured CDP or certificate CDP
+                             extension.";
+                    }
+                    enum purge-all-crls {
+                        value 4;
+                        description "Purges all CRLs.";
+                    }
+                }
+                default "single-crl";
+                description
+                    "Defines the target CRL(s) of the clear operation.";
+            }
+            leaf crl-name {
+                when "../clear-target = 'single-crl'";
+                type leafref {
+                    path /ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:certificates/ioa-ne:certificate-revocation/ioa-ne:crls/ioa-ne:crl/ioa-ne:name;
+                }
+                mandatory true;
+                description
+                    "Name of the CRL to delete.";
+            }
+        }
+        output {
+            leaf removed-crls {
+                type string {
+                    length "0..2048";
+                }
+                description "List of CRL(s) that have been removed.";
+            }
+        }
+    }
+
+    // SSHv2 RPCs
+
+    rpc ssh-keygen {
+        description
+            "Regenerates existing public/private host key pair for the NE's SSH based applications.
+             NOTE: The on-going SSH sessions could be disconnected if the host key in use is regenerated.";
+        input {
+            leaf key-length {
+                type enumeration {
+                    enum 2048 {
+                        value 1;
+                    }
+                    enum 3072 {
+                        value 2;
+                    }
+                    enum 4096 {
+                        value 3;
+                    }
+                    enum 256 {
+                        value 4;
+                    }
+                    enum 384 {
+                        value 5;
+                    }
+                    enum 521 {
+                        value 6;
+                    }
+                }
+                default "2048";
+                description
+                    "Strength of the key used for regenerating the private-public key pair";
+            }
+            leaf key-type {
+                type ioa-cert:public-key-types;
+                default "rsa";
+                description
+                    "Type of key to generate";
+            }
+            leaf key-label {
+                type string { length 0..255; }
+                description
+                    "Label associated with the key. If no value provided, label will be the value of ne-id";
+            }
+        }
+    }
+
+    rpc cert-gen {
+        description "Generates a self-signed certificate.";
+        input {
+            leaf certificate-name {
+                type ioa-common:certificate-name;
+                mandatory true;
+                description "Specifies the name of the certificate to be generated.";
+            }
+            leaf days {
+                type uint16 { range 1..36525; }   // range: 1 day to 100 years
+                default 365;
+                description "Number of days a certificate is valid for.";
+            }
+            leaf org-name {
+                type string { length 1..64; } // RFC 5280 ub-common-name
+                description "Organization Name.";
+            }
+            leaf common-name {
+                type string { length 1..64; } // RFC 5280 ub-common-name-length
+                description "IP or hostname to identify the server.";
+            }
+            leaf subject {
+                type ioa-cert:cert-subject-name;
+                description "The full certificate subject name";
+            }
+            leaf auto-install {
+                type boolean;
+                default true;
+                description
+                    "Auto-assign certificate to any secure-application without active certificate.";
+            }
+        }
+        output {
+            leaf result {
+                type string { length 0..256; }
+                description "Output status of the self-sign process.";
+            }
+        }
+    }
+
+    rpc csr-gen {
+        description "Generates a Certificate Signing Request based on user provided information.
+            The consequence of this command is the creation of a local-certificate in the 'pending' state,
+            and the output of a CSR in PKCS#10 PEM format.
+            This CSR can then be used with an external Certificate Authority to produce a full certificate, 
+            which can then be downloaded into the system to produce a complete local-certificate.";
+        input {
+
+            leaf certificate-name {
+                type ioa-common:certificate-name;
+                mandatory true;
+                description "Specifies the name of the certificate to be generated. Using existing name implies rotation.
+                             NOTE: When importing the signed certificate at a later step, the exact same certificate-name needs to be used.";
+            }
+
+            choice key-source {
+                description "Provides a way to select the source for the public-private key pair to use in this CSR.
+                    Can select either a new key pair, or select the key pair of an existing certificate.";
+
+                leaf key-algorithm {
+                    type enumeration {
+                        enum rsa4096 {
+                            value 1;
+                            description "RSA (Rivest-Shamir-Adleman) public-key cryptosystem algorithm with key size 4096.";
+                        }
+                        enum rsa3072 {
+                            value 2;
+                            description "RSA (Rivest-Shamir-Adleman) public-key cryptosystem algorithm with key size 3072.";
+                        }
+                        enum rsa2048 {
+                            value 3;
+                            description "RSA (Rivest-Shamir-Adleman) public-key cryptosystem algorithm with key size 2048.";
+                        }
+                        enum eccp256 {
+                            value 5;
+                            description "ECC (Elliptic Curve Cryptography) 256-bit prime field Weierstrass curve - prime256v1.";
+                        }
+                        enum eccp384 {
+                            value 6;
+                            description "ECC (Elliptic Curve Cryptography) 384-bit prime field Weierstrass curve - secp384r1.";
+                        }
+                        enum eccp521 {
+                            value 7;
+                            description "ECC (Elliptic Curve Cryptography) 521-bit prime field Weierstrass curve - ecp521r1.";
+                        }
+                    }
+                    default eccp256;
+                    description "Specifies the algorithm to be used for a new key pair for this CSR.";
+                }
+
+                leaf key-from-certificate {
+                    type leafref {
+                        path "/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:certificates/ioa-ne:local-certificate/ioa-ne:id";
+                    }
+                    description "Allows to reuse the key pair from an existing local-certificate.";
+                }
+            }
+
+            leaf signature-hash-algorithm {
+                type ioa-cert:signature-hash-algorithm-type;
+                default sha512;
+                description "Hash algorithm to be used. Default value depends on the selected key-algorithm.";
+            }
+
+            leaf metadata-template {
+                type enumeration {
+                    enum from-existing-certificate {
+                        value 1;
+                        description "Metadata is provided/copied from existing a certificate.";
+                    }
+                    enum from-openssl-cnf {
+                        value 2;
+                        description "Metadata is provided from an openssl .cnf file.";
+                    }
+                    enum generic {
+                        value 3;
+                        description "Metadata intended for a large variety of applications and scenarios.";
+                    }
+                    enum generic-tls-server {
+                        value 4;
+                        description "Metadata intended for a server secure-application.";
+                    }
+                    enum generic-tls-client {
+                        value 5;
+                        description "Metadata intended for a client secure-application.";
+                    }
+                    enum generic-ikev2-identity {
+                        value 6;
+                        description "Metadata intended for ikev2 node identity.";
+                    }
+                }
+                default generic;
+                description "Selects the possible sources for the CSR metadata, including reusing it from
+                    an existing certificate, loading from an openssl cnf file, or using a generic template which
+                    defines the metadata defaults.
+                    In all cases except for 'from-openssl-cnf', it is possible to override the metadata individual
+                    parameters by providing the metadata parameters (subject, SAN, etc) explicitly.";
+            }
+
+            leaf metadata-from-certificate {
+                when "../metadata-template = 'from-existing-certificate'";
+                type leafref {
+                    path "/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:certificates/ioa-ne:local-certificate/ioa-ne:id";
+                }
+                description "A local-certificate id to be used as metadata source. Metadata details can be overridden separately.";
+            }
+
+            leaf metadata-from-cnf {
+                when "../metadata-template = 'from-openssl-cnf'";
+                type string { length 0..4096; }
+                description "Multi-line string input of cnf with metadata. Metadata details can be overridden separately.";
+                reference "https://www.openssl.org/docs/man1.0.2/man1/openssl-req.html";
+            }
+
+            leaf subject {
+                when "../metadata-template != 'from-openssl-cnf'";
+                type ioa-cert:cert-subject-name;
+                description "The certificate subject. The common name (CN) RDN is *mandatory*. Each relative DN must have a prefix slash (/).
+                             Example a minimal valid subject (contains CN only): 
+                                '/CN=Infinera'
+                             An example with all supported RDN fields:
+                                '/CN=InfineraRoot/C=US/ST=California/L=Sunnyvale/O=InfineraCorporation/OU=InfineraR&D'";
+            }
+
+            leaf SAN {
+                when "../metadata-template != 'from-openssl-cnf'";
+                type string { length 0..1024; }
+                description "The certificate SAN (Subject Alternate Name) fields. 
+                    SANs are specified as Type-Value comma separated list. Valid types are 'IP', 'DNS' and 'otherName'.
+                    Examples: SAN='IP:127.0.0.1,DNS:localhost'
+                              SAN='dns:GX-10-4,otherName:1.3.6.1.4.1.21296.1.2.2.1.2;UTF8:GX-10-4'";
+            }
+
+            leaf-list key-usage {
+                when "../metadata-template != 'from-openssl-cnf'";
+                type ioa-cert:key-usage-type;
+                description "The Key Usage type(s) for the certificate.
+                    Default is derived from the metadata-template parameter.";
+            }
+
+            leaf-list extended-key-usage {
+                when "../metadata-template != 'from-openssl-cnf'";
+                type ioa-cert:extended-key-usage-type;
+                description "The Extended Key Usage type(s) for the certificate.
+                    Default is derived from the metadata-template parameter.";
+            }
+        }
+        output {
+            leaf csr-bytes {
+                type string { length 0..8192; }
+                description "PKCS#10 output of the CSR process in PEM format.";
+            }
+        }
+    }
+
+    rpc diff {
+        description "Performs a diff between the candidate and current configurations.
+            Provides output as a list a differences. By using the table-view parameter, the output is displayed
+            in table format, for northbound protocols that support such visualization.";
+
+        input {
+            leaf candidate {
+                if-feature nc:candidate;
+                type empty;
+                mandatory true;
+                description "The candidate datastore configuration.";
+            }
+        }
+        output {
+            anyxml differences {
+                description "
+                    List of differences between the rollback point and the current system configuration.
+                    Is composedsubset that matches the running datastore hierarchy, annotated with two metadata attributes:
+                    - old-value, which in case of attribute value changes, represents the old value of the attribute.
+                    - operation, which represent MO creation and deletion in the context of the diff
+                    Both old-value and operation are metadata annotations in accordance to RFC7952, and are qualified with the
+                    same namespace as the datastore they are related with.
+                    As such, these annotations will be encoded in XML/JSON in accordance to RFC7952.";
+            }
+        }
+    }
+
+    rpc cli-command {
+        description "Runs one or more CLI commands via YANG RPC.
+                     Note: Execution is synchronous, so executing long scripts may take a while.
+                           Please consider that when selecting the timeout for this RPC.";
+        input {
+            choice source {
+                mandatory true;
+                description "The source of the CLI commands to execute: a script, or an RPC input";
+                leaf script-file {
+                    type string;
+                    description "The filepath of the previously downloaded CLI script";
+                }
+                leaf commands {
+                    type string;
+                    description "CLI commands to execute; multiple commands can be provided, one per line";
+                }
+            }
+            leaf echo {
+                 type enumeration {
+                      enum on  { value 1; }
+                      enum off { value 2; }
+                 }
+                 default on;
+                 description "If echo on, result includes commands and their output;
+                              otherwise it will only include the commands output";
+            }
+            leaf error-option {
+                type enumeration {
+                    enum stop-on-error {
+                        value 1;
+                        description "The server will stop on errors.";
+                    }
+                    enum continue-on-error {
+                        value 2;
+                        description "The server may continue on errors.";
+                    }
+                    enum rollback-on-error {
+                        value 3;
+                        description "The server will roll back on errors (all-or-nothing behavior)";
+                    }
+                }
+                default continue-on-error;
+                description "How the command execution should behave when errors occur.";
+            }
+            leaf replace {
+                type boolean;
+                default false;
+                description "If true, it tries to push the entire script/commands as a replace operation";
+
+            }
+        }
+        output {
+            leaf result {
+                type string;
+                description "Output of the CLI script";
+            }
+            leaf error-location {
+                type uint16;
+                description "Line number that locates the command that caused the error.
+                             If no error occurred, this output parameter is omitted.
+                             If multiple errors occur, show only the first command that caused the error.";
+            }
+        }
+    }
+
+    rpc install-krp {
+        description "Install key replacement package (KRP)";
+        input {
+            leaf krp-name {
+                type string;
+                mandatory true;
+                description "Key replacement package name";
+            }
+        }
+
+        output {
+            leaf install-krp-result {
+                type string;
+                description "Result of the install-krp operation";
+            }
+        }
+    }
+
+    rpc delete-isk {
+        description "Delete Image Signing Key (ISK) from the system";
+        input {
+            leaf key-name {
+                type leafref {
+                    path "/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:image-keys/ioa-ne:ISKs/ioa-ne:ISK/ioa-ne:key-name";
+                }
+                mandatory true;
+                description "Image Signing Key (ISK) name";
+            }
+        }
+
+        output {
+            leaf delete-isk-result {
+                type string;
+                description "Result of the delete-isk operation";
+            }
+        }
+    }
+
+    //
+    // Syslog RPCs
+    //
+
+    rpc get-log {
+        description "Generic Log reader, that provides log content as a response.
+                     Note: providing a large amount of text via a RPC is not an ideal solution, so the output is restricted to 10000 entries.
+                     Please use the 'upload' RPC for getting the entire log content without restrictions.";
+        input {
+            leaf log-file-name {
+                type leafref {
+                    path /ioa-ne:ne/ioa-ne:system/ioa-ne:syslog/ioa-ne:log-file/ioa-ne:name;
+                }
+                mandatory true;
+                description "The log file to read; must match a currently configured log-file.";
+            }
+            leaf start-time {
+                type yang:date-and-time;
+                description "Returns log entries starting from this timestamp.
+                             If not provided, consider the oldest available logs.";
+            }
+            leaf end-time {
+                type yang:date-and-time;
+                description "Returns log entries ending at this timestamp.
+                             If not provided, consider all the logs until the most recent timestamp.";
+            }
+            leaf number-of-entries {
+                type union {
+                    type enumeration {
+                        enum all { 
+                            value 1; 
+                            description "Maximum number of logs that can be sent with this RPC (10000).";
+                        }
+                        enum all-since-last-reboot { 
+                            value 2; 
+                            description "Maximum number of logs that can be sent with this RPC (10000), starting only in last reboot timestamp.";
+                        }
+                    }
+                    type uint32 { range 1..10000; }
+                }
+                default 500;
+                description "Describes the amount of log entries that are to be returned. ";
+            }
+            leaf pattern-match {
+                type string;
+                description "Allows to provide a regex that filters log entries.";
+            }
+        }
+        output {
+            leaf log-entries {
+                type string;
+                description "The resulting log entries.";
+            }
+        }
+    }
+
+    rpc clear-log {
+        description "Allows to clear the content of a log file";
+        input {
+            leaf log-file-name {
+                type leafref {
+                    path /ioa-ne:ne/ioa-ne:system/ioa-ne:syslog/ioa-ne:log-file/ioa-ne:name;
+                }
+                mandatory true;
+                description "The log file to clear; file will still exist, but with empty content.";
+            }
+        }
+    }
+
+    //
+    // ZTP RPCs
+    //
+
+    rpc change-ztp-mode {
+        description "Enable/disable ztp-mode and optionally reset the configuration database to factory default.";
+        input {
+            leaf ztp-mode {
+                type enumeration {
+                    enum disabled { value 0; }
+                    enum enabled { value 1; }
+                }
+                mandatory true;
+                description "Selects new ztp mode.";
+            }
+        }
+    }
+
+    rpc fips {
+        description "Controls FIPS mode and provides auxiliary security functions.";
+        input {
+            leaf action {
+                type enumeration {
+                    enum mode-enable {
+                        value 0;
+                        description "Enable FIPS mode; this command implies an automatic reset of the node and configuration database to factory default.";
+                    }
+                    enum mode-disable {
+                        value 1;
+                        description "Disable FIPS mode; this command implies an automatic reset of the node and configuration database to factory default.";
+                    }
+                    enum self-test {
+                        value 2;
+                        description "Self-test will result in automatic reset of the node and performs pre-operational self-test.";
+                    }
+                    enum zeroize {
+                        value 3;
+                        description "Performs FIPS zeroization resulting in automatic reset of the node and configuration database to factory default.";
+                    }
+                }
+                mandatory true;
+                description "Selects FIPS action to perform.";
+            }
+        }
+    }
+
+    rpc enable-led {
+        description "Enables a location led test in a chassis or a card.";
+        input {
+            leaf entity {
+                type instance-identifier;
+                mandatory true;
+                description "Targets a specific entity in the system for enabling its location led test.
+                             Can be a chassis or a card.";
+            }
+
+            leaf timeout {
+                type uint16 { range 0..120; }
+                units seconds;
+                default 0;
+                description "Specify the timeout, in seconds, before enable-led terminates.
+                             0 means no timeout.";
+            }
+
+            leaf led-mode {
+                type enumeration {
+                    enum flash { value 0; description "Led color flashing.";}
+                    enum solid { value 1; description "Led color solid.";}
+                }
+                default flash;
+                description "Selects the led flash pattern.";
+            }
+        }
+    }
+
+    rpc disable-led {
+        description "Disables any LED test that was initiated with the enable-led command.";
+        input {
+            leaf entity {
+                type instance-identifier;
+                mandatory true;
+                description "Targets a specific entity in the system for having its location led test disabled.
+                             Can be a chassis or a card.";
+            }
+        }
+    }
+    rpc simulate {
+        description "Generic command that triggers simulated events in the system (alarms, equipment, etc)";
+        input {
+            leaf trigger {
+                type enumeration {
+                    enum raise-alarm {
+                        value 1;
+                        description "Simulates the raising of an alarm.";
+                    }
+                    enum clear-alarm {
+                        value 2;
+                        description "Clears a simulated alarm.";
+                    }
+                    enum plug-in-fru {
+                        value 3;
+                        description "Simulates the plugin of equipment.";
+                    }
+                    enum plug-out-fru {
+                        value 4;
+                        description "Simulates the plugout of equipment.";
+                    }
+                }
+                mandatory true;
+                description "The alarm event trigger to simulate.";
+            }
+
+            choice simulation-type {
+                case equipment {
+                    when "trigger = 'plug-in-fru' or trigger = 'plug-out-fru'";
+
+                    leaf holder-AID {
+                        type string { length "1..64"; }
+                        mandatory true;
+                        description "AID of the equipment holder (slot or port) where the equipment will be simulated.";
+                    }
+
+                    leaf type {
+                        type string;
+                        mandatory true;
+                        description "The type of the equipment to be simulated.";
+                    }
+
+                    leaf subtype {
+                        type string;
+                        description "The subtype of the equipment to be simulated.";
+                    }
+                }
+
+                case alarm {
+                    when "trigger = 'raise-alarm' or trigger = 'clear-alarm'";
+
+                    leaf alarmed-entity {
+                        type instance-identifier;
+                        mandatory true;
+                        description "The entity affected by the alarm; if ommitted when clearing alarms, all simulated alarms are cleared.";
+                    }
+
+                    leaf alarm-type {
+                        type identityref {
+                            base ioa-alarm:ALARM-TYPE;
+                        }
+                        mandatory true;
+                        description "The alarm type to be simulated; if ommitted when clearing alarms, all simulated alarms are cleared.";
+                    }
+
+                    leaf alarm-direction {
+                        type union {
+                            type ioa-alarm:direction;
+                            type enumeration {
+                                enum auto { value 5; description "Direction is selected automatically."; }
+                            }
+                        }
+                        default auto;
+                        description "The direction of the simulated alarm. If ommitted, system selects direction automatically.";
+                    }
+
+                    leaf alarm-location {
+                        type union {
+                            type ioa-alarm:location;
+                            type enumeration {
+                                enum auto { value 5; description "Location is selected automatically."; }
+                            }
+                        }
+                        default auto;
+                        description "The location of the simulated alarm. If ommitted, system selects location automatically.";
+                    }
+                }
+            }
+        }
+    }
+
+    rpc restart {
+        description "Restarts a specific resource of the system.
+                     Supports restarting of:
+                     - card
+                     - card sub-component (e.g. DCO)
+                     - tom";
+        input {
+
+            leaf resource {
+                type instance-identifier;
+                description "Resource to restart.
+                             If not provided, by default restarts the node controller.";
+            }
+
+            leaf type {
+                type enumeration {
+                    enum warm { value 1; description "Warm starts a FRU"; }
+                    enum cold { value 2; description "Cold reboots a FRU."; }
+                    enum shutdown { value 3; description "Shuts down a FRU for controlled removal."; }
+                }
+                default warm;
+                description "Restart type";
+            }
+
+            leaf sub-component {
+                type string;
+                description "Allows to target a card sub-component to restart.";
+            }
+        }
+    }
+
+    rpc appctl {
+        description "Control command for third party applications.";
+        input {
+
+            leaf command {
+                type enumeration {
+                    enum restart { value 1; description "Restarts the third party application."; }
+                    enum netls { value 2; description "Shows the list of subnet networks used by the containers."; }
+                }
+                mandatory true;
+
+                description "Application control commands.";
+            }
+
+            leaf app-name {
+                type leafref {
+                    path /ioa-ne:ne/ioa-ne:system/ioa-ne:sw-management/ioa-ne:third-party-app/ioa-ne:app-name;
+                }
+                description "Third party app name.";
+            }
+
+            leaf target {
+                type union {
+                    type enumeration {
+                        enum system {
+                            value 1;
+                            description "Command will be executed for the entire system.";
+                        }
+                    }
+                    type string;
+                }
+                default system;
+                description "Entire system or chassis/card AID.";
+            }
+
+            leaf-list parameters {
+                when "../command = 'restart'";
+                type string;
+                max-elements 50;
+                description "Optional parameters to be passed in the command.";
+            }
+
+        }
+        output {
+            leaf appctl-result {
+                type string;
+                description "Result of appctl command action.";
+            }
+        }
+    }
+
+    //
+    // Networking RPCs
+    //
+
+    rpc ping {
+        description "Sends an echo message to another TCP/IP node to determine if the node is visible on the network.";
+        input {
+            leaf ping-count {
+                type uint8 { range 1..100; }
+                default 4;
+                description "Stops after sending 'count' ECHO_REQUEST packets.";
+            }
+
+            leaf ping-timeout {
+                type uint16 { range 1..20; }
+                units seconds;
+                default 2;
+                description "Specify the timeout, in seconds, before ping exits.";
+            }
+
+            leaf ping-pktsize {
+                type uint16;
+                units bytes;
+                default 56;
+                description "Specifies the number of bytes to be sent. Default is 56, exclusive of headers.";
+                reference THANOS-6920;
+            }
+
+            leaf ping-dest {
+                type union {
+                    type inet:ipv4-address;
+                    type inet:ipv6-address;
+                    type inet:domain-name;
+                }
+                mandatory true;
+                description "IP address or FQDN of the destination node.";
+            }
+
+            choice source {
+                leaf ping-interface {
+                    type leafref {
+                        path "/ioa-ne:ne/ioa-ne:system/ioa-ne:networking/ioa-ne:interface/ioa-ne:if-name";
+                    }
+                    description
+                        "Specify source interface name";
+                }
+
+                leaf ping-vrf {
+                    type string;
+                    default "MGMT";
+                    description
+                        "VRF to use. If not provided, defaults to MGMT.";
+                }
+            }
+        }
+        output {
+            leaf result {
+                type string;
+                description "Result of ping.";
+            }
+        }
+    }
+
+    rpc traceroute {
+        description "Tracks the route packets take from an IP network on their way to a given host";
+        input {
+            leaf tr-hopcnt {
+                type uint8{ range 1..255; }
+                default 30;
+                description "Specifies the maximum number of hops (max time-to-live value) traceroute will probe. The default is 10.";
+            }
+
+            leaf tr-timeout {
+                type uint16 { range 1..10; }
+                units seconds;
+                default 2;
+                description "Specify the timeout, in seconds, before trace route exits.";
+
+            }
+
+            leaf tr-dest {
+                type union {
+                    type inet:ipv4-address;
+                    type inet:ipv6-address;
+                    type inet:domain-name;
+                }
+                mandatory true;
+                description "IPv4/v6 address or FQDN of the destination node.";
+            }
+
+            leaf tr-pktsize {
+                type uint16;
+                units 'bytes';
+                default 60;
+                description "Specifies the total  size  of  the  probing packet (default 60 bytes for IPv4).";
+            }
+
+            choice source {
+                leaf tr-interface {
+                    type leafref {
+                        path "/ioa-ne:ne/ioa-ne:system/ioa-ne:networking/ioa-ne:interface/ioa-ne:if-name";
+                    }
+                    description "Specify source interface name";
+                }
+
+                leaf tr-vrf {
+                    type string;
+                    default "MGMT";
+                    description "VRF to use. If not provided, defaults to MGMT.";
+                }
+            }
+
+        }
+        output {
+            leaf result {
+                type string;
+                description "Result of trace route.";
+            }
+        }
+    }
+
+    //OSPF
+    rpc clear-ospf-instance {
+      description
+        "This RPC request restarts the OSPF instance.";
+        input {
+            leaf instance {
+                 type leafref {
+                    path "/ioa-ne:ne/ioa-ne:system/ioa-ne:networking/ioa-ne:routing/ioa-ne:ospf-instance/ioa-ne:instance-id";
+                 }
+                 mandatory "true";
+                 description "OSPF protocol instance which need to be re-started.";
+            }
+        }
+    }
+
+    // Topology
+    rpc clear-topology {
+        description "Allows manual removal of existing topology neighbor information.";
+        input {
+            leaf target {
+                type instance-identifier;
+                mandatory true;
+                description "Target instance to be cleared. May be a lldp-neighbor, a carrier-neighbor or a lldp-port-statistics instance.";
+            }
+        }
+    }
+
+    // System
+    rpc clear-system {
+        description "Wipes the system/specific instance and reset to the factory configurations.";
+        input {
+            leaf type {
+                type enumeration {
+                    enum factory-reset {
+                        value 1;
+                        description "Reset the system or a particular equipment to factory configuration.";
+                    }
+                    enum full-wipe {
+                        value 2;
+                        description "Clean the entire system and reinstall the SW on the controller and the line-cards.";
+                    }
+                    enum inactive {
+                        value 3;
+                        description "Clear the inactive software partition.";
+                    }
+                }
+                mandatory true;
+                description "Clear system type.";
+            }
+
+            leaf target {
+                when "../type = 'factory-reset' or ../type = 'full-wipe'";
+                type union {
+                    type enumeration {
+                        enum system {
+                            value 1;
+                            description "Clean the system (main controller chassis).";
+                        }
+                    }
+                    type string;
+                }
+                default system;
+                description "Entire system (main controller chassis) or specific chassis/card AID.";
+            }
+
+            leaf restart-behavior {
+                when "../type='factory-reset'";
+                type enumeration {
+                    enum restart {
+                        value 1;
+                        description "Restart the system after the clean.";
+                    }
+                    enum shutdown {
+                        value 2;
+                        description "Shutdown the system after the clean.";
+                    }
+                }
+                default restart;
+                description "Action to do after the clean operation.";
+            }
+
+            leaf action {
+                when "../type='inactive'";
+                type enumeration {
+                    enum delete {
+                        value 1;
+                        description "delete the partition.";
+                    }
+                }
+                default delete;
+                description "Action to clean the partition.";
+            }
+        }
+        output {
+            leaf clear-system-result {
+                type string;
+                description "Result of the clear system operation";
+            }
+        }
+    }
+
+    grouping db-action {
+        leaf db-action {
+            type enumeration {
+                enum empty-db {
+                    value 1;
+                    description "Activate software image with empty database.";
+                }
+                enum upgrade-db {
+                    value 2;
+                    description "Activate software image with upgrading the current database.";
+                }
+                enum rollback {
+                    value 3;
+                    description "Rollback to previous active software image.";
+                }
+            }
+            default 'upgrade-db';
+            description "Specify the expected database operation during activating software image.";            
+        }
+    }
+
+
+    //
+    // Software Management RPCs
+    //
+
+    rpc download {
+        description
+            "Transfers a file from an external location to the NE";
+        input {
+            leaf filetype {
+                type ioa-transfer:fts-filetype;
+                mandatory true;
+                description "Predefined filetype available for download";
+            }
+
+            choice target {
+                mandatory true;
+                description "Download target may be an explicit URL, or may just reference a pre-configured file-server
+                             together with a path.";
+                leaf source {
+                    type string {
+                        length 1..1024;
+                        pattern '((ftp|sftp|scp|http|https|file):/)?/[^\s/$.?#].[^\s]*';
+                    }
+                    mandatory true;
+                    description
+                        "Source of the download ([sftp|scp|http|https|ftp|file]://[user@]hostname/directorypath/filename)";
+                }
+                case file-server-based {
+                    leaf file-server {
+                        type leafref {
+                            path /ioa-ne:ne/ioa-ne:system/ioa-ne:file-servers/ioa-ne:file-server/ioa-ne:name;
+                        }
+                        mandatory true;
+                        description "The preconfigured file-server name.";
+                    }
+                    leaf path {
+                        type string { length 0..512; }
+                        mandatory true;
+                        description "Path (directory and filename) of the remote file.";
+                    }
+                }
+            }
+            leaf passphrase {
+                when "../filetype = 'local-certificate' or ../filetype = 'peer-certificate'";
+                type string{
+                    length "1..1024";
+                }
+                description "To decode encrypted input files.";
+            }
+            leaf white-listed {
+                when  "../filetype = 'peer-certificate'";
+                type boolean;
+                default false;
+                description "If true, peer-certificate does not have an associated trust-chain. Else, has an associated trust-chain.";
+            }
+            leaf certificate-name {
+                when "../filetype = 'local-certificate' or ../filetype = 'trusted-certificate' or ../filetype = 'peer-certificate'";
+                type ioa-common:certificate-name;
+                description "X509v3 local/trusted/peer certificate id.";
+            }
+            leaf intermediate-import {
+                when "../filetype = 'local-certificate' or ../filetype = 'trusted-certificate' or ../filetype = 'peer-certificate'";
+                type boolean;
+                default false;
+                description "Allow to import any intermediate certificates present in a certificate file bundle. If certificate-name
+                             is not provided, it will be auto-generated from the topmost certificate Issuer CN plus a numeric suffix.";
+            }
+            leaf unattended {
+                type boolean;
+                description
+                    "Auto prepare and auto activate file after a successful download.
+                     Only some files support 'activation'; others just ignore this flag.";
+            }
+            leaf async {
+                type boolean;
+                description
+                    "Download asynchronously.";
+            }
+            leaf skip-secure-verification {
+                type boolean;
+                description "For HTTPS transfers, skip TLS verification. For SCP/SFTP transfers, skip ssh known host checking.
+                             If flag not set, verification is done according with current security-policy.";
+            }
+            leaf sanity-check-override {
+                when "../filetype = 'database'";
+                type boolean;
+                default false;
+                description "If true, skips the sanity check override when downloading a database snapshot.";
+            }
+            leaf destination {
+                when "../filetype = 'file'";
+                type string;
+                description "Allows user to provide the destination for the downloaded file, including directory and/or filename.
+                            This is only applicable when file-type is 'file', representing a generic file transfer.
+                            The parameter can be:
+                            - omitted: means file is downloaded to the default directory with the original file-name
+                            - a file-name only: uses default directory with the new file-name
+                            - a relative path: uses the default directory as starting path, plus relative path
+                            - an absolute path: Absolute path for the user accessible directories can be used
+                            It is necessary for the user to have write access to the destination path for the download to succeed.
+                            Tip: use 'show transfer' to see what is the default storage directory.
+                            For generic file transfer, no further activity occurs after download, so the 'unattended' flag will be ignored.";
+            }
+            leaf password {
+                type string {
+                    length 1..255;
+                }
+                description "SFTP/SCP/FTP/HTTP/HTTPS password";
+            }
+            uses ioa-common:db-passphrase {
+                when "filetype = 'database'";
+            }
+            uses db-action {
+                when "filetype = 'swimage' and unattended = 'true'";
+            }
+        }
+
+        output {
+            leaf download-result {
+                type string;
+                description
+                    "Result of the download operation";
+            }
+        }
+    }
+
+    rpc upload {
+        description "Uploads files to remote server";
+        input {
+            leaf filetype {
+                type ioa-transfer:fts-filetype;
+                mandatory true;
+                description "Predefined filetype available for upload";
+            }
+
+            choice target {
+                mandatory true;
+                description "Upload target may be an explicit URL, or may just reference a pre-configured file-server
+                             together with a path.";
+                leaf destination{
+                    type string {
+                        length 1..1024;
+                        pattern '((ftp|sftp|scp|file|https|http):/)?/[^\s/$.?#].[^\s]*';
+                    }
+                    mandatory true;
+                    description "Destination of the upload ([sftp|scp|ftp|https|http|file]://[user@]hostname/directorypath/filename)";
+                }
+                case file-server-based {
+                    leaf file-server {
+                        type leafref {
+                            path /ioa-ne:ne/ioa-ne:system/ioa-ne:file-servers/ioa-ne:file-server/ioa-ne:name;
+                        }
+                        mandatory true;
+                        description "The preconfigured file-server name.";
+                    }
+                    leaf path {
+                        type string { length 0..512; }
+                        description "Path (directory and filename) to be used in the remote file-server.
+                                     If not provided, the file-server initial-path is used, with system defined filename.
+                                     If the path targets a directory (e.g. /path/ ), the filename is dynamically generated.
+                                     Otherwise, the user defined filename may use some placeholders %t and %m (representing
+                                     timestamp and ne-name respectively).";
+                    }
+                }
+            }
+            leaf source {
+                when "../filetype = 'file'";
+                type string { length 0..255; }
+                description "Allows user to provide the source for the file to be uploaded, including directory and/or filename.
+                This is only applicable when file-type is 'file', representing a generic file transfer.
+                Can be a path relative to the default user directory, or an absolute path - as long as
+                user has access to the target file.";
+            }
+            leaf async {
+                type boolean;
+                description "Uploads asynchronously.";
+            }
+            leaf skip-secure-verification {
+                type boolean;
+                description "For HTTPS transfers, skip TLS verification. For SCP/SFTP transfers, skip ssh known host checking.
+                             If flag not set, verification is done according with current security-policy.";
+            }
+            leaf debug-entity {
+                when "../filetype = 'debug-log' or ../filetype = 'fdr-log' or ../filetype = 'pm-logs' or ../filetype = 'logs' ";
+                type instance-identifier;
+                description "Targets a specific entity in the system for having its Logs to be collected. Can be a chassis or a card";
+            }
+            leaf password {
+                type string {
+                    length 1..255;
+                }
+                description "SFTP/SCP/FTP/HTTP/HTTPS password";
+            }
+            uses ioa-pm:period {
+                when "filetype = 'pm-logs'";
+            }
+            leaf-list optional-content {
+                when "../filetype = 'debug-log'";
+                type string { length "0..64"; }
+                description "List of files to be included for debug-log upload.";
+            }
+            leaf-list log-file-list {
+                when "../filetype = 'logs'";
+                type leafref {
+                    path /ioa-ne:ne/ioa-ne:system/ioa-ne:syslog/ioa-ne:log-file/ioa-ne:name;
+                }
+                description "List of log files to be uploaded. If empty all available logs are selected.";
+            }
+            leaf start-time {
+                when "../filetype = 'logs' or ../filetype = 'pm-logs'";
+                type union {
+                    type yang:date-and-time;
+                    type ioa-common:time-interval;
+                }
+                description "Start time from where the logs should be collected. It can be a timestamp or
+                             a time interval from the actual time (now). If empty all log history is selected";
+            }
+            leaf db-instance {
+                when "../filetype = 'database'";
+                type db-instance-type;
+                default 'active';
+                description "Selected DB instance";
+            }
+            uses ioa-common:db-passphrase {
+                when "filetype = 'database'";
+            }
+        }
+        output {
+            leaf upload-result {
+                type string;
+                description "Result of the upload operation";
+            }
+        }
+    }
+
+    rpc import-certificate {
+        description
+            "Imports one or more certificates as a PEM format string into the NE.";
+        input {
+            leaf type {
+                type enumeration {
+                    enum local-certificate {
+                        value 1;
+                        description
+                            "Either an x509 certificate in PKCS#12 format (with password-protected private key) or PKCS#7 format.";
+                    }
+                    enum peer-certificate {
+                        value 2;
+                        description
+                            "An x509v3 certificate in PKCS#12 format (with password-protected private key).";
+                    }
+                    enum trusted-certificate {
+                        value 3;
+                        description
+                            "x509v3 PKCS#7 trusted certificate, either Root or Intermediate CA.";
+                    }
+                }
+                mandatory true;
+                description "Certificate types available for import.";
+            }
+            leaf certificate-name {
+                type ioa-common:certificate-name;
+                description "X509v3 local/peer/trusted certificate ID.";
+            }
+            leaf certificate-pem {
+                type string { length "1..81920"; }
+                mandatory true;
+                description "Certificate bytes or certificates bundle in PEM format.";
+            }
+            leaf passphrase {
+                when "../type = 'local-certificate' or ../type = 'peer-certificate'";
+                type string { length "1..1024"; }
+                mandatory true;
+                description "To decode encrypted input certificates.";
+            }
+            leaf intermediate-import {
+                type boolean;
+                default false;
+                description "Allow to import any intermediate certificates present in a PEM string bundle. If certificate-name
+                             is not provided, it will be auto-generated from the topmost certificate issuer CN plus a numeric suffix.";
+            }
+        }
+
+        output {
+            leaf import-result {
+                type string { length 0..128; }
+                description "Result of the import operation.";
+            }
+        }
+    }
+
+    rpc prepare-upgrade {
+        description "Prepares NE for upgrade";
+        input {
+            leaf option {
+                type enumeration {
+                    enum validate {
+                        value 1;
+                        description "Validate";
+                    }
+                    enum apply {
+                        value 2;
+                        description "Apply";
+                    }
+                }
+                mandatory true;
+                description "Predefined options available for prepare-upgrade";
+            }
+
+            leaf manifest {
+                type leafref {
+                    path "/ioa-ne:ne/ioa-ne:system/ioa-ne:sw-management/ioa-ne:downloads/ioa-ne:manifest/ioa-ne:manifest-file";
+                }
+                mandatory true;
+                description "manifest to be prepared for upgrade";
+            }
+
+           leaf ignore-precheck-failures {
+                type boolean;
+                default false;
+                description "Ignore validation failures.";
+            }
+
+           leaf unattended {
+                when "../option = 'apply'";
+                type boolean;
+                description "Auto activate software after prepare upgrade.";
+            }
+            uses db-action {
+                when "unattended = 'true'";
+            }
+        }
+        output {
+            leaf prepare-upgrade-result {
+                type string;
+                description "Result of the prepare-upgrade operation";
+            }
+        }
+    }
+
+    rpc activate-file {
+        description "Allows to activate a downloaded database or software image";
+        input {
+            leaf filetype {
+                type ioa-transfer:fts-filetype;
+                mandatory true;
+                description "Predefined filetype available for upload";
+            }
+
+            uses db-action {
+                when "filetype = 'swimage'";
+            }
+
+            leaf label {
+                when "../filetype = 'swimage'";
+                type string;
+                description "Label to be activated";
+            }
+
+            uses ioa-common:db-passphrase {
+                when "filetype = 'database'";
+            }
+            leaf db-instance {
+                when "../filetype = 'database'";
+                type db-instance-type;
+                default 'temp';
+                description "Database instance name to activate.";
+            }
+            leaf sanity-check-override {
+                when "../filetype = 'database' or ../filetype = 'swimage'";
+                type boolean;
+                default false;
+                description "Allows user to skip the database/swimage sanity check.";
+            }
+        }
+        output {
+            leaf activate-file-result {
+                type string;
+                description "Result of the activate-file operation";
+            }
+        }
+    }
+
+    rpc cancel-upgrade {
+        description "Cancels any active upgrade.";
+        output {
+            leaf cancel-upgrade-result {
+                type string;
+                description "Result of the cancel-upgrade operation";
+            }
+        }
+    }
+
+    // Time management RPCs
+
+    rpc set-time {
+        description "Sets system time. Only applicable when clock time-source is 'manual'.";
+        input {
+            leaf new-time {
+                type yang:date-and-time;
+                mandatory true;
+                description "Time to set in the system";
+            }
+        }
+    }
+
+    rpc password {
+        description "Allows user to change his own password.";
+        input {
+            leaf old-password {
+                type ioa-common:password;
+                mandatory true;
+                description "The current password.";
+            }
+            leaf new-password {
+                type ioa-common:password;
+                mandatory true;
+                description "The new password.";
+            }
+        }
+    }
+
+    rpc clear-recover-mode {
+        description "Clears the recover mode flag.
+                     This request will clear the recover mode flag, implicitly accepting the current configuration and
+                     returning to normal system operation.";
+    }
+
+    rpc run-task {
+        description "Forces the execution of a previously configured scheduled task.";
+        input {
+            leaf task-name {
+                type leafref {
+                    path "/ioa-ne:ne/ioa-ne:system/ioa-ne:scheduled-tasks/ioa-ne:task/ioa-ne:name";
+                }
+                mandatory true;
+                description "The task name to be executed.";
+            }
+        }
+    }
+
+    rpc take-snapshot{
+        description "Generates a snapshot of DB and/or SW and stores it in a specified location.";
+        input {
+            
+            leaf type {
+                type enumeration {
+                    enum db-backup {
+                        value 1;
+                        description "Stores the current state of the Configuration database into one of the available backup slots.";
+                    }
+                    enum system-backup {
+                        value 2;
+                        description "Perform a system backup into the chassis storage.";
+                    }
+                }
+                default db-backup;
+                description "Location where the snapshot will be stored.";
+            }
+
+            leaf db-instance {
+                when "../type = 'db-backup'";
+                type db-instance-type;
+                default 'temp';
+                description "Target db-instance name which will hold the DB snapshot.";
+            }
+
+            uses ioa-common:db-passphrase{
+                when "type = 'db-backup'";
+            }
+
+            leaf description {
+                when "../type = 'db-backup'";
+                type string { length 0..128; }
+                description "Optional description for this DB snapshot.";
+            }
+        }
+    }
+
+    rpc get-script {
+        description "Returns the existing scripts or shows existing script's content.";
+        input {
+            choice option {
+                leaf list-scripts {
+                    type empty;
+                    description "List all existing scripts.";
+                }
+
+                leaf script-name {
+                    type string;
+                    description "Get the content of an existing script. The script name is a relative path to the script directory.";
+                }
+            }
+        }
+        output {
+            list script-list {
+                key "script";
+                description "List with the existing scripts.";
+
+                leaf script {
+                    type string;
+                    description "Script name.";
+                }
+
+                leaf script-type {
+                    type string;
+                    description "Script type.";
+                }
+
+                leaf file-size {
+                    type uint16;
+                    units kb;
+                    description "Fize size.";
+                }
+
+                leaf created {
+                    type yang:date-and-time;
+                    description "Creation date.";
+                }
+
+                leaf description {
+                    type string;
+                    description "Script description defined on the begining of the file.";
+                }
+            }
+
+            leaf script-content {
+                type string;
+                description "Script content.";
+            }
+        }
+    }
+
+    rpc run-script {
+        description "Runs a previously installed script.";
+        input {
+            leaf script-name {
+                type string;
+                mandatory true;
+                description "Script absolute or relative path from the script directory.";
+            }
+
+            leaf arguments {
+                type string;
+                description "Optional arguments to the script.";
+            }
+        }
+        output {
+            leaf success {
+                type boolean;
+                description "Script was executed with success.";
+            }
+
+            leaf result {
+                type string;
+                description "Returns the output of the script.";
+            }
+        }
+    }
+
+    rpc manual-switchover {
+        description "Triggers controller switchover.";
+        input {
+            leaf resource {
+                type instance-identifier;
+                mandatory true;
+                description "Active controller card to switchover.";
+            }
+        }
+    }
+
+    rpc file-operation {
+        description "Command for basic file and directory operations.";
+        input {
+            leaf operation {
+                type enumeration {
+                    enum rename {
+                        value 1;
+                        description
+                            "Renames a file or directory.";
+                    }
+                    enum delete {
+                         value 2;
+                         description
+                            "Deletes a file.";
+                    }
+                    enum view {
+                        value 3;
+                        description
+                            "Does listing for a file or directory.";
+                    }
+                    enum sha256sum {
+                        value 4;
+                        description "Generates SHA256 hash checksum of a file.";
+                    }
+                    enum md5sum {
+                        value 5;
+                        description "Generates md5 hash checksum of a file.";
+                    }
+                }
+                description "File operations to do.";
+            }
+
+             leaf file-path {
+                type string;
+                mandatory true;
+                description "Current file path.";
+
+             }
+
+             leaf new-file-path {
+                when "../operation = 'rename'";
+                type string {
+                    pattern '[A-Za-z0-9_\-/\.]*';
+                }
+                mandatory true;
+                description "New file path.";
+             }
+        }
+        output {
+            leaf result {
+                 type string;
+                 description "The file operation result.";
+            }
+        }
+    }
+
+    rpc call-home {
+        description "Manual connection trigger to a configured dial-out-server.";
+        input {
+            leaf dial-out-server-name {
+                type leafref {
+                    path "/ioa-ne:ne/ioa-ne:system/ioa-ne:protocols/ioa-ne:dial-out-server/ioa-ne:name";
+                }
+                mandatory true;
+                description "The dial-out-server to connect to.";
+            }
+        }
+    }
+
+    rpc activate-fw {
+        description "Allows to activate a 3rd party firmware";
+        input {
+
+            leaf fw-image-name {
+                type leafref {
+                    path /ioa-ne:ne/ioa-ne:system/ioa-ne:sw-management/ioa-ne:third-party-fw/ioa-ne:fw-name;
+                }
+                mandatory true;
+                description "FW file name";
+            }
+
+            leaf-list resource {
+                type instance-identifier;
+                min-elements 1;
+                description "List of equipment to be activated.";
+            }
+       }
+    }
+
+    rpc re-key {
+        description "On-demand re-keying of a data path encryption secure entity, IKEv2 peer or an IPSec Child security association (Security Policy Database entry).";
+        reference THANOSSEC-623;
+
+        input {
+            choice re-key-type {
+                mandatory true;
+                description "The input choice for re-key";
+
+                leaf ipsec-security-association {
+                    type instance-identifier;
+                    description "Points to IPsec SPD entry object (Child SA).";
+                }
+
+                leaf ikev2-peer {
+                    type instance-identifier;
+                    description "A reference to the IKE peer object (IKE SA).";
+                }
+
+                leaf secure-entity {
+                    type instance-identifier;
+                    description "Points to secure entity object (Child SA).";
+                }
+           }
+        }
+    }
+
+    rpc re-auth {
+        description "On-demand re-authentication of IKEv2 security associations.";
+        reference THANOSSEC-620;
+        input {
+            leaf ikev2-peer {
+                type instance-identifier;
+                mandatory true;
+                description "A reference to the IKE peer object (IKE SA).";
+           }
+       }
+   }
+
+    rpc clear-diagnostics {
+        description "Command to perform maintenance and diagnostic counter clear.";
+        input {
+            leaf entity-id {
+                type instance-identifier;
+                mandatory true;
+                description "Target entity for the command. Must exist.";
+            }
+
+            leaf test-signal-direction {
+                type enumeration {
+                    enum ingress { value 1; }
+                    enum egress  { value 2; }
+                    enum auto    { value 3; }
+                }
+                default auto;
+                description "The test signal direction. If not specified, the counter for the enabled direction would be cleared.";
+            }
+        }
+    }
+
+    rpc get-file {
+        description "Returns the existing files in directory or shows existing file's content.";
+        input {
+            leaf path-name {
+                type string;
+                default "/storage";
+                description "If name is a directory, display its list, if name is a file, display its
+                             contents. The path can be relative to the /storage directory or absolute.";
+            }
+        }
+        output {
+            choice path-contents {
+                description "If path was a directory, list its contents, if it was as file,
+                             return its content unless it is a binary file";
+                list directory-list {
+                    key "path";
+                    description "List with the existing scripts.";
+
+                    leaf path {
+                        type string;
+                        description "File name.";
+                    }
+
+                    leaf path-type {
+                        type string {
+                            length "1";
+                        }
+                        description "'-' for file, 'd' for directory and 'l' for link";
+                    }
+
+                    leaf permissions {
+                        type uint16;
+                        description "Read, Write and Exec permissions for user.
+                                    Represented as the octal format of standard UNIX
+                                    ex. 775: user read/write/execute, group read/write/execute,
+                                    global read/execute.";
+                    }
+
+                    leaf size {
+                        type uint64;
+                        units bytes;
+                        description "File size.";
+                    }
+
+                    leaf last-changed {
+                        type yang:date-and-time;
+                        description "Creation date.";
+                    }
+
+                    leaf umask {
+                        type uint16;
+                        description "File creation mask. Represented as the octal
+                                    format of standard UNIX. ex. 22: group and global
+                                    will not have write permissions over newly created files";
+                    }
+                }
+
+                leaf file-content {
+                    type string;
+                    description "File content. Limited to 1MB.";
+                }
+            }
+        }
+    }
+
+    rpc apply-template {
+        description "Generic operation that applies templates of multiple types.";
+        input {
+            leaf template-type {
+                type enumeration {
+                    enum serdes-template { 
+                        value 1; 
+                        description "Applies all existing serdes-templates to the provided TOM list as the 'applicable-tom' parameter.
+                                     If no specific TOMs are provided, all TOMs are considered for template application."; 
+                    }
+                }
+                mandatory true;
+                description "The type of template to apply. Other parameters may be required depending on the template type.";
+            }
+
+            choice template-type-choice {
+                case serdes-template {
+                    description "Parameters associated with the serdes-template use-case.";
+
+                    leaf-list applicable-tom {
+                        type instance-identifier;
+                        description "List of TOMs to which to apply serdes-templates against.
+                                     If not provided (e.g. list is empty), all system TOMs will be considered for application.";
+                    }
+                }
+            }
+        }
+    }
+}

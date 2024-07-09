@@ -1,0 +1,790 @@
+{
+    "module": {
+        "@name": "iana-afn-safi",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ianaaf": "urn:ietf:params:xml:ns:yang:iana-afn-safi",
+        "namespace": {
+            "@uri": "urn:ietf:params:xml:ns:yang:iana-afn-safi"
+        },
+        "prefix": {
+            "@value": "ianaaf"
+        },
+        "organization": {
+            "text": "IANA"
+        },
+        "contact": {
+            "text": "Internet Assigned Numbers Authority\n\nPostal: ICANN\n        4676 Admiralty Way, Suite 330\n        Marina del Rey, CA 90292\n\nTel:    +1 310 823 9358\nE-Mail: iana&iana.org"
+        },
+        "description": {
+            "text": "This YANG module provides two typedefs containing YANG\ndefinitions for the following IANA-registered enumerations:\n\n- Address Family Numbers (AFN)\n\n- Subsequent Address Family Identifiers (SAFI)\n\nThe latest revision of this YANG module can be obtained from the\nIANA web site.\n\nCopyright (c) 2012 IETF Trust and the persons identified as\nauthors of the code. All rights reserved.\n\nRedistribution and use in source and binary forms, with or\nwithout modification, is permitted pursuant to, and subject to\nthe license terms contained in, the Simplified BSD License set\nforth in Section 4.c of the IETF Trust's Legal Provisions\nRelating to IETF Documents\n(http://trustee.ietf.org/license-info).\n\nThis version of this YANG module is part of RFC XXXX; see the\nRFC itself for full legal notices."
+        },
+        "revision": {
+            "@date": "2013-07-04",
+            "description": {
+                "text": "Initial revision."
+            },
+            "reference": {
+                "text": "RFC XXXX: IANA Address Family Numbers and\n          Subsequent Address Family Identifiers YANG Module"
+            }
+        },
+        "typedef": [
+            {
+                "@name": "address-family",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "ipV4",
+                            "value": {
+                                "@value": "1"
+                            },
+                            "description": {
+                                "text": "IP version 4"
+                            }
+                        },
+                        {
+                            "@name": "ipV6",
+                            "value": {
+                                "@value": "2"
+                            },
+                            "description": {
+                                "text": "IP version 6"
+                            }
+                        },
+                        {
+                            "@name": "nsap",
+                            "value": {
+                                "@value": "3"
+                            },
+                            "description": {
+                                "text": "NSAP"
+                            }
+                        },
+                        {
+                            "@name": "hdlc",
+                            "value": {
+                                "@value": "4"
+                            },
+                            "description": {
+                                "text": "HDLC (8-bit multidrop)"
+                            }
+                        },
+                        {
+                            "@name": "bbn1822",
+                            "value": {
+                                "@value": "5"
+                            },
+                            "description": {
+                                "text": "BBN 1822"
+                            }
+                        },
+                        {
+                            "@name": "all802",
+                            "value": {
+                                "@value": "6"
+                            },
+                            "description": {
+                                "text": "802 (includes all 802 media plus Ethernet 'canonical\nformat')"
+                            }
+                        },
+                        {
+                            "@name": "e163",
+                            "value": {
+                                "@value": "7"
+                            },
+                            "description": {
+                                "text": "E.163"
+                            }
+                        },
+                        {
+                            "@name": "e164",
+                            "value": {
+                                "@value": "8"
+                            },
+                            "description": {
+                                "text": "E.164 (SMDS, FrameRelay, ATM)"
+                            }
+                        },
+                        {
+                            "@name": "f69",
+                            "value": {
+                                "@value": "9"
+                            },
+                            "description": {
+                                "text": "F.69 (Telex)"
+                            }
+                        },
+                        {
+                            "@name": "x121",
+                            "value": {
+                                "@value": "10"
+                            },
+                            "description": {
+                                "text": "X.121 (X.25, Frame Relay)"
+                            }
+                        },
+                        {
+                            "@name": "ipx",
+                            "value": {
+                                "@value": "11"
+                            },
+                            "description": {
+                                "text": "IPX (Internetwork Packet Exchange)"
+                            }
+                        },
+                        {
+                            "@name": "appletalk",
+                            "value": {
+                                "@value": "12"
+                            },
+                            "description": {
+                                "text": "Appletalk"
+                            }
+                        },
+                        {
+                            "@name": "decnetIV",
+                            "value": {
+                                "@value": "13"
+                            },
+                            "description": {
+                                "text": "DECnet IV"
+                            }
+                        },
+                        {
+                            "@name": "banyanVines",
+                            "value": {
+                                "@value": "14"
+                            },
+                            "description": {
+                                "text": "Banyan Vines"
+                            }
+                        },
+                        {
+                            "@name": "e164withNsap",
+                            "value": {
+                                "@value": "15"
+                            },
+                            "description": {
+                                "text": "E.164 with NSAP format subaddress"
+                            },
+                            "reference": {
+                                "text": "ATM Forum UNI 3.1"
+                            }
+                        },
+                        {
+                            "@name": "dns",
+                            "value": {
+                                "@value": "16"
+                            },
+                            "description": {
+                                "text": "DNS (Domain Name System)"
+                            }
+                        },
+                        {
+                            "@name": "distinguishedName",
+                            "value": {
+                                "@value": "17"
+                            },
+                            "description": {
+                                "text": "Distinguished Name (per X.500)"
+                            }
+                        },
+                        {
+                            "@name": "asNumber",
+                            "value": {
+                                "@value": "18"
+                            },
+                            "description": {
+                                "text": "Autonomous System Number"
+                            }
+                        },
+                        {
+                            "@name": "xtpOverIpv4",
+                            "value": {
+                                "@value": "19"
+                            },
+                            "description": {
+                                "text": "XTP over IP version 4"
+                            }
+                        },
+                        {
+                            "@name": "xtpOverIpv6",
+                            "value": {
+                                "@value": "20"
+                            },
+                            "description": {
+                                "text": "XTP over IP version 6"
+                            }
+                        },
+                        {
+                            "@name": "xtpNativeModeXTP",
+                            "value": {
+                                "@value": "21"
+                            },
+                            "description": {
+                                "text": "XTP native mode XTP"
+                            }
+                        },
+                        {
+                            "@name": "fibreChannelWWPN",
+                            "value": {
+                                "@value": "22"
+                            },
+                            "description": {
+                                "text": "Fibre Channel World-Wide Port Name"
+                            }
+                        },
+                        {
+                            "@name": "fibreChannelWWNN",
+                            "value": {
+                                "@value": "23"
+                            },
+                            "description": {
+                                "text": "Fibre Channel World-Wide Node Name"
+                            }
+                        },
+                        {
+                            "@name": "gwid",
+                            "value": {
+                                "@value": "24"
+                            },
+                            "description": {
+                                "text": "Gateway Identifier"
+                            }
+                        },
+                        {
+                            "@name": "l2vpn",
+                            "value": {
+                                "@value": "25"
+                            },
+                            "description": {
+                                "text": "AFI for L2VPN information"
+                            },
+                            "reference": {
+                                "text": "RFC 4761: Virtual Private LAN Service (VPLS): Using BGP\nfor Auto-Discovery and Signaling\n\nRFC 6074: Provisioning, Auto-Discovery, and Signaling in\nLayer 2 Virtual Private Networks (L2VPNs)"
+                            }
+                        },
+                        {
+                            "@name": "mplsTpSectionEndpointIdentifier",
+                            "value": {
+                                "@value": "26"
+                            },
+                            "description": {
+                                "text": "MPLS-TP Section Endpoint Identifier"
+                            },
+                            "reference": {
+                                "text": "draft-ietf-mpls-gach-adv"
+                            }
+                        },
+                        {
+                            "@name": "mplsTpLspEndpointIdentifier",
+                            "value": {
+                                "@value": "27"
+                            },
+                            "description": {
+                                "text": "MPLS-TP LSP Endpoint Identifier"
+                            },
+                            "reference": {
+                                "text": "draft-ietf-mpls-gach-adv"
+                            }
+                        },
+                        {
+                            "@name": "mplsTpPseudowireEndpointIdentifier",
+                            "value": {
+                                "@value": "28"
+                            },
+                            "description": {
+                                "text": "MPLS-TP Pseudowire Endpoint Identifier"
+                            },
+                            "reference": {
+                                "text": "draft-ietf-mpls-gach-adv"
+                            }
+                        },
+                        {
+                            "@name": "eigrpCommonServiceFamily",
+                            "value": {
+                                "@value": "16384"
+                            },
+                            "description": {
+                                "text": "EIGRP Common Service Family"
+                            }
+                        },
+                        {
+                            "@name": "eigrpIpv4ServiceFamily",
+                            "value": {
+                                "@value": "16385"
+                            },
+                            "description": {
+                                "text": "EIGRP IPv4 Service Family"
+                            }
+                        },
+                        {
+                            "@name": "eigrpIpv6ServiceFamily",
+                            "value": {
+                                "@value": "16386"
+                            },
+                            "description": {
+                                "text": "EIGRP IPv6 Service Family"
+                            }
+                        },
+                        {
+                            "@name": "lispCanonicalAddressFormat",
+                            "value": {
+                                "@value": "16387"
+                            },
+                            "description": {
+                                "text": "LISP Canonical Address Format (LCAF)"
+                            }
+                        },
+                        {
+                            "@name": "bgpLs",
+                            "value": {
+                                "@value": "16388"
+                            },
+                            "description": {
+                                "text": "BGP-LS"
+                            },
+                            "reference": {
+                                "text": "draft-ietf-idr-ls-distribution"
+                            }
+                        },
+                        {
+                            "@name": "48BitMac",
+                            "value": {
+                                "@value": "16389"
+                            },
+                            "description": {
+                                "text": "48-bit MAC"
+                            },
+                            "reference": {
+                                "text": "draft-eastlake-rfc5342bis"
+                            }
+                        },
+                        {
+                            "@name": "64BitMac",
+                            "value": {
+                                "@value": "16390"
+                            },
+                            "description": {
+                                "text": "64-bit MAC"
+                            },
+                            "reference": {
+                                "text": "draft-eastlake-rfc5342bis"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "This typedef is a YANG enumeration of IANA-registered address\nfamily numbers (AFN)."
+                },
+                "reference": {
+                    "text": "IANA Address Family Numbers registry.\n<http://www.iana.org/assignments/address-family-numbers>"
+                }
+            },
+            {
+                "@name": "subsequent-address-family",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "nlriUnicast",
+                            "value": {
+                                "@value": "1"
+                            },
+                            "description": {
+                                "text": "Network Layer Reachability Information used for unicast\nforwarding"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "nlriMulticast",
+                            "value": {
+                                "@value": "2"
+                            },
+                            "description": {
+                                "text": "Network Layer Reachability Information used for multicast\nforwarding"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "nlriMpls",
+                            "value": {
+                                "@value": "4"
+                            },
+                            "description": {
+                                "text": "Network Layer Reachability Information (NLRI) with MPLS\nLabels"
+                            },
+                            "reference": {
+                                "text": "RFC 3107: Carrying Label Information in BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "mcastVpn",
+                            "value": {
+                                "@value": "5"
+                            },
+                            "description": {
+                                "text": "MCAST-VPN"
+                            },
+                            "reference": {
+                                "text": "RFC 6514: BGP Encodings and Procedures for Multicast in\nMPLS/BGP IP VPNs"
+                            }
+                        },
+                        {
+                            "@name": "nlriDynamicMsPw",
+                            "value": {
+                                "@value": "6"
+                            },
+                            "status": {
+                                "@value": "obsolete"
+                            },
+                            "description": {
+                                "text": "Network Layer Reachability Information used for Dynamic\nPlacement of Multi-Segment Pseudowires (TEMPORARY -\nExpires 2008-08-23)"
+                            },
+                            "reference": {
+                                "text": "draft-ietf-pwe3-dynamic-ms-pw: Dynamic Placement of Multi\nSegment Pseudowires"
+                            }
+                        },
+                        {
+                            "@name": "encapsulation",
+                            "value": {
+                                "@value": "7"
+                            },
+                            "description": {
+                                "text": "Encapsulation SAFI"
+                            },
+                            "reference": {
+                                "text": "RFC 5512: The BGP Encapsulation Subsequent Address Family\nIdentifier (SAFI) and the BGP Tunnel Encapsulation\nAttribute"
+                            }
+                        },
+                        {
+                            "@name": "tunnel",
+                            "value": {
+                                "@value": "64"
+                            },
+                            "status": {
+                                "@value": "obsolete"
+                            },
+                            "description": {
+                                "text": "Tunnel SAFI"
+                            },
+                            "reference": {
+                                "text": "draft-nalawade-kapoor-tunnel-safi: BGP Tunnel SAFI"
+                            }
+                        },
+                        {
+                            "@name": "vpls",
+                            "value": {
+                                "@value": "65"
+                            },
+                            "description": {
+                                "text": "Virtual Private LAN Service (VPLS)"
+                            },
+                            "reference": {
+                                "text": "RFC 4761: Virtual Private LAN Service (VPLS): Using BGP\nfor Auto-Discovery and Signaling\n\nRFC 6074: Provisioning, Auto-Discovery, and Signaling in\nLayer 2 Virtual Private Networks (L2VPNs)"
+                            }
+                        },
+                        {
+                            "@name": "bgpMdt",
+                            "value": {
+                                "@value": "66"
+                            },
+                            "description": {
+                                "text": "BGP MDT SAFI"
+                            },
+                            "reference": {
+                                "text": "RFC 6037: Cisco Systems' Solution for Multicast in\nBGP/MPLS IP VPNs"
+                            }
+                        },
+                        {
+                            "@name": "bgp4over6",
+                            "value": {
+                                "@value": "67"
+                            },
+                            "description": {
+                                "text": "BGP 4over6 SAFI"
+                            },
+                            "reference": {
+                                "text": "RFC 5747: 4over6 Transit Solution Using IP Encapsulation\nand MP-BGP Extensions"
+                            }
+                        },
+                        {
+                            "@name": "bgp6over4",
+                            "value": {
+                                "@value": "68"
+                            },
+                            "description": {
+                                "text": "BGP 6over4 SAFI"
+                            }
+                        },
+                        {
+                            "@name": "l1VpnAutoDiscovery",
+                            "value": {
+                                "@value": "69"
+                            },
+                            "description": {
+                                "text": "Layer-1 VPN auto-discovery information"
+                            },
+                            "reference": {
+                                "text": "RFC 5195: BGP-Based Auto-Discovery for Layer-1 VPNs"
+                            }
+                        },
+                        {
+                            "@name": "mplsVpn",
+                            "value": {
+                                "@value": "128"
+                            },
+                            "description": {
+                                "text": "MPLS-labeled VPN address"
+                            },
+                            "reference": {
+                                "text": "RFC 4364: BGP/MPLS IP Virtual Private Networks (VPNs)"
+                            }
+                        },
+                        {
+                            "@name": "multicastBgpMplsVpn",
+                            "value": {
+                                "@value": "129"
+                            },
+                            "description": {
+                                "text": "Multicast for BGP/MPLS IP Virtual Private Networks\n(VPNs)"
+                            },
+                            "reference": {
+                                "text": "RFC 6513: Multicast in MPLS/BGP IP VPNs\n\nRFC 6514: BGP Encodings and Procedures for Multicast in\nMPLS/BGP IP VPNs"
+                            }
+                        },
+                        {
+                            "@name": "routeTargetConstraints",
+                            "value": {
+                                "@value": "132"
+                            },
+                            "description": {
+                                "text": "Route Target constraints"
+                            },
+                            "reference": {
+                                "text": "RFC 4684: Constrained Route Distribution for Border\nGateway Protocol/MultiProtocol Label Switching (BGP/MPLS)\nInternet Protocol (IP) Virtual Private Networks (VPNs)"
+                            }
+                        },
+                        {
+                            "@name": "ipv4DissFlow",
+                            "value": {
+                                "@value": "133"
+                            },
+                            "description": {
+                                "text": "IPv4 dissemination of flow specification rules"
+                            },
+                            "reference": {
+                                "text": "RFC 5575: Dissemination of Flow Specification Rules"
+                            }
+                        },
+                        {
+                            "@name": "vpnv4DissFlow",
+                            "value": {
+                                "@value": "134"
+                            },
+                            "description": {
+                                "text": "VPNv4 dissemination of flow specification rules"
+                            },
+                            "reference": {
+                                "text": "RFC 5575: Dissemination of Flow Specification Rules"
+                            }
+                        },
+                        {
+                            "@name": "vpnAutoDiscovery",
+                            "value": {
+                                "@value": "140"
+                            },
+                            "status": {
+                                "@value": "obsolete"
+                            },
+                            "description": {
+                                "text": "VPN auto-discovery"
+                            },
+                            "reference": {
+                                "text": "draft-ietf-l3vpn-bgpvpn-auto: Using BGP as an\nAuto-Discovery Mechanism for VR-based Layer-3 VPNs"
+                            }
+                        },
+                        {
+                            "@name": "private241",
+                            "value": {
+                                "@value": "241"
+                            },
+                            "description": {
+                                "text": "Reserved for Private Use"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "private242",
+                            "value": {
+                                "@value": "242"
+                            },
+                            "description": {
+                                "text": "Reserved for Private Use"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "private243",
+                            "value": {
+                                "@value": "243"
+                            },
+                            "description": {
+                                "text": "Reserved for Private Use"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "private244",
+                            "value": {
+                                "@value": "244"
+                            },
+                            "description": {
+                                "text": "Reserved for Private Use"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "private245",
+                            "value": {
+                                "@value": "245"
+                            },
+                            "description": {
+                                "text": "Reserved for Private Use"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "private246",
+                            "value": {
+                                "@value": "246"
+                            },
+                            "description": {
+                                "text": "Reserved for Private Use"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "private247",
+                            "value": {
+                                "@value": "247"
+                            },
+                            "description": {
+                                "text": "Reserved for Private Use"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "private248",
+                            "value": {
+                                "@value": "248"
+                            },
+                            "description": {
+                                "text": "Reserved for Private Use"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "private249",
+                            "value": {
+                                "@value": "249"
+                            },
+                            "description": {
+                                "text": "Reserved for Private Use"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "private250",
+                            "value": {
+                                "@value": "250"
+                            },
+                            "description": {
+                                "text": "Reserved for Private Use"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "private251",
+                            "value": {
+                                "@value": "251"
+                            },
+                            "description": {
+                                "text": "Reserved for Private Use"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "private252",
+                            "value": {
+                                "@value": "252"
+                            },
+                            "description": {
+                                "text": "Reserved for Private Use"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "private253",
+                            "value": {
+                                "@value": "253"
+                            },
+                            "description": {
+                                "text": "Reserved for Private Use"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        },
+                        {
+                            "@name": "private254",
+                            "value": {
+                                "@value": "254"
+                            },
+                            "description": {
+                                "text": "Reserved for Private Use"
+                            },
+                            "reference": {
+                                "text": "RFC 4760: Multiprotocol Extensions for BGP-4"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "This typedef is a YANG enumeration of IANA-registered\nsubsequent address family identifiers (SAFI)."
+                },
+                "reference": {
+                    "text": "IANA SAFI Values registry.\n<http://www.iana.org/assignments/safi-namespace>"
+                }
+            }
+        ]
+    }
+}

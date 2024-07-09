@@ -1,0 +1,54 @@
+<config>
+  <ne xmlns="http://infinera.com/yang/ioa/ne">
+    <facilities>
+      <super-channel>
+        <name>SCH41</name>
+        <carrier-mode>400E.96P</carrier-mode>
+        <carriers>1-4-L1-1</carriers>
+      </super-channel>
+    </facilities>
+  </ne>
+</config>
+
+<config>
+  <ne xmlns="http://infinera.com/yang/ioa/ne">
+    <facilities>
+      <odu>
+        <name>lowerODU1</name>
+        <parent-odu>1-4-L1-1-ODUCni</parent-odu>
+        <odu-type>ODU4i</odu-type>
+        <time-slots>1..80</time-slots>
+      </odu>
+    </facilities>
+  </ne>
+</config>
+
+<config>
+  <ne xmlns="http://infinera.com/yang/ioa/ne">
+    <services>
+      <xcon>
+        <name>XCON1</name>
+        <source xmlns:ioa-ne="http://infinera.com/yang/ioa/ne">/ioa-ne:ne/ioa-ne:facilities/ioa-ne:ethernet[ioa-ne:name='1-4-T1']</source>
+        <destination xmlns:ioa-ne="http://infinera.com/yang/ioa/ne">/ioa-ne:ne/ioa-ne:facilities/ioa-ne:odu[ioa-ne:name='lowerODU1']</destination>
+        <circuit-id-suffix>CKTONE</circuit-id-suffix>
+      </xcon>
+    </services>
+  </ne>
+</config>
+
+<config>
+  <ne xmlns="http://infinera.com/yang/ioa/ne">
+    <equipment>
+      <card>
+        <name>1-4</name>
+        <port>
+          <name>T1</name>
+          <tom>
+            <required-type xmlns:gx="http://infinera.com/yang/gx">gx:QSFP28</required-type>
+            <required-subtype>TOM-100G-Q-LR4</required-subtype>
+          </tom>
+        </port>
+      </card>
+    </equipment>
+  </ne>
+</config>

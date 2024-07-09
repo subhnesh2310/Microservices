@@ -1,0 +1,76 @@
+module ioa-mc {
+    namespace "http://infinera.com/yang/ioa/mc";
+    prefix ioa-mc;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-l0 { prefix ioa-l0; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions for Media Channel (MC) facilities.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    grouping mc {
+        description "A re-usable grouping that formulates the basic MC facility structure.";
+
+        list mc {
+            key "name";
+            ordered-by "system";
+            description
+                "MC: Media Channel.
+                 A media association that represents both the topology (i.e., the path throughthe media) and the resource (i.e., frequency slot or effective frequency slot) that it occupies.
+                 In IOA, the frequency-slot is provided by the lower and upper-frequency.
+                ";
+            reference "ITU-T G.807, section 3.2.2";
+
+            uses mc-top;
+
+            leaf parent-oms {
+                type leafref {
+                    path "../../oms/name";
+                }
+                mandatory true;
+                description
+                    "Parent Media Channel. Only set by creation.
+                     The referenced supporting-card must be part of a Degree (cannot be in an ADG).
+                    ";
+            }
+
+            leaf center-frequency {
+                type ioa-l0:frequency-MHz;
+                config false;
+                description
+                    "Center Frequency of the MC, determined by the SYSTEM.";
+            }
+
+            leaf lower-frequency {
+                type ioa-l0:frequency-MHz;
+                mandatory true;
+                description "Lower Frequency of a Media Channel.";
+            }
+            leaf upper-frequency {
+                type ioa-l0:frequency-MHz;
+                mandatory true;
+                description "Upper Frequency of a Media Channel.";
+            }
+
+            leaf slot-width {
+                type ioa-l0:frequency-MHz;
+                config false;
+                description "Slot width, as calculated by the system, from upper-frequency - lower-frequency.";
+            }
+        }
+    }
+
+    grouping mc-top {
+        description "Re-usable grouping for NMC, common attributes.";
+        uses ioa-fac-common:facilities-common-attributes;
+        uses ioa-common:arc;
+    }
+}

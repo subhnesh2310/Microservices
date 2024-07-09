@@ -1,0 +1,3253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-rpc"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-rpc="http://infinera.com/yang/ioa/rpc"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+        xmlns:inet="urn:ietf:params:xml:ns:yang:ietf-inet-types"
+        xmlns:ioa-ne="http://infinera.com/yang/ioa/ne"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-cert="http://infinera.com/yang/ioa/certificate"
+        xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+        xmlns:ioa-pm="http://infinera.com/yang/ioa/pm"
+        xmlns:ioa-transfer="http://infinera.com/yang/ioa/transfer"
+        xmlns:ioa-alarm="http://infinera.com/yang/ioa/alarm">
+  <namespace uri="http://infinera.com/yang/ioa/rpc"/>
+  <prefix value="ioa-rpc"/>
+  <import module="ietf-yang-types">
+    <prefix value="yang"/>
+  </import>
+  <import module="ietf-inet-types">
+    <prefix value="inet"/>
+  </import>
+  <import module="ioa-network-element">
+    <prefix value="ioa-ne"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-certificate">
+    <prefix value="ioa-cert"/>
+  </import>
+  <import module="ietf-netconf">
+    <prefix value="nc"/>
+  </import>
+  <import module="ioa-pm">
+    <prefix value="ioa-pm"/>
+  </import>
+  <import module="ioa-transfer">
+    <prefix value="ioa-transfer"/>
+  </import>
+  <import module="ioa-alarm">
+    <prefix value="ioa-alarm"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module dedicated for Operations (YANG RPCs).</text>
+  </description>
+  <revision date="2023-03-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.1</text>
+    </description>
+  </revision>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-06-30">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.2</text>
+    </description>
+  </revision>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-09-17">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.1</text>
+    </description>
+  </revision>
+  <typedef name="db-instance-type">
+    <type name="enumeration">
+      <enum name="active">
+        <value value="1"/>
+      </enum>
+      <enum name="onehour">
+        <value value="2"/>
+      </enum>
+      <enum name="oneday">
+        <value value="3"/>
+      </enum>
+      <enum name="oneweek">
+        <value value="4"/>
+      </enum>
+      <enum name="temp">
+        <value value="5"/>
+      </enum>
+      <enum name="manual">
+        <value value="6"/>
+      </enum>
+      <enum name="rollback">
+        <value value="7"/>
+      </enum>
+    </type>
+  </typedef>
+  <rpc name="no-op">
+    <description>
+      <text>No operation - used for session keep-alive.</text>
+    </description>
+  </rpc>
+  <rpc name="default">
+    <description>
+      <text>Assign default values to the specified attributes</text>
+    </description>
+    <input>
+      <leaf-list name="entity-id">
+        <type name="instance-identifier"/>
+        <min-elements value="1"/>
+        <description>
+          <text>Instances to be defaulted.</text>
+        </description>
+      </leaf-list>
+      <leaf-list name="attribute">
+        <type name="string"/>
+        <description>
+          <text>Attribute names to be defaulted. If empty, default all entities' attributes.</text>
+        </description>
+      </leaf-list>
+    </input>
+  </rpc>
+  <rpc name="update">
+    <description>
+      <text>Updates specific object attribute(s).</text>
+    </description>
+    <input>
+      <leaf name="type">
+        <type name="enumeration">
+          <enum name="span-loss-alarm-threshold">
+            <description>
+              <text>Updates the OTS attribute span-loss-alarm-threshold</text>
+            </description>
+          </enum>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Type of update.</text>
+        </description>
+      </leaf>
+      <leaf-list name="entity-id">
+        <type name="instance-identifier"/>
+        <description>
+          <text>Instance(s) for the required update.</text>
+        </description>
+      </leaf-list>
+    </input>
+  </rpc>
+  <rpc name="clear-file">
+    <description>
+      <text>Clears file in the system.</text>
+    </description>
+    <input>
+      <leaf name="filetype">
+        <type name="ioa-transfer:fts-filetype"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Predefined filetype available for clearing the file</text>
+        </description>
+      </leaf>
+      <leaf name="target-file">
+        <when condition="../filetype != 'krp'"/>
+        <type name="string"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Filepath of the file to be deleted</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="clear-result">
+        <type name="string"/>
+        <description>
+          <text>Result of the clear operation</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="clear-app">
+    <description>
+      <text>Allows to clear 3rd party app.</text>
+    </description>
+    <input>
+      <leaf name="app-name">
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:sw-management/ioa-ne:third-party-app/ioa-ne:app-name"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Third party app name.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="clear-database">
+    <description>
+      <text>Sets NE to default by deleting the system database.
+This request will wipe the whole DB, and reboot the system.</text>
+    </description>
+    <input>
+      <leaf name="clear-type">
+        <type name="enumeration">
+          <enum name="full">
+            <value value="2"/>
+            <description>
+              <text>Full wipe of DB contents; reset to factory defaults</text>
+            </description>
+          </enum>
+          <enum name="keep-networking">
+            <value value="3"/>
+            <description>
+              <text>Full wipe of DB contents, but keep network configuration</text>
+            </description>
+          </enum>
+        </type>
+        <default value="full"/>
+        <description>
+          <text>Defines the type of 'clear database' that the system must do.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="kill-session">
+    <description>
+      <text>Forces the termination of any established session.
+Can target an session, independently on the type of management protocol.
+A user cannot use this command to kill its own session.</text>
+    </description>
+    <input>
+      <leaf name="session-id">
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:session/ioa-ne:session-id"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Identifier of the session that will be killed.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="clear-certificate">
+    <description>
+      <text>Deletes one or more trusted/local/peer certificates.</text>
+    </description>
+    <input>
+      <leaf name="type">
+        <type name="enumeration">
+          <enum name="trusted">
+            <value value="1"/>
+            <description>
+              <text>Deletes a trusted certificate.</text>
+            </description>
+          </enum>
+          <enum name="peer">
+            <value value="2"/>
+            <description>
+              <text>Deletes a peer certificate.</text>
+            </description>
+          </enum>
+          <enum name="local">
+            <value value="3"/>
+            <description>
+              <text>Deletes a local certificate.</text>
+            </description>
+          </enum>
+          <enum name="purge-all-invalid">
+            <value value="4"/>
+            <description>
+              <text>Purges all revoked, expired, and untrusted certificates.</text>
+            </description>
+          </enum>
+          <enum name="purge-expired">
+            <value value="5"/>
+            <description>
+              <text>Purges all expired certificates.</text>
+            </description>
+          </enum>
+          <enum name="purge-local-unused">
+            <value value="6"/>
+            <description>
+              <text>Purges unused local certificates.</text>
+            </description>
+          </enum>
+          <enum name="purge-peer-unused">
+            <value value="7"/>
+            <description>
+              <text>Purges unused peer certificates.</text>
+            </description>
+          </enum>
+          <enum name="purge-all-unused">
+            <value value="8"/>
+            <description>
+              <text>Purges all unused local, peer, and trusted certificates.</text>
+            </description>
+          </enum>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Defines the type of 'clear certificate' that the system must do.</text>
+        </description>
+      </leaf>
+      <leaf name="id">
+        <when condition="../type = 'trusted' or ../type = 'local' or ../type = 'peer'"/>
+        <type name="ioa-common:certificate-name"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Foreign Key pointing to the id of the certificate to delete.</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="clear-result">
+        <type name="string">
+          <length value="0..13096"/>
+        </type>
+        <description>
+          <text>Result of the clear operation.</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="display-cert">
+    <description>
+      <text>Show the details of a certificate or CSR in a human-readable form, or display a tree reflecting the
+trust-chains of one or all certificates.</text>
+    </description>
+    <input>
+      <leaf name="display-type">
+        <type name="enumeration">
+          <enum name="certificate-details">
+            <value value="1"/>
+            <description>
+              <text>Displays details of the certificate or CSR in human-readable form.</text>
+            </description>
+          </enum>
+          <enum name="certificate-hierarchy">
+            <value value="2"/>
+            <description>
+              <text>Displays a tree reflecting the trust-chain of a specified certificate.</text>
+            </description>
+          </enum>
+          <enum name="all-certificate-hierarchy">
+            <value value="3"/>
+            <description>
+              <text>Displays a tree reflecting the full trust graph including all certificates.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="certificate-details"/>
+        <description>
+          <text>Defines the requested type of display operation.</text>
+        </description>
+      </leaf>
+      <leaf name="certificate">
+        <when condition="../display-type != 'all-certificate-hierarchy'"/>
+        <type name="instance-identifier"/>
+        <description>
+          <text>The target certificate to display details or trust-chain.</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="result">
+        <type name="string"/>
+        <description>
+          <text>Certificate or CSR in text form, or tree reflecting trust-chain(s).</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="clear-crl">
+    <description>
+      <text>Deletes one or more manual or auto-downloaded Certificate Revocation Lists (CRLs).</text>
+    </description>
+    <input>
+      <leaf name="clear-target">
+        <type name="enumeration">
+          <enum name="single-crl">
+            <value value="1"/>
+            <description>
+              <text>Deletes a single CRL.</text>
+            </description>
+          </enum>
+          <enum name="purge-invalid-crls">
+            <value value="2"/>
+            <description>
+              <text>Purges all invalid CRL.</text>
+            </description>
+          </enum>
+          <enum name="purge-cached-crls">
+            <value value="3"/>
+            <description>
+              <text>Purges all CRLs that were automatically cached from a configured CDP or certificate CDP
+extension.</text>
+            </description>
+          </enum>
+          <enum name="purge-all-crls">
+            <value value="4"/>
+            <description>
+              <text>Purges all CRLs.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="single-crl"/>
+        <description>
+          <text>Defines the target CRL(s) of the clear operation.</text>
+        </description>
+      </leaf>
+      <leaf name="crl-name">
+        <when condition="../clear-target = 'single-crl'"/>
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:certificates/ioa-ne:certificate-revocation/ioa-ne:crls/ioa-ne:crl/ioa-ne:name"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Name of the CRL to delete.</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="removed-crls">
+        <type name="string">
+          <length value="0..2048"/>
+        </type>
+        <description>
+          <text>List of CRL(s) that have been removed.</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="ssh-keygen">
+    <description>
+      <text>Regenerates existing public/private host key pair for the NE's SSH based applications.
+NOTE: The on-going SSH sessions could be disconnected if the host key in use is regenerated.</text>
+    </description>
+    <input>
+      <leaf name="key-length">
+        <type name="enumeration">
+          <enum name="2048">
+            <value value="1"/>
+          </enum>
+          <enum name="3072">
+            <value value="2"/>
+          </enum>
+          <enum name="4096">
+            <value value="3"/>
+          </enum>
+          <enum name="256">
+            <value value="4"/>
+          </enum>
+          <enum name="384">
+            <value value="5"/>
+          </enum>
+          <enum name="521">
+            <value value="6"/>
+          </enum>
+        </type>
+        <default value="2048"/>
+        <description>
+          <text>Strength of the key used for regenerating the private-public key pair</text>
+        </description>
+      </leaf>
+      <leaf name="key-type">
+        <type name="ioa-cert:public-key-types"/>
+        <default value="rsa"/>
+        <description>
+          <text>Type of key to generate</text>
+        </description>
+      </leaf>
+      <leaf name="key-label">
+        <type name="string">
+          <length value="0..255"/>
+        </type>
+        <description>
+          <text>Label associated with the key. If no value provided, label will be the value of ne-id</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="cert-gen">
+    <description>
+      <text>Generates a self-signed certificate.</text>
+    </description>
+    <input>
+      <leaf name="certificate-name">
+        <type name="ioa-common:certificate-name"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Specifies the name of the certificate to be generated.</text>
+        </description>
+      </leaf>
+      <leaf name="days">
+        <type name="uint16">
+          <range value="1..36525"/>
+        </type>
+        <default value="365"/>
+        <description>
+          <text>Number of days a certificate is valid for.</text>
+        </description>
+      </leaf>
+      <leaf name="org-name">
+        <type name="string">
+          <length value="1..64"/>
+        </type>
+        <description>
+          <text>Organization Name.</text>
+        </description>
+      </leaf>
+      <leaf name="common-name">
+        <type name="string">
+          <length value="1..64"/>
+        </type>
+        <description>
+          <text>IP or hostname to identify the server.</text>
+        </description>
+      </leaf>
+      <leaf name="subject">
+        <type name="ioa-cert:cert-subject-name"/>
+        <description>
+          <text>The full certificate subject name</text>
+        </description>
+      </leaf>
+      <leaf name="auto-install">
+        <type name="boolean"/>
+        <default value="true"/>
+        <description>
+          <text>Auto-assign certificate to any secure-application without active certificate.</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="result">
+        <type name="string">
+          <length value="0..256"/>
+        </type>
+        <description>
+          <text>Output status of the self-sign process.</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="csr-gen">
+    <description>
+      <text>Generates a Certificate Signing Request based on user provided information.
+The consequence of this command is the creation of a local-certificate in the 'pending' state,
+and the output of a CSR in PKCS#10 PEM format.
+This CSR can then be used with an external Certificate Authority to produce a full certificate,
+which can then be downloaded into the system to produce a complete local-certificate.</text>
+    </description>
+    <input>
+      <leaf name="certificate-name">
+        <type name="ioa-common:certificate-name"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Specifies the name of the certificate to be generated. Using existing name implies rotation.
+NOTE: When importing the signed certificate at a later step, the exact same certificate-name needs to be used.</text>
+        </description>
+      </leaf>
+      <choice name="key-source">
+        <description>
+          <text>Provides a way to select the source for the public-private key pair to use in this CSR.
+Can select either a new key pair, or select the key pair of an existing certificate.</text>
+        </description>
+        <leaf name="key-algorithm">
+          <type name="enumeration">
+            <enum name="rsa4096">
+              <value value="1"/>
+              <description>
+                <text>RSA (Rivest-Shamir-Adleman) public-key cryptosystem algorithm with key size 4096.</text>
+              </description>
+            </enum>
+            <enum name="rsa3072">
+              <value value="2"/>
+              <description>
+                <text>RSA (Rivest-Shamir-Adleman) public-key cryptosystem algorithm with key size 3072.</text>
+              </description>
+            </enum>
+            <enum name="rsa2048">
+              <value value="3"/>
+              <description>
+                <text>RSA (Rivest-Shamir-Adleman) public-key cryptosystem algorithm with key size 2048.</text>
+              </description>
+            </enum>
+            <enum name="eccp256">
+              <value value="5"/>
+              <description>
+                <text>ECC (Elliptic Curve Cryptography) 256-bit prime field Weierstrass curve - prime256v1.</text>
+              </description>
+            </enum>
+            <enum name="eccp384">
+              <value value="6"/>
+              <description>
+                <text>ECC (Elliptic Curve Cryptography) 384-bit prime field Weierstrass curve - secp384r1.</text>
+              </description>
+            </enum>
+            <enum name="eccp521">
+              <value value="7"/>
+              <description>
+                <text>ECC (Elliptic Curve Cryptography) 521-bit prime field Weierstrass curve - ecp521r1.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="eccp256"/>
+          <description>
+            <text>Specifies the algorithm to be used for a new key pair for this CSR.</text>
+          </description>
+        </leaf>
+        <leaf name="key-from-certificate">
+          <type name="leafref">
+            <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:certificates/ioa-ne:local-certificate/ioa-ne:id"/>
+          </type>
+          <description>
+            <text>Allows to reuse the key pair from an existing local-certificate.</text>
+          </description>
+        </leaf>
+      </choice>
+      <leaf name="signature-hash-algorithm">
+        <type name="enumeration">
+          <enum name="sha256">
+            <value value="1"/>
+            <description>
+              <text>Secure Hash Algorithm 2, digest size 256 bits.</text>
+            </description>
+          </enum>
+          <enum name="sha384">
+            <value value="2"/>
+            <description>
+              <text>Secure Hash Algorithm 2, digest size 384 bits.</text>
+            </description>
+          </enum>
+          <enum name="sha512">
+            <value value="3"/>
+            <description>
+              <text>Secure Hash Algorithm 2, digest size 512 bits.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="sha512"/>
+        <description>
+          <text>Hash algorithm to be used. Default value depends on the selected key-algorithm.</text>
+        </description>
+      </leaf>
+      <leaf name="metadata-template">
+        <type name="enumeration">
+          <enum name="from-existing-certificate">
+            <value value="1"/>
+            <description>
+              <text>Metadata is provided/copied from existing a certificate.</text>
+            </description>
+          </enum>
+          <enum name="from-openssl-cnf">
+            <value value="2"/>
+            <description>
+              <text>Metadata is provided from an openssl .cnf file.</text>
+            </description>
+          </enum>
+          <enum name="generic">
+            <value value="3"/>
+            <description>
+              <text>Metadata intended for a large variety of applications and scenarios.</text>
+            </description>
+          </enum>
+          <enum name="generic-tls-server">
+            <value value="4"/>
+            <description>
+              <text>Metadata intended for a server secure-application.</text>
+            </description>
+          </enum>
+          <enum name="generic-tls-client">
+            <value value="5"/>
+            <description>
+              <text>Metadata intended for a client secure-application.</text>
+            </description>
+          </enum>
+          <enum name="generic-ikev2-identity">
+            <value value="6"/>
+            <description>
+              <text>Metadata intended for ikev2 node identity.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="generic"/>
+        <description>
+          <text>Selects the possible sources for the CSR metadata, including reusing it from
+an existing certificate, loading from an openssl cnf file, or using a generic template which
+defines the metadata defaults.
+In all cases except for 'from-openssl-cnf', it is possible to override the metadata individual
+parameters by providing the metadata parameters (subject, SAN, etc) explicitly.</text>
+        </description>
+      </leaf>
+      <leaf name="metadata-from-certificate">
+        <when condition="../metadata-template = 'from-existing-certificate'"/>
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:certificates/ioa-ne:local-certificate/ioa-ne:id"/>
+        </type>
+        <description>
+          <text>A local-certificate id to be used as metadata source. Metadata details can be overridden separately.</text>
+        </description>
+      </leaf>
+      <leaf name="metadata-from-cnf">
+        <when condition="../metadata-template = 'from-openssl-cnf'"/>
+        <type name="string">
+          <length value="0..4096"/>
+        </type>
+        <description>
+          <text>Multi-line string input of cnf with metadata. Metadata details can be overridden separately.</text>
+        </description>
+        <reference>
+          <text>https://www.openssl.org/docs/man1.0.2/man1/openssl-req.html</text>
+        </reference>
+      </leaf>
+      <leaf name="subject">
+        <when condition="../metadata-template != 'from-openssl-cnf'"/>
+        <type name="ioa-cert:cert-subject-name"/>
+        <description>
+          <text>The certificate subject. The common name (CN) RDN is *mandatory*. Each relative DN must have a prefix slash (/).
+Example a minimal valid subject (contains CN only):
+   '/CN=Infinera'
+An example with all supported RDN fields:
+   '/CN=InfineraRoot/C=US/ST=California/L=Sunnyvale/O=InfineraCorporation/OU=InfineraR&amp;D'</text>
+        </description>
+      </leaf>
+      <leaf name="SAN">
+        <when condition="../metadata-template != 'from-openssl-cnf'"/>
+        <type name="string">
+          <length value="0..1024"/>
+        </type>
+        <description>
+          <text>The certificate SAN (Subject Alternate Name) fields.
+SANs are specified as Type-Value comma separated list. Valid types are 'IP', 'DNS' and 'otherName'.
+Examples: SAN='IP:127.0.0.1,DNS:localhost'
+ SAN='dns:GX-10-4,otherName:1.3.6.1.4.1.21296.1.2.2.1.2;UTF8:GX-10-4'</text>
+        </description>
+      </leaf>
+      <leaf-list name="key-usage">
+        <when condition="../metadata-template != 'from-openssl-cnf'"/>
+        <type name="ioa-cert:key-usage-type"/>
+        <description>
+          <text>The Key Usage type(s) for the certificate.
+Default is derived from the metadata-template parameter.</text>
+        </description>
+      </leaf-list>
+      <leaf-list name="extended-key-usage">
+        <when condition="../metadata-template != 'from-openssl-cnf'"/>
+        <type name="ioa-cert:extended-key-usage-type"/>
+        <description>
+          <text>The Extended Key Usage type(s) for the certificate.
+Default is derived from the metadata-template parameter.</text>
+        </description>
+      </leaf-list>
+    </input>
+    <output>
+      <leaf name="csr-bytes">
+        <type name="string">
+          <length value="0..8192"/>
+        </type>
+        <description>
+          <text>PKCS#10 output of the CSR process in PEM format.</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="diff">
+    <description>
+      <text>Performs a diff between the candidate and current configurations.
+Provides output as a list a differences. By using the table-view parameter, the output is displayed
+in table format, for northbound protocols that support such visualization.</text>
+    </description>
+    <input>
+      <leaf name="candidate">
+        <if-feature name="nc:candidate"/>
+        <type name="empty"/>
+        <mandatory value="true"/>
+        <description>
+          <text>The candidate datastore configuration.</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <anyxml name="differences">
+        <description>
+          <text>
+List of differences between the rollback point and the current system configuration.
+Is composedsubset that matches the running datastore hierarchy, annotated with two metadata attributes:
+- old-value, which in case of attribute value changes, represents the old value of the attribute.
+- operation, which represent MO creation and deletion in the context of the diff
+Both old-value and operation are metadata annotations in accordance to RFC7952, and are qualified with the
+same namespace as the datastore they are related with.
+As such, these annotations will be encoded in XML/JSON in accordance to RFC7952.</text>
+        </description>
+      </anyxml>
+    </output>
+  </rpc>
+  <rpc name="cli-command">
+    <description>
+      <text>Runs one or more CLI commands via YANG RPC.
+Note: Execution is synchronous, so executing long scripts may take a while.
+      Please consider that when selecting the timeout for this RPC.</text>
+    </description>
+    <input>
+      <choice name="source">
+        <mandatory value="true"/>
+        <description>
+          <text>The source of the CLI commands to execute: a script, or an RPC input</text>
+        </description>
+        <leaf name="script-file">
+          <type name="string"/>
+          <description>
+            <text>The filepath of the previously downloaded CLI script</text>
+          </description>
+        </leaf>
+        <leaf name="commands">
+          <type name="string"/>
+          <description>
+            <text>CLI commands to execute; multiple commands can be provided, one per line</text>
+          </description>
+        </leaf>
+      </choice>
+      <leaf name="echo">
+        <type name="enumeration">
+          <enum name="on">
+            <value value="1"/>
+          </enum>
+          <enum name="off">
+            <value value="2"/>
+          </enum>
+        </type>
+        <default value="on"/>
+        <description>
+          <text>If echo on, result includes commands and their output;
+otherwise it will only include the commands output</text>
+        </description>
+      </leaf>
+      <leaf name="error-option">
+        <type name="enumeration">
+          <enum name="stop-on-error">
+            <value value="1"/>
+            <description>
+              <text>The server will stop on errors.</text>
+            </description>
+          </enum>
+          <enum name="continue-on-error">
+            <value value="2"/>
+            <description>
+              <text>The server may continue on errors.</text>
+            </description>
+          </enum>
+          <enum name="rollback-on-error">
+            <value value="3"/>
+            <description>
+              <text>The server will roll back on errors (all-or-nothing behavior)</text>
+            </description>
+          </enum>
+        </type>
+        <default value="continue-on-error"/>
+        <description>
+          <text>How the command execution should behave when errors occur.</text>
+        </description>
+      </leaf>
+      <leaf name="replace">
+        <type name="boolean"/>
+        <default value="false"/>
+        <description>
+          <text>If true, it tries to push the entire script/commands as a replace operation</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="result">
+        <type name="string"/>
+        <description>
+          <text>Output of the CLI script</text>
+        </description>
+      </leaf>
+      <leaf name="error-location">
+        <type name="uint16"/>
+        <description>
+          <text>Line number that locates the command that caused the error.
+If no error occurred, this output parameter is omitted.
+If multiple errors occur, show only the first command that caused the error.</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="install-krp">
+    <description>
+      <text>Install key replacement package (KRP)</text>
+    </description>
+    <input>
+      <leaf name="krp-name">
+        <type name="string"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Key replacement package name</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="install-krp-result">
+        <type name="string"/>
+        <description>
+          <text>Result of the install-krp operation</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="delete-isk">
+    <description>
+      <text>Delete Image Signing Key (ISK) from the system</text>
+    </description>
+    <input>
+      <leaf name="key-name">
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:image-keys/ioa-ne:ISKs/ioa-ne:ISK/ioa-ne:key-name"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Image Signing Key (ISK) name</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="delete-isk-result">
+        <type name="string"/>
+        <description>
+          <text>Result of the delete-isk operation</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="get-log">
+    <description>
+      <text>Generic Log reader, that provides log content as a response.
+Note: providing a large amount of text via a RPC is not an ideal solution, so the output is restricted to 10000 entries.
+Please use the 'upload' RPC for getting the entire log content without restrictions.</text>
+    </description>
+    <input>
+      <leaf name="log-file-name">
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:syslog/ioa-ne:log-file/ioa-ne:name"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>The log file to read; must match a currently configured log-file.</text>
+        </description>
+      </leaf>
+      <leaf name="start-time">
+        <type name="yang:date-and-time"/>
+        <description>
+          <text>Returns log entries starting from this timestamp.
+If not provided, consider the oldest available logs.</text>
+        </description>
+      </leaf>
+      <leaf name="end-time">
+        <type name="yang:date-and-time"/>
+        <description>
+          <text>Returns log entries ending at this timestamp.
+If not provided, consider all the logs until the most recent timestamp.</text>
+        </description>
+      </leaf>
+      <leaf name="number-of-entries">
+        <type name="union">
+          <type name="enumeration">
+            <enum name="all">
+              <value value="1"/>
+              <description>
+                <text>Maximum number of logs that can be sent with this RPC (10000).</text>
+              </description>
+            </enum>
+            <enum name="all-since-last-reboot">
+              <value value="2"/>
+              <description>
+                <text>Maximum number of logs that can be sent with this RPC (10000), starting only in last reboot timestamp.</text>
+              </description>
+            </enum>
+          </type>
+          <type name="uint32">
+            <range value="1..10000"/>
+          </type>
+        </type>
+        <default value="500"/>
+        <description>
+          <text>Describes the amount of log entries that are to be returned. </text>
+        </description>
+      </leaf>
+      <leaf name="pattern-match">
+        <type name="string"/>
+        <description>
+          <text>Allows to provide a regex that filters log entries.</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="log-entries">
+        <type name="string"/>
+        <description>
+          <text>The resulting log entries.</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="clear-log">
+    <description>
+      <text>Allows to clear the content of a log file</text>
+    </description>
+    <input>
+      <leaf name="log-file-name">
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:syslog/ioa-ne:log-file/ioa-ne:name"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>The log file to clear; file will still exist, but with empty content.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="change-ztp-mode">
+    <description>
+      <text>Enable/disable ztp-mode and optionally reset the configuration database to factory default.</text>
+    </description>
+    <input>
+      <leaf name="ztp-mode">
+        <type name="enumeration">
+          <enum name="disabled">
+            <value value="0"/>
+          </enum>
+          <enum name="enabled">
+            <value value="1"/>
+          </enum>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Selects new ztp mode.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="enable-led">
+    <description>
+      <text>Enables a location led test in a chassis or a card.</text>
+    </description>
+    <input>
+      <leaf name="entity">
+        <type name="instance-identifier"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Targets a specific entity in the system for enabling its location led test.
+Can be a chassis or a card.</text>
+        </description>
+      </leaf>
+      <leaf name="timeout">
+        <type name="uint16">
+          <range value="0..120"/>
+        </type>
+        <units name="seconds"/>
+        <default value="0"/>
+        <description>
+          <text>Specify the timeout, in seconds, before enable-led terminates.
+0 means no timeout.</text>
+        </description>
+      </leaf>
+      <leaf name="led-mode">
+        <type name="enumeration">
+          <enum name="flash">
+            <value value="0"/>
+            <description>
+              <text>Led color flashing.</text>
+            </description>
+          </enum>
+          <enum name="solid">
+            <value value="1"/>
+            <description>
+              <text>Led color solid.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="flash"/>
+        <description>
+          <text>Selects the led flash pattern.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="disable-led">
+    <description>
+      <text>Disables any LED test that was initiated with the enable-led command.</text>
+    </description>
+    <input>
+      <leaf name="entity">
+        <type name="instance-identifier"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Targets a specific entity in the system for having its location led test disabled.
+Can be a chassis or a card.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="start-otdr-measurement">
+    <description>
+      <text>OTDR will initiate a new test for measurement.</text>
+    </description>
+    <input>
+      <leaf name="entity">
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:facilities/ioa-ne:otdr-ptp/ioa-ne:name"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Targets a specific otdr port in the system to start new test measurement.</text>
+        </description>
+      </leaf>
+      <leaf name="otdr-file-prefix">
+        <type name="string">
+          <length value="0..256"/>
+        </type>
+        <description>
+          <text>Indicating the file name prefix of the current OTDR test result. If not specified, ne-name will be used.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="stop-otdr-measurement">
+    <description>
+      <text>OTDR will stop the test for measurement if running.</text>
+    </description>
+    <input>
+      <leaf name="entity">
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:facilities/ioa-ne:otdr-ptp/ioa-ne:name"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Targets a specific otdr port in the system to stop the test for measurement if running.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="simulate">
+    <description>
+      <text>Generic command that triggers simulated events in the system (alarms, equipment, etc)</text>
+    </description>
+    <input>
+      <leaf name="trigger">
+        <type name="enumeration">
+          <enum name="raise-alarm">
+            <value value="1"/>
+            <description>
+              <text>Simulates the raising of an alarm.</text>
+            </description>
+          </enum>
+          <enum name="clear-alarm">
+            <value value="2"/>
+            <description>
+              <text>Clears a simulated alarm.</text>
+            </description>
+          </enum>
+          <enum name="plug-in-fru">
+            <value value="3"/>
+            <description>
+              <text>Simulates the plugin of equipment.</text>
+            </description>
+          </enum>
+          <enum name="plug-out-fru">
+            <value value="4"/>
+            <description>
+              <text>Simulates the plugout of equipment.</text>
+            </description>
+          </enum>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>The alarm event trigger to simulate.</text>
+        </description>
+      </leaf>
+      <choice name="simulation-type">
+        <case name="equipment">
+          <when condition="trigger = 'plug-in-fru' or trigger = 'plug-out-fru'"/>
+          <leaf name="holder-AID">
+            <type name="string">
+              <length value="1..64"/>
+            </type>
+            <mandatory value="true"/>
+            <description>
+              <text>AID of the equipment holder (slot or port) where the equipment will be simulated.</text>
+            </description>
+          </leaf>
+          <leaf name="type">
+            <type name="string"/>
+            <mandatory value="true"/>
+            <description>
+              <text>The type of the equipment to be simulated.</text>
+            </description>
+          </leaf>
+          <leaf name="subtype">
+            <type name="string"/>
+            <description>
+              <text>The subtype of the equipment to be simulated.</text>
+            </description>
+          </leaf>
+        </case>
+        <case name="alarm">
+          <when condition="trigger = 'raise-alarm' or trigger = 'clear-alarm'"/>
+          <leaf name="alarmed-entity">
+            <type name="instance-identifier"/>
+            <mandatory value="true"/>
+            <description>
+              <text>The entity affected by the alarm; if ommitted when clearing alarms, all simulated alarms are cleared.</text>
+            </description>
+          </leaf>
+          <leaf name="alarm-type">
+            <type name="identityref">
+              <base name="ioa-alarm:ALARM-TYPE"/>
+            </type>
+            <mandatory value="true"/>
+            <description>
+              <text>The alarm type to be simulated; if ommitted when clearing alarms, all simulated alarms are cleared.</text>
+            </description>
+          </leaf>
+          <leaf name="alarm-direction">
+            <type name="union">
+              <type name="ioa-alarm:direction"/>
+              <type name="enumeration">
+                <enum name="auto">
+                  <value value="5"/>
+                  <description>
+                    <text>Direction is selected automatically.</text>
+                  </description>
+                </enum>
+              </type>
+            </type>
+            <default value="auto"/>
+            <description>
+              <text>The direction of the simulated alarm. If ommitted, system selects direction automatically.</text>
+            </description>
+          </leaf>
+          <leaf name="alarm-location">
+            <type name="union">
+              <type name="ioa-alarm:location"/>
+              <type name="enumeration">
+                <enum name="auto">
+                  <value value="5"/>
+                  <description>
+                    <text>Location is selected automatically.</text>
+                  </description>
+                </enum>
+              </type>
+            </type>
+            <default value="auto"/>
+            <description>
+              <text>The location of the simulated alarm. If ommitted, system selects location automatically.</text>
+            </description>
+          </leaf>
+        </case>
+      </choice>
+    </input>
+  </rpc>
+  <rpc name="restart">
+    <description>
+      <text>Restarts a specific resource of the system.
+Supports restarting of:
+- card
+- card sub-component (e.g. DCO)
+- tom</text>
+    </description>
+    <input>
+      <leaf name="resource">
+        <type name="instance-identifier"/>
+        <description>
+          <text>Resource to restart.
+If not provided, by default restarts the node controller.</text>
+        </description>
+      </leaf>
+      <leaf name="type">
+        <type name="enumeration">
+          <enum name="warm">
+            <value value="1"/>
+            <description>
+              <text>Warm starts a FRU</text>
+            </description>
+          </enum>
+          <enum name="cold">
+            <value value="2"/>
+            <description>
+              <text>Cold reboots a FRU.</text>
+            </description>
+          </enum>
+          <enum name="shutdown">
+            <value value="3"/>
+            <description>
+              <text>Shuts down a FRU for controlled removal.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="warm"/>
+        <description>
+          <text>Restart type</text>
+        </description>
+      </leaf>
+      <leaf name="sub-component">
+        <type name="string"/>
+        <description>
+          <text>Allows to target a card sub-component to restart.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="appctl">
+    <description>
+      <text>Control command for third party applications.</text>
+    </description>
+    <input>
+      <leaf name="command">
+        <type name="enumeration">
+          <enum name="restart">
+            <value value="1"/>
+            <description>
+              <text>Restarts the third party application.</text>
+            </description>
+          </enum>
+          <enum name="netls">
+            <value value="2"/>
+            <description>
+              <text>Shows the list of subnet networks used by the containers.</text>
+            </description>
+          </enum>
+          <enum name="exec">
+            <value value="3"/>
+            <description>
+              <text> execute third party application operation in  params</text>
+            </description>
+          </enum>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Application control commands.</text>
+        </description>
+      </leaf>
+      <leaf name="app-name">
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:sw-management/ioa-ne:third-party-app/ioa-ne:app-name"/>
+        </type>
+        <description>
+          <text>Third party app name.</text>
+        </description>
+      </leaf>
+      <leaf name="target">
+        <type name="union">
+          <type name="enumeration">
+            <enum name="system">
+              <value value="1"/>
+              <description>
+                <text>Command will be executed for the entire system.</text>
+              </description>
+            </enum>
+          </type>
+          <type name="string"/>
+        </type>
+        <default value="system"/>
+        <description>
+          <text>Entire system or chassis/card AID.</text>
+        </description>
+      </leaf>
+      <leaf-list name="parameters">
+        <when condition="../command = 'restart' or ../command = 'exec'"/>
+        <type name="string"/>
+        <max-elements value="50"/>
+        <description>
+          <text>Optional parameters to be passed in the command.</text>
+        </description>
+      </leaf-list>
+    </input>
+    <output>
+      <leaf name="appctl-result">
+        <type name="string"/>
+        <description>
+          <text>Result of appctl command action.</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="ping">
+    <description>
+      <text>Sends an echo message to another TCP/IP node to determine if the node is visible on the network.</text>
+    </description>
+    <input>
+      <leaf name="ping-count">
+        <type name="uint8">
+          <range value="1..100"/>
+        </type>
+        <default value="4"/>
+        <description>
+          <text>Stops after sending 'count' ECHO_REQUEST packets.</text>
+        </description>
+      </leaf>
+      <leaf name="ping-timeout">
+        <type name="uint16">
+          <range value="1..20"/>
+        </type>
+        <units name="seconds"/>
+        <default value="2"/>
+        <description>
+          <text>Specify the timeout, in seconds, before ping exits.</text>
+        </description>
+      </leaf>
+      <leaf name="ping-pktsize">
+        <type name="uint16"/>
+        <units name="bytes"/>
+        <default value="56"/>
+        <description>
+          <text>Specifies the number of bytes to be sent. Default is 56, exclusive of headers.</text>
+        </description>
+        <reference>
+          <text>THANOS-6920</text>
+        </reference>
+      </leaf>
+      <leaf name="ping-dest">
+        <type name="union">
+          <type name="inet:ipv4-address"/>
+          <type name="inet:ipv6-address"/>
+          <type name="inet:domain-name"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>IP address or FQDN of the destination node.</text>
+        </description>
+      </leaf>
+      <choice name="source">
+        <leaf name="ping-interface">
+          <type name="leafref">
+            <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:networking/ioa-ne:interface/ioa-ne:if-name"/>
+          </type>
+          <description>
+            <text>Specify source interface name</text>
+          </description>
+        </leaf>
+        <leaf name="ping-vrf">
+          <type name="string"/>
+          <default value="MGMT"/>
+          <description>
+            <text>VRF to use. If not provided, defaults to MGMT.</text>
+          </description>
+        </leaf>
+      </choice>
+    </input>
+    <output>
+      <leaf name="result">
+        <type name="string"/>
+        <description>
+          <text>Result of ping.</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="traceroute">
+    <description>
+      <text>Tracks the route packets take from an IP network on their way to a given host</text>
+    </description>
+    <input>
+      <leaf name="tr-hopcnt">
+        <type name="uint8">
+          <range value="1..255"/>
+        </type>
+        <default value="30"/>
+        <description>
+          <text>Specifies the maximum number of hops (max time-to-live value) traceroute will probe. The default is 10.</text>
+        </description>
+      </leaf>
+      <leaf name="tr-timeout">
+        <type name="uint16">
+          <range value="1..10"/>
+        </type>
+        <units name="seconds"/>
+        <default value="2"/>
+        <description>
+          <text>Specify the timeout, in seconds, before trace route exits.</text>
+        </description>
+      </leaf>
+      <leaf name="tr-dest">
+        <type name="union">
+          <type name="inet:ipv4-address"/>
+          <type name="inet:ipv6-address"/>
+          <type name="inet:domain-name"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>IPv4/v6 address or FQDN of the destination node.</text>
+        </description>
+      </leaf>
+      <leaf name="tr-pktsize">
+        <type name="uint16"/>
+        <units name="bytes"/>
+        <default value="60"/>
+        <description>
+          <text>Specifies the total  size  of  the  probing packet (default 60 bytes for IPv4).</text>
+        </description>
+      </leaf>
+      <choice name="source">
+        <leaf name="tr-interface">
+          <type name="leafref">
+            <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:networking/ioa-ne:interface/ioa-ne:if-name"/>
+          </type>
+          <description>
+            <text>Specify source interface name</text>
+          </description>
+        </leaf>
+        <leaf name="tr-vrf">
+          <type name="string"/>
+          <default value="MGMT"/>
+          <description>
+            <text>VRF to use. If not provided, defaults to MGMT.</text>
+          </description>
+        </leaf>
+      </choice>
+    </input>
+    <output>
+      <leaf name="result">
+        <type name="string"/>
+        <description>
+          <text>Result of trace route.</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="clear-ospf-instance">
+    <description>
+      <text>This RPC request restarts the OSPF instance.</text>
+    </description>
+    <input>
+      <leaf name="instance">
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:networking/ioa-ne:routing/ioa-ne:ospf-instance/ioa-ne:instance-id"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>OSPF protocol instance which need to be re-started.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="clear-topology">
+    <description>
+      <text>Allows manual removal of existing topology neighbor information.</text>
+    </description>
+    <input>
+      <leaf name="target">
+        <type name="instance-identifier"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Target instance to be cleared. May be a lldp-neighbor, a carrier-neighbor or a lldp-port-statistics instance.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="clear-system">
+    <description>
+      <text>Wipes the system/specific instance and reset to the factory configurations.</text>
+    </description>
+    <input>
+      <leaf name="type">
+        <type name="enumeration">
+          <enum name="factory-reset">
+            <value value="1"/>
+            <description>
+              <text>Reset the system or a particular equipment to factory configuration.</text>
+            </description>
+          </enum>
+          <enum name="full-wipe">
+            <value value="2"/>
+            <description>
+              <text>Clean the entire system and reinstall the SW on the controller and the line-cards.</text>
+            </description>
+          </enum>
+          <enum name="inactive">
+            <value value="3"/>
+            <description>
+              <text>Clear/copy the inactive software partition.</text>
+            </description>
+          </enum>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Clear system type.</text>
+        </description>
+      </leaf>
+      <leaf name="target">
+        <when condition="../type = 'factory-reset' or ../type = 'full-wipe'"/>
+        <type name="union">
+          <type name="enumeration">
+            <enum name="system">
+              <value value="1"/>
+              <description>
+                <text>Clean the system (main controller chassis).</text>
+              </description>
+            </enum>
+          </type>
+          <type name="string"/>
+        </type>
+        <default value="system"/>
+        <description>
+          <text>Entire system (main controller chassis) or specific chassis/card AID.</text>
+        </description>
+      </leaf>
+      <leaf name="restart-behavior">
+        <when condition="../type='factory-reset'"/>
+        <type name="enumeration">
+          <enum name="restart">
+            <value value="1"/>
+            <description>
+              <text>Restart the system after the clean.</text>
+            </description>
+          </enum>
+          <enum name="shutdown">
+            <value value="2"/>
+            <description>
+              <text>Shutdown the system after the clean.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="restart"/>
+        <description>
+          <text>Action to do after the clean operation.</text>
+        </description>
+      </leaf>
+      <leaf name="action">
+        <when condition="../type='inactive'"/>
+        <type name="enumeration">
+          <enum name="delete">
+            <value value="1"/>
+            <description>
+              <text>delete the partition.</text>
+            </description>
+          </enum>
+          <enum name="copy">
+            <value value="2"/>
+            <description>
+              <text>Action to take against the inactive partition.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="delete"/>
+        <description>
+          <text>Action to clean the partition.</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="clear-system-result">
+        <type name="string"/>
+        <description>
+          <text>Result of the clear system operation</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <grouping name="db-action">
+    <leaf name="db-action">
+      <type name="enumeration">
+        <enum name="empty-db">
+          <value value="1"/>
+          <description>
+            <text>Activate software image with empty database.</text>
+          </description>
+        </enum>
+        <enum name="upgrade-db">
+          <value value="2"/>
+          <description>
+            <text>Activate software image with upgrading the current database.</text>
+          </description>
+        </enum>
+        <enum name="rollback">
+          <value value="3"/>
+          <description>
+            <text>Rollback to previous active software image.</text>
+          </description>
+        </enum>
+      </type>
+      <default value="upgrade-db"/>
+      <description>
+        <text>Specify the expected database operation during activating software image.</text>
+      </description>
+    </leaf>
+    <leaf name="clear-type">
+      <when condition="../db-action = 'empty-db'"/>
+      <type name="enumeration">
+        <enum name="full">
+          <value value="2"/>
+          <description>
+            <text>Full wipe of DB contents; reset to factory defaults</text>
+          </description>
+        </enum>
+        <enum name="keep-networking">
+          <value value="3"/>
+          <description>
+            <text>Full wipe of DB contents, but keep network configuration</text>
+          </description>
+        </enum>
+      </type>
+      <default value="full"/>
+      <description>
+        <text>Defines the type of 'clear database' that the system must do.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <rpc name="download">
+    <description>
+      <text>Transfers a file from an external location to the NE</text>
+    </description>
+    <input>
+      <leaf name="filetype">
+        <type name="ioa-transfer:fts-filetype"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Predefined filetype available for download</text>
+        </description>
+      </leaf>
+      <choice name="target">
+        <mandatory value="true"/>
+        <description>
+          <text>Download target may be an explicit URL, or may just reference a pre-configured file-server
+together with a path.</text>
+        </description>
+        <leaf name="source">
+          <type name="string">
+            <length value="1..1024"/>
+            <pattern value="((ftp|sftp|scp|http|https|file):/)?/[^\s/$.?#].[^\s]*"/>
+          </type>
+          <mandatory value="true"/>
+          <description>
+            <text>Source of the download ([sftp|scp|http|https|ftp|file]://[user@]hostname/directorypath/filename)</text>
+          </description>
+        </leaf>
+        <case name="file-server-based">
+          <leaf name="file-server">
+            <type name="leafref">
+              <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:file-servers/ioa-ne:file-server/ioa-ne:name"/>
+            </type>
+            <mandatory value="true"/>
+            <description>
+              <text>The preconfigured file-server name.</text>
+            </description>
+          </leaf>
+          <leaf name="path">
+            <type name="string">
+              <length value="0..512"/>
+            </type>
+            <mandatory value="true"/>
+            <description>
+              <text>Path (directory and filename) of the remote file.</text>
+            </description>
+          </leaf>
+        </case>
+      </choice>
+      <leaf name="passphrase">
+        <when condition="../filetype = 'local-certificate'"/>
+        <type name="string">
+          <length value="1..1024"/>
+        </type>
+        <description>
+          <text>To decode encrypted input files.</text>
+        </description>
+      </leaf>
+      <leaf name="certificate-name">
+        <when condition="../filetype = 'local-certificate' or ../filetype = 'trusted-certificate' or ../filetype = 'peer-certificate'"/>
+        <type name="ioa-common:certificate-name"/>
+        <description>
+          <text>X509v3 local/trusted/peer certificate id.</text>
+        </description>
+      </leaf>
+      <leaf name="intermediate-import">
+        <when condition="../filetype = 'local-certificate' or ../filetype = 'trusted-certificate' or ../filetype = 'peer-certificate'"/>
+        <type name="boolean"/>
+        <default value="false"/>
+        <description>
+          <text>Allow to import any intermediate certificates present in a certificate file bundle. If certificate-name
+is not provided, it will be auto-generated from the topmost certificate Issuer CN plus a numeric suffix.</text>
+        </description>
+      </leaf>
+      <leaf name="unattended">
+        <type name="boolean"/>
+        <description>
+          <text>Auto prepare and auto activate file after a successful download.
+Only some files support 'activation'; others just ignore this flag.</text>
+        </description>
+      </leaf>
+      <leaf name="async">
+        <type name="boolean"/>
+        <description>
+          <text>Download asynchronously.</text>
+        </description>
+      </leaf>
+      <leaf name="skip-secure-verification">
+        <type name="boolean"/>
+        <description>
+          <text>For HTTPS transfers, skip TLS verification. For SCP/SFTP transfers, skip ssh known host checking.
+If flag not set, verification is done according with current security-policy.</text>
+        </description>
+      </leaf>
+      <leaf name="sanity-check-override">
+        <when condition="../filetype = 'database'"/>
+        <type name="boolean"/>
+        <default value="false"/>
+        <description>
+          <text>If true, skips the sanity check override when downloading a database snapshot.</text>
+        </description>
+      </leaf>
+      <leaf name="destination">
+        <when condition="../filetype = 'file'"/>
+        <type name="string"/>
+        <description>
+          <text>Allows user to provide the destination for the downloaded file, including directory and/or filename.
+This is only applicable when file-type is 'file', representing a generic file transfer.
+The parameter can be:
+- omitted: means file is downloaded to the default directory with the original file-name
+- a file-name only: uses default directory with the new file-name
+- a relative path: uses the default directory as starting path, plus relative path
+- an absolute path: Absolute path for the user accessible directories can be used
+It is necessary for the user to have write access to the destination path for the download to succeed.
+Tip: use 'show transfer' to see what is the default storage directory.
+For generic file transfer, no further activity occurs after download, so the 'unattended' flag will be ignored.</text>
+        </description>
+      </leaf>
+      <leaf name="password">
+        <type name="string">
+          <length value="1..255"/>
+        </type>
+        <description>
+          <text>SFTP/SCP/FTP/HTTP/HTTPS password</text>
+        </description>
+      </leaf>
+      <uses name="ioa-common:db-passphrase">
+        <when condition="filetype = 'database'"/>
+      </uses>
+      <uses name="db-action">
+        <when condition="filetype = 'swimage' and unattended = 'true'"/>
+      </uses>
+    </input>
+    <output>
+      <leaf name="download-result">
+        <type name="string"/>
+        <description>
+          <text>Result of the download operation</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="upload">
+    <description>
+      <text>Uploads files to remote server</text>
+    </description>
+    <input>
+      <leaf name="filetype">
+        <type name="ioa-transfer:fts-filetype"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Predefined filetype available for upload</text>
+        </description>
+      </leaf>
+      <choice name="target">
+        <mandatory value="true"/>
+        <description>
+          <text>Upload target may be an explicit URL, or may just reference a pre-configured file-server
+together with a path.</text>
+        </description>
+        <leaf name="destination">
+          <type name="string">
+            <length value="1..1024"/>
+            <pattern value="((ftp|sftp|scp|file|https|http):/)?/[^\s/$.?#].[^\s]*"/>
+          </type>
+          <mandatory value="true"/>
+          <description>
+            <text>Destination of the upload ([sftp|scp|ftp|https|http|file]://[user@]hostname/directorypath/filename)</text>
+          </description>
+        </leaf>
+        <case name="file-server-based">
+          <leaf name="file-server">
+            <type name="leafref">
+              <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:file-servers/ioa-ne:file-server/ioa-ne:name"/>
+            </type>
+            <mandatory value="true"/>
+            <description>
+              <text>The preconfigured file-server name.</text>
+            </description>
+          </leaf>
+          <leaf name="path">
+            <type name="string">
+              <length value="0..512"/>
+            </type>
+            <description>
+              <text>Path (directory and filename) to be used in the remote file-server.
+If not provided, the file-server initial-path is used, with system defined filename.
+If the path targets a directory (e.g. /path/ ), the filename is dynamically generated.
+Otherwise, the user defined filename may use some placeholders %t and %m (representing
+timestamp and ne-name respectively).</text>
+            </description>
+          </leaf>
+        </case>
+      </choice>
+      <leaf name="source">
+        <when condition="../filetype = 'file'"/>
+        <type name="string">
+          <length value="0..255"/>
+        </type>
+        <description>
+          <text>Allows user to provide the source for the file to be uploaded, including directory and/or filename.
+This is only applicable when file-type is 'file', representing a generic file transfer.
+Can be a path relative to the default user directory, or an absolute path - as long as
+user has access to the target file.</text>
+        </description>
+      </leaf>
+      <leaf name="async">
+        <type name="boolean"/>
+        <description>
+          <text>Uploads asynchronously.</text>
+        </description>
+      </leaf>
+      <leaf name="skip-secure-verification">
+        <type name="boolean"/>
+        <description>
+          <text>For HTTPS transfers, skip TLS verification. For SCP/SFTP transfers, skip ssh known host checking.
+If flag not set, verification is done according with current security-policy.</text>
+        </description>
+      </leaf>
+      <leaf name="debug-entity">
+        <when condition="../filetype = 'debug-log' or ../filetype = 'fdr-log' or ../filetype = 'pm-logs' or ../filetype = 'logs' or ../filetype = 'otdr-result' "/>
+        <type name="instance-identifier"/>
+        <description>
+          <text>Targets a specific entity in the system for having its Logs to be collected. Can be a chassis or a card</text>
+        </description>
+      </leaf>
+      <leaf name="password">
+        <type name="string">
+          <length value="1..255"/>
+        </type>
+        <description>
+          <text>SFTP/SCP/FTP/HTTP/HTTPS password</text>
+        </description>
+      </leaf>
+      <uses name="ioa-pm:period">
+        <when condition="filetype = 'pm-logs'"/>
+      </uses>
+      <leaf-list name="optional-content">
+        <when condition="../filetype = 'debug-log'"/>
+        <type name="string">
+          <length value="0..64"/>
+        </type>
+        <description>
+          <text>List of files to be included for debug-log upload.</text>
+        </description>
+      </leaf-list>
+      <leaf-list name="log-file-list">
+        <when condition="../filetype = 'logs'"/>
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:syslog/ioa-ne:log-file/ioa-ne:name"/>
+        </type>
+        <description>
+          <text>List of log files to be uploaded. If empty all available logs are selected.</text>
+        </description>
+      </leaf-list>
+      <leaf name="start-time">
+        <when condition="../filetype = 'logs' or ../filetype = 'pm-logs'"/>
+        <type name="union">
+          <type name="yang:date-and-time"/>
+          <type name="ioa-common:time-interval"/>
+        </type>
+        <description>
+          <text>Start time from where the logs should be collected. It can be a timestamp or
+a time interval from the actual time (now). If empty all log history is selected</text>
+        </description>
+      </leaf>
+      <leaf name="db-instance">
+        <when condition="../filetype = 'database'"/>
+        <type name="db-instance-type"/>
+        <default value="active"/>
+        <description>
+          <text>Selected DB instance</text>
+        </description>
+      </leaf>
+      <uses name="ioa-common:db-passphrase">
+        <when condition="filetype = 'database'"/>
+      </uses>
+    </input>
+    <output>
+      <leaf name="upload-result">
+        <type name="string"/>
+        <description>
+          <text>Result of the upload operation</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="import-certificate">
+    <description>
+      <text>Imports one or more certificates as a PEM format string into the NE.</text>
+    </description>
+    <input>
+      <leaf name="type">
+        <type name="enumeration">
+          <enum name="local-certificate">
+            <value value="1"/>
+            <description>
+              <text>Either an x509 certificate in PKCS#12 format (with password-protected private key) or PKCS#7 format.</text>
+            </description>
+          </enum>
+          <enum name="peer-certificate">
+            <value value="2"/>
+            <description>
+              <text>An x509v3 certificate in PKCS#12 format (with password-protected private key).</text>
+            </description>
+          </enum>
+          <enum name="trusted-certificate">
+            <value value="3"/>
+            <description>
+              <text>x509v3 PKCS#7 trusted certificate, either Root or Intermediate CA.</text>
+            </description>
+          </enum>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Certificate types available for import.</text>
+        </description>
+      </leaf>
+      <leaf name="certificate-name">
+        <type name="ioa-common:certificate-name"/>
+        <description>
+          <text>X509v3 local/peer/trusted certificate ID.</text>
+        </description>
+      </leaf>
+      <leaf name="certificate-pem">
+        <type name="string">
+          <length value="1..81920"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Certificate bytes or certificates bundle in PEM format.</text>
+        </description>
+      </leaf>
+      <leaf name="passphrase">
+        <when condition="../type = 'local-certificate'"/>
+        <type name="string">
+          <length value="1..1024"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>To decode encrypted input certificates.</text>
+        </description>
+      </leaf>
+      <leaf name="intermediate-import">
+        <type name="boolean"/>
+        <default value="false"/>
+        <description>
+          <text>Allow to import any intermediate certificates present in a PEM string bundle. If certificate-name
+is not provided, it will be auto-generated from the topmost certificate issuer CN plus a numeric suffix.</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="import-result">
+        <type name="string">
+          <length value="0..128"/>
+        </type>
+        <description>
+          <text>Result of the import operation.</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="prepare-upgrade">
+    <description>
+      <text>Prepares NE for upgrade</text>
+    </description>
+    <input>
+      <leaf name="option">
+        <type name="enumeration">
+          <enum name="validate">
+            <value value="1"/>
+            <description>
+              <text>Validate</text>
+            </description>
+          </enum>
+          <enum name="apply">
+            <value value="2"/>
+            <description>
+              <text>Apply</text>
+            </description>
+          </enum>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Predefined options available for prepare-upgrade</text>
+        </description>
+      </leaf>
+      <leaf name="manifest">
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:sw-management/ioa-ne:downloads/ioa-ne:manifest/ioa-ne:manifest-file"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>manifest to be prepared for upgrade</text>
+        </description>
+      </leaf>
+      <leaf name="ignore-precheck-failures">
+        <type name="boolean"/>
+        <default value="false"/>
+        <description>
+          <text>Ignore validation failures.</text>
+        </description>
+      </leaf>
+      <leaf name="unattended">
+        <when condition="../option = 'apply'"/>
+        <type name="boolean"/>
+        <description>
+          <text>Auto activate software after prepare upgrade.</text>
+        </description>
+      </leaf>
+      <uses name="db-action">
+        <when condition="unattended = 'true'"/>
+      </uses>
+    </input>
+    <output>
+      <leaf name="prepare-upgrade-result">
+        <type name="string"/>
+        <description>
+          <text>Result of the prepare-upgrade operation</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="activate-file">
+    <description>
+      <text>Allows to activate a downloaded database or software image</text>
+    </description>
+    <input>
+      <leaf name="filetype">
+        <type name="ioa-transfer:fts-filetype"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Predefined filetype available for upload</text>
+        </description>
+      </leaf>
+      <uses name="db-action">
+        <when condition="filetype = 'swimage'"/>
+      </uses>
+      <leaf name="label">
+        <when condition="../filetype = 'swimage'"/>
+        <type name="string"/>
+        <description>
+          <text>Label to be activated</text>
+        </description>
+      </leaf>
+      <uses name="ioa-common:db-passphrase">
+        <when condition="filetype = 'database'"/>
+      </uses>
+      <leaf name="db-instance">
+        <when condition="../filetype = 'database'"/>
+        <type name="db-instance-type"/>
+        <default value="temp"/>
+        <description>
+          <text>Database instance name to activate.</text>
+        </description>
+      </leaf>
+      <leaf name="sanity-check-override">
+        <when condition="../filetype = 'database' or ../filetype = 'swimage'"/>
+        <type name="boolean"/>
+        <default value="false"/>
+        <description>
+          <text>Allows user to skip the database/swimage sanity check.</text>
+        </description>
+      </leaf>
+      <leaf name="validate-again">
+        <when condition="../filetype = 'swimage'"/>
+        <type name="boolean"/>
+        <default value="false"/>
+        <description>
+          <text>Allows user to repeat validation check done as part of apply, before activation too.</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="activate-file-result">
+        <type name="string"/>
+        <description>
+          <text>Result of the activate-file operation</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="cancel-upgrade">
+    <description>
+      <text>Cancels any active upgrade.</text>
+    </description>
+    <output>
+      <leaf name="cancel-upgrade-result">
+        <type name="string"/>
+        <description>
+          <text>Result of the cancel-upgrade operation</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="set-time">
+    <description>
+      <text>Sets system time. Only applicable when clock time-source is 'manual'.</text>
+    </description>
+    <input>
+      <leaf name="new-time">
+        <type name="yang:date-and-time"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Time to set in the system</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="password">
+    <description>
+      <text>Allows user to change his own password.</text>
+    </description>
+    <input>
+      <leaf name="old-password">
+        <type name="ioa-common:password"/>
+        <mandatory value="true"/>
+        <description>
+          <text>The current password.</text>
+        </description>
+      </leaf>
+      <leaf name="new-password">
+        <type name="ioa-common:password"/>
+        <mandatory value="true"/>
+        <description>
+          <text>The new password.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="clear-recover-mode">
+    <description>
+      <text>Clears the recover mode flag.
+This request will clear the recover mode flag, implicitly accepting the current configuration and
+returning to normal system operation.</text>
+    </description>
+  </rpc>
+  <rpc name="run-task">
+    <description>
+      <text>Forces the execution of a previously configured scheduled task.</text>
+    </description>
+    <input>
+      <leaf name="task-name">
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:scheduled-tasks/ioa-ne:task/ioa-ne:name"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>The task name to be executed.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="take-snapshot">
+    <description>
+      <text>Generates a snapshot of DB and/or SW and stores it in a specified location.</text>
+    </description>
+    <input>
+      <leaf name="type">
+        <type name="enumeration">
+          <enum name="db-backup">
+            <value value="1"/>
+            <description>
+              <text>Stores the current state of the Configuration database into one of the available backup slots.</text>
+            </description>
+          </enum>
+          <enum name="system-backup">
+            <value value="2"/>
+            <description>
+              <text>Perform a system backup into the chassis storage.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="db-backup"/>
+        <description>
+          <text>Location where the snapshot will be stored.</text>
+        </description>
+      </leaf>
+      <leaf name="db-instance">
+        <when condition="../type = 'db-backup'"/>
+        <type name="db-instance-type"/>
+        <default value="temp"/>
+        <description>
+          <text>Target db-instance name which will hold the DB snapshot.</text>
+        </description>
+      </leaf>
+      <uses name="ioa-common:db-passphrase">
+        <when condition="type = 'db-backup'"/>
+      </uses>
+      <leaf name="description">
+        <when condition="../type = 'db-backup'"/>
+        <type name="string">
+          <length value="0..128"/>
+        </type>
+        <description>
+          <text>Optional description for this DB snapshot.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="get-script">
+    <description>
+      <text>Returns the existing scripts or shows existing script's content.</text>
+    </description>
+    <input>
+      <choice name="option">
+        <leaf name="list-scripts">
+          <type name="empty"/>
+          <description>
+            <text>List all existing scripts.</text>
+          </description>
+        </leaf>
+        <leaf name="script-name">
+          <type name="string"/>
+          <description>
+            <text>Get the content of an existing script. The script name is a relative path to the script directory.</text>
+          </description>
+        </leaf>
+      </choice>
+    </input>
+    <output>
+      <list name="script-list">
+        <key value="script"/>
+        <description>
+          <text>List with the existing scripts.</text>
+        </description>
+        <leaf name="script">
+          <type name="string"/>
+          <description>
+            <text>Script name.</text>
+          </description>
+        </leaf>
+        <leaf name="script-type">
+          <type name="string"/>
+          <description>
+            <text>Script type.</text>
+          </description>
+        </leaf>
+        <leaf name="file-size">
+          <type name="uint16"/>
+          <units name="kb"/>
+          <description>
+            <text>Fize size.</text>
+          </description>
+        </leaf>
+        <leaf name="created">
+          <type name="yang:date-and-time"/>
+          <description>
+            <text>Creation date.</text>
+          </description>
+        </leaf>
+        <leaf name="description">
+          <type name="string"/>
+          <description>
+            <text>Script description defined on the begining of the file.</text>
+          </description>
+        </leaf>
+      </list>
+      <leaf name="script-content">
+        <type name="string"/>
+        <description>
+          <text>Script content.</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="run-script">
+    <description>
+      <text>Runs a previously installed script.</text>
+    </description>
+    <input>
+      <leaf name="script-name">
+        <type name="string"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Script absolute or relative path from the script directory.</text>
+        </description>
+      </leaf>
+      <leaf name="arguments">
+        <type name="string"/>
+        <description>
+          <text>Optional arguments to the script.</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="success">
+        <type name="boolean"/>
+        <description>
+          <text>Script was executed with success.</text>
+        </description>
+      </leaf>
+      <leaf name="result">
+        <type name="string"/>
+        <description>
+          <text>Returns the output of the script.</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="manual-switchover">
+    <description>
+      <text>Triggers controller switchover.</text>
+    </description>
+    <input>
+      <leaf name="resource">
+        <type name="instance-identifier"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Active controller card to switchover.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="file-operation">
+    <description>
+      <text>Command for basic file and directory operations.</text>
+    </description>
+    <input>
+      <leaf name="operation">
+        <type name="enumeration">
+          <enum name="rename">
+            <value value="1"/>
+            <description>
+              <text>Renames a file or directory.</text>
+            </description>
+          </enum>
+          <enum name="delete">
+            <value value="2"/>
+            <description>
+              <text>Deletes a file.</text>
+            </description>
+          </enum>
+          <enum name="view">
+            <value value="3"/>
+            <description>
+              <text>Does listing for a file or directory.</text>
+            </description>
+          </enum>
+          <enum name="sha256sum">
+            <value value="4"/>
+            <description>
+              <text>Generates SHA256 hash checksum of a file.</text>
+            </description>
+          </enum>
+          <enum name="md5sum">
+            <value value="5"/>
+            <description>
+              <text>Generates md5 hash checksum of a file.</text>
+            </description>
+          </enum>
+        </type>
+        <description>
+          <text>File operations to do.</text>
+        </description>
+      </leaf>
+      <leaf name="file-path">
+        <type name="string"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Current file path.</text>
+        </description>
+      </leaf>
+      <leaf name="new-file-path">
+        <when condition="../operation = 'rename'"/>
+        <type name="string">
+          <pattern value="[A-Za-z0-9_\-/\.]*"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>New file path.</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="result">
+        <type name="string"/>
+        <description>
+          <text>The file operation result.</text>
+        </description>
+      </leaf>
+    </output>
+  </rpc>
+  <rpc name="call-home">
+    <description>
+      <text>Manual connection trigger to a configured dial-out-server.</text>
+    </description>
+    <input>
+      <leaf name="dial-out-server-name">
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:protocols/ioa-ne:dial-out-server/ioa-ne:name"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>The dial-out-server to connect to.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="activate-fw">
+    <description>
+      <text>Allows to activate a 3rd party firmware</text>
+    </description>
+    <input>
+      <leaf name="fw-image-name">
+        <type name="leafref">
+          <path value="/ioa-ne:ne/ioa-ne:system/ioa-ne:sw-management/ioa-ne:third-party-fw/ioa-ne:fw-name"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>FW file name</text>
+        </description>
+      </leaf>
+      <leaf-list name="resource">
+        <type name="instance-identifier"/>
+        <min-elements value="1"/>
+        <description>
+          <text>List of equipment to be activated.</text>
+        </description>
+      </leaf-list>
+    </input>
+  </rpc>
+  <rpc name="re-key">
+    <description>
+      <text>On-demand re-keying of a data path encryption secure entity, IKEv2 peer or an IPSec Child security association (Security Policy Database entry).</text>
+    </description>
+    <reference>
+      <text>THANOSSEC-623</text>
+    </reference>
+    <input>
+      <choice name="re-key-type">
+        <mandatory value="true"/>
+        <description>
+          <text>The input choice for re-key</text>
+        </description>
+        <leaf name="ipsec-security-association">
+          <type name="instance-identifier"/>
+          <description>
+            <text>Points to IPsec SPD entry object (Child SA).</text>
+          </description>
+        </leaf>
+        <leaf name="ikev2-peer">
+          <type name="instance-identifier"/>
+          <description>
+            <text>A reference to the IKE peer object (IKE SA).</text>
+          </description>
+        </leaf>
+        <leaf name="secure-entity">
+          <type name="instance-identifier"/>
+          <description>
+            <text>Points to secure entity object (Child SA).</text>
+          </description>
+        </leaf>
+      </choice>
+    </input>
+  </rpc>
+  <rpc name="re-auth">
+    <description>
+      <text>On-demand re-authentication of IKEv2 security associations.</text>
+    </description>
+    <reference>
+      <text>THANOSSEC-620</text>
+    </reference>
+    <input>
+      <leaf name="ikev2-peer">
+        <type name="instance-identifier"/>
+        <mandatory value="true"/>
+        <description>
+          <text>A reference to the IKE peer object (IKE SA).</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="clear-diagnostics">
+    <description>
+      <text>Command to perform maintenance and diagnostic counter clear.</text>
+    </description>
+    <input>
+      <leaf name="entity-id">
+        <type name="instance-identifier"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Target entity for the command. Must exist.</text>
+        </description>
+      </leaf>
+      <leaf name="test-signal-direction">
+        <type name="enumeration">
+          <enum name="ingress">
+            <value value="1"/>
+          </enum>
+          <enum name="egress">
+            <value value="2"/>
+          </enum>
+          <enum name="auto">
+            <value value="3"/>
+          </enum>
+        </type>
+        <default value="auto"/>
+        <description>
+          <text>The test signal direction. If not specified, the counter for the enabled direction would be cleared.</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+  <rpc name="get-file">
+    <description>
+      <text>Returns the existing files in directory or shows existing file's content.</text>
+    </description>
+    <input>
+      <leaf name="path-name">
+        <type name="string"/>
+        <default value="/storage"/>
+        <description>
+          <text>If name is a directory, display its list, if name is a file, display its
+contents. The path can be relative to the /storage directory or absolute.</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <choice name="path-contents">
+        <description>
+          <text>If path was a directory, list its contents, if it was as file,
+return its content unless it is a binary file</text>
+        </description>
+        <list name="directory-list">
+          <key value="path"/>
+          <description>
+            <text>List with the existing scripts.</text>
+          </description>
+          <leaf name="path">
+            <type name="string"/>
+            <description>
+              <text>File name.</text>
+            </description>
+          </leaf>
+          <leaf name="path-type">
+            <type name="string">
+              <length value="1"/>
+            </type>
+            <description>
+              <text>'-' for file, 'd' for directory and 'l' for link</text>
+            </description>
+          </leaf>
+          <leaf name="permissions">
+            <type name="uint16"/>
+            <description>
+              <text>Read, Write and Exec permissions for user.
+Represented as the octal format of standard UNIX
+ex. 775: user read/write/execute, group read/write/execute,
+global read/execute.</text>
+            </description>
+          </leaf>
+          <leaf name="size">
+            <type name="uint64"/>
+            <units name="bytes"/>
+            <description>
+              <text>File size.</text>
+            </description>
+          </leaf>
+          <leaf name="last-changed">
+            <type name="yang:date-and-time"/>
+            <description>
+              <text>Creation date.</text>
+            </description>
+          </leaf>
+          <leaf name="umask">
+            <type name="uint16"/>
+            <description>
+              <text>File creation mask. Represented as the octal
+format of standard UNIX. ex. 22: group and global
+will not have write permissions over newly created files</text>
+            </description>
+          </leaf>
+        </list>
+        <leaf name="file-content">
+          <type name="string"/>
+          <description>
+            <text>File content. Limited to 1MB.</text>
+          </description>
+        </leaf>
+      </choice>
+    </output>
+  </rpc>
+  <rpc name="apply-template">
+    <description>
+      <text>Generic operation that applies templates of multiple types.</text>
+    </description>
+    <input>
+      <leaf name="template-type">
+        <type name="enumeration">
+          <enum name="serdes-template">
+            <value value="1"/>
+            <description>
+              <text>Applies all existing serdes-templates to the provided TOM list as the 'applicable-tom' parameter.
+If no specific TOMs are provided, all TOMs are considered for template application.</text>
+            </description>
+          </enum>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>The type of template to apply. Other parameters may be required depending on the template type.</text>
+        </description>
+      </leaf>
+      <choice name="template-type-choice">
+        <case name="serdes-template">
+          <description>
+            <text>Parameters associated with the serdes-template use-case.</text>
+          </description>
+          <leaf-list name="applicable-tom">
+            <type name="instance-identifier"/>
+            <description>
+              <text>List of TOMs to which to apply serdes-templates against.
+If not provided (e.g. list is empty), all system TOMs will be considered for application.</text>
+            </description>
+          </leaf-list>
+        </case>
+      </choice>
+    </input>
+  </rpc>
+  <grouping name="bert-input-parameters">
+    <description>
+      <text>Set of parameters necessary to start a BERT test.</text>
+    </description>
+    <leaf name="test-signal-type">
+      <type name="enumeration">
+        <enum name="none">
+          <value value="0"/>
+        </enum>
+        <enum name="PRBS31">
+          <value value="1"/>
+        </enum>
+        <enum name="PRBS31NONINV">
+          <value value="2"/>
+        </enum>
+        <enum name="scrambled-idles">
+          <value value="3"/>
+        </enum>
+      </type>
+      <default value="none"/>
+      <description>
+        <text>Generated Signal Type for the BERT.</text>
+      </description>
+    </leaf>
+    <leaf name="test-signal-direction">
+      <type name="enumeration">
+        <enum name="na">
+          <value value="0"/>
+        </enum>
+        <enum name="ingress">
+          <value value="1"/>
+        </enum>
+        <enum name="egress">
+          <value value="2"/>
+        </enum>
+      </type>
+      <default value="na"/>
+      <description>
+        <text>Direction of the facility to which the test-pattern shall be generated.
+Mandatory except if test-signal-type is 'none'.</text>
+      </description>
+    </leaf>
+    <leaf name="test-signal-monitoring-type">
+      <type name="enumeration">
+        <enum name="none">
+          <value value="0"/>
+        </enum>
+        <enum name="PRBS31">
+          <value value="1"/>
+        </enum>
+        <enum name="PRBS31NONINV">
+          <value value="2"/>
+        </enum>
+        <enum name="scrambled-idles">
+          <value value="3"/>
+        </enum>
+        <enum name="fec-frames">
+          <value value="4"/>
+        </enum>
+      </type>
+      <default value="none"/>
+      <description>
+        <text>Monitoring Signal Type for this BERT.</text>
+      </description>
+    </leaf>
+    <leaf name="test-signal-monitoring-direction">
+      <type name="enumeration">
+        <enum name="na">
+          <value value="0"/>
+        </enum>
+        <enum name="ingress">
+          <value value="1"/>
+        </enum>
+        <enum name="egress">
+          <value value="2"/>
+        </enum>
+      </type>
+      <default value="na"/>
+      <description>
+        <text>Direction of the facility from which the test-pattern shall be monitored.
+Mandatory except if test-signal-monitoring-type is 'none'.</text>
+      </description>
+    </leaf>
+    <leaf name="test-duration">
+      <type name="union">
+        <type name="enumeration">
+          <enum name="na">
+            <value value="0"/>
+            <description>
+              <text>Test will run until user aborts.</text>
+            </description>
+          </enum>
+        </type>
+        <type name="ioa-common:time-interval"/>
+      </type>
+      <default value="na"/>
+      <description>
+        <text>Duration of the test to run.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="bert-result-parameters">
+    <description>
+      <text>Set of parameters matching a BERT test result.</text>
+    </description>
+    <leaf name="test-status">
+      <type name="enumeration">
+        <enum name="in-progress">
+          <value value="1"/>
+          <description>
+            <text>Test is in progress.</text>
+          </description>
+        </enum>
+        <enum name="completed">
+          <value value="2"/>
+          <description>
+            <text>Test Completed Sucessfully.</text>
+          </description>
+        </enum>
+        <enum name="aborted">
+          <value value="3"/>
+          <description>
+            <text>Test is aborted.</text>
+          </description>
+        </enum>
+        <enum name="preparing-to-complete">
+          <value value="4"/>
+          <description>
+            <text>Test is waiting for hold off time to stop genarated signal.</text>
+          </description>
+        </enum>
+      </type>
+      <description>
+        <text>Status of the BERT as a result of an operation trigger.</text>
+      </description>
+    </leaf>
+    <leaf name="test-result">
+      <type name="enumeration">
+        <enum name="not-applicable">
+          <value value="0"/>
+          <description>
+            <text>Result Not applicable.</text>
+          </description>
+        </enum>
+        <enum name="pass">
+          <value value="1"/>
+          <description>
+            <text>Passed the criteria for test.</text>
+          </description>
+        </enum>
+        <enum name="fail">
+          <value value="2"/>
+          <description>
+            <text>Failed the criteria for test.</text>
+          </description>
+        </enum>
+      </type>
+      <default value="not-applicable"/>
+      <description>
+        <text>The test result. Not applicable if test is still ongoing.</text>
+      </description>
+    </leaf>
+    <leaf name="start-time">
+      <type name="yang:date-and-time"/>
+      <description>
+        <text>Timestamp when the test was started.</text>
+      </description>
+    </leaf>
+    <leaf name="stop-time">
+      <type name="ioa-common:date-time-never"/>
+      <description>
+        <text>Timestamp when the test was stopped.
+Will be empty if test is still ongoing.</text>
+      </description>
+    </leaf>
+    <leaf name="cumulative-error-count">
+      <type name="uint64"/>
+      <description>
+        <text>Total number of bit errors accumulated since lock was established.</text>
+      </description>
+    </leaf>
+    <leaf name="peer-lock-established">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>Indicates whether BERT peer lock was established at least once during the test.</text>
+      </description>
+    </leaf>
+    <leaf name="peer-lock-established-time">
+      <when condition="../peer-lock-established = 'true'"/>
+      <type name="yang:date-and-time"/>
+      <description>
+        <text>The moment in time the peer-lock was first established.</text>
+      </description>
+    </leaf>
+    <leaf name="peer-lock-lost">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>Indicates whether BERT peer lock was lost at least once during the test, after
+peer-lock-established was set to true.</text>
+      </description>
+    </leaf>
+    <leaf name="peer-lock-lost-time">
+      <when condition="../peer-lock-lost = 'true'"/>
+      <type name="yang:date-and-time"/>
+      <description>
+        <text>The moment in time the peer-lock was first lost.</text>
+      </description>
+    </leaf>
+    <leaf name="peer-lock-lost-duration">
+      <type name="uint64"/>
+      <units name="seconds"/>
+      <description>
+        <text>Duration of the time window where peer lock was lost (after it was established).</text>
+      </description>
+    </leaf>
+    <leaf name="error-rate">
+      <type name="decimal64">
+        <fraction-digits value="18"/>
+      </type>
+      <description>
+        <text>Average error rate accumulated since lock was established.</text>
+      </description>
+    </leaf>
+    <leaf name="elapsed-time">
+      <type name="ioa-common:time-interval"/>
+      <description>
+        <text>Time elapsed since the test has started.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <rpc name="bert">
+    <description>
+      <text>BERT (Bit Error Rate Test) operation.</text>
+    </description>
+    <input>
+      <leaf name="operation">
+        <type name="enumeration">
+          <enum name="start">
+            <value value="1"/>
+            <description>
+              <text>Starts BERT.</text>
+            </description>
+          </enum>
+          <enum name="stop">
+            <value value="2"/>
+            <description>
+              <text>Stops ongoing BERT.</text>
+            </description>
+          </enum>
+          <enum name="get">
+            <value value="3"/>
+            <description>
+              <text>Retrieves results for one or more BERT.</text>
+            </description>
+          </enum>
+          <enum name="delete">
+            <value value="4"/>
+            <description>
+              <text>Deletes results for a completed or stopped BERT.</text>
+            </description>
+          </enum>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>BERT operation.</text>
+        </description>
+      </leaf>
+      <leaf name="test-id">
+        <type name="string">
+          <length value="1..24"/>
+          <pattern value="([A-Za-z0-9_\-*]*)"/>
+        </type>
+        <description>
+          <text>Test id for this BERT, used to perform start/stop operations for the same BERT instance.
+This parameter is optional when starting BERT operation - system will provide a generated test-id if so.
+For other operations, this parameter is mandatory.</text>
+        </description>
+      </leaf>
+      <uses name="ioa-common:resource-instance">
+        <when condition="operation != 'stop' "/>
+        <description>
+          <text>Adds parameters to identify a particular resource instance.
+Includes both an exact 'resource', or a 'resource-type' plus 'AID'.
+For the 'start' operation, these parameters are mandatory.
+For the 'get' operation, these parameters act as optional filters.
+In this situation (get), AID can be provided with wildcard to retrieve
+several records matching the pattern.</text>
+        </description>
+      </uses>
+      <uses name="bert-input-parameters">
+        <when condition="operation = 'start'"/>
+      </uses>
+    </input>
+    <output>
+      <list name="record">
+        <key value="test-id"/>
+        <description>
+          <text>Record entry. Content will depend on the operation provided.
+Full data is only provided in the 'get' operation.</text>
+        </description>
+        <leaf name="test-id">
+          <type name="string">
+            <length value="1..24"/>
+          </type>
+          <description>
+            <text>Test id of this BERT.
+If not provided as explicit input, system will generate an id automatically, and include it in the
+output of the RPC.</text>
+          </description>
+        </leaf>
+        <uses name="ioa-common:resource-instance"/>
+        <uses name="bert-input-parameters"/>
+        <uses name="bert-result-parameters"/>
+      </list>
+    </output>
+  </rpc>
+  <rpc name="status">
+    <description>
+      <text>Provides a human readable text dashboard with a summary of the system.</text>
+    </description>
+    <input>
+      <leaf name="dashboard">
+        <type name="enumeration">
+          <enum name="system">
+            <value value="1"/>
+            <description>
+              <text>System Summary dashboard.</text>
+            </description>
+          </enum>
+          <enum name="traffic">
+            <value value="2"/>
+            <description>
+              <text>Traffic Port Summary dashboard.</text>
+            </description>
+          </enum>
+          <enum name="equipment">
+            <value value="3"/>
+            <description>
+              <text>Equipment Summary dashboard.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="system"/>
+        <description>
+          <text>Type of dashboard to display. Each dashboard provides different details.
+System summary dashboard is provided by default.</text>
+        </description>
+      </leaf>
+      <leaf name="filter">
+        <when condition="../dashboard = 'traffic' or ../dashboard = 'equipment'"/>
+        <type name="string"/>
+        <description>
+          <text>For some dashboards, allows to specify an AID filter, reducing the scope of the output.
+For the 'equipment' dashboard, the filter needs to be an existing chassis id.
+For the 'traffic' dashboard, the filter can be a specific port AID, or a wildcard based AID,
+where the * needs to be the last character.
+Example: 1-4-* is allowed, but 1-*-T1 is not allowed.
+If filter is not provided, all applicable instances are provided in the dashboard output.</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <leaf name="result">
+        <type name="string"/>
+        <description>
+          <text>A human readable result containing the text based dashboard information.</text>
+        </description>
+      </leaf>
+      <list name="port-summary">
+        <key value="port-id"/>
+        <description>
+          <text>List provided when dashboard is 'traffic';
+represents traffic port summmary according with the provided filter.
+Only configured ports will appear in the list.
+Note: not applicable or not available parameters appear as '---'.</text>
+        </description>
+        <leaf name="port-id">
+          <type name="string"/>
+          <description>
+            <text>The port AID.</text>
+          </description>
+        </leaf>
+        <leaf name="mode">
+          <type name="string"/>
+          <description>
+            <text>Represents in which mode the port is; depending on the port-type, this will represent something different.</text>
+          </description>
+        </leaf>
+        <leaf name="alarms">
+          <type name="string"/>
+          <description>
+            <text>A summary view of the alarms associated with the port.
+Possible values are: 'none' if no alarms are raised, or the highest severity alarm-type (if multiple, system picks one of them).
+If more than one alarm is raised, the alarm-type is suffixed with the character '+'
+Does not include not-reported alarms.</text>
+          </description>
+        </leaf>
+        <leaf name="oper-state">
+          <type name="string"/>
+          <description>
+            <text>Can be 'ok' or 'not ok' depending on whether any facility associated with the port is disabled.</text>
+          </description>
+        </leaf>
+        <leaf name="admin-state">
+          <type name="string"/>
+          <description>
+            <text>Can be 'unlocked' or 'not ok'; if at least one of the facilities associated with the port is not unlocked,
+this value will be 'not ok'; otherwise will be 'unlocked'.</text>
+          </description>
+        </leaf>
+        <leaf name="rx-power">
+          <type name="string"/>
+          <units name="dBm"/>
+          <description>
+            <text>Received power - if applicable for this port.</text>
+          </description>
+        </leaf>
+        <leaf name="rx-frequency">
+          <type name="string"/>
+          <units name="MHz"/>
+          <description>
+            <text>Received frequency - if applicable for this port.</text>
+          </description>
+        </leaf>
+        <leaf name="osnr">
+          <type name="string"/>
+          <units name="dB"/>
+          <description>
+            <text>OSNR value - if applicable for this port.</text>
+          </description>
+        </leaf>
+        <leaf name="pre-fec-ber">
+          <type name="string"/>
+          <units name="dB"/>
+          <description>
+            <text>pre-fec-ber value - if applicable for this port.</text>
+          </description>
+        </leaf>
+        <leaf name="pre-fec-q">
+          <type name="string"/>
+          <units name="dB"/>
+          <description>
+            <text>pre-fec-q value - if applicable for this port.</text>
+          </description>
+        </leaf>
+        <leaf name="corrected-words">
+          <type name="string"/>
+          <units name="words"/>
+          <description>
+            <text>corrected-words value - if applicable for this port.</text>
+          </description>
+        </leaf>
+        <leaf name="uncorrected-words">
+          <type name="string"/>
+          <units name="words"/>
+          <description>
+            <text>uncorrected-words value - if applicable for this port.</text>
+          </description>
+        </leaf>
+        <leaf name="cd">
+          <type name="string"/>
+          <units name="ps/nm"/>
+          <description>
+            <text>cd value - if applicable for this port.</text>
+          </description>
+        </leaf>
+        <leaf name="dgd">
+          <type name="string"/>
+          <units name="ps"/>
+          <description>
+            <text>dgd value - if applicable for this port.</text>
+          </description>
+        </leaf>
+        <leaf name="tx-power">
+          <type name="string"/>
+          <units name="dBm"/>
+          <description>
+            <text>Transmitted power - if applicable for this port.</text>
+          </description>
+        </leaf>
+        <leaf name="tx-frequency">
+          <type name="string"/>
+          <units name="MHz"/>
+          <description>
+            <text>Transmitted frequency - if applicable for this port.</text>
+          </description>
+        </leaf>
+        <leaf name="bit-rate">
+          <type name="string"/>
+          <units name="Gbps"/>
+          <description>
+            <text>Bit rate - if applicable for this port.</text>
+          </description>
+        </leaf>
+        <leaf name="baud-rate">
+          <type name="string"/>
+          <units name="Gbaud"/>
+          <description>
+            <text>Baud rate - if applicable for this port.</text>
+          </description>
+        </leaf>
+        <leaf name="fec-type">
+          <type name="string"/>
+          <description>
+            <text>fec-type associated with this port if applicable.</text>
+          </description>
+        </leaf>
+        <leaf name="modulation-format">
+          <type name="string"/>
+          <description>
+            <text>modulation-format associated with this port if applicable.</text>
+          </description>
+        </leaf>
+      </list>
+    </output>
+  </rpc>
+</module>

@@ -1,0 +1,1079 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-topology"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-top="http://infinera.com/yang/ioa/topology"
+        xmlns:iana-afn-safi="urn:ietf:params:xml:ns:yang:iana-afn-safi"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+        xmlns:inet="urn:ietf:params:xml:ns:yang:ietf-inet-types">
+  <namespace uri="http://infinera.com/yang/ioa/topology"/>
+  <prefix value="ioa-top"/>
+  <import module="iana-afn-safi">
+    <prefix value="iana-afn-safi"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ietf-yang-types">
+    <prefix value="yang"/>
+  </import>
+  <import module="ietf-inet-types">
+    <prefix value="inet"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG model associated with Topology protocols and data.</text>
+  </description>
+  <revision date="2023-03-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.1</text>
+    </description>
+  </revision>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-06-30">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.2</text>
+    </description>
+  </revision>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <typedef name="lldp-sys-cap">
+    <type name="bits">
+      <bit name="other">
+        <position value="0"/>
+        <description>
+          <text>The system has capabilties other than those listed below.</text>
+        </description>
+      </bit>
+      <bit name="repeater">
+        <position value="1"/>
+        <description>
+          <text>The system has repeated capability.</text>
+        </description>
+      </bit>
+      <bit name="bridge">
+        <position value="2"/>
+        <description>
+          <text>The system has bridge capability.</text>
+        </description>
+      </bit>
+      <bit name="wlan-access-point">
+        <position value="3"/>
+        <description>
+          <text>The system has WLAN access point capability.</text>
+        </description>
+      </bit>
+      <bit name="router">
+        <position value="4"/>
+        <description>
+          <text>The system has router capability.</text>
+        </description>
+      </bit>
+      <bit name="telephone">
+        <position value="5"/>
+        <description>
+          <text>The system has telephone capability.</text>
+        </description>
+      </bit>
+      <bit name="docsis-cable-device">
+        <position value="6"/>
+        <description>
+          <text>The system has DOCSIS Cable Device capability (IETF RFC 2669 &amp; 2670).</text>
+        </description>
+      </bit>
+      <bit name="station-only">
+        <position value="7"/>
+        <description>
+          <text>The system has only station capability and nothing else.</text>
+        </description>
+      </bit>
+      <bit name="c-vlan-component">
+        <position value="8"/>
+        <description>
+          <text>The system has C-VLAN component functionality.</text>
+        </description>
+      </bit>
+      <bit name="s-vlan-component">
+        <position value="9"/>
+        <description>
+          <text>The system has S-VLAN component functionality.</text>
+        </description>
+      </bit>
+      <bit name="two-port-mac-relay">
+        <position value="10"/>
+        <description>
+          <text>The system has Two-port MAC Relay (TPMR) functionality.</text>
+        </description>
+      </bit>
+    </type>
+    <description>
+      <text>LLDP remote system capabilities bit set.</text>
+    </description>
+  </typedef>
+  <typedef name="lldp-mode">
+    <type name="enumeration">
+      <enum name="disabled">
+        <value value="0"/>
+      </enum>
+      <enum name="snoop">
+        <value value="1"/>
+      </enum>
+      <enum name="drop">
+        <value value="2"/>
+      </enum>
+      <enum name="snoop-and-drop">
+        <value value="3"/>
+      </enum>
+    </type>
+    <description>
+      <text>Mode in which LLDP is working.</text>
+    </description>
+  </typedef>
+  <typedef name="fiber-connection-type">
+    <type name="enumeration">
+      <enum name="two-way">
+        <value value="1"/>
+        <description>
+          <text>Two-way indicates the link is bi-directional.</text>
+        </description>
+      </enum>
+      <enum name="one-way">
+        <value value="2"/>
+        <description>
+          <text>One-way indicates the link is uni-directional</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Generic Link Directionality</text>
+    </description>
+  </typedef>
+  <grouping name="neighbor-info">
+    <description>
+      <text>Common parameters to all topology neighbors, independently on the discovery protocol.</text>
+    </description>
+    <leaf name="last-update">
+      <type name="yang:date-and-time"/>
+      <description>
+        <text>Timestamp with the last time this neighbor info was updated.</text>
+      </description>
+    </leaf>
+    <leaf name="age">
+      <type name="uint64"/>
+      <units name="seconds"/>
+      <description>
+        <text>Number of seconds since discovery.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="topology">
+    <container name="topology">
+      <description>
+        <text>Topology information related with this NE.</text>
+      </description>
+      <container name="lldp">
+        <description>
+          <text>Global LLDP configuration.</text>
+        </description>
+        <leaf name="hold-on-timer">
+          <type name="uint16"/>
+          <units name="seconds"/>
+          <default value="900"/>
+          <description>
+            <text>Time to keep neighbor information, in case neighbor does not have an explicit Time-To-Live (TTL) TLV.</text>
+          </description>
+        </leaf>
+        <list name="lldp-neighbor">
+          <key value="lldp-port direction"/>
+          <config value="false"/>
+          <description>
+            <text>LLDP remote system discovered by lldp-port.
+This information is kept indefinitely, until the port is decomissioned, or the
+data is manually cleared by user.</text>
+          </description>
+          <leaf name="lldp-port">
+            <type name="instance-identifier"/>
+            <description>
+              <text>Local port that is connected to this LLDP neighbor.</text>
+            </description>
+          </leaf>
+          <leaf name="direction">
+            <type name="enumeration">
+              <enum name="ingress">
+                <value value="1"/>
+              </enum>
+              <enum name="egress">
+                <value value="2"/>
+              </enum>
+            </type>
+            <description>
+              <text>Direction in which the neighbor was detected.</text>
+            </description>
+          </leaf>
+          <uses name="neighbor-info"/>
+          <leaf name="chassis-id-subtype">
+            <type name="enumeration">
+              <enum name="reserved">
+                <value value="0"/>
+                <description>
+                  <text>Represents another subtype, not covered by the other options.
+When reserved subtype is used, the chassis-id is displayed as a hex string.</text>
+                </description>
+              </enum>
+              <enum name="chassis-component">
+                <value value="1"/>
+                <description>
+                  <text>Represents a chassis identifier based on the value of entPhysicalAlias object
+(defined in IETF RFC 2737) for a chassis component (i.e., an entPhysicalClass value
+of 'chassis(3)')</text>
+                </description>
+              </enum>
+              <enum name="interface-alias">
+                <value value="2"/>
+                <description>
+                  <text>Represents a chassis identifier based on the value of ifAlias object (defined in
+IETF RFC 2863) for an interface on the containing chassis.</text>
+                </description>
+              </enum>
+              <enum name="port-component">
+                <value value="3"/>
+                <description>
+                  <text>Represents a chassis identifier based on the value of entPhysicalAlias object
+(defined in IETF RFC 2737) for a port or backplane component (i.e., entPhysicalClass
+value of 'port(10)' or 'backplane(4)'), within the containing chassis.</text>
+                </description>
+              </enum>
+              <enum name="mac-address">
+                <value value="4"/>
+                <description>
+                  <text>Represents a chassis identifier based on the value of a unicast source address
+(encoded in network byte order and IEEE 802.3 canonical bit order), of a port on
+the containing chassis as defined in IEEE Std 802-2001.</text>
+                </description>
+              </enum>
+              <enum name="network-address">
+                <value value="5"/>
+                <description>
+                  <text>Represents a chassis identifier based on a network address, associated with
+a particular chassis.  The encoded address is actually composed of two fields.
+The first field is a single octet, representing the IANA AddressFamilyNumbers
+value for the specific address type, and the second field is the network
+address value.</text>
+                </description>
+              </enum>
+              <enum name="interface-name">
+                <value value="6"/>
+                <description>
+                  <text>Represents a chassis identifier based on the value of ifName object (defined in
+IETF RFC 2863) for an interface on the containing chassis.</text>
+                </description>
+              </enum>
+              <enum name="local">
+                <value value="7"/>
+                <description>
+                  <text>Represents a chassis identifier based on a locally defined value.</text>
+                </description>
+              </enum>
+            </type>
+            <description>
+              <text>This attribute describes the format of the chassis-id string.</text>
+            </description>
+          </leaf>
+          <leaf name="chassis-id">
+            <type name="string">
+              <length value="0..255"/>
+            </type>
+            <description>
+              <text>
+This attribute identifies the chassis component withing the LLDP remote system..
+This value needs to be interpreted according with the associated chassis-id-subtype, which identifies
+the format of this value.</text>
+            </description>
+          </leaf>
+          <leaf name="port-id-subtype">
+            <type name="enumeration">
+              <enum name="interface-alias">
+                <value value="1"/>
+                <description>
+                  <text>Means that the port-id string identifies a particular instance of the ifAlias object (defined in IETF
+RFC 2863).  If the particular ifAlias object does not contain any values, another port identifier type should be used.</text>
+                </description>
+              </enum>
+              <enum name="port-component">
+                <value value="2"/>
+                <description>
+                  <text>Means that the port-id string identifies a particular instance of the entPhysicalAlias object (defined in IETF RFC 2737)
+for a port or backplane component.</text>
+                </description>
+              </enum>
+              <enum name="mac-address">
+                <value value="3"/>
+                <description>
+                  <text>Means that the port-id string identifies a particular unicast source address (encoded in network byte order
+and IEEE 802.3 canonical bit order) associated with the port (IEEE Std 802-2001).</text>
+                </description>
+              </enum>
+              <enum name="network-address">
+                <value value="4"/>
+                <description>
+                  <text>Means that the port-id string identifies a network address associated with the port. The first octet contains
+the IANA AddressFamilyNumbers enumeration value for the specific address type, and octets 2 through N contain the
+networkAddress address value in network byte order.</text>
+                </description>
+              </enum>
+              <enum name="interface-name">
+                <value value="5"/>
+                <description>
+                  <text>Means that the port-id string identifies a  particular instance of the ifName object (defined in IETF
+RFC 2863). If the particular ifName object does not contain any values, another port identifier type should be used.</text>
+                </description>
+              </enum>
+              <enum name="agent-circuit-id">
+                <value value="6"/>
+                <description>
+                  <text>Means that the port-id string identifies an agent-local identifier of the circuit (defined in RFC 3046).</text>
+                </description>
+              </enum>
+              <enum name="local">
+                <value value="7"/>
+                <description>
+                  <text>Means that the port-id string identifies a locally assigned port ID</text>
+                </description>
+              </enum>
+            </type>
+            <description>
+              <text>This attribute describes the format of the port-id string.</text>
+            </description>
+          </leaf>
+          <leaf name="port-id">
+            <type name="string">
+              <length value="0..255"/>
+            </type>
+            <description>
+              <text>
+This attribute identifies the port within the LLDP remote system chassis.
+This value needs to be interpreted according with the associated port-id-subtype, which identifies
+the format of this value.</text>
+            </description>
+          </leaf>
+          <leaf name="port-description">
+            <type name="string">
+              <length value="0..255"/>
+            </type>
+            <description>
+              <text>The string value used to identify the description of the given port associated with the remote system.</text>
+            </description>
+          </leaf>
+          <leaf name="system-name">
+            <type name="string">
+              <length value="0..255"/>
+            </type>
+            <description>
+              <text>The string value used to identify the system name of the remote system.</text>
+            </description>
+          </leaf>
+          <leaf name="system-description">
+            <type name="string">
+              <length value="0..255"/>
+            </type>
+            <description>
+              <text>The string value used to identify the system description of the remote system.</text>
+            </description>
+          </leaf>
+          <leaf name="supported-capabilities">
+            <type name="lldp-sys-cap"/>
+            <description>
+              <text>This attribute describes the remote system supported capabilities.</text>
+            </description>
+          </leaf>
+          <leaf name="enabled-capabilities">
+            <type name="lldp-sys-cap"/>
+            <description>
+              <text>This attribute describes the remote system enabled capabilities.</text>
+            </description>
+          </leaf>
+          <leaf name="ttl">
+            <type name="uint32"/>
+            <units name="seconds"/>
+            <description>
+              <text>Remote system info Time-To-Live (TTL); the number of seconds until information expires.
+If the remote system deosn't provide a ttl value, this parameter is set to the global hold-on-timer.</text>
+            </description>
+          </leaf>
+          <list name="management-address">
+            <key value="address-subtype address"/>
+            <description>
+              <text>Management address information about a particular chassis
+component.  There may be multiple management addresses
+configured on the remote system identified by a particular
+index whose information is received on the local system.
+Each management address should have distinct 'management address
+type' (subtype) and 'management address' (address).</text>
+            </description>
+            <leaf name="address-subtype">
+              <type name="iana-afn-safi:address-family"/>
+              <description>
+                <text>
+The type of management address identifier encoding used in the associated 'address' attribute.</text>
+              </description>
+            </leaf>
+            <leaf name="address">
+              <type name="string">
+                <length value="0..64"/>
+              </type>
+              <description>
+                <text>
+The string value used to identify the management address component associated with the remote system.  The purpose
+of this address is to contact the management entity.</text>
+              </description>
+            </leaf>
+            <leaf name="if-subtype">
+              <type name="enumeration">
+                <enum name="unknown">
+                  <value value="1"/>
+                  <description>
+                    <text>Interface is not known</text>
+                  </description>
+                </enum>
+                <enum name="if-index">
+                  <value value="2"/>
+                  <description>
+                    <text>Interface identifier based on the ifIndex MIB object.</text>
+                  </description>
+                </enum>
+                <enum name="system-port-number">
+                  <value value="3"/>
+                  <description>
+                    <text>Interface identifier based on the system port numbering convetion.</text>
+                  </description>
+                </enum>
+              </type>
+              <description>
+                <text>
+This attribute describes the basis of a particular type of
+interface associated with the management address.</text>
+              </description>
+            </leaf>
+            <leaf name="if-id">
+              <type name="uint32"/>
+              <description>
+                <text>The integer value used to identify the interface number regarding the management address component associated with
+the remote system.</text>
+              </description>
+            </leaf>
+            <leaf name="address-oid">
+              <type name="string">
+                <length value="0..128"/>
+              </type>
+              <description>
+                <text>The Object Identifier (OID) value used to identify the type of hardware component or protocol entity associated with the
+management address advertised by the remote system agent.</text>
+              </description>
+            </leaf>
+          </list>
+          <list name="custom-tlv">
+            <key value="oui subtype"/>
+            <description>
+              <text>List of Organizational Specific TLVs (Type-Lengh-Value) parameters.</text>
+            </description>
+            <leaf name="oui">
+              <type name="string">
+                <length value="0..6"/>
+              </type>
+              <description>
+                <text>The Organization Unique Identifier (OUI) of this TLV. Hexadecimal representation of the 24 bit identier.</text>
+              </description>
+            </leaf>
+            <leaf name="subtype">
+              <type name="uint8"/>
+              <description>
+                <text>The sub-type identifier of the TLV in the scope of the OUI.</text>
+              </description>
+            </leaf>
+            <leaf name="value">
+              <type name="string">
+                <length value="0..507"/>
+              </type>
+              <description>
+                <text>The value of the TLV.</text>
+              </description>
+            </leaf>
+          </list>
+        </list>
+        <list name="lldp-port-statistics">
+          <key value="lldp-port direction"/>
+          <config value="false"/>
+          <description>
+            <text>LLDP frame reception statistics for a particular port and direction.
+
+All counter values in a particular entry shall be maintained on a continuing basis and shall not be deleted
+upon expiration of TTL timing counters associated with the LLDP neighbor information.
+
+All statistical counters associated with a particular port on the local LLDP agent become frozen whenever the
+lldp-admin-status is disabled for the same port.</text>
+          </description>
+          <leaf name="lldp-port">
+            <type name="instance-identifier"/>
+            <description>
+              <text>Local port that is associated with the LLDP agent.</text>
+            </description>
+          </leaf>
+          <leaf name="direction">
+            <type name="enumeration">
+              <enum name="ingress">
+                <value value="1"/>
+              </enum>
+              <enum name="egress">
+                <value value="2"/>
+              </enum>
+            </type>
+            <description>
+              <text>Direction associated with lldp statistics.</text>
+            </description>
+          </leaf>
+          <leaf name="last-change-time">
+            <type name="yang:date-and-time"/>
+            <description>
+              <text>The timestamp associated with the last time this port received LLDP updates.</text>
+            </description>
+          </leaf>
+          <leaf name="last-clear-time">
+            <type name="yang:date-and-time"/>
+            <default value="0000-01-01T00:00:00Z"/>
+            <description>
+              <text>The timestamp associated with the last time this port was cleared.</text>
+            </description>
+          </leaf>
+          <leaf name="total-ageouts">
+            <type name="yang:zero-based-counter64"/>
+            <description>
+              <text>A count of the times that a neighbor’s information
+is deleted from the lldp-neighbor list due to TTL timer
+expiration.</text>
+            </description>
+          </leaf>
+          <leaf name="total-discarded-frames">
+            <type name="yang:counter64"/>
+            <description>
+              <text>A count of all LLDPDUs received and then discarded.</text>
+            </description>
+          </leaf>
+          <leaf name="error-frames">
+            <type name="yang:counter64"/>
+            <description>
+              <text>A count of all LLDPDUs received at the port with one or more
+detectable errors.</text>
+            </description>
+          </leaf>
+          <leaf name="total-frames-in">
+            <type name="yang:counter64"/>
+            <description>
+              <text>A count of all LLDP frames received at the port.</text>
+            </description>
+          </leaf>
+          <leaf name="total-frames-out">
+            <type name="yang:counter64"/>
+            <description>
+              <text>A count of all LLDP frames transmitted through the port.</text>
+            </description>
+          </leaf>
+          <leaf name="total-discarded-tlvs">
+            <type name="yang:counter64"/>
+            <description>
+              <text>A count of all TLVs received at the port and discarded for any
+reason.</text>
+            </description>
+          </leaf>
+          <leaf name="total-unrecognized-tlvs">
+            <type name="yang:counter64"/>
+            <description>
+              <text>This counter provides a count of all TLVs not recognized by
+the receiving LLDP local agent.</text>
+            </description>
+          </leaf>
+        </list>
+      </container>
+      <container name="icdp">
+        <description>
+          <text>Contains ICDP (Infinera Carrier Discovery Protocol) data.
+This is a proprietary mechanism that allows Network Elements to
+auto-discover their neighbors using carrier OFEC-GCC over L1 line interfaces.</text>
+        </description>
+        <leaf name="global-switch">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>Global switch for ICDP.
+If disabled, inhibits further discovery using ICDP; however, existing data will be kept.</text>
+          </description>
+        </leaf>
+        <list name="carrier-neighbor">
+          <key value="local-carrier"/>
+          <config value="false"/>
+          <description>
+            <text>Neighbor node discovered by the local-carrier via ICDP.
+This information is kept indefinitely, until the carrier is deleted, or the
+data is manually cleared by user.</text>
+          </description>
+          <leaf name="local-carrier">
+            <type name="instance-identifier"/>
+            <description>
+              <text>Local carrier instance that has discovered this neighbor node.
+Each carrier can discover up to one node.
+It is possible for multiple collocated carriers to discover the same
+node multiple times (each time connected to a different remote carrier).</text>
+            </description>
+          </leaf>
+          <uses name="neighbor-info"/>
+          <leaf name="local-carrier-id">
+            <type name="string">
+              <length value="1..32"/>
+            </type>
+            <description>
+              <text>AID of local carrier.</text>
+            </description>
+          </leaf>
+          <leaf name="ne-id">
+            <type name="string">
+              <length value="0..256"/>
+            </type>
+            <description>
+              <text>Id of the remote network element.</text>
+            </description>
+          </leaf>
+          <leaf name="ne-name">
+            <type name="string">
+              <length value="0..256"/>
+            </type>
+            <description>
+              <text>Neighbor ne-name.</text>
+            </description>
+          </leaf>
+          <leaf name="ne-type">
+            <type name="string">
+              <length value="0..64"/>
+            </type>
+            <description>
+              <text>Type of the remote network element.</text>
+            </description>
+          </leaf>
+          <leaf name="remote-carrier-id">
+            <type name="string">
+              <length value="0..64"/>
+            </type>
+            <description>
+              <text>AID of the remote carrier connected to the local carrier.
+Implies a specific remote port id.</text>
+            </description>
+          </leaf>
+          <leaf name="ipv4-loopback-address">
+            <type name="inet:ipv4-address"/>
+            <description>
+              <text>IPv4 loopback address of the neighbor; may be empty if not configured.</text>
+            </description>
+          </leaf>
+          <leaf name="ipv6-loopback-address">
+            <type name="inet:ipv6-address"/>
+            <description>
+              <text>IPv6 loopback address of the neighbor; may be empty if not configured.</text>
+            </description>
+          </leaf>
+        </list>
+      </container>
+      <container name="inci">
+        <description>
+          <text>INCI is Inter-NE Communication Interface, Information related to Inter NE inter-op feature.</text>
+        </description>
+        <leaf name="inci-enabled">
+          <type name="boolean"/>
+          <default value="false"/>
+          <description>
+            <text>This is a NE level switch to control the INCI feature.</text>
+          </description>
+        </leaf>
+        <list name="inci-neighbor">
+          <key value="neighbor-id"/>
+          <max-elements value="8"/>
+          <description>
+            <text>List of provisioned INCI Neighbors.</text>
+          </description>
+          <leaf name="neighbor-id">
+            <type name="ioa-common:object-name"/>
+            <description>
+              <text>Node-ID of provisioned neighbor.</text>
+            </description>
+          </leaf>
+          <leaf name="neighbor-address">
+            <type name="inet:ip-address"/>
+            <mandatory value="true"/>
+            <description>
+              <text>IP address of the provisioned remote neighbor NE.</text>
+            </description>
+          </leaf>
+          <leaf name="neighbor-port">
+            <type name="uint32"/>
+            <default value="8800"/>
+            <config value="false"/>
+            <description>
+              <text>Port number used for communication with GX NE.</text>
+            </description>
+          </leaf>
+          <leaf name="connection-status">
+            <type name="enumeration">
+              <enum name="connected">
+                <value value="1"/>
+                <description>
+                  <text>Remote NE is connected.</text>
+                </description>
+              </enum>
+              <enum name="not-connected">
+                <value value="2"/>
+                <description>
+                  <text>Remote NE is not connected.</text>
+                </description>
+              </enum>
+              <enum name="mismatch">
+                <value value="3"/>
+                <description>
+                  <text>Mismatch between provisioned Node Name with discovered node name.</text>
+                </description>
+              </enum>
+              <enum name="unknown">
+                <value value="4"/>
+                <description>
+                  <text>Remote NE is unknown.</text>
+                </description>
+              </enum>
+            </type>
+            <default value="not-connected"/>
+            <config value="false"/>
+            <description>
+              <text>Connection status with this Neighbor.</text>
+            </description>
+          </leaf>
+          <leaf name="configured-node-name">
+            <type name="string">
+              <length value="0..128"/>
+            </type>
+            <mandatory value="true"/>
+            <description>
+              <text>User provisioned name of remote NE. Used to compare against the discovered-node-name.</text>
+            </description>
+          </leaf>
+          <leaf name="discovered-node-name">
+            <type name="string">
+              <length value="0..128"/>
+            </type>
+            <config value="false"/>
+            <description>
+              <text>Name of remote NE as sent by the remote NE.</text>
+            </description>
+          </leaf>
+          <leaf name="discovered-node-id">
+            <type name="string">
+              <length value="0..128"/>
+            </type>
+            <config value="false"/>
+            <description>
+              <text>Node ID of remote node as received from remote node.</text>
+            </description>
+          </leaf>
+          <uses name="ioa-common:arc"/>
+          <uses name="ioa-common:label"/>
+          <leaf name="oper-state">
+            <type name="enumeration">
+              <enum name="enabled">
+                <value value="1"/>
+              </enum>
+              <enum name="disabled">
+                <value value="2"/>
+              </enum>
+            </type>
+            <default value="disabled"/>
+            <config value="false"/>
+            <description>
+              <text>The operational state of this object.</text>
+            </description>
+          </leaf>
+        </list>
+      </container>
+      <container name="links">
+        <description>
+          <text>Links container within Topology.</text>
+        </description>
+        <list name="fiber-connection">
+          <key value="name"/>
+          <description>
+            <text>Fiber Connection list - connecting two ports of L0 cards, or line-port of Transponders/ Muxponders.</text>
+          </description>
+          <leaf name="name">
+            <type name="ioa-common:object-name"/>
+            <description>
+              <text>User defined name for the fiber-connection.</text>
+            </description>
+          </leaf>
+          <uses name="ioa-common:label"/>
+          <leaf name="src-port">
+            <type name="instance-identifier"/>
+            <description>
+              <text>Source Port instance.</text>
+            </description>
+          </leaf>
+          <leaf name="dst-port">
+            <type name="instance-identifier"/>
+            <description>
+              <text>Destination Port instance.</text>
+            </description>
+          </leaf>
+          <leaf name="fiber-connection-type">
+            <type name="fiber-connection-type"/>
+            <default value="two-way"/>
+            <description>
+              <text>Type of the fiber connection - one-way or two-way.</text>
+            </description>
+          </leaf>
+        </list>
+        <list name="external-fiber-connection">
+          <key value="name"/>
+          <description>
+            <text>External Fiber Connection name - connecting two ports of L0 cards in different NEs.</text>
+          </description>
+          <leaf name="name">
+            <type name="ioa-common:object-name"/>
+            <description>
+              <text>User defined name for the fiber-connection.</text>
+            </description>
+          </leaf>
+          <uses name="ioa-common:label"/>
+          <leaf name="src-node-id">
+            <type name="string">
+              <length value="1..256"/>
+            </type>
+            <description>
+              <text>Should be logically the same as 'ne-name', although there is no SYSTEM business logic to correct this.</text>
+            </description>
+          </leaf>
+          <leaf name="src-card-name">
+            <type name="ioa-common:object-name"/>
+            <description>
+              <text>Card identification.</text>
+            </description>
+          </leaf>
+          <leaf name="src-port-name">
+            <type name="string">
+              <length value="1..128"/>
+            </type>
+            <description>
+              <text>Card identification.</text>
+            </description>
+          </leaf>
+          <leaf name="dst-node-id">
+            <type name="string">
+              <length value="1..256"/>
+            </type>
+            <description>
+              <text>Should be logically the same as 'ne-name', although there is no SYSTEM business logic to correct this.</text>
+            </description>
+          </leaf>
+          <leaf name="dst-card-name">
+            <type name="ioa-common:object-name"/>
+            <description>
+              <text>Card identification.</text>
+            </description>
+          </leaf>
+          <leaf name="dst-port-name">
+            <type name="string">
+              <length value="1..128"/>
+            </type>
+            <description>
+              <text>Card identification.</text>
+            </description>
+          </leaf>
+          <leaf name="fiber-connection-type">
+            <type name="fiber-connection-type"/>
+            <default value="two-way"/>
+            <description>
+              <text>Type of the fiber connection - one-way or two-way.</text>
+            </description>
+          </leaf>
+        </list>
+        <list name="nct-connection">
+          <key value="src-port dst-port"/>
+          <config value="false"/>
+          <description>
+            <text>NCT connectivity information, providing existing links between NCT ports in a multi-chassis NE.
+These links are dynamically filled in by the system, allowing to derive and display the NCT topology.
+All connections defined here are bidirectional; source and destination are therefore interchangeable.</text>
+          </description>
+          <leaf name="src-port">
+            <type name="string">
+              <length value="1..64"/>
+            </type>
+            <description>
+              <text>The source port of the connection. Must be an NCT port.
+If the port belongs to a commissioned chassis, it will be the AID of the port.
+If the port belongs to an unprovisioned chassis, it will have the format
+   '&lt;chassis-serial-number&gt;-&lt;slot&gt;-NCT-&lt;id&gt;' </text>
+            </description>
+          </leaf>
+          <leaf name="dst-port">
+            <type name="string">
+              <length value="1..64"/>
+            </type>
+            <description>
+              <text>The destination port of the connection. Must be an NCT port.
+If the port belongs to a commissioned chassis, it will be the AID of the port.
+If the port belongs to an unprovisioned chassis, it will have the format
+   '&lt;chassis-serial-number&gt;-&lt;slot&gt;-NCT-&lt;id&gt;' </text>
+            </description>
+          </leaf>
+          <leaf name="src-chassis">
+            <type name="string">
+              <length value="1..64"/>
+            </type>
+            <description>
+              <text>The identifier of the chassis where the source port is located.
+If it is a commissioned chassis, it will be the AID of the chassis.
+If it is an unprovisioned chassis, it will have the chassis serial number.</text>
+            </description>
+          </leaf>
+          <leaf name="dst-chassis">
+            <type name="string">
+              <length value="1..64"/>
+            </type>
+            <description>
+              <text>The identifier of the chassis where the destination port is located.
+If it is a commissioned chassis, it will be the AID of the chassis.
+If it is an unprovisioned chassis, it will have the chassis serial number.</text>
+            </description>
+          </leaf>
+          <leaf name="src-chassis-state">
+            <type name="enumeration">
+              <enum name="node-controller">
+                <value value="1"/>
+                <description>
+                  <text>Means this chassis is the Node Controller chassis.</text>
+                </description>
+              </enum>
+              <enum name="provisioned">
+                <value value="2"/>
+                <description>
+                  <text>Means this chassis is provisioned as a sub-chassis.</text>
+                </description>
+              </enum>
+              <enum name="unprovisioned">
+                <value value="3"/>
+                <description>
+                  <text>Means this chassis is detected but not provisioned.</text>
+                </description>
+              </enum>
+            </type>
+            <description>
+              <text>The state of the src-chassis.</text>
+            </description>
+          </leaf>
+          <leaf name="dst-chassis-state">
+            <type name="enumeration">
+              <enum name="node-controller">
+                <value value="1"/>
+                <description>
+                  <text>Means this chassis is the Node Controller chassis.</text>
+                </description>
+              </enum>
+              <enum name="provisioned">
+                <value value="2"/>
+                <description>
+                  <text>Means this chassis is provisioned as a sub-chassis.</text>
+                </description>
+              </enum>
+              <enum name="unprovisioned">
+                <value value="3"/>
+                <description>
+                  <text>Means this chassis is detected but not provisioned.</text>
+                </description>
+              </enum>
+            </type>
+            <description>
+              <text>The state of the dst-chassis.</text>
+            </description>
+          </leaf>
+        </list>
+      </container>
+    </container>
+  </grouping>
+  <grouping name="lldp-port">
+    <description>
+      <text>Set of leafs related with port specific LLDP configuration.</text>
+    </description>
+    <leaf name="lldp-admin-status">
+      <type name="enumeration">
+        <enum name="tx-only">
+          <value value="1"/>
+          <description>
+            <text>LLDP agent transmits LLDP frames on this port but it does not store connected remote system information.</text>
+          </description>
+        </enum>
+        <enum name="rx-only">
+          <value value="2"/>
+          <description>
+            <text>LLDP agent receives, but it does not transmit LLDP frames on this port.</text>
+          </description>
+        </enum>
+        <enum name="tx-and-rx">
+          <value value="3"/>
+          <description>
+            <text>LLDP agent transmits and receives LLDP frames on this port.</text>
+          </description>
+        </enum>
+        <enum name="disabled">
+          <value value="4"/>
+          <description>
+            <text>LLDP agent does not transmit or receive LLDP frames on this port.</text>
+          </description>
+        </enum>
+      </type>
+      <default value="disabled"/>
+      <description>
+        <text>LLDP operational mode for this port.</text>
+      </description>
+    </leaf>
+    <leaf name="lldp-ingress-mode">
+      <when condition="../lldp-admin-status != 'disabled'"/>
+      <type name="lldp-mode"/>
+      <default value="disabled"/>
+      <description>
+        <text>If lldp enabled, define what is the LLDP behavior for this direction.</text>
+      </description>
+    </leaf>
+    <leaf name="lldp-egress-mode">
+      <when condition="../lldp-admin-status != 'disabled'"/>
+      <type name="lldp-mode"/>
+      <default value="disabled"/>
+      <description>
+        <text>If lldp enabled, define what is the LLDP behavior for this direction.</text>
+      </description>
+    </leaf>
+  </grouping>
+</module>

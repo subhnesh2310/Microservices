@@ -1,0 +1,107 @@
+module ioa-line-ptp {
+    namespace "http://infinera.com/yang/ioa/line-ptp";
+    prefix ioa-line-ptp;
+
+    import ioa-facilities-common { prefix ioa-fac-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG model describing the line side physical termination layer.";
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    grouping line-ptp {
+        list line-ptp {
+            key name;
+            description "Basic LinePTP facility.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-fac-common:auto-in-service;
+
+            leaf service-type {
+                type enumeration {
+                    enum not-applicable             { value 1;  description "No service mode."; }
+                    enum DP-16QAM-200G              { value 2;  description "200G rate class carrier signal with DP-16QAM modulation format."; }
+                    enum DP-QPSK-100G               { value 3;  description "100G rate class carrier signal with DP-QPSK modulation format."; }
+                    enum DP-8QAM-200G               { value 4;  description "200G rate class carrier signal with DP-8QAM modulation format."; }
+                    enum DP-16QAM-100G              { value 5;  description "200G rate class carrier signal with DP-16QAM modulation format."; }
+                    enum DP-16QAM-100G-EX           { value 6;  description "200G rate class carrier signal with DP-16QAM modulation format."; }
+                    enum DP-16QAM-400G              { value 7;  description "400G rate class carrier signal with DP-16QAM modulation format."; }
+                    enum DP-8QAM-300G               { value 8;  description "300G rate class carrier signal with DP-8QAM modulation format."; }
+                    enum DP-QPSK-200G               { value 9;  description "200G rate class carrier signal with DP-QPSK modulation format."; }
+                    enum OTU2                       { value 10; description "ITUT G.709 10.70 gigabits per second Optical channel Transport Unit."; }
+                    enum OTU2e                      { value 11; description "ITUT G.709 11.09 gigabits per second Optical channel Transport Unit."; }
+                    enum DP-16QAM-E-400G            { value 12; description "400G rate class E signal with DP-16QAM-E modulation format."; }
+                    enum DP-16QAM-400G-OpenZR+      { value 13; description "400G rate class OpenZR+ signal with DP-16QAM modulation format."; }
+                    enum DP-16QAM-PS-400G           { value 14; description "400G rate class PS mode signal with DP-16QAM-PS modulation format."; }
+                    enum DP-16QAM-200G-EX       { value 15;  }
+                    enum DP-QPSK-100G-EX        { value 16;  }
+                    enum DP-16QAM-400G-EX       { value 17;  }
+                    enum DP-8QAM-300G-EX        { value 18;  }
+                    enum DP-QPSK-200G-EX        { value 19;  }
+                    enum DP-SPQPSK-100G             { value 20; description "100G rate class carrier signal with DP-SPQPSK modulation format."; }
+                    enum DP-SPQPSK-QPSK-100G        { value 21; description "100G rate class carrier signal with DP-SPQPSK-QPSK modulation format."; }
+                    enum DP-SP16QAM-200G            { value 22; description "200G rate class carrier signal with DP-SP16QAM modulation format."; }
+                    enum DP-32QAM-200G              { value 23; description "200G rate class carrier signal with DP-32QAM modulation format."; }
+                    enum DP-SP16QAM-16QAM-200G      { value 24; description "200G rate class carrier signal with DP-SP16QAM-16QAM modulation format."; }
+                    enum DP-QPSK-SP16QAM-200G       { value 25; description "200G rate class carrier signal with DP-QPSK-SP16QAM modulation format."; }
+                    enum DP-SPQPSK-QPSK-200G        { value 26; description "200G rate class carrier signal with DP-SPQPSK-QPSK modulation format."; }
+                    enum DP-16QAM-300G              { value 27; description "300G rate class carrier signal with DP-16QAM modulation format."; }
+                    enum DP-SP16QAM-300G            { value 28; description "300G rate class carrier signal with DP-SP16QAM modulation format."; }
+                    enum DP-32QAM-300G              { value 29; description "300G rate class carrier signal with DP-32QAM modulation format."; }
+                    enum DP-64QAM-300G              { value 30; description "300G rate class carrier signal with DP-64QAM modulation format."; }
+                    enum DP-32QAM-64QAM-300G        { value 31; description "300G rate class carrier signal with DP-32QAM-64QAM modulation format."; }
+                    enum DP-SP16QAM-16QAM-300G      { value 32; description "300G rate class carrier signal with DP-SP16QAM-16QAM modulation format."; }
+                    enum DP-QPSK-SP16QAM-300G       { value 33; description "300G rate class carrier signal with DP-QPSK-SP16QAM modulation format."; }
+                    enum DP-32QAM-400G              { value 34; description "400G rate class carrier signal with DP-32QAM modulation format."; }
+                    enum DP-64QAM-400G              { value 35; description "400G rate class carrier signal with DP-64QAM modulation format."; }
+                    enum DP-16QAM-32QAM-400G        { value 36; description "400G rate class carrier signal with DP-16QAM-32QAM modulation format."; }
+                    enum DP-SP16QAM-16QAM-400G      { value 37; description "400G rate class carrier signal with DP-SP16QAM-16QAM modulation format."; }
+                    enum DP-32QAM-500G              { value 38; description "500G rate class carrier signal with DP-32QAM modulation format."; }
+                    enum DP-64QAM-500G              { value 39; description "500G rate class carrier signal with DP-64QAM modulation format."; }
+                    enum DP-32QAM-64QAM-500G        { value 40; description "500G rate class carrier signal with DP-32QAM-64QAM modulation format."; }
+                    enum DP-16QAM-32QAM-500G        { value 41; description "500G rate class carrier signal with DP-16QAM-32QAM modulation format."; }
+                    enum DP-64QAM-600G              { value 42; description "600G rate class carrier signal with DP-64QAM modulation format."; }
+                    enum DP-32QAM-64QAM-600G        { value 43; description "600G rate class carrier signal with DP-32QAM-64QAM modulation format."; }
+                    enum DP-SP16QAM-300G-C          { value 44; description "couple 2*150G rate class carrier signal with DP-SP16QAM modulation format."; }
+                    enum DP-QPSK-SP16QAM-300G-C     { value 45; description "couple 2*150G rate class carrier signal with DP-QPSK-SP16QAM modulation format."; }
+                    enum DP-16QAM-32QAM-500G-C      { value 46; description "couple 2*250G rate class carrier signal with DP-16QAM-32QAM modulation format."; }
+                    enum DP-16QAM-500G-C            { value 47; description "couple 2*250G rate class carrier signal with DP-16QAM modulation format."; }
+                    enum DP-SP16QAM-500G-C          { value 48; description "couple 2*250G rate class carrier signal with DP-SP16QAM modulation format."; }
+                    enum DP-QPSK-SP16QAM-500G-C     { value 49; description "couple 2*250G rate class carrier signal with DP-QPSK-SP16QAM modulation format."; }
+                    enum DP-32QAM-64QAM-700G-C      { value 50; description "couple 2*350G rate class carrier signal with DP-32QAM-64QAM modulation format."; }
+                    enum DP-16QAM-700G-C            { value 51; description "couple 2*350G rate class carrier signal with DP-16QAM modulation format."; }
+                    enum DP-SP16QAM-16QAM-700G-C    { value 52; description "couple 2*350G rate class carrier signal with DP-SP16QAM-16QAM modulation format."; }
+                    enum DP-32QAM-900G-C            { value 53; description "couple 2*450G rate class carrier signal with DP-32QAM modulation format."; }
+                    enum DP-16QAM-32QAM-900G-C      { value 54; description "couple 2*450G rate class carrier signal with DP-16QAM-32QAM modulation format."; }
+                    enum DP-32QAM-64QAM-1100G-C     { value 55; description "couple 2*550G rate class carrier signal with DP-32QAM-64QAM modulation format."; }
+                }
+                default not-applicable;
+                description "service-type to provison line side service.";
+            }
+
+            leaf line-system-mode {
+                type enumeration {
+                    enum openwave { value 1; description "Infinera WDM channels over non-Infinera line system."; }
+                }
+                default openwave;
+                description "Indicates the specific mode of power control configured
+                             on the L1 transponder, and specifically, on this particular SCG port within
+                             the L1 transponder. The attribute indicates the L1 <-> L0 local power controls
+                             to adjust the Tx power from the L1 transponder towards the L0 line-system
+                             card (such as a WSS or Mux or Amplifier).";
+            }
+
+            uses ioa-fac-common:power-threshold;
+        }
+    }
+}

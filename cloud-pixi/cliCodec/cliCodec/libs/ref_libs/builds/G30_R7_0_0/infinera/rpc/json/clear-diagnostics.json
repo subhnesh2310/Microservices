@@ -1,0 +1,27 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "entity-id": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Target entity for the command. Must exist.",
+            "mandatory": true
+        },
+        "test-signal-direction": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "ingress",
+                    "egress",
+                    "auto"
+                ]
+            },
+            "isList": false,
+            "description": "The test signal direction. If not specified, the counter for the enabled direction would be cleared.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

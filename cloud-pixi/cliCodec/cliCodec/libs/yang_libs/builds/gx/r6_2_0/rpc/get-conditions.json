@@ -1,0 +1,68 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/alarm",
+    "inputs": {
+        "direction": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "all",
+                    "na",
+                    "ingress",
+                    "egress"
+                ]
+            },
+            "isList": false,
+            "description": "Direction of the condition.",
+            "mandatory": false
+        },
+        "location": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "all",
+                    "na",
+                    "near-end",
+                    "far-end"
+                ]
+            },
+            "isList": false,
+            "description": "Location of the condition.",
+            "mandatory": false
+        },
+        "resource": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Existing system resource.",
+            "mandatory": false
+        },
+        "resource-type": {
+            "type": {
+                "ptype": "str",
+                "identityref": "RESOURCE-TYPE"
+            },
+            "isList": false,
+            "description": "Type of resource.",
+            "mandatory": false
+        },
+        "AID": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+            "mandatory": false
+        },
+        "alarm-type": {
+            "type": {
+                "ptype": "str",
+                "identityref": "ALARM-TYPE"
+            },
+            "isList": false,
+            "description": "Type of alarm, based on an abbreviated code.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

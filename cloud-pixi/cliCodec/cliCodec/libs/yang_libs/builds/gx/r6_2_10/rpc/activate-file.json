@@ -1,0 +1,83 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "filetype": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "database",
+                    "swimage",
+                    "krp",
+                    "script",
+                    "debug-log",
+                    "pm-logs",
+                    "local-certificate",
+                    "trusted-certificate",
+                    "fdr-log",
+                    "logs",
+                    "file",
+                    "peer-certificate",
+                    "crl"
+                ]
+            },
+            "isList": false,
+            "description": "Predefined filetype available for upload",
+            "mandatory": true
+        },
+        "label": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Label to be activated",
+            "mandatory": false
+        },
+        "db-instance": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "active",
+                    "onehour",
+                    "oneday",
+                    "oneweek",
+                    "temp",
+                    "manual",
+                    "rollback"
+                ]
+            },
+            "isList": false,
+            "description": "Database instance name to activate.",
+            "mandatory": false
+        },
+        "sanity-check-override": {
+            "type": {
+                "ptype": "bool"
+            },
+            "isList": false,
+            "description": "Allows user to skip the database/swimage sanity check.",
+            "mandatory": false
+        },
+        "db-action": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "empty-db",
+                    "upgrade-db",
+                    "rollback"
+                ]
+            },
+            "isList": false,
+            "description": "Specify the expected database operation during activating software image.",
+            "mandatory": false
+        },
+        "db-passphrase": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Passphrase used for encrypting and decrypting DB snapshots.\nFor each command associated with DB snapshots (backup, restore, etc),\nthis db-passphrase will be used, except when it is directly provided in each command.\nAutomatic DB snapshots will not be enabled until this parameter is set.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

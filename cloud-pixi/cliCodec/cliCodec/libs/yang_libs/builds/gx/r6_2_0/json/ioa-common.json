@@ -1,0 +1,1742 @@
+{
+    "module": {
+        "@name": "ioa-common",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/common"
+        },
+        "prefix": {
+            "@value": "ioa-common"
+        },
+        "import": [
+            {
+                "@module": "ietf-inet-types",
+                "prefix": {
+                    "@value": "inet"
+                }
+            },
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module with common typde definitions and groupings."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-09-17",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.1"
+                }
+            }
+        ],
+        "identity": [
+            {
+                "@name": "RESOURCE-TYPE",
+                "description": {
+                    "text": "Base identity for all types of entities that can be addressed via AID."
+                }
+            },
+            {
+                "@name": "ne",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "chassis",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "card",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "tom",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "slot",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "user",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "task",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "ntp-server",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "usb",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "facility",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "local-certificate",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "trusted-certificate",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "port",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "syslog",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "interface",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "protection-group",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "protection-unit",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "ip-monitoring",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "inci-neighbor",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                }
+            },
+            {
+                "@name": "ne-function",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                },
+                "description": {
+                    "text": "NE function."
+                }
+            },
+            {
+                "@name": "ikev2-peer",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                },
+                "description": {
+                    "text": "Internet Key Exchange version 2 peer."
+                }
+            },
+            {
+                "@name": "ikev2-local-instance",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                },
+                "description": {
+                    "text": "Internet Key Exchange version 2 local instance."
+                }
+            },
+            {
+                "@name": "secure-entity",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                },
+                "description": {
+                    "text": "Data path encryption secure entity (SecY)."
+                }
+            },
+            {
+                "@name": "ipsec-spd-entry",
+                "base": {
+                    "@name": "RESOURCE-TYPE"
+                },
+                "description": {
+                    "text": "IPSec security policy database entry."
+                }
+            },
+            {
+                "@name": "ETHERNET",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "trib-ptp",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "super-channel-group",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "super-channel",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "optical-carrier",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "optical-channel",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "OTUCni",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "OTUCn",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "OTU4",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "OTU2",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "OTU2e",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "ODUCni",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "ODUCn",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "ODU4i",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "ODU4",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "ODU2",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "ODU2e",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "ODU1",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "ODU0",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "ODUflexi",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "ODUflex",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "comm-channel",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "line-ptp",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "flexo-group",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "flexo",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "eth-zr",
+                "base": {
+                    "@name": "ioa-common:facility"
+                }
+            },
+            {
+                "@name": "OC-N",
+                "base": {
+                    "@name": "ioa-common:facility"
+                },
+                "description": {
+                    "text": "OC-N (SONET)"
+                }
+            },
+            {
+                "@name": "STM-M",
+                "base": {
+                    "@name": "ioa-common:facility"
+                },
+                "description": {
+                    "text": "STM (SDH)"
+                }
+            },
+            {
+                "@name": "OC-192",
+                "base": {
+                    "@name": "ioa-common:OC-N"
+                },
+                "description": {
+                    "text": "Optical Carrier level 192, also known as SONET."
+                }
+            },
+            {
+                "@name": "OC-48",
+                "base": {
+                    "@name": "ioa-common:OC-N"
+                },
+                "description": {
+                    "text": "Optical Carrier level 48, also known as SONET."
+                }
+            },
+            {
+                "@name": "STM-64",
+                "base": {
+                    "@name": "ioa-common:STM-M"
+                },
+                "description": {
+                    "text": "Synchronous Transport Module hierarchy 64, also known as SDH."
+                }
+            },
+            {
+                "@name": "STM-16",
+                "base": {
+                    "@name": "ioa-common:STM-M"
+                },
+                "description": {
+                    "text": "Synchronous Transport Module hierarchy 16, also known as SDH."
+                }
+            },
+            {
+                "@name": "nmc",
+                "base": {
+                    "@name": "ioa-common:facility"
+                },
+                "description": {
+                    "text": "Network Media Channel"
+                }
+            },
+            {
+                "@name": "mc",
+                "base": {
+                    "@name": "ioa-common:facility"
+                },
+                "description": {
+                    "text": "Media Channel"
+                }
+            },
+            {
+                "@name": "optical-ptp",
+                "base": {
+                    "@name": "ioa-common:facility"
+                },
+                "description": {
+                    "text": "Optical Physical Termination Point"
+                }
+            },
+            {
+                "@name": "oms",
+                "base": {
+                    "@name": "ioa-common:facility"
+                },
+                "description": {
+                    "text": "Optical Multiplex Section"
+                }
+            },
+            {
+                "@name": "osc",
+                "base": {
+                    "@name": "ioa-common:facility"
+                },
+                "description": {
+                    "text": "Optical Supervisory Channel"
+                }
+            },
+            {
+                "@name": "ots",
+                "base": {
+                    "@name": "ioa-common:facility"
+                },
+                "description": {
+                    "text": "Optical Transport Section"
+                }
+            },
+            {
+                "@name": "ots-r",
+                "base": {
+                    "@name": "ioa-common:facility"
+                },
+                "description": {
+                    "text": "Optical Transmission Section, with Reduced scope"
+                }
+            },
+            {
+                "@name": "amplifier",
+                "base": {
+                    "@name": "ioa-common:ne-function"
+                },
+                "description": {
+                    "text": "Amplifier"
+                }
+            },
+            {
+                "@name": "amplifier-raman",
+                "base": {
+                    "@name": "ioa-common:ne-function"
+                },
+                "description": {
+                    "text": "Raman Amplifier"
+                }
+            },
+            {
+                "@name": "pump",
+                "base": {
+                    "@name": "ioa-common:facility"
+                },
+                "description": {
+                    "text": "Pump"
+                }
+            },
+            {
+                "@name": "rsc",
+                "base": {
+                    "@name": "ioa-common:facility"
+                },
+                "description": {
+                    "text": "Raman Supervisory Channel"
+                }
+            },
+            {
+                "@name": "fc",
+                "base": {
+                    "@name": "ioa-common:facility"
+                },
+                "description": {
+                    "text": "Fiber Channel"
+                }
+            }
+        ],
+        "typedef": [
+            {
+                "@name": "percent",
+                "type": {
+                    "@name": "uint8",
+                    "range": {
+                        "@value": "0 .. 100"
+                    }
+                },
+                "units": {
+                    "@name": "percent"
+                },
+                "description": {
+                    "text": "Percentage"
+                }
+            },
+            {
+                "@name": "object-name",
+                "type": {
+                    "@name": "string",
+                    "length": {
+                        "@value": "1..64"
+                    },
+                    "pattern": {
+                        "@value": "([A-Za-z0-9_\\-.,]*)"
+                    }
+                },
+                "description": {
+                    "text": "A custom type for entity (managed object) name"
+                }
+            },
+            {
+                "@name": "certificate-name",
+                "type": {
+                    "@name": "string",
+                    "length": {
+                        "@value": "1..128"
+                    },
+                    "pattern": {
+                        "@value": "([A-Za-z0-9_.,/@][A-Za-z0-9_\\-.,/@]*)"
+                    }
+                },
+                "description": {
+                    "text": "A custom type for certificate name."
+                }
+            },
+            {
+                "@name": "number-list",
+                "type": {
+                    "@name": "string",
+                    "length": {
+                        "@value": "0..255"
+                    },
+                    "pattern": {
+                        "@value": "(([0-9]+(\\.\\.[0-9]+)?)(,([0-9]+(\\.\\.[0-9]+)?))*)?"
+                    }
+                },
+                "description": {
+                    "text": "List of numbers using ',' as separator and '..' to represent ranges.\nExamples: '12' , '1..4' , '1,5,10..12,20'"
+                }
+            },
+            {
+                "@name": "decimal-list",
+                "type": {
+                    "@name": "string",
+                    "length": {
+                        "@value": "0..500"
+                    },
+                    "pattern": {
+                        "@value": "((([0-9]+(\\.[0-9]+)?)+(\\.\\.([0-9]+(\\.[0-9]+)?))?)(,(([0-9]+(\\.[0-9]+)?)+(\\.\\.([0-9]+(\\.[0-9]+)?))?))*)"
+                    }
+                },
+                "description": {
+                    "text": "List of numbers using ',' as separator and '..' to represent ranges.\nExamples: '1.2' , '1.1..1.4' , '1.1,1.5,1.10..1..12,1..20'"
+                }
+            },
+            {
+                "@name": "date-time-never",
+                "type": {
+                    "@name": "union",
+                    "type": [
+                        {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "never",
+                                "value": {
+                                    "@value": "0"
+                                }
+                            }
+                        },
+                        {
+                            "@name": "yang:date-and-time"
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Typedef for a timestamp 'date+time' or the keyword 'never'."
+                }
+            },
+            {
+                "@name": "date-time-or-time-only-or-never",
+                "type": {
+                    "@name": "union",
+                    "type": [
+                        {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "never",
+                                "value": {
+                                    "@value": "0"
+                                }
+                            }
+                        },
+                        {
+                            "@name": "yang:date-and-time"
+                        },
+                        {
+                            "@name": "hour-minutes-seconds"
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Typedef for a timestamp 'date+time' or 'time' only or the keyword 'never'."
+                }
+            },
+            {
+                "@name": "hour-minutes-seconds",
+                "type": {
+                    "@name": "string",
+                    "length": {
+                        "@value": "5..8"
+                    },
+                    "pattern": {
+                        "@value": "\\d{2}:\\d{2}(:\\d{2})?"
+                    }
+                },
+                "description": {
+                    "text": "Timestamp with hours-minutes and optionally seconds.\nLeading zero is required (04:00 instead of 4:00).\nExamples:\n   23:00     (same as 23:00:00)\n   01:43:30"
+                }
+            },
+            {
+                "@name": "date-time-or-time-only",
+                "type": {
+                    "@name": "union",
+                    "type": [
+                        {
+                            "@name": "yang:date-and-time"
+                        },
+                        {
+                            "@name": "hour-minutes-seconds"
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Typedef for a timestamp 'date+time' or 'time' only."
+                }
+            },
+            {
+                "@name": "time-interval",
+                "type": {
+                    "@name": "string",
+                    "length": {
+                        "@value": "0..32"
+                    },
+                    "pattern": {
+                        "@value": "(((1000)|(0*\\d{1,3}))w)? *(((1000)|(0*\\d{1,3}))d)? *(((1000)|(0*\\d{1,3}))h)? *(((1000)|(0*\\d{1,3}))m)? *(((1000)|(0*\\d{1,3}))s)?"
+                    }
+                },
+                "description": {
+                    "text": "Time interval using the following syntax:\n   '[xw] [xd] [xh] [xm] [xs]'\nwhere:\n   w(eeks), d(ays), h(ours), m(inutes), s(seconds).\nExamples:\n   2w          - two weeks\n   5d 12h      - 5 days and 12 hours\n   1h 7m 30s   - 1 hour and 7 minutes and 30 seconds"
+                }
+            },
+            {
+                "@name": "enable-switch",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "disabled",
+                            "value": {
+                                "@value": "0"
+                            }
+                        },
+                        {
+                            "@name": "enabled",
+                            "value": {
+                                "@value": "1"
+                            }
+                        }
+                    ]
+                },
+                "default": {
+                    "@value": "disabled"
+                },
+                "description": {
+                    "text": "Generic enabled switch."
+                }
+            },
+            {
+                "@name": "host",
+                "type": {
+                    "@name": "union",
+                    "type": [
+                        {
+                            "@name": "inet:ipv4-address"
+                        },
+                        {
+                            "@name": "inet:ipv6-address"
+                        },
+                        {
+                            "@name": "inet:domain-name"
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Generic address, may be an IPv4, IPv6 or a hostname for DNS resolution."
+                }
+            },
+            {
+                "@name": "storage-size",
+                "type": {
+                    "@name": "uint16"
+                },
+                "units": {
+                    "@name": "MB"
+                },
+                "description": {
+                    "text": "A generic storage or file size, in megabytes."
+                }
+            },
+            {
+                "@name": "user-name",
+                "type": {
+                    "@name": "string",
+                    "length": {
+                        "@value": "1..64"
+                    },
+                    "pattern": {
+                        "@value": "[a-zA-Z_.][a-zA-Z0-9_\\-.]*[$]?"
+                    }
+                },
+                "description": {
+                    "text": "Generic type definition for a user-name attribute."
+                }
+            },
+            {
+                "@name": "password",
+                "type": {
+                    "@name": "string",
+                    "length": {
+                        "@value": "0..200"
+                    },
+                    "pattern": {
+                        "@value": "[ -~]*"
+                    }
+                },
+                "description": {
+                    "text": "Generic type definition for a password attribute.\nPassword characters may only include spaces, numbers, letters and ASCII symbols.\nMinimum length and password complexity rules are defined via security policy."
+                }
+            },
+            {
+                "@name": "Z85-char-set",
+                "type": {
+                    "@name": "string",
+                    "pattern": {
+                        "@value": "[0-9a-zA-Z.\\-:+=^!/*?&<>()\\[\\]{}@%$#]*"
+                    }
+                },
+                "description": {
+                    "text": "A format for representing binary data as printable text.\nhttps://rfc.zeromq.org/spec/32/"
+                }
+            },
+            {
+                "@name": "db-passphrase",
+                "type": {
+                    "@name": "Z85-char-set",
+                    "length": {
+                        "@value": "40..200"
+                    }
+                },
+                "description": {
+                    "text": "Generic type definition for a db-passphrase attribute."
+                }
+            },
+            {
+                "@name": "session-type",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "none",
+                            "value": {
+                                "@value": "0"
+                            }
+                        },
+                        {
+                            "@name": "cli",
+                            "value": {
+                                "@value": "1"
+                            }
+                        },
+                        {
+                            "@name": "snmp",
+                            "value": {
+                                "@value": "2"
+                            }
+                        },
+                        {
+                            "@name": "netconf",
+                            "value": {
+                                "@value": "3"
+                            }
+                        },
+                        {
+                            "@name": "restconf",
+                            "value": {
+                                "@value": "4"
+                            }
+                        },
+                        {
+                            "@name": "webgui",
+                            "value": {
+                                "@value": "5"
+                            }
+                        },
+                        {
+                            "@name": "gnmi",
+                            "value": {
+                                "@value": "6"
+                            }
+                        },
+                        {
+                            "@name": "tl1",
+                            "value": {
+                                "@value": "7"
+                            }
+                        },
+                        {
+                            "@name": "gnmi-gnoi",
+                            "value": {
+                                "@value": "8"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Session type."
+                }
+            },
+            {
+                "@name": "session-protocol",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "none",
+                            "value": {
+                                "@value": "0"
+                            }
+                        },
+                        {
+                            "@name": "telnet",
+                            "value": {
+                                "@value": "1"
+                            }
+                        },
+                        {
+                            "@name": "telnet-raw",
+                            "value": {
+                                "@value": "2"
+                            }
+                        },
+                        {
+                            "@name": "serial",
+                            "value": {
+                                "@value": "3"
+                            }
+                        },
+                        {
+                            "@name": "ssh",
+                            "value": {
+                                "@value": "4"
+                            }
+                        },
+                        {
+                            "@name": "ssh-raw",
+                            "value": {
+                                "@value": "5"
+                            }
+                        },
+                        {
+                            "@name": "https",
+                            "value": {
+                                "@value": "6"
+                            }
+                        },
+                        {
+                            "@name": "http",
+                            "value": {
+                                "@value": "7"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Protocol used for session establishment."
+                }
+            },
+            {
+                "@name": "server-layer-adaptation",
+                "type": {
+                    "@name": "string"
+                },
+                "description": {
+                    "text": "Indicates services endpoint hierarchy."
+                }
+            },
+            {
+                "@name": "port-number",
+                "type": {
+                    "@name": "uint16",
+                    "range": {
+                        "@value": "1..max"
+                    }
+                },
+                "description": {
+                    "text": "Port number."
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "db-passphrase",
+                "description": {
+                    "text": "Re-usable grouping."
+                },
+                "leaf": {
+                    "@name": "db-passphrase",
+                    "type": {
+                        "@name": "ioa-common:db-passphrase"
+                    },
+                    "description": {
+                        "text": "Passphrase used for encrypting and decrypting DB snapshots.\nFor each command associated with DB snapshots (backup, restore, etc),\nthis db-passphrase will be used, except when it is directly provided in each command.\nAutomatic DB snapshots will not be enabled until this parameter is set."
+                    }
+                }
+            },
+            {
+                "@name": "circuit-id",
+                "leaf": {
+                    "@name": "circuit-id",
+                    "type": {
+                        "@name": "string",
+                        "length": {
+                            "@value": "0..128"
+                        }
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "System configured circuit ID, present in XCONs and associated facilities.\nFor facilities, circuit-id is only filled in if an associated XCON exists.\n   Format of this ID is:\n   <timestamp>|<ne-name>|<XCON-AID>|<user-configured-sufix>\n   Example:\n   2020-05-05T21:06:02Z|GX|1-4-T9,1-4-L1-1-ODUji#1|my-suffix\n\n   Timestamp is the NE time at xcon creation, in UTC.\n   If necessary, ne-name will be truncated so that total length remains at 128 characters."
+                    }
+                }
+            },
+            {
+                "@name": "common-attributes",
+                "description": {
+                    "text": "A set of attributes that are commonly applicable to every managed object supported by the system."
+                },
+                "uses": [
+                    {
+                        "@name": "aid"
+                    },
+                    {
+                        "@name": "label"
+                    }
+                ]
+            },
+            {
+                "@name": "oper-state",
+                "description": {
+                    "text": "Oper states common to multiple objects."
+                },
+                "leaf": {
+                    "@name": "oper-state",
+                    "type": {
+                        "@name": "enumeration",
+                        "enum": [
+                            {
+                                "@name": "enabled",
+                                "value": {
+                                    "@value": "1"
+                                }
+                            },
+                            {
+                                "@name": "disabled",
+                                "value": {
+                                    "@value": "2"
+                                }
+                            }
+                        ]
+                    },
+                    "default": {
+                        "@value": "disabled"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "The operational state of this object."
+                    }
+                }
+            },
+            {
+                "@name": "operational-states",
+                "description": {
+                    "text": "A grouping of system determined statuses."
+                },
+                "uses": {
+                    "@name": "oper-state"
+                },
+                "leaf": {
+                    "@name": "avail-state",
+                    "type": {
+                        "@name": "bits",
+                        "bit": [
+                            {
+                                "@name": "in-service",
+                                "position": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "Entity is in service."
+                                }
+                            },
+                            {
+                                "@name": "out-of-service",
+                                "position": {
+                                    "@value": "2"
+                                },
+                                "description": {
+                                    "text": "Entity is out of service."
+                                }
+                            },
+                            {
+                                "@name": "normal",
+                                "position": {
+                                    "@value": "3"
+                                },
+                                "description": {
+                                    "text": "Entity is in normal operation."
+                                }
+                            },
+                            {
+                                "@name": "abnormal",
+                                "position": {
+                                    "@value": "4"
+                                },
+                                "description": {
+                                    "text": "Entity is in abnormal operation."
+                                }
+                            },
+                            {
+                                "@name": "low-power",
+                                "position": {
+                                    "@value": "5"
+                                },
+                                "description": {
+                                    "text": "Entity is not available due to the related FRU being in low power mode."
+                                }
+                            },
+                            {
+                                "@name": "automatic",
+                                "position": {
+                                    "@value": "6"
+                                },
+                                "description": {
+                                    "text": "Entity automatically locked by the system."
+                                }
+                            },
+                            {
+                                "@name": "manual",
+                                "position": {
+                                    "@value": "7"
+                                },
+                                "description": {
+                                    "text": "Entity manually locked by the user."
+                                }
+                            },
+                            {
+                                "@name": "equipment-not-present",
+                                "position": {
+                                    "@value": "8"
+                                },
+                                "description": {
+                                    "text": "Entity is not available because the related FRU is not present."
+                                }
+                            },
+                            {
+                                "@name": "equipment-mismatch",
+                                "position": {
+                                    "@value": "9"
+                                },
+                                "description": {
+                                    "text": "Entity is not available because the actual FRU mismatches against the expected FRU type."
+                                }
+                            },
+                            {
+                                "@name": "unassigned",
+                                "position": {
+                                    "@value": "10"
+                                },
+                                "description": {
+                                    "text": "Entity is not assigned."
+                                }
+                            },
+                            {
+                                "@name": "faulted",
+                                "position": {
+                                    "@value": "11"
+                                },
+                                "description": {
+                                    "text": "Entity is not available due to the related FRU is faulty."
+                                }
+                            },
+                            {
+                                "@name": "partially-faulted",
+                                "position": {
+                                    "@value": "12"
+                                },
+                                "description": {
+                                    "text": "Entity is not available due to the related FRU is partially faulty."
+                                }
+                            },
+                            {
+                                "@name": "maintenance",
+                                "position": {
+                                    "@value": "13"
+                                },
+                                "description": {
+                                    "text": "Entity is in maintenance mode."
+                                }
+                            },
+                            {
+                                "@name": "supporting-faulted",
+                                "position": {
+                                    "@value": "14"
+                                },
+                                "description": {
+                                    "text": "Entity is not available due to the parent entity is faulty."
+                                }
+                            },
+                            {
+                                "@name": "facility-failure",
+                                "position": {
+                                    "@value": "15"
+                                },
+                                "description": {
+                                    "text": "Facility is not available due to failure."
+                                }
+                            },
+                            {
+                                "@name": "auto-in-service",
+                                "position": {
+                                    "@value": "16"
+                                },
+                                "description": {
+                                    "text": "Auto-in-service (AINS) is active for the facility."
+                                }
+                            },
+                            {
+                                "@name": "shutdown",
+                                "position": {
+                                    "@value": "17"
+                                },
+                                "description": {
+                                    "text": "Entity is not available because the related FRU was shutdown."
+                                }
+                            },
+                            {
+                                "@name": "in-test",
+                                "position": {
+                                    "@value": "18"
+                                },
+                                "description": {
+                                    "text": "Entity is in a diagnostic operation."
+                                }
+                            },
+                            {
+                                "@name": "upgrading",
+                                "position": {
+                                    "@value": "19"
+                                },
+                                "description": {
+                                    "text": "Entity is upgrading."
+                                }
+                            },
+                            {
+                                "@name": "incomplete",
+                                "position": {
+                                    "@value": "20"
+                                },
+                                "description": {
+                                    "text": "Entity has incomplete configuration."
+                                }
+                            },
+                            {
+                                "@name": "reserved",
+                                "position": {
+                                    "@value": "21"
+                                },
+                                "description": {
+                                    "text": "Entity is reserved."
+                                }
+                            }
+                        ]
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Availability state of an entity."
+                    }
+                }
+            },
+            {
+                "@name": "admin-state",
+                "description": {
+                    "text": "Admin states common to multiple objects."
+                },
+                "leaf": {
+                    "@name": "admin-state",
+                    "type": {
+                        "@name": "enumeration",
+                        "enum": [
+                            {
+                                "@name": "lock",
+                                "value": {
+                                    "@value": "1"
+                                }
+                            },
+                            {
+                                "@name": "unlock",
+                                "value": {
+                                    "@value": "2"
+                                }
+                            },
+                            {
+                                "@name": "maintenance",
+                                "value": {
+                                    "@value": "3"
+                                }
+                            }
+                        ]
+                    },
+                    "default": {
+                        "@value": "unlock"
+                    },
+                    "description": {
+                        "text": "The administrative state of the managed object."
+                    }
+                }
+            },
+            {
+                "@name": "common-states",
+                "description": {
+                    "text": "States common to multiple objects."
+                },
+                "uses": [
+                    {
+                        "@name": "admin-state"
+                    },
+                    {
+                        "@name": "operational-states"
+                    }
+                ]
+            },
+            {
+                "@name": "label",
+                "description": {
+                    "text": "Arbitrary user label"
+                },
+                "leaf": {
+                    "@name": "label",
+                    "type": {
+                        "@name": "string",
+                        "length": {
+                            "@value": "0..256"
+                        }
+                    },
+                    "description": {
+                        "text": "User label."
+                    }
+                }
+            },
+            {
+                "@name": "resource-instance-by-aid",
+                "description": {
+                    "text": "Set of leafs necessary to identify a resource by type and aid."
+                },
+                "uses": [
+                    {
+                        "@name": "resource-type"
+                    },
+                    {
+                        "@name": "aid"
+                    }
+                ]
+            },
+            {
+                "@name": "resource-type",
+                "leaf": {
+                    "@name": "resource-type",
+                    "type": {
+                        "@name": "identityref",
+                        "base": {
+                            "@name": "RESOURCE-TYPE"
+                        }
+                    },
+                    "description": {
+                        "text": "Type of resource."
+                    }
+                }
+            },
+            {
+                "@name": "aid",
+                "leaf": {
+                    "@name": "AID",
+                    "type": {
+                        "@name": "string",
+                        "length": {
+                            "@value": "1..64"
+                        }
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Resource Access Identifier (AID). Identifies an instance within a specific resource type."
+                    }
+                },
+                "description": {
+                    "text": "Resource Access Identifier. Used on equipments and mgmt protocols."
+                }
+            },
+            {
+                "@name": "resource-instance",
+                "description": {
+                    "text": "Set of attributes that are used to identity an individual resource instance."
+                },
+                "leaf": {
+                    "@name": "resource",
+                    "type": {
+                        "@name": "instance-identifier"
+                    },
+                    "description": {
+                        "text": "Existing system resource."
+                    }
+                },
+                "uses": {
+                    "@name": "resource-instance-by-aid",
+                    "description": {
+                        "text": "Alternative way to represent a resource, using a resource type and an aid."
+                    }
+                }
+            },
+            {
+                "@name": "advanced-parameter-configuration-base",
+                "description": {
+                    "text": "Advanced parameters/serdes attributes."
+                },
+                "leaf": [
+                    {
+                        "@name": "name",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..256"
+                            }
+                        },
+                        "description": {
+                            "text": "Name of the advanced parameter."
+                        }
+                    },
+                    {
+                        "@name": "value",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..256"
+                            }
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Value of the advanced parameter."
+                        }
+                    },
+                    {
+                        "@name": "status",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "set",
+                                    "value": {
+                                        "@value": "10"
+                                    },
+                                    "description": {
+                                        "text": "Parameter set."
+                                    }
+                                },
+                                {
+                                    "@name": "unknown",
+                                    "value": {
+                                        "@value": "20"
+                                    },
+                                    "description": {
+                                        "text": "Parameter unknown."
+                                    }
+                                },
+                                {
+                                    "@name": "in-progress",
+                                    "value": {
+                                        "@value": "30"
+                                    },
+                                    "description": {
+                                        "text": "Parameter in progress."
+                                    }
+                                },
+                                {
+                                    "@name": "failed",
+                                    "value": {
+                                        "@value": "40"
+                                    },
+                                    "description": {
+                                        "text": "Parameter failed."
+                                    }
+                                },
+                                {
+                                    "@name": "not-supported",
+                                    "value": {
+                                        "@value": "50"
+                                    },
+                                    "description": {
+                                        "text": "Parameter not supported."
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "unknown"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "State of the advanced parameter (as observable on the system) once it is configured."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "current-advanced-parameter",
+                "list": {
+                    "@name": "current-advanced-parameter",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "The current value for a supported advanced parameter."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "name",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..256"
+                                }
+                            },
+                            "description": {
+                                "text": "Name of the advanced parameter."
+                            }
+                        },
+                        {
+                            "@name": "value",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..256"
+                                }
+                            },
+                            "description": {
+                                "text": "Value of the advanced parameter."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "arc",
+                "description": {
+                    "text": "Alarm Reporting Control grouping - to be added by all objects that support alarms (and therefore ARC)."
+                },
+                "leaf": {
+                    "@name": "alarm-report-control",
+                    "type": {
+                        "@name": "enumeration",
+                        "enum": [
+                            {
+                                "@name": "allowed",
+                                "value": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "Alarm reporting is allowed."
+                                }
+                            },
+                            {
+                                "@name": "inhibited",
+                                "value": {
+                                    "@value": "2"
+                                },
+                                "description": {
+                                    "text": "Alarm reporting is inhibited."
+                                }
+                            }
+                        ]
+                    },
+                    "default": {
+                        "@value": "allowed"
+                    },
+                    "description": {
+                        "text": "Controls the reporting of alarms for this particular object."
+                    }
+                }
+            },
+            {
+                "@name": "notif-common",
+                "description": {
+                    "text": "Common notification grouping - notification id and ne name."
+                },
+                "leaf": [
+                    {
+                        "@name": "ne-name",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "NE name associated with this event."
+                        }
+                    },
+                    {
+                        "@name": "notification-id",
+                        "type": {
+                            "@name": "uint64"
+                        },
+                        "description": {
+                            "text": "Notification id associated with this event.\nNotification id is a number that always increments with each notification,\nand that with a system reboot will keep increasing (even with a buffer added to it),\nguaranteeing that the id always grows."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "sw-support",
+                "description": {
+                    "text": "Common software revision parameters."
+                },
+                "leaf": {
+                    "@name": "sw-support-revision",
+                    "type": {
+                        "@name": "uint16"
+                    },
+                    "default": {
+                        "@value": "0"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Software revision currently installed."
+                    }
+                }
+            },
+            {
+                "@name": "properties",
+                "description": {
+                    "text": "Common property concept."
+                },
+                "list": {
+                    "@name": "property",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "description": {
+                        "text": "Type specific property, auto instanciated by the system, but configurable by the user."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "name",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "Name of the property."
+                            }
+                        },
+                        {
+                            "@name": "value",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "Value of the property. Will always be a 'string', even if it corresponds to a number or other type."
+                            }
+                        },
+                        {
+                            "@name": "description",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..512"
+                                }
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Description of this property, including type restrictions."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "assignment-method",
+                "description": {
+                    "text": "The assignment-method common to multiple objects."
+                },
+                "leaf": {
+                    "@name": "assignment-method",
+                    "type": {
+                        "@name": "enumeration",
+                        "enum": [
+                            {
+                                "@name": "both",
+                                "value": {
+                                    "@value": "0"
+                                },
+                                "description": {
+                                    "text": "Assignment method is both manual and dhcp."
+                                }
+                            },
+                            {
+                                "@name": "manual",
+                                "value": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "Assignment method is manual."
+                                }
+                            },
+                            {
+                                "@name": "dhcp",
+                                "value": {
+                                    "@value": "2"
+                                },
+                                "description": {
+                                    "text": "Assignment method is dhcp."
+                                }
+                            }
+                        ]
+                    },
+                    "default": {
+                        "@value": "both"
+                    },
+                    "description": {
+                        "text": "The system would contain manual and dhcp configured values.\nSystem can use those onfigurations/values defined by assignment-method attributes."
+                    }
+                }
+            }
+        ]
+    }
+}

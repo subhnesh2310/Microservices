@@ -1,0 +1,340 @@
+{
+    "ne": {
+        "system": {
+            "protocols": {
+                "snmp": {
+                    "snmp-community": [
+                        {
+                            "name": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Name for the community (different from the community string itself).",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "namespace": null,
+                            "community-string": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Community String.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "enabled": {
+                                "type": {
+                                    "ptype": "bool"
+                                },
+                                "isList": false,
+                                "description": "User configurable switch to enable or disable this community-string.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": true,
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "community-string-access": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "read-only"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "SNMP access right of this community string.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "read-only",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ],
+                    "snmp-target": [
+                        {
+                            "target-name": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Identifies the SNMP target",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "namespace": null,
+                            "enabled": {
+                                "type": {
+                                    "ptype": "bool"
+                                },
+                                "isList": false,
+                                "description": "User configurable switch to enable or disable this snmp-target.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": true,
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "snmp-version": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "v2c",
+                                        "v3"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "snmp version.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "v2c",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "trap-community-string": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Community string used for SNMP traps",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "infinera",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "snmpv3-user": {
+                                "type": {
+                                    "ptype": "unknown",
+                                    "leafref": "../../snmpv3-user/snmpv3-user-name"
+                                },
+                                "isList": false,
+                                "description": "Indicate the snmpv3 user.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "target-address": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "IP address or hostname of the SNMP target",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "target-port": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "UDP port number.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "162",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "target-transport": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "udp"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Type of transport for the SNMP target",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "udp",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ],
+                    "snmpv3-user": [
+                        {
+                            "snmpv3-user-name": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "SNMPv3 user name.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "namespace": null,
+                            "user-sec-level": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "auth-priv",
+                                        "auth-no-priv",
+                                        "no-auth-no-priv"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Specifies the SNMPv3 user security level.\nNote: when NE is in secure-mode, only auth-priv is allowed.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "no-auth-no-priv",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "auth-protocol": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "SHA"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Specifies the authentication protocol that the SNMPv3 user being created will use.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "SHA",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "auth-passphrase": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Specifies the SNMPv3 authentication pass phrase.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "priv-protocol": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "AES128",
+                                        "AES192",
+                                        "AES256",
+                                        "DES"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Specifies the privacy protocol that the SNMPv3 user being created will use.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "AES128",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "priv-passphrase": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Specifies the SNMPv3 privacy pass phrase.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ],
+                    "enabled": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "User configurable switch to enable or disable global SNMP access.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": true,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "port": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "User configurable port where the NE is listening for SNMP requests.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 161,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "snmp-engine-id": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "SNMP EngineID of the NE.\nThe EngineID will follow the EngineID format 3 defined in RFC3411.\nThe MAC address in the Engine ID will be the first MAC address of the MAC addresses Pool of the NE.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "engine-boot-count": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "SNMP engine boot count.\nCounts how many times the engine has restarted.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

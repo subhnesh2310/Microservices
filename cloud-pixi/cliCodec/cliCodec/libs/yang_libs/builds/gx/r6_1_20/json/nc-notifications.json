@@ -1,0 +1,132 @@
+{
+    "module": {
+        "@name": "nc-notifications",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:manageEvent": "urn:ietf:params:xml:ns:netmod:notification",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "@xmlns:ncEvent": "urn:ietf:params:xml:ns:netconf:notification:1.0",
+        "namespace": {
+            "@uri": "urn:ietf:params:xml:ns:netmod:notification"
+        },
+        "prefix": {
+            "@value": "manageEvent"
+        },
+        "import": [
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            },
+            {
+                "@module": "notifications",
+                "prefix": {
+                    "@value": "ncEvent"
+                }
+            }
+        ],
+        "organization": {
+            "text": "IETF NETCONF WG"
+        },
+        "contact": {
+            "text": "netconf@ietf.org"
+        },
+        "description": {
+            "text": "Conversion of the 'manageEvent' XSD in the NETCONF\nNotifications RFC."
+        },
+        "reference": {
+            "text": "RFC 5277"
+        },
+        "revision": {
+            "@date": "2008-07-14",
+            "description": {
+                "text": "RFC 5277 version."
+            }
+        },
+        "container": {
+            "@name": "netconf",
+            "description": {
+                "text": "Top-level element in the notification namespace"
+            },
+            "config": {
+                "@value": "false"
+            },
+            "container": {
+                "@name": "streams",
+                "description": {
+                    "text": "The list of event streams supported by the system. When\na query is issued, the returned set of streams is\ndetermined based on user privileges."
+                },
+                "list": {
+                    "@name": "stream",
+                    "description": {
+                        "text": "Stream name, description and other information."
+                    },
+                    "key": {
+                        "@value": "name"
+                    },
+                    "min-elements": {
+                        "@value": "1"
+                    },
+                    "leaf": [
+                        {
+                            "@name": "name",
+                            "description": {
+                                "text": "The name of the event stream. If this is the default\nNETCONF stream, this must have the value 'NETCONF'."
+                            },
+                            "type": {
+                                "@name": "ncEvent:streamNameType"
+                            }
+                        },
+                        {
+                            "@name": "description",
+                            "description": {
+                                "text": "A description of the event stream, including such\ninformation as the type of events that are sent over\nthis stream."
+                            },
+                            "type": {
+                                "@name": "string"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            }
+                        },
+                        {
+                            "@name": "replaySupport",
+                            "description": {
+                                "text": "A description of the event stream, including such\ninformation as the type of events that are sent over\nthis stream."
+                            },
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            }
+                        },
+                        {
+                            "@name": "replayLogCreationTime",
+                            "description": {
+                                "text": "The timestamp of the creation of the log used to support\nthe replay function on this stream. Note that this might\nbe earlier then the earliest available notification in\nthe log. This object is updated if the log resets for\nsome reason.  This object MUST be present if replay is\nsupported."
+                            },
+                            "type": {
+                                "@name": "yang:date-and-time"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "notification": [
+            {
+                "@name": "replayComplete",
+                "description": {
+                    "text": "This notification is sent to signal the end of a replay\nportion of a subscription."
+                }
+            },
+            {
+                "@name": "notificationComplete",
+                "description": {
+                    "text": "This notification is sent to signal the end of a notification\nsubscription. It is sent in the case that stopTime was\nspecified during the creation of the subscription.."
+                }
+            }
+        ]
+    }
+}

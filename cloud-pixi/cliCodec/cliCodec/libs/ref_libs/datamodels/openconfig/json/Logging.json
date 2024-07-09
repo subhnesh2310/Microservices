@@ -1,0 +1,187 @@
+{
+    "system": {
+        "logging": {
+            "console": {
+                "selectors": {
+                    "selector": [
+                        {
+                            "facility": {
+                                "type": {
+                                    "ptype": "str",
+                                    "leafref": "../config/facility"
+                                },
+                                "isList": false,
+                                "description": "Reference to facility list key",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": ""
+                            },
+                            "namespace": null,
+                            "severity": {
+                                "type": {
+                                    "ptype": "str",
+                                    "leafref": "../config/severity",
+                                    "values": [
+                                        "EMERGENCY",
+                                        "ALERT",
+                                        "CRITICAL",
+                                        "ERROR",
+                                        "WARNING",
+                                        "NOTICE",
+                                        "INFORMATIONAL",
+                                        "DEBUG"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Reference to severity list key",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": ""
+                            },
+                            "config": {
+                                "facility": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "identityref": "SYSLOG_FACILITY"
+                                    },
+                                    "isList": false,
+                                    "description": "Specifies the facility, or class of messages to log",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null
+                                },
+                                "severity": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "EMERGENCY",
+                                            "ALERT",
+                                            "CRITICAL",
+                                            "ERROR",
+                                            "WARNING",
+                                            "NOTICE",
+                                            "INFORMATIONAL",
+                                            "DEBUG"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Specifies that only messages of the given severity (or\ngreater severity) for the corresonding facility are logged",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "remote-servers": {
+                "remote-server": [
+                    {
+                        "host": {
+                            "type": {
+                                "ptype": "str",
+                                "leafref": "../config/host"
+                            },
+                            "isList": false,
+                            "description": "Reference to the host list key",
+                            "key": true,
+                            "mandatory": false,
+                            "config": true,
+                            "default": ""
+                        },
+                        "namespace": null,
+                        "selectors": {
+                            "selector": [
+                                {
+                                    "facility": {
+                                        "type": {
+                                            "ptype": "str",
+                                            "leafref": "../config/facility"
+                                        },
+                                        "isList": false,
+                                        "description": "Reference to facility list key",
+                                        "key": true,
+                                        "mandatory": false,
+                                        "config": true,
+                                        "default": ""
+                                    },
+                                    "namespace": null,
+                                    "severity": {
+                                        "type": {
+                                            "ptype": "str",
+                                            "leafref": "../config/severity",
+                                            "values": [
+                                                "EMERGENCY",
+                                                "ALERT",
+                                                "CRITICAL",
+                                                "ERROR",
+                                                "WARNING",
+                                                "NOTICE",
+                                                "INFORMATIONAL",
+                                                "DEBUG"
+                                            ]
+                                        },
+                                        "isList": false,
+                                        "description": "Reference to severity list key",
+                                        "key": true,
+                                        "mandatory": false,
+                                        "config": true,
+                                        "default": ""
+                                    },
+                                    "config": {
+                                        "facility": {
+                                            "type": {
+                                                "ptype": "str",
+                                                "identityref": "SYSLOG_FACILITY"
+                                            },
+                                            "isList": false,
+                                            "description": "Specifies the facility, or class of messages to log",
+                                            "mandatory": false,
+                                            "key": false,
+                                            "config": true,
+                                            "default": "",
+                                            "namespace": null
+                                        },
+                                        "severity": {
+                                            "type": {
+                                                "ptype": "str",
+                                                "values": [
+                                                    "EMERGENCY",
+                                                    "ALERT",
+                                                    "CRITICAL",
+                                                    "ERROR",
+                                                    "WARNING",
+                                                    "NOTICE",
+                                                    "INFORMATIONAL",
+                                                    "DEBUG"
+                                                ]
+                                            },
+                                            "isList": false,
+                                            "description": "Specifies that only messages of the given severity (or\ngreater severity) for the corresonding facility are logged",
+                                            "mandatory": false,
+                                            "key": false,
+                                            "config": true,
+                                            "default": "",
+                                            "namespace": null
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/system"
+        }
+    }
+}

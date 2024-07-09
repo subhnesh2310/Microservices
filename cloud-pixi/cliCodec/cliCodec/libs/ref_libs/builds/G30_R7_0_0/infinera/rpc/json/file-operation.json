@@ -1,0 +1,37 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "operation": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "rename",
+                    "delete",
+                    "view",
+                    "sha256sum",
+                    "md5sum"
+                ]
+            },
+            "isList": false,
+            "description": "File operations to do.",
+            "mandatory": false
+        },
+        "file-path": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Current file path.",
+            "mandatory": true
+        },
+        "new-file-path": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "New file path.",
+            "mandatory": true
+        }
+    },
+    "cases": {}
+}

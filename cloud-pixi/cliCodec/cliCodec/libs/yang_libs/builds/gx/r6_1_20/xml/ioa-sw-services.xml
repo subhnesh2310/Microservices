@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-sw-services"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-sw-svc="http://infinera.com/yang/ioa/sw-services"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common">
+  <namespace uri="http://infinera.com/yang/ioa/sw-services"/>
+  <prefix value="ioa-sw-svc"/>
+  <import module="ietf-yang-types">
+    <prefix value="yang"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module for Software Services model.</text>
+  </description>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <grouping name="sw-services">
+    <container name="sw-services">
+      <description>
+        <text>Information about the software services and containers on the node.</text>
+      </description>
+      <list name="sw-control-rule">
+        <key value="service-name"/>
+        <description>
+          <text>Optional service-specific custom rules to overide default action upon service failure.</text>
+        </description>
+        <leaf name="service-name">
+          <type name="ioa-common:object-name"/>
+          <description>
+            <text>Name of the service to be monitored.</text>
+          </description>
+        </leaf>
+        <leaf name="fail-action">
+          <type name="enumeration">
+            <enum name="system-restart">
+              <value value="1"/>
+              <description>
+                <text>Warm restart the system/card software immediately upon service failure.</text>
+              </description>
+            </enum>
+            <enum name="default-action">
+              <value value="2"/>
+              <description>
+                <text>Default policy of restarting the service, then rebooting the system if service not recovered.</text>
+              </description>
+            </enum>
+            <enum name="ignore">
+              <value value="3"/>
+              <description>
+                <text>No automatic action taken in case of service failure.</text>
+              </description>
+            </enum>
+          </type>
+          <mandatory value="true"/>
+          <description>
+            <text>Action profile to be used in the case of service failure.</text>
+          </description>
+        </leaf>
+      </list>
+      <list name="sw-service">
+        <key value="sv-name"/>
+        <config value="false"/>
+        <description>
+          <text>Software service running in the system.</text>
+        </description>
+        <leaf name="sv-name">
+          <type name="string"/>
+          <description>
+            <text>A unique Id for each service instance on the NE. Contains card type, shelf, slot information.</text>
+          </description>
+        </leaf>
+        <leaf name="equipment">
+          <type name="leafref">
+            <path value="../../../../equipment/card/AID"/>
+          </type>
+          <description>
+            <text>Reference to the equipment on which the service is running.</text>
+          </description>
+        </leaf>
+        <leaf name="location">
+          <type name="union">
+            <type name="enumeration">
+              <enum name="host">
+                <value value="1"/>
+              </enum>
+            </type>
+            <type name="string">
+              <length value="1..128"/>
+            </type>
+          </type>
+          <description>
+            <text>Location where the service is running - host/container info.</text>
+          </description>
+        </leaf>
+        <leaf name="state">
+          <type name="enumeration">
+            <enum name="off">
+              <value value="1"/>
+              <description>
+                <text>Default state of a service, indicates not being monitored.</text>
+              </description>
+            </enum>
+            <enum name="ok">
+              <value value="2"/>
+              <description>
+                <text>Indicates the service is ready and functional.</text>
+              </description>
+            </enum>
+            <enum name="fail">
+              <value value="3"/>
+              <description>
+                <text>Indicates the service failed to launch/turn-up or is unresponsive.</text>
+              </description>
+            </enum>
+          </type>
+          <description>
+            <text>Current status of the service.</text>
+          </description>
+        </leaf>
+        <leaf name="state-details">
+          <type name="string"/>
+          <description>
+            <text>Brief description of the service status.</text>
+          </description>
+        </leaf>
+        <leaf name="cpu-usage">
+          <type name="ioa-common:percent"/>
+          <description>
+            <text>Current usage of CPU by the service, in percentage. In a multi-core system, this indicates the overall usage relative to all cores.</text>
+          </description>
+        </leaf>
+        <leaf name="memory-usage">
+          <type name="ioa-common:percent"/>
+          <description>
+            <text>Current usage of memory by the service, in percentage.</text>
+          </description>
+        </leaf>
+        <leaf name="uptime">
+          <type name="string"/>
+          <description>
+            <text>Time since the service turned up, in days:hours:minutes.</text>
+          </description>
+        </leaf>
+        <leaf name="last-start-time">
+          <type name="yang:date-and-time"/>
+          <description>
+            <text>Time of the last service start/boot.</text>
+          </description>
+        </leaf>
+        <leaf name="reboot-count">
+          <type name="uint16"/>
+          <description>
+            <text>The number of times a service has restarted.</text>
+          </description>
+        </leaf>
+      </list>
+      <list name="sw-container">
+        <key value="container-name"/>
+        <config value="false"/>
+        <description>
+          <text>List of OS-level containers.</text>
+        </description>
+        <leaf name="container-name">
+          <type name="string"/>
+          <description>
+            <text>A unique Id for each container.</text>
+          </description>
+        </leaf>
+        <leaf name="equipment">
+          <type name="leafref">
+            <path value="../../../../equipment/card/AID"/>
+          </type>
+          <description>
+            <text>Reference to the equipment on which the container is running.</text>
+          </description>
+        </leaf>
+        <leaf name="state">
+          <type name="enumeration">
+            <enum name="off">
+              <value value="1"/>
+              <description>
+                <text>Default state of a container, indicates it is not launched yet.</text>
+              </description>
+            </enum>
+            <enum name="up">
+              <value value="2"/>
+              <description>
+                <text>Indicates the container is up and running.</text>
+              </description>
+            </enum>
+            <enum name="exited">
+              <value value="3"/>
+              <description>
+                <text>Indicates the container has exited.</text>
+              </description>
+            </enum>
+          </type>
+          <description>
+            <text>Current status of the container.</text>
+          </description>
+        </leaf>
+        <leaf name="description">
+          <type name="string"/>
+          <description>
+            <text>Brief description of the container instance.</text>
+          </description>
+        </leaf>
+        <leaf name="cpu-usage">
+          <type name="ioa-common:percent"/>
+          <description>
+            <text>Current usage of CPU by the container, in percentage. In a multi-core system, this indicates the overall usage relative to all cores.</text>
+          </description>
+        </leaf>
+        <leaf name="memory-usage">
+          <type name="ioa-common:percent"/>
+          <description>
+            <text>Current usage of memory by the container, in percentage.</text>
+          </description>
+        </leaf>
+        <leaf name="uptime">
+          <type name="string"/>
+          <description>
+            <text>Time since the container started.</text>
+          </description>
+        </leaf>
+      </list>
+    </container>
+  </grouping>
+</module>

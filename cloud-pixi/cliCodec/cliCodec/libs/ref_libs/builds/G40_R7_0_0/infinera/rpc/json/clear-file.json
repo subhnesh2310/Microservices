@@ -1,0 +1,37 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "filetype": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "database",
+                    "swimage",
+                    "krp",
+                    "script",
+                    "debug-log",
+                    "pm-logs",
+                    "local-certificate",
+                    "trusted-certificate",
+                    "fdr-log",
+                    "logs",
+                    "file",
+                    "peer-certificate",
+                    "crl"
+                ]
+            },
+            "isList": false,
+            "description": "Predefined filetype available for clearing the file",
+            "mandatory": true
+        },
+        "target-file": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Filepath of the file to be deleted",
+            "mandatory": true
+        }
+    },
+    "cases": {}
+}

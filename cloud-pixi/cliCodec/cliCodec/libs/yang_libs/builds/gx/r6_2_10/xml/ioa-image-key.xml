@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-image-key"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-image-key="http://infinera.com/yang/ioa/keys"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types">
+  <namespace uri="http://infinera.com/yang/ioa/keys"/>
+  <prefix value="ioa-image-key"/>
+  <import module="ietf-yang-types">
+    <prefix value="yang"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG model for Image Keys in the system</text>
+  </description>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <grouping name="key-attributes">
+    <leaf name="key-name">
+      <type name="string">
+        <length value="0..64"/>
+      </type>
+      <description>
+        <text>Name of the key</text>
+      </description>
+    </leaf>
+    <leaf name="key-serial-number">
+      <type name="string"/>
+      <description>
+        <text>Key Serial Number</text>
+      </description>
+    </leaf>
+    <leaf name="issuer-name">
+      <type name="string">
+        <length value="0..20"/>
+      </type>
+      <description>
+        <text>Name of the CSA (Code Signing Appliance)</text>
+      </description>
+    </leaf>
+    <leaf name="key-length">
+      <type name="uint16"/>
+      <units name="bits"/>
+      <description>
+        <text>Key length in bits</text>
+      </description>
+    </leaf>
+    <leaf name="key-payload">
+      <type name="yang:hex-string">
+        <length value="0..1100"/>
+      </type>
+      <description>
+        <text>Key Payload (hex format)</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="key-common-attributes">
+    <leaf name="name">
+      <type name="string"/>
+      <description>
+        <text>Unique representation of the object</text>
+      </description>
+    </leaf>
+    <leaf name="CPU">
+      <type name="uint8"/>
+      <description>
+        <text>Identifier for member CPUs on cards starts at 0</text>
+      </description>
+    </leaf>
+    <uses name="key-attributes"/>
+  </grouping>
+  <grouping name="sign-common-attr">
+    <leaf name="KRK-name">
+      <type name="string"/>
+      <description>
+        <text>Name of the KRK (Image root key) that signed this ISK</text>
+      </description>
+    </leaf>
+    <leaf name="signature-hash-scheme">
+      <type name="enumeration">
+        <enum name="SHA2_256">
+          <value value="1"/>
+        </enum>
+        <enum name="SHA2_384">
+          <value value="2"/>
+        </enum>
+        <enum name="SHA2_512">
+          <value value="3"/>
+        </enum>
+      </type>
+      <description>
+        <text>Hashing Scheme</text>
+      </description>
+    </leaf>
+    <leaf name="signature-algorithm">
+      <type name="enumeration">
+        <enum name="ECDSA">
+          <value value="1"/>
+        </enum>
+        <enum name="RSA">
+          <value value="2"/>
+        </enum>
+        <enum name="none">
+          <value value="3"/>
+        </enum>
+      </type>
+      <description>
+        <text>Signature Algorithm</text>
+      </description>
+    </leaf>
+    <leaf name="signature-payload">
+      <type name="yang:hex-string">
+        <length value="0..1024"/>
+      </type>
+      <description>
+        <text>Signature Payload</text>
+      </description>
+    </leaf>
+    <leaf name="signature-gen-time">
+      <type name="yang:date-and-time"/>
+      <description>
+        <text>Signature Generation Time</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="image-keys">
+    <container name="image-keys">
+      <config value="false"/>
+      <description>
+        <text>Container for image keys</text>
+      </description>
+      <container name="ISKs">
+        <description>
+          <text>Container for Image Signing Keys</text>
+        </description>
+        <list name="ISK">
+          <key value="name"/>
+          <description>
+            <text>Image Signing Key list.</text>
+          </description>
+          <uses name="key-common-attributes"/>
+          <leaf name="is-key-in-use">
+            <type name="boolean"/>
+            <default value="false"/>
+            <description>
+              <text>Indicates if the key is in use in this FRU</text>
+            </description>
+          </leaf>
+          <leaf name="is-key-verified">
+            <type name="boolean"/>
+            <default value="false"/>
+            <description>
+              <text>Indicates if the key is verified in this FRU</text>
+            </description>
+          </leaf>
+          <leaf name="being-deleted">
+            <type name="boolean"/>
+            <default value="false"/>
+            <description>
+              <text>System is in the process of deletion for this ISK.</text>
+            </description>
+          </leaf>
+          <uses name="sign-common-attr"/>
+        </list>
+      </container>
+      <container name="KRKs">
+        <description>
+          <text>Container for Image Root Keys</text>
+        </description>
+        <list name="KRK">
+          <key value="name"/>
+          <description>
+            <text>Image Root Key list.</text>
+          </description>
+          <uses name="key-common-attributes"/>
+        </list>
+      </container>
+    </container>
+  </grouping>
+  <grouping name="key-replacement-package">
+    <container name="key-replacement-package">
+      <config value="false"/>
+      <description>
+        <text>Container for KRP (Key Replacement Package)</text>
+      </description>
+      <leaf name="KRP-name">
+        <type name="string"/>
+        <description>
+          <text>KRP name</text>
+        </description>
+      </leaf>
+      <leaf name="KRP-version">
+        <type name="uint32"/>
+        <description>
+          <text>Package version</text>
+        </description>
+      </leaf>
+      <uses name="key-attributes"/>
+      <uses name="sign-common-attr"/>
+      <leaf name="install-status">
+        <type name="enumeration">
+          <enum name="not-installed">
+            <value value="1"/>
+          </enum>
+          <enum name="installing">
+            <value value="2"/>
+          </enum>
+          <enum name="installed">
+            <value value="3"/>
+          </enum>
+          <enum name="failed">
+            <value value="4"/>
+          </enum>
+        </type>
+        <description>
+          <text>Indicates if this KRP has been installed in the system</text>
+        </description>
+      </leaf>
+    </container>
+  </grouping>
+</module>

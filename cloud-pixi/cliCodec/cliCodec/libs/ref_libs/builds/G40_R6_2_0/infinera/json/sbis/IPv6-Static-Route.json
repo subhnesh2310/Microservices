@@ -1,0 +1,159 @@
+{
+    "ne": {
+        "system": {
+            "networking": {
+                "routing": {
+                    "ipv6-static-route": [
+                        {
+                            "ipv6-destination-prefix vrf": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "IPv6 destination prefix.",
+                                "key": true,
+                                "mandatory": true,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "ipv6-destination-prefix": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "IPv6 destination prefix.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "vrf": {
+                                "type": {
+                                    "ptype": "unknown",
+                                    "leafref": "../../../vrf/name"
+                                },
+                                "isList": false,
+                                "description": "VRF associated with this static route.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "advertised": {
+                                "type": {
+                                    "ptype": "bool"
+                                },
+                                "isList": false,
+                                "description": "When set to YES, the static route is advertised in the routing\nprotocol. For OSPF, the static route will be advertised as an\nAS external route, if OSPF is configured as an ASBR.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": false,
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "next-hop-address": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "IPv6 address of the next-hop.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "distance": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "distance of the next-hop.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": 1,
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "interface": {
+                                "type": {
+                                    "ptype": "unknown",
+                                    "leafref": "../../../interface/if-name"
+                                },
+                                "isList": false,
+                                "description": "Interface associated with this static route.  The VRF bound\nto this interface needs to match the static-route provided\nvrf.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "monitoring-state": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "unmonitored",
+                                        "ok",
+                                        "failed"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The current state of the monitoring",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "unmonitored",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "monitoring-instance": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Monitoring Instance Name.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "origin": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "manual",
+                                        "dhcp"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "route address assignment method.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "manual",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ]
+                }
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

@@ -1,0 +1,138 @@
+{
+    "ne": {
+        "system": {
+            "networking": {
+                "routing": {
+                    "ospf-instance": [
+                        {
+                            "instance-id": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "OSPF instance ID.",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": 0,
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "ospf-area": [
+                                {
+                                    "ospf-area-id": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "OSPF Router Area ID.",
+                                        "key": true,
+                                        "mandatory": false,
+                                        "config": true,
+                                        "default": "",
+                                        "hardcode": false
+                                    },
+                                    "namespace": null,
+                                    "ospf-area-type": {
+                                        "type": {
+                                            "ptype": "str",
+                                            "values": [
+                                                "normal"
+                                            ]
+                                        },
+                                        "isList": false,
+                                        "description": "OSPF Router Area Type.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "normal",
+                                        "hardcode": false,
+                                        "namespace": null
+                                    }
+                                }
+                            ],
+                            "router-id": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "OSPF Router ID.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "version": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "ospfv2",
+                                        "ospfv3"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "OSPF version v2 or v3",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "ospfv2",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "description": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Textual description of the OSPF instance.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "vrf": {
+                                "type": {
+                                    "ptype": "unknown",
+                                    "leafref": "../../../vrf/name"
+                                },
+                                "isList": false,
+                                "description": "VRF associated with this OSPF instance.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "router-id-mode": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "use-loopback",
+                                        "manual"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Flag to indicate router-id is loopback IP or manual configured.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "use-loopback",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ]
+                }
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

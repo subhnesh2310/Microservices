@@ -1,0 +1,3003 @@
+{
+    "module": {
+        "@name": "iana-if-type",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ianaift": "urn:ietf:params:xml:ns:yang:iana-if-type",
+        "@xmlns:if": "urn:ietf:params:xml:ns:yang:ietf-interfaces",
+        "namespace": {
+            "@uri": "urn:ietf:params:xml:ns:yang:iana-if-type"
+        },
+        "prefix": {
+            "@value": "ianaift"
+        },
+        "import": {
+            "@module": "ietf-interfaces",
+            "prefix": {
+                "@value": "if"
+            }
+        },
+        "organization": {
+            "text": "IANA"
+        },
+        "contact": {
+            "text": "Internet Assigned Numbers Authority\n\nPostal: ICANN\n        12025 Waterfront Drive, Suite 300\n        Los Angeles, CA 90094-2536\n        United States\n\nTel:    +1 310 301 5800\n<mailto:iana@iana.org>"
+        },
+        "description": {
+            "text": "This YANG module defines YANG identities for IANA-registered\ninterface types.\n\nThis YANG module is maintained by IANA and reflects the\n'ifType definitions' registry.\n\nThe latest revision of this YANG module can be obtained from\nthe IANA web site.\n\nRequests for new values should be made to IANA via\nemail (iana@iana.org).\n\nCopyright (c) 2014 IETF Trust and the persons identified as\nauthors of the code.  All rights reserved.\n\nRedistribution and use in source and binary forms, with or\nwithout modification, is permitted pursuant to, and subject\nto the license terms contained in, the Simplified BSD License\nset forth in Section 4.c of the IETF Trust's Legal Provisions\nRelating to IETF Documents\n(http://trustee.ietf.org/license-info).\n\nThe initial version of this YANG module is part of RFC 7224;\nsee the RFC itself for full legal notices."
+        },
+        "reference": {
+            "text": "IANA 'ifType definitions' registry.\n<http://www.iana.org/assignments/smi-numbers>"
+        },
+        "revision": [
+            {
+                "@date": "2020-08-27",
+                "description": {
+                    "text": "Added missing references."
+                }
+            },
+            {
+                "@date": "2020-07-13",
+                "description": {
+                    "text": "Added identity cpri."
+                }
+            },
+            {
+                "@date": "2020-07-10",
+                "description": {
+                    "text": "Registered ifType 300."
+                }
+            },
+            {
+                "@date": "2020-01-10",
+                "description": {
+                    "text": "Registered ifType 299."
+                }
+            },
+            {
+                "@date": "2019-10-16",
+                "description": {
+                    "text": "Registered ifType 298."
+                }
+            },
+            {
+                "@date": "2019-07-16",
+                "description": {
+                    "text": "Registered ifType 297."
+                }
+            },
+            {
+                "@date": "2019-06-21",
+                "description": {
+                    "text": "Updated reference associated with ifTypes 295-296."
+                }
+            },
+            {
+                "@date": "2019-02-08",
+                "description": {
+                    "text": "Corrected formatting issue."
+                }
+            },
+            {
+                "@date": "2019-01-31",
+                "description": {
+                    "text": "Registered ifTypes 295-296."
+                }
+            },
+            {
+                "@date": "2018-07-03",
+                "description": {
+                    "text": "Corrected revision date."
+                }
+            },
+            {
+                "@date": "2018-06-29",
+                "description": {
+                    "text": "Corrected formatting issue."
+                }
+            },
+            {
+                "@date": "2018-06-28",
+                "description": {
+                    "text": "Registered ifType 294."
+                }
+            },
+            {
+                "@date": "2018-06-28",
+                "description": {
+                    "text": "Registered ifType 293."
+                }
+            },
+            {
+                "@date": "2018-06-22",
+                "description": {
+                    "text": "Registered ifType 292."
+                }
+            },
+            {
+                "@date": "2018-06-21",
+                "description": {
+                    "text": "Registered ifType 291."
+                }
+            },
+            {
+                "@date": "2017-03-30",
+                "description": {
+                    "text": "Registered ifType 290."
+                }
+            },
+            {
+                "@date": "2017-01-19",
+                "description": {
+                    "text": "Registered ifType 289."
+                }
+            },
+            {
+                "@date": "2016-11-23",
+                "description": {
+                    "text": "Registered ifTypes 283-288."
+                }
+            },
+            {
+                "@date": "2016-06-09",
+                "description": {
+                    "text": "Registered ifType 282."
+                }
+            },
+            {
+                "@date": "2016-05-03",
+                "description": {
+                    "text": "Registered ifType 281."
+                }
+            },
+            {
+                "@date": "2015-06-12",
+                "description": {
+                    "text": "Corrected formatting issue."
+                }
+            },
+            {
+                "@date": "2014-09-24",
+                "description": {
+                    "text": "Registered ifType 280."
+                }
+            },
+            {
+                "@date": "2014-09-19",
+                "description": {
+                    "text": "Registered ifType 279."
+                }
+            },
+            {
+                "@date": "2014-07-03",
+                "description": {
+                    "text": "Registered ifTypes 277-278."
+                }
+            },
+            {
+                "@date": "2014-05-19",
+                "description": {
+                    "text": "Updated the contact address."
+                }
+            },
+            {
+                "@date": "2014-05-08",
+                "description": {
+                    "text": "Initial revision."
+                },
+                "reference": {
+                    "text": "RFC 7224: IANA Interface Type YANG Module"
+                }
+            }
+        ],
+        "identity": [
+            {
+                "@name": "iana-interface-type",
+                "base": {
+                    "@name": "if:interface-type"
+                },
+                "description": {
+                    "text": "This identity is used as a base for all interface types\ndefined in the 'ifType definitions' registry."
+                }
+            },
+            {
+                "@name": "other",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "regular1822",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "hdh1822",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "ddnX25",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "rfc877x25",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "reference": {
+                    "text": "RFC 1382 - SNMP MIB Extension for the X.25 Packet Layer"
+                }
+            },
+            {
+                "@name": "ethernetCsmacd",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "For all Ethernet-like interfaces, regardless of speed,\nas per RFC 3635."
+                },
+                "reference": {
+                    "text": "RFC 3635 - Definitions of Managed Objects for the\n           Ethernet-like Interface Types"
+                }
+            },
+            {
+                "@name": "iso88023Csmacd",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "status": {
+                    "@value": "deprecated"
+                },
+                "description": {
+                    "text": "Deprecated via RFC 3635.\nUse ethernetCsmacd(6) instead."
+                },
+                "reference": {
+                    "text": "RFC 3635 - Definitions of Managed Objects for the\n           Ethernet-like Interface Types"
+                }
+            },
+            {
+                "@name": "iso88024TokenBus",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "iso88025TokenRing",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "iso88026Man",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "starLan",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "status": {
+                    "@value": "deprecated"
+                },
+                "description": {
+                    "text": "Deprecated via RFC 3635.\nUse ethernetCsmacd(6) instead."
+                },
+                "reference": {
+                    "text": "RFC 3635 - Definitions of Managed Objects for the\n           Ethernet-like Interface Types"
+                }
+            },
+            {
+                "@name": "proteon10Mbit",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "proteon80Mbit",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "hyperchannel",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "fddi",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "reference": {
+                    "text": "RFC 1512 - FDDI Management Information Base"
+                }
+            },
+            {
+                "@name": "lapb",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "reference": {
+                    "text": "RFC 1381 - SNMP MIB Extension for X.25 LAPB"
+                }
+            },
+            {
+                "@name": "sdlc",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "ds1",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "DS1-MIB."
+                },
+                "reference": {
+                    "text": "RFC 4805 - Definitions of Managed Objects for the\n           DS1, J1, E1, DS2, and E2 Interface Types"
+                }
+            },
+            {
+                "@name": "e1",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "status": {
+                    "@value": "obsolete"
+                },
+                "description": {
+                    "text": "Obsolete; see DS1-MIB."
+                },
+                "reference": {
+                    "text": "RFC 4805 - Definitions of Managed Objects for the\n           DS1, J1, E1, DS2, and E2 Interface Types"
+                }
+            },
+            {
+                "@name": "basicISDN",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "No longer used.  See also RFC 2127."
+                }
+            },
+            {
+                "@name": "primaryISDN",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "No longer used.  See also RFC 2127."
+                }
+            },
+            {
+                "@name": "propPointToPointSerial",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Proprietary serial."
+                }
+            },
+            {
+                "@name": "ppp",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "softwareLoopback",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "eon",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CLNP over IP."
+                }
+            },
+            {
+                "@name": "ethernet3Mbit",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "nsip",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "XNS over IP."
+                }
+            },
+            {
+                "@name": "slip",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Generic SLIP."
+                }
+            },
+            {
+                "@name": "ultra",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Ultra Technologies."
+                }
+            },
+            {
+                "@name": "ds3",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "DS3-MIB."
+                },
+                "reference": {
+                    "text": "RFC 3896 - Definitions of Managed Objects for the\n           DS3/E3 Interface Type"
+                }
+            },
+            {
+                "@name": "sip",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "SMDS, coffee."
+                },
+                "reference": {
+                    "text": "RFC 1694 - Definitions of Managed Objects for SMDS\n           Interfaces using SMIv2"
+                }
+            },
+            {
+                "@name": "frameRelay",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "DTE only."
+                },
+                "reference": {
+                    "text": "RFC 2115 - Management Information Base for Frame Relay\n           DTEs Using SMIv2"
+                }
+            },
+            {
+                "@name": "rs232",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "reference": {
+                    "text": "RFC 1659 - Definitions of Managed Objects for RS-232-like\n           Hardware Devices using SMIv2"
+                }
+            },
+            {
+                "@name": "para",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Parallel-port."
+                },
+                "reference": {
+                    "text": "RFC 1660 - Definitions of Managed Objects for\n           Parallel-printer-like Hardware Devices using\n           SMIv2"
+                }
+            },
+            {
+                "@name": "arcnet",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ARCnet."
+                }
+            },
+            {
+                "@name": "arcnetPlus",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ARCnet Plus."
+                }
+            },
+            {
+                "@name": "atm",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ATM cells."
+                }
+            },
+            {
+                "@name": "miox25",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "reference": {
+                    "text": "RFC 1461 - SNMP MIB extension for Multiprotocol\n           Interconnect over X.25"
+                }
+            },
+            {
+                "@name": "sonet",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "SONET or SDH."
+                }
+            },
+            {
+                "@name": "x25ple",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "reference": {
+                    "text": "RFC 2127 - ISDN Management Information Base using SMIv2"
+                }
+            },
+            {
+                "@name": "iso88022llc",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "localTalk",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "smdsDxi",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "frameRelayService",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "FRNETSERV-MIB."
+                },
+                "reference": {
+                    "text": "RFC 2954 - Definitions of Managed Objects for Frame\n           Relay Service"
+                }
+            },
+            {
+                "@name": "v35",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "hssi",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "hippi",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "modem",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Generic modem."
+                }
+            },
+            {
+                "@name": "aal5",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "AAL5 over ATM."
+                }
+            },
+            {
+                "@name": "sonetPath",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "sonetVT",
+                "base": {
+                    "@name": "iana-interface-type"
+                }
+            },
+            {
+                "@name": "smdsIcip",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "SMDS InterCarrier Interface."
+                }
+            },
+            {
+                "@name": "propVirtual",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Proprietary virtual/internal."
+                },
+                "reference": {
+                    "text": "RFC 2863 - The Interfaces Group MIB"
+                }
+            },
+            {
+                "@name": "propMultiplexor",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Proprietary multiplexing."
+                },
+                "reference": {
+                    "text": "RFC 2863 - The Interfaces Group MIB"
+                }
+            },
+            {
+                "@name": "ieee80212",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "100BaseVG."
+                }
+            },
+            {
+                "@name": "fibreChannel",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Fibre Channel."
+                }
+            },
+            {
+                "@name": "hippiInterface",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "HIPPI interfaces."
+                }
+            },
+            {
+                "@name": "frameRelayInterconnect",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "status": {
+                    "@value": "obsolete"
+                },
+                "description": {
+                    "text": "Obsolete; use either\nframeRelay(32) or frameRelayService(44)."
+                }
+            },
+            {
+                "@name": "aflane8023",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ATM Emulated LAN for 802.3."
+                }
+            },
+            {
+                "@name": "aflane8025",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ATM Emulated LAN for 802.5."
+                }
+            },
+            {
+                "@name": "cctEmul",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ATM Emulated circuit."
+                }
+            },
+            {
+                "@name": "fastEther",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "status": {
+                    "@value": "deprecated"
+                },
+                "description": {
+                    "text": "Obsoleted via RFC 3635.\nethernetCsmacd(6) should be used instead."
+                },
+                "reference": {
+                    "text": "RFC 3635 - Definitions of Managed Objects for the\n           Ethernet-like Interface Types"
+                }
+            },
+            {
+                "@name": "isdn",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ISDN and X.25."
+                },
+                "reference": {
+                    "text": "RFC 1356 - Multiprotocol Interconnect on X.25 and ISDN\n           in the Packet Mode"
+                }
+            },
+            {
+                "@name": "v11",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CCITT V.11/X.21."
+                }
+            },
+            {
+                "@name": "v36",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CCITT V.36."
+                }
+            },
+            {
+                "@name": "g703at64k",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CCITT G703 at 64Kbps."
+                }
+            },
+            {
+                "@name": "g703at2mb",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "status": {
+                    "@value": "obsolete"
+                },
+                "description": {
+                    "text": "Obsolete; see DS1-MIB."
+                }
+            },
+            {
+                "@name": "qllc",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "SNA QLLC."
+                }
+            },
+            {
+                "@name": "fastEtherFX",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "status": {
+                    "@value": "deprecated"
+                },
+                "description": {
+                    "text": "Obsoleted via RFC 3635.\nethernetCsmacd(6) should be used instead."
+                },
+                "reference": {
+                    "text": "RFC 3635 - Definitions of Managed Objects for the\n           Ethernet-like Interface Types"
+                }
+            },
+            {
+                "@name": "channel",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Channel."
+                }
+            },
+            {
+                "@name": "ieee80211",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Radio spread spectrum."
+                }
+            },
+            {
+                "@name": "ibm370parChan",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IBM System 360/370 OEMI Channel."
+                }
+            },
+            {
+                "@name": "escon",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IBM Enterprise Systems Connection."
+                }
+            },
+            {
+                "@name": "dlsw",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Data Link Switching."
+                }
+            },
+            {
+                "@name": "isdns",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ISDN S/T interface."
+                }
+            },
+            {
+                "@name": "isdnu",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ISDN U interface."
+                }
+            },
+            {
+                "@name": "lapd",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Link Access Protocol D."
+                }
+            },
+            {
+                "@name": "ipSwitch",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IP Switching Objects."
+                }
+            },
+            {
+                "@name": "rsrb",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Remote Source Route Bridging."
+                }
+            },
+            {
+                "@name": "atmLogical",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ATM Logical Port."
+                },
+                "reference": {
+                    "text": "RFC 3606 - Definitions of Supplemental Managed Objects\n           for ATM Interface"
+                }
+            },
+            {
+                "@name": "ds0",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Digital Signal Level 0."
+                },
+                "reference": {
+                    "text": "RFC 2494 - Definitions of Managed Objects for the DS0\n           and DS0 Bundle Interface Type"
+                }
+            },
+            {
+                "@name": "ds0Bundle",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Group of ds0s on the same ds1."
+                },
+                "reference": {
+                    "text": "RFC 2494 - Definitions of Managed Objects for the DS0\n           and DS0 Bundle Interface Type"
+                }
+            },
+            {
+                "@name": "bsc",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Bisynchronous Protocol."
+                }
+            },
+            {
+                "@name": "async",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Asynchronous Protocol."
+                }
+            },
+            {
+                "@name": "cnr",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Combat Net Radio."
+                }
+            },
+            {
+                "@name": "iso88025Dtr",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ISO 802.5r DTR."
+                }
+            },
+            {
+                "@name": "eplrs",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Ext Pos Loc Report Sys."
+                }
+            },
+            {
+                "@name": "arap",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Appletalk Remote Access Protocol."
+                }
+            },
+            {
+                "@name": "propCnls",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Proprietary Connectionless Protocol."
+                }
+            },
+            {
+                "@name": "hostPad",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CCITT-ITU X.29 PAD Protocol."
+                }
+            },
+            {
+                "@name": "termPad",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CCITT-ITU X.3 PAD Facility."
+                }
+            },
+            {
+                "@name": "frameRelayMPI",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Multiproto Interconnect over FR."
+                }
+            },
+            {
+                "@name": "x213",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CCITT-ITU X213."
+                }
+            },
+            {
+                "@name": "adsl",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Asymmetric Digital Subscriber Loop."
+                }
+            },
+            {
+                "@name": "radsl",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Rate-Adapt. Digital Subscriber Loop."
+                }
+            },
+            {
+                "@name": "sdsl",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Symmetric Digital Subscriber Loop."
+                }
+            },
+            {
+                "@name": "vdsl",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Very H-Speed Digital Subscrib. Loop."
+                }
+            },
+            {
+                "@name": "iso88025CRFPInt",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ISO 802.5 CRFP."
+                }
+            },
+            {
+                "@name": "myrinet",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Myricom Myrinet."
+                }
+            },
+            {
+                "@name": "voiceEM",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Voice recEive and transMit."
+                }
+            },
+            {
+                "@name": "voiceFXO",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Voice Foreign Exchange Office."
+                }
+            },
+            {
+                "@name": "voiceFXS",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Voice Foreign Exchange Station."
+                }
+            },
+            {
+                "@name": "voiceEncap",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Voice encapsulation."
+                }
+            },
+            {
+                "@name": "voiceOverIp",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Voice over IP encapsulation."
+                }
+            },
+            {
+                "@name": "atmDxi",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ATM DXI."
+                }
+            },
+            {
+                "@name": "atmFuni",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ATM FUNI."
+                }
+            },
+            {
+                "@name": "atmIma",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ATM IMA."
+                }
+            },
+            {
+                "@name": "pppMultilinkBundle",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "PPP Multilink Bundle."
+                }
+            },
+            {
+                "@name": "ipOverCdlc",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IBM ipOverCdlc."
+                }
+            },
+            {
+                "@name": "ipOverClaw",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IBM Common Link Access to Workstn."
+                }
+            },
+            {
+                "@name": "stackToStack",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IBM stackToStack."
+                }
+            },
+            {
+                "@name": "virtualIpAddress",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IBM VIPA."
+                }
+            },
+            {
+                "@name": "mpc",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IBM multi-protocol channel support."
+                }
+            },
+            {
+                "@name": "ipOverAtm",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IBM ipOverAtm."
+                },
+                "reference": {
+                    "text": "RFC 2320 - Definitions of Managed Objects for Classical IP\n           and ARP Over ATM Using SMIv2 (IPOA-MIB)"
+                }
+            },
+            {
+                "@name": "iso88025Fiber",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ISO 802.5j Fiber Token Ring."
+                }
+            },
+            {
+                "@name": "tdlc",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IBM twinaxial data link control."
+                }
+            },
+            {
+                "@name": "gigabitEthernet",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "status": {
+                    "@value": "deprecated"
+                },
+                "description": {
+                    "text": "Obsoleted via RFC 3635.\nethernetCsmacd(6) should be used instead."
+                },
+                "reference": {
+                    "text": "RFC 3635 - Definitions of Managed Objects for the\n           Ethernet-like Interface Types"
+                }
+            },
+            {
+                "@name": "hdlc",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "HDLC."
+                }
+            },
+            {
+                "@name": "lapf",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "LAP F."
+                }
+            },
+            {
+                "@name": "v37",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "V.37."
+                }
+            },
+            {
+                "@name": "x25mlp",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Multi-Link Protocol."
+                }
+            },
+            {
+                "@name": "x25huntGroup",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "X25 Hunt Group."
+                }
+            },
+            {
+                "@name": "transpHdlc",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Transp HDLC."
+                }
+            },
+            {
+                "@name": "interleave",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Interleave channel."
+                }
+            },
+            {
+                "@name": "fast",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Fast channel."
+                }
+            },
+            {
+                "@name": "ip",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IP (for APPN HPR in IP networks)."
+                }
+            },
+            {
+                "@name": "docsCableMaclayer",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CATV Mac Layer."
+                }
+            },
+            {
+                "@name": "docsCableDownstream",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CATV Downstream interface."
+                }
+            },
+            {
+                "@name": "docsCableUpstream",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CATV Upstream interface."
+                }
+            },
+            {
+                "@name": "a12MppSwitch",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Avalon Parallel Processor."
+                }
+            },
+            {
+                "@name": "tunnel",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Encapsulation interface."
+                }
+            },
+            {
+                "@name": "coffee",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Coffee pot."
+                },
+                "reference": {
+                    "text": "RFC 2325 - Coffee MIB"
+                }
+            },
+            {
+                "@name": "ces",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Circuit Emulation Service."
+                }
+            },
+            {
+                "@name": "atmSubInterface",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ATM Sub Interface."
+                }
+            },
+            {
+                "@name": "l2vlan",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Layer 2 Virtual LAN using 802.1Q."
+                }
+            },
+            {
+                "@name": "l3ipvlan",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Layer 3 Virtual LAN using IP."
+                }
+            },
+            {
+                "@name": "l3ipxvlan",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Layer 3 Virtual LAN using IPX."
+                }
+            },
+            {
+                "@name": "digitalPowerline",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IP over Power Lines."
+                }
+            },
+            {
+                "@name": "mediaMailOverIp",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Multimedia Mail over IP."
+                }
+            },
+            {
+                "@name": "dtm",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Dynamic synchronous Transfer Mode."
+                }
+            },
+            {
+                "@name": "dcn",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Data Communications Network."
+                }
+            },
+            {
+                "@name": "ipForward",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IP Forwarding Interface."
+                }
+            },
+            {
+                "@name": "msdsl",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Multi-rate Symmetric DSL."
+                }
+            },
+            {
+                "@name": "ieee1394",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IEEE1394 High Performance Serial Bus."
+                }
+            },
+            {
+                "@name": "if-gsn",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "HIPPI-6400."
+                }
+            },
+            {
+                "@name": "dvbRccMacLayer",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "DVB-RCC MAC Layer."
+                }
+            },
+            {
+                "@name": "dvbRccDownstream",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "DVB-RCC Downstream Channel."
+                }
+            },
+            {
+                "@name": "dvbRccUpstream",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "DVB-RCC Upstream Channel."
+                }
+            },
+            {
+                "@name": "atmVirtual",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ATM Virtual Interface."
+                }
+            },
+            {
+                "@name": "mplsTunnel",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "MPLS Tunnel Virtual Interface."
+                }
+            },
+            {
+                "@name": "srp",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Spatial Reuse Protocol."
+                }
+            },
+            {
+                "@name": "voiceOverAtm",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Voice over ATM."
+                }
+            },
+            {
+                "@name": "voiceOverFrameRelay",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Voice Over Frame Relay."
+                }
+            },
+            {
+                "@name": "idsl",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Digital Subscriber Loop over ISDN."
+                }
+            },
+            {
+                "@name": "compositeLink",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Avici Composite Link Interface."
+                }
+            },
+            {
+                "@name": "ss7SigLink",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "SS7 Signaling Link."
+                }
+            },
+            {
+                "@name": "propWirelessP2P",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Prop. P2P wireless interface."
+                }
+            },
+            {
+                "@name": "frForward",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Frame Forward Interface."
+                }
+            },
+            {
+                "@name": "rfc1483",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Multiprotocol over ATM AAL5."
+                },
+                "reference": {
+                    "text": "RFC 1483 - Multiprotocol Encapsulation over ATM\n           Adaptation Layer 5"
+                }
+            },
+            {
+                "@name": "usb",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "USB Interface."
+                }
+            },
+            {
+                "@name": "ieee8023adLag",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IEEE 802.3ad Link Aggregate."
+                }
+            },
+            {
+                "@name": "bgppolicyaccounting",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "BGP Policy Accounting."
+                }
+            },
+            {
+                "@name": "frf16MfrBundle",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "FRF.16 Multilink Frame Relay."
+                }
+            },
+            {
+                "@name": "h323Gatekeeper",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "H323 Gatekeeper."
+                }
+            },
+            {
+                "@name": "h323Proxy",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "H323 Voice and Video Proxy."
+                }
+            },
+            {
+                "@name": "mpls",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "MPLS."
+                }
+            },
+            {
+                "@name": "mfSigLink",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Multi-frequency signaling link."
+                }
+            },
+            {
+                "@name": "hdsl2",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "High Bit-Rate DSL - 2nd generation."
+                }
+            },
+            {
+                "@name": "shdsl",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Multirate HDSL2."
+                }
+            },
+            {
+                "@name": "ds1FDL",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Facility Data Link (4Kbps) on a DS1."
+                }
+            },
+            {
+                "@name": "pos",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Packet over SONET/SDH Interface."
+                }
+            },
+            {
+                "@name": "dvbAsiIn",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "DVB-ASI Input."
+                }
+            },
+            {
+                "@name": "dvbAsiOut",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "DVB-ASI Output."
+                }
+            },
+            {
+                "@name": "plc",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Power Line Communications."
+                }
+            },
+            {
+                "@name": "nfas",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Non-Facility Associated Signaling."
+                }
+            },
+            {
+                "@name": "tr008",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "TR008."
+                }
+            },
+            {
+                "@name": "gr303RDT",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Remote Digital Terminal."
+                }
+            },
+            {
+                "@name": "gr303IDT",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Integrated Digital Terminal."
+                }
+            },
+            {
+                "@name": "isup",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ISUP."
+                }
+            },
+            {
+                "@name": "propDocsWirelessMaclayer",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Cisco proprietary Maclayer."
+                }
+            },
+            {
+                "@name": "propDocsWirelessDownstream",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Cisco proprietary Downstream."
+                }
+            },
+            {
+                "@name": "propDocsWirelessUpstream",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Cisco proprietary Upstream."
+                }
+            },
+            {
+                "@name": "hiperlan2",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "HIPERLAN Type 2 Radio Interface."
+                }
+            },
+            {
+                "@name": "propBWAp2Mp",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "PropBroadbandWirelessAccesspt2Multipt (use of this value\nfor IEEE 802.16 WMAN interfaces as per IEEE Std 802.16f\nis deprecated, and ieee80216WMAN(237) should be used\ninstead)."
+                }
+            },
+            {
+                "@name": "sonetOverheadChannel",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "SONET Overhead Channel."
+                }
+            },
+            {
+                "@name": "digitalWrapperOverheadChannel",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Digital Wrapper."
+                }
+            },
+            {
+                "@name": "aal2",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ATM adaptation layer 2."
+                }
+            },
+            {
+                "@name": "radioMAC",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "MAC layer over radio links."
+                }
+            },
+            {
+                "@name": "atmRadio",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ATM over radio links."
+                }
+            },
+            {
+                "@name": "imt",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Inter-Machine Trunks."
+                }
+            },
+            {
+                "@name": "mvl",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Multiple Virtual Lines DSL."
+                }
+            },
+            {
+                "@name": "reachDSL",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Long Reach DSL."
+                }
+            },
+            {
+                "@name": "frDlciEndPt",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Frame Relay DLCI End Point."
+                }
+            },
+            {
+                "@name": "atmVciEndPt",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "ATM VCI End Point."
+                }
+            },
+            {
+                "@name": "opticalChannel",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Optical Channel."
+                }
+            },
+            {
+                "@name": "opticalTransport",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Optical Transport."
+                }
+            },
+            {
+                "@name": "propAtm",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Proprietary ATM."
+                }
+            },
+            {
+                "@name": "voiceOverCable",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Voice Over Cable Interface."
+                }
+            },
+            {
+                "@name": "infiniband",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Infiniband."
+                }
+            },
+            {
+                "@name": "teLink",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "TE Link."
+                }
+            },
+            {
+                "@name": "q2931",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Q.2931."
+                }
+            },
+            {
+                "@name": "virtualTg",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Virtual Trunk Group."
+                }
+            },
+            {
+                "@name": "sipTg",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "SIP Trunk Group."
+                }
+            },
+            {
+                "@name": "sipSig",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "SIP Signaling."
+                }
+            },
+            {
+                "@name": "docsCableUpstreamChannel",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CATV Upstream Channel."
+                }
+            },
+            {
+                "@name": "econet",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Acorn Econet."
+                }
+            },
+            {
+                "@name": "pon155",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "FSAN 155Mb Symetrical PON interface."
+                }
+            },
+            {
+                "@name": "pon622",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "FSAN 622Mb Symetrical PON interface."
+                }
+            },
+            {
+                "@name": "bridge",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Transparent bridge interface."
+                }
+            },
+            {
+                "@name": "linegroup",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Interface common to multiple lines."
+                }
+            },
+            {
+                "@name": "voiceEMFGD",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Voice E&M Feature Group D."
+                }
+            },
+            {
+                "@name": "voiceFGDEANA",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Voice FGD Exchange Access North American."
+                }
+            },
+            {
+                "@name": "voiceDID",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Voice Direct Inward Dialing."
+                }
+            },
+            {
+                "@name": "mpegTransport",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "MPEG transport interface."
+                }
+            },
+            {
+                "@name": "sixToFour",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "status": {
+                    "@value": "deprecated"
+                },
+                "description": {
+                    "text": "6to4 interface (DEPRECATED)."
+                },
+                "reference": {
+                    "text": "RFC 4087 - IP Tunnel MIB"
+                }
+            },
+            {
+                "@name": "gtp",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "GTP (GPRS Tunneling Protocol)."
+                }
+            },
+            {
+                "@name": "pdnEtherLoop1",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Paradyne EtherLoop 1."
+                }
+            },
+            {
+                "@name": "pdnEtherLoop2",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Paradyne EtherLoop 2."
+                }
+            },
+            {
+                "@name": "opticalChannelGroup",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Optical Channel Group."
+                }
+            },
+            {
+                "@name": "homepna",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "HomePNA ITU-T G.989."
+                }
+            },
+            {
+                "@name": "gfp",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Generic Framing Procedure (GFP)."
+                }
+            },
+            {
+                "@name": "ciscoISLvlan",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Layer 2 Virtual LAN using Cisco ISL."
+                }
+            },
+            {
+                "@name": "actelisMetaLOOP",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Acteleis proprietary MetaLOOP High Speed Link."
+                }
+            },
+            {
+                "@name": "fcipLink",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "FCIP Link."
+                }
+            },
+            {
+                "@name": "rpr",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Resilient Packet Ring Interface Type."
+                }
+            },
+            {
+                "@name": "qam",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "RF Qam Interface."
+                }
+            },
+            {
+                "@name": "lmp",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Link Management Protocol."
+                },
+                "reference": {
+                    "text": "RFC 4327 - Link Management Protocol (LMP) Management\n           Information Base (MIB)"
+                }
+            },
+            {
+                "@name": "cblVectaStar",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Cambridge Broadband Networks Limited VectaStar."
+                }
+            },
+            {
+                "@name": "docsCableMCmtsDownstream",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CATV Modular CMTS Downstream Interface."
+                }
+            },
+            {
+                "@name": "adsl2",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "status": {
+                    "@value": "deprecated"
+                },
+                "description": {
+                    "text": "Asymmetric Digital Subscriber Loop Version 2\n(DEPRECATED/OBSOLETED - please use adsl2plus(238)\ninstead)."
+                },
+                "reference": {
+                    "text": "RFC 4706 - Definitions of Managed Objects for Asymmetric\n           Digital Subscriber Line 2 (ADSL2)"
+                }
+            },
+            {
+                "@name": "macSecControlledIF",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "MACSecControlled."
+                }
+            },
+            {
+                "@name": "macSecUncontrolledIF",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "MACSecUncontrolled."
+                }
+            },
+            {
+                "@name": "aviciOpticalEther",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Avici Optical Ethernet Aggregate."
+                }
+            },
+            {
+                "@name": "atmbond",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "atmbond."
+                }
+            },
+            {
+                "@name": "voiceFGDOS",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Voice FGD Operator Services."
+                }
+            },
+            {
+                "@name": "mocaVersion1",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "MultiMedia over Coax Alliance (MoCA) Interface\nas documented in information provided privately to IANA."
+                }
+            },
+            {
+                "@name": "ieee80216WMAN",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IEEE 802.16 WMAN interface."
+                }
+            },
+            {
+                "@name": "adsl2plus",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Asymmetric Digital Subscriber Loop Version 2 -\nVersion 2 Plus and all variants."
+                }
+            },
+            {
+                "@name": "dvbRcsMacLayer",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "DVB-RCS MAC Layer."
+                },
+                "reference": {
+                    "text": "RFC 5728 - The SatLabs Group DVB-RCS MIB"
+                }
+            },
+            {
+                "@name": "dvbTdm",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "DVB Satellite TDM."
+                },
+                "reference": {
+                    "text": "RFC 5728 - The SatLabs Group DVB-RCS MIB"
+                }
+            },
+            {
+                "@name": "dvbRcsTdma",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "DVB-RCS TDMA."
+                },
+                "reference": {
+                    "text": "RFC 5728 - The SatLabs Group DVB-RCS MIB"
+                }
+            },
+            {
+                "@name": "x86Laps",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "LAPS based on ITU-T X.86/Y.1323."
+                }
+            },
+            {
+                "@name": "wwanPP",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "3GPP WWAN."
+                }
+            },
+            {
+                "@name": "wwanPP2",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "3GPP2 WWAN."
+                }
+            },
+            {
+                "@name": "voiceEBS",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Voice P-phone EBS physical interface."
+                }
+            },
+            {
+                "@name": "ifPwType",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Pseudowire interface type."
+                },
+                "reference": {
+                    "text": "RFC 5601 - Pseudowire (PW) Management Information Base (MIB)"
+                }
+            },
+            {
+                "@name": "ilan",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Internal LAN on a bridge per IEEE 802.1ap."
+                }
+            },
+            {
+                "@name": "pip",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Provider Instance Port on a bridge per IEEE 802.1ah PBB."
+                }
+            },
+            {
+                "@name": "aluELP",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Alcatel-Lucent Ethernet Link Protection."
+                }
+            },
+            {
+                "@name": "gpon",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Gigabit-capable passive optical networks (G-PON) as per\nITU-T G.948."
+                }
+            },
+            {
+                "@name": "vdsl2",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Very high speed digital subscriber line Version 2\n(as per ITU-T Recommendation G.993.2)."
+                },
+                "reference": {
+                    "text": "RFC 5650 - Definitions of Managed Objects for Very High\n           Speed Digital Subscriber Line 2 (VDSL2)"
+                }
+            },
+            {
+                "@name": "capwapDot11Profile",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "WLAN Profile Interface."
+                },
+                "reference": {
+                    "text": "RFC 5834 - Control and Provisioning of Wireless Access\n           Points (CAPWAP) Protocol Binding MIB for\n           IEEE 802.11"
+                }
+            },
+            {
+                "@name": "capwapDot11Bss",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "WLAN BSS Interface."
+                },
+                "reference": {
+                    "text": "RFC 5834 - Control and Provisioning of Wireless Access\n           Points (CAPWAP) Protocol Binding MIB for\n           IEEE 802.11"
+                }
+            },
+            {
+                "@name": "capwapWtpVirtualRadio",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "WTP Virtual Radio Interface."
+                },
+                "reference": {
+                    "text": "RFC 5833 - Control and Provisioning of Wireless Access\n           Points (CAPWAP) Protocol Base MIB"
+                }
+            },
+            {
+                "@name": "bits",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "bitsport."
+                }
+            },
+            {
+                "@name": "docsCableUpstreamRfPort",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "DOCSIS CATV Upstream RF Port."
+                }
+            },
+            {
+                "@name": "cableDownstreamRfPort",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CATV downstream RF Port."
+                }
+            },
+            {
+                "@name": "vmwareVirtualNic",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "VMware Virtual Network Interface."
+                }
+            },
+            {
+                "@name": "ieee802154",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IEEE 802.15.4 WPAN interface."
+                },
+                "reference": {
+                    "text": "IEEE 802.15.4-2006"
+                }
+            },
+            {
+                "@name": "otnOdu",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "OTN Optical Data Unit."
+                }
+            },
+            {
+                "@name": "otnOtu",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "OTN Optical channel Transport Unit."
+                }
+            },
+            {
+                "@name": "ifVfiType",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "VPLS Forwarding Instance Interface Type."
+                }
+            },
+            {
+                "@name": "g9981",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "G.998.1 bonded interface."
+                }
+            },
+            {
+                "@name": "g9982",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "G.998.2 bonded interface."
+                }
+            },
+            {
+                "@name": "g9983",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "G.998.3 bonded interface."
+                }
+            },
+            {
+                "@name": "aluEpon",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Ethernet Passive Optical Networks (E-PON)."
+                }
+            },
+            {
+                "@name": "aluEponOnu",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "EPON Optical Network Unit."
+                }
+            },
+            {
+                "@name": "aluEponPhysicalUni",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "EPON physical User to Network interface."
+                }
+            },
+            {
+                "@name": "aluEponLogicalLink",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "The emulation of a point-to-point link over the EPON\nlayer."
+                }
+            },
+            {
+                "@name": "aluGponOnu",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "GPON Optical Network Unit."
+                },
+                "reference": {
+                    "text": "ITU-T G.984.2"
+                }
+            },
+            {
+                "@name": "aluGponPhysicalUni",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "GPON physical User to Network interface."
+                },
+                "reference": {
+                    "text": "ITU-T G.984.2"
+                }
+            },
+            {
+                "@name": "vmwareNicTeam",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "VMware NIC Team."
+                }
+            },
+            {
+                "@name": "docsOfdmDownstream",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CATV Downstream OFDM interface."
+                },
+                "reference": {
+                    "text": "Cable Modem Operations Support System Interface\nSpecification"
+                }
+            },
+            {
+                "@name": "docsOfdmaUpstream",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "CATV Upstream OFDMA interface."
+                },
+                "reference": {
+                    "text": "Cable Modem Operations Support System Interface\nSpecification"
+                }
+            },
+            {
+                "@name": "gfast",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "G.fast port."
+                },
+                "reference": {
+                    "text": "ITU-T G.9701"
+                }
+            },
+            {
+                "@name": "sdci",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "SDCI (IO-Link)."
+                },
+                "reference": {
+                    "text": "IEC 61131-9 Edition 1.0 2013-09"
+                }
+            },
+            {
+                "@name": "xboxWireless",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Xbox wireless."
+                }
+            },
+            {
+                "@name": "fastdsl",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "FastDSL."
+                },
+                "reference": {
+                    "text": "BBF TR-355"
+                }
+            },
+            {
+                "@name": "docsCableScte55d1FwdOob",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Cable SCTE 55-1 OOB Forward Channel."
+                },
+                "reference": {
+                    "text": "ANSI/SCTE 55-1 2009"
+                }
+            },
+            {
+                "@name": "docsCableScte55d1RetOob",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Cable SCTE 55-1 OOB Return Channel."
+                },
+                "reference": {
+                    "text": "ANSI/SCTE 55-1 2009"
+                }
+            },
+            {
+                "@name": "docsCableScte55d2DsOob",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Cable SCTE 55-2 OOB Downstream Channel."
+                },
+                "reference": {
+                    "text": "ANSI/SCTE 55-2 2008"
+                }
+            },
+            {
+                "@name": "docsCableScte55d2UsOob",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Cable SCTE 55-2 OOB Upstream Channel."
+                },
+                "reference": {
+                    "text": "ANSI/SCTE 55-2 2008"
+                }
+            },
+            {
+                "@name": "docsCableNdf",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Cable Narrowband Digital Forward."
+                }
+            },
+            {
+                "@name": "docsCableNdr",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Cable Narrowband Digital Return."
+                }
+            },
+            {
+                "@name": "ptm",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Packet Transfer Mode."
+                },
+                "reference": {
+                    "text": "IEEE G.993.1, Annex H; IEEE G.993.2; IEEE G.9701"
+                }
+            },
+            {
+                "@name": "ghn",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "G.hn port."
+                },
+                "reference": {
+                    "text": "IEEE G.9961"
+                }
+            },
+            {
+                "@name": "otnOtsi",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Optical Tributary Signal."
+                },
+                "reference": {
+                    "text": "ITU-T G.959.1"
+                }
+            },
+            {
+                "@name": "otnOtuc",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "OTN OTUCn."
+                },
+                "reference": {
+                    "text": "ITU-T G.709/Y.1331"
+                }
+            },
+            {
+                "@name": "otnOduc",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "OTN ODUC."
+                },
+                "reference": {
+                    "text": "ITU-T G.709"
+                }
+            },
+            {
+                "@name": "otnOtsig",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "OTN OTUC Signal."
+                },
+                "reference": {
+                    "text": "ITU-T G.709"
+                }
+            },
+            {
+                "@name": "microwaveCarrierTermination",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "air interface of a single microwave carrier."
+                },
+                "reference": {
+                    "text": "RFC 8561 - A YANG Data Model for Microwave Radio Link"
+                }
+            },
+            {
+                "@name": "microwaveRadioLinkTerminal",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "radio link interface for one or several aggregated microwave carriers."
+                },
+                "reference": {
+                    "text": "RFC 8561 - A YANG Data Model for Microwave Radio Link"
+                }
+            },
+            {
+                "@name": "ieee8021axDrni",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "IEEE 802.1AX Distributed Resilient Network Interface."
+                },
+                "reference": {
+                    "text": "IEEE 802.1AX-Rev-d2-0"
+                }
+            },
+            {
+                "@name": "ax25",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "AX.25 network interfaces."
+                },
+                "reference": {
+                    "text": "AX.25 Link Access Protocol for Amateur Packet Radio version 2.2"
+                }
+            },
+            {
+                "@name": "ieee19061nanocom",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Nanoscale and Molecular Communication."
+                },
+                "reference": {
+                    "text": "IEEE 1906.1-2015"
+                }
+            },
+            {
+                "@name": "cpri",
+                "base": {
+                    "@name": "iana-interface-type"
+                },
+                "description": {
+                    "text": "Common Public Radio Interface."
+                },
+                "reference": {
+                    "text": "CPRI v7.0"
+                }
+            }
+        ]
+    }
+}

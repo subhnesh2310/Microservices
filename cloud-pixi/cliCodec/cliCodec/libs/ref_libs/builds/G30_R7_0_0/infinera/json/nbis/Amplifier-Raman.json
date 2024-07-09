@@ -1,0 +1,141 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Non-configurable name: derived from chass/slot and degree.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "pump_id": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "'pump-id' is an integer identifying the number of the pump.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "pump_id"
+    },
+    "target_pump_power": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Raman Pump Power required.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "target_pump_power"
+    },
+    "control_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "auto",
+                "manual",
+                "auto-planned"
+            ]
+        },
+        "description": "Control Mode for this Raman Amplifier.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "auto",
+        "hardcode": false,
+        "argName": "control_mode"
+    },
+    "amplifier_enable": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disable-local-and-remote",
+                "disable-local",
+                "enabled"
+            ]
+        },
+        "description": "Enable switch for this Raman.\nUser configuration of Local Raman, and optionally control remote Raman card.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disable-local-and-remote",
+        "hardcode": false,
+        "argName": "amplifier_enable"
+    },
+    "connected_amp_edfa_optimum_gain": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Connected EDFA Optimum Gain; 0 means no known optimum gain, in case of disaggregated Raman.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0",
+        "hardcode": false,
+        "argName": "connected_amp_edfa_optimum_gain"
+    },
+    "target_raman_gain": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Target Raman Gain, configurable in case control-mode = manual.\nIn case control-mode = auto, this is then ignored.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "target_raman_gain"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    }
+}

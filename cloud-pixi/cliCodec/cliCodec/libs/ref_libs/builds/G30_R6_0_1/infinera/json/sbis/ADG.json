@@ -1,0 +1,97 @@
+{
+    "ne": {
+        "ne-function": {
+            "adg": [
+                {
+                    "adg-number": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "ADG identifier as a number.",
+                        "mandatory": true,
+                        "key": true,
+                        "config": true,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "modules-adg": [
+                        {
+                            "index": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "Card with index 1 should be the card/ subcard/ module fibered to the Degree(s).",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": 0,
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "namespace": null,
+                            "supported-card": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Instance of the card for the ADG.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ],
+                    "max-add-drop-ports": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "The max number of ports available for a given ADG.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "wavelength-duplication": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "one-per-adg",
+                                "one-per-degree"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Whether the SRG can handle duplicate wavelengths and if so to what extent.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

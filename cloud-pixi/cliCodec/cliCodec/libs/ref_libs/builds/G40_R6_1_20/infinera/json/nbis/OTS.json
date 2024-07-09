@@ -1,0 +1,345 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A generic, configurable name for every facility.",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "tti_style": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "ITU-T-G709",
+                "proprietary"
+            ]
+        },
+        "description": "The configured mode of the TTI for this OTU/ODU client or OTS.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "ITU-T-G709",
+        "hardcode": false,
+        "argName": "tti_style"
+    },
+    "nmoper_alarm_reporting": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "enabled"
+            ]
+        },
+        "description": "Indicates if a Neighbor Mismatch TTI Operator-Specific field based (NMOPER) alarm is reported or not.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "nmoper_alarm_reporting"
+    },
+    "expected_operator": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The expected operator specific bytes.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "expected_operator"
+    },
+    "tx_operator": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The transmitted operator specific bytes.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "tx_operator"
+    },
+    "osc_less": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "enabled"
+            ]
+        },
+        "description": "OSC-less mode is required to provide interworking with systems with no compatible OSC\nor spans with losses not compatible with the OSC budget.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "osc_less"
+    },
+    "fiber_type_rx": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "not-applicable",
+                "auto",
+                "SSMF",
+                "LEAF",
+                "TWRS",
+                "TWC",
+                "AllWave",
+                "DSF",
+                "LS",
+                "PureSilica",
+                "TWReach",
+                "VistaCor",
+                "Teralight",
+                "DrakaLL",
+                "TWPlus",
+                "TWMinus",
+                "PSLC",
+                "ULL",
+                "not-configured"
+            ]
+        },
+        "description": "Fiber Type (OTS receiver) allows PCL to know the 'intercept' and 'slope'.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "SSMF",
+        "hardcode": false,
+        "argName": "fiber_type_rx"
+    },
+    "fiber_type_tx": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "not-applicable",
+                "auto",
+                "SSMF",
+                "LEAF",
+                "TWRS",
+                "TWC",
+                "AllWave",
+                "DSF",
+                "LS",
+                "PureSilica",
+                "TWReach",
+                "VistaCor",
+                "Teralight",
+                "DrakaLL",
+                "TWPlus",
+                "TWMinus",
+                "PSLC",
+                "ULL",
+                "not-configured"
+            ]
+        },
+        "description": "Fiber Type (OTS transmitter) allows PCL to know the 'intercept' and 'slope'.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "SSMF",
+        "hardcode": false,
+        "argName": "fiber_type_tx"
+    },
+    "fiber_length_tx": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Transmitting Fiber Length",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "auto",
+        "hardcode": false,
+        "argName": "fiber_length_tx"
+    },
+    "fiber_length_rx": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Receiving Fiber Length.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "auto",
+        "hardcode": false,
+        "argName": "fiber_length_rx"
+    },
+    "fiber_spectral_attenuation_tilt_tx": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Since different transmission bands are supported, it is simpler\nto enter this parameter independent of the transmission bandwidth,\nhence per Terahertz.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unspecified",
+        "hardcode": false,
+        "argName": "fiber_spectral_attenuation_tilt_tx"
+    },
+    "fiber_spectral_attenuation_tilt_rx": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Since different transmission bands are supported, it is simpler\nto enter this parameter independent of the transmission bandwidth,\nhence per Terahertz.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unspecified",
+        "hardcode": false,
+        "argName": "fiber_spectral_attenuation_tilt_rx"
+    },
+    "raman_coefficient_tx": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Raman coefficient per Terahertz.\nSince different transmission bands are supported, it is simpler to enter this parameter\nindependent of the transmission bandwidth, hence per Terahertz.\nRequired for tilt control (if tilt-control-mode = auto).\nConfiguration mode depends on tilt-control-mode.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "not-applicable",
+        "hardcode": false,
+        "argName": "raman_coefficient_tx"
+    },
+    "raman_coefficient_rx": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Raman coefficient per Terahertz.\nSince different transmission bands are supported, it is simpler to enter this parameter\nindependent of the transmission bandwidth, hence per Terahertz.\nRequired for tilt control (if tilt-control-mode = auto).\nConfiguration mode depends on tilt-control-mode.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "not-applicable",
+        "hardcode": false,
+        "argName": "raman_coefficient_rx"
+    },
+    "span_loss_receive": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Fiber loss on the receiver side. (OTS-sk)\nThis is only the loss of the fiber.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "span_loss_receive"
+    },
+    "external_attenuation_tx": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "External padding attenuation at transmitting direction.\nRequired for tilt control.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "external_attenuation_tx"
+    },
+    "span_loss_aging_margin_rx": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "In native operating-mode: used by system for defining value of NMC input power range and span loss high alarm.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0.0",
+        "hardcode": false,
+        "argName": "span_loss_aging_margin_rx"
+    },
+    "target_power_setting": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "manual",
+                "auto"
+            ]
+        },
+        "description": "Allows automatic configuration of target values for oxcon.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "auto",
+        "hardcode": false,
+        "argName": "target_power_setting"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "span_loss_transmit": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Fiber loss on the transmitter side (OTS-so).\nThis is only the loss of the fiber.\nAdditional loss such as coming from patch panel is entered via the external-attenuation parameters.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "span_loss_transmit"
+    },
+    "external_attenuation_rx": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "External Attenuation, configured by the user.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "external_attenuation_rx"
+    }
+}

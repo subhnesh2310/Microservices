@@ -1,0 +1,1399 @@
+{
+    "module": {
+        "@name": "ioa-pm",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-pm": "http://infinera.com/yang/ioa/pm",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/pm"
+        },
+        "prefix": {
+            "@value": "ioa-pm"
+        },
+        "import": [
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module defining Performance Management (PM) data model."
+        },
+        "revision": [
+            {
+                "@date": "2023-03-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.1"
+                }
+            },
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "identity": [
+            {
+                "@name": "PM-PARAMETER",
+                "description": {
+                    "text": "Base identity for all PM parameters."
+                }
+            },
+            {
+                "@name": "PM-PERIOD",
+                "description": {
+                    "text": "Base identity for supported PM periods"
+                }
+            },
+            {
+                "@name": "pm-real-time",
+                "base": {
+                    "@name": "PM-PERIOD"
+                }
+            },
+            {
+                "@name": "pm-15min",
+                "base": {
+                    "@name": "PM-PERIOD"
+                }
+            },
+            {
+                "@name": "pm-24h",
+                "base": {
+                    "@name": "PM-PERIOD"
+                }
+            }
+        ],
+        "typedef": [
+            {
+                "@name": "data-type",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "current",
+                            "value": {
+                                "@value": "1"
+                            }
+                        },
+                        {
+                            "@name": "history",
+                            "value": {
+                                "@value": "2"
+                            }
+                        },
+                        {
+                            "@name": "real-time",
+                            "value": {
+                                "@value": "3"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Type of PM data to retrieve."
+                }
+            },
+            {
+                "@name": "pm-value-type",
+                "type": {
+                    "@name": "union",
+                    "type": [
+                        {
+                            "@name": "uint64"
+                        },
+                        {
+                            "@name": "int64"
+                        },
+                        {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "2"
+                            }
+                        },
+                        {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "4"
+                            }
+                        },
+                        {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "7"
+                            }
+                        },
+                        {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "12"
+                            }
+                        },
+                        {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "18"
+                            }
+                        },
+                        {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "na",
+                                    "value": {
+                                        "@value": "0"
+                                    },
+                                    "description": {
+                                        "text": "Not applicable"
+                                    }
+                                },
+                                {
+                                    "@name": "not-supported",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "Not supported; applicable for PM thresholds only."
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "default": {
+                    "@value": "na"
+                },
+                "description": {
+                    "text": "Data type that is used for all PM parameters."
+                }
+            },
+            {
+                "@name": "pm-unit-type",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "na",
+                            "value": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "Not applicable"
+                            }
+                        },
+                        {
+                            "@name": "dBm",
+                            "value": {
+                                "@value": "1"
+                            }
+                        },
+                        {
+                            "@name": "ms",
+                            "value": {
+                                "@value": "2"
+                            }
+                        },
+                        {
+                            "@name": "ps",
+                            "value": {
+                                "@value": "3"
+                            }
+                        },
+                        {
+                            "@name": "ps/nm",
+                            "value": {
+                                "@value": "4"
+                            }
+                        },
+                        {
+                            "@name": "dB",
+                            "value": {
+                                "@value": "5"
+                            }
+                        },
+                        {
+                            "@name": "seconds",
+                            "value": {
+                                "@value": "6"
+                            }
+                        },
+                        {
+                            "@name": "packets",
+                            "value": {
+                                "@value": "7"
+                            }
+                        },
+                        {
+                            "@name": "events",
+                            "value": {
+                                "@value": "8"
+                            }
+                        },
+                        {
+                            "@name": "octets",
+                            "value": {
+                                "@value": "9"
+                            }
+                        },
+                        {
+                            "@name": "bits",
+                            "value": {
+                                "@value": "10"
+                            }
+                        },
+                        {
+                            "@name": "blocks",
+                            "value": {
+                                "@value": "11"
+                            }
+                        },
+                        {
+                            "@name": "times",
+                            "value": {
+                                "@value": "12"
+                            }
+                        },
+                        {
+                            "@name": "percent",
+                            "value": {
+                                "@value": "13"
+                            }
+                        },
+                        {
+                            "@name": "bit-ratio",
+                            "value": {
+                                "@value": "14"
+                            }
+                        },
+                        {
+                            "@name": "C",
+                            "value": {
+                                "@value": "15"
+                            }
+                        },
+                        {
+                            "@name": "frames",
+                            "value": {
+                                "@value": "16"
+                            }
+                        },
+                        {
+                            "@name": "W",
+                            "value": {
+                                "@value": "17"
+                            }
+                        },
+                        {
+                            "@name": "V",
+                            "value": {
+                                "@value": "18"
+                            }
+                        },
+                        {
+                            "@name": "A",
+                            "value": {
+                                "@value": "19"
+                            }
+                        },
+                        {
+                            "@name": "rpm",
+                            "value": {
+                                "@value": "20"
+                            }
+                        },
+                        {
+                            "@name": "ps2",
+                            "value": {
+                                "@value": "21"
+                            }
+                        },
+                        {
+                            "@name": "mA",
+                            "value": {
+                                "@value": "22"
+                            }
+                        },
+                        {
+                            "@name": "words",
+                            "value": {
+                                "@value": "23"
+                            }
+                        },
+                        {
+                            "@name": "cw",
+                            "value": {
+                                "@value": "24"
+                            }
+                        },
+                        {
+                            "@name": "nm",
+                            "value": {
+                                "@value": "25"
+                            }
+                        },
+                        {
+                            "@name": "bytes",
+                            "value": {
+                                "@value": "26"
+                            }
+                        },
+                        {
+                            "@name": "errors",
+                            "value": {
+                                "@value": "27"
+                            }
+                        },
+                        {
+                            "@name": "MHz",
+                            "value": {
+                                "@value": "28"
+                            }
+                        },
+                        {
+                            "@name": "KiB",
+                            "value": {
+                                "@value": "29"
+                            }
+                        },
+                        {
+                            "@name": "degrees",
+                            "value": {
+                                "@value": "30"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Unit of the PM parameter."
+                }
+            },
+            {
+                "@name": "pm-data-type",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "na",
+                            "value": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "Not applicable"
+                            }
+                        },
+                        {
+                            "@name": "uint",
+                            "value": {
+                                "@value": "1"
+                            }
+                        },
+                        {
+                            "@name": "int",
+                            "value": {
+                                "@value": "2"
+                            }
+                        },
+                        {
+                            "@name": "decimal2",
+                            "value": {
+                                "@value": "3"
+                            }
+                        },
+                        {
+                            "@name": "decimal4",
+                            "value": {
+                                "@value": "4"
+                            }
+                        },
+                        {
+                            "@name": "decimal7",
+                            "value": {
+                                "@value": "5"
+                            }
+                        },
+                        {
+                            "@name": "decimal18",
+                            "value": {
+                                "@value": "6"
+                            }
+                        },
+                        {
+                            "@name": "decimal12",
+                            "value": {
+                                "@value": "7"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Data type of the PM parameter."
+                }
+            }
+        ],
+        "container": {
+            "@name": "pm",
+            "description": {
+                "text": "Top level container for all Performance Management (pm) data and configuration."
+            },
+            "container": [
+                {
+                    "@name": "real-time-pm-data",
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Container for real-time-pm entries."
+                    },
+                    "list": {
+                        "@name": "real-time-pm",
+                        "key": {
+                            "@value": "resource parameter direction location"
+                        },
+                        "description": {
+                            "text": "Individual real-time-pm record. Contains data updated continuously in real-time."
+                        },
+                        "uses": {
+                            "@name": "pm-entry"
+                        }
+                    }
+                },
+                {
+                    "@name": "current-pm-data",
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Container for current-pm entries."
+                    },
+                    "list": {
+                        "@name": "current-pm",
+                        "key": {
+                            "@value": "resource parameter direction location period"
+                        },
+                        "description": {
+                            "text": "Individual current-pm record. Contains the current bin being counted (bin zero)."
+                        },
+                        "uses": {
+                            "@name": "pm-current-entry"
+                        }
+                    }
+                },
+                {
+                    "@name": "history-pm-data",
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Container for history-pm entries."
+                    },
+                    "list": {
+                        "@name": "history-pm",
+                        "key": {
+                            "@value": "resource parameter direction location period bin"
+                        },
+                        "description": {
+                            "text": "Individual history-pm record. Contains performance bins (history records) stored in the system."
+                        },
+                        "uses": {
+                            "@name": "pm-bin-entry"
+                        }
+                    }
+                },
+                {
+                    "@name": "pm-control",
+                    "description": {
+                        "text": "Configuration for currently existing resources in the system that support PM data."
+                    },
+                    "list": {
+                        "@name": "pm-resource",
+                        "key": {
+                            "@value": "resource"
+                        },
+                        "description": {
+                            "text": "PM configuration per resource instance."
+                        },
+                        "uses": {
+                            "@name": "ioa-common:resource-instance",
+                            "refine": [
+                                {
+                                    "@target-node": "resource-type",
+                                    "config": {
+                                        "@value": "false"
+                                    }
+                                },
+                                {
+                                    "@target-node": "AID",
+                                    "config": {
+                                        "@value": "false"
+                                    }
+                                }
+                            ]
+                        },
+                        "leaf": {
+                            "@name": "real-time-supervision",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Real-time data supervision for this resource."
+                            }
+                        },
+                        "list": {
+                            "@name": "pm-control-entry",
+                            "key": {
+                                "@value": "period direction location"
+                            },
+                            "description": {
+                                "text": "PM configuration for one particular resource, for one particular period, direction and location."
+                            },
+                            "uses": [
+                                {
+                                    "@name": "period"
+                                },
+                                {
+                                    "@name": "direction"
+                                },
+                                {
+                                    "@name": "location"
+                                }
+                            ],
+                            "leaf-list": {
+                                "@name": "supported-parameters",
+                                "type": {
+                                    "@name": "identityref",
+                                    "base": {
+                                        "@name": "PM-PARAMETER"
+                                    }
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "max-elements": {
+                                    "@value": "100"
+                                },
+                                "description": {
+                                    "text": "List of PM parameters that this resource type supports for this direction/location."
+                                }
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "data-supervision",
+                                    "type": {
+                                        "@name": "boolean"
+                                    },
+                                    "description": {
+                                        "text": "PM data supervision for this resource."
+                                    }
+                                },
+                                {
+                                    "@name": "tca-supervision",
+                                    "type": {
+                                        "@name": "boolean"
+                                    },
+                                    "description": {
+                                        "text": "TCA supervision for this resource."
+                                    }
+                                }
+                            ],
+                            "list": {
+                                "@name": "pm-threshold",
+                                "key": {
+                                    "@value": "parameter"
+                                },
+                                "description": {
+                                    "text": "Per resource instance/parameter TCA threshold configuration. Needs to be explicitly created by the user, otherwise\nTCA configuration is done per resource-type (in the pm-threshold-profile list).\nThis object allows to have per resource instance TCA threshold configuration, deviating from per resource-type TCA\nconfiguration.\nThe absence of this object for a particular resource/parameter implies that the profile is used\ninstead."
+                                },
+                                "uses": {
+                                    "@name": "parameter"
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "low-threshold",
+                                        "type": {
+                                            "@name": "ioa-pm:pm-value-type"
+                                        },
+                                        "description": {
+                                            "text": "Configured low threshold value for this parameter for this individual resource."
+                                        }
+                                    },
+                                    {
+                                        "@name": "high-threshold",
+                                        "type": {
+                                            "@name": "ioa-pm:pm-value-type"
+                                        },
+                                        "description": {
+                                            "text": "Configured high threshold value for this parameter for this individual resource."
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                {
+                    "@name": "pm-profile",
+                    "description": {
+                        "text": "PM profile which contains information on all resources that support PM data, together with its related default configuration.\nChanging this configuration has impact on newly created objects."
+                    },
+                    "leaf": {
+                        "@name": "global-data-supervision",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "auto-enabled",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "Global enabling of PM data-supervision flag."
+                                    }
+                                },
+                                {
+                                    "@name": "manual",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "PM data-supervision flag is controlled via pm-profile-entry, or directly per pm-control-entry."
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "manual"
+                        },
+                        "description": {
+                            "text": "This parameter provides a way to globally enable PM data-supervision without having to toggle it individually."
+                        }
+                    },
+                    "list": {
+                        "@name": "pm-profile-entry",
+                        "key": {
+                            "@value": "resource-type direction location period"
+                        },
+                        "description": {
+                            "text": "PM configuration per resource type."
+                        },
+                        "uses": [
+                            {
+                                "@name": "ioa-common:resource-type"
+                            },
+                            {
+                                "@name": "period"
+                            },
+                            {
+                                "@name": "direction"
+                            },
+                            {
+                                "@name": "location"
+                            }
+                        ],
+                        "leaf": [
+                            {
+                                "@name": "default-data-supervision",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "description": {
+                                    "text": "For newly created resources of this type, whether they have PM data supervision automatically enabled or not."
+                                }
+                            },
+                            {
+                                "@name": "default-tca-supervision",
+                                "when": {
+                                    "@condition": "../pm-threshold-profile"
+                                },
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "description": {
+                                    "text": "For newly created resources of this type, whether they have PM threshold crossing supervision automatically enabled or not."
+                                }
+                            }
+                        ],
+                        "list": {
+                            "@name": "pm-threshold-profile",
+                            "key": {
+                                "@value": "parameter"
+                            },
+                            "description": {
+                                "text": "PM configuration per parameter, for this resource type."
+                            },
+                            "uses": {
+                                "@name": "parameter"
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "low-threshold",
+                                    "type": {
+                                        "@name": "ioa-pm:pm-value-type"
+                                    },
+                                    "description": {
+                                        "text": "Configured low threshold value for resources that have this parameter."
+                                    }
+                                },
+                                {
+                                    "@name": "high-threshold",
+                                    "type": {
+                                        "@name": "ioa-pm:pm-value-type"
+                                    },
+                                    "description": {
+                                        "text": "Configured high threshold value for resources that have this parameter."
+                                    }
+                                },
+                                {
+                                    "@name": "default-low-threshold",
+                                    "type": {
+                                        "@name": "ioa-pm:pm-value-type"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "System defined default value for low threshold for this parameter."
+                                    }
+                                },
+                                {
+                                    "@name": "default-high-threshold",
+                                    "type": {
+                                        "@name": "ioa-pm:pm-value-type"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "System defined default value for high threshold for this parameter."
+                                    }
+                                },
+                                {
+                                    "@name": "min-value",
+                                    "type": {
+                                        "@name": "ioa-pm:pm-value-type"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Minimum value for this parameter."
+                                    }
+                                },
+                                {
+                                    "@name": "max-value",
+                                    "type": {
+                                        "@name": "ioa-pm:pm-value-type"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Maximum value for this parameter."
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "@name": "pm-catalog",
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "PM catalog which contains information on all PM parameters, such as units and type"
+                    },
+                    "list": {
+                        "@name": "pm-parameter",
+                        "key": {
+                            "@value": "parameter"
+                        },
+                        "description": {
+                            "text": "Catalog information for a single PM parameter."
+                        },
+                        "uses": {
+                            "@name": "parameter"
+                        },
+                        "leaf": [
+                            {
+                                "@name": "units",
+                                "type": {
+                                    "@name": "ioa-pm:pm-unit-type"
+                                },
+                                "description": {
+                                    "text": "Units for this parameter."
+                                }
+                            },
+                            {
+                                "@name": "type",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "counter",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Counters are parameters that correspond to positive integer numbers, that\ncan only increment over time."
+                                            }
+                                        },
+                                        {
+                                            "@name": "gauge",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Gauges are analogic values that are measured; they are available as\ninstant, average, maximum and minimum values."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "description": {
+                                    "text": "Type of PM parameter, it can be either a counter or a gauge."
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "grouping": [
+            {
+                "@name": "parameter",
+                "leaf": {
+                    "@name": "parameter",
+                    "type": {
+                        "@name": "identityref",
+                        "base": {
+                            "@name": "PM-PARAMETER"
+                        }
+                    },
+                    "description": {
+                        "text": "PM parameter identifier (can be a counter or a gauge)."
+                    }
+                }
+            },
+            {
+                "@name": "direction",
+                "leaf": {
+                    "@name": "direction",
+                    "type": {
+                        "@name": "enumeration",
+                        "enum": [
+                            {
+                                "@name": "all",
+                                "value": {
+                                    "@value": "0"
+                                }
+                            },
+                            {
+                                "@name": "na",
+                                "value": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "Not-applicable"
+                                }
+                            },
+                            {
+                                "@name": "ingress",
+                                "value": {
+                                    "@value": "2"
+                                }
+                            },
+                            {
+                                "@name": "egress",
+                                "value": {
+                                    "@value": "3"
+                                }
+                            }
+                        ]
+                    },
+                    "default": {
+                        "@value": "all"
+                    },
+                    "description": {
+                        "text": "PM parameter direction."
+                    }
+                }
+            },
+            {
+                "@name": "location",
+                "leaf": {
+                    "@name": "location",
+                    "type": {
+                        "@name": "enumeration",
+                        "enum": [
+                            {
+                                "@name": "all",
+                                "value": {
+                                    "@value": "0"
+                                }
+                            },
+                            {
+                                "@name": "na",
+                                "value": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "Not-applicable"
+                                }
+                            },
+                            {
+                                "@name": "near-end",
+                                "value": {
+                                    "@value": "2"
+                                }
+                            },
+                            {
+                                "@name": "far-end",
+                                "value": {
+                                    "@value": "3"
+                                }
+                            }
+                        ]
+                    },
+                    "default": {
+                        "@value": "all"
+                    },
+                    "description": {
+                        "text": "PM parameter location."
+                    }
+                }
+            },
+            {
+                "@name": "period",
+                "leaf": {
+                    "@name": "period",
+                    "type": {
+                        "@name": "identityref",
+                        "base": {
+                            "@name": "PM-PERIOD"
+                        }
+                    },
+                    "description": {
+                        "text": "Time period for PM data."
+                    }
+                }
+            },
+            {
+                "@name": "retrieval-time-entry",
+                "leaf": {
+                    "@name": "retrieval-date-time",
+                    "type": {
+                        "@name": "yang:date-and-time"
+                    },
+                    "description": {
+                        "text": "Represents the time at which the corresponding PM data is retrieved and returned."
+                    }
+                }
+            },
+            {
+                "@name": "pm-current-entry",
+                "description": {
+                    "text": "Common leafs that describes a PM current entry."
+                },
+                "uses": [
+                    {
+                        "@name": "period"
+                    },
+                    {
+                        "@name": "pm-entry"
+                    }
+                ],
+                "leaf": [
+                    {
+                        "@name": "monitoring-date-time",
+                        "type": {
+                            "@name": "yang:date-and-time"
+                        },
+                        "description": {
+                            "text": "Monitoring date and time that this data refers to.\nFor real-time and current PM, it represents the start time of the PM data collection.\nFor history PM, it represents the start time of the bin."
+                        }
+                    },
+                    {
+                        "@name": "validity",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "complete",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "valid throughout an entire period interval"
+                                    }
+                                },
+                                {
+                                    "@name": "suspect",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "either an error occurred during the period interval or the period\ninterval in which measurements were taken is not the nominal one.\n(e.g. change of clock time, data-supervision being disabled)"
+                                    }
+                                },
+                                {
+                                    "@name": "partial",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "indicates that PM collection is still occurring for this bin,\nthe collection has been continuously been collected since the start\nof the bin, and there were no invalid readings in the bin"
+                                    }
+                                }
+                            ]
+                        },
+                        "description": {
+                            "text": "PM parameter validity."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "pm-bin-entry",
+                "description": {
+                    "text": "Common leafs that describes a PM bin."
+                },
+                "uses": {
+                    "@name": "pm-current-entry"
+                },
+                "leaf": {
+                    "@name": "bin",
+                    "type": {
+                        "@name": "uint16"
+                    },
+                    "description": {
+                        "text": "Bin number of history PM. Most recent bins have lowest numbers."
+                    }
+                }
+            },
+            {
+                "@name": "pm-entry",
+                "description": {
+                    "text": "Common leafs that describes PM data"
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-common:resource-instance"
+                    },
+                    {
+                        "@name": "parameter"
+                    },
+                    {
+                        "@name": "direction"
+                    },
+                    {
+                        "@name": "location"
+                    }
+                ],
+                "leaf": [
+                    {
+                        "@name": "pm-value",
+                        "type": {
+                            "@name": "ioa-pm:pm-value-type"
+                        },
+                        "description": {
+                            "text": "PM parameter value. Provided for real-time PM and counters."
+                        }
+                    },
+                    {
+                        "@name": "pm-value-min",
+                        "type": {
+                            "@name": "ioa-pm:pm-value-type"
+                        },
+                        "description": {
+                            "text": "PM parameter minimum value. Provided for gauges."
+                        }
+                    },
+                    {
+                        "@name": "pm-value-max",
+                        "type": {
+                            "@name": "ioa-pm:pm-value-type"
+                        },
+                        "description": {
+                            "text": "PM parameter maximum value. Provided for gauges."
+                        }
+                    },
+                    {
+                        "@name": "pm-value-avg",
+                        "type": {
+                            "@name": "ioa-pm:pm-value-type"
+                        },
+                        "description": {
+                            "text": "PM parameter average value. Provided for gauges."
+                        }
+                    },
+                    {
+                        "@name": "pm-unit",
+                        "type": {
+                            "@name": "ioa-pm:pm-unit-type"
+                        },
+                        "description": {
+                            "text": "Unit of the PM parameter value."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "pm-history-filter",
+                "description": {
+                    "text": "Set of leafs to be used in get-pm to define a sub-set of PM history data."
+                },
+                "leaf": [
+                    {
+                        "@name": "start-time",
+                        "type": {
+                            "@name": "yang:date-and-time"
+                        },
+                        "description": {
+                            "text": "If provided, defines the start timestamp that will be considered to filter the PM results.\nIf not provided, the oldest data timestamp will be considered."
+                        }
+                    },
+                    {
+                        "@name": "end-time",
+                        "type": {
+                            "@name": "yang:date-and-time"
+                        },
+                        "description": {
+                            "text": "If provided, defines the end timestamp that will be considered to filter the PM results.\nIf not provided, the most recent data timestamp will be considered."
+                        }
+                    },
+                    {
+                        "@name": "start-bin",
+                        "type": {
+                            "@name": "uint16",
+                            "range": {
+                                "@value": "1..max"
+                            }
+                        },
+                        "description": {
+                            "text": "If provided, defines the start bin number that will be considered to filter the PM results.\nIf not provided, the smallest bin number (most recent data) will be considered."
+                        }
+                    },
+                    {
+                        "@name": "end-bin",
+                        "type": {
+                            "@name": "uint16",
+                            "range": {
+                                "@value": "1..max"
+                            }
+                        },
+                        "description": {
+                            "text": "If provided, defines the end bin number that will be considered to filter the PM results.\nIf not provided, the largest available bin number (oldest data) will be considered."
+                        }
+                    }
+                ]
+            }
+        ],
+        "rpc": [
+            {
+                "@name": "get-pm",
+                "description": {
+                    "text": "Auxiliary RPC to retrieve PM data.\nNo parameters are mandatory; each provided parameter will be handled as a filter.\nData can be filtered by:\n- resource instance\n- resource type\n- PM time period (15min, 24h, etc)\n- PM data type (current, history, real-time)\n- PM parameter name\nMultiple fitlers can be provided (e.g. provide PM data for entity x and entity y)"
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "data-type",
+                            "type": {
+                                "@name": "ioa-pm:data-type"
+                            },
+                            "default": {
+                                "@value": "real-time"
+                            },
+                            "description": {
+                                "text": "Type of PM data to retrieve."
+                            }
+                        },
+                        {
+                            "@name": "number-of-records",
+                            "type": {
+                                "@name": "uint16"
+                            },
+                            "default": {
+                                "@value": "1000"
+                            },
+                            "description": {
+                                "text": "Maximum number of records that will be retrieved."
+                            }
+                        },
+                        {
+                            "@name": "skip-records",
+                            "type": {
+                                "@name": "uint16"
+                            },
+                            "default": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "Allows user to specify a number of records that will be skipped, so that\nthe total data can be fetched in multiple requests.\nExample:\n- system has 2300 PM records available\n- 1st get-pm with (number-of-records = 1000) and (skip-records = 0);    result has    0..1000 records\n- 2nd get-pm with (number-of-records = 1000) and (skip-records = 1000); result has 1001..2000 records\n- 3nd get-pm with (number-of-records = 1000) and (skip-records = 2000); result has 2001..2300 records"
+                            }
+                        }
+                    ],
+                    "uses": [
+                        {
+                            "@name": "period",
+                            "when": {
+                                "@condition": "data-type != 'real-time'"
+                            }
+                        },
+                        {
+                            "@name": "pm-history-filter",
+                            "when": {
+                                "@condition": "data-type = 'history'"
+                            }
+                        }
+                    ],
+                    "list": {
+                        "@name": "filter",
+                        "key": {
+                            "@value": "filter-id"
+                        },
+                        "description": {
+                            "text": "Set of parameters that create a filter for PM data.\nMultiple filters are considered with an AND logic."
+                        },
+                        "leaf": {
+                            "@name": "filter-id",
+                            "type": {
+                                "@name": "uint8"
+                            },
+                            "description": {
+                                "text": "Identifier for each filter, has no specific meaning."
+                            }
+                        },
+                        "uses": [
+                            {
+                                "@name": "ioa-common:resource-instance"
+                            },
+                            {
+                                "@name": "parameter"
+                            },
+                            {
+                                "@name": "direction"
+                            },
+                            {
+                                "@name": "location"
+                            }
+                        ]
+                    }
+                },
+                "output": {
+                    "leaf": [
+                        {
+                            "@name": "number-of-result-records",
+                            "type": {
+                                "@name": "uint16"
+                            },
+                            "description": {
+                                "text": "Counter of the number of pm-records included in this response."
+                            }
+                        },
+                        {
+                            "@name": "additional-records-available",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "If true, the system had more PM records than the ones that are being delivered.\nResult will contain only the configured number-of-records."
+                            }
+                        }
+                    ],
+                    "uses": {
+                        "@name": "retrieval-time-entry"
+                    },
+                    "list": {
+                        "@name": "pm-record",
+                        "key": {
+                            "@value": "resource parameter direction location period bin"
+                        },
+                        "description": {
+                            "text": "Individual PM record, containing one parameter value for one specific combination of resource, period and bin.\nThe bin key is only used for history; current and real-time always use 0."
+                        },
+                        "uses": {
+                            "@name": "pm-bin-entry"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "clear-pm",
+                "description": {
+                    "text": "Allows to clear/reset PM data from the system.\nData can be reset using filters:\n- by data type (real-time, current, history)\n- by period (15min/24h)\n- by direction (na/ingress/egress)\n- by location (na/near-end/far-end)\n- by resource\n- by resource type\n- by AID\nor a combination between them.\nAn absense of a filter parameter means 'all'.\nThis means triggering this RPC without any parameters clears all PM in the system."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "data-type",
+                        "type": {
+                            "@name": "ioa-pm:data-type"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Type of PM data to clear."
+                        }
+                    },
+                    "uses": [
+                        {
+                            "@name": "period",
+                            "when": {
+                                "@condition": "data-type != 'real-time'"
+                            }
+                        },
+                        {
+                            "@name": "direction"
+                        },
+                        {
+                            "@name": "location"
+                        },
+                        {
+                            "@name": "ioa-common:resource-instance"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

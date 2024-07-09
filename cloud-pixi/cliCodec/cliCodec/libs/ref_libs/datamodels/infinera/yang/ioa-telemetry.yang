@@ -1,0 +1,282 @@
+module ioa-telemetry {
+    namespace "http://infinera.com/yang/ioa/telemetry";
+    prefix ioa-tlm;
+
+    import ietf-inet-types { prefix inet; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module for Telemetry Management model.";
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    grouping telemetry {
+        container telemetry {
+            description
+            "Top level configuration and state for the
+             device telemetry system.";
+            container subscriptions {
+                description
+                    "This container holds information for both persistent
+                     and dynamic telemetry subscriptions.";
+                container dynamic {
+                    config false;
+                    description
+                        "This container holds information relating to dynamic
+                         telemetry subscriptions. A dynamic subscription is
+                         typically configured through an RPC channel, and does not
+                         persist across device restarts, or if the RPC channel is
+                         reset or otherwise torn down.";
+                    list dial-in-subscription {
+                        key subscription-name; 
+                        description
+                            "List representation of telemetry subscriptions that
+                             are configured via an inline RPC, otherwise known
+                             as dynamic telemetry subscriptions.";
+                        uses telemetry-subscription-name-config; 
+                        uses telemetry-subscription-common-config;
+                        uses telemetry-subscription-path-common-config;
+                        uses telemetry-stream-protocol-config;
+                    }
+                }
+            } 
+        } 
+    }
+
+    grouping telemetry-subscription-name-config {
+        description
+            "Configuration parameters relating to the configured
+             name of the telemetry subscription. The name is a user
+             configured string or internally generated value which uniquely identifies 
+             the subscription in the configuration database.";
+
+        leaf subscription-name {
+            type string {
+                length "1..128";
+            }
+            description
+                "User configured identifier of the telemetry
+                 subscription. This value is used primarily for
+                 subscriptions configured locally on the network
+                 element. For dial-in subscription this name is 
+                 configured by the NBI.";
+        }
+    }
+
+    grouping telemetry-subscription-common-config {
+        leaf encoding {
+            type enumeration {
+                enum json { value 1; }
+                enum bytes { value 2; }
+                enum proto { value 3; }
+                enum ascii { value 4; }
+                enum json-ietf { value 5; }
+            }
+            default json-ietf;
+            description
+                "Specifies the data encoding scheme to be used for data
+                 sent to and from the target device.  The encoding may
+                 be specified for all data, or optionally on a per-RPC
+                 basis if supported by the target.";
+        }
+        leaf transfer-mode {
+            type enumeration {
+                enum stream {
+                    value 1;
+                    description "Values streamed by the target.";
+                }
+                enum once {
+                    value 2;
+                    description "Values sent once-off by the target.";
+                }
+                enum poll {
+                    value 3;
+                     description "Values sent in response to a poll request.";
+                    }
+            }
+            default stream;
+            description
+                "Specifies the data transfer mode to the target device.";
+        }
+        leaf updates-only {
+            type boolean;
+            default false;
+            description
+                "A Boolean flag allowing to only send updates to the current state,
+                 when set to true the device will not send the initial current value,
+                 rather only changes to the initial value.";
+        }
+        leaf user-access {
+            type string;
+            description
+                "Username in order to resolve paths according to user access.";
+        }
+    }
+
+    grouping telemetry-subscription-path-common-config {
+        list subscription-paths {
+            key subscription-path-id;
+            description
+                "List of single subscriptions paths keyed by
+                 subscription-path-id.";
+
+            leaf subscription-path-id {
+                type int32;
+                description
+                    "Identifier of the single subscription path in the subscription list.";
+            }
+            leaf subscription-path {
+                type string { length 1..520; }
+                mandatory true;
+                description
+                    "Specifies a path in the data model path corresponding to
+                     the data in the message";
+            }
+            leaf subscription-path-origin {
+                type string { length "0..64"; }
+                description
+                    "Specifies the schema tree in order to disambiguate the path.";
+            }
+            leaf exclude-filter {
+                type string;
+                description
+                    "Optional filter expression to be used in filtering data
+                     elements from the subtree specified by the corresponding
+                     path.";
+            }
+            leaf subscription-path-mode {
+                type enumeration {
+                    enum target-defined {
+                        value 1;
+                        description "Subcription updates are sent according with system definition.";
+                    }
+                    enum on-change {
+                        value 2;
+                        description "Subscription updates are sent when there are changes.";
+                    }
+                    enum sample {
+                        value 3;
+                        description "Subscription updates are sent periodically.";
+                    }
+                }
+                default target-defined;
+                description
+                    "Specify how the device should return the values of the subscription-path";
+            }
+            leaf sample-interval {
+                type uint64;
+                units milliseconds;
+                default 0;
+                description
+                    "Time in milliseconds between the device's sample of a
+                     telemetry data source. For example, setting this to 2000
+                     would require the local device to collect the telemetry
+                     data every 2000 milliseconds. There can be latency or jitter
+                     in transmitting the data, but the sample must occur at
+                     the specified interval.
+                     The timestamp must reflect the actual time when the data
+                     was sampled, not simply the previous sample timestamp +
+                     sample-interval.
+                     Set to 0 when optional. On the case of stream 'target-defined'
+                     it is automatically adjusted from 0 to 10 seconds.";
+            }
+            leaf heartbeat-interval {
+                type uint64;
+                units milliseconds;
+                default 0;
+                description
+                    "Maximum time interval in milliseconds that may pass
+                     between updates from a device to a telemetry collector.
+                     If this interval expires, but there is no updated data to
+                     send (such as if suppress_updates has been configured), the
+                     device must send a telemetry message to the collector.
+                     Set to 0 when optional. On the case of stream 'target-defined'
+                     and 'sample-interface' was adjusted to 10 seconds if 'heartbeat-interval' was set
+                     and not lower than 10 sec it is automatically adjusted to 20 seconds.";
+            }
+            leaf suppress-redundant {
+                type boolean;
+                default true;
+                description
+                    "Boolean flag to control suppression of redundant
+                     telemetry updates to the collector platform. If this flag is
+                     set to TRUE, then the collector will only send an update at
+                     the configured interval if a subscribed data value has
+                     changed. Otherwise, the device will not send an update to
+                     the collector until expiration of the heartbeat interval.";
+            }
+        }
+    }
+
+    grouping telemetry-stream-protocol-config {
+        description
+          "Configuration parameters relating to the
+           transport protocol carrying telemetry
+           data.";
+
+        leaf protocol {
+            type enumeration {
+                enum ssh {value 1;}
+                enum grpc {value 2;}
+                enum json-rpc {value 3;}
+                enum websocket-rpc {value 4;}
+            }
+            default grpc;
+            description
+                "Selection of the transport protocol for the telemetry
+                stream.";
+        }
+    }
+
+    grouping telemetry-qos-marking-config {
+        description
+            "Config parameters relating to the quality of service
+             marking on device generated telemetry packets";
+
+        leaf originated-qos-marking {
+            type inet:dscp;
+            default 0;
+            description
+                "DSCP marking of packets generated by the telemetry
+                 subsystem on the network device.";
+        }
+      }
+    grouping telemetry-stream-destination-config {
+        description
+            "Configuration parameters for the stream destinations";
+        leaf destination-address {
+            type inet:ip-address;
+            description
+                "IP address of the telemetry stream destination";
+        }
+        leaf destination-port {
+            type inet:port-number;
+            mandatory true;
+            description
+          "Port number for the telemetry
+           stream destination";
+        }
+    }
+
+    grouping telemetry-local-source-address-config {
+        description
+            "Config relating to the local source address for telemetry
+             messages";
+
+        leaf local-source-address {
+            type inet:ip-address;
+            description
+                "The IP address which will be the source of packets from
+                the device to a telemetry collector destination.";
+        }
+    }
+}

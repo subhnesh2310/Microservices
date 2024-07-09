@@ -1,0 +1,352 @@
+{
+    "card_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Card identifier.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "card_name"
+    },
+    "baud_rate": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "auto-sensing",
+                "9600",
+                "19200",
+                "38400",
+                "57600",
+                "115200"
+            ]
+        },
+        "description": "The configured baud-rate for this card's console port.\nDefault value is card type specific.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "baud_rate"
+    },
+    "local_switch": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "use-global-switch",
+                "force-enable",
+                "force-disable"
+            ]
+        },
+        "description": "Defines the global access to all card's console port. Access can be overridden per console port at the card level.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "use-global-switch",
+        "hardcode": false,
+        "argName": "local_switch"
+    },
+    "port_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Port name.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "port_name"
+    },
+    "connected_to": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Indicate neighbour port entity to which the current port is connected to.\nThis is not validated by the NE and can be used by the customers (or NMS) for topology construction.\nThis parameter is available independently on any automated discovery mechanisms that may exist in the port.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "connected_to"
+    },
+    "external_connectivity": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "no",
+                "yes"
+            ]
+        },
+        "description": "Indicates whether the port is connected or to be connected externally or not.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "no",
+        "hardcode": false,
+        "argName": "external_connectivity"
+    },
+    "port_alias_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "port_alias_name"
+    },
+    "port_admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "port_admin_state"
+    },
+    "port_alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "port_alarm_report_control"
+    },
+    "port_label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "port_label"
+    },
+    "property_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Name of the property.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "property_name"
+    },
+    "value": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Value of the property. Will always be a 'string', even if it corresponds to a number or other type.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "value"
+    },
+    "required_type": {
+        "type": {
+            "ptype": "str",
+            "identityref": "ioa-common:card",
+            "values": [
+                "FRCU31",
+                "UTM2",
+                "CHM1R",
+                "RD09SM",
+                "RD20TM",
+                "OCC2T",
+                "OCC2E",
+                "CAD10A",
+                "CAD16AOFP2",
+                "CDC8D6",
+                "BAXOFP2",
+                "DGE2M2OFP2",
+                "WS04SOFP2",
+                "RPBM",
+                "RPBL",
+                "OMD48S",
+                "OMD48E",
+                "OMD64",
+                "ILAx",
+                "XMM4-FAN",
+                "FAN-CTRL",
+                "CHM6",
+                "CHM6L",
+                "UCM4",
+                "XMM4",
+                "FRCU",
+                "FRCU32",
+                "IOPANEL",
+                "IOPANEL32",
+                "FAN",
+                "FAN32",
+                "FAN34c",
+                "PEM",
+                "BLANK",
+                "BLANK2"
+            ]
+        },
+        "description": "Required card type.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "required_type"
+    },
+    "required_subtype": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The subtype of the card",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "required_subtype"
+    },
+    "card_mode": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The configured card-mode, identifies specific card functionality.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "card_mode"
+    },
+    "chassis_name": {
+        "type": {
+            "ptype": "unknown",
+            "leafref": "../../chassis/name"
+        },
+        "description": "Chassis where this card is located.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "chassis_name"
+    },
+    "slot_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Slot where this card is located.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "slot_name"
+    },
+    "subslot_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Subslot where this card is located, e.g. 1-2.3 (slot 2, subslot 3).\n'subslot-name' can only be set on (sub)card creation.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "subslot_name"
+    },
+    "power_profile": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User configured power draw for this card.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "power_profile"
+    },
+    "card_alias_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "card_alias_name"
+    },
+    "card_admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "card_admin_state"
+    },
+    "card_alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "card_alarm_report_control"
+    },
+    "card_label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "card_label"
+    }
+}

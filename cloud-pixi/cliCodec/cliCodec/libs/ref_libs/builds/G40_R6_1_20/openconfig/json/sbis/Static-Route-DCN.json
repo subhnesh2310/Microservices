@@ -1,0 +1,174 @@
+{
+    "local-routes": {
+        "static-routes": {
+            "static": [
+                {
+                    "prefix": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "",
+                        "key": true,
+                        "mandatory": true,
+                        "config": true,
+                        "default": "10.220.0.0/16",
+                        "hardcode": false
+                    },
+                    "config": {
+                        "prefix": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "",
+                            "key": false,
+                            "mandatory": true,
+                            "config": true,
+                            "default": "10.220.0.0/16",
+                            "hardcode": false
+                        },
+                        "vrf": {
+                            "type": {
+                                "ptype": "str",
+                                "length": "1..32"
+                            },
+                            "isList": false,
+                            "description": "VRF associated with this static route.",
+                            "key": false,
+                            "mandatory": false,
+                            "config": true,
+                            "default": "MGMT",
+                            "namespace": {
+                                "prefix": null,
+                                "namespace": "http://openconfig.net/yang/infinera/yang/extensions"
+                            },
+                            "hardcode": false
+                        },
+                        "advertised": {
+                            "type": {
+                                "ptype": "bool"
+                            },
+                            "isList": false,
+                            "description": "When set to YES, the static route is advertised in the routing\nprotocol. For OSPF, the static route will be advertised as an\nAS external route, if OSPF is configured as an ASBR.",
+                            "key": false,
+                            "mandatory": false,
+                            "config": true,
+                            "default": false,
+                            "namespace": {
+                                "prefix": null,
+                                "namespace": "http://openconfig.net/yang/infinera/yang/extensions"
+                            },
+                            "hardcode": false
+                        },
+                        "label": {
+                            "type": {
+                                "ptype": "str",
+                                "length": "0..256"
+                            },
+                            "isList": false,
+                            "description": "User label.",
+                            "key": false,
+                            "mandatory": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": {
+                                "prefix": null,
+                                "namespace": "http://openconfig.net/yang/infinera/yang/extensions"
+                            },
+                            "hardcode": false
+                        }
+                    },
+                    "next-hops": {
+                        "next-hop": [
+                            {
+                                "index": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "",
+                                    "key": true,
+                                    "mandatory": false,
+                                    "config": true,
+                                    "default": "1",
+                                    "hardcode": false
+                                },
+                                "config": {
+                                    "index": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "",
+                                        "key": false,
+                                        "mandatory": false,
+                                        "config": true,
+                                        "default": "1",
+                                        "hardcode": false
+                                    },
+                                    "next-hop": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "",
+                                        "key": false,
+                                        "mandatory": false,
+                                        "config": true,
+                                        "default": "10.220.224.1",
+                                        "hardcode": false
+                                    },
+                                    "metric": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "",
+                                        "key": false,
+                                        "mandatory": false,
+                                        "config": true,
+                                        "default": "1",
+                                        "hardcode": false
+                                    },
+                                    "recurse": {
+                                        "type": {
+                                            "ptype": "bool"
+                                        },
+                                        "isList": false,
+                                        "description": "",
+                                        "key": false,
+                                        "mandatory": false,
+                                        "config": true,
+                                        "default": true,
+                                        "hardcode": false
+                                    }
+                                },
+                                "interface-ref":  {
+                                  "config":  {
+                                    "interface": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "",
+                                        "key": false,
+                                        "mandatory": true,
+                                        "config": true,
+                                        "default": "DCN-1-1-DCN",
+                                        "hardcode": false
+                                    }
+                                  }
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/local-routing"
+        }
+    }
+}

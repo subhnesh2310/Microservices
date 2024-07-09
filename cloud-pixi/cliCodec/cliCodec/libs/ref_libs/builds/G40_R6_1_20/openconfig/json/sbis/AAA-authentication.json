@@ -1,0 +1,99 @@
+{
+    "system": {
+        "aaa": {
+            "authentication": {
+                "users": {
+                    "user": [
+                        {
+                            "username": {
+                                "type": {
+                                    "ptype": "str",
+                                    "leafref": "../config/username"
+                                },
+                                "isList": false,
+                                "description": "References the configured username for the user",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false
+                            },
+                            "namespace": null,
+                            "config": {
+                                "username": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "Assigned username for this user",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null,
+                                    "hardcode": false
+                                },
+                                "password": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "The user password, supplied as cleartext.  The system\nmust hash the value and only store the hashed value.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null,
+                                    "hardcode": false
+                                },
+                                "password-hashed": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "The user password, supplied as a hashed value\nusing the notation described in the definition of the\ncrypt-password-type.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null,
+                                    "hardcode": false
+                                },
+                                "ssh-key": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "SSH public key for the user (RSA or DSA)",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null,
+                                    "hardcode": false
+                                },
+                                "role": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "Role assigned to the user.  The role may be supplied\nas a string or a role defined by the SYSTEM_DEFINED_ROLES\nidentity.",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null,
+                                    "hardcode": false
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/system"
+        }
+    }
+}

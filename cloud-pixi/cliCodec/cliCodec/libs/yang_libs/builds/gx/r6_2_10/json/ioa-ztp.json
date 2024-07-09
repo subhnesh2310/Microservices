@@ -1,0 +1,439 @@
+{
+    "module": {
+        "@name": "ioa-ztp",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-ztp": "http://infinera.com/yang/ioa/ztp",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/ztp"
+        },
+        "prefix": {
+            "@value": "ioa-ztp"
+        },
+        "import": {
+            "@module": "ioa-common",
+            "prefix": {
+                "@value": "ioa-common"
+            }
+        },
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module describing Zero Touch Provisioning (ZTP) model."
+        },
+        "revision": [
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "ztp",
+                "container": {
+                    "@name": "ztp",
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Zero Touch Provisioning status.\nPlease see RPC 'change-ztp-mode' for ZTP configuration."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "ztp-mode",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "disabled",
+                                        "value": {
+                                            "@value": "0"
+                                        }
+                                    },
+                                    {
+                                        "@name": "enabled",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "enabled"
+                            },
+                            "description": {
+                                "text": "User set mode of ZTP. This flag is set via change-ztp-mode RPC that is allowed even when NBI is locked."
+                            }
+                        },
+                        {
+                            "@name": "ztp-state",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "ztp-init",
+                                        "value": {
+                                            "@value": "0"
+                                        }
+                                    },
+                                    {
+                                        "@name": "dhcp-in-progress",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "image-download-in-progress",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    },
+                                    {
+                                        "@name": "image-install-in-progress",
+                                        "value": {
+                                            "@value": "3"
+                                        }
+                                    },
+                                    {
+                                        "@name": "custom-script-execution-in-progress",
+                                        "value": {
+                                            "@value": "4"
+                                        }
+                                    },
+                                    {
+                                        "@name": "multi-chassis-setup-in-progress",
+                                        "value": {
+                                            "@value": "5"
+                                        }
+                                    },
+                                    {
+                                        "@name": "configuration-apply-in-progress",
+                                        "value": {
+                                            "@value": "6"
+                                        }
+                                    },
+                                    {
+                                        "@name": "ztp-completed",
+                                        "value": {
+                                            "@value": "7"
+                                        }
+                                    },
+                                    {
+                                        "@name": "ztp-state-unknown",
+                                        "value": {
+                                            "@value": "8"
+                                        }
+                                    },
+                                    {
+                                        "@name": "ztp-disabled",
+                                        "value": {
+                                            "@value": "9"
+                                        }
+                                    },
+                                    {
+                                        "@name": "wait-before-ztp-restart",
+                                        "value": {
+                                            "@value": "10"
+                                        }
+                                    },
+                                    {
+                                        "@name": "ztp-disable-in-progress",
+                                        "value": {
+                                            "@value": "11"
+                                        }
+                                    },
+                                    {
+                                        "@name": "cleanup-on-ztp-completion",
+                                        "value": {
+                                            "@value": "12"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "ztp-init"
+                            },
+                            "description": {
+                                "text": "Current state of ZTP service"
+                            }
+                        },
+                        {
+                            "@name": "ztp-details",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..256"
+                                }
+                            },
+                            "description": {
+                                "text": "Additional information on the current state"
+                            }
+                        },
+                        {
+                            "@name": "ztp-completion-status",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "not-completed",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "completed",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "not-completed"
+                            },
+                            "description": {
+                                "text": "Summarized completion status of ZTP on the node"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "recovery",
+                "container": {
+                    "@name": "recovery",
+                    "description": {
+                        "text": "Status and configuration of system recovery from chassis storage."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "restore-from-chassis-storage",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "disabled",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Chassis storage is not used for restoration in this NE."
+                                        }
+                                    },
+                                    {
+                                        "@name": "auto-restore",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "SW and DB are stored on the chassis storage and restored in recovery mode. A manual clear recovery-mode command is then necessary.\nIt allows the user to validate the restored system before affecting the HW."
+                                        }
+                                    },
+                                    {
+                                        "@name": "auto-in-service",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "SW and DB are stored on the chassis storage and restored in recovery mode. On successful restore, the NC will automatically leave recovery mode."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "auto-in-service"
+                            },
+                            "description": {
+                                "text": "This attribute is only relevant when a chassis storage is available.\nIt allows the operator to control how the system behaves in such cases.\nWhen no chassis storage is available, this attribute has no effect."
+                            }
+                        },
+                        {
+                            "@name": "restore-status",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "init",
+                                        "value": {
+                                            "@value": "0"
+                                        },
+                                        "description": {
+                                            "text": "Provisioning service is starting."
+                                        }
+                                    },
+                                    {
+                                        "@name": "image-install-in-progress",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Installing backup image."
+                                        }
+                                    },
+                                    {
+                                        "@name": "db-restore-in-progress",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Restoring database."
+                                        }
+                                    },
+                                    {
+                                        "@name": "check-completed",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Provisioning service completed provisioning."
+                                        }
+                                    },
+                                    {
+                                        "@name": "failed",
+                                        "value": {
+                                            "@value": "4"
+                                        },
+                                        "description": {
+                                            "text": "Provisioning failed, requires manual provisioning."
+                                        }
+                                    },
+                                    {
+                                        "@name": "disabled",
+                                        "value": {
+                                            "@value": "5"
+                                        },
+                                        "description": {
+                                            "text": "Provisioning service is disabled, no backups are being performed."
+                                        }
+                                    },
+                                    {
+                                        "@name": "wait-for-upgrade",
+                                        "value": {
+                                            "@value": "6"
+                                        },
+                                        "description": {
+                                            "text": "Waiting for system reboot after image upgrade."
+                                        }
+                                    },
+                                    {
+                                        "@name": "wait-for-db-restore",
+                                        "value": {
+                                            "@value": "7"
+                                        },
+                                        "description": {
+                                            "text": "Waiting for system reboot after database restore."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "init"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Current state of the restoration."
+                            }
+                        },
+                        {
+                            "@name": "backup-status",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "successful",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Provisioning service is enabled, backups are being performed successfully."
+                                        }
+                                    },
+                                    {
+                                        "@name": "failed",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Provisioning service is enabled, a backup failed."
+                                        }
+                                    },
+                                    {
+                                        "@name": "in-progress",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Backup is in progress."
+                                        }
+                                    },
+                                    {
+                                        "@name": "unknown",
+                                        "value": {
+                                            "@value": "4"
+                                        },
+                                        "description": {
+                                            "text": "Backup is in an unknown status."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "unknown"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Current state of the last backup."
+                            }
+                        },
+                        {
+                            "@name": "last-backup",
+                            "type": {
+                                "@name": "ioa-common:date-time-or-time-only-or-never"
+                            },
+                            "default": {
+                                "@value": "never"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Timestamp with the last backup performed."
+                            }
+                        },
+                        {
+                            "@name": "next-backup",
+                            "type": {
+                                "@name": "ioa-common:date-time-or-time-only-or-never"
+                            },
+                            "default": {
+                                "@value": "never"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Timestamp with the next backup performed."
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

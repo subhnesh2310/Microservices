@@ -1,0 +1,1548 @@
+{
+    "module": {
+        "@name": "ioa-certificate",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-cert": "http://infinera.com/yang/ioa/certificate",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/certificate"
+        },
+        "prefix": {
+            "@value": "ioa-cert"
+        },
+        "import": [
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module covering certificate management."
+        },
+        "revision": [
+            {
+                "@date": "2023-03-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.1"
+                }
+            },
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-09-17",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.1"
+                }
+            }
+        ],
+        "typedef": [
+            {
+                "@name": "allowed-key-lengths",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "rsa2048",
+                            "value": {
+                                "@value": "1"
+                            }
+                        },
+                        {
+                            "@name": "rsa3072",
+                            "value": {
+                                "@value": "2"
+                            }
+                        },
+                        {
+                            "@name": "rsa4096",
+                            "value": {
+                                "@value": "3"
+                            }
+                        },
+                        {
+                            "@name": "ecdsa256",
+                            "value": {
+                                "@value": "4"
+                            }
+                        },
+                        {
+                            "@name": "ecdsa384",
+                            "value": {
+                                "@value": "5"
+                            }
+                        },
+                        {
+                            "@name": "ecdsa521",
+                            "value": {
+                                "@value": "6"
+                            }
+                        },
+                        {
+                            "@name": "ecdsa128",
+                            "value": {
+                                "@value": "7"
+                            },
+                            "status": {
+                                "@value": "obsolete"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Public/private key length(only for allowed key types)."
+                }
+            },
+            {
+                "@name": "public-key-types",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "rsa",
+                            "value": {
+                                "@value": "1"
+                            }
+                        },
+                        {
+                            "@name": "ecdsa",
+                            "value": {
+                                "@value": "2"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Public/private key type for X509v3 certificate and SSHv2 host key."
+                }
+            },
+            {
+                "@name": "cert-subject-name",
+                "type": {
+                    "@name": "string",
+                    "length": {
+                        "@value": "1..1024"
+                    }
+                },
+                "description": {
+                    "text": "A custom type to represent X.500 distinguished names (DN)."
+                },
+                "reference": {
+                    "text": "X.500, RFC 5280"
+                }
+            },
+            {
+                "@name": "key-usage-type",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "digitalSignature",
+                            "value": {
+                                "@value": "1"
+                            },
+                            "description": {
+                                "text": "Allows using public key with a digital sign mechanism."
+                            }
+                        },
+                        {
+                            "@name": "nonRepudiation",
+                            "value": {
+                                "@value": "2"
+                            },
+                            "description": {
+                                "text": "Allows using public key for verifying digital signatures."
+                            }
+                        },
+                        {
+                            "@name": "keyEncipherment",
+                            "value": {
+                                "@value": "3"
+                            },
+                            "description": {
+                                "text": "Allows usage with a protocol that uses encryption keys from public key."
+                            }
+                        },
+                        {
+                            "@name": "dataEncipherment",
+                            "value": {
+                                "@value": "4"
+                            },
+                            "description": {
+                                "text": "Allows public key usage to encrypt user data."
+                            }
+                        },
+                        {
+                            "@name": "keyAgreement",
+                            "value": {
+                                "@value": "5"
+                            },
+                            "description": {
+                                "text": "Allows deriving of a session key from the public key."
+                            }
+                        },
+                        {
+                            "@name": "keyCertSign",
+                            "value": {
+                                "@value": "6"
+                            },
+                            "description": {
+                                "text": "Allows public key to verify signature of certificates."
+                            }
+                        },
+                        {
+                            "@name": "cRLSign",
+                            "value": {
+                                "@value": "7"
+                            },
+                            "description": {
+                                "text": "Allows public key to verify signature of revocation information."
+                            }
+                        },
+                        {
+                            "@name": "encipherOnly",
+                            "value": {
+                                "@value": "8"
+                            },
+                            "description": {
+                                "text": "For keyEncipherment, allows the public key to be use for encryption only."
+                            }
+                        },
+                        {
+                            "@name": "decipherOnly",
+                            "value": {
+                                "@value": "9"
+                            },
+                            "description": {
+                                "text": "For keyEncipherment, allows the public key to be use for decryption only."
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Key usage is a multi-valued extension consisting of a list of\nnames of the permitted key usages."
+                }
+            },
+            {
+                "@name": "extended-key-usage-type",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "serverAuth",
+                            "value": {
+                                "@value": "1"
+                            },
+                            "description": {
+                                "text": "TLS WWW Server Authentication."
+                            }
+                        },
+                        {
+                            "@name": "clientAuth",
+                            "value": {
+                                "@value": "2"
+                            },
+                            "description": {
+                                "text": "TLS WWW Client Authentication."
+                            }
+                        },
+                        {
+                            "@name": "codeSigning",
+                            "value": {
+                                "@value": "3"
+                            },
+                            "description": {
+                                "text": "Code Signing."
+                            }
+                        },
+                        {
+                            "@name": "emailProtection",
+                            "value": {
+                                "@value": "4"
+                            },
+                            "description": {
+                                "text": "E-mail Protection (S/MIME)."
+                            }
+                        },
+                        {
+                            "@name": "timeStamping",
+                            "value": {
+                                "@value": "5"
+                            },
+                            "description": {
+                                "text": "Trusted Timestamping."
+                            }
+                        },
+                        {
+                            "@name": "OCSPSigning",
+                            "value": {
+                                "@value": "6"
+                            },
+                            "description": {
+                                "text": "OCSP Signing."
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "This extension consists of a list of values indicating purposes\nfor which the certificate public key can be used."
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "signature-algorithm",
+                "leaf": [
+                    {
+                        "@name": "signature-key-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "rsa",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "ecdsa",
+                                    "value": {
+                                        "@value": "2"
+                                    }
+                                },
+                                {
+                                    "@name": "rsassa-pss",
+                                    "value": {
+                                        "@value": "3"
+                                    }
+                                }
+                            ]
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Signature algorithm key type for certificate/CRL."
+                        }
+                    },
+                    {
+                        "@name": "signature-hash-algorithm",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "sha256",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "sha384",
+                                    "value": {
+                                        "@value": "2"
+                                    }
+                                },
+                                {
+                                    "@name": "sha512",
+                                    "value": {
+                                        "@value": "3"
+                                    }
+                                },
+                                {
+                                    "@name": "sha1",
+                                    "value": {
+                                        "@value": "4"
+                                    }
+                                }
+                            ]
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Hash algorithm used for signing certificate/CRL."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "x509-certificate",
+                "leaf": [
+                    {
+                        "@name": "id",
+                        "type": {
+                            "@name": "ioa-common:certificate-name"
+                        },
+                        "description": {
+                            "text": "A unique object identifier for the certificate."
+                        }
+                    },
+                    {
+                        "@name": "version",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "v3",
+                                "value": {
+                                    "@value": "1"
+                                }
+                            }
+                        },
+                        "default": {
+                            "@value": "v3"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "X509 certificate version."
+                        }
+                    },
+                    {
+                        "@name": "serial-number",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..100"
+                            }
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Ascii hexadecimal string representing a positive (long) integer assigned by the CA.\nIt must be unique for each certificate issued by a given CA (i.e., the issuer name and\nserial number identify a unique certificate)"
+                        },
+                        "reference": {
+                            "text": "Section 4.1.2.2 in RFC 5280"
+                        }
+                    },
+                    {
+                        "@name": "subject-name",
+                        "type": {
+                            "@name": "cert-subject-name"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The subject field identifies the entity\nassociated with the public key stored in the subject\npublic key field."
+                        },
+                        "reference": {
+                            "text": "Section 4.1.2.6 in RFC 5280"
+                        }
+                    },
+                    {
+                        "@name": "issuer",
+                        "type": {
+                            "@name": "cert-subject-name"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The issuer name identifies the entity that has signed\nand issued the certificate. Issuers (such as a CA or\nan RA) also issue CRLs."
+                        },
+                        "reference": {
+                            "text": "Section 4.1.2.4 in RFC 5280"
+                        }
+                    },
+                    {
+                        "@name": "valid-from",
+                        "type": {
+                            "@name": "yang:date-and-time"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The date from which the certificate is valid."
+                        }
+                    },
+                    {
+                        "@name": "valid-to",
+                        "type": {
+                            "@name": "yang:date-and-time"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The date after which the certificate is deemed to have expired."
+                        }
+                    },
+                    {
+                        "@name": "modification-time",
+                        "type": {
+                            "@name": "yang:date-and-time"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Timestamp of certificate installation/rotation.\nThe timestamp '1970-01-01T00:00:00Z' means the modification time is unknown."
+                        }
+                    },
+                    {
+                        "@name": "status",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "in-use",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "status": {
+                                        "@value": "deprecated"
+                                    },
+                                    "description": {
+                                        "text": "Certificate is either assigned to a secure-application or otherwise in use by the system.\nThis is deprecated; new status is 'valid'.\nCertificate usage is now tracked in the used-by attribute."
+                                    }
+                                },
+                                {
+                                    "@name": "unused",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "status": {
+                                        "@value": "deprecated"
+                                    },
+                                    "description": {
+                                        "text": "Certificate is currently not being used by the system nor a secure-application. Can be assigned/used.\nThis is deprecated; new status is 'valid'.\nCertificate usage is now tracked in the used-by attribute."
+                                    }
+                                },
+                                {
+                                    "@name": "revoked",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "Certificate has been revoked."
+                                    }
+                                },
+                                {
+                                    "@name": "expired",
+                                    "value": {
+                                        "@value": "4"
+                                    },
+                                    "description": {
+                                        "text": "Certificate is past the validity date."
+                                    }
+                                },
+                                {
+                                    "@name": "available",
+                                    "value": {
+                                        "@value": "5"
+                                    },
+                                    "status": {
+                                        "@value": "deprecated"
+                                    },
+                                    "description": {
+                                        "text": "Trusted certificate is in use by the system.\nThis is deprecated; new status is 'valid'.\nCertificate usage is now tracked in the used-by attribute."
+                                    }
+                                },
+                                {
+                                    "@name": "pending-import",
+                                    "value": {
+                                        "@value": "6"
+                                    },
+                                    "description": {
+                                        "text": "Certificate generated by CSR, but import not yet complete."
+                                    }
+                                },
+                                {
+                                    "@name": "invalid",
+                                    "value": {
+                                        "@value": "7"
+                                    },
+                                    "status": {
+                                        "@value": "deprecated"
+                                    },
+                                    "description": {
+                                        "text": "Trusted certificate is invalid due to broken trust-chain (not usable by the system).\nThis is deprecated; new status is 'untrusted'."
+                                    }
+                                },
+                                {
+                                    "@name": "untrusted",
+                                    "value": {
+                                        "@value": "8"
+                                    },
+                                    "description": {
+                                        "text": "Certificate has a broken trust-chain."
+                                    }
+                                },
+                                {
+                                    "@name": "future",
+                                    "value": {
+                                        "@value": "9"
+                                    },
+                                    "description": {
+                                        "text": "Certificate has not yet reached the validity period."
+                                    }
+                                },
+                                {
+                                    "@name": "valid",
+                                    "value": {
+                                        "@value": "10"
+                                    },
+                                    "description": {
+                                        "text": "Certificate is not revoked, is in the validity period, and has a valid trust chain."
+                                    }
+                                }
+                            ]
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The current status of the X509v3 certificate."
+                        },
+                        "reference": {
+                            "text": "THANOSSEC-225"
+                        }
+                    },
+                    {
+                        "@name": "public-key-length",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "rsa2048",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "rsa3072",
+                                    "value": {
+                                        "@value": "2"
+                                    }
+                                },
+                                {
+                                    "@name": "rsa4096",
+                                    "value": {
+                                        "@value": "3"
+                                    }
+                                },
+                                {
+                                    "@name": "ecdsa256",
+                                    "value": {
+                                        "@value": "4"
+                                    }
+                                },
+                                {
+                                    "@name": "ecdsa384",
+                                    "value": {
+                                        "@value": "5"
+                                    }
+                                },
+                                {
+                                    "@name": "ecdsa521",
+                                    "value": {
+                                        "@value": "6"
+                                    }
+                                },
+                                {
+                                    "@name": "ecdsa128",
+                                    "value": {
+                                        "@value": "7"
+                                    },
+                                    "status": {
+                                        "@value": "obsolete"
+                                    }
+                                }
+                            ]
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "X509v3 certificate public key algorithm and supported key length."
+                        },
+                        "reference": {
+                            "text": "Section 2.3 in RFC 3279."
+                        }
+                    },
+                    {
+                        "@name": "public-key-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "rsa",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "ecdsa",
+                                    "value": {
+                                        "@value": "2"
+                                    }
+                                },
+                                {
+                                    "@name": "rsassa-pss",
+                                    "value": {
+                                        "@value": "3"
+                                    }
+                                }
+                            ]
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Public/private key type for X509v3 certificate."
+                        }
+                    },
+                    {
+                        "@name": "certificate-bytes",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..16384"
+                            }
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "A custom type that encodes the entire X.509v3 certificate\nas string in PEM(base64 encoding) format:\n\n-----BEGIN CERTIFICATE-----\n...base64 encoded X509v3 certificate....\n-----END CERTIFICATE-----"
+                        }
+                    },
+                    {
+                        "@name": "force-revoked",
+                        "type": {
+                            "@name": "boolean"
+                        },
+                        "default": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "If true, the certificate is forced to the 'revoked' status."
+                        }
+                    }
+                ],
+                "leaf-list": [
+                    {
+                        "@name": "trust-chain",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "/ne/system/security/certificates/trusted-certificate/id"
+                            }
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "max-elements": {
+                            "@value": "12"
+                        },
+                        "description": {
+                            "text": "List of trusted certificates that constitute this certificate's trust chain."
+                        }
+                    },
+                    {
+                        "@name": "key-usage",
+                        "type": {
+                            "@name": "key-usage-type"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "max-elements": {
+                            "@value": "9"
+                        },
+                        "description": {
+                            "text": "Certificate's key usage purposes."
+                        }
+                    },
+                    {
+                        "@name": "extended-key-usage",
+                        "type": {
+                            "@name": "extended-key-usage-type"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "max-elements": {
+                            "@value": "6"
+                        },
+                        "description": {
+                            "text": "Certificate's extended key usage purposes."
+                        }
+                    }
+                ],
+                "uses": {
+                    "@name": "signature-algorithm"
+                }
+            },
+            {
+                "@name": "used-by",
+                "leaf-list": {
+                    "@name": "used-by",
+                    "type": {
+                        "@name": "instance-identifier"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "max-elements": {
+                        "@value": "32"
+                    },
+                    "description": {
+                        "text": "List of foreign keys representing secure-applications, ikev2-peers, etc., presently using the\ncertificate."
+                    }
+                }
+            },
+            {
+                "@name": "secure-applications",
+                "container": {
+                    "@name": "secure-applications",
+                    "description": {
+                        "text": "A collection of secured applications which\nuses X509v3 certificate as its digital identity"
+                    },
+                    "list": {
+                        "@name": "secure-application",
+                        "key": {
+                            "@value": "id"
+                        },
+                        "description": {
+                            "text": "A secured application represents which\nuses X509v3 certificate as its digital identity"
+                        },
+                        "leaf": [
+                            {
+                                "@name": "id",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "1..20"
+                                    }
+                                },
+                                "description": {
+                                    "text": "A unique object identifier for the secure application."
+                                }
+                            },
+                            {
+                                "@name": "type",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "server",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Secure application is a server."
+                                            }
+                                        },
+                                        {
+                                            "@name": "client",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Secure application is a client."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "server"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Specifies whether secure application acts as a server or client."
+                                }
+                            },
+                            {
+                                "@name": "in-use",
+                                "type": {
+                                    "@name": "leafref",
+                                    "path": {
+                                        "@value": "../active-certificate-id"
+                                    }
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Active certificate for this secure application."
+                                }
+                            },
+                            {
+                                "@name": "status",
+                                "type": {
+                                    "@name": "ioa-common:enable-switch"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Indicates whether this secure application is enabled or disabled."
+                                }
+                            },
+                            {
+                                "@name": "verify-client-cert",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "disabled",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Client certificate not requested or validated."
+                                            }
+                                        },
+                                        {
+                                            "@name": "required",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Client certificate is required and validated (for TLS Mutual Authentication)."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "disabled"
+                                },
+                                "description": {
+                                    "text": "Controls client certificate verification behavior at TLS handshake.\nFor TLS Mutual Authentication, this should be set to 'required'.\nNote that changes to this attribute will take effect for new TLS connections; it will have no\nimpact on existing connections."
+                                }
+                            }
+                        ],
+                        "leaf-list": {
+                            "@name": "active-certificate-id",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..128"
+                                }
+                            },
+                            "max-elements": {
+                                "@value": "10"
+                            },
+                            "description": {
+                                "text": "List of assigned certificates for this secure application."
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "subject-alternative-names",
+                "leaf": {
+                    "@name": "subject-alternative-names",
+                    "type": {
+                        "@name": "string",
+                        "length": {
+                            "@value": "0..4096"
+                        }
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Contains a list of subject alternative name(X509v3 extension SAN) entries\nseparated by <SPACE><PIPE><SPACE> delimiters (e.g. 'URI:https://www.example.com | DNS:example.com')."
+                    }
+                }
+            },
+            {
+                "@name": "certificates",
+                "container": {
+                    "@name": "certificates",
+                    "description": {
+                        "text": "All system managed local/trusted/peer X509v3 certificates on the system\nthat were imported by download mechanism in PKCS#12 or PKCS#7 secure bundles.\nAlso includes all certificate revocation related objects."
+                    },
+                    "list": [
+                        {
+                            "@name": "trusted-certificate",
+                            "key": {
+                                "@value": "id"
+                            },
+                            "description": {
+                                "text": "X509v3 CA(Root and Intermediate) certificate that the system trusts."
+                            },
+                            "uses": [
+                                {
+                                    "@name": "x509-certificate"
+                                },
+                                {
+                                    "@name": "ioa-common:arc"
+                                },
+                                {
+                                    "@name": "ioa-common:label"
+                                }
+                            ]
+                        },
+                        {
+                            "@name": "local-certificate",
+                            "key": {
+                                "@value": "id"
+                            },
+                            "description": {
+                                "text": "X509v3 end-entity certificate that represents a one of\nvarious secure application identities."
+                            },
+                            "uses": [
+                                {
+                                    "@name": "x509-certificate"
+                                },
+                                {
+                                    "@name": "used-by"
+                                },
+                                {
+                                    "@name": "subject-alternative-names"
+                                },
+                                {
+                                    "@name": "ioa-common:arc"
+                                },
+                                {
+                                    "@name": "ioa-common:label"
+                                }
+                            ],
+                            "leaf": {
+                                "@name": "self-signed",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "false"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "True if certificate is self-signed (does not have a trust chain)"
+                                }
+                            }
+                        },
+                        {
+                            "@name": "peer-certificate",
+                            "key": {
+                                "@value": "id"
+                            },
+                            "description": {
+                                "text": "X509v3 end-entity certificate that represents a trusted 'remote peer' certificate\nfor L1 encryption secure application."
+                            },
+                            "uses": [
+                                {
+                                    "@name": "x509-certificate"
+                                },
+                                {
+                                    "@name": "used-by"
+                                },
+                                {
+                                    "@name": "subject-alternative-names"
+                                },
+                                {
+                                    "@name": "ioa-common:arc"
+                                },
+                                {
+                                    "@name": "ioa-common:label"
+                                }
+                            ],
+                            "leaf": {
+                                "@name": "white-listed",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "false"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "If true, peer-certificate does not have an associated trust-chain, and was explicitly white-listed at import time.\nOtherwise, it has an associated trust-chain."
+                                }
+                            }
+                        }
+                    ],
+                    "uses": {
+                        "@name": "secure-applications"
+                    },
+                    "container": {
+                        "@name": "certificate-revocation",
+                        "description": {
+                            "text": "All objects related to certificate revocation.\nThis includes Certificate Revocation Lists (CRLs) and CRL Distribution Points (CDPs)."
+                        },
+                        "container": [
+                            {
+                                "@name": "crls",
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "All Certificate Revocation Lists (CRLs) presently on the system.\nThis includes manually downloaded CRLs as well as those automatically retrieved from a CRL\nDistribution Point (CDP)."
+                                },
+                                "list": {
+                                    "@name": "crl",
+                                    "key": {
+                                        "@value": "name"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "max-elements": {
+                                        "@value": "20"
+                                    },
+                                    "description": {
+                                        "text": "A Certificate Revocation List (CRL) used to check if a certificate has been revoked by its\nissuer."
+                                    },
+                                    "leaf": [
+                                        {
+                                            "@name": "name",
+                                            "type": {
+                                                "@name": "string"
+                                            },
+                                            "description": {
+                                                "text": "A unique object identifier for the CRL.\nThe format is <issuer-common-name>-<n> where 'n' is an incrementing integer to\ndifferentiate multiple CRLs from the same issuing CA."
+                                            }
+                                        },
+                                        {
+                                            "@name": "issuer",
+                                            "type": {
+                                                "@name": "cert-subject-name"
+                                            },
+                                            "description": {
+                                                "text": "The issuer name identifies the entity that has signed and issued the CRL."
+                                            },
+                                            "reference": {
+                                                "text": "Section 5.1.2.3 in RFC 5280"
+                                            }
+                                        },
+                                        {
+                                            "@name": "crl-number",
+                                            "type": {
+                                                "@name": "uint64"
+                                            },
+                                            "description": {
+                                                "text": "Monotonically increasing sequence number for a given CRL scope and CRL issuer."
+                                            },
+                                            "reference": {
+                                                "text": "Section 5.2.3 in RFC 5280"
+                                            }
+                                        },
+                                        {
+                                            "@name": "effective-date",
+                                            "type": {
+                                                "@name": "yang:date-and-time"
+                                            },
+                                            "description": {
+                                                "text": "The issue date of the CRL."
+                                            },
+                                            "reference": {
+                                                "text": "Section 5.1.2.4 in RFC 5280"
+                                            }
+                                        },
+                                        {
+                                            "@name": "next-update",
+                                            "type": {
+                                                "@name": "yang:date-and-time"
+                                            },
+                                            "description": {
+                                                "text": "The date by which the next CRL will be issued."
+                                            },
+                                            "reference": {
+                                                "text": "Section 5.1.2.5 in RFC 5280"
+                                            }
+                                        },
+                                        {
+                                            "@name": "type",
+                                            "type": {
+                                                "@name": "enumeration",
+                                                "enum": [
+                                                    {
+                                                        "@name": "manual",
+                                                        "value": {
+                                                            "@value": "1"
+                                                        },
+                                                        "description": {
+                                                            "text": "CRL installed via a manual download."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "cached",
+                                                        "value": {
+                                                            "@value": "2"
+                                                        },
+                                                        "description": {
+                                                            "text": "CRL automatically cached from a configured CDP or certificate CDP extension."
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            "description": {
+                                                "text": "Specifies whether CRL was manually installed or automatically cached from a CDP."
+                                            }
+                                        },
+                                        {
+                                            "@name": "status",
+                                            "type": {
+                                                "@name": "enumeration",
+                                                "enum": [
+                                                    {
+                                                        "@name": "valid",
+                                                        "value": {
+                                                            "@value": "1"
+                                                        },
+                                                        "description": {
+                                                            "text": "CRL is in the validity period,\n(effective-time <= current time <= next-update)."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "future",
+                                                        "value": {
+                                                            "@value": "2"
+                                                        },
+                                                        "description": {
+                                                            "text": "CRL has not entered the validity period (current time < effective-time).\nIt will not be used for revocation checking."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "expired",
+                                                        "value": {
+                                                            "@value": "3"
+                                                        },
+                                                        "description": {
+                                                            "text": "CRL is no longer in the validity period (current time > next-update).\nAn updated version will be required for revocation checking.\nFor CRLs with type='manual', it may be necessary to manually download the\nupdated CRL."
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            "description": {
+                                                "text": "The current status of the CRL."
+                                            }
+                                        },
+                                        {
+                                            "@name": "last-used-time",
+                                            "type": {
+                                                "@name": "ioa-common:date-time-never"
+                                            },
+                                            "description": {
+                                                "text": "Timestamp of last usage of this CRL for revocation checking."
+                                            }
+                                        },
+                                        {
+                                            "@name": "associated-cdp",
+                                            "type": {
+                                                "@name": "leafref",
+                                                "path": {
+                                                    "@value": "../../../cdps/cdp/name"
+                                                }
+                                            },
+                                            "description": {
+                                                "text": "The configured CDP which downloaded this CRL, if applicable."
+                                            }
+                                        },
+                                        {
+                                            "@name": "downloaded-from-uri",
+                                            "when": {
+                                                "@condition": "../type = 'cached'"
+                                            },
+                                            "type": {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "0..1024"
+                                                }
+                                            },
+                                            "description": {
+                                                "text": "The HTTP URI from which this CRL was auto-downloaded.\nNot applicable to manually downloaded CRLs."
+                                            }
+                                        }
+                                    ],
+                                    "leaf-list": {
+                                        "@name": "issuing-distribution-point-uri",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "1..1024"
+                                            }
+                                        },
+                                        "max-elements": {
+                                            "@value": "10"
+                                        },
+                                        "description": {
+                                            "text": "Identifies the issuer's distribution point name URI(s) for the CRL.\nOnly HTTP URIs are supported.\nThis may be an empty list."
+                                        },
+                                        "reference": {
+                                            "text": "Section 5.2.5 in RFC 5280"
+                                        }
+                                    },
+                                    "uses": {
+                                        "@name": "signature-algorithm"
+                                    }
+                                }
+                            },
+                            {
+                                "@name": "cdps",
+                                "description": {
+                                    "text": "All manually configured CRL Distribution Points (CDPs).\nEach CDP will support download and auto-refreshing of a specified CRL."
+                                },
+                                "list": {
+                                    "@name": "cdp",
+                                    "key": {
+                                        "@value": "name"
+                                    },
+                                    "max-elements": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "A CRL Distribution Point (CDP) for automatic download and periodic refresh of a specified\nCRL."
+                                    },
+                                    "leaf": [
+                                        {
+                                            "@name": "name",
+                                            "type": {
+                                                "@name": "ioa-common:object-name"
+                                            },
+                                            "description": {
+                                                "text": "A unique object identifier for the CDP."
+                                            }
+                                        },
+                                        {
+                                            "@name": "url",
+                                            "type": {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "0..1024"
+                                                },
+                                                "pattern": {
+                                                    "@value": "http://([^\\s/$.?#][^\\s/]*)/([^\\s]+)"
+                                                }
+                                            },
+                                            "mandatory": {
+                                                "@value": "true"
+                                            },
+                                            "description": {
+                                                "text": "HTTP URL of CRL. The CRL will be fetched from this location.\nThe format is 'http://<host>[:<port>]/<path_to_crl_file>' where\n    - '<host>' may be IPv4/v6 address, or DNS name of the distribution point,\n    - '<port>' is optional,\n    - '<path_to_crl_file>' is the path to the CRL file, conventionally with the .crl extension\nFor example: http://crl.example.org/pki/myCA.crl"
+                                            },
+                                            "reference": {
+                                                "text": "Section 3 in RFC 2585."
+                                            }
+                                        },
+                                        {
+                                            "@name": "enabled",
+                                            "type": {
+                                                "@name": "boolean"
+                                            },
+                                            "default": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "Enables automatic download and periodic refresh of the CRL.\nEnabling will immediately trigger a CRL auto-download.\nWhen disabled, no CRL refresh/updates will be performed, but existing CRLs are\nunaffected."
+                                            }
+                                        },
+                                        {
+                                            "@name": "refresh-interval",
+                                            "type": {
+                                                "@name": "union",
+                                                "type": [
+                                                    {
+                                                        "@name": "enumeration",
+                                                        "enum": {
+                                                            "@name": "use-next-update",
+                                                            "value": {
+                                                                "@value": "0"
+                                                            },
+                                                            "description": {
+                                                                "text": "Next refresh time is defined by current CRL's next-update field."
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "ioa-common:time-interval"
+                                                    }
+                                                ]
+                                            },
+                                            "default": {
+                                                "@value": "use-next-update"
+                                            },
+                                            "description": {
+                                                "text": "Defines when CRL should be refreshed/updated.\nIf 'use-next-update' is specified, the next refresh time is defined by the current CRL\nnext-update field.\nRefresh interval is provided using the following syntax:\n   '[xw] [xd] [xh] [xm] [xs]'\nwhere:\n   w(eeks), d(ays), h(ours), m(inutes), s(seconds).\nExamples:\n   2w        -- two weeks\n   5d 12h    -- 5 days and 12 hours\n   1h 7m 30s -- 1 hour, 7 minutes and 30 seconds"
+                                            }
+                                        },
+                                        {
+                                            "@name": "next-update-time",
+                                            "type": {
+                                                "@name": "ioa-common:date-time-never"
+                                            },
+                                            "config": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "Timestamp of next CRL update."
+                                            }
+                                        },
+                                        {
+                                            "@name": "last-update-time",
+                                            "type": {
+                                                "@name": "ioa-common:date-time-never"
+                                            },
+                                            "config": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "Timestamp of most recent CRL update."
+                                            }
+                                        },
+                                        {
+                                            "@name": "last-update-result",
+                                            "type": {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "0..255"
+                                                }
+                                            },
+                                            "config": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "Result of the most recent CRL update."
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "@name": "ocsp-servers",
+                                "description": {
+                                    "text": "A prioritized list of Online Certificate Status Protocol (OCSP) responders to consult for certificate revocation status.\nThese are employed when no usable OCSP URL is available via the certificate's Authority Information Access (AIA) extension."
+                                },
+                                "list": {
+                                    "@name": "ocsp-server",
+                                    "key": {
+                                        "@value": "name"
+                                    },
+                                    "unique": {
+                                        "@tag": "priority"
+                                    },
+                                    "max-elements": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "A manually-configured Online Certificate Status Protocol (OCSP) responder for certificate revocation status checking."
+                                    },
+                                    "leaf": [
+                                        {
+                                            "@name": "name",
+                                            "type": {
+                                                "@name": "ioa-common:object-name"
+                                            },
+                                            "description": {
+                                                "text": "A unique object identifier for the OCSP responder."
+                                            }
+                                        },
+                                        {
+                                            "@name": "url",
+                                            "type": {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "0..1024"
+                                                },
+                                                "pattern": {
+                                                    "@value": "http://([^\\s/$.?#][^\\s/]*)"
+                                                }
+                                            },
+                                            "mandatory": {
+                                                "@value": "true"
+                                            },
+                                            "description": {
+                                                "text": "HTTP URL of OCSP responder.\nThe format is 'http://<host>[:<port>]' where\n    - '<host>' may be IPv4/v6 address, or DNS name of the server hosting the OCSP responder,\n    - '<port>' is the optional port number, otherwise default HTTP port is used (80)\nFor example: http://ocsp.example.org"
+                                            },
+                                            "reference": {
+                                                "text": "Section 4.2.2.1 in RFC 5280."
+                                            }
+                                        },
+                                        {
+                                            "@name": "enabled",
+                                            "type": {
+                                                "@name": "boolean"
+                                            },
+                                            "default": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "Controls whether this OCSP responder can be consulted for certificate revocation status."
+                                            }
+                                        },
+                                        {
+                                            "@name": "priority",
+                                            "type": {
+                                                "@name": "uint8",
+                                                "range": {
+                                                    "@value": "1..10"
+                                                }
+                                            },
+                                            "mandatory": {
+                                                "@value": "true"
+                                            },
+                                            "description": {
+                                                "text": "This is used to sort the OCSP responders in order of precedence.\nLower numbered OCSP responders are consulted before higher numbered ones."
+                                            }
+                                        },
+                                        {
+                                            "@name": "last-query",
+                                            "type": {
+                                                "@name": "ioa-common:date-time-never"
+                                            },
+                                            "config": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "Timestamp of last successful query."
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}

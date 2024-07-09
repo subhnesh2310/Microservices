@@ -1,0 +1,311 @@
+{
+    "ne": {
+        "system": {
+            "networking": {
+                "access-control-list": {
+                    "acl": [
+                        {
+                            "name": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Name of the ACL.",
+                                "mandatory": true,
+                                "key": true,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "ace": [
+                                {
+                                    "sequence-id": {
+                                        "type": {
+                                            "ptype": "int"
+                                        },
+                                        "isList": false,
+                                        "description": "Sequence number that establishes the relative\norder of the ACE within an ACL",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": 0,
+                                        "hardcode": false,
+                                        "namespace": null
+                                    },
+                                    "namespace": null,
+                                    "direction": {
+                                        "type": {
+                                            "ptype": "str",
+                                            "values": [
+                                                "input",
+                                                "output"
+                                            ]
+                                        },
+                                        "isList": false,
+                                        "description": "Based on the direction, this filter shall be applied\nto incoming packets, or outgoing packets. Note that Input is\nmandatory and output is an optional function.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "input",
+                                        "hardcode": false,
+                                        "namespace": null
+                                    },
+                                    "logging-action": {
+                                        "type": {
+                                            "ptype": "bool"
+                                        },
+                                        "isList": false,
+                                        "description": "Flag to indicate if logging needs to be done once the ACE rule is matched.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": false,
+                                        "hardcode": false,
+                                        "namespace": null
+                                    },
+                                    "source-ip-address": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "Specifies the source IP of this filter. The\nvalues could be a valid IPv4/v6-address or Ipv4/v6-address/prefix.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "any",
+                                        "hardcode": false,
+                                        "namespace": null
+                                    },
+                                    "source-lower-port": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "The lower bound on the source Layer 4 TCP/UDP port number.\nA value of zero for both indicates wildcarding.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "0",
+                                        "hardcode": false,
+                                        "namespace": null
+                                    },
+                                    "source-upper-port": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "The upper bound on the source Layer 4 TCP/UDP port number.\nA value of zero for both indicates wildcarding.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "0",
+                                        "hardcode": false,
+                                        "namespace": null
+                                    },
+                                    "destination-ip-address": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "Specifies the destination IP of this filter. The\nvalues could be a valid IPv4/v6-address or Ipv4/v6-address/prefix.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "any",
+                                        "hardcode": false,
+                                        "namespace": null
+                                    },
+                                    "destination-lower-port": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "The lower bound on the destination Layer 4 TCP/UDP port number.\nA value of zero for both indicates wildcarding.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "0",
+                                        "hardcode": false,
+                                        "namespace": null
+                                    },
+                                    "destination-upper-port": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "The upper bound on the destination Layer 4 TCP/UDP port number.\nA value of zero for both indicates wildcarding.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "0",
+                                        "hardcode": false,
+                                        "namespace": null
+                                    },
+                                    "ttl": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "IPv4 and IPv6 packet's time-to-live (TTL) hop limit. Default TTL value 255 is max hop",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "any",
+                                        "hardcode": false,
+                                        "namespace": null
+                                    },
+                                    "action": {
+                                        "type": {
+                                            "ptype": "str",
+                                            "values": [
+                                                "accept",
+                                                "reject",
+                                                "drop"
+                                            ]
+                                        },
+                                        "isList": false,
+                                        "description": "The action to be taken by the filter.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "drop",
+                                        "hardcode": false,
+                                        "namespace": null
+                                    },
+                                    "protocol": {
+                                        "type": {
+                                            "ptype": "str",
+                                            "values": [
+                                                "any",
+                                                "ah",
+                                                "comp",
+                                                "egp",
+                                                "esp",
+                                                "gre",
+                                                "icmp",
+                                                "idrp",
+                                                "igmp",
+                                                "igrp",
+                                                "isis",
+                                                "ospf",
+                                                "rsvp",
+                                                "tcp",
+                                                "udp",
+                                                "vrrp"
+                                            ]
+                                        },
+                                        "isList": false,
+                                        "description": "Internet Protocol number.  Refers to the protocol\npayload.  In IPv6, this field is known as 'next-header', and\nif extension headers are present, the protocol is present in\nthe 'upper-layer' header.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "any",
+                                        "hardcode": false,
+                                        "namespace": null
+                                    },
+                                    "label": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "User label.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "",
+                                        "hardcode": false,
+                                        "namespace": null
+                                    }
+                                }
+                            ],
+                            "type": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "ipv4",
+                                        "ipv6"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Indicates the top-level type of ACL, i.e., what\nfields from the associated IPv4 or IPv6 headers this ACL matches on.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "interface": {
+                                "type": {
+                                    "ptype": "unknown",
+                                    "leafref": "../../../../networking/interface/if-name"
+                                },
+                                "isList": false,
+                                "description": "A reference to the interface this filter\nshall be applied to.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "admin-state": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "lock",
+                                        "unlock",
+                                        "maintenance"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The administrative state of the managed object.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "unlock",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "avail-state": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Availability state of an entity.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "oper-state": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "enabled",
+                                        "disabled"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The operational state of this object.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "disabled",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ]
+                }
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

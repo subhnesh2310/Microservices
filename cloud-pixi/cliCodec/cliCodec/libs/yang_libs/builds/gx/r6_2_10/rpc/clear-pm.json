@@ -1,0 +1,81 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/pm",
+    "inputs": {
+        "data-type": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "current",
+                    "history",
+                    "real-time"
+                ]
+            },
+            "isList": false,
+            "description": "Type of PM data to clear.",
+            "mandatory": true
+        },
+        "period": {
+            "type": {
+                "ptype": "str",
+                "identityref": "PM-PERIOD"
+            },
+            "isList": false,
+            "description": "Time period for PM data.",
+            "mandatory": false
+        },
+        "direction": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "all",
+                    "na",
+                    "ingress",
+                    "egress"
+                ]
+            },
+            "isList": false,
+            "description": "PM parameter direction.",
+            "mandatory": false
+        },
+        "location": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "all",
+                    "na",
+                    "near-end",
+                    "far-end"
+                ]
+            },
+            "isList": false,
+            "description": "PM parameter location.",
+            "mandatory": false
+        },
+        "resource": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Existing system resource.",
+            "mandatory": false
+        },
+        "resource-type": {
+            "type": {
+                "ptype": "str",
+                "identityref": "RESOURCE-TYPE"
+            },
+            "isList": false,
+            "description": "Type of resource.",
+            "mandatory": false
+        },
+        "AID": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

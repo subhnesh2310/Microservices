@@ -1,0 +1,86 @@
+module ioa-ops {
+    namespace "http://infinera.com/yang/ioa/ops";
+    prefix ioa-ops;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+
+
+    grouping ops {
+        description "A re-usable grouping that formulates the basic OPS facility structure.";
+
+        list ops {
+            key "name";
+            description "OPS: Optical Physical Section facility.";
+            reference "ITU-T G.798; ITU-T G.709 Table XII.1 -- Terminology mapping";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf role {
+                type enumeration {
+                    enum general-purpose {
+                        value 1;
+                        description
+                            "Indicates the underlying (L0) port may be used for express connections,
+                            or to add/ drop traffic.";
+                    }
+                    enum tributary {
+                        value 2;
+                        description
+                            "Single Wavlength.
+                            Indicates the underlying (L0) port is connected to a transponder,
+                            or ellegible to be connected to a transponder.";
+                    }
+                    enum multi-carrier {
+                        value 3;
+                        description
+                            "Multiple Wavlength.
+                            Indicates the underlying (L0) port is connected to several carriers,
+                            either directly or indirectly (using a coupler/ splitter or AWG).
+                            ";
+                    }
+                }
+                default "general-purpose";
+                description
+                    "Allows the user to configure:
+                    - tributary: a single add/ drop to a local transponder, or to a remote transponder;
+                    local transponder: using port.external-connectivity = no;
+                    remote transponder: using port.external-connectivity = yes;
+
+                    - multi-carrier: multiple-carriers on the underlying (filter) port;
+                    locally connected filter: using port.external-connectivity = no;
+                    remote (disaggregated) filter: using port.external-connectivity = yes;
+
+                    - general-purpose: other cases:
+                    express cross-connection to another filter (created, or to be created.)
+                    ";
+            }
+
+            leaf supported-roles {
+                type bits {
+                    bit general-purpose {
+                        position 0;
+                        description "role general-purpose supported";
+                    }
+                    bit tributary {
+                        position 1;
+                        description "role tributary supported";
+                    }
+                    bit multi-carrier {
+                        position 2;
+                        description "role multi-carrier supported";
+                    }
+                }
+                config false;
+                description
+                    "The SYSTEM exposes what configurations are possible, for the purpose
+                    of managers being able to offer the appropriate options for the configuration of OPS role.
+                    Bits indicate the role possibilities:
+                    - this is fully dependent on card (and sometimes on card-mode), refer to the 'portsdata' definition.
+                    ";
+            }
+        }
+    }
+}

@@ -1,0 +1,66 @@
+module ioa-rsc {
+    namespace "http://infinera.com/yang/ioa/rsc";
+    prefix ioa-rsc;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+    import ioa-l0 { prefix ioa-l0; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions for Raman Supervisory Channel (RSC) facilities.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+
+    grouping rsc {
+        description "A re-usable grouping that formulates the basic Pilot Tone facility structure.";
+
+        list rsc {
+            key "name";
+            description "Raman Supervisory Channel: Raman card Pilot Tone facility.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf rsc-power-rx {
+                type ioa-l0:optical-power-actual;
+                default -99;
+                config false;
+                description "The received Pilot Tone integrated power.";
+            }
+            leaf rsc-power-tx {
+                type ioa-l0:optical-power-actual;
+                default -99;
+                config false;
+                description "The transmitted Pilot Tone integrated power.";
+            }
+        }
+    }
+
+    grouping raman-pump {
+        description "A re-usable grouping for raman-pump.";
+
+        list pump {
+            key "name";
+            description "Raman Pump individual monitoring.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf pump-type {
+                type enumeration {
+                    enum raman-pump { value 1; description "(Backward) Raman Pump"; }
+                }
+                config false;
+                description "Type of Pump.";
+            }
+        }
+    }
+}

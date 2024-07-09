@@ -1,0 +1,66 @@
+{
+    "ne": {
+        "system": {
+            "protocols": {
+                "netconf": {
+                    "enabled": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "Enables/disables the NETCONF management protocol.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": true,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "port": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "The port which listens for NETCONF access via ssh.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 830,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "annotate-cli-name": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "If enabled, annotates NETCONF XML output with cli names for traceability.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": false,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "hello-timeout": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Specifies the number of seconds that a session may exist\nbefore the hello PDU is received/transmitted.  A session will be\ndropped if no hello PDU is received/transmitted before this number\nof seconds elapses.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 2,
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

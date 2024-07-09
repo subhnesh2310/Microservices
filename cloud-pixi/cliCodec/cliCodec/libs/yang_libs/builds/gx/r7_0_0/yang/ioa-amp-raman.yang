@@ -1,0 +1,185 @@
+module ioa-amp-raman {
+    namespace "http://infinera.com/yang/ioa/amp-raman";
+    prefix ioa-amp-raman;
+
+    import ioa-l0 { prefix ioa-l0; }
+    import ioa-amp { prefix ioa-amp; }
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG model describing the amplifier-raman function.";
+
+    revision "2023-03-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.1";
+    }
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    grouping amplifier-list {
+        description "Re-usable grouping for Raman amplifier(s).";
+        list amplifier-raman {
+            key name;
+            description "Amplifier Raman container.";
+
+            uses ioa-amp:amplifier-common;
+
+            uses ioa-common:arc;
+
+            leaf control-mode {
+                type enumeration {
+                    enum auto { value 1; description "Automatic gain control."; }
+                    enum manual { value 2; description "Manual gain control"; }
+                    enum auto-planned { value 3; description "Auto-planned"; }
+                }
+                default auto;
+                description "Control Mode for this Raman Amplifier.";
+            }
+
+            leaf raman-state {
+                type enumeration {
+                    enum not-specified {
+                        value 0;
+                        description "Not Applicable/ Not specified.";
+                    }
+                    enum disabled {
+                        value 1;
+                        description "Disabled local and remote Raman.";
+                    }
+                    enum disabled-from-remote {
+                        value 2;
+                        description "Disabled locally because of remote Raman disabled.";
+                    }
+                    enum enabled {
+                        value 3;
+                        description "Local Raman enabled, operating with remote Raman.";
+                    }
+                }
+                default disabled;
+                config false;
+                description "The state of the Raman Pump.";
+            }
+
+            leaf amplifier-enable {
+                type enumeration {
+                    enum disable-local-and-remote { value 1; description "Fully disable local and remote Raman."; }
+                    enum disable-local { value 2; description "Local Raman manually disabled."; }
+                    enum enabled { value 3; description "Enable local and remote Raman to operate."; }
+                }
+                default disable-local-and-remote;
+                description
+                    "Enable switch for this Raman.
+                    User configuration of Local Raman, and optionally control remote Raman card.
+                    ";
+            }
+
+            leaf connected-amplifier {
+                type union {
+                    type enumeration {
+                        enum not-specified { value 0; description "Not Applicable/ Not specified."; }
+                    }
+                    type uint16 { range 1..20; }
+                }
+                default 'not-specified';
+                config false;
+                description
+                    "SYSTEM reports the degree that corresponds to the amplifier where Raman is fiber connected to.
+                    If Raman is not fiber connected, then SYSTEM returns 'not-specified'.
+                    ";
+            }
+
+            leaf connected-amp-edfa-optimum-gain {
+                type decimal64 {
+                    fraction-digits 2;
+                    range "0.00..55.00";
+                }
+                units "dB";
+                default 0;
+                description "Connected EDFA Optimum Gain; 0 means no known optimum gain, in case of disaggregated Raman.";
+            }
+
+            leaf total-pump-power {
+                type ioa-l0:optical-power-actual;
+                config false;
+                description "Operating Total Pump Power.";
+            }
+
+            leaf number-of-pumps {
+                type uint8;
+                config false;
+                description "Number of pumps for the required-equipped card.";
+            }
+
+            leaf target-raman-gain {
+                type ioa-amp:gain-value {
+                    range '0|5..30';
+                }
+                description
+                    "Target Raman Gain, configurable in case control-mode = manual.
+                    In case control-mode = auto, this is then ignored.";
+            }
+
+            leaf actual-raman-signal-gain {
+                type ioa-amp:gain-value;
+                config false;
+                description "PCL output to express the gain for the raman signal";
+            }
+
+            leaf actual-raman-osc-gain {
+                type ioa-amp:gain-value;
+                config false;
+                description "PCL output to express the gain for the raman OSC";
+            }
+
+            list pump-power {
+                key "pump-id";
+                description
+                    "Target Pump Power, as configured by the user, for each pump.
+                    If control-mode = auto, value(s) configured are irrelevant.
+                    ";
+
+                leaf pump-id {
+                    type uint8;
+                    description
+                        "'pump-id' is an integer identifying the number of the pump.";
+                }
+
+                leaf target-pump-power {
+                    when "../../control-mode = 'manual'";
+                    type ioa-l0:optical-power-raman;
+                    description "Raman Pump Power required.";
+                }
+
+                leaf configured-pump-power {
+                    type ioa-l0:optical-power-raman;
+                    config false;
+                    description "The pump power configured in the hardware.
+                                 Value can be derived automatically, if control-mode is auto, or otherwise via the target-pump-power.";
+                }
+
+                leaf min-target-pump-power {
+                    type ioa-l0:optical-power-raman;
+                    config false;
+                    description "Minimum target pump power.";
+                }
+
+                leaf max-target-pump-power {
+                    type ioa-l0:optical-power-raman;
+                    config false;
+                    description "Maximum target pump power.";
+                }
+
+                leaf actual-pump-power {
+                    type ioa-l0:optical-power-actual;
+                    default -99;
+                    config false;
+                    description "The actual values which are currently measured in each pump.";
+                }
+            }
+        }
+    }
+}

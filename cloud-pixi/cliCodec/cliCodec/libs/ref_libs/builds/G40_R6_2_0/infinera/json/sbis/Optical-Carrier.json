@@ -1,0 +1,782 @@
+{
+    "ne": {
+        "facilities": {
+            "optical-carrier": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A generic, configurable name for every facility.",
+                        "key": true,
+                        "mandatory": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "advanced-parameter": [
+                        {
+                            "name": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Name of the advanced parameter.",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false
+                            },
+                            "namespace": null,
+                            "value": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Value of the advanced parameter.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "status": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "set",
+                                        "unknown",
+                                        "in-progress",
+                                        "failed",
+                                        "not-supported"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "State of the advanced parameter (as observable on the system) once it is configured.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "unknown",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ],
+                    "frequency": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The center frequency this carrier is tuned to. Zero means 'not configured'.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "frequency-offset": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "A super set range for line and client side carrier, specific sub-range is depend on application. Frequency-offset can be used for bright tuning\nof the wavelengths.\nOnce set, the frequency will slowly change (over 1-10s) without affecting service.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "wavelength": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The wavelength of the optical carrier.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tx-power": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The optical carrier's transmit power into the fiber from the transponder's optics.\nNOTE: The accuracy of the Tx Power can be adjusted in steps of 0.5 dBm.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "-6.0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "pre-fec-q-sig-deg-threshold": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The threshold based on which the PRE-FEC-Q-SIGNAL-DEGRADE alarm is raised.\n0 implies threshold crossing alarming disabled.\nSpecific sub-range is per carrier use-case.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "6.0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "pre-fec-q-sig-deg-hysteresis": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Hysteresis to account for raising of the PRE-FEC-Q-SIGNAL-DEGRADE alarm.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.5",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "carrier-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "ICE6",
+                                "ZR",
+                                "ZR+",
+                                "OTN"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Intent is to differentiate the multiple CarierCTPs.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "ICE6",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "enable-advanced-parameters": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "Controls enabling/disabling of configuring advanced parameters for this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": false,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "sop-data-collection": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Controls enabling/disabling sop data collection, providing the collection interval in ms.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Card that holds this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "managed-by": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "system",
+                                "user"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Describes whether this facility was system created or not.\nOnly user created facilities can be user deleted.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "system",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Ports that hold this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the parent facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supported-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the children facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "media-interface": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "400ZR-CFEC-DP-16QAM"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Media interface type of ZR tom.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "400ZR-CFEC-DP-16QAM",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "capacity": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "The net capacity of the optical carrier.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "baud-rate": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The modulated symbol rate.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "grid-spacing": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "100",
+                                "75",
+                                "50",
+                                "33",
+                                "25",
+                                "12.5",
+                                "6.25",
+                                "3.125"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Fixed Grid tunability for new 3rd party TOM.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "100",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "spectral-bandwidth": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Spectral bandwith associated with this carrier(s).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "loopback": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "none",
+                                "facility",
+                                "terminal"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Loopback mode.Useful to debug on the fiber connection.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tx-cd": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The configured transmit pre-compensation chromatic dispersion.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "dgd-high-threshold": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "The threshold to raise the DGD-OORH alarm.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 300,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "post-fec-q-sig-deg-threshold": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The threshold based on which the POST-FEC-Q-SIGNAL-DEGRADE alarm is raised.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "18",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "post-fec-q-sig-deg-hysteresis": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Hysteresis to account for raising of the POST-FEC-Q-SIGNAL-DEGRADE alarm.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "2.5",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "rate": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Carried signal basic rate class.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "modulation-format": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "not-applicable",
+                                "DP-QPSK",
+                                "DP-16QAM",
+                                "DP-8QAM",
+                                "BPSK",
+                                "DP-16QAM-E",
+                                "DP-16QAM-PS"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Current modulation format.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "line-encoding": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "non-differential",
+                                "differential"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Currently line-encoding mode.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "non-differential",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "rx-frequency": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The rx laser frequency. Special for 0 means it is same as tx laser frequency.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "rx-attenuation": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "This is to support configurable optical attenuation at receiver side which is based on the hardware capability on the port.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tx-filter-roll-off": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Transmitter filter roll off factor.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.2",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "preemphasis": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Preemphasis of transmitted signal.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "enabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "preemphasis-value": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Preemphasis of transmitted signal.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "1.0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "cd-range-low": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Low value of chromatic dispersion search range.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": -45000,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "cd-range-high": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "high value of chromatic dispersion search range.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 45000,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "cd-compensation-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "auto",
+                                "manual"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "chromatic dispersion compensation value source mode.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "auto",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "cd-compensation-value": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "manual chromatic dispersion compensation value",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fast-sop-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Specify if enable fast SOP (state of polarization) change tracking; if enabled, the interface\n   will tolerate very fast SOP and transient.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "BICHM": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "The BICHM (bit interleaved coded hybrid modulation) incremental step in 1/128 bits/symbol added to base modulation bits/symbol for the hybrid modes modulation-format.\n0: Base modulation format bits/symbol;\n1: 1/128 bits/symbol added to base modulation format bits/symbol;\n...\n127: 127/128 bits/symbol added to base modulation format bits/symbol",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 64,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "propagate-shutdown": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "When the attribute value is set to yes, the transmit laser will\nbe shutdown if the whole service of the direction has signal failure,\nthe function mainly used in regeneration node to propagate signal failure as LOS.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "propagate-shutdown-holdoff-timer": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "The hold off time of propagate shutdown.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "actual-rx-frequency": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The actual rx laser frequency for coherent interface with separating Lo laser from Tx.\n0 means Lo and Tx share the same laser where 'frequency' attriute will indicate both Tx and Rx.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "actual-frequency": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The actual laser frequency.\nIf rx-frequency is 0, it reflects both Rx and Tx frequency for coherent interface.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "circuit-id": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "System configured circuit ID, present in XCONs and associated facilities.\nFor facilities, circuit-id is only filled in if an associated XCON exists.\n   Format of this ID is:\n   <timestamp>|<ne-name>|<XCON-AID>|<user-configured-sufix>\n   Example:\n   2020-05-05T21:06:02Z|GX|1-4-T9,1-4-L1-1-ODUji#1|my-suffix\n\n   Timestamp is the NE time at xcon creation, in UTC.\n   If necessary, ne-name will be truncated so that total length remains at 128 characters.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

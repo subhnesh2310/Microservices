@@ -1,0 +1,128 @@
+  {
+  	"interface": [{
+  		"name": "DCN-1-1-DCN",
+  		"config": {
+  			"name": "DCN-1-1-DCN",
+  			"type": "iana-if-type:dcn",
+  			"mtu": 1500
+  		},
+  		"subinterfaces": {
+  			"subinterface": [{
+  				"index": 1,
+  				"config": {
+  					"index": 1,
+  					"description": ""
+  				},
+  				"openconfig-if-ip:ipv4": {
+  					"addresses": {
+  						"address": [{
+  							"ip": "10.100.210.218",
+  							"config": {
+  								"ip": "10.100.210.218",
+  								"prefix-length": 23
+  							}
+  						}]
+  					},
+  					"config": {
+  						"enabled": true,
+  						"dhcp-client": false
+  					}
+  				},
+  				"openconfig-if-ip:ipv6": {
+					"addresses": {
+  						"address": [{
+  							"ip": "2620:38:4001:196:10:220:196:206",
+  							"config": {
+  								"ip": "2620:38:4001:196:10:220:196:206",
+  								"prefix-length": 64
+  							}
+  						}]
+  					},
+  					"config": {
+  						"enabled": true,
+  						"dhcp-client": false
+  					}
+  				}
+  			}]
+  		},
+  		"openconfig-if-ethernet:ethernet": {
+  			"config": {
+  				"auto-negotiate": true
+  			}
+  		}
+  	}, {
+        "name":  "CRAFT-1-1-CRAFT",
+        "config":  {
+          "name":  "CRAFT-1-1-CRAFT",
+          "type":  "iana-if-type:ethernetCsmacd",
+          "mtu":  1500
+        },
+        "subinterfaces":  {
+          "subinterface":  [{
+              "index":  1,
+              "config":  {
+                "index":  1,
+                "description":  ""
+              },
+              "openconfig-if-ip:ipv4":  {
+                "addresses":  {
+                  "address":  [{
+                      "ip":  "169.254.0.1",
+                      "config":  {
+                        "ip":  "169.254.0.1",
+                        "prefix-length":  16
+                      }
+                    }]
+                },
+                "config":  {
+                  "enabled":  true,
+                  "dhcp-client":  false
+                }
+              },
+              "openconfig-if-ip:ipv6":  {
+                "addresses":  {
+                },
+                "config":  {
+                  "enabled":  false,
+                  "dhcp-client":  false
+                }
+              }
+            }]
+        },
+        "openconfig-if-ethernet:ethernet":  {
+          "config":  {
+            "auto-negotiate":  true
+          }
+        }
+      }, {
+  		"name": "LO-MGMT",
+  		"config": {
+  			"name": "LO-MGMT",
+  			"type": "iana-if-type:softwareLoopback"
+  		},
+  		"subinterfaces": {
+  			"subinterface": [{
+  				"index": 1,
+  				"config": {
+  					"index": 1,
+  					"description": ""
+  				},
+  				"openconfig-if-ip:ipv4": {
+                "addresses":  {
+                  "address":  [{
+                      "ip":  "1.1.1.218",
+                      "config":  {
+                        "ip":  "1.1.1.218",
+                        "prefix-length":  32
+                      }
+                    }]
+                },
+  					"config": {
+  						"enabled": true,
+  						"dhcp-client": false
+  					}
+  				}
+  			}]
+  		}
+  	}]
+  }

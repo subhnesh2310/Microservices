@@ -1,0 +1,1307 @@
+module infinera-openconfig-extensions {
+
+    namespace "http://openconfig.net/yang/infinera/yang/extensions";
+
+    prefix "infinera-oc-ext";
+
+    import openconfig-terminal-device {
+        prefix oc-opt-term;
+    }
+
+    import openconfig-transport-types {
+        prefix oc-opt-types;
+    }
+
+    import openconfig-system { 
+        prefix "oc-sys"; 
+    }
+    import openconfig-system-logging { 
+        prefix oc-log;
+    }
+    import openconfig-alarm-types { 
+        prefix oc-alarm-types;
+    }
+    import openconfig-aaa-types {
+        prefix oc-aaa-types;
+    }
+
+    import openconfig-interfaces {
+        prefix oc-if;
+    }
+    import openconfig-if-ethernet { prefix oc-eth; }
+
+    import openconfig-platform {
+        prefix oc-platform;
+    }
+    import openconfig-platform-types {
+        prefix oc-platform-types;
+    } 
+    import openconfig-alarms { 
+	prefix oc-alarms; 
+    }
+    import openconfig-platform-linecard { 
+	prefix oc-linecard;
+    }
+    import openconfig-platform-psu { 
+	prefix oc-platform-psu;
+    }
+    import openconfig-platform-transceiver {
+        prefix oc-transceiver;
+    }
+    import openconfig-yang-types { prefix oc-yang; }
+    import ietf-yang-types { prefix yang; }
+    import ietf-inet-types { prefix oc-inet; }
+
+    organization
+      "Infinera Corporation";
+
+    description
+      "User visible extensions for the openconfig yangs";
+
+    //identities.
+    identity SYSTEM_ROLE_MAINT {
+        base oc-aaa-types:SYSTEM_DEFINED_ROLES;
+        description
+            "Infinera extended role that allows the Maintenance permission.(MA)";
+    }
+    identity SYSTEM_ROLE_CONF {
+        base oc-aaa-types:SYSTEM_DEFINED_ROLES;
+        description
+            "Infinera extended role that allows the Configuration permission.(NE,PR,TT)";
+    }
+
+    identity CLEAR {
+        base oc-alarm-types:OPENCONFIG_ALARM_SEVERITY;
+        description "Indicates that the severity level clear. ";
+    }
+    identity EVENT {
+        base oc-alarm-types:OPENCONFIG_ALARM_SEVERITY;
+        description "Indicates that the severity level event. ";
+    }
+    identity INDETERMINATE {
+        base oc-alarm-types:OPENCONFIG_ALARM_SEVERITY;
+        description "Indicates that the severity level is not determined. ";
+    }
+    identity NOTREPORTED {
+        base oc-alarm-types:OPENCONFIG_ALARM_SEVERITY;
+        description "Indicates that the severity level is not reported. ";
+    }
+    identity SHA-1 {
+        base oc-sys:NTP_AUTH_TYPE;
+        description "SHA-1 encryption method";
+    }
+    identity SHA-256 {
+        base oc-sys:NTP_AUTH_TYPE;
+        description "SHA-256 encryption method";
+    }
+    identity AES-CMAC {
+        base oc-sys:NTP_AUTH_TYPE;
+        description "AES-CMAC encryption method";
+    }
+
+    identity PROT_ODU4i {
+        base oc-opt-types:PROT_ODU4;
+        description
+          "ODU4i Type specific to Infinera";
+    }
+
+    identity PROT_OTUCNi {
+        base oc-opt-types:PROT_OTUCN;
+        description
+          "OTUCNi Type specific to Infinera";
+    }
+
+    identity PROT_ODUCNi {
+        base oc-opt-types:PROT_ODUCN;
+        description
+          "ODUCNi Type specific to Infinera";
+    }
+
+    identity PROT_ODUflex {
+        base oc-opt-types:TRIBUTARY_PROTOCOL_TYPE;
+        description
+          "ODUflex Type";
+    }
+
+    identity PROT_ODUflexi {
+        base infinera-oc-ext:PROT_ODUflex;
+        description
+          "ODUflexi Type specific to Infinera";
+    }
+    identity PROT_SONET {
+        base oc-opt-types:LOGICAL_ELEMENT_PROTOCOL_TYPE;
+        description
+        "SONET protocol framing";
+    }
+    identity PROT_SDH {
+        base oc-opt-types:LOGICAL_ELEMENT_PROTOCOL_TYPE;
+        description
+        "SDH protocol framing";
+    }      
+    identity openZRPlus {
+        base oc-opt-types:FRAME_MAPPING_PROTOCOL;
+        description "mapping mode for ZR";
+    }   
+    identity FlexE_4x100G {
+        base oc-opt-types:FRAME_MAPPING_PROTOCOL;
+        description "FlexE-4x100G for split lamda feature";
+    } 
+    identity GFP_F_extOPU2 {
+        base oc-opt-types:FRAME_MAPPING_PROTOCOL;
+        description "GFP-F-extOPU2";
+    }          
+    identity QSFPDD {
+        base oc-opt-types:TRANSCEIVER_FORM_FACTOR_TYPE;
+        description "FORM FACTOR type specific to infinera";
+    }
+
+    identity ETH_100GBASE_R {
+        base oc-opt-types:ETHERNET_PMD_TYPE;
+        description "ETHERNET PMD type specific to infinera";
+    }
+
+    identity ETH_400GBASE_SR8 {
+        base oc-opt-types:ETHERNET_PMD_TYPE;
+        description "ETHERNET PMD type specific to infinera";
+    }
+
+    identity ETH_400GBASE_LR4 {
+        base oc-opt-types:ETHERNET_PMD_TYPE;
+        description "ETHERNET PMD type specific to infinera";
+    }
+
+    identity ETH_400GBASE_FR4 {
+        base oc-opt-types:ETHERNET_PMD_TYPE;
+        description "ETHERNET PMD type specific to infinera";
+    }
+
+    identity ETH_400GBASE_DR4 {
+        base oc-opt-types:ETHERNET_PMD_TYPE;
+        description "ETHERNET PMD type specific to infinera";
+    }
+
+    identity ETH_400GBASE_R {
+        base oc-opt-types:ETHERNET_PMD_TYPE;
+        description "ETHERNET PMD type specific to infinera";
+    }
+    
+    identity ETH_100GBASE_DR {
+        base oc-opt-types:ETHERNET_PMD_TYPE;
+        description "ETHERNET PMD type specific to infinera";
+    }
+
+    identity ETH_100GBASE_FR {
+        base oc-opt-types:ETHERNET_PMD_TYPE;
+        description "ETHERNET PMD type specific to infinera";
+    }
+    
+    identity ETH_400GBASE_SR4 {
+        base oc-opt-types:ETHERNET_PMD_TYPE;
+        description "ETHERNET PMD type specific to infinera";
+    }
+    
+    identity CLOCK_DAEMON_15 {
+        base  oc-log:SYSLOG_FACILITY;
+    }
+    identity CLOCK_DAEMON_9 {
+        base oc-log:SYSLOG_FACILITY;
+    }
+    identity LINE_PRINTER {
+        base oc-log:SYSLOG_FACILITY;
+    }
+    identity NETWORK_NEWS {
+        base oc-log:SYSLOG_FACILITY;
+    }
+    identity UUCP {
+        base oc-log:SYSLOG_FACILITY;
+    }
+    identity FTP_DAEMON {
+        base oc-log:SYSLOG_FACILITY;
+    }
+
+
+   //Augment statements 
+    augment /oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:config {
+
+        leaf server-priority {
+            type uint32 {range "1..10";}
+            description "This is used to sort the servers in the order of precedence.";
+        }
+    }
+    augment /oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:state {
+
+        leaf server-priority {
+            type uint32 {range "1..10";}
+            description "This is used to sort the servers in the order of precedence.";
+        }
+    }
+
+    augment /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state {
+        when "../../oc-opt-term:config/oc-opt-term:trib-protocol[.='infinera-oc-ext:PROT_ODUCNi' or . = 'infinera-oc-ext:PROT_OTUCNi'
+             or .='oc-opt-types:PROT_ODU4' or .='oc-opt-types:PROT_OTU4'
+        ]";
+
+        container time-slot-accounting {
+
+            description
+                "This block indicates the time slot information
+                (total,in-use,available) on a particular ODUk entity. As and when
+                services are provisioned (via logical-channel-assignments), the attributes
+                here will be updated by the system to reflect the time-slot occupancy.";
+
+            leaf total-available-time-slots {
+                type uint16;
+                description
+                  "The total number of time-slot instances that
+                    are supported by this ODUk logical channel. This is a function of  
+                    the max bandwidth/rate of the ODUk logical channel and the time slot
+                    granularity.";
+            }
+
+            leaf provisioned-time-slots {
+                type string;
+                description
+                  "For this particular OTN logical-channel, these
+                    attributes indicates the time-slots that are in-use due to  
+                    provisioned services.
+
+                    This is a function of the max bandwidth/rate of the ODUk 
+                    logical channel and the time slot granularity.
+                    
+                    The format of the string would be comma separated start and end time-slots like 
+                    <start-ts>..<end-ts>,<start-ts>..<end-ts> Eg. '81..160, 241..320' ";
+            }
+            
+            leaf available-time-slots {
+                type string;
+                description
+                  "For this particular OTN logical-channel, these
+                    attributes indicates the time-slots that are available to be
+                    used for provisioning new services.
+
+                    This is a function of the max bandwidth/rate of the ODUk
+                    logical channel and the time slot granularity.
+                    
+                    The format of the string would be comma separated start and end time-slots like 
+                    <start-ts>..<end-ts>,<start-ts>..<end-ts> Eg. '81..160, 241..320' ";
+            }
+        }
+
+        description
+        "This (state) block indicates the time slot information
+            (both in-use and available) on a particular ODUk entity. As and when
+            services are provisioned (via logical-channel-assignments), the attributes
+            here will be updated by the system to reflect the time-slot occupancy.";
+    }
+
+    augment /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state {
+        when "../../oc-opt-term:config/oc-opt-term:trib-protocol[.='infinera-oc-ext:PROT_ODUCNi' or .='infinera-oc-ext:PROT_OTUCNi' 
+              or .='infinera-oc-ext:PROT_ODU4i' or .='infinera-oc-ext:PROT_ODUflexi' or .='oc-opt-types:PROT_ODU4'
+              or .='oc-opt-types:PROT_OTU4' or .='oc-opt-types:PROT_ODU2E' or .='oc-opt-types:PROT_ODU2' or .='oc-opt-types:PROT_OTU2E'
+              or .='oc-opt-types:PROT_OTU2'
+              ]";
+
+        container tti-msg-auto-recv {
+            
+            description
+                "All the attributes discovered over TTI of the far-end 
+                logical-channel (termination point).";
+
+            leaf hostname {
+                type string {
+                    length "1..31";
+                }
+
+                description
+                "The name of the far-end network element where the 
+                    corresponding termination point (logical channel) is present.";
+            }
+
+            leaf logical-channel-index {
+                type uint32;
+
+                description
+                "The index of the far-end logical-channel (termination point).";
+            }
+
+            leaf logical-channel-name {
+                type string {
+                    length "1..20";
+                }
+
+                description
+                "The textual name/ID of the far-end logical-channel.";
+            }            
+        }
+
+        container tti-msg-auto-transmit {
+            
+            description
+                "All the attributes discovered over TTI of the near-end 
+                logical-channel (termination point).";
+                
+            leaf hostname {
+                type string {
+                    length "1..31";
+                }
+
+                description
+                "The name of the near-end network element where the 
+                    corresponding termination point (logical channel) is present.";
+            }
+
+            leaf logical-channel-index {
+                type uint32;
+
+                description
+                "The index of the near-end logical-channel (termination point).";
+            }
+
+            leaf logical-channel-name {
+                type string {
+                    length "1..20";
+                }
+
+                description
+                "The textual name/ID of the near-end logical-channel.";
+            }            
+        }
+
+        description
+        "Augment the OTN logical-channel state with the discovered neighbor information from the far-end over the TTI
+            bytes. This is applicable only if the tti-msg-auto attribute is set to True.";
+    }
+
+    augment /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel {
+        description
+        "User can give index only within range 1 to 2^31 - 1 i.e. MSB always being 0.
+        System generated logical-channels will have index in the range 2^31 to 2^32 - 1 i.e. 
+        Most Significant Bit(MSB) being always 1.
+        ";
+    }
+
+    augment /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:logical-channel-assignments/oc-opt-term:assignment {
+        description
+        "Value of Logical Channel Assignment index should be 1.
+        ";
+    } 
+
+    augment /oc-platform:components/oc-platform:component/oc-platform:power-supply/oc-platform:state {
+        uses oc-platform-psu:psu-config;
+        uses oc-platform-psu:psu-state;
+    }
+
+    augment /oc-platform:components/oc-platform:component/oc-platform:power-supply/oc-platform:config {
+        uses oc-platform-psu:psu-config;
+    }
+
+    typedef stokes-vector-data {
+        type decimal64 {
+            fraction-digits 18;
+        }
+        description "Type for Stokes vector data points.";
+    }
+
+    typedef jones-matrix-data {
+        type decimal64 {
+            fraction-digits 18;
+        }
+        description "Type for Jones matrix data points.";
+    }
+
+    typedef sop-rate-data {
+        type decimal64 {
+            fraction-digits 16;
+            range "0..400";
+        }
+        units "rad/s"; // Radians/second
+        description "Type for SoP rate data.";
+    }
+
+    grouping jones-matrix-real-imaginary-state {
+        description "The real and imaginary parts of the Jones matrix complex number.";
+        leaf real {
+            type jones-matrix-data;
+        }
+        leaf imaginary {
+            type jones-matrix-data;
+        }
+    }
+
+    grouping state-of-polarization-parameters-config {
+        description
+          "Configuration parameters assocaited with SoP.";
+        leaf state-of-polarization-sampling {
+            description "Enables per-optical channel collection of SoP data.
+            If SoP collection is enabled, this attribute
+            indicates the sampling interval (i.e., sampling
+            of the SoP data done by the DSP.)";
+            type union {
+                type boolean;
+                type uint16 {
+                    range "10..500";
+                }
+            }
+            units "milliseconds";
+        }
+    }
+
+    grouping state-of-polarization-parameters-state {
+        description "State parameters (including PM data) associated with SoP.";
+        container state-of-polarization {
+            list samples {
+                key "sample-id";
+                max-elements "250";
+                leaf sample-id {
+                    type uint8;
+                    description
+                    "An identifier for the sample instance.";
+                }
+                leaf timestamp {
+                    type oc-yang:date-and-time;
+                    description
+                    "The local timestamp at which the per-subcarrier SoP data was sampled and collected.";
+                }
+                list data {
+                    key "subcarrier-id";
+                    max-elements "8";
+                    leaf subcarrier-id {
+                         type uint8 {
+                             range "0..7";
+                         }
+                         description
+                         "An ID to identify each subcarrier within an optical channel.";
+                    }
+                    container stokes-vector {
+                        leaf s1 {
+                            type stokes-vector-data;
+                        }
+                        leaf s2 {
+                            type stokes-vector-data;
+                        }
+                        leaf s3 {
+                            type stokes-vector-data;
+                        }
+                    }
+                    container jones-matrix {
+                        container xx {
+                            uses jones-matrix-real-imaginary-state;
+                        }
+                        container xy {
+                            uses jones-matrix-real-imaginary-state;
+                        }
+                        container yx {
+                            uses jones-matrix-real-imaginary-state;
+                        }
+                        container yy {
+                            uses jones-matrix-real-imaginary-state;
+                        }
+                   }
+                   leaf rate {
+                       type sop-rate-data;
+                   }
+                }
+            }
+        }
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state" {
+        description
+		    "Adding extensions for state-of-polarization PM data for an optical channel.";
+        uses state-of-polarization-parameters-state;
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:config" {
+        description
+                    "Adding extensions for state-of-polarization configuration data for an optical channel.";
+        uses state-of-polarization-parameters-config;
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:chassis/oc-platform:config" {
+        leaf expected-serial-number {
+            type string { length 0..16; }
+            description "Inform the NC the serial number of a sub-chassis. For the main-chassis, the value is auto-filled with its own serial number";
+        }
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:chassis/oc-platform:state" {
+        leaf expected-serial-number {
+            type string { length 0..16; }
+            description "Inform the NC the serial number of a sub-chassis. For the main-chassis, the value is auto-filled with its own serial number";
+        }
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state" {
+        container neighbor-discovery {
+            leaf age {
+                type uint64;
+                units seconds;
+                description "Number of seconds since discovery.";
+            }
+            leaf last-update {
+                type yang:date-and-time;
+                description "Timestamp with the last time this neighbor info was updated.";
+            }
+            leaf hostname {
+                type string {
+                    length "0..256";
+                }
+                description "Id of the remote network element.";
+            }
+            leaf remote-optical-channel {
+                type string { length "0..64"; }
+                description "ID of the remote carrier connected to the local carrier.
+                             Implies a specific remote port id.";
+            }
+            leaf ipv4-address {
+                type oc-inet:ipv4-address;
+                description "IPv4 loopback address of the neighbor; may be empty if not configured.";
+            }
+            leaf ipv6-address {
+                type oc-inet:ipv6-address;
+                description "IPv6 loopback address of the neighbor; may be empty if not configured.";
+            }
+        }
+    }
+
+    //deviate not-supported 
+
+    deviation /oc-sys:system/oc-sys:state/oc-sys:boot-time {
+        deviate not-supported;
+    }
+ 
+    deviation /oc-sys:system/oc-sys:dns/oc-sys:servers/oc-sys:server/oc-sys:config/oc-sys:port{
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:dns/oc-sys:host-entries {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:grpc-server/oc-sys:config/oc-sys:transport-security {
+        deviate replace {
+            config false;
+        }
+    }
+    deviation /oc-sys:system/oc-sys:grpc-server/oc-sys:config/oc-sys:metadata-authentication {
+        deviate replace {
+            config false;
+        }
+    }
+    deviation /oc-sys:system/oc-sys:grpc-server/oc-sys:config/oc-sys:listen-addresses {
+         deviate replace {
+            config false;
+        }
+    }
+    deviation /oc-sys:system/oc-sys:ntp/oc-sys:config/oc-sys:ntp-source-address {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:ntp/oc-sys:state/oc-sys:ntp-source-address {
+        deviate not-supported; 
+        //Because ODL is failing if this is empty 
+    }
+
+    
+    deviation /oc-sys:system/oc-sys:ntp/oc-sys:servers/oc-sys:server/oc-sys:config/oc-sys:port {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:ntp/oc-sys:servers/oc-sys:server/oc-sys:config/oc-sys:version {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:ntp/oc-sys:servers/oc-sys:server/oc-sys:config/oc-sys:association-type {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:ntp/oc-sys:servers/oc-sys:server/oc-sys:config/oc-sys:iburst {
+        deviate not-supported;
+
+    }
+    deviation /oc-sys:system/oc-sys:ntp/oc-sys:servers/oc-sys:server/oc-sys:config/oc-sys:prefer {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:ntp/oc-sys:servers/oc-sys:server/oc-sys:state/oc-sys:port {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:ntp/oc-sys:servers/oc-sys:server/oc-sys:state/oc-sys:version {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:ntp/oc-sys:servers/oc-sys:server/oc-sys:state/oc-sys:association-type {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:ntp/oc-sys:servers/oc-sys:server/oc-sys:state/oc-sys:iburst {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:telnet-server {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:accounting {
+	description "Currently IOA do not supporting the configuration of accounting policy.";
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:authorization/oc-sys:events {
+        deviate not-supported;
+    }
+
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:authentication/oc-sys:admin-user/oc-sys:config/oc-sys:admin-password-hashed {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:authentication/oc-sys:users/oc-sys:user/oc-sys:config/oc-sys:password-hashed {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:config/oc-sys:name {
+        
+        deviate replace{
+            config false;
+        }
+    }
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:state/oc-sys:connection-opens {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:state/oc-sys:connection-closes {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:state/oc-sys:connection-aborts {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:state/oc-sys:connection-failures {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:state/oc-sys:connection-timeouts {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:state/oc-sys:messages-sent {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:state/oc-sys:messages-received {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:state/oc-sys:errors-received {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:radius/oc-sys:state/oc-sys:counters {
+        deviate not-supported;
+    }
+     deviation /oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:tacacs/oc-sys:config/oc-sys:source-address {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:tacacs/oc-sys:state/oc-sys:source-address {
+        deviate not-supported;
+    }
+    deviation  /oc-sys:system/oc-sys:processes {
+         deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:memory/oc-sys:state/oc-sys:reserved {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:cpus/oc-sys:cpu/oc-sys:state/oc-sys:total/oc-sys:min-time {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:cpus/oc-sys:cpu/oc-sys:state/oc-sys:total/oc-sys:max-time {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:ssh-server/oc-sys:config/oc-sys:protocol-version {
+        deviate replace {
+		config false;
+	}
+	description "No option to change current SSH version.";
+    }
+    deviation /oc-sys:system/oc-sys:ssh-server/oc-sys:config/oc-sys:timeout {
+        deviate not-supported;
+    }
+     deviation /oc-sys:system/oc-sys:ssh-server/oc-sys:config/oc-sys:rate-limit {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:ssh-server/oc-sys:config/oc-sys:session-limit {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:ssh-server/oc-sys:state/oc-sys:timeout {
+        deviate not-supported;
+    }
+     deviation /oc-sys:system/oc-sys:ssh-server/oc-sys:state/oc-sys:rate-limit {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:ssh-server/oc-sys:state/oc-sys:session-limit {
+        deviate not-supported;
+    }
+
+    deviation /oc-sys:system/oc-sys:messages {
+        deviate not-supported;
+    }
+    deviation /oc-sys:system/oc-sys:license {
+        deviate not-supported;
+    }
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:ethernet/oc-opt-term:state/oc-opt-term:in-mac-control-frames {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }  
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:ethernet/oc-opt-term:state/oc-opt-term:in-8021q-frames {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }  
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:ethernet/oc-opt-term:state/oc-opt-term:in-block-errors {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }  
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:ethernet/oc-opt-term:state/oc-opt-term:out-mac-control-frames {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }  
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:ethernet/oc-opt-term:state/oc-opt-term:out-8021q-frames {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    } 
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:ethernet/oc-opt-term:state/oc-opt-term:out-block-errors {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }                         
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state/oc-opt-term:rdi-msg {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state/oc-opt-term:code-violations {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state/oc-opt-term:fec-uncorrectable-blocks {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state/oc-opt-term:fec-corrected-bytes {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state/oc-opt-term:background-block-errors {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }    
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state/oc-opt-term:post-fec-ber {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }   
+    deviation /oc-if:interfaces/oc-if:interface/oc-if:config/oc-if:loopback-mode
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation  /oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:loopback-mode
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation  /oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:last-change
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:in-unicast-pkts
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:in-unknown-protos
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:in-fcs-errors
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:out-unicast-pkts
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:in-discards
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:out-discards
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:carrier-transitions
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:last-clear
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-if:hold-time
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-if:subinterfaces
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+
+    deviation /oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:in-mac-control-frames
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:in-8021q-frames
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:in-block-errors
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:out-mac-control-frames
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:out-8021q-frames
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:temperature/oc-platform:min-time
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:temperature/oc-platform:max-time
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:temperature/oc-platform:alarm-threshold
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:output-power/oc-transceiver:min-time
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:output-power/oc-transceiver:max-time
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:input-power/oc-transceiver:min-time
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:input-power/oc-transceiver:max-time
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:output-power/oc-opt-term:min-time
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:output-power/oc-opt-term:max-time
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:input-power
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:output-power
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:chromatic-dispersion/oc-opt-term:min-time
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:chromatic-dispersion/oc-opt-term:max-time
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:laser-bias-current/oc-opt-term:min-time
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:laser-bias-current/oc-opt-term:max-time
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:polarization-mode-dispersion
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:second-order-polarization-mode-dispersion
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+		
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:fec-uncorrectable-words
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }	
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:fec-corrected-bytes
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }	
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:fec-corrected-bits
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:vendor-rev
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:state/oc-transceiver:target-output-power
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }	
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:config/oc-transceiver:target-output-power
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }	
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:state/oc-transceiver:output-frequency
+    {
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-platform:power-supply/oc-platform:state/oc-platform-psu:capacity
+	{
+        description
+        "
+        No Corresponding mapping in IOA
+        ";            
+        deviate not-supported;
+    }
+    //other deviate statements go here
+    deviation /oc-sys:system/oc-sys:state/oc-sys:current-datetime {
+        deviate replace {
+            type string {
+                pattern '([0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}' +
+        '(\.[0-9]+)?[Z+-][0-9]{2}:[0-9]{2})';
+                }
+        }
+    }
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:config/oc-opt-term:rate-class {
+        deviate replace {
+            config false;
+        }
+    }
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:ingress/oc-opt-term:config/oc-opt-term:physical-channel {
+        deviate replace {
+            config false;
+        }
+    }
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:ingress/oc-opt-term:config/oc-opt-term:transceiver {
+        deviate replace {
+            config false;
+        }
+    }
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:config/oc-opt-term:tributary-slot-granularity {
+        deviate replace {
+            config false;
+        }
+    }
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:config/oc-opt-term:trib-protocol {
+        description
+          "
+        Made Mandatory for LO-ODU Creation
+        ";
+        deviate add {
+            mandatory true;
+        }
+    }
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:logical-channel-assignments/oc-opt-term:assignment/oc-opt-term:config/oc-opt-term:assignment-type {
+        description
+        "
+        Made Mandatory for Service Creation
+        ";             
+        deviate add {
+            mandatory true;
+        }
+    }
+
+    deviation /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:logical-channel-assignments/oc-opt-term:assignment/oc-opt-term:config/oc-opt-term:logical-channel {
+        description
+        "
+        Made Mandatory for Service Creation
+        ";             
+        deviate add {
+            mandatory true;
+        }
+    }
+
+    deviation /oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:mfg-date
+    {
+        deviate replace {
+            type string {
+                pattern '[0-9]{4}\-[0-9]{2}\-[0-9]{2}';
+            }
+	    }
+    }
+
+    deviation /oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:config/oc-eth:mac-address
+    {
+        deviate replace {
+	        config false;
+            type string {
+		        pattern '([0-9a-fA-F]{2}(:[0-9a-fA-F]{2}){5})';
+            }
+        }
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:mac-address
+    {
+        deviate replace {
+            type string {
+		        pattern '([0-9a-fA-F]{2}(:[0-9a-fA-F]{2}){5})';
+            }
+        }
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:hw-mac-address
+    {
+        deviate replace {
+            type string {
+		        pattern '([0-9a-fA-F]{2}(:[0-9a-fA-F]{2}){5})';
+            }
+        }
+    }
+   
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:date-code
+    {
+        deviate replace {
+            type string
+            {
+                pattern '[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}' +
+                        '(\.[0-9]+)?Z[+-][0-9]{2}:[0-9]{2}';
+
+            }
+        }
+    }
+    deviation /oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:config/oc-eth:enable-flow-control
+    {
+        deviate replace {
+	        config false;
+        }
+    }
+
+
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:config/oc-transceiver:form-factor-preconf
+    {
+        deviate replace {
+            config false;
+        }
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:config/oc-transceiver:ethernet-pmd-preconf {
+	    deviate replace {
+	        config false;
+	    }
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:config/oc-transceiver:fec-mode {
+        deviate replace {
+            config false;
+        }
+    }
+    deviation /oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:config/oc-opt-term:line-port {
+        deviate replace {
+            config false;
+        }
+    }
+}

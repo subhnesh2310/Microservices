@@ -1,0 +1,122 @@
+module ioa-data-path-encryption {
+
+    namespace "http://infinera.com/yang/ioa/data-path-encryption";
+    prefix ioa-dp-encr;
+
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module that defines encryption related entities that are 
+        part of a typical optical L1 transponder and are applicable 
+        to all data plane encryption schemes supported on Infinera products.";	
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    grouping data-path-encryption {
+        container data-path-encryption {
+            description "A top-level container for all data path encryption services and entities.";
+
+            list secure-entity {
+                key "name";
+
+                description "List of l1 encryption secure entities.";
+
+                leaf name {
+                    type ioa-common:object-name;
+                    description "A name for the data path l1 encryption secure entity (SecY).";
+                }
+
+                leaf supporting-entity-type {
+                    type enumeration {
+                        enum wavelength-encryption {
+                            value 1;
+                            description "The secure entity type is an optical carrier.";
+                        }
+                        enum odu-encryption {
+                            value 2;
+                            description "The secure entity type is ODU.";
+                        }
+                    }
+                    default "wavelength-encryption";
+                    config false;
+                    description "Indicates supporting entity type.";
+                }
+
+                leaf enabled {
+                    type boolean;
+                    default false;
+                    description "Indicates whether the SecY are configured and attached to any data path entity.";
+                }
+
+                leaf supporting-facility {
+                    type instance-identifier;
+                    mandatory true;
+                    description "The optical carrier that needs data path encryption.";
+                }
+
+                leaf remote-secure-entity {
+                    type ioa-common:object-name;
+                    mandatory true;
+                    description "Refers to the far-end  secure entity's object name (XPath).
+                        Required by IKEv2 - This will be used by IKEv2 as a traffic selector.";
+                }
+
+                uses ioa-common:aid {			
+                    refine AID {
+                        description "A system-generated AID for the SecY.";
+                    }
+                }
+
+                uses ioa-common:oper-state;
+                uses ioa-common:arc;
+                uses ioa-common:label;
+
+                leaf re-key-frequency {
+                    type uint32 {
+                        range "300..86400";
+                    }
+                    units "seconds";
+                    default 300;
+                    description "The re-key frequency for the data path encryption service.";
+                }
+
+                leaf re-key-fail-policy {
+                    type enumeration {
+                        enum kill-traffic {
+                            value 1;
+                            description "Bring down the data path encrypted service if re-key was unsuccessful.";
+                        }
+
+                        enum continue-traffic {
+                            value 2;
+                            description "Continue the data path encrypted service even if re-key was unsuccessful.";
+                        }
+                    }
+                    default "continue-traffic";
+                    description "Indicates the NE's policy and consequent action when re-keying 
+                        the data path security association is unsuccessful.";
+                }
+
+                leaf traffic-kill-offset {
+                    when "../re-key-fail-policy = 'kill-traffic'";
+                    type uint32 {
+                        range "0..86400";
+                    }
+                    units "seconds";
+                    default "0";
+                    description "If the re-key fail policy is set to KILL-TRAFFIC, this attribute indicates the amount of time
+                        the system waits before killing encrypted data path.";
+                }
+            }
+        }
+    }
+}

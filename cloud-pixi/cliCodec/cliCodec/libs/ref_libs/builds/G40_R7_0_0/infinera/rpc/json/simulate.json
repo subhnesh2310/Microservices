@@ -1,0 +1,82 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "trigger": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "raise-alarm",
+                    "clear-alarm",
+                    "plug-in-fru",
+                    "plug-out-fru"
+                ]
+            },
+            "isList": false,
+            "description": "The alarm event trigger to simulate.",
+            "mandatory": true
+        }
+    },
+    "cases": {
+        "equipment": {
+            "holder-AID": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "AID of the equipment holder (slot or port) where the equipment will be simulated.",
+                "mandatory": true
+            },
+            "type": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "The type of the equipment to be simulated.",
+                "mandatory": true
+            },
+            "subtype": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "The subtype of the equipment to be simulated.",
+                "mandatory": false
+            }
+        },
+        "alarm": {
+            "alarmed-entity": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "The entity affected by the alarm; if ommitted when clearing alarms, all simulated alarms are cleared.",
+                "mandatory": true
+            },
+            "alarm-type": {
+                "type": {
+                    "ptype": "str",
+                    "identityref": "ioa-alarm:ALARM-TYPE"
+                },
+                "isList": false,
+                "description": "The alarm type to be simulated; if ommitted when clearing alarms, all simulated alarms are cleared.",
+                "mandatory": true
+            },
+            "alarm-direction": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "The direction of the simulated alarm. If ommitted, system selects direction automatically.",
+                "mandatory": false
+            },
+            "alarm-location": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "The location of the simulated alarm. If ommitted, system selects location automatically.",
+                "mandatory": false
+            }
+        }
+    }
+}

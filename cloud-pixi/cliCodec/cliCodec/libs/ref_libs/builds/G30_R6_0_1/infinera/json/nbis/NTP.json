@@ -1,0 +1,43 @@
+{
+    "ntp_enabled": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Whether ntp is enabled.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": true,
+        "hardcode": false,
+        "argName": "ntp_enabled"
+    },
+    "ntp_auth_enabled": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Whether NTP authentication is enabled.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "ntp_auth_enabled"
+    },
+    "assignment_method": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "both",
+                "manual",
+                "dhcp"
+            ]
+        },
+        "description": "The system would contain manual and dhcp configured values.\nSystem can use those onfigurations/values defined by assignment-method attributes.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "both",
+        "hardcode": false,
+        "argName": "assignment_method"
+    }
+}

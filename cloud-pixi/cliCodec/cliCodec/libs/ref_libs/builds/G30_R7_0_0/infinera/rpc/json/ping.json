@@ -1,0 +1,55 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "ping-count": {
+            "type": {
+                "ptype": "int"
+            },
+            "isList": false,
+            "description": "Stops after sending 'count' ECHO_REQUEST packets.",
+            "mandatory": false
+        },
+        "ping-timeout": {
+            "type": {
+                "ptype": "int"
+            },
+            "isList": false,
+            "description": "Specify the timeout, in seconds, before ping exits.",
+            "mandatory": false
+        },
+        "ping-pktsize": {
+            "type": {
+                "ptype": "int"
+            },
+            "isList": false,
+            "description": "Specifies the number of bytes to be sent. Default is 56, exclusive of headers.",
+            "mandatory": false
+        },
+        "ping-dest": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "IP address or FQDN of the destination node.",
+            "mandatory": true
+        },
+        "ping-interface": {
+            "type": {
+                "ptype": "unknown",
+                "leafref": "/ioa-ne:ne/ioa-ne:system/ioa-ne:networking/ioa-ne:interface/ioa-ne:if-name"
+            },
+            "isList": false,
+            "description": "Specify source interface name",
+            "mandatory": false
+        },
+        "ping-vrf": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "VRF to use. If not provided, defaults to MGMT.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

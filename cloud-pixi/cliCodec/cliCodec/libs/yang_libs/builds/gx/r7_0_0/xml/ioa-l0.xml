@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-l0"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-l0="http://infinera.com/yang/ioa/l0">
+  <namespace uri="http://infinera.com/yang/ioa/l0"/>
+  <prefix value="ioa-l0"/>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG definitions for common Layer 0 functions.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <typedef name="optical-power-actual">
+    <type name="decimal64">
+      <fraction-digits value="2"/>
+      <range value="-99.00..99.00"/>
+    </type>
+    <units name="dBm"/>
+    <default value="-99"/>
+    <description>
+      <text>A custom data type that can be used for optical Tx/Rx power attributes.
+-99.00 means no power.
+</text>
+    </description>
+  </typedef>
+  <typedef name="optical-power-config">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="not-specified">
+          <value value="0"/>
+          <description>
+            <text>Not Applicable/ Not specified.</text>
+          </description>
+        </enum>
+      </type>
+      <type name="decimal64">
+        <fraction-digits value="2"/>
+        <range value="-55.00..55.00"/>
+      </type>
+    </type>
+    <units name="dBm"/>
+    <default value="not-specified"/>
+    <description>
+      <text>A custom data type that can be used for configuring optical Tx/Rx power attributes.</text>
+    </description>
+  </typedef>
+  <typedef name="optical-power-raman">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="not-applicable">
+          <value value="0"/>
+          <description>
+            <text>Not Applicable/ Not specified.</text>
+          </description>
+        </enum>
+      </type>
+      <type name="decimal64">
+        <fraction-digits value="2"/>
+        <range value="-99.00..99.00"/>
+      </type>
+    </type>
+    <units name="dBm"/>
+    <default value="not-applicable"/>
+    <description>
+      <text>A custom data type that can be used for configuring optical Tx/Rx power attributes;
+This is higher than the usual optical-power-config range (-55 .. 55 dBm).</text>
+    </description>
+  </typedef>
+  <typedef name="frequency-MHz">
+    <type name="uint32"/>
+    <units name="MHz"/>
+    <description>
+      <text>Frequency value in MHz.</text>
+    </description>
+  </typedef>
+  <typedef name="band-of-transmission">
+    <type name="enumeration">
+      <enum name="c-band-4.85THz">
+        <value value="2"/>
+        <description>
+          <text>Standard C-band (4.85 THz)</text>
+        </description>
+      </enum>
+      <enum name="c-band-6.1THz">
+        <value value="3"/>
+        <description>
+          <text>SuperC-band (6.1 THz)</text>
+        </description>
+      </enum>
+    </type>
+    <default value="c-band-4.85THz"/>
+    <description>
+      <text>Transmission band.</text>
+    </description>
+  </typedef>
+  <typedef name="type-of-attenuation">
+    <type name="decimal64">
+      <fraction-digits value="2"/>
+      <range value="0..30"/>
+    </type>
+    <units name="dB"/>
+    <default value="0"/>
+    <description>
+      <text>Attenuation.</text>
+    </description>
+  </typedef>
+  <typedef name="attenuation-mon">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="not-applicable">
+          <value value="0"/>
+          <description>
+            <text>Not Applicable/ Not specified.</text>
+          </description>
+        </enum>
+      </type>
+      <type name="decimal64">
+        <fraction-digits value="2"/>
+        <range value="0..55"/>
+      </type>
+    </type>
+    <units name="dB"/>
+    <default value="not-applicable"/>
+    <description>
+      <text>Attenuation monitoring</text>
+    </description>
+  </typedef>
+  <typedef name="actual-psd">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="not-applicable">
+          <value value="0"/>
+          <description>
+            <text>Not Applicable/ Not specified/ Unknown.</text>
+          </description>
+        </enum>
+      </type>
+      <type name="decimal64">
+        <fraction-digits value="2"/>
+      </type>
+    </type>
+    <units name="nW/GHz"/>
+    <default value="not-applicable"/>
+    <description>
+      <text>The actual Power Spectral Density.</text>
+    </description>
+  </typedef>
+  <typedef name="span-loss">
+    <type name="decimal64">
+      <fraction-digits value="2"/>
+      <range value="0..80|99"/>
+    </type>
+    <units name="dB"/>
+    <default value="0.0"/>
+    <description>
+      <text>Span Loss.</text>
+    </description>
+  </typedef>
+  <typedef name="span-loss-info">
+    <type name="decimal64">
+      <fraction-digits value="2"/>
+      <range value="0..99"/>
+    </type>
+    <units name="dB"/>
+    <description>
+      <text>Span Loss information; 99 dB indicates OSC LOS.</text>
+    </description>
+  </typedef>
+  <typedef name="fiber-type">
+    <type name="enumeration">
+      <enum name="not-applicable">
+        <value value="0"/>
+        <description>
+          <text>Not Applicable</text>
+        </description>
+      </enum>
+      <enum name="auto">
+        <value value="1"/>
+        <description>
+          <text>Automatic fiber-type: only for OTDR</text>
+        </description>
+      </enum>
+      <enum name="SSMF">
+        <value value="2"/>
+        <description>
+          <text>Standard Single Mode Fiber</text>
+        </description>
+      </enum>
+      <enum name="LEAF">
+        <value value="3"/>
+        <description>
+          <text>Large Effective Area Fiber</text>
+        </description>
+      </enum>
+      <enum name="TWRS">
+        <value value="4"/>
+        <description>
+          <text>True Wave Reduced Slope</text>
+        </description>
+      </enum>
+      <enum name="TWC">
+        <value value="5"/>
+        <description>
+          <text>True Wave Classic</text>
+        </description>
+      </enum>
+      <enum name="AllWave">
+        <value value="6"/>
+        <description>
+          <text>AllWave</text>
+        </description>
+      </enum>
+      <enum name="DSF">
+        <value value="7"/>
+        <description>
+          <text>Dispersion Shifted Fiber</text>
+        </description>
+      </enum>
+      <enum name="LS">
+        <value value="8"/>
+        <description>
+          <text>LS Fiber</text>
+        </description>
+      </enum>
+      <enum name="PureSilica">
+        <value value="9"/>
+        <description>
+          <text>Pure Silica</text>
+        </description>
+      </enum>
+      <enum name="TWReach">
+        <value value="10"/>
+        <description>
+          <text>True Wave Reach</text>
+        </description>
+      </enum>
+      <enum name="VistaCor">
+        <value value="11"/>
+        <description>
+          <text>VistaCor</text>
+        </description>
+      </enum>
+      <enum name="Teralight">
+        <value value="12"/>
+        <description>
+          <text>Teralight</text>
+        </description>
+      </enum>
+      <enum name="DrakaLL">
+        <value value="13"/>
+        <description>
+          <text>Draka Long Line</text>
+        </description>
+      </enum>
+      <enum name="TWPlus">
+        <value value="14"/>
+        <description>
+          <text>True Wave Plus</text>
+        </description>
+      </enum>
+      <enum name="TWMinus">
+        <value value="15"/>
+        <description>
+          <text>True Wave Minus</text>
+        </description>
+      </enum>
+      <enum name="PSLC">
+        <value value="16"/>
+        <description>
+          <text>Pure Silice Large Core</text>
+        </description>
+      </enum>
+      <enum name="ULL">
+        <value value="17"/>
+        <description>
+          <text>Ultra Low Loss fiber</text>
+        </description>
+      </enum>
+      <enum name="not-configured">
+        <value value="99"/>
+        <description>
+          <text>Fiber-type is not known, or not configured.</text>
+        </description>
+      </enum>
+    </type>
+    <default value="not-configured"/>
+    <description>
+      <text>Fiber Type
+OTS: It uniquely identifies the fiber-type -- allows PCL to know the intercept and slope.
+OTDR: allows determination of attenuation (dB/ km) for calculation.
+</text>
+    </description>
+  </typedef>
+  <grouping name="opm-optical-power-rx">
+    <description>
+      <text>OPR</text>
+    </description>
+    <leaf name="power-actual-rx">
+      <type name="ioa-l0:optical-power-actual"/>
+      <config value="false"/>
+      <description>
+        <text>Optical Power Received, actual measurement.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="opm-optical-power-tx">
+    <description>
+      <text>OPT</text>
+    </description>
+    <leaf name="power-actual-tx">
+      <type name="ioa-l0:optical-power-actual"/>
+      <config value="false"/>
+      <description>
+        <text>Optical Power Transmitted, actual measurement.</text>
+      </description>
+    </leaf>
+  </grouping>
+</module>

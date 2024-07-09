@@ -1,0 +1,56 @@
+module ioa-facilities {
+    namespace "http://infinera.com/yang/ioa/facilities";
+    prefix ioa-fac;
+
+    import ioa-scg { prefix ioa-scg; }
+    import ioa-optical-carrier { prefix ioa-carrier; }
+    import ioa-sch { prefix ioa-sch; }
+    import ioa-optical-channel { prefix ioa-och; }
+    import ioa-otu { prefix ioa-otu; }
+    import ioa-odu { prefix ioa-odu; }
+    import ioa-ethernet { prefix ioa-eth; }
+    import ioa-trib-ptp { prefix ioa-trib;}
+    import ioa-comm-channel { prefix ioa-cc;}
+    import ioa-flexo { prefix ioa-flexo; }
+    import ioa-flexo-group { prefix ioa-flexo-group; }
+    import ioa-eth-zr { prefix ioa-eth-zr; }
+    import ioa-line-ptp { prefix ioa-line-ptp; }
+    import ioa-tdm { prefix ioa-tdm; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module which acts as top level for all facilities.";
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    grouping facilities {
+        container facilities {
+            description "The top-level facility root node under which all other facilities are present.";
+
+            uses ioa-scg:scg;
+            uses ioa-sch:sch;
+            uses ioa-carrier:carrier;
+            uses ioa-och:optical-channel;
+            uses ioa-otu:otu;
+            uses ioa-odu:odu;
+            uses ioa-eth:ethernet;
+            uses ioa-trib:trib-ptp;
+            uses ioa-cc:comm-channel;
+            uses ioa-line-ptp:line-ptp;
+            uses ioa-flexo:flexo;
+            uses ioa-flexo-group:flexo-group;
+            uses ioa-eth-zr:eth-zr;
+            uses ioa-tdm:oc;
+            uses ioa-tdm:stm;
+        }
+    }
+}

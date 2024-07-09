@@ -1,0 +1,96 @@
+ioa-top
+	last-update : str
+	age : int
+	topology
+		lldp
+			hold-on-timer : int
+			lldp-neighbor
+				lldp-port : str
+				direction : str
+				chassis-id-subtype : str
+				chassis-id : str
+				port-id-subtype : str
+				port-id : str
+				port-description : str
+				system-name : str
+				system-description : str
+				supported-capabilities : str
+				enabled-capabilities : str
+				ttl : int
+				last-update : str
+				age : int
+				management-address
+					address-subtype : str
+					address : str
+					if-subtype : str
+					if-id : int
+					address-oid : str
+				custom-tlv
+					oui : str
+					subtype : int
+					value : str
+			lldp-port-statistics
+				lldp-port : str
+				direction : str
+				last-change-time : str
+				last-clear-time : str
+				total-ageouts : int
+				total-discarded-frames : int
+				error-frames : int
+				total-frames-in : int
+				total-frames-out : int
+				total-discarded-tlvs : int
+				total-unrecognized-tlvs : int
+		icdp
+			global-switch : bool
+			carrier-neighbor
+				local-carrier : str
+				local-carrier-id : str
+				ne-id : str
+				ne-name : str
+				ne-type : str
+				remote-carrier-id : str
+				ipv4-loopback-address : str
+				ipv6-loopback-address : str
+				last-update : str
+				age : int
+		inci
+			inci-enabled : bool
+			inci-neighbor
+				neighbor-id : str
+				+neighbor-address : str
+				-neighbor-port : int
+				-connection-status : str
+				+configured-node-name : str
+				-discovered-node-name : str
+				-discovered-node-id : str
+				-oper-state : str
+				alarm-report-control : str
+				label : str
+		links
+			fiber-connection
+				name : str
+				src-port : str
+				dst-port : str
+				fiber-connection-type : str
+				label : str
+			external-fiber-connection
+				name : str
+				src-node-id : str
+				src-card-name : str
+				src-port-name : str
+				dst-node-id : str
+				dst-card-name : str
+				dst-port-name : str
+				fiber-connection-type : str
+				label : str
+			nct-connection
+				src-port : str
+				dst-port : str
+				src-chassis : str
+				dst-chassis : str
+				src-chassis-state : str
+				dst-chassis-state : str
+	lldp-admin-status : str
+	lldp-ingress-mode : str
+	lldp-egress-mode : str

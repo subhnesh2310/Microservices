@@ -1,0 +1,243 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Name of the ACL.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "sequence_id": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Sequence number that establishes the relative\norder of the ACE within an ACL",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "sequence_id"
+    },
+    "direction": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "input",
+                "output"
+            ]
+        },
+        "description": "Based on the direction, this filter shall be applied\nto incoming packets, or outgoing packets. Note that Input is\nmandatory and output is an optional function.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "input",
+        "hardcode": false,
+        "argName": "direction"
+    },
+    "logging_action": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Flag to indicate if logging needs to be done once the ACE rule is matched.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "logging_action"
+    },
+    "source_ip_address": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Specifies the source IP of this filter. The\nvalues could be a valid IPv4/v6-address or Ipv4/v6-address/prefix.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "any",
+        "hardcode": false,
+        "argName": "source_ip_address"
+    },
+    "source_lower_port": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The lower bound on the source Layer 4 TCP/UDP port number.\nA value of zero for both indicates wildcarding.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0",
+        "hardcode": false,
+        "argName": "source_lower_port"
+    },
+    "source_upper_port": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The upper bound on the source Layer 4 TCP/UDP port number.\nA value of zero for both indicates wildcarding.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0",
+        "hardcode": false,
+        "argName": "source_upper_port"
+    },
+    "destination_ip_address": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Specifies the destination IP of this filter. The\nvalues could be a valid IPv4/v6-address or Ipv4/v6-address/prefix.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "any",
+        "hardcode": false,
+        "argName": "destination_ip_address"
+    },
+    "destination_lower_port": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The lower bound on the destination Layer 4 TCP/UDP port number.\nA value of zero for both indicates wildcarding.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0",
+        "hardcode": false,
+        "argName": "destination_lower_port"
+    },
+    "destination_upper_port": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The upper bound on the destination Layer 4 TCP/UDP port number.\nA value of zero for both indicates wildcarding.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0",
+        "hardcode": false,
+        "argName": "destination_upper_port"
+    },
+    "ttl": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "IPv4 and IPv6 packet's time-to-live (TTL) hop limit. Default TTL value 255 is max hop",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "any",
+        "hardcode": false,
+        "argName": "ttl"
+    },
+    "action": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "accept",
+                "reject",
+                "drop"
+            ]
+        },
+        "description": "The action to be taken by the filter.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "drop",
+        "hardcode": false,
+        "argName": "action"
+    },
+    "protocol": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "any",
+                "ah",
+                "comp",
+                "egp",
+                "esp",
+                "gre",
+                "icmp",
+                "idrp",
+                "igmp",
+                "igrp",
+                "isis",
+                "ospf",
+                "rsvp",
+                "tcp",
+                "udp",
+                "vrrp"
+            ]
+        },
+        "description": "Internet Protocol number.  Refers to the protocol\npayload.  In IPv6, this field is known as 'next-header', and\nif extension headers are present, the protocol is present in\nthe 'upper-layer' header.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "any",
+        "hardcode": false,
+        "argName": "protocol"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "ipv4",
+                "ipv6"
+            ]
+        },
+        "description": "Indicates the top-level type of ACL, i.e., what\nfields from the associated IPv4 or IPv6 headers this ACL matches on.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "type"
+    },
+    "interface": {
+        "type": {
+            "ptype": "unknown",
+            "leafref": "../../../../networking/interface/if-name"
+        },
+        "description": "A reference to the interface this filter\nshall be applied to.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "interface"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    }
+}

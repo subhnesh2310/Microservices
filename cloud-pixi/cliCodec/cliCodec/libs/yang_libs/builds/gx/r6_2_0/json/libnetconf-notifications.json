@@ -1,0 +1,98 @@
+{
+    "module": {
+        "@name": "libnetconf-notifications",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:lncntf": "urn:cesnet:params:xml:ns:libnetconf:notifications",
+        "@xmlns:nc": "urn:ietf:params:xml:ns:netconf:base:1.0",
+        "namespace": {
+            "@uri": "urn:cesnet:params:xml:ns:libnetconf:notifications"
+        },
+        "prefix": {
+            "@value": "lncntf"
+        },
+        "import": {
+            "@module": "ietf-netconf",
+            "prefix": {
+                "@value": "nc"
+            }
+        },
+        "organization": {
+            "text": "CESNET a.l.e."
+        },
+        "contact": {
+            "text": "rkrejci@cesnet.cz"
+        },
+        "description": {
+            "text": "Additional libnetconf notifications."
+        },
+        "revision": {
+            "@date": "2016-07-21",
+            "description": {
+                "text": "Initial revision."
+            }
+        },
+        "grouping": {
+            "@name": "lockinfo",
+            "leaf": [
+                {
+                    "@name": "datastore",
+                    "description": {
+                        "text": "Locked datastore."
+                    },
+                    "type": {
+                        "@name": "enumeration",
+                        "enum": [
+                            {
+                                "@name": "running"
+                            },
+                            {
+                                "@name": "startup"
+                            },
+                            {
+                                "@name": "candidate"
+                            },
+                            {
+                                "@name": "unknown"
+                            }
+                        ]
+                    },
+                    "mandatory": {
+                        "@value": "true"
+                    }
+                },
+                {
+                    "@name": "session-id",
+                    "description": {
+                        "text": "Session requested the lock."
+                    },
+                    "type": {
+                        "@name": "nc:session-id-type"
+                    },
+                    "mandatory": {
+                        "@value": "true"
+                    }
+                }
+            ]
+        },
+        "notification": [
+            {
+                "@name": "datastore-lock",
+                "description": {
+                    "text": "Signal of locking one of the datastores."
+                },
+                "uses": {
+                    "@name": "lockinfo"
+                }
+            },
+            {
+                "@name": "datastore-unlock",
+                "description": {
+                    "text": "Signal of unlocking one of the datastores."
+                },
+                "uses": {
+                    "@name": "lockinfo"
+                }
+            }
+        ]
+    }
+}

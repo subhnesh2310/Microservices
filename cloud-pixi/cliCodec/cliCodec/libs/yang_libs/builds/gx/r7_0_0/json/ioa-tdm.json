@@ -1,0 +1,351 @@
+{
+    "module": {
+        "@name": "ioa-tdm",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-tdm": "http://infinera.com/yang/ioa/tdm",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/tdm"
+        },
+        "prefix": {
+            "@value": "ioa-tdm"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG definitions for OTN optical channel data transport unit (TDM)\nclients in a typical Layer 1 optical transponder."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "tdm-common",
+                "leaf": [
+                    {
+                        "@name": "speed",
+                        "type": {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "3"
+                            }
+                        },
+                        "units": {
+                            "@name": "Gbit/s"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The speed of client interface."
+                        }
+                    },
+                    {
+                        "@name": "tx-mapping-mode",
+                        "type": {
+                            "@name": "ioa-fac-common:mapping-mode"
+                        },
+                        "default": {
+                            "@value": "BMP"
+                        },
+                        "description": {
+                            "text": "The tx mapping mode of client port. The possible values are dependent on the HW and configuration."
+                        }
+                    },
+                    {
+                        "@name": "expected-mapping-mode",
+                        "type": {
+                            "@name": "ioa-fac-common:mapping-mode"
+                        },
+                        "default": {
+                            "@value": "BMP"
+                        },
+                        "description": {
+                            "text": "The expected mapping mode of client port. The possible values are dependent on the HW and configuration."
+                        }
+                    },
+                    {
+                        "@name": "service-mode",
+                        "type": {
+                            "@name": "ioa-fac-common:service-mode"
+                        },
+                        "default": {
+                            "@value": "none"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Service mode for the tdm facility."
+                        }
+                    },
+                    {
+                        "@name": "service-mode-qualifier",
+                        "type": {
+                            "@name": "ioa-fac-common:service-mode-qualifier"
+                        },
+                        "default": {
+                            "@value": "none"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Service mode qualifier for the tdm facility."
+                        }
+                    },
+                    {
+                        "@name": "tti-style",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "1",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "Single-byte trace (used for section access point identifiers with repetitive byte)."
+                                    }
+                                },
+                                {
+                                    "@name": "15",
+                                    "value": {
+                                        "@value": "15"
+                                    },
+                                    "description": {
+                                        "text": "16-byte trace (used for section access point identifiers acc. to ITU-T G.831, cl. 3) with the first byte representing the CRC-7, which is auto-calculated, and 15 bytes to be configured."
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "1"
+                        },
+                        "description": {
+                            "text": "The configured mode of the TTI."
+                        }
+                    },
+                    {
+                        "@name": "tim-monitor",
+                        "type": {
+                            "@name": "ioa-common:enable-switch"
+                        },
+                        "default": {
+                            "@value": "disabled"
+                        },
+                        "description": {
+                            "text": "The enable switching of tim defect monitor mode."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "oc",
+                "list": {
+                    "@name": "oc",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "description": {
+                        "text": "Optical Carrier - level M, e.g. M=48, 192."
+                    },
+                    "uses": [
+                        {
+                            "@name": "ioa-fac-common:facilities-common-attributes"
+                        },
+                        {
+                            "@name": "ioa-common:arc"
+                        },
+                        {
+                            "@name": "tdm-common"
+                        },
+                        {
+                            "@name": "ioa-fac-common:tti-common"
+                        },
+                        {
+                            "@name": "ioa-fac-common:loopback"
+                        },
+                        {
+                            "@name": "ioa-fac-common:loopback-mode"
+                        },
+                        {
+                            "@name": "ioa-fac-common:test-signal",
+                            "refine": {
+                                "@target-node": "test-signal-direction",
+                                "default": {
+                                    "@value": "egress"
+                                }
+                            }
+                        },
+                        {
+                            "@name": "ioa-common:circuit-id"
+                        }
+                    ],
+                    "leaf": {
+                        "@name": "oc-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "OC-48",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "OC-192",
+                                    "value": {
+                                        "@value": "2"
+                                    }
+                                },
+                                {
+                                    "@name": "OC-3",
+                                    "value": {
+                                        "@value": "3"
+                                    }
+                                },
+                                {
+                                    "@name": "OC-12",
+                                    "value": {
+                                        "@value": "4"
+                                    }
+                                }
+                            ]
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Type of SONET signal.\nLevel N of OC-N (Optical Carrier level N)."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "stm",
+                "list": {
+                    "@name": "stm",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "description": {
+                        "text": "Synchronous Transport Module N, e.g. N=16, 64. Reference [ITU-T G.691]."
+                    },
+                    "uses": [
+                        {
+                            "@name": "ioa-fac-common:facilities-common-attributes"
+                        },
+                        {
+                            "@name": "ioa-common:arc"
+                        },
+                        {
+                            "@name": "tdm-common"
+                        },
+                        {
+                            "@name": "ioa-fac-common:tti-common"
+                        },
+                        {
+                            "@name": "ioa-fac-common:loopback"
+                        },
+                        {
+                            "@name": "ioa-fac-common:loopback-mode"
+                        },
+                        {
+                            "@name": "ioa-fac-common:test-signal",
+                            "refine": {
+                                "@target-node": "test-signal-direction",
+                                "default": {
+                                    "@value": "egress"
+                                }
+                            }
+                        },
+                        {
+                            "@name": "ioa-common:circuit-id"
+                        }
+                    ],
+                    "leaf": {
+                        "@name": "stm-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "STM-16",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "STM-64",
+                                    "value": {
+                                        "@value": "2"
+                                    }
+                                },
+                                {
+                                    "@name": "STM-1",
+                                    "value": {
+                                        "@value": "3"
+                                    }
+                                },
+                                {
+                                    "@name": "STM-4",
+                                    "value": {
+                                        "@value": "4"
+                                    }
+                                }
+                            ]
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The type of SDH signal (STM-N)."
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

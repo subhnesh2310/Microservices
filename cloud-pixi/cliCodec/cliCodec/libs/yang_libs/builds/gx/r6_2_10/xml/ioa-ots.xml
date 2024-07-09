@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-ots"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-ots="http://infinera.com/yang/ioa/ots"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-fac-common="http://infinera.com/yang/ioa/facilities-common"
+        xmlns:ioa-l0="http://infinera.com/yang/ioa/l0">
+  <namespace uri="http://infinera.com/yang/ioa/ots"/>
+  <prefix value="ioa-ots"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-facilities-common">
+    <prefix value="ioa-fac-common"/>
+  </import>
+  <import module="ioa-l0">
+    <prefix value="ioa-l0"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG definitions for Optical Transmission Section facilities.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <typedef name="raman-coefficient">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="not-applicable">
+          <value value="0"/>
+          <description>
+            <text>Not Applicable/ Not specified.</text>
+          </description>
+        </enum>
+      </type>
+      <type name="decimal64">
+        <fraction-digits value="2"/>
+        <range value="0..10"/>
+      </type>
+    </type>
+    <units name="dB/THz/W"/>
+    <description>
+      <text>Raman coefficient.</text>
+    </description>
+  </typedef>
+  <typedef name="fiber-length-auto">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="auto">
+          <value value="1"/>
+          <description>
+            <text>For OTS (atomatic fiber-length configuration)</text>
+          </description>
+        </enum>
+      </type>
+      <type name="decimal64">
+        <fraction-digits value="3"/>
+        <range value="0..500.0"/>
+      </type>
+    </type>
+    <units name="km"/>
+    <description>
+      <text>Fiber Length configuration for OTS.</text>
+    </description>
+  </typedef>
+  <typedef name="type-of-fiber-length">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="not-applicable">
+          <value value="0"/>
+          <description>
+            <text>Unknown length, or Not Specified/ Not Applicable.</text>
+          </description>
+        </enum>
+      </type>
+      <type name="decimal64">
+        <fraction-digits value="3"/>
+        <range value="0..500.0"/>
+      </type>
+    </type>
+    <units name="km"/>
+    <description>
+      <text>Fiber Length configuration or detection.</text>
+    </description>
+  </typedef>
+  <typedef name="tilt-fsat-type">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="unspecified">
+          <value value="2"/>
+          <description>
+            <text>Not Applicable/ Not specified.</text>
+          </description>
+        </enum>
+      </type>
+      <type name="decimal64">
+        <fraction-digits value="3"/>
+        <range value="-1..1"/>
+      </type>
+    </type>
+    <units name="dB/THz"/>
+    <default value="unspecified"/>
+    <description>
+      <text>Spectrum Tilt.</text>
+    </description>
+  </typedef>
+  <grouping name="ots">
+    <list name="ots">
+      <key value="name"/>
+      <description>
+        <text>OTS: Optical Transmission Section facility.</text>
+      </description>
+      <reference>
+        <text>ITU-T G.872</text>
+      </reference>
+      <uses name="ioa-fac-common:facilities-common-attributes"/>
+      <uses name="ioa-common:arc"/>
+      <leaf name="osc-less">
+        <type name="ioa-common:enable-switch"/>
+        <default value="disabled"/>
+        <description>
+          <text>OSC-less mode is required to provide interworking with systems with no compatible OSC
+or spans with losses not compatible with the OSC budget.</text>
+        </description>
+      </leaf>
+      <leaf name="fiber-type-rx">
+        <type name="ioa-l0:fiber-type"/>
+        <default value="SSMF"/>
+        <description>
+          <text>Fiber Type (OTS receiver) allows PCL to know the 'intercept' and 'slope'.</text>
+        </description>
+        <reference>
+          <text>ITU-T G.978 (and 'G.65x series fibre')</text>
+        </reference>
+      </leaf>
+      <leaf name="fiber-type-tx">
+        <type name="ioa-l0:fiber-type"/>
+        <default value="SSMF"/>
+        <description>
+          <text>Fiber Type (OTS transmitter) allows PCL to know the 'intercept' and 'slope'.</text>
+        </description>
+        <reference>
+          <text>ITU-T G.978 (and 'G.65x series fibre')</text>
+        </reference>
+      </leaf>
+      <leaf name="fiber-length-tx">
+        <type name="fiber-length-auto"/>
+        <default value="auto"/>
+        <description>
+          <text>Transmitting Fiber Length</text>
+        </description>
+      </leaf>
+      <leaf name="fiber-length-rx">
+        <type name="fiber-length-auto"/>
+        <default value="auto"/>
+        <description>
+          <text>Receiving Fiber Length.</text>
+        </description>
+      </leaf>
+      <leaf name="fiber-length-derived-rx">
+        <type name="type-of-fiber-length"/>
+        <config value="false"/>
+        <description>
+          <text>Estimated fiber length, calculated from the configured fiber-type
+and span loss measured via OSC powers.</text>
+        </description>
+      </leaf>
+      <leaf name="fiber-spectral-attenuation-tilt-tx">
+        <type name="tilt-fsat-type"/>
+        <default value="unspecified"/>
+        <description>
+          <text>Since different transmission bands are supported, it is simpler
+to enter this parameter independent of the transmission bandwidth,
+hence per Terahertz.</text>
+        </description>
+      </leaf>
+      <leaf name="fiber-spectral-attenuation-tilt-rx">
+        <type name="tilt-fsat-type"/>
+        <default value="unspecified"/>
+        <description>
+          <text>Since different transmission bands are supported, it is simpler
+to enter this parameter independent of the transmission bandwidth,
+hence per Terahertz.</text>
+        </description>
+      </leaf>
+      <leaf name="raman-coefficient-tx">
+        <type name="raman-coefficient"/>
+        <default value="not-applicable"/>
+        <description>
+          <text>Raman coefficient per Terahertz.
+Since different transmission bands are supported, it is simpler to enter this parameter
+independent of the transmission bandwidth, hence per Terahertz.
+Required for tilt control (if tilt-control-mode = auto).
+Configuration mode depends on tilt-control-mode.</text>
+        </description>
+      </leaf>
+      <leaf name="raman-coefficient-rx">
+        <type name="raman-coefficient"/>
+        <default value="not-applicable"/>
+        <description>
+          <text>Raman coefficient per Terahertz.
+Since different transmission bands are supported, it is simpler to enter this parameter
+independent of the transmission bandwidth, hence per Terahertz.
+Required for tilt control (if tilt-control-mode = auto).
+Configuration mode depends on tilt-control-mode.</text>
+        </description>
+      </leaf>
+      <uses name="span-loss-transmit"/>
+      <leaf name="span-loss-receive">
+        <type name="ioa-l0:span-loss"/>
+        <description>
+          <text>Fiber loss on the receiver side. (OTS-sk)
+This is only the loss of the fiber.</text>
+        </description>
+      </leaf>
+      <leaf name="span-loss-derived-rx">
+        <type name="ioa-l0:span-loss-info"/>
+        <config value="false"/>
+        <description>
+          <text>Measured span loss (based on OSC).
+The value includes the losses external to the fiber.</text>
+        </description>
+      </leaf>
+      <leaf name="external-attenuation-tx">
+        <type name="ioa-l0:type-of-attenuation"/>
+        <description>
+          <text>External padding attenuation at transmitting direction.
+Required for tilt control.</text>
+        </description>
+      </leaf>
+      <uses name="external-attenuation-rx">
+        <refine target-node="external-attenuation-rx">
+          <description>
+            <text>External padding attenuation at receiving direction,
+for example, a patch-panel.</text>
+          </description>
+        </refine>
+      </uses>
+      <leaf name="span-loss-aging-margin-rx">
+        <type name="decimal64">
+          <fraction-digits value="2"/>
+          <range value="0..10"/>
+        </type>
+        <units name="dB"/>
+        <default value="0.0"/>
+        <description>
+          <text>In native operating-mode: used by system for defining value of NMC input power range and span loss high alarm.</text>
+        </description>
+      </leaf>
+      <leaf name="target-power-setting">
+        <when condition="/ne/node-type = 'OADM'">
+          <description>
+            <text>Only of relevance for OADM node-type(s).</text>
+          </description>
+        </when>
+        <type name="enumeration">
+          <enum name="manual">
+            <value value="1"/>
+            <description>
+              <text>Users configures target values for oxcon.</text>
+            </description>
+          </enum>
+          <enum name="auto">
+            <value value="2"/>
+            <description>
+              <text>System calculates target values for oxcon.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="auto"/>
+        <description>
+          <text>Allows automatic configuration of target values for oxcon.</text>
+        </description>
+      </leaf>
+      <leaf name="laser-safety-mode">
+        <type name="enumeration">
+          <enum name="OPLM">
+            <value value="1"/>
+            <description>
+              <text>Optical Power Limited Mode (OPLM)</text>
+            </description>
+          </enum>
+          <enum name="APSD">
+            <value value="2"/>
+            <description>
+              <text>Automatic Power Shut Down (APSD)</text>
+            </description>
+          </enum>
+        </type>
+        <default value="OPLM"/>
+        <config value="false"/>
+        <description>
+          <text>Laser Safety Mode of the OTS instance.</text>
+        </description>
+      </leaf>
+      <container name="ots-diagnostics">
+        <description>
+          <text>OTS diagnostics</text>
+        </description>
+        <uses name="ioa-fac-common:otn-ots-tti-style">
+          <refine target-node="tti-style">
+            <config value="false"/>
+            <description>
+              <text>Only ITU-T-G709 is supported.</text>
+            </description>
+          </refine>
+        </uses>
+        <uses name="ioa-fac-common:nmoper-alarm-reporting"/>
+        <uses name="ioa-fac-common:tti-diagnostics-common">
+          <refine target-node="tx-operator">
+            <config value="false"/>
+            <description>
+              <text>Filled by the System. Cannot be written by the user.</text>
+            </description>
+          </refine>
+        </uses>
+      </container>
+    </list>
+  </grouping>
+  <grouping name="span-loss-transmit">
+    <description>
+      <text>Re-usable grouping for Span Loss (Tx).</text>
+    </description>
+    <leaf name="span-loss-transmit">
+      <type name="ioa-l0:span-loss"/>
+      <description>
+        <text>Fiber loss on the transmitter side (OTS-so).
+This is only the loss of the fiber.
+Additional loss such as coming from patch panel is entered via the external-attenuation parameters.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="external-attenuation-rx">
+    <description>
+      <text>Re-usable grouping for the Rx External Attenuation(s).</text>
+    </description>
+    <leaf name="external-attenuation-rx">
+      <type name="ioa-l0:type-of-attenuation"/>
+      <description>
+        <text>External Attenuation, configured by the user.</text>
+      </description>
+    </leaf>
+  </grouping>
+</module>

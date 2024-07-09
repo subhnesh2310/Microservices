@@ -1,0 +1,100 @@
+{
+    "static_prefix": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "10.220.0.0/16",
+        "hardcode": false,
+        "argName": "static_prefix"
+    },
+    "vrf": {
+        "type": {
+            "ptype": "str",
+            "length": "1..32"
+        },
+        "description": "VRF associated with this static route.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "MGMT",
+        "hardcode": false,
+        "argName": "vrf"
+    },
+    "advertised": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "When set to YES, the static route is advertised in the routing\nprotocol. For OSPF, the static route will be advertised as an\nAS external route, if OSPF is configured as an ASBR.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "advertised"
+    },
+    "label": {
+        "type": {
+            "ptype": "str",
+            "length": "0..256"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "next_hop_index": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "1",
+        "hardcode": false,
+        "argName": "next_hop_index"
+    },
+    "next_hop": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "10.220.224.1",
+        "hardcode": false,
+        "argName": "next_hop"
+    },
+    "metric": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "1",
+        "hardcode": false,
+        "argName": "metric"
+    },
+    "recurse": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": true,
+        "hardcode": false,
+        "argName": "recurse"
+    }
+}

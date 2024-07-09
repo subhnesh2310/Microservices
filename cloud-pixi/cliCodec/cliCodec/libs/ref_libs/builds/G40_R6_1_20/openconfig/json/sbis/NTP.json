@@ -1,0 +1,38 @@
+{
+    "system": {
+        "ntp": {
+            "config": {
+                "enabled": {
+                    "type": {
+                        "ptype": "bool"
+                    },
+                    "isList": false,
+                    "description": "Enables the NTP protocol and indicates that the system should\nattempt to synchronize the system clock with an NTP server\nfrom the servers defined in the 'ntp/server' list.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": true,
+                    "default": false,
+                    "namespace": null,
+                    "hardcode": false
+                },
+                "enable-ntp-auth": {
+                    "type": {
+                        "ptype": "bool"
+                    },
+                    "isList": false,
+                    "description": "Enable or disable NTP authentication -- when enabled, the\nsystem will only use packets containing a trusted\nauthentication key to synchronize the time.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": true,
+                    "default": false,
+                    "namespace": null,
+                    "hardcode": false
+                }
+            }
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/system"
+        }
+    }
+}

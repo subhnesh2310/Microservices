@@ -1,0 +1,1557 @@
+{
+    "module": {
+        "@name": "ioa-sw-management",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-swm": "http://infinera.com/yang/ioa/swm",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/swm"
+        },
+        "prefix": {
+            "@value": "ioa-swm"
+        },
+        "import": [
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            },
+            {
+                "@module": "ietf-inet-types",
+                "prefix": {
+                    "@value": "inet"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module for Software Management model."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-09-17",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.1"
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "package-details",
+                "leaf": [
+                    {
+                        "@name": "state",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "installed",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "Software package installed"
+                                    }
+                                },
+                                {
+                                    "@name": "not-installed",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "Software package not installed"
+                                    }
+                                },
+                                {
+                                    "@name": "installation-failed",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "Software package install failed"
+                                    }
+                                },
+                                {
+                                    "@name": "unknown",
+                                    "value": {
+                                        "@value": "4"
+                                    },
+                                    "description": {
+                                        "text": "Software package state unknown"
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "unknown"
+                        },
+                        "description": {
+                            "text": "Package state"
+                        }
+                    },
+                    {
+                        "@name": "version",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..64"
+                            }
+                        },
+                        "description": {
+                            "text": "Package version"
+                        }
+                    },
+                    {
+                        "@name": "name",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "1..256"
+                            }
+                        },
+                        "description": {
+                            "text": "Package name"
+                        }
+                    },
+                    {
+                        "@name": "description",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..512"
+                            }
+                        },
+                        "description": {
+                            "text": "Package information"
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "third-party-app-content",
+                "leaf": [
+                    {
+                        "@name": "app-name",
+                        "type": {
+                            "@name": "ioa-common:object-name"
+                        },
+                        "description": {
+                            "text": "Third party app name."
+                        }
+                    },
+                    {
+                        "@name": "version",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..64"
+                            }
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Third party app version."
+                        }
+                    },
+                    {
+                        "@name": "state",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "running",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "Third party app running."
+                                    }
+                                },
+                                {
+                                    "@name": "stopped",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "Third party app stopped."
+                                    }
+                                },
+                                {
+                                    "@name": "failed",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "Third party app failed."
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "running"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Third party app state."
+                        }
+                    },
+                    {
+                        "@name": "information",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..1024"
+                            }
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Third party app information."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "software-load",
+                "list": {
+                    "@name": "software-load",
+                    "key": {
+                        "@value": "swload-state"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Information on the Software Load present in the system."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "swload-state",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "active",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Active software load."
+                                        }
+                                    },
+                                    {
+                                        "@name": "inactive",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Inactive software load."
+                                        }
+                                    },
+                                    {
+                                        "@name": "installable",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Installable software load."
+                                        }
+                                    }
+                                ]
+                            },
+                            "description": {
+                                "text": "Software load state"
+                            }
+                        },
+                        {
+                            "@name": "swload-version",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..64"
+                                }
+                            },
+                            "description": {
+                                "text": "Software load version"
+                            }
+                        },
+                        {
+                            "@name": "swload-manifest",
+                            "when": {
+                                "@condition": "../swload-state = 'installable'"
+                            },
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..256"
+                                }
+                            },
+                            "description": {
+                                "text": "Software load manifest file"
+                            }
+                        },
+                        {
+                            "@name": "swload-prepared",
+                            "when": {
+                                "@condition": "../swload-state = 'installable'"
+                            },
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "description": {
+                                "text": "Software load prepared"
+                            }
+                        },
+                        {
+                            "@name": "swload-status",
+                            "when": {
+                                "@condition": "../swload-state = 'installable'"
+                            },
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "status-unknown",
+                                        "value": {
+                                            "@value": "0"
+                                        },
+                                        "description": {
+                                            "text": "Software load status unknown."
+                                        }
+                                    },
+                                    {
+                                        "@name": "validate-in-progress",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Software load validation in progress."
+                                        }
+                                    },
+                                    {
+                                        "@name": "validate-complete",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Software load validation completed."
+                                        }
+                                    },
+                                    {
+                                        "@name": "validate-failed",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Software load validation failed."
+                                        }
+                                    },
+                                    {
+                                        "@name": "apply-in-progress",
+                                        "value": {
+                                            "@value": "4"
+                                        },
+                                        "description": {
+                                            "text": "Software load apply in progress."
+                                        }
+                                    },
+                                    {
+                                        "@name": "apply-complete",
+                                        "value": {
+                                            "@value": "5"
+                                        },
+                                        "description": {
+                                            "text": "Software load apply completed."
+                                        }
+                                    },
+                                    {
+                                        "@name": "apply-failed",
+                                        "value": {
+                                            "@value": "6"
+                                        },
+                                        "description": {
+                                            "text": "Software load apply failed."
+                                        }
+                                    },
+                                    {
+                                        "@name": "activate-in-progress",
+                                        "value": {
+                                            "@value": "7"
+                                        },
+                                        "description": {
+                                            "text": "Software load activation in progress."
+                                        }
+                                    },
+                                    {
+                                        "@name": "activate-failed",
+                                        "value": {
+                                            "@value": "8"
+                                        },
+                                        "description": {
+                                            "text": "Software load activation failed."
+                                        }
+                                    },
+                                    {
+                                        "@name": "activate-complete",
+                                        "value": {
+                                            "@value": "9"
+                                        },
+                                        "description": {
+                                            "text": "Software load activation completed."
+                                        }
+                                    },
+                                    {
+                                        "@name": "cancel-in-progress",
+                                        "value": {
+                                            "@value": "10"
+                                        },
+                                        "description": {
+                                            "text": "Software load cancel in progress."
+                                        }
+                                    },
+                                    {
+                                        "@name": "cancel-failed",
+                                        "value": {
+                                            "@value": "11"
+                                        },
+                                        "description": {
+                                            "text": "Software load cancel failed."
+                                        }
+                                    },
+                                    {
+                                        "@name": "cancel-complete",
+                                        "value": {
+                                            "@value": "12"
+                                        },
+                                        "description": {
+                                            "text": "Software load cancel completed."
+                                        }
+                                    },
+                                    {
+                                        "@name": "validate-timeout",
+                                        "value": {
+                                            "@value": "13"
+                                        },
+                                        "description": {
+                                            "text": "Software load validate timeout."
+                                        }
+                                    },
+                                    {
+                                        "@name": "apply-timeout",
+                                        "value": {
+                                            "@value": "14"
+                                        },
+                                        "description": {
+                                            "text": "Software load apply timeout."
+                                        }
+                                    },
+                                    {
+                                        "@name": "activate-timeout",
+                                        "value": {
+                                            "@value": "15"
+                                        },
+                                        "description": {
+                                            "text": "Software load activate timeout."
+                                        }
+                                    },
+                                    {
+                                        "@name": "cancel-timeout",
+                                        "value": {
+                                            "@value": "16"
+                                        },
+                                        "description": {
+                                            "text": "Software load cancel timeout."
+                                        }
+                                    }
+                                ]
+                            },
+                            "description": {
+                                "text": "Software load current status."
+                            }
+                        },
+                        {
+                            "@name": "swload-information",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..1024"
+                                }
+                            },
+                            "description": {
+                                "text": "Software load information"
+                            }
+                        },
+                        {
+                            "@name": "swload-activation-type",
+                            "when": {
+                                "@condition": "../swload-state = 'installable'"
+                            },
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "direct",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "No reboot type determined"
+                                        }
+                                    },
+                                    {
+                                        "@name": "warmstart",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Update requires warm reboot"
+                                        }
+                                    },
+                                    {
+                                        "@name": "coldstart",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Update requires cold reboot"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "direct"
+                            },
+                            "description": {
+                                "text": "Software load activation type"
+                            }
+                        },
+                        {
+                            "@name": "swload-vendor",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..256"
+                                }
+                            },
+                            "description": {
+                                "text": "Software load vendor"
+                            }
+                        },
+                        {
+                            "@name": "swload-product",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..256"
+                                }
+                            },
+                            "description": {
+                                "text": "Software load product"
+                            }
+                        },
+                        {
+                            "@name": "swload-label",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..256"
+                                }
+                            },
+                            "description": {
+                                "text": "Software load label"
+                            }
+                        },
+                        {
+                            "@name": "swload-delta-label",
+                            "when": {
+                                "@condition": "../swload-state = 'active'"
+                            },
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..256"
+                                }
+                            },
+                            "description": {
+                                "text": "Software load delta label"
+                            }
+                        },
+                        {
+                            "@name": "swload-pkg-type",
+                            "when": {
+                                "@condition": "../swload-state = 'installable'"
+                            },
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..256"
+                                }
+                            },
+                            "description": {
+                                "text": "Software load package type"
+                            }
+                        }
+                    ],
+                    "list": [
+                        {
+                            "@name": "sw-component",
+                            "key": {
+                                "@value": "name"
+                            },
+                            "description": {
+                                "text": "Software load component details"
+                            },
+                            "uses": {
+                                "@name": "package-details"
+                            },
+                            "list": {
+                                "@name": "sw-subcomponent",
+                                "key": {
+                                    "@value": "name"
+                                },
+                                "description": {
+                                    "text": "Software load subcomponent details"
+                                },
+                                "uses": {
+                                    "@name": "package-details"
+                                }
+                            }
+                        },
+                        {
+                            "@name": "packaged-fw",
+                            "key": {
+                                "@value": "equipment-type fw-name"
+                            },
+                            "description": {
+                                "text": "Firmware version included in this software-load.\nVersions for the same firmware can be different per equipment-type."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "equipment-type",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..32"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Type of the equipment (card, etc) that will use this firmware."
+                                    }
+                                },
+                                {
+                                    "@name": "fw-name",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..32"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Name of the firmware."
+                                    }
+                                },
+                                {
+                                    "@name": "fw-version",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..32"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Included version of the firmware."
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "sw-management",
+                "uses": {
+                    "@name": "file-server"
+                },
+                "container": {
+                    "@name": "sw-management",
+                    "description": {
+                        "text": "Software management information."
+                    },
+                    "uses": {
+                        "@name": "software-load"
+                    },
+                    "container": {
+                        "@name": "downloads",
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Downloaded manifest files and associated image files."
+                        },
+                        "list": {
+                            "@name": "manifest",
+                            "key": {
+                                "@value": "manifest-file"
+                            },
+                            "description": {
+                                "text": "Downloaded manifest file and it's information."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "manifest-file",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..256"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Manifest file"
+                                    }
+                                },
+                                {
+                                    "@name": "manifest-signature",
+                                    "type": {
+                                        "@name": "yang:hex-string",
+                                        "length": {
+                                            "@value": "0..1024"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Manifest file signature"
+                                    }
+                                },
+                                {
+                                    "@name": "downloaded-on",
+                                    "type": {
+                                        "@name": "yang:date-and-time"
+                                    },
+                                    "description": {
+                                        "text": "Manifest file downloaded timestamp"
+                                    }
+                                },
+                                {
+                                    "@name": "information",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..256"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Information on the manifest downloaded"
+                                    }
+                                }
+                            ],
+                            "list": [
+                                {
+                                    "@name": "fru-info",
+                                    "key": {
+                                        "@value": "equipment-type"
+                                    },
+                                    "description": {
+                                        "text": "The packaged FRU information associated to a particular equipment-type."
+                                    },
+                                    "leaf": {
+                                        "@name": "equipment-type",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "0..32"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "Type of the equipment"
+                                        }
+                                    },
+                                    "list": [
+                                        {
+                                            "@name": "manifest-component",
+                                            "key": {
+                                                "@value": "name"
+                                            },
+                                            "description": {
+                                                "text": "packaged component details"
+                                            },
+                                            "uses": {
+                                                "@name": "package-details"
+                                            }
+                                        },
+                                        {
+                                            "@name": "manifest-firmware",
+                                            "key": {
+                                                "@value": "fw-name"
+                                            },
+                                            "description": {
+                                                "text": "Packaged Firmware detials."
+                                            },
+                                            "leaf": [
+                                                {
+                                                    "@name": "fw-name",
+                                                    "type": {
+                                                        "@name": "string",
+                                                        "length": {
+                                                            "@value": "0..32"
+                                                        }
+                                                    },
+                                                    "description": {
+                                                        "text": "Name of the firmware."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "fw-version",
+                                                    "type": {
+                                                        "@name": "string",
+                                                        "length": {
+                                                            "@value": "0..32"
+                                                        }
+                                                    },
+                                                    "description": {
+                                                        "text": "Included version of the firmware."
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "@name": "downloaded-image",
+                                    "key": {
+                                        "@value": "name"
+                                    },
+                                    "description": {
+                                        "text": "Downloaded software image files"
+                                    },
+                                    "leaf": [
+                                        {
+                                            "@name": "name",
+                                            "type": {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "0..256"
+                                                }
+                                            },
+                                            "description": {
+                                                "text": "Downloaded software image name"
+                                            }
+                                        },
+                                        {
+                                            "@name": "signature",
+                                            "type": {
+                                                "@name": "yang:hex-string",
+                                                "length": {
+                                                    "@value": "0..1024"
+                                                }
+                                            },
+                                            "description": {
+                                                "text": "Downloaded software image file signature"
+                                            }
+                                        },
+                                        {
+                                            "@name": "image-type",
+                                            "type": {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "0..64"
+                                                }
+                                            },
+                                            "description": {
+                                                "text": "Downloaded software image type"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "list": [
+                        {
+                            "@name": "software-location",
+                            "key": {
+                                "@value": "location-id"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Software load information associated to each of the equipment."
+                            },
+                            "leaf": {
+                                "@name": "location-id",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..64"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Location of the equipment"
+                                }
+                            },
+                            "uses": {
+                                "@name": "software-load"
+                            },
+                            "list": {
+                                "@name": "third-party-app-info",
+                                "key": {
+                                    "@value": "app-name"
+                                },
+                                "description": {
+                                    "text": "List of 3rd party applications available per location."
+                                },
+                                "uses": {
+                                    "@name": "third-party-app-content"
+                                }
+                            }
+                        },
+                        {
+                            "@name": "third-party-app",
+                            "key": {
+                                "@value": "app-name"
+                            },
+                            "description": {
+                                "text": "List of 3rd party applications."
+                            },
+                            "uses": {
+                                "@name": "third-party-app-content"
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "vendor",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..64"
+                                        }
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Third party app vendor."
+                                    }
+                                },
+                                {
+                                    "@name": "product",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..256"
+                                        }
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Third party app product."
+                                    }
+                                },
+                                {
+                                    "@name": "label",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..256"
+                                        }
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Third party app label."
+                                    }
+                                },
+                                {
+                                    "@name": "enable",
+                                    "type": {
+                                        "@name": "boolean"
+                                    },
+                                    "default": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "Third-party-app enabled state. If enabled, app is started(app is enabled also upon system restart). If disabled, app is stopped."
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "@name": "third-party-fw",
+                            "key": {
+                                "@value": "fw-name"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "List of 3rd party fw files available to be used to upgrade 3rd party equipment."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "fw-name",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..64"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Name of the firmware."
+                                    }
+                                },
+                                {
+                                    "@name": "file-status",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "valid",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "fw file is present and is valid (crc matches)."
+                                                }
+                                            },
+                                            {
+                                                "@name": "invalid",
+                                                "value": {
+                                                    "@value": "2"
+                                                },
+                                                "description": {
+                                                    "text": "fw file is present but is invalid (crc doesn't match)."
+                                                }
+                                            },
+                                            {
+                                                "@name": "missing",
+                                                "value": {
+                                                    "@value": "3"
+                                                },
+                                                "description": {
+                                                    "text": "fw file is not present."
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "description": {
+                                        "text": "Firmware file status."
+                                    }
+                                },
+                                {
+                                    "@name": "path",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..255"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Path for the firmware image."
+                                    }
+                                },
+                                {
+                                    "@name": "version",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..64"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Firmware version."
+                                    }
+                                },
+                                {
+                                    "@name": "crc",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..64"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Cyclic redundancy check (CRC) of the firmware image, used to validate the file when present."
+                                    }
+                                },
+                                {
+                                    "@name": "vendor",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..64"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "The vendor of the firmware."
+                                    }
+                                },
+                                {
+                                    "@name": "nsa-upgrade-version",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..255"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Versions from where the upgrade is non service affecting (nsa)."
+                                    }
+                                }
+                            ],
+                            "leaf-list": [
+                                {
+                                    "@name": "part-number",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..64"
+                                        }
+                                    },
+                                    "max-elements": {
+                                        "@value": "50"
+                                    },
+                                    "description": {
+                                        "text": "The part-number of the firmware."
+                                    }
+                                },
+                                {
+                                    "@name": "present-in-eqpt",
+                                    "type": {
+                                        "@name": "instance-identifier"
+                                    },
+                                    "max-elements": {
+                                        "@value": "80"
+                                    },
+                                    "description": {
+                                        "text": "List of resources that contain this version."
+                                    }
+                                },
+                                {
+                                    "@name": "applicable-eqpt",
+                                    "type": {
+                                        "@name": "instance-identifier"
+                                    },
+                                    "max-elements": {
+                                        "@value": "80"
+                                    },
+                                    "description": {
+                                        "text": "List of resources that this firmware can be applied apply."
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "file-server",
+                "container": {
+                    "@name": "file-servers",
+                    "description": {
+                        "text": "Container of all configured file-servers."
+                    },
+                    "list": {
+                        "@name": "file-server",
+                        "key": {
+                            "@value": "name"
+                        },
+                        "description": {
+                            "text": "User configurable file-server (e.g SFTP server), to be used by transfer operations (upload/download)."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "name",
+                                "type": {
+                                    "@name": "ioa-common:object-name"
+                                },
+                                "description": {
+                                    "text": "Name of the server, as usable in download/upload commands."
+                                }
+                            },
+                            {
+                                "@name": "server-address",
+                                "when": {
+                                    "@condition": "../protocol != 'file'"
+                                },
+                                "type": {
+                                    "@name": "ioa-common:host"
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "Address of the file-server"
+                                }
+                            },
+                            {
+                                "@name": "server-port",
+                                "when": {
+                                    "@condition": "../protocol != 'file'"
+                                },
+                                "type": {
+                                    "@name": "uint16"
+                                },
+                                "description": {
+                                    "text": "Port used for file transfer; if not provided, default will be used according with selected\nprotocol."
+                                }
+                            },
+                            {
+                                "@name": "protocol",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "sftp",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Represents sftp transfer protocol."
+                                            }
+                                        },
+                                        {
+                                            "@name": "ftp",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "Represents ftp transfer protocol."
+                                            }
+                                        },
+                                        {
+                                            "@name": "scp",
+                                            "value": {
+                                                "@value": "4"
+                                            },
+                                            "description": {
+                                                "text": "Represents scp transfer protocol."
+                                            }
+                                        },
+                                        {
+                                            "@name": "http",
+                                            "value": {
+                                                "@value": "5"
+                                            },
+                                            "description": {
+                                                "text": "Represents http transfer protocol."
+                                            }
+                                        },
+                                        {
+                                            "@name": "https",
+                                            "value": {
+                                                "@value": "6"
+                                            },
+                                            "description": {
+                                                "text": "Represents https transfer protocol."
+                                            }
+                                        },
+                                        {
+                                            "@name": "file",
+                                            "value": {
+                                                "@value": "7"
+                                            },
+                                            "description": {
+                                                "text": "Represents local storage, including USB storage. Requires initial-path to be provided."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "The file transfer protocol that this server supports.\nNon-secure protocols (ftp and http) are supported conditionally on configured security policies."
+                                }
+                            },
+                            {
+                                "@name": "user-name",
+                                "when": {
+                                    "@condition": "../protocol != 'file'"
+                                },
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..64"
+                                    }
+                                },
+                                "description": {
+                                    "text": "User name credentials for the remote file server."
+                                }
+                            },
+                            {
+                                "@name": "password",
+                                "when": {
+                                    "@condition": "../protocol != 'file'"
+                                },
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..128"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Password credentials for the remote file server."
+                                }
+                            },
+                            {
+                                "@name": "initial-path",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..256"
+                                    }
+                                },
+                                "description": {
+                                    "text": "The directory in the file server that is used as source/destination.\nIf empty, means the root directory (/) on the server is the initial path.\nMust be an absolute directory (e.g. starting with /)."
+                                }
+                            }
+                        ],
+                        "uses": {
+                            "@name": "ioa-common:label"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "database",
+                "list": {
+                    "@name": "database",
+                    "key": {
+                        "@value": "database-type"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "The list of the databases in the system."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "database-type",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "active",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "onehour",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    },
+                                    {
+                                        "@name": "oneday",
+                                        "value": {
+                                            "@value": "3"
+                                        }
+                                    },
+                                    {
+                                        "@name": "oneweek",
+                                        "value": {
+                                            "@value": "4"
+                                        }
+                                    },
+                                    {
+                                        "@name": "temp",
+                                        "value": {
+                                            "@value": "5"
+                                        }
+                                    },
+                                    {
+                                        "@name": "manual",
+                                        "value": {
+                                            "@value": "6"
+                                        }
+                                    },
+                                    {
+                                        "@name": "rollback",
+                                        "value": {
+                                            "@value": "7"
+                                        }
+                                    }
+                                ]
+                            },
+                            "description": {
+                                "text": "Database identifier."
+                            }
+                        },
+                        {
+                            "@name": "database-state",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "active",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "inactive",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    }
+                                ]
+                            },
+                            "description": {
+                                "text": "Indicates the state of the database."
+                            }
+                        },
+                        {
+                            "@name": "database-version",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..20"
+                                }
+                            },
+                            "description": {
+                                "text": "Indicates the database version."
+                            }
+                        },
+                        {
+                            "@name": "database-vendor",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..32"
+                                }
+                            },
+                            "description": {
+                                "text": "Vendor information of the database."
+                            }
+                        },
+                        {
+                            "@name": "database-product",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..32"
+                                }
+                            },
+                            "description": {
+                                "text": "Indicates the network element family this database belongs to."
+                            }
+                        },
+                        {
+                            "@name": "ne-name",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..256"
+                                }
+                            },
+                            "description": {
+                                "text": "User assigned name for this NE as present in this database."
+                            }
+                        },
+                        {
+                            "@name": "node-controller-serial-number",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..32"
+                                }
+                            },
+                            "description": {
+                                "text": "Serial number of the node controller."
+                            }
+                        },
+                        {
+                            "@name": "loopback-ipv4",
+                            "type": {
+                                "@name": "inet:ipv4-address"
+                            },
+                            "description": {
+                                "text": "loopback ipv4 address."
+                            }
+                        },
+                        {
+                            "@name": "loopback-ipv6",
+                            "type": {
+                                "@name": "inet:ipv6-address"
+                            },
+                            "description": {
+                                "text": "loopback ipv6 address."
+                            }
+                        },
+                        {
+                            "@name": "backup-time",
+                            "type": {
+                                "@name": "yang:date-and-time"
+                            },
+                            "description": {
+                                "text": "Indicates the database snapshot backup time."
+                            }
+                        },
+                        {
+                            "@name": "fips-mode",
+                            "type": {
+                                "@name": "ioa-common:enable-switch"
+                            },
+                            "default": {
+                                "@value": "disabled"
+                            },
+                            "description": {
+                                "text": "Indicates if database was generated with FIPS mode enabled."
+                            }
+                        },
+                        {
+                            "@name": "description",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..128"
+                                }
+                            },
+                            "description": {
+                                "text": "Database description"
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,42 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "key-length": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "2048",
+                    "3072",
+                    "4096",
+                    "256",
+                    "384",
+                    "521"
+                ]
+            },
+            "isList": false,
+            "description": "Strength of the key used for regenerating the private-public key pair",
+            "mandatory": false
+        },
+        "key-type": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "rsa",
+                    "ecdsa"
+                ]
+            },
+            "isList": false,
+            "description": "Type of key to generate",
+            "mandatory": false
+        },
+        "key-label": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Label associated with the key. If no value provided, label will be the value of ne-id",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

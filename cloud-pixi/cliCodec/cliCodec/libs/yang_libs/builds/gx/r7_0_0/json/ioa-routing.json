@@ -1,0 +1,663 @@
+{
+    "module": {
+        "@name": "ioa-routing",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-rt": "http://infinera.com/yang/ioa/networking/routing",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "@xmlns:ospf": "http://infinera.com/yang/ioa/networking/ospf",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/networking/routing"
+        },
+        "prefix": {
+            "@value": "ioa-rt"
+        },
+        "import": [
+            {
+                "@module": "ietf-inet-types",
+                "prefix": {
+                    "@value": "inet"
+                }
+            },
+            {
+                "@module": "ioa-ospf",
+                "prefix": {
+                    "@value": "ospf"
+                }
+            },
+            {
+                "@module": "ioa-bgp",
+                "prefix": {
+                    "@value": "ioa-bgp"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG\nmodule defining Networking Routing model."
+        },
+        "revision": [
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "static-route",
+                "list": [
+                    {
+                        "@name": "ipv4-static-route",
+                        "key": {
+                            "@value": "ipv4-destination-prefix vrf"
+                        },
+                        "description": {
+                            "text": "A list of IPv4 static routes."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "ipv4-destination-prefix",
+                                "type": {
+                                    "@name": "inet:ipv4-prefix"
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "IPv4 destination prefix."
+                                }
+                            },
+                            {
+                                "@name": "advertised",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "When set to YES, the static route is advertised in the routing\nprotocol. For OSPF, the static route will be advertised as an\nAS external route, if OSPF is configured as an ASBR."
+                                }
+                            },
+                            {
+                                "@name": "next-hop-address",
+                                "type": {
+                                    "@name": "inet:ipv4-address"
+                                },
+                                "description": {
+                                    "text": "IPv4 address of the next-hop."
+                                }
+                            },
+                            {
+                                "@name": "vrf",
+                                "type": {
+                                    "@name": "leafref",
+                                    "path": {
+                                        "@value": "../../../vrf/name"
+                                    }
+                                },
+                                "description": {
+                                    "text": "VRF associated with this static route."
+                                }
+                            },
+                            {
+                                "@name": "distance",
+                                "type": {
+                                    "@name": "uint8",
+                                    "range": {
+                                        "@value": "1..255"
+                                    }
+                                },
+                                "default": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "distance of the next-hop."
+                                }
+                            },
+                            {
+                                "@name": "interface",
+                                "type": {
+                                    "@name": "leafref",
+                                    "path": {
+                                        "@value": "../../../interface/if-name"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Interface associated with this static route.  The VRF bound\n  to this interface needs to match the static-route provided\n  vrf."
+                                }
+                            },
+                            {
+                                "@name": "monitoring-state",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "unmonitored",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "static-route is not part of any ip monitoring instance."
+                                            }
+                                        },
+                                        {
+                                            "@name": "ok",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "static-route is part of an ip monitoring instance in 'ok' state."
+                                            }
+                                        },
+                                        {
+                                            "@name": "failed",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "static-route is part of an ip monitoring instance in 'failed' state."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "unmonitored"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "The current state of the monitoring."
+                                }
+                            },
+                            {
+                                "@name": "monitoring-instance",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..64"
+                                    }
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Monitoring instance name, applicable only if this route is being monitored."
+                                }
+                            },
+                            {
+                                "@name": "origin",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "manual",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Indicates the ipv4 route has been manually configured."
+                                            }
+                                        },
+                                        {
+                                            "@name": "dhcp",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Indicates ipv4 route has been assigned to this\n  system by a DHCP server."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "manual"
+                                },
+                                "description": {
+                                    "text": "Route address assignment method."
+                                }
+                            }
+                        ],
+                        "uses": {
+                            "@name": "ioa-common:label"
+                        }
+                    },
+                    {
+                        "@name": "ipv6-static-route",
+                        "key": {
+                            "@value": "ipv6-destination-prefix vrf"
+                        },
+                        "description": {
+                            "text": "A list of IPv6 static routes."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "ipv6-destination-prefix",
+                                "type": {
+                                    "@name": "inet:ipv6-prefix"
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "IPv6 destination prefix."
+                                }
+                            },
+                            {
+                                "@name": "vrf",
+                                "type": {
+                                    "@name": "leafref",
+                                    "path": {
+                                        "@value": "../../../vrf/name"
+                                    }
+                                },
+                                "description": {
+                                    "text": "VRF associated with this static route."
+                                }
+                            },
+                            {
+                                "@name": "advertised",
+                                "type": {
+                                    "@name": "boolean"
+                                },
+                                "default": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "When set to YES, the static route is advertised in the routing\nprotocol. For OSPF, the static route will be advertised as an\nAS external route, if OSPF is configured as an ASBR."
+                                }
+                            },
+                            {
+                                "@name": "next-hop-address",
+                                "type": {
+                                    "@name": "inet:ipv6-address"
+                                },
+                                "description": {
+                                    "text": "IPv6 address of the next-hop."
+                                }
+                            },
+                            {
+                                "@name": "distance",
+                                "type": {
+                                    "@name": "uint8",
+                                    "range": {
+                                        "@value": "1..255"
+                                    }
+                                },
+                                "default": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "distance of the next-hop."
+                                }
+                            },
+                            {
+                                "@name": "interface",
+                                "type": {
+                                    "@name": "leafref",
+                                    "path": {
+                                        "@value": "../../../interface/if-name"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Interface associated with this static route.  The VRF bound\nto this interface needs to match the static-route provided\nvrf."
+                                }
+                            },
+                            {
+                                "@name": "monitoring-state",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "unmonitored",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Indicates that this static-route is not part of any ip monitoring instance."
+                                            }
+                                        },
+                                        {
+                                            "@name": "ok",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Indicates that this static-route is not part of a ip monitoring instance whose monitoring status is ok."
+                                            }
+                                        },
+                                        {
+                                            "@name": "failed",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "Indicates that this static-route is not part of a ip monitoring instance whose monitoring status is failed."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "unmonitored"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "The current state of the monitoring"
+                                }
+                            },
+                            {
+                                "@name": "monitoring-instance",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..64"
+                                    }
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Monitoring Instance Name."
+                                }
+                            },
+                            {
+                                "@name": "origin",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "manual",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Indicates the ipv6 route has been manually configured."
+                                            }
+                                        },
+                                        {
+                                            "@name": "dhcp",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Indicates ipv6 route has been assigned to this\n  system by a DHCP server."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "manual"
+                                },
+                                "description": {
+                                    "text": "route address assignment method."
+                                }
+                            }
+                        ],
+                        "uses": {
+                            "@name": "ioa-common:label"
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "routing",
+                "container": {
+                    "@name": "routing",
+                    "description": {
+                        "text": "Container of routing subsystem."
+                    },
+                    "uses": [
+                        {
+                            "@name": "static-route"
+                        },
+                        {
+                            "@name": "ospf:ospf"
+                        },
+                        {
+                            "@name": "ip-monitoring"
+                        },
+                        {
+                            "@name": "ioa-bgp:bgp"
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "ip-monitoring",
+                "list": {
+                    "@name": "ip-monitoring",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "max-elements": {
+                        "@value": "20"
+                    },
+                    "description": {
+                        "text": "Monitoring instance configuration and state. A monitoring instance allows to periodically ping certain destinations whose result takes action on configured static-routes."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "name",
+                            "type": {
+                                "@name": "ioa-common:object-name",
+                                "length": {
+                                    "@value": "1..64"
+                                }
+                            },
+                            "description": {
+                                "text": "Name of the monitoring instance."
+                            }
+                        },
+                        {
+                            "@name": "probe-interval",
+                            "type": {
+                                "@name": "uint8",
+                                "range": {
+                                    "@value": "1..60"
+                                }
+                            },
+                            "units": {
+                                "@name": "seconds"
+                            },
+                            "default": {
+                                "@value": "5"
+                            },
+                            "description": {
+                                "text": "The time between two consecutive pings in seconds"
+                            }
+                        },
+                        {
+                            "@name": "destination",
+                            "type": {
+                                "@name": "union",
+                                "type": [
+                                    {
+                                        "@name": "inet:ipv4-address"
+                                    },
+                                    {
+                                        "@name": "inet:ipv6-address"
+                                    }
+                                ]
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The remote host to monitor."
+                            }
+                        },
+                        {
+                            "@name": "drop-rate",
+                            "type": {
+                                "@name": "uint8",
+                                "range": {
+                                    "@value": "1..10"
+                                }
+                            },
+                            "default": {
+                                "@value": "1"
+                            },
+                            "description": {
+                                "text": "The accepted drop rate of ping in 10% steps"
+                            }
+                        },
+                        {
+                            "@name": "enabled",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Start or Stop the monitoring of the destination by setting to true or false."
+                            }
+                        },
+                        {
+                            "@name": "monitoring-state",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "unknown",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Initial state before ping responses are received."
+                                        }
+                                    },
+                                    {
+                                        "@name": "ok",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Successfully pinging the Destination IP address."
+                                        }
+                                    },
+                                    {
+                                        "@name": "failed",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Pinging the destination IP Address has failed beyond the configured drop-rate."
+                                        }
+                                    },
+                                    {
+                                        "@name": "disabled",
+                                        "value": {
+                                            "@value": "4"
+                                        },
+                                        "description": {
+                                            "text": "Monitoring instance is administratively locked. No pings are sent, routes are active."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "unknown"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "The current state of the monitoring."
+                            }
+                        },
+                        {
+                            "@name": "action",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "none",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Indicates that no action will be take on the static routes under monitoring instance."
+                                        }
+                                    },
+                                    {
+                                        "@name": "withdraw",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Indicates that all static routes under monitoring instance will be withdrawn."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "withdraw"
+                            },
+                            "description": {
+                                "text": "The action to take when the monitoring goes into 'failed' state."
+                            }
+                        },
+                        {
+                            "@name": "next-hop",
+                            "type": {
+                                "@name": "union",
+                                "type": [
+                                    {
+                                        "@name": "inet:ipv4-address"
+                                    },
+                                    {
+                                        "@name": "inet:ipv6-address"
+                                    }
+                                ]
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Defines the exit interface to use which can be ipv4/ipv6 source ip address or interface name or empty.\nThe monitoring instance will not be active until the exit-interface is configured."
+                            }
+                        }
+                    ],
+                    "leaf-list": {
+                        "@name": "static-route",
+                        "type": {
+                            "@name": "instance-identifier"
+                        },
+                        "max-elements": {
+                            "@value": "10"
+                        },
+                        "description": {
+                            "text": "The list of connected static routes for this Monitoring instance."
+                        }
+                    },
+                    "uses": {
+                        "@name": "ioa-common:arc"
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,145 @@
+{
+    "ne": {
+        "ne-function": {
+            "degree": [
+                {
+                    "degree-number": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Degree number should be greater than zero and not greater than max-degrees.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "modules-degree": [
+                        {
+                            "index": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "Card with index 1 should be the card/ subcard/ module with DWDM line interface.\nCard with index 2 is only applicable to BAXOFP2, when card-mode = 'degree'.\nIndex 2 cannot be used for PAx nor RD cards.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": 0,
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "namespace": null,
+                            "supported-card": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Instance of card or subcard that belongs to degree.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ],
+                    "is-foadm": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "True if there is no WSS component at the Degree and PAx assigned to the degree appropriately.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": false,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "wss-less": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "True if there is no WSS component in the Degree.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": true,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "slot-width-granularity": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Width of a slot (measured in GHz).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 6250,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "center-freq-granularity": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Granularity of allowed center frequencies.\nThe base frequency for this computation is 193.1 THz (G.694.1).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 3125,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "min-slots": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Minimum number of slots permitted to be joined together to form a media channel.\nMust be less than or equal to the max-slots.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 8,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "max-slots": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Maximum number of slots permitted to be joined together to form a media channel.\nMust be greater than or equal to the min-slots.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 32,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

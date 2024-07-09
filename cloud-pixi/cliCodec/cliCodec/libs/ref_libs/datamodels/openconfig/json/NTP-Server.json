@@ -1,0 +1,108 @@
+{
+    "system": {
+        "ntp": {
+            "servers": {
+                "server": [
+                    {
+                        "address": {
+                            "type": {
+                                "ptype": "str",
+                                "leafref": "../config/address"
+                            },
+                            "isList": false,
+                            "description": "References the configured address or hostname of the\nNTP server.",
+                            "key": true,
+                            "mandatory": false,
+                            "config": true,
+                            "default": ""
+                        },
+                        "namespace": null,
+                        "config": {
+                            "address": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The address or hostname of the NTP server.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "namespace": null
+                            },
+                            "port": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "The port number of the NTP server.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": 123,
+                                "namespace": null
+                            },
+                            "version": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "Version number to put in outgoing NTP packets",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": 4,
+                                "namespace": null
+                            },
+                            "association-type": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "SERVER",
+                                        "PEER",
+                                        "POOL"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The desired association type for this NTP server.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "SERVER",
+                                "namespace": null
+                            },
+                            "iburst": {
+                                "type": {
+                                    "ptype": "bool"
+                                },
+                                "isList": false,
+                                "description": "Indicates whether this server should enable burst\nsynchronization or not.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": false,
+                                "namespace": null
+                            },
+                            "prefer": {
+                                "type": {
+                                    "ptype": "bool"
+                                },
+                                "isList": false,
+                                "description": "Indicates whether this server should be preferred\nor not.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": false,
+                                "namespace": null
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/system"
+        }
+    }
+}

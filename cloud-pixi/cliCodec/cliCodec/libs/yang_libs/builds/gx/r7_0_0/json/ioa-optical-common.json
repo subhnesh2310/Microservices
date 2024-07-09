@@ -1,0 +1,256 @@
+{
+    "module": {
+        "@name": "ioa-optical-common",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-opt": "http://infinera.com/yang/ioa/optical-common",
+        "@xmlns:ioa-carrier-types": "http://infinera.com/yang/ioa/carrier-types",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/optical-common"
+        },
+        "prefix": {
+            "@value": "ioa-opt"
+        },
+        "import": [
+            {
+                "@module": "ioa-carrier-types",
+                "prefix": {
+                    "@value": "ioa-carrier-types"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module that defines common data types and groupings that are used in optical facilities."
+        },
+        "revision": [
+            {
+                "@date": "2023-03-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.1"
+                }
+            },
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "typedef": [
+            {
+                "@name": "optical-power",
+                "type": {
+                    "@name": "decimal64",
+                    "fraction-digits": {
+                        "@value": "2"
+                    },
+                    "range": {
+                        "@value": "-55.00..55.00"
+                    }
+                },
+                "units": {
+                    "@name": "dBm"
+                },
+                "description": {
+                    "text": "A custom data type that can be used for optical Tx/Rx power attributes."
+                }
+            },
+            {
+                "@name": "power-offset",
+                "type": {
+                    "@name": "ioa-opt:optical-power",
+                    "range": {
+                        "@value": "-10.00..10.00"
+                    }
+                },
+                "units": {
+                    "@name": "dB"
+                },
+                "description": {
+                    "text": "Offset from a standard optical-power value."
+                }
+            },
+            {
+                "@name": "optical-frequency",
+                "type": {
+                    "@name": "uint64",
+                    "range": {
+                        "@value": "0 | 186050000..191050000 | 191250000..196150000"
+                    }
+                },
+                "units": {
+                    "@name": "MHz"
+                },
+                "description": {
+                    "text": "A super set for line and client side carrier frequency, specific sub-range is depend on application. 0 represents a non-initialized frequency."
+                }
+            },
+            {
+                "@name": "optical-frequency-config",
+                "type": {
+                    "@name": "union",
+                    "type": [
+                        {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "tunes-out-of-band",
+                                "value": {
+                                    "@value": "1"
+                                }
+                            }
+                        },
+                        {
+                            "@name": "ioa-opt:optical-frequency"
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "The center frequency this carrier is tuned to."
+                }
+            },
+            {
+                "@name": "optical-wavelength",
+                "type": {
+                    "@name": "decimal64",
+                    "fraction-digits": {
+                        "@value": "3"
+                    }
+                },
+                "units": {
+                    "@name": "nm"
+                },
+                "description": {
+                    "text": "A custom data type for optical wavelength.\nThe data type allows specific range of values for optical\ncarriers in C-Band and L-Band regions."
+                }
+            }
+        ],
+        "grouping": {
+            "@name": "optical-card-parameters",
+            "description": {
+                "text": "Adds line card resources/capabilites, as discovered from the equipment."
+            },
+            "container": [
+                {
+                    "@name": "resources",
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Resources of this particular card. Resource details will differ with each card type."
+                    },
+                    "leaf-list": [
+                        {
+                            "@name": "supported-carriers",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..32"
+                                }
+                            },
+                            "description": {
+                                "text": "Names of the carriers that are supported by this card.\nTo be used upon super-channel creation."
+                            }
+                        },
+                        {
+                            "@name": "unassigned-carriers",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..32"
+                                }
+                            },
+                            "description": {
+                                "text": "Names of the carriers that are not yet assigned to a super-channel in this card."
+                            }
+                        },
+                        {
+                            "@name": "supported-sub-components",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..32"
+                                }
+                            },
+                            "description": {
+                                "text": "Names of sub-components present in this card, which can be addressed for certain operations like restart."
+                            }
+                        }
+                    ],
+                    "leaf": [
+                        {
+                            "@name": "paired-slot-total-bandwidth",
+                            "type": {
+                                "@name": "ioa-common:rate"
+                            },
+                            "default": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "Total supported bandwidth for the paired slot connection. This is applicable only for card models that support paired mode."
+                            }
+                        },
+                        {
+                            "@name": "paired-slot-available-bandwidth",
+                            "type": {
+                                "@name": "ioa-common:rate"
+                            },
+                            "default": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "Available bandwidth for the paired slot connection. This is applicable only for card models that support paired mode."
+                            }
+                        }
+                    ]
+                },
+                {
+                    "@name": "capabilities",
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Generic card capabilities. Capabilities details will differ with each card type."
+                    },
+                    "uses": [
+                        {
+                            "@name": "ioa-carrier-types:supported-advanced-parameters"
+                        },
+                        {
+                            "@name": "ioa-carrier-types:supported-carrier-modes"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

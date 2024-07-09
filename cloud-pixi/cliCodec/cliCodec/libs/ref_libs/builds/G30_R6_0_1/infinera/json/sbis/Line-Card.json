@@ -1,0 +1,336 @@
+{
+    "ne": {
+        "equipment": {
+            "card": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Card identifier.",
+                        "mandatory": true,
+                        "key": true,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "required-type": {
+                        "type": {
+                            "ptype": "str",
+                            "identityref": "ioa-common:card",
+                            "values": [
+                                "FRCU31",
+                                "UTM2",
+                                "CHM1R",
+                                "RD09SM",
+                                "RD20TM",
+                                "OCC2T",
+                                "OCC2E",
+                                "CAD10A",
+                                "CAD16AOFP2",
+                                "CDC8D6",
+                                "BAXOFP2",
+                                "DGE2M2OFP2",
+                                "WS04SOFP2",
+                                "RPBM",
+                                "RPBL",
+                                "OMD48S",
+                                "OMD48E",
+                                "OMD64",
+                                "ILAx",
+                                "XMM4-FAN",
+                                "FAN-CTRL",
+                                "CHM6",
+                                "CHM6L",
+                                "UCM4",
+                                "XMM4",
+                                "FRCU",
+                                "FRCU32",
+                                "IOPANEL",
+                                "IOPANEL32",
+                                "FAN",
+                                "FAN32",
+                                "FAN34c",
+                                "PEM",
+                                "BLANK",
+                                "BLANK2"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Required card type.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": {
+                            "namespace": "http://infinera.com/yang/ioa/common",
+                            "prefix": "ioa-common"
+                        }
+                    },
+                    "required-subtype": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The subtype of the card",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "card-mode": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The configured card-mode, identifies specific card functionality.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "chassis-name": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../chassis/name"
+                        },
+                        "isList": false,
+                        "description": "Chassis where this card is located.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "slot-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Slot where this card is located.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "subslot-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Subslot where this card is located, e.g. 1-2.3 (slot 2, subslot 3).\n'subslot-name' can only be set on (sub)card creation.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "power-profile": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User configured power draw for this card.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "last-reboot-reason": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Reason why the last reboot was done.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "parent-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "/ne/equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Name of the parent card, only applicable for subcard(s).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "subcard-list": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "/ne/equipment/card/name"
+                        },
+                        "isList": true,
+                        "description": "List of sub-cards associated with this card.\nOnly applicable for carrier cards.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "category": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "controller",
+                                "line-card",
+                                "fan",
+                                "power-supply",
+                                "other",
+                                "carrier-card",
+                                "blank"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Card category.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "max-power-draw": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Maximum power draw for this card.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alias-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

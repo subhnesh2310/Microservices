@@ -1,0 +1,140 @@
+{
+    "components": {
+        "component": [
+            {
+                "name": {
+                    "type": {
+                        "ptype": "str",
+                        "leafref": "../config/name"
+                    },
+                    "isList": false,
+                    "description": "References the component name",
+                    "key": true,
+                    "mandatory": false,
+                    "config": true,
+                    "default": "",
+                    "namespace": null,
+                    "hardcode": false
+                },
+                "config": {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Device name for the component -- this may not be a\nconfigurable parameter on many implementations.  Where\ncomponent preconfiguration is supported, for example,\nthe component name may be configurable.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": null,
+                        "hardcode": false
+                    },
+                    "connected-to": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Indicate neighbour port entity to which the current port is connected to.\n   This is not validated by the NE and can be used by the customers (or NMS) for topology construction.\n   This parameter is available independently on any automated discovery mechanisms that may exist in the port.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "alias-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    }
+                },
+                "port": {
+                    "openconfig-transport-line-common:optical-port":  {
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/transport-line-common",
+                            "prefix": null
+                        },
+                        "config":  {
+                          "admin-state": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "ENABLED",
+                                        "DISABLED",
+                                        "MAINT"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Sets the admin state of the optical-port.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "DISABLED",
+                                "namespace": {
+                                "namespace": "http://openconfig.net/yang/transport-line-common",
+                                    "prefix": null
+                                },
+                                "hardcode": false
+                            }
+                        }
+                    }
+                }
+            }
+        ],
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/platform"
+        }
+    }
+}

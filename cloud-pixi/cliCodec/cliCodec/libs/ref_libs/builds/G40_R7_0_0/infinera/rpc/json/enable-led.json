@@ -1,0 +1,34 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "entity": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Targets a specific entity in the system for enabling its location led test.\nCan be a chassis or a card.",
+            "mandatory": true
+        },
+        "timeout": {
+            "type": {
+                "ptype": "int"
+            },
+            "isList": false,
+            "description": "Specify the timeout, in seconds, before enable-led terminates.\n0 means no timeout.",
+            "mandatory": false
+        },
+        "led-mode": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "flash",
+                    "solid"
+                ]
+            },
+            "isList": false,
+            "description": "Selects the led flash pattern.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

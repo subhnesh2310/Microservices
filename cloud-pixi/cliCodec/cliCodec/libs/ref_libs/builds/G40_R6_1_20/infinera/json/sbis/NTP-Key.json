@@ -1,0 +1,74 @@
+{
+    "ne": {
+        "system": {
+            "ntp": {
+                "ntp-key": [
+                    {
+                        "key-id": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "NTP Key-ID.",
+                            "mandatory": true,
+                            "key": true,
+                            "config": true,
+                            "default": 0,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "key-type": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "sha-1",
+                                    "aes-cmac",
+                                    "sha-256",
+                                    "md5"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Hash algorithm for NTP message digest computation",
+                            "mandatory": true,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "key-value": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "NTP Key-value.",
+                            "mandatory": true,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "is-trusted": {
+                            "type": {
+                                "ptype": "bool"
+                            },
+                            "isList": false,
+                            "description": "Is trusted NTP key.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": false,
+                            "hardcode": false,
+                            "namespace": null
+                        }
+                    }
+                ]
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

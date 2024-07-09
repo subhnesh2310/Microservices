@@ -1,0 +1,504 @@
+{
+    "module": {
+        "@name": "ioa-telemetry",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-tlm": "http://infinera.com/yang/ioa/telemetry",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/telemetry"
+        },
+        "prefix": {
+            "@value": "ioa-tlm"
+        },
+        "import": {
+            "@module": "ietf-inet-types",
+            "prefix": {
+                "@value": "inet"
+            }
+        },
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module for Telemetry Management model."
+        },
+        "revision": [
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "telemetry",
+                "container": {
+                    "@name": "telemetry",
+                    "description": {
+                        "text": "Top level configuration and state for the\ndevice telemetry system."
+                    },
+                    "container": {
+                        "@name": "subscriptions",
+                        "description": {
+                            "text": "This container holds information for both persistent\nand dynamic telemetry subscriptions."
+                        },
+                        "list": {
+                            "@name": "current-subscription",
+                            "key": {
+                                "@value": "subscription-name"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "List representation of telemetry subscriptions that\nare configured in the system, otherwise known\nas current telemetry subscriptions."
+                            },
+                            "uses": [
+                                {
+                                    "@name": "telemetry-subscription-name-config"
+                                },
+                                {
+                                    "@name": "telemetry-subscription-session-config"
+                                },
+                                {
+                                    "@name": "telemetry-subscription-common-config"
+                                },
+                                {
+                                    "@name": "telemetry-subscription-paths-common-config"
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "telemetry-subscription-name-config",
+                "description": {
+                    "text": "Configuration parameters relating to the configured\nname of the telemetry subscription. The name is a user\nconfigured string or internally generated value which uniquely identifies\nthe subscription in the configuration database."
+                },
+                "leaf": {
+                    "@name": "subscription-name",
+                    "type": {
+                        "@name": "string",
+                        "length": {
+                            "@value": "1..128"
+                        }
+                    },
+                    "description": {
+                        "text": "User configured identifier of the telemetry\nsubscription. This value is used primarily for\nsubscriptions configured locally on the network\nelement. For dial-in subscription this name is\nconfigured by the NBI."
+                    }
+                }
+            },
+            {
+                "@name": "telemetry-subscription-session-config",
+                "leaf": [
+                    {
+                        "@name": "related-session-id",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "1..128"
+                            }
+                        },
+                        "description": {
+                            "text": "Identifier of the telemetry subscription\nsession."
+                        }
+                    },
+                    {
+                        "@name": "related-dial-out-server",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "/ne/system/protocols/dial-out-server/name"
+                            }
+                        },
+                        "description": {
+                            "text": "Identifier of the subscrition dial-out\nserver address. Only applicable to\ndial-out based subscriptions."
+                        }
+                    },
+                    {
+                        "@name": "session-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "gnmi-dial-in",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "GNMI dial-in session type."
+                                    }
+                                },
+                                {
+                                    "@name": "gnmi-dial-out-tunnel",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "GNMI dial-out via tunnel session type."
+                                    }
+                                },
+                                {
+                                    "@name": "gnmi-dial-out-reverse-rpc",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "GNMI dial-out via reverse RPC session type."
+                                    }
+                                }
+                            ]
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Identifier of the type of subscription session."
+                        }
+                    },
+                    {
+                        "@name": "session-protocol",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "gnmi",
+                                "value": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "GNMI protocol session."
+                                }
+                            }
+                        },
+                        "default": {
+                            "@value": "gnmi"
+                        },
+                        "description": {
+                            "text": "Selection of the transport protocol for the telemetry\nstream."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "telemetry-subscription-common-config",
+                "leaf": [
+                    {
+                        "@name": "encoding",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "json",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "bytes",
+                                    "value": {
+                                        "@value": "2"
+                                    }
+                                },
+                                {
+                                    "@name": "proto",
+                                    "value": {
+                                        "@value": "3"
+                                    }
+                                },
+                                {
+                                    "@name": "ascii",
+                                    "value": {
+                                        "@value": "4"
+                                    }
+                                },
+                                {
+                                    "@name": "json-ietf",
+                                    "value": {
+                                        "@value": "5"
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "json-ietf"
+                        },
+                        "description": {
+                            "text": "Specifies the data encoding scheme to be used for data\nsent to and from the target device.  The encoding may\nbe specified for all data, or optionally on a per-RPC\nbasis if supported by the target."
+                        }
+                    },
+                    {
+                        "@name": "transfer-mode",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "stream",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "Values streamed by the target."
+                                    }
+                                },
+                                {
+                                    "@name": "once",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "Values sent once-off by the target."
+                                    }
+                                },
+                                {
+                                    "@name": "poll",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "Values sent in response to a poll request."
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "stream"
+                        },
+                        "description": {
+                            "text": "Specifies the data transfer mode to the target device."
+                        }
+                    },
+                    {
+                        "@name": "updates-only",
+                        "type": {
+                            "@name": "boolean"
+                        },
+                        "default": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "A Boolean flag allowing to only send updates to the current state,\nwhen set to true the device will not send the initial current value,\nrather only changes to the initial value."
+                        }
+                    },
+                    {
+                        "@name": "user-access",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Username in order to resolve paths according to user access."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "telemetry-subscription-paths-common-config",
+                "list": {
+                    "@name": "subscription-path",
+                    "key": {
+                        "@value": "subscription-path-name"
+                    },
+                    "description": {
+                        "text": "List of single subscriptions paths keyed by\nsubscription-path-name."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "subscription-path-name",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..64"
+                                }
+                            },
+                            "description": {
+                                "text": "Name of the single subscription path in the subscription list."
+                            }
+                        },
+                        {
+                            "@name": "subscription-path",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..520"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Specifies a path in the data model path corresponding to\nthe data in the message"
+                            }
+                        },
+                        {
+                            "@name": "subscription-path-origin",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..64"
+                                }
+                            },
+                            "description": {
+                                "text": "Specifies the schema tree in order to disambiguate the path."
+                            }
+                        },
+                        {
+                            "@name": "subscription-path-mode",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "target-defined",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Subcription updates are sent according with system definition."
+                                        }
+                                    },
+                                    {
+                                        "@name": "on-change",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Subscription updates are sent when there are changes."
+                                        }
+                                    },
+                                    {
+                                        "@name": "sample",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Subscription updates are sent periodically."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "target-defined"
+                            },
+                            "description": {
+                                "text": "Specify how the device should return the values of the subscription-path"
+                            }
+                        },
+                        {
+                            "@name": "sample-interval",
+                            "type": {
+                                "@name": "uint64"
+                            },
+                            "units": {
+                                "@name": "milliseconds"
+                            },
+                            "default": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "Time in milliseconds between the device's sample of a\ntelemetry data source. For example, setting this to 2000\nwould require the local device to collect the telemetry\ndata every 2000 milliseconds. There can be latency or jitter\nin transmitting the data, but the sample must occur at\nthe specified interval.\nThe timestamp must reflect the actual time when the data\nwas sampled, not simply the previous sample timestamp +\nsample-interval.\nSet to 0 when optional. On the case of stream 'target-defined'\nit is automatically adjusted from 0 to 10 seconds."
+                            }
+                        },
+                        {
+                            "@name": "heartbeat-interval",
+                            "type": {
+                                "@name": "uint64"
+                            },
+                            "units": {
+                                "@name": "milliseconds"
+                            },
+                            "default": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "Maximum time interval in milliseconds that may pass\nbetween updates from a device to a telemetry collector.\nIf this interval expires, but there is no updated data to\nsend (such as if suppress_updates has been configured), the\ndevice must send a telemetry message to the collector.\nSet to 0 when optional. On the case of stream 'target-defined'\nand 'sample-interface' was adjusted to 10 seconds if 'heartbeat-interval' was set\nand not lower than 10 sec it is automatically adjusted to 20 seconds."
+                            }
+                        },
+                        {
+                            "@name": "suppress-redundant",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Boolean flag to control suppression of redundant\ntelemetry updates to the collector platform. If this flag is\nset to TRUE, then the collector will only send an update at\nthe configured interval if a subscribed data value has\nchanged. Otherwise, the device will not send an update to\nthe collector until expiration of the heartbeat interval."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "telemetry-qos-marking-config",
+                "description": {
+                    "text": "Config parameters relating to the quality of service\nmarking on device generated telemetry packets"
+                },
+                "leaf": {
+                    "@name": "originated-qos-marking",
+                    "type": {
+                        "@name": "inet:dscp"
+                    },
+                    "default": {
+                        "@value": "0"
+                    },
+                    "description": {
+                        "text": "DSCP marking of packets generated by the telemetry\nsubsystem on the network device."
+                    }
+                }
+            },
+            {
+                "@name": "telemetry-stream-destination-config",
+                "description": {
+                    "text": "Configuration parameters for the stream destinations"
+                },
+                "leaf": [
+                    {
+                        "@name": "destination-address",
+                        "type": {
+                            "@name": "inet:ip-address"
+                        },
+                        "description": {
+                            "text": "IP address of the telemetry stream destination"
+                        }
+                    },
+                    {
+                        "@name": "destination-port",
+                        "type": {
+                            "@name": "inet:port-number"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Port number for the telemetry\nstream destination"
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "telemetry-local-source-address-config",
+                "description": {
+                    "text": "Config relating to the local source address for telemetry\nmessages"
+                },
+                "leaf": {
+                    "@name": "local-source-address",
+                    "type": {
+                        "@name": "inet:ip-address"
+                    },
+                    "description": {
+                        "text": "The IP address which will be the source of packets from\nthe device to a telemetry collector destination."
+                    }
+                }
+            }
+        ]
+    }
+}

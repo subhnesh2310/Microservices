@@ -1,0 +1,108 @@
+ospf
+	ospf-auth-enable : bool
+	ospf-auth-algorithm : str
+	ospf-auth-key : str
+	ospfv3-ipsec-security-association
+		spi : int
+		ipsec-protocol : str
+		ipsec-mode : str
+		+integrity-algorithm : str
+		auth-key
+			type : str
+			+key : str
+	enable : bool
+	hello-interval : int
+	router-dead-interval : int
+	retransmission-interval : int
+	transmit-delay : int
+	ospf-cost : int
+	-ospf-network-type : str
+	priority : int
+	ospf-interface
+		ospf-if-name : unknown
+		ospf-if-routing : str
+		enable : bool
+		hello-interval : int
+		router-dead-interval : int
+		retransmission-interval : int
+		transmit-delay : int
+		ospf-cost : int
+		-ospf-network-type : str
+		priority : int
+		ospf-auth-enable : bool
+		ospf-auth-algorithm : str
+		ospf-auth-key : str
+		ospfv3-ipsec-security-association
+			spi : int
+			ipsec-protocol : str
+			ipsec-mode : str
+			+integrity-algorithm : str
+			auth-key
+				type : str
+				+key : str
+	ospf-area-range
+		prefix : str
+		advertise : bool
+	ospf-area
+		ospf-area-id : str
+		ospf-area-type : str
+		ospf-area-range
+			prefix : str
+			advertise : bool
+		ospf-interface
+			ospf-if-name : unknown
+			ospf-if-routing : str
+			enable : bool
+			hello-interval : int
+			router-dead-interval : int
+			retransmission-interval : int
+			transmit-delay : int
+			ospf-cost : int
+			-ospf-network-type : str
+			priority : int
+			ospf-auth-enable : bool
+			ospf-auth-algorithm : str
+			ospf-auth-key : str
+			ospfv3-ipsec-security-association
+				spi : int
+				ipsec-protocol : str
+				ipsec-mode : str
+				+integrity-algorithm : str
+				auth-key
+					type : str
+					+key : str
+	ospf-instance
+		+router-id : str
+		instance-id : int
+		version : str
+		description : str
+		-vrf : unknown
+		router-id-mode : str
+		ospf-area
+			ospf-area-id : str
+			ospf-area-type : str
+			ospf-area-range
+				prefix : str
+				advertise : bool
+			ospf-interface
+				ospf-if-name : unknown
+				ospf-if-routing : str
+				enable : bool
+				hello-interval : int
+				router-dead-interval : int
+				retransmission-interval : int
+				transmit-delay : int
+				ospf-cost : int
+				-ospf-network-type : str
+				priority : int
+				ospf-auth-enable : bool
+				ospf-auth-algorithm : str
+				ospf-auth-key : str
+				ospfv3-ipsec-security-association
+					spi : int
+					ipsec-protocol : str
+					ipsec-mode : str
+					+integrity-algorithm : str
+					auth-key
+						type : str
+						+key : str

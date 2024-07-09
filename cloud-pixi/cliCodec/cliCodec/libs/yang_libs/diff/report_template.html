@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <title>YANG Diff Report</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        h2 {
+            font-size: 20px;
+        }
+        h3 {
+            font-size: 18px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        ul ul {
+            list-style-type: circle;
+            margin-left: 5px;
+        }
+        ul ul ul {
+            list-style-type: square;
+            margin-left: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: auto
+         
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        
+    </style>
+
+
+</head>
+<body>
+    <div id="contentdiv" class="content">
+
+{{content_template}}
+
+    </div>
+
+
+</body>
+</html>

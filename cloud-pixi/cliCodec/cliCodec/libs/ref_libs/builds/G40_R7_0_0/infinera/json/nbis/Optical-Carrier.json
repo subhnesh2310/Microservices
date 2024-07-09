@@ -1,0 +1,471 @@
+{
+    "optical_carrier_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A generic, configurable name for every facility.",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "optical_carrier_name"
+    },
+    "advanced_parameter_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Name of the advanced parameter.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "advanced_parameter_name"
+    },
+    "value": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Value of the advanced parameter.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "value"
+    },
+    "frequency": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The center frequency this carrier is tuned to. Zero means 'not configured'.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0",
+        "hardcode": false,
+        "argName": "frequency"
+    },
+    "frequency_offset": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "A super set range for line and client side carrier, specific sub-range is depend on application. Frequency-offset can be used for bright tuning\nof the wavelengths.\nOnce set, the frequency will slowly change (over 1-10s) without affecting service.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "frequency_offset"
+    },
+    "tx_power": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The optical carrier's transmit power into the fiber from the transponder's optics.\nNOTE: The accuracy of the Tx Power can be adjusted in steps of 0.5 dBm.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "-6.0",
+        "hardcode": false,
+        "argName": "tx_power"
+    },
+    "pre_fec_q_sig_deg_threshold": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The threshold based on which the PRE-FEC-Q-SIGNAL-DEGRADE alarm is raised.\n0 implies threshold crossing alarming disabled.\nSpecific sub-range is per carrier use-case.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "6.0",
+        "hardcode": false,
+        "argName": "pre_fec_q_sig_deg_threshold"
+    },
+    "pre_fec_q_sig_deg_hysteresis": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Hysteresis to account for raising of the PRE-FEC-Q-SIGNAL-DEGRADE alarm.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0.5",
+        "hardcode": false,
+        "argName": "pre_fec_q_sig_deg_hysteresis"
+    },
+    "enable_advanced_parameters": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Controls enabling/disabling of configuring advanced parameters for this object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "enable_advanced_parameters"
+    },
+    "sop_data_collection": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Controls enabling/disabling sop data collection, providing the collection interval in ms.\n    Only of relevance for carrier type ICE6.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "sop_data_collection"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "media_interface": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "400ZR-CFEC-DP-16QAM"
+            ]
+        },
+        "description": "Media interface type of ZR tom.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "400ZR-CFEC-DP-16QAM",
+        "hardcode": false,
+        "argName": "media_interface"
+    },
+    "grid_spacing": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "100",
+                "75",
+                "50",
+                "33",
+                "25",
+                "12.5",
+                "6.25",
+                "3.125"
+            ]
+        },
+        "description": "Fixed Grid tunability for new 3rd party TOM.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "100",
+        "hardcode": false,
+        "argName": "grid_spacing"
+    },
+    "tx_cd": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The configured transmit pre-compensation chromatic dispersion.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0.0",
+        "hardcode": false,
+        "argName": "tx_cd"
+    },
+    "post_fec_q_sig_deg_threshold": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The threshold based on which the POST-FEC-Q-SIGNAL-DEGRADE alarm is raised.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "18",
+        "hardcode": false,
+        "argName": "post_fec_q_sig_deg_threshold"
+    },
+    "post_fec_q_sig_deg_hysteresis": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Hysteresis to account for raising of the POST-FEC-Q-SIGNAL-DEGRADE alarm.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "2.5",
+        "hardcode": false,
+        "argName": "post_fec_q_sig_deg_hysteresis"
+    },
+    "rate": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Carried signal basic rate class.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "rate"
+    },
+    "modulation_format": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "not-applicable",
+                "DP-QPSK",
+                "DP-16QAM",
+                "DP-8QAM",
+                "BPSK",
+                "DP-16QAM-E",
+                "DP-16QAM-PS",
+                "DP-SPQPSK",
+                "DP-SPQPSK-QPSK",
+                "DP-SP16QAM",
+                "DP-32QAM",
+                "DP-SP16QAM-16QAM",
+                "DP-QPSK-SP16QAM",
+                "DP-64QAM",
+                "DP-16QAM-32QAM",
+                "DP-32QAM-64QAM"
+            ]
+        },
+        "description": "Current modulation format.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "modulation_format"
+    },
+    "rx_frequency": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The rx laser frequency. Special for 0 means it is same as tx laser frequency.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0",
+        "hardcode": false,
+        "argName": "rx_frequency"
+    },
+    "rx_attenuation": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "This is to support configurable optical attenuation at receiver side which is based on the hardware capability on the port.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0.0",
+        "hardcode": false,
+        "argName": "rx_attenuation"
+    },
+    "tx_filter_roll_off": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Transmitter filter roll off factor.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0.2",
+        "hardcode": false,
+        "argName": "tx_filter_roll_off"
+    },
+    "preemphasis": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "enabled"
+            ]
+        },
+        "description": "Preemphasis of transmitted signal.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "enabled",
+        "hardcode": false,
+        "argName": "preemphasis"
+    },
+    "preemphasis_value": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Preemphasis of transmitted signal.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "1.0",
+        "hardcode": false,
+        "argName": "preemphasis_value"
+    },
+    "cd_range_low": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Low value of chromatic dispersion search range.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": -45000,
+        "hardcode": false,
+        "argName": "cd_range_low"
+    },
+    "cd_range_high": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "high value of chromatic dispersion search range.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 45000,
+        "hardcode": false,
+        "argName": "cd_range_high"
+    },
+    "cd_compensation_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "auto",
+                "manual"
+            ]
+        },
+        "description": "chromatic dispersion compensation value source mode.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "auto",
+        "hardcode": false,
+        "argName": "cd_compensation_mode"
+    },
+    "cd_compensation_value": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "manual chromatic dispersion compensation value",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "cd_compensation_value"
+    },
+    "fast_sop_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "enabled"
+            ]
+        },
+        "description": "Specify if enable fast SOP (state of polarization) change tracking; if enabled, the interface\n   will tolerate very fast SOP and transient.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "fast_sop_mode"
+    },
+    "BICHM": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "The BICHM (bit interleaved coded hybrid modulation) incremental step in 1/128 bits/symbol added to base modulation bits/symbol for the hybrid modes modulation-format.\n0: Base modulation format bits/symbol;\n1: 1/128 bits/symbol added to base modulation format bits/symbol;\n...\n127: 127/128 bits/symbol added to base modulation format bits/symbol",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 64,
+        "hardcode": false,
+        "argName": "BICHM"
+    },
+    "propagate_shutdown": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "enabled"
+            ]
+        },
+        "description": "When the attribute value is set to yes, the transmit laser will\nbe shutdown if the whole service of the direction has signal failure,\nthe function mainly used in regeneration node to propagate signal failure as LOS.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "propagate_shutdown"
+    },
+    "propagate_shutdown_holdoff_timer": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "The hold off time of propagate shutdown.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "propagate_shutdown_holdoff_timer"
+    },
+    "loopback": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "none",
+                "facility",
+                "terminal"
+            ]
+        },
+        "description": "Loopback mode.Useful to debug on the fiber connection.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "none",
+        "hardcode": false,
+        "argName": "loopback"
+    }
+}

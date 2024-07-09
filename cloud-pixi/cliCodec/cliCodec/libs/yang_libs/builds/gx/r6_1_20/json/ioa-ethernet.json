@@ -1,0 +1,406 @@
+{
+    "module": {
+        "@name": "ioa-ethernet",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-eth": "http://infinera.com/yang/ioa/ethernet",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "@xmlns:ioa-top": "http://infinera.com/yang/ioa/topology",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/ethernet"
+        },
+        "prefix": {
+            "@value": "ioa-eth"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            },
+            {
+                "@module": "ioa-topology",
+                "prefix": {
+                    "@value": "ioa-top"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG definitions for Ethernet clients in a typical Layer 1 optical transponder."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-09-17",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.1"
+                }
+            }
+        ],
+        "identity": [
+            {
+                "@name": "ETHERNET-CLIENT",
+                "description": {
+                    "text": "Base identity for all rates/types of Ethernet clients."
+                }
+            },
+            {
+                "@name": "ETHERNET-1GBASE-R",
+                "base": {
+                    "@name": "ETHERNET-CLIENT"
+                },
+                "description": {
+                    "text": "Base identity for all 1G Ethernet clients."
+                }
+            },
+            {
+                "@name": "ETHERNET-10GBASE-R",
+                "base": {
+                    "@name": "ETHERNET-CLIENT"
+                },
+                "description": {
+                    "text": "Base identity for all 10G Ethernet clients."
+                }
+            },
+            {
+                "@name": "ETHERNET-100GBASE-R",
+                "base": {
+                    "@name": "ETHERNET-CLIENT"
+                },
+                "description": {
+                    "text": "Base identity for all 100G Ethernet clients."
+                }
+            },
+            {
+                "@name": "ETHERNET-400GBASE-R",
+                "base": {
+                    "@name": "ETHERNET-CLIENT"
+                },
+                "description": {
+                    "text": "Base identity for all 400G Ethernet clients."
+                },
+                "reference": {
+                    "text": "IEEE 802.3bs and Std 802.3, Clause 119."
+                }
+            },
+            {
+                "@name": "ETHERNET-4x100GBASE-R",
+                "base": {
+                    "@name": "ETHERNET-100GBASE-R"
+                }
+            }
+        ],
+        "grouping": {
+            "@name": "ethernet",
+            "description": {
+                "text": "A re-usable grouping that formulates the basic TribPTP facility structure."
+            },
+            "list": {
+                "@name": "ethernet",
+                "key": {
+                    "@value": "name"
+                },
+                "description": {
+                    "text": "Ethernet facility."
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-fac-common:facilities-common-attributes"
+                    },
+                    {
+                        "@name": "ioa-common:arc"
+                    },
+                    {
+                        "@name": "ioa-fac-common:loopback"
+                    },
+                    {
+                        "@name": "ioa-fac-common:loopback-mode"
+                    },
+                    {
+                        "@name": "ioa-fac-common:test-signal",
+                        "refine": {
+                            "@target-node": "test-signal-direction",
+                            "default": {
+                                "@value": "egress"
+                            }
+                        }
+                    },
+                    {
+                        "@name": "ioa-top:lldp-port"
+                    },
+                    {
+                        "@name": "ioa-common:circuit-id"
+                    }
+                ],
+                "leaf": [
+                    {
+                        "@name": "client-type",
+                        "type": {
+                            "@name": "identityref",
+                            "base": {
+                                "@name": "ETHERNET-CLIENT"
+                            }
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The protocol type of the Ethernet client."
+                        }
+                    },
+                    {
+                        "@name": "service-mode",
+                        "type": {
+                            "@name": "ioa-fac-common:service-mode"
+                        },
+                        "default": {
+                            "@value": "transport"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Service mode for the ethernet facility."
+                        }
+                    },
+                    {
+                        "@name": "service-mode-qualifier",
+                        "type": {
+                            "@name": "ioa-fac-common:service-mode-qualifier"
+                        },
+                        "default": {
+                            "@value": "none"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Service mode qualifier for the ethernet facility."
+                        }
+                    },
+                    {
+                        "@name": "max-packet-length",
+                        "type": {
+                            "@name": "uint16",
+                            "range": {
+                                "@value": "1280..18000"
+                            }
+                        },
+                        "units": {
+                            "@name": "octets"
+                        },
+                        "default": {
+                            "@value": "1518"
+                        },
+                        "description": {
+                            "text": "Maximum transfer unit for ethernet facility, in octets."
+                        }
+                    },
+                    {
+                        "@name": "speed",
+                        "type": {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "3"
+                            }
+                        },
+                        "units": {
+                            "@name": "Gbit/s"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The speed/rate of the Ethernet client interfaces."
+                        }
+                    },
+                    {
+                        "@name": "fec-ability",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "supported",
+                                    "value": {
+                                        "@value": "10"
+                                    }
+                                },
+                                {
+                                    "@name": "not-supported",
+                                    "value": {
+                                        "@value": "20"
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "not-supported"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Indicates the Ethernet client's capability to support FEC (Forward Error Correction)."
+                        }
+                    },
+                    {
+                        "@name": "fec-mode",
+                        "type": {
+                            "@name": "ioa-common:enable-switch"
+                        },
+                        "default": {
+                            "@value": "disabled"
+                        },
+                        "description": {
+                            "text": "The configured FEC mode on the Ethernet client. Default is dependent on configured client type."
+                        },
+                        "reference": {
+                            "text": "IEEE 802.3bj RS-FEC"
+                        }
+                    },
+                    {
+                        "@name": "tx-mapping-mode",
+                        "type": {
+                            "@name": "ioa-fac-common:mapping-mode"
+                        },
+                        "description": {
+                            "text": "The tx mapping mode of client port. The possible values are dependent on the HW and configuration."
+                        }
+                    },
+                    {
+                        "@name": "expected-mapping-mode",
+                        "type": {
+                            "@name": "ioa-fac-common:mapping-mode"
+                        },
+                        "description": {
+                            "text": "The expected mapping mode of client port. The possible values are dependent on the HW and configuration."
+                        }
+                    },
+                    {
+                        "@name": "time-slots",
+                        "type": {
+                            "@name": "ioa-common:number-list"
+                        },
+                        "description": {
+                            "text": "Time slots of the ethernet."
+                        }
+                    },
+                    {
+                        "@name": "line-port",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "../../../equipment/card/port/name"
+                            }
+                        },
+                        "description": {
+                            "text": "Specify the line port for the client. Can only be configured when mapping mode is openZR+."
+                        }
+                    },
+                    {
+                        "@name": "fec-degraded-ser-monitoring",
+                        "type": {
+                            "@name": "ioa-common:enable-switch"
+                        },
+                        "default": {
+                            "@value": "disabled"
+                        },
+                        "description": {
+                            "text": "Allows to enable monitoring for FEC-DEGRADED-SER alarm."
+                        }
+                    },
+                    {
+                        "@name": "fec-degraded-ser-activate-threshold",
+                        "type": {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "10"
+                            },
+                            "range": {
+                                "@value": "0.0000000001..0.0001"
+                            }
+                        },
+                        "units": {
+                            "@name": "averageSER"
+                        },
+                        "default": {
+                            "@value": "0.00001"
+                        },
+                        "description": {
+                            "text": "FEC-DEGRADED-SER alarm asserted if average SER, computed over accumulated\nFEC symbol errors in the monitoring period exceed this threshold."
+                        }
+                    },
+                    {
+                        "@name": "fec-degraded-ser-deactivate-threshold",
+                        "type": {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "11"
+                            },
+                            "range": {
+                                "@value": "0.00000000008..0.00008"
+                            }
+                        },
+                        "units": {
+                            "@name": "averageSER"
+                        },
+                        "default": {
+                            "@value": "0.000008"
+                        },
+                        "description": {
+                            "text": "FEC-DEGRADED-SER alarm cleared if average SER, computed over accumulated FEC\nsymbol errors in the monitoring period is below this threshold."
+                        }
+                    },
+                    {
+                        "@name": "fec-degraded-ser-monitoring-period",
+                        "type": {
+                            "@name": "uint8",
+                            "range": {
+                                "@value": "1..50"
+                            }
+                        },
+                        "units": {
+                            "@name": "seconds"
+                        },
+                        "default": {
+                            "@value": "10"
+                        },
+                        "description": {
+                            "text": "Monitoring period duration over which FEC symbol errors are accumulated for asserting or clearing of FEC-DEGRADED-SER alarm."
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

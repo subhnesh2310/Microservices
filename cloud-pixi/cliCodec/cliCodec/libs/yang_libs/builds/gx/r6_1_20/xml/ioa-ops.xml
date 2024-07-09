@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-ops"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-ops="http://infinera.com/yang/ioa/ops"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-fac-common="http://infinera.com/yang/ioa/facilities-common">
+  <namespace uri="http://infinera.com/yang/ioa/ops"/>
+  <prefix value="ioa-ops"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-facilities-common">
+    <prefix value="ioa-fac-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG definitions for Optical Physical Section (OPS) facilities.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <grouping name="ops">
+    <description>
+      <text>A re-usable grouping that formulates the basic OPS facility structure.</text>
+    </description>
+    <list name="ops">
+      <key value="name"/>
+      <description>
+        <text>OPS: Optical Physical Section facility.</text>
+      </description>
+      <reference>
+        <text>ITU-T G.798; ITU-T G.709 Table XII.1 -- Terminology mapping</text>
+      </reference>
+      <uses name="ioa-fac-common:facilities-common-attributes"/>
+      <uses name="ioa-common:arc"/>
+      <leaf name="role">
+        <type name="enumeration">
+          <enum name="general-purpose">
+            <value value="1"/>
+            <description>
+              <text>Indicates the underlying (L0) port may be used for express connections,
+or to add/ drop traffic.</text>
+            </description>
+          </enum>
+          <enum name="tributary">
+            <value value="2"/>
+            <description>
+              <text>Single Wavlength.
+Indicates the underlying (L0) port is connected to a transponder,
+or ellegible to be connected to a transponder.</text>
+            </description>
+          </enum>
+          <enum name="multi-carrier">
+            <value value="3"/>
+            <description>
+              <text>Multiple Wavlength.
+Indicates the underlying (L0) port is connected to several carriers,
+either directly or indirectly (using a coupler/ splitter or AWG).
+</text>
+            </description>
+          </enum>
+        </type>
+        <default value="general-purpose"/>
+        <description>
+          <text>Allows the user to configure:
+- tributary: a single add/ drop to a local transponder, or to a remote transponder;
+local transponder: using port.external-connectivity = no;
+remote transponder: using port.external-connectivity = yes;
+
+- multi-carrier: multiple-carriers on the underlying (filter) port;
+locally connected filter: using port.external-connectivity = no;
+remote (disaggregated) filter: using port.external-connectivity = yes;
+
+- general-purpose: other cases:
+express cross-connection to another filter (created, or to be created.)
+</text>
+        </description>
+      </leaf>
+      <leaf name="supported-roles">
+        <type name="bits">
+          <bit name="general-purpose">
+            <position value="0"/>
+            <description>
+              <text>role general-purpose supported</text>
+            </description>
+          </bit>
+          <bit name="tributary">
+            <position value="1"/>
+            <description>
+              <text>role tributary supported</text>
+            </description>
+          </bit>
+          <bit name="multi-carrier">
+            <position value="2"/>
+            <description>
+              <text>role multi-carrier supported</text>
+            </description>
+          </bit>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>The SYSTEM exposes what configurations are possible, for the purpose
+of managers being able to offer the appropriate options for the configuration of OPS role.
+Bits indicate the role possibilities:
+- this is fully dependent on card (and sometimes on card-mode), refer to the 'portsdata' definition.
+</text>
+        </description>
+      </leaf>
+    </list>
+  </grouping>
+</module>

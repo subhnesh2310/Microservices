@@ -1,0 +1,202 @@
+{
+    "telemetry-system": {
+        "destination-groups": {
+            "destination-group": {
+                "group-id": {
+                    "type": {
+                        "ptype": "str"
+                    },
+                    "isList": false,
+                    "description": "Unique identifier for the destination group",
+                    "key": true,
+                    "mandatory": true,
+                    "config": true,
+                    "default": "dialoutserver",
+                    "namespace": null,
+                    "hardcode": false
+                },
+                "config": {
+                    "group-id": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Unique identifier for the destination group",
+                        "key": true,
+                        "mandatory": true,
+                        "config": true,
+                        "default": "dialoutserver",
+                        "namespace": null,
+                        "hardcode": false
+                    }
+                },
+                "destinations": {
+                    "destination": {
+                        "destination-address": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "IP address of the telemetry stream destination",
+                            "key": false,
+                            "mandatory": true,
+                            "config": true,
+                            "default": "1.1.1.1",
+                            "namespace": null,
+                            "hardcode": false
+                        },
+                        "destination-port": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "Protocol (udp or tcp) port number for the telemetry stream destination",
+                            "key": false,
+                            "mandatory": true,
+                            "config": true,
+                            "default": 58888,
+                            "namespace": null,
+                            "hardcode": false
+                        },
+                        "config": {
+                            "destination-address": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "IP address of the telemetry stream destination",
+                                "key": false,
+                                "mandatory": true,
+                                "config": true,
+                                "default": "1.1.1.1",
+                                "namespace": null,
+                                "hardcode": false
+                            },
+                            "destination-port": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "Protocol (udp or tcp) port number for the telemetry stream destination",
+                                "key": false,
+                                "mandatory": true,
+                                "config": true,
+                                "default": 58888,
+                                "namespace": null,
+                                "hardcode": false
+                            },
+                            "protocol": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "gnmi-dial-out-tunnel"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Dial-out-server session type.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "gnmi-dial-out-tunnel",
+                                "namespace": {
+                                    "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                                    "prefix": null
+                                },
+                                "hardcode": false
+                            },
+                            "retry-policy": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "progressive-back-off",
+                                        "retry-then-stop",
+                                        "retry-forever"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Retry policy after a timeout.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "progressive-back-off",
+                                "namespace": {
+                                    "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                                    "prefix": null
+                                },
+                                "hardcode": false
+                            },
+                            "retry": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "Number of retries before giving up.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": 3,
+                                "namespace": {
+                                    "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                                    "prefix": null
+                                },
+                                "hardcode": false
+                            },
+                            "timeout": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "Wait time until timeout.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": 10,
+                                "namespace": {
+                                    "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                                    "prefix": null
+                                },
+                                "hardcode": false
+                            },
+                            "auto-connect": {
+                                "type": {
+                                    "ptype": "bool"
+                                },
+                                "isList": false,
+                                "description": "If true, automatically tries to connect to this dial-out-server. Note that a server with auto-connect false can still be connected manually via the call-home RPC.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": true,
+                                "namespace": {
+                                    "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                                    "prefix": null
+                                },
+                                "hardcode": false
+                            },
+                            "alarm-report-control": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": ["allowed", "inhibited"]
+                                },
+                                "isList": false,
+                                "description": "Controls the reporting of alarms for this particular object.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "allowed",
+                                "namespace": {
+                                    "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                                    "prefix": null
+                                },
+                                "hardcode": false
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "namespace": {
+            "namespace": "http://openconfig.net/yang/telemetry"
+        }
+    }
+}

@@ -1,0 +1,137 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "certificate-name": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Specifies the name of the certificate to be generated. Using existing name implies rotation.\nNOTE: When importing the signed certificate at a later step, the exact same certificate-name needs to be used.",
+            "mandatory": true
+        },
+        "signature-hash-algorithm": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "sha256",
+                    "sha384",
+                    "sha512",
+                    "sha1"
+                ]
+            },
+            "isList": false,
+            "description": "Hash algorithm to be used. Default value depends on the selected key-algorithm.",
+            "mandatory": false
+        },
+        "metadata-template": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "from-existing-certificate",
+                    "from-openssl-cnf",
+                    "generic",
+                    "generic-tls-server",
+                    "generic-tls-client",
+                    "generic-ikev2-identity"
+                ]
+            },
+            "isList": false,
+            "description": "Selects the possible sources for the CSR metadata, including reusing it from\nan existing certificate, loading from an openssl cnf file, or using a generic template which\ndefines the metadata defaults.\nIn all cases except for 'from-openssl-cnf', it is possible to override the metadata individual\nparameters by providing the metadata parameters (subject, SAN, etc) explicitly.",
+            "mandatory": false
+        },
+        "metadata-from-certificate": {
+            "type": {
+                "ptype": "unknown",
+                "leafref": "/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:certificates/ioa-ne:local-certificate/ioa-ne:id"
+            },
+            "isList": false,
+            "description": "A local-certificate id to be used as metadata source. Metadata details can be overridden separately.",
+            "mandatory": false
+        },
+        "metadata-from-cnf": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Multi-line string input of cnf with metadata. Metadata details can be overridden separately.",
+            "mandatory": false
+        },
+        "subject": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "The certificate subject. The common name (CN) RDN is *mandatory*. Each relative DN must have a prefix slash (/).\nExample a minimal valid subject (contains CN only):\n   '/CN=Infinera'\nAn example with all supported RDN fields:\n   '/CN=InfineraRoot/C=US/ST=California/L=Sunnyvale/O=InfineraCorporation/OU=InfineraR&D'",
+            "mandatory": false
+        },
+        "SAN": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "The certificate SAN (Subject Alternate Name) fields.\nSANs are specified as Type-Value comma separated list. Valid types are 'IP', 'DNS' and 'otherName'.\nExamples: SAN='IP:127.0.0.1,DNS:localhost'\n SAN='dns:GX-10-4,otherName:1.3.6.1.4.1.21296.1.2.2.1.2;UTF8:GX-10-4'",
+            "mandatory": false
+        },
+        "key-usage": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "digitalSignature",
+                    "nonRepudiation",
+                    "keyEncipherment",
+                    "dataEncipherment",
+                    "keyAgreement",
+                    "keyCertSign",
+                    "cRLSign",
+                    "encipherOnly",
+                    "decipherOnly"
+                ]
+            },
+            "isList": true,
+            "description": "The Key Usage type(s) for the certificate.\nDefault is derived from the metadata-template parameter.",
+            "mandatory": false
+        },
+        "extended-key-usage": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "serverAuth",
+                    "clientAuth",
+                    "codeSigning",
+                    "emailProtection",
+                    "timeStamping",
+                    "OCSPSigning"
+                ]
+            },
+            "isList": true,
+            "description": "The Extended Key Usage type(s) for the certificate.\nDefault is derived from the metadata-template parameter.",
+            "mandatory": false
+        },
+        "key-algorithm": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "rsa4096",
+                    "rsa3072",
+                    "rsa2048",
+                    "eccp256",
+                    "eccp384",
+                    "eccp521"
+                ]
+            },
+            "isList": false,
+            "description": "Specifies the algorithm to be used for a new key pair for this CSR.",
+            "mandatory": false
+        },
+        "key-from-certificate": {
+            "type": {
+                "ptype": "unknown",
+                "leafref": "/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:certificates/ioa-ne:local-certificate/ioa-ne:id"
+            },
+            "isList": false,
+            "description": "Allows to reuse the key pair from an existing local-certificate.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

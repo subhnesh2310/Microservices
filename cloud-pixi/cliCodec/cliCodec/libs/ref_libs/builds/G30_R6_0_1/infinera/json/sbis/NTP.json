@@ -1,0 +1,69 @@
+{
+    "ne": {
+        "system": {
+            "ntp": {
+                "ntp-enabled": {
+                    "type": {
+                        "ptype": "bool"
+                    },
+                    "isList": false,
+                    "description": "Whether ntp is enabled.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": true,
+                    "default": true,
+                    "hardcode": false,
+                    "namespace": null
+                },
+                "ntp-auth-enabled": {
+                    "type": {
+                        "ptype": "bool"
+                    },
+                    "isList": false,
+                    "description": "Whether NTP authentication is enabled.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": true,
+                    "default": false,
+                    "hardcode": false,
+                    "namespace": null
+                },
+                "ntp-active-server": {
+                    "type": {
+                        "ptype": "str"
+                    },
+                    "isList": false,
+                    "description": "Currently active NTP server.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": false,
+                    "default": "",
+                    "hardcode": false,
+                    "namespace": null
+                },
+                "assignment-method": {
+                    "type": {
+                        "ptype": "str",
+                        "values": [
+                            "both",
+                            "manual",
+                            "dhcp"
+                        ]
+                    },
+                    "isList": false,
+                    "description": "The system would contain manual and dhcp configured values.\nSystem can use those onfigurations/values defined by assignment-method attributes.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": true,
+                    "default": "both",
+                    "hardcode": false,
+                    "namespace": null
+                }
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

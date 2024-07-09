@@ -1,0 +1,93 @@
+{
+    "ne": {
+        "system": {
+            "networking": {
+                "dns": {
+                    "dns-server": [
+                        {
+                            "address": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "DNS address.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "namespace": null,
+                            "origin": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "manual",
+                                        "dhcp"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "DNS address assignment method, user can convert\nDHCP configured DNS entry into a manual configured  by changing this attribute.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ],
+                    "enabled": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "Whether DNS is enabled.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": true,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "search": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "DNS-search-suffix name, should contain atleast single dot.\n  To clear value, set to empty string.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "assignment-method": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "both",
+                                "manual",
+                                "dhcp"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The system would contain manual and dhcp configured values.\nSystem can use those onfigurations/values defined by assignment-method attributes.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "both",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

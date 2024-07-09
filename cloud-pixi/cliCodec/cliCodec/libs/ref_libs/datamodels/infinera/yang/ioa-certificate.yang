@@ -1,0 +1,363 @@
+module ioa-certificate {
+    namespace "http://infinera.com/yang/ioa/certificate";
+    prefix ioa-cert;
+
+    import ietf-yang-types { prefix yang; }
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module covering certificate management.";
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-09-17" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.1";
+    }
+
+
+    typedef allowed-key-lengths {
+        type enumeration {
+            enum rsa2048 {
+                value 1;
+            }
+            enum rsa3072 {
+                value 2;
+            }
+            enum rsa4096 {
+                value 3;
+            }
+            enum ecdsa256 {
+                value 4;
+            }
+            enum ecdsa384 {
+                value 5;
+            }
+            enum ecdsa521 {
+                value 6;
+            }
+        }
+        description
+            "Public/private key length(only for allowed key types).";
+    }
+
+    typedef public-key-types {
+        type enumeration {
+            enum rsa {
+                value 1;
+            }
+            enum ecdsa {
+                value 2;
+            }
+        }
+        description
+            "Public/private key type for X509v3 certificate and SSHv2 host key.";
+    }
+
+    typedef cert-subject-name {
+        type string {
+            length "0..1024";
+        }
+        description
+            "A custom type to represent X.500 distinguished names (DN).";
+        reference
+            "X.500, RFC 5280";
+    }
+
+    grouping x509-certificate {
+        leaf id {
+            type ioa-common:certificate-name;
+            description
+                "A unique object identifier for the certificate.";
+        }
+        leaf version {
+            type enumeration {
+                enum v3 {
+                    value 1;
+                }
+            }
+            
+            default v3;
+            config false;
+            description
+                "X509 certificate version.";
+        }
+        leaf serial-number {
+            type string {
+                length "0..100";
+            }
+            config false;
+            description
+                "Ascii hexadecimal string representing a positive (long) integer assigned by the CA.
+                 It must be unique for each certificate issued by a given CA (i.e., the issuer name and
+                 serial number identify a unique certificate)";
+            reference
+                "Section 4.1.2.2 in RFC 5280";
+        }
+        leaf subject-name {
+            type cert-subject-name;
+            config false;
+            description
+                "The subject field identifies the entity
+                 associated with the public key stored in the subject
+                 public key field.";
+            reference
+                "Section 4.1.2.6 in RFC 5280";
+        }
+        leaf issuer {
+            type cert-subject-name;
+            config false;
+            description
+                "The issuer name identifies the entity that has signed
+                 and issued the certificate. Issuers (such as a CA or
+                 an RA) also issue CRLs.";
+            reference
+                "Section 4.1.2.4 in RFC 5280";
+        }
+        leaf valid-from {
+            type yang:date-and-time;
+            config false;
+            description
+                "The date from which the certificate is valid.";
+        }
+        leaf valid-to {
+            type yang:date-and-time;
+            config false;
+            description
+                "The date after which the certificate is deemed to have expired.";
+        }
+        leaf status {
+            type enumeration {
+                enum in-use {
+                    value 1;
+                }
+                enum unused {
+                    value 2;
+                }
+                enum revoked {
+                    value 3;
+                }
+                enum expired {
+                    value 4;
+                }
+                enum available {
+                    value 5;
+                }
+            }
+            config false;
+            description
+                "The current status of the X509v3 certificate.";
+            reference
+                "THANOSSEC-225";
+        }
+        leaf public-key-length {
+            type enumeration {
+                enum rsa2048 {
+                    value 1;
+                }
+                enum rsa3072 {
+                    value 2;
+                }
+                enum rsa4096 {
+                    value 3;
+                }
+                enum ecdsa256 {
+                    value 4;
+                }
+                enum ecdsa384 {
+                    value 5;
+                }
+                enum ecdsa521 {
+                    value 6;
+                }
+            }
+            config false;
+            description
+                "X509v3 certificate public key algorithm and supported key length.";
+            reference
+                "Section 2.3 in RFC 3279.";
+        }
+        leaf public-key-type {
+            type enumeration {
+                enum rsa {
+                    value 1;
+                }
+                enum ecdsa {
+                    value 2;
+                }
+                enum rsassa-pss {
+                    value 3;
+                }
+            }
+            config false;
+            description
+                "Public/private key type for X509v3 certificate.";
+        }
+        leaf signature-key-type {
+            type enumeration {
+                enum rsa {
+                    value 1;
+                }
+                enum ecdsa {
+                    value 2;
+                }
+                enum rsassa-pss {
+                    value 3;
+                }
+            }
+            config false;
+            description
+                "Signature Algorithm key type which signed this X509v3 certificate.";
+        }
+        leaf signature-hash-algorithm {
+            type enumeration {
+                enum sha256 {
+                    value 1;
+                }
+                enum sha384 {
+                    value 2;
+                }
+                enum sha512 {
+                    value 3;
+                }
+            }
+            config false;
+            description
+                "Hash algorithm used for signing this X509v3 certificate.";
+        }
+        leaf certificate-bytes {
+            type string {
+                length "0..16384";
+            }
+            config false;
+            description
+                "A custom type that encodes the entire X.509v3 certificate
+                 as string in PEM(base64 encoding) format:
+
+                 -----BEGIN CERTIFICATE-----
+                 ...base64 encoded X509v3 certificate....
+                 -----END CERTIFICATE-----
+                ";
+        }
+    }
+
+    grouping secure-applications {
+        container secure-applications {
+            description
+                "A collection of secured applications which
+                 uses X509v3 certificate as its digital identity";
+            list secure-application {
+                key "id";
+                description
+                    "A secured application represents which
+                     uses X509v3 certificate as its digital identity";
+                leaf id {
+                    type string {
+                        length "1..20";
+                    }
+                    description
+                        "A unique object identifier for the secure application.";
+                }
+                leaf type {
+                    type enumeration {
+                        enum server {
+                            value 1;
+                            description
+                                "Secure application is a server.";
+                        }
+                        enum client {
+                            value 2;
+                            description
+                                "Secure application is a client.";
+                        }
+                    }
+                    default server;
+                    config false;
+                    description
+                        "Specifies whether secure application acts as a server or client.";
+                }
+                leaf active-certificate-id {
+                    type string {
+                        length "0..128";
+                    }
+                    description
+                        "Foreign Key pointing to the id of the current active local certificate in local-certificate list.";
+                }
+            }
+        }
+    }
+
+    grouping subject-alternative-names {
+        leaf subject-alternative-names {
+            type string {
+                length "0..4096";
+            }
+            config false;
+            description
+                "Contains a list of subject alternative name(X509v3 extension SAN) entries 
+                separated by <SPACE><PIPE><SPACE> delimiters (e.g. 'URI:https://www.example.com | DNS:example.com').";
+        }
+    }
+
+    grouping certificates {
+        container certificates {
+            description
+                "All system managed local/trusted/peer X509v3 certificates on the system
+                 that were imported by download mechanism in PKCS#12 or PKCS#7 secure bundles.";
+            list trusted-certificate {
+                key "id";
+                description
+                    "X509v3 CA(Root and Intermediate) certificate that the system trusts.";
+                uses x509-certificate;
+                uses ioa-common:arc;
+                uses ioa-common:label;
+            }
+            list local-certificate {
+                key "id";
+                description
+                    "X509v3 end-entity certificate that represents a one of
+                     various secure application identities.";
+                uses x509-certificate;
+                leaf self-signed {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "True if certificate is self-signed (does not have a trust chain)";
+                }
+                uses subject-alternative-names;
+                uses ioa-common:arc;
+                uses ioa-common:label;
+            }
+            list peer-certificate {
+                key "id";
+                description
+                    "X509v3 end-entity certificate that represents a trusted 'remote peer' certificate
+                     for L1 encryption secure application.";
+                uses x509-certificate;
+                uses subject-alternative-names;
+                leaf white-listed {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "If true, peer-certificate does not have an associated trust-chain, and was explicitly white-listed at import time. 
+                    Otherwise, it has an associated trust-chain.";
+                }
+                uses ioa-common:arc;
+                uses ioa-common:label;
+            }
+            uses secure-applications;
+        }
+    }
+}

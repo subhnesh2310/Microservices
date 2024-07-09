@@ -1,0 +1,495 @@
+{
+    "module": {
+        "@name": "ioa-l0",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-l0": "http://infinera.com/yang/ioa/l0",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/l0"
+        },
+        "prefix": {
+            "@value": "ioa-l0"
+        },
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG definitions for common Layer 0 functions."
+        },
+        "revision": {
+            "@date": "2022-10-31",
+            "description": {
+                "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+            }
+        },
+        "typedef": [
+            {
+                "@name": "optical-power-actual",
+                "type": {
+                    "@name": "decimal64",
+                    "fraction-digits": {
+                        "@value": "2"
+                    },
+                    "range": {
+                        "@value": "-99.00..99.00"
+                    }
+                },
+                "units": {
+                    "@name": "dBm"
+                },
+                "default": {
+                    "@value": "-99"
+                },
+                "description": {
+                    "text": "A custom data type that can be used for optical Tx/Rx power attributes.\n-99.00 means no power."
+                }
+            },
+            {
+                "@name": "optical-power-config",
+                "type": {
+                    "@name": "union",
+                    "type": [
+                        {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "not-specified",
+                                "value": {
+                                    "@value": "0"
+                                },
+                                "description": {
+                                    "text": "Not Applicable/ Not specified."
+                                }
+                            }
+                        },
+                        {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "2"
+                            },
+                            "range": {
+                                "@value": "-55.00..55.00"
+                            }
+                        }
+                    ]
+                },
+                "units": {
+                    "@name": "dBm"
+                },
+                "default": {
+                    "@value": "not-specified"
+                },
+                "description": {
+                    "text": "A custom data type that can be used for configuring optical Tx/Rx power attributes."
+                }
+            },
+            {
+                "@name": "optical-power-raman",
+                "type": {
+                    "@name": "union",
+                    "type": [
+                        {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "not-applicable",
+                                "value": {
+                                    "@value": "0"
+                                },
+                                "description": {
+                                    "text": "Not Applicable/ Not specified."
+                                }
+                            }
+                        },
+                        {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "2"
+                            },
+                            "range": {
+                                "@value": "-99.00..99.00"
+                            }
+                        }
+                    ]
+                },
+                "units": {
+                    "@name": "dBm"
+                },
+                "default": {
+                    "@value": "not-applicable"
+                },
+                "description": {
+                    "text": "A custom data type that can be used for configuring optical Tx/Rx power attributes;\nThis is higher than the usual optical-power-config range (-55 .. 55 dBm)."
+                }
+            },
+            {
+                "@name": "frequency-MHz",
+                "type": {
+                    "@name": "uint32"
+                },
+                "units": {
+                    "@name": "MHz"
+                },
+                "description": {
+                    "text": "Frequency value in MHz."
+                }
+            },
+            {
+                "@name": "type-of-attenuation",
+                "type": {
+                    "@name": "decimal64",
+                    "fraction-digits": {
+                        "@value": "2"
+                    },
+                    "range": {
+                        "@value": "0..30"
+                    }
+                },
+                "units": {
+                    "@name": "dB"
+                },
+                "default": {
+                    "@value": "0"
+                },
+                "description": {
+                    "text": "Attenuation."
+                }
+            },
+            {
+                "@name": "attenuation-mon",
+                "type": {
+                    "@name": "union",
+                    "type": [
+                        {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "not-applicable",
+                                "value": {
+                                    "@value": "0"
+                                },
+                                "description": {
+                                    "text": "Not Applicable/ Not specified."
+                                }
+                            }
+                        },
+                        {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "2"
+                            },
+                            "range": {
+                                "@value": "0..55"
+                            }
+                        }
+                    ]
+                },
+                "units": {
+                    "@name": "dB"
+                },
+                "default": {
+                    "@value": "not-applicable"
+                },
+                "description": {
+                    "text": "Attenuation monitoring"
+                }
+            },
+            {
+                "@name": "actual-psd",
+                "type": {
+                    "@name": "union",
+                    "type": [
+                        {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "not-applicable",
+                                "value": {
+                                    "@value": "0"
+                                },
+                                "description": {
+                                    "text": "Not Applicable/ Not specified/ Unknown."
+                                }
+                            }
+                        },
+                        {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "2"
+                            }
+                        }
+                    ]
+                },
+                "units": {
+                    "@name": "nW/GHz"
+                },
+                "default": {
+                    "@value": "not-applicable"
+                },
+                "description": {
+                    "text": "The actual Power Spectral Density."
+                }
+            },
+            {
+                "@name": "span-loss",
+                "type": {
+                    "@name": "decimal64",
+                    "fraction-digits": {
+                        "@value": "2"
+                    },
+                    "range": {
+                        "@value": "0..80|99"
+                    }
+                },
+                "units": {
+                    "@name": "dB"
+                },
+                "default": {
+                    "@value": "0.0"
+                },
+                "description": {
+                    "text": "Span Loss."
+                }
+            },
+            {
+                "@name": "span-loss-info",
+                "type": {
+                    "@name": "decimal64",
+                    "fraction-digits": {
+                        "@value": "2"
+                    },
+                    "range": {
+                        "@value": "0..99"
+                    }
+                },
+                "units": {
+                    "@name": "dB"
+                },
+                "description": {
+                    "text": "Span Loss information; 99 dB indicates OSC LOS."
+                }
+            },
+            {
+                "@name": "fiber-type",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "not-applicable",
+                            "value": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "Not Applicable"
+                            }
+                        },
+                        {
+                            "@name": "auto",
+                            "value": {
+                                "@value": "1"
+                            },
+                            "description": {
+                                "text": "Automatic fiber-type: only for OTDR"
+                            }
+                        },
+                        {
+                            "@name": "SSMF",
+                            "value": {
+                                "@value": "2"
+                            },
+                            "description": {
+                                "text": "Standard Single Mode Fiber"
+                            }
+                        },
+                        {
+                            "@name": "LEAF",
+                            "value": {
+                                "@value": "3"
+                            },
+                            "description": {
+                                "text": "Large Effective Area Fiber"
+                            }
+                        },
+                        {
+                            "@name": "TWRS",
+                            "value": {
+                                "@value": "4"
+                            },
+                            "description": {
+                                "text": "True Wave Reduced Slope"
+                            }
+                        },
+                        {
+                            "@name": "TWC",
+                            "value": {
+                                "@value": "5"
+                            },
+                            "description": {
+                                "text": "True Wave Classic"
+                            }
+                        },
+                        {
+                            "@name": "AllWave",
+                            "value": {
+                                "@value": "6"
+                            },
+                            "description": {
+                                "text": "AllWave"
+                            }
+                        },
+                        {
+                            "@name": "DSF",
+                            "value": {
+                                "@value": "7"
+                            },
+                            "description": {
+                                "text": "Dispersion Shifted Fiber"
+                            }
+                        },
+                        {
+                            "@name": "LS",
+                            "value": {
+                                "@value": "8"
+                            },
+                            "description": {
+                                "text": "LS Fiber"
+                            }
+                        },
+                        {
+                            "@name": "PureSilica",
+                            "value": {
+                                "@value": "9"
+                            },
+                            "description": {
+                                "text": "Pure Silica"
+                            }
+                        },
+                        {
+                            "@name": "TWReach",
+                            "value": {
+                                "@value": "10"
+                            },
+                            "description": {
+                                "text": "True Wave Reach"
+                            }
+                        },
+                        {
+                            "@name": "VistaCor",
+                            "value": {
+                                "@value": "11"
+                            },
+                            "description": {
+                                "text": "VistaCor"
+                            }
+                        },
+                        {
+                            "@name": "Teralight",
+                            "value": {
+                                "@value": "12"
+                            },
+                            "description": {
+                                "text": "Teralight"
+                            }
+                        },
+                        {
+                            "@name": "DrakaLL",
+                            "value": {
+                                "@value": "13"
+                            },
+                            "description": {
+                                "text": "Draka Long Line"
+                            }
+                        },
+                        {
+                            "@name": "TWPlus",
+                            "value": {
+                                "@value": "14"
+                            },
+                            "description": {
+                                "text": "True Wave Plus"
+                            }
+                        },
+                        {
+                            "@name": "TWMinus",
+                            "value": {
+                                "@value": "15"
+                            },
+                            "description": {
+                                "text": "True Wave Minus"
+                            }
+                        },
+                        {
+                            "@name": "PSLC",
+                            "value": {
+                                "@value": "16"
+                            },
+                            "description": {
+                                "text": "Pure Silice Large Core"
+                            }
+                        },
+                        {
+                            "@name": "ULL",
+                            "value": {
+                                "@value": "17"
+                            },
+                            "description": {
+                                "text": "Ultra Low Loss fiber"
+                            }
+                        },
+                        {
+                            "@name": "not-configured",
+                            "value": {
+                                "@value": "99"
+                            },
+                            "description": {
+                                "text": "Fiber-type is not known, or not configured."
+                            }
+                        }
+                    ]
+                },
+                "default": {
+                    "@value": "not-configured"
+                },
+                "description": {
+                    "text": "Fiber Type\nOTS: It uniquely identifies the fiber-type -- allows PCL to know the intercept and slope.\nOTDR: allows determination of attenuation (dB/ km) for calculation."
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "opm-optical-power-rx",
+                "description": {
+                    "text": "OPR"
+                },
+                "leaf": {
+                    "@name": "power-actual-rx",
+                    "type": {
+                        "@name": "ioa-l0:optical-power-actual"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Optical Power Received, actual measurement."
+                    }
+                }
+            },
+            {
+                "@name": "opm-optical-power-tx",
+                "description": {
+                    "text": "OPT"
+                },
+                "leaf": {
+                    "@name": "power-actual-tx",
+                    "type": {
+                        "@name": "ioa-l0:optical-power-actual"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Optical Power Transmitted, actual measurement."
+                    }
+                }
+            }
+        ]
+    }
+}

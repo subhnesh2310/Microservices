@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-tdm"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-tdm="http://infinera.com/yang/ioa/tdm"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-fac-common="http://infinera.com/yang/ioa/facilities-common">
+  <namespace uri="http://infinera.com/yang/ioa/tdm"/>
+  <prefix value="ioa-tdm"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-facilities-common">
+    <prefix value="ioa-fac-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG definitions for OTN optical channel data transport unit (TDM)
+clients in a typical Layer 1 optical transponder.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-06-30">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.2</text>
+    </description>
+  </revision>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <grouping name="tdm-common">
+    <leaf name="speed">
+      <type name="decimal64">
+        <fraction-digits value="3"/>
+      </type>
+      <units name="Gbit/s"/>
+      <config value="false"/>
+      <description>
+        <text>The speed of client interface.</text>
+      </description>
+    </leaf>
+    <leaf name="tx-mapping-mode">
+      <type name="ioa-fac-common:mapping-mode"/>
+      <default value="BMP"/>
+      <description>
+        <text>The tx mapping mode of client port. The possible values are dependent on the HW and configuration.</text>
+      </description>
+    </leaf>
+    <leaf name="expected-mapping-mode">
+      <type name="ioa-fac-common:mapping-mode"/>
+      <default value="BMP"/>
+      <description>
+        <text>The expected mapping mode of client port. The possible values are dependent on the HW and configuration.</text>
+      </description>
+    </leaf>
+    <leaf name="service-mode">
+      <type name="ioa-fac-common:service-mode"/>
+      <default value="none"/>
+      <config value="false"/>
+      <description>
+        <text>Service mode for the tdm facility.</text>
+      </description>
+    </leaf>
+    <leaf name="service-mode-qualifier">
+      <type name="ioa-fac-common:service-mode-qualifier"/>
+      <default value="none"/>
+      <config value="false"/>
+      <description>
+        <text>Service mode qualifier for the tdm facility.</text>
+      </description>
+    </leaf>
+    <leaf name="tti-style">
+      <type name="enumeration">
+        <enum name="1">
+          <value value="1"/>
+          <description>
+            <text>Single-byte trace (used for section access point identifiers with repetitive byte).</text>
+          </description>
+        </enum>
+        <enum name="15">
+          <value value="15"/>
+          <description>
+            <text>16-byte trace (used for section access point identifiers acc. to ITU-T G.831, cl. 3) with the first byte representing the CRC-7, which is auto-calculated, and 15 bytes to be configured.</text>
+          </description>
+        </enum>
+      </type>
+      <default value="1"/>
+      <description>
+        <text>The configured mode of the TTI.</text>
+      </description>
+    </leaf>
+    <leaf name="tim-monitor">
+      <type name="ioa-common:enable-switch"/>
+      <default value="disabled"/>
+      <description>
+        <text>The enable switching of tim defect monitor mode.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="oc">
+    <list name="oc">
+      <key value="name"/>
+      <description>
+        <text>Optical Carrier - level M, e.g. M=48, 192.</text>
+      </description>
+      <uses name="ioa-fac-common:facilities-common-attributes"/>
+      <uses name="ioa-common:arc"/>
+      <leaf name="oc-type">
+        <type name="enumeration">
+          <enum name="OC-48">
+            <value value="1"/>
+          </enum>
+          <enum name="OC-192">
+            <value value="2"/>
+          </enum>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>Type of SONET signal.
+Level N of OC-N (Optical Carrier level N).</text>
+        </description>
+      </leaf>
+      <uses name="tdm-common"/>
+      <uses name="ioa-fac-common:tti-common"/>
+      <uses name="ioa-fac-common:loopback"/>
+      <uses name="ioa-fac-common:loopback-mode"/>
+      <uses name="ioa-fac-common:test-signal">
+        <refine target-node="test-signal-direction">
+          <default value="egress"/>
+        </refine>
+      </uses>
+      <uses name="ioa-common:circuit-id"/>
+    </list>
+  </grouping>
+  <grouping name="stm">
+    <list name="stm">
+      <key value="name"/>
+      <description>
+        <text>Synchronous Transport Module N, e.g. N=16, 64. Reference [ITU-T G.691].</text>
+      </description>
+      <uses name="ioa-fac-common:facilities-common-attributes"/>
+      <uses name="ioa-common:arc"/>
+      <leaf name="stm-type">
+        <type name="enumeration">
+          <enum name="STM-16">
+            <value value="1"/>
+          </enum>
+          <enum name="STM-64">
+            <value value="2"/>
+          </enum>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>The type of SDH signal (STM-N).</text>
+        </description>
+      </leaf>
+      <uses name="tdm-common"/>
+      <uses name="ioa-fac-common:tti-common"/>
+      <uses name="ioa-fac-common:loopback"/>
+      <uses name="ioa-fac-common:loopback-mode"/>
+      <uses name="ioa-fac-common:test-signal">
+        <refine target-node="test-signal-direction">
+          <default value="egress"/>
+        </refine>
+      </uses>
+      <uses name="ioa-common:circuit-id"/>
+    </list>
+  </grouping>
+</module>

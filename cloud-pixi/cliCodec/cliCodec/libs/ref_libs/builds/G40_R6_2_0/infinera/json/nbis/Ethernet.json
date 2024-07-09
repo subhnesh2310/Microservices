@@ -1,0 +1,342 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A generic, configurable name for every facility.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "max_packet_length": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Maximum transfer unit for ethernet facility, in octets.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 1518,
+        "hardcode": false,
+        "argName": "max_packet_length"
+    },
+    "fec_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "enabled"
+            ]
+        },
+        "description": "The configured FEC mode on the Ethernet client. Default is dependent on configured client type.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "fec_mode"
+    },
+    "tx_mapping_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "GMP",
+                "BMP",
+                "openZR+",
+                "FlexE-4x100G",
+                "GFP-F",
+                "GFP-F-extOPU2",
+                "AMP"
+            ]
+        },
+        "description": "The tx mapping mode of client port. The possible values are dependent on the HW and configuration.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "tx_mapping_mode"
+    },
+    "expected_mapping_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "GMP",
+                "BMP",
+                "openZR+",
+                "FlexE-4x100G",
+                "GFP-F",
+                "GFP-F-extOPU2",
+                "AMP"
+            ]
+        },
+        "description": "The expected mapping mode of client port. The possible values are dependent on the HW and configuration.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "expected_mapping_mode"
+    },
+    "time_slots": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Time slots of the ethernet.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "time_slots"
+    },
+    "line_port": {
+        "type": {
+            "ptype": "unknown",
+            "leafref": "../../../equipment/card/port/name"
+        },
+        "description": "Specify the line port for the client. Can only be configured when mapping mode is openZR+.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "line_port"
+    },
+    "fec_degraded_ser_monitoring": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "enabled"
+            ]
+        },
+        "description": "Allows to enable monitoring for FEC-DEGRADED-SER alarm.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "fec_degraded_ser_monitoring"
+    },
+    "fec_degraded_ser_activate_threshold": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "FEC-DEGRADED-SER alarm asserted if average SER, computed over accumulated\nFEC symbol errors in the monitoring period exceed this threshold.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0.00001",
+        "hardcode": false,
+        "argName": "fec_degraded_ser_activate_threshold"
+    },
+    "fec_degraded_ser_deactivate_threshold": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "FEC-DEGRADED-SER alarm cleared if average SER, computed over accumulated FEC\nsymbol errors in the monitoring period is below this threshold.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0.000008",
+        "hardcode": false,
+        "argName": "fec_degraded_ser_deactivate_threshold"
+    },
+    "fec_degraded_ser_monitoring_period": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Monitoring period duration over which FEC symbol errors are accumulated for asserting or clearing of FEC-DEGRADED-SER alarm.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 10,
+        "hardcode": false,
+        "argName": "fec_degraded_ser_monitoring_period"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "loopback": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "none",
+                "facility",
+                "terminal"
+            ]
+        },
+        "description": "Loopback mode.Useful to debug on the fiber connection.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "none",
+        "hardcode": false,
+        "argName": "loopback"
+    },
+    "loopback_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "loopback",
+                "loopback-and-continue"
+            ]
+        },
+        "description": "Indicates loopback action for facility or terminal.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "loopback_mode"
+    },
+    "test_signal_type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "none",
+                "PRBS31Q",
+                "PRBS13Q",
+                "scrambled-idles",
+                "PRBS9",
+                "PRBS31"
+            ]
+        },
+        "description": "The type of test pattern that is injected.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "none",
+        "hardcode": false,
+        "argName": "test_signal_type"
+    },
+    "test_signal_direction": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "ingress",
+                "egress",
+                "both"
+            ]
+        },
+        "description": "The direction of the test signal.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "ingress",
+        "hardcode": false,
+        "argName": "test_signal_direction"
+    },
+    "test_signal_monitoring": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Monitor the incoming test signals for diagnostics.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "test_signal_monitoring"
+    },
+    "lldp_admin_status": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "tx-only",
+                "rx-only",
+                "tx-and-rx",
+                "disabled"
+            ]
+        },
+        "description": "LLDP operational mode for this port.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "lldp_admin_status"
+    },
+    "lldp_ingress_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "snoop",
+                "drop",
+                "snoop-and-drop"
+            ]
+        },
+        "description": "If lldp enabled, define what is the LLDP behavior for this direction.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "lldp_ingress_mode"
+    },
+    "lldp_egress_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "disabled",
+                "snoop",
+                "drop",
+                "snoop-and-drop"
+            ]
+        },
+        "description": "If lldp enabled, define what is the LLDP behavior for this direction.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "lldp_egress_mode"
+    }
+}

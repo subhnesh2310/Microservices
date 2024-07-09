@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-rsc"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-rsc="http://infinera.com/yang/ioa/rsc"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-fac-common="http://infinera.com/yang/ioa/facilities-common"
+        xmlns:ioa-l0="http://infinera.com/yang/ioa/l0">
+  <namespace uri="http://infinera.com/yang/ioa/rsc"/>
+  <prefix value="ioa-rsc"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-facilities-common">
+    <prefix value="ioa-fac-common"/>
+  </import>
+  <import module="ioa-l0">
+    <prefix value="ioa-l0"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG definitions for Raman Supervisory Channel (RSC) facilities.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <grouping name="rsc">
+    <description>
+      <text>A re-usable grouping that formulates the basic Pilot Tone facility structure.</text>
+    </description>
+    <list name="rsc">
+      <key value="name"/>
+      <description>
+        <text>Raman Supervisory Channel: Raman card Pilot Tone facility.</text>
+      </description>
+      <uses name="ioa-fac-common:facilities-common-attributes"/>
+      <uses name="ioa-common:arc"/>
+      <leaf name="rsc-power-rx">
+        <type name="ioa-l0:optical-power-actual"/>
+        <default value="-99"/>
+        <config value="false"/>
+        <description>
+          <text>The received Pilot Tone integrated power.</text>
+        </description>
+      </leaf>
+      <leaf name="rsc-power-tx">
+        <type name="ioa-l0:optical-power-actual"/>
+        <default value="-99"/>
+        <config value="false"/>
+        <description>
+          <text>The transmitted Pilot Tone integrated power.</text>
+        </description>
+      </leaf>
+    </list>
+  </grouping>
+  <grouping name="raman-pump">
+    <description>
+      <text>A re-usable grouping for raman-pump.</text>
+    </description>
+    <list name="pump">
+      <key value="name"/>
+      <description>
+        <text>Raman Pump individual monitoring.</text>
+      </description>
+      <uses name="ioa-fac-common:facilities-common-attributes"/>
+      <uses name="ioa-common:arc"/>
+      <leaf name="pump-type">
+        <type name="enumeration">
+          <enum name="raman-pump">
+            <value value="1"/>
+            <description>
+              <text>(Backward) Raman Pump</text>
+            </description>
+          </enum>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>Type of Pump.</text>
+        </description>
+      </leaf>
+    </list>
+  </grouping>
+</module>

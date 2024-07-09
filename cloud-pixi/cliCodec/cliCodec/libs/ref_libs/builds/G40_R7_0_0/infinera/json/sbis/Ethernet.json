@@ -1,0 +1,581 @@
+{
+    "ne": {
+        "facilities": {
+            "ethernet": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A generic, configurable name for every facility.",
+                        "key": true,
+                        "mandatory": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "client-type": {
+                        "type": {
+                            "ptype": "str",
+                            "identityref": "ETHERNET-CLIENT"
+                        },
+                        "isList": false,
+                        "description": "The protocol type of the Ethernet client.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "service-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "none",
+                                "network-wrapper",
+                                "adaptation",
+                                "switching",
+                                "transport"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Service mode for the ethernet facility.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "transport",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "service-mode-qualifier": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Service mode qualifier for the ethernet facility.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "max-packet-length": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Maximum transfer unit for ethernet facility, in octets.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 1518,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "speed": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The speed/rate of the Ethernet client interfaces.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fec-ability": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "supported",
+                                "not-supported"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Indicates the Ethernet client's capability to support FEC (Forward Error Correction).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "not-supported",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fec-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The configured FEC mode on the Ethernet client. Default is dependent on configured client type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tx-mapping-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "GMP",
+                                "BMP",
+                                "openZR+",
+                                "FlexE-4x100G",
+                                "GFP-F",
+                                "GFP-F-extOPU2",
+                                "AMP",
+                                "iGMP",
+                                "none"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The tx mapping mode of client port. The possible values are dependent on the HW and configuration.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "expected-mapping-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "GMP",
+                                "BMP",
+                                "openZR+",
+                                "FlexE-4x100G",
+                                "GFP-F",
+                                "GFP-F-extOPU2",
+                                "AMP",
+                                "iGMP",
+                                "none"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The expected mapping mode of client port. The possible values are dependent on the HW and configuration.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "time-slots": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Time slots of the ethernet.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "line-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": false,
+                        "description": "Specify the line port for the client. Can only be configured when mapping mode is openZR+.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fec-degraded-ser-monitoring": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Allows to enable monitoring for FEC-DEGRADED-SER alarm.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fec-degraded-ser-activate-threshold": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "FEC-DEGRADED-SER alarm asserted if average SER, computed over accumulated\nFEC symbol errors in the monitoring period exceed this threshold.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.00001",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fec-degraded-ser-deactivate-threshold": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "FEC-DEGRADED-SER alarm cleared if average SER, computed over accumulated FEC\nsymbol errors in the monitoring period is below this threshold.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.000008",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fec-degraded-ser-monitoring-period": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Monitoring period duration over which FEC symbol errors are accumulated for asserting or clearing of FEC-DEGRADED-SER alarm.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 10,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Card that holds this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "managed-by": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "system",
+                                "user"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Describes whether this facility was system created or not.\nOnly user created facilities can be user deleted.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "system",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Ports that hold this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the parent facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supported-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the children facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "loopback": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "none",
+                                "facility",
+                                "terminal"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Loopback mode.Useful to debug on the fiber connection.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "loopback-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "loopback",
+                                "loopback-and-continue"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Indicates loopback action for facility or terminal.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "test-signal-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "none",
+                                "PRBS31Q",
+                                "PRBS13Q",
+                                "scrambled-idles",
+                                "PRBS9",
+                                "PRBS31",
+                                "PRBS31_NONINV"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The type of test pattern that is injected.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "test-signal-direction": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "ingress",
+                                "egress",
+                                "both"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The direction of the test signal.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "ingress",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "test-signal-monitoring": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "Monitor the incoming test signals for diagnostics.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": false,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "lldp-admin-status": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "tx-only",
+                                "rx-only",
+                                "tx-and-rx",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "LLDP operational mode for this port.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "lldp-ingress-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "snoop",
+                                "drop",
+                                "snoop-and-drop"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "If lldp enabled, define what is the LLDP behavior for this direction.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "lldp-egress-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "snoop",
+                                "drop",
+                                "snoop-and-drop"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "If lldp enabled, define what is the LLDP behavior for this direction.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "circuit-id": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "System configured circuit ID, present in XCONs and associated facilities.\nFor facilities, circuit-id is only filled in if an associated XCON exists.\n   Format of this ID is:\n   <timestamp>|<ne-name>|<XCON-AID>|<user-configured-sufix>\n   Example:\n   2020-05-05T21:06:02Z|GX|1-4-T9,1-4-L1-1-ODUji#1|my-suffix\n\n   Timestamp is the NE time at xcon creation, in UTC.\n   If necessary, ne-name will be truncated so that total length remains at 128 characters.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

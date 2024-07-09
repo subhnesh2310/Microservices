@@ -1,0 +1,176 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A generic, configurable name for every facility.",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "required_fiber_type_rx": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "not-applicable",
+                "auto",
+                "SSMF",
+                "LEAF",
+                "TWRS",
+                "TWC",
+                "AllWave",
+                "DSF",
+                "LS",
+                "PureSilica",
+                "TWReach",
+                "VistaCor",
+                "Teralight",
+                "DrakaLL",
+                "TWPlus",
+                "TWMinus",
+                "PSLC",
+                "ULL",
+                "not-configured"
+            ]
+        },
+        "description": "The required Fiber Type on the DWDM Line, with reference for the Rx fiber.\nOnly of relevance if control-mode = auto.\nAnd: when there is no fiber-connection.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "SSMF",
+        "hardcode": false,
+        "argName": "required_fiber_type_rx"
+    },
+    "fiber_length_rx": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Receiving Fiber Length",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unspecified",
+        "hardcode": false,
+        "argName": "fiber_length_rx"
+    },
+    "span_loss_receive": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The Span Loss at the receiving dwdm-line.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "99",
+        "hardcode": false,
+        "argName": "span_loss_receive"
+    },
+    "pilot_tone_span_loss": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The calculated span-loss based on Pilot Tone.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "pilot_tone_span_loss"
+    },
+    "delta_pointloss": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Delta Pointloss (Rx)\nAdditional attenuation that can be determined after turning up pumps.\nThis is the fiber contribution for the pointloss: to be fine tuned in the field.\nThis additional optical attenuation may be due to e.g. bad splice at dwdm-line Rx, higher att. than 0.1 dB.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "not-applicable",
+        "hardcode": false,
+        "argName": "delta_pointloss"
+    },
+    "connected_reference": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Indicates the degree the Raman is connected to.\nIn ILA node-type(s), the direction the Raman is connected to (1 means direction 1-2, 2 means 2-1).",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "connected_reference"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "external_attenuation_rx": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "External Attenuation, configured by the user.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "external_attenuation_rx"
+    },
+    "span_loss_transmit": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Fiber loss on the transmitter side (OTS-so).\nThis is only the loss of the fiber.\nAdditional loss such as coming from patch panel is entered via the external-attenuation parameters.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "span_loss_transmit"
+    }
+}

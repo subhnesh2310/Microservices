@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-amp"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-amp="http://infinera.com/yang/ioa/amp"
+        xmlns:ioa-l0="http://infinera.com/yang/ioa/l0"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-ne-function="http://infinera.com/yang/ioa/ne-function">
+  <namespace uri="http://infinera.com/yang/ioa/amp"/>
+  <prefix value="ioa-amp"/>
+  <import module="ioa-l0">
+    <prefix value="ioa-l0"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-ne-function">
+    <prefix value="ioa-ne-function"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG model describing the amplifier function.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <typedef name="dge-mode-type">
+    <type name="enumeration">
+      <enum name="none"/>
+      <enum name="dge-mode"/>
+    </type>
+  </typedef>
+  <typedef name="gain-range-type">
+    <type name="enumeration">
+      <enum name="standard">
+        <value value="1"/>
+        <description>
+          <text>standard gain</text>
+        </description>
+      </enum>
+      <enum name="low">
+        <value value="2"/>
+        <description>
+          <text>low gain</text>
+        </description>
+      </enum>
+      <enum name="high">
+        <value value="3"/>
+        <description>
+          <text>high gain</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Type of gain-range.</text>
+    </description>
+  </typedef>
+  <typedef name="gain-value">
+    <type name="decimal64">
+      <fraction-digits value="2"/>
+    </type>
+    <units name="dB"/>
+    <default value="0.0"/>
+    <description>
+      <text>A type representing an amplifier gain. 0 dB means no gain (e.g. amplifier not in operation)</text>
+    </description>
+  </typedef>
+  <typedef name="gain-adjustable-value">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="not-applicable">
+          <value value="0"/>
+          <description>
+            <text>Not Applicable/ Not specified.</text>
+          </description>
+        </enum>
+      </type>
+      <type name="decimal64">
+        <fraction-digits value="2"/>
+        <range value="0..30"/>
+      </type>
+    </type>
+    <units name="dB"/>
+    <default value="0.0"/>
+    <description>
+      <text>The adjustable gain value at the EDFA.</text>
+    </description>
+  </typedef>
+  <grouping name="amplifier-list">
+    <list name="amplifier">
+      <key value="name"/>
+      <description>
+        <text>Amplifier container.</text>
+      </description>
+      <uses name="amplifier-common"/>
+      <uses name="ioa-common:arc"/>
+      <leaf name="amplifier-enable">
+        <type name="ioa-common:enable-switch"/>
+        <description>
+          <text>The enable switch of the amplifier.</text>
+        </description>
+      </leaf>
+      <leaf name="control-mode">
+        <type name="enumeration">
+          <enum name="auto-max-pw">
+            <value value="1"/>
+            <description>
+              <text>Automatic Maximum Power.</text>
+            </description>
+          </enum>
+          <enum name="manual">
+            <value value="2"/>
+            <description>
+              <text>Manual gain.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="auto-max-pw"/>
+        <description>
+          <text>Type of control-mode.</text>
+        </description>
+      </leaf>
+      <leaf name="amplifier-mode">
+        <type name="enumeration">
+          <enum name="constant-power">
+            <value value="1"/>
+            <description>
+              <text>Contant Power</text>
+            </description>
+          </enum>
+          <enum name="constant-gain">
+            <value value="2"/>
+            <description>
+              <text>Constant Gain</text>
+            </description>
+          </enum>
+        </type>
+        <default value="constant-gain"/>
+        <config value="false"/>
+        <description>
+          <text>The operating mode of the amplifier (gain or power control).</text>
+        </description>
+      </leaf>
+      <leaf name="pump-state">
+        <type name="ioa-common:enable-switch"/>
+        <default value="disabled"/>
+        <config value="false"/>
+        <description>
+          <text>The state of the pump.</text>
+        </description>
+      </leaf>
+      <leaf name="gain-range-control">
+        <type name="enumeration">
+          <enum name="auto">
+            <value value="1"/>
+            <description>
+              <text>Automatic Gain Range</text>
+            </description>
+          </enum>
+          <enum name="manual">
+            <value value="2"/>
+            <description>
+              <text>Manual Gain Range</text>
+            </description>
+          </enum>
+        </type>
+        <default value="auto"/>
+        <description>
+          <text>Automatic or Manual Gain Range configuration.</text>
+        </description>
+      </leaf>
+      <leaf name="span-loss-control">
+        <when condition="../function = 'pa' or ../function = 'inline'">
+          <description>
+            <text>Only of relevance for inline amplifier(s) and preamp(s).</text>
+          </description>
+        </when>
+        <type name="ioa-common:enable-switch"/>
+        <default value="enabled"/>
+        <description>
+          <text>Span Loss Control configuration.</text>
+        </description>
+      </leaf>
+      <leaf name="gain-range-target">
+        <when condition="../gain-range-control = 'manual'">
+          <description>
+            <text>Gain range specific control is only applicable when gain-range-control is 'manual'.</text>
+          </description>
+        </when>
+        <type name="gain-range-type"/>
+        <default value="standard"/>
+        <description>
+          <text>Gain Range Target</text>
+        </description>
+      </leaf>
+      <leaf name="gain-range-actual">
+        <type name="gain-range-type"/>
+        <config value="false"/>
+        <description>
+          <text>Actual Gain Range</text>
+        </description>
+      </leaf>
+      <leaf name="gain-target">
+        <type name="gain-value">
+          <range value="0..40.0"/>
+        </type>
+        <default value="0.0"/>
+        <description>
+          <text>For manual control mode: setting gain to the amplifier for constant-gain mode.</text>
+        </description>
+      </leaf>
+      <leaf name="gain-operating">
+        <type name="gain-value"/>
+        <default value="0.0"/>
+        <config value="false"/>
+        <description>
+          <text>Operating gain of the amplifier that is the actually configured gain on the amplifier.
+When card is plugged out, or EDFA disabled, gain-operating is 0.0.
+</text>
+        </description>
+      </leaf>
+      <leaf name="optimum-edfa-gain">
+        <type name="decimal64">
+          <fraction-digits value="2"/>
+        </type>
+        <units name="dB"/>
+        <config value="false"/>
+        <description>
+          <text>System reports the optimum EDFA gain the required equipped EDFA has.
+By convention system reports 0 dB when card is not required equipped.
+</text>
+        </description>
+      </leaf>
+      <leaf name="gain-adjustment">
+        <when condition="../control-mode != 'manual'">
+          <description>
+            <text>Only of relevance in automatic control-mode.</text>
+          </description>
+        </when>
+        <type name="gain-value">
+          <range value="-20.00..20.00"/>
+        </type>
+        <default value="0"/>
+        <description>
+          <text>Gain range adjustment:
+For auto control mode: gain offset defined by the user.
+The value is used for adjustment of gain when the amplifier is in automatic control mode, the automatically calculated gain will include offset of this attribute.
+Only supported on amplifiers with 'function' = 'pa' or 'inline'.
+</text>
+        </description>
+      </leaf>
+      <leaf name="amplifier-type">
+        <type name="enumeration">
+          <enum name="fixed-gain-EDFA">
+            <value value="1"/>
+            <description>
+              <text>Fixed Gain EDFA</text>
+            </description>
+          </enum>
+          <enum name="variable-gain-EDFA">
+            <value value="2"/>
+            <description>
+              <text>Variable Gain EDFA</text>
+            </description>
+          </enum>
+        </type>
+        <config value="false"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Type of the amplifier HW.</text>
+        </description>
+      </leaf>
+      <leaf name="output-power-mon">
+        <type name="ioa-l0:optical-power-actual"/>
+        <config value="false"/>
+        <description>
+          <text>Monitored aggregate signal output power.</text>
+        </description>
+      </leaf>
+      <leaf name="output-power-mon-with-ase">
+        <type name="ioa-l0:optical-power-actual"/>
+        <config value="false"/>
+        <description>
+          <text>Monitored aggregate total output power including both signal and ASE.</text>
+        </description>
+      </leaf>
+      <leaf name="input-power-mon">
+        <type name="ioa-l0:optical-power-actual"/>
+        <config value="false"/>
+        <description>
+          <text>Monitored aggregate input power.</text>
+        </description>
+      </leaf>
+      <leaf name="output-voa-attenuation">
+        <type name="ioa-l0:type-of-attenuation"/>
+        <default value="0"/>
+        <description>
+          <text>For control-mode = 'manual': target VOA attenuation at output of the amplifier (line padding VOA).</text>
+        </description>
+      </leaf>
+      <leaf name="output-voa-actual">
+        <type name="ioa-l0:attenuation-mon"/>
+        <default value="not-applicable"/>
+        <config value="false"/>
+        <description>
+          <text>Actual VOA output.</text>
+        </description>
+      </leaf>
+      <leaf name="power-before-output-voa">
+        <type name="ioa-l0:optical-power-actual"/>
+        <config value="false"/>
+        <description>
+          <text>Measured optical power before output VOA.</text>
+        </description>
+      </leaf>
+      <leaf name="interstage-loss">
+        <when condition="/ne/node-type='ILA'">
+          <description>
+            <text>Only of relevance for node-type = ILA</text>
+          </description>
+        </when>
+        <type name="decimal64">
+          <fraction-digits value="2"/>
+        </type>
+        <units name="dB"/>
+        <default value="0"/>
+        <config value="false"/>
+        <description>
+          <text>Amplifier interstage loss.
+</text>
+        </description>
+      </leaf>
+      <leaf name="tilt-control-mode">
+        <type name="enumeration">
+          <enum name="manual">
+            <value value="1"/>
+            <description>
+              <text>User manually controls amplifier tilt</text>
+            </description>
+          </enum>
+          <enum name="auto">
+            <value value="2"/>
+            <description>
+              <text>System implicitly control amplifier tilt per configured fiber parameters</text>
+            </description>
+          </enum>
+          <enum name="auto-planned">
+            <value value="3"/>
+            <description>
+              <text>System implicitly controls amplifier tilt per planning tool configured parameters</text>
+            </description>
+          </enum>
+        </type>
+        <default value="auto"/>
+        <description>
+          <text>Specify the tilt control mode. Defines whether amplifier tilt is automatically set by system or configured manually by the user</text>
+        </description>
+      </leaf>
+      <leaf name="tilt-target">
+        <when condition="../tilt-control-mode = 'manual'">
+          <description>
+            <text>For manual control mode: target tilt of the amplifier.</text>
+          </description>
+        </when>
+        <type name="decimal64">
+          <fraction-digits value="2"/>
+          <range value="-5..5"/>
+        </type>
+        <units name="dB"/>
+        <default value="0"/>
+        <description>
+          <text>For manual control mode: target tilt, to be configured on the amplifier.</text>
+        </description>
+      </leaf>
+      <leaf name="tilt-adjustment">
+        <when condition="../tilt-control-mode != 'manual'">
+          <description>
+            <text>For auto control mode: tilt adjustment of the amplifier.</text>
+          </description>
+        </when>
+        <type name="decimal64">
+          <fraction-digits value="2"/>
+          <range value="-5..5"/>
+        </type>
+        <units name="dB"/>
+        <default value="0"/>
+        <description>
+          <text>Used to offset the target tilt when tilt-control-mode = 'auto' / 'auto-planned'</text>
+        </description>
+      </leaf>
+      <leaf name="tilt-actual">
+        <type name="decimal64">
+          <fraction-digits value="2"/>
+        </type>
+        <units name="dB"/>
+        <default value="0"/>
+        <config value="false"/>
+        <description>
+          <text>Actual setting of tilt on the amplifier.
+Spectrum Tilt (measured by the EDFA): 0 means both no tilt, or amplifier not available.</text>
+        </description>
+      </leaf>
+      <leaf name="raman-signal-gain">
+        <type name="gain-adjustable-value"/>
+        <description>
+          <text>Raman Gain of C-Band (signal)
+- if there is a fiber-connection from/to Raman, the API raman-signal-gain at amplifier needs to be appropriately configured autonomously;
+- if there is no fiber-connection from/to Raman, user reads out the amplifier-raman.raman-signal-gain and should configure it on the amplifier.
+</text>
+        </description>
+      </leaf>
+      <leaf name="raman-osc-gain">
+        <type name="gain-adjustable-value"/>
+        <description>
+          <text>Raman Gain OSC (see raman-signal-gain).</text>
+        </description>
+      </leaf>
+      <list name="supported-gain-range">
+        <key value="gain-range-type"/>
+        <config value="false"/>
+        <description>
+          <text>Supported gain range(s), min. and max. gain</text>
+        </description>
+        <leaf name="gain-range-type">
+          <type name="gain-range-type"/>
+          <description>
+            <text>Type of Gain Range</text>
+          </description>
+        </leaf>
+        <leaf name="gain-range-min">
+          <type name="gain-value"/>
+          <description>
+            <text>The minimum settable gain-target for this type of range ('standard'/ 'low'/ 'high').</text>
+          </description>
+        </leaf>
+        <leaf name="gain-range-max">
+          <type name="gain-value"/>
+          <description>
+            <text>The maximum settable gain-target for this type of range ('standard'/ 'low'/ 'high').</text>
+          </description>
+        </leaf>
+      </list>
+    </list>
+  </grouping>
+  <grouping name="amplifier-common">
+    <description>
+      <text>Generic Amplifier definition.</text>
+    </description>
+    <uses name="ioa-ne-function:ne-function-common-attributes"/>
+    <leaf name="function">
+      <type name="enumeration">
+        <enum name="pa">
+          <value value="1"/>
+          <description>
+            <text>pre-amplifier</text>
+          </description>
+        </enum>
+        <enum name="ba">
+          <value value="2"/>
+          <description>
+            <text>booster (booster-amplifier)</text>
+          </description>
+        </enum>
+        <enum name="inline">
+          <value value="3"/>
+          <description>
+            <text>inline amplifier (ILA node-types)</text>
+          </description>
+        </enum>
+        <enum name="add">
+          <value value="4"/>
+          <description>
+            <text>add amplifier</text>
+          </description>
+        </enum>
+        <enum name="drop">
+          <value value="5"/>
+          <description>
+            <text>drop amplifier</text>
+          </description>
+        </enum>
+        <enum name="backward-raman">
+          <value value="20"/>
+          <description>
+            <text>raman amplifier</text>
+          </description>
+        </enum>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Amplifier function.</text>
+      </description>
+    </leaf>
+  </grouping>
+</module>

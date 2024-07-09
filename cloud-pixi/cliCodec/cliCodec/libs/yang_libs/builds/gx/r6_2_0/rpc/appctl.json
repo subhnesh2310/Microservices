@@ -1,0 +1,43 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "command": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "restart",
+                    "netls"
+                ]
+            },
+            "isList": false,
+            "description": "Application control commands.",
+            "mandatory": true
+        },
+        "app-name": {
+            "type": {
+                "ptype": "unknown",
+                "leafref": "/ioa-ne:ne/ioa-ne:system/ioa-ne:sw-management/ioa-ne:third-party-app/ioa-ne:app-name"
+            },
+            "isList": false,
+            "description": "Third party app name.",
+            "mandatory": false
+        },
+        "target": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Entire system or chassis/card AID.",
+            "mandatory": false
+        },
+        "parameters": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": true,
+            "description": "Optional parameters to be passed in the command.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

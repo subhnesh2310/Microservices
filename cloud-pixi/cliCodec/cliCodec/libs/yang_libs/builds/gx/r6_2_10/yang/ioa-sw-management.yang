@@ -1,0 +1,719 @@
+module ioa-sw-management {
+    namespace "http://infinera.com/yang/ioa/swm";
+    prefix ioa-swm;
+
+    import ietf-yang-types { prefix yang; }
+    import ietf-inet-types { prefix inet; }
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module for Software Management model.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-09-17" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.1";
+    }
+
+
+    grouping package-details {
+        leaf state {
+            type enumeration {
+                enum installed {
+                    value 1;
+                    description "Software package installed";
+                }
+                enum not-installed {
+                    value 2;
+                    description "Software package not installed";
+                }
+                enum installation-failed {
+                    value 3;
+                    description "Software package install failed";
+                }
+                enum unknown {
+                    value 4;
+                    description "Software package state unknown";
+                }
+            }
+            default unknown;
+            description "Package state";
+        }
+
+        leaf version {
+            type string {
+               length "0..64";
+            }
+            description "Package version";
+        }
+
+        leaf name {
+            type string {
+               length "1..256";
+            }
+            description "Package name";
+        }
+
+        leaf description{
+            type string {
+               length "0..512";
+            }
+            description "Package information";
+        }
+    }
+
+    grouping third-party-app-content
+    {                
+        leaf app-name {
+            type ioa-common:object-name;
+            description "Third party app name.";
+        }
+
+        leaf version {
+            type string {
+                length "0..64";
+            }
+            config false;
+            description "Third party app version.";
+        }
+
+        leaf state{
+            type enumeration {
+                enum running {
+                    value 1;
+                    description "Third party app running.";
+                }
+                enum stopped {
+                    value 2;
+                    description "Third party app stopped.";
+                }
+                enum failed {
+                    value 3;
+                    description "Third party app failed.";
+                }
+            }
+            default running;
+            config false;
+            description "Third party app state.";
+        }
+
+        leaf information {
+            type string {
+                length "0..1024";
+            }
+            config false;
+            description "Third party app information.";
+        }                                
+    }
+
+    grouping software-load {
+
+        list software-load {
+            key swload-state;
+            config false;
+            description "Information on the Software Load present in the system.";
+
+            leaf swload-state{
+                type enumeration {
+                    enum active {
+                        value 1;
+                        description "Active software load.";
+                    }
+                    enum inactive {
+                        value 2;
+                        description "Inactive software load.";
+                    }
+                    enum installable {
+                        value 3;
+                        description "Installable software load.";
+                    }
+                }
+                description "Software load state";
+            }
+
+            leaf swload-version {
+                type string {
+                    length "1..64";
+                }
+                description "Software load version";
+            }
+ 
+            leaf swload-manifest {
+                when "../swload-state = 'installable'";
+                type string {
+                    length "0..256";
+                }
+                description "Software load manifest file";
+            }
+
+            leaf swload-prepared {
+                when "../swload-state = 'installable'";
+                type boolean;
+                description "Software load prepared";
+            }
+
+            leaf swload-status {
+                when "../swload-state = 'installable'";                
+                type enumeration {
+                    enum status-unknown {
+                        value 0;
+                        description "Software load status unknown.";
+                    }
+                    enum validate-in-progress {
+                        value 1;
+                        description "Software load validation in progress.";
+                    }
+                    enum validate-complete{
+                        value 2;
+                        description "Software load validation completed.";
+                    }
+                    enum validate-failed {
+                        value 3;
+                        description "Software load validation failed.";
+                    }
+                    enum apply-in-progress {
+                        value 4;
+                        description "Software load apply in progress.";
+                    }
+                    enum apply-complete {
+                        value 5;
+                        description "Software load apply completed.";
+                    }
+                    enum apply-failed {
+                        value 6;
+                        description "Software load apply failed.";
+                    }
+                    enum activate-in-progress {
+                        value 7;
+                        description "Software load activation in progress.";
+                    }
+                    enum activate-failed {
+                        value 8;
+                        description "Software load activation failed.";
+                    }
+                    enum activate-complete {
+                        value 9;
+                        description "Software load activation completed.";
+                    }
+                    enum cancel-in-progress {
+                        value 10;
+                        description "Software load cancel in progress.";
+                    }
+                    enum cancel-failed {
+                        value 11;
+                        description "Software load cancel failed.";
+                    }
+                    enum cancel-complete {
+                        value 12;
+                        description "Software load cancel completed.";
+                    }
+                    enum validate-timeout {
+                        value 13;
+                        description "Software load validate timeout.";
+                    }
+                    enum apply-timeout {
+                        value 14;
+                        description "Software load apply timeout.";
+                    }
+                    enum activate-timeout {
+                        value 15;
+                        description "Software load activate timeout.";
+                    }
+                    enum cancel-timeout {
+                        value 16;
+                        description "Software load cancel timeout.";
+                    }
+                }
+                description "Software load current status.";
+            }
+
+                   
+            leaf swload-information {
+                type string {
+                    length "0..1024";
+                }
+                description "Software load information";
+            }
+
+            leaf swload-activation-type {
+                when "../swload-state = 'installable'";
+                type enumeration {
+                    enum direct { value 1; description "No reboot type determined"; }
+                    enum warmstart { value 2; description "Update requires warm reboot"; }
+                    enum coldstart { value 3; description "Update requires cold reboot"; }
+                }
+                default direct;
+                description "Software load activation type";
+            }
+
+            leaf swload-vendor {
+                type string {
+                    length "0..256";
+                }
+                description "Software load vendor";
+            }
+
+            leaf swload-product {
+                type string {
+                    length "0..256";
+                }
+                description "Software load product";
+            }
+
+            leaf swload-label {
+                type string {
+                    length "0..256";
+                }
+                description "Software load label";
+            }
+
+            leaf swload-delta-label {
+                when "../swload-state = 'active'";
+                type string {
+                    length "0..256";
+                }
+                description "Software load delta label";
+            }
+
+            leaf swload-pkg-type {
+                when "../swload-state = 'installable'";
+                type string {
+                    length "0..256";
+                }
+                description "Software load package type";
+            }
+
+            list sw-component {
+                key name;
+                description "Software load component details";
+                uses package-details;
+
+                list sw-subcomponent {
+                    key name;
+                    description "Software load subcomponent details";
+                    uses package-details;
+               }
+            }
+
+            list packaged-fw {
+                key "equipment-type fw-name";
+                description "Firmware version included in this software-load.
+                             Versions for the same firmware can be different per equipment-type.";
+
+                leaf equipment-type {
+                    type string { length 0..32; }
+                    description "Type of the equipment (card, etc) that will use this firmware.";
+                }
+
+                leaf fw-name {
+                    type string { length 0..32; }
+                    description "Name of the firmware.";
+                }
+
+                leaf fw-version {
+                    type string { length 0..32; }
+                    description "Included version of the firmware.";
+                }
+            }
+        }
+    }
+
+   
+
+    grouping sw-management {
+
+        uses file-server;
+
+        container sw-management {
+            description "Software management information.";
+
+            uses software-load;
+
+            container  downloads {
+                config false;
+                description "Downloaded manifest files and associated image files.";
+
+                list manifest {
+                    key manifest-file;
+                    description "Downloaded manifest file and it's information.";
+
+                    leaf manifest-file  {
+                        type string {
+                           length "0..256";
+                        }
+                        description "Manifest file";
+                    }
+
+                    leaf manifest-signature {
+                        type yang:hex-string {
+                            length "0..1024";
+                        }
+                        description "Manifest file signature";
+                    }
+
+                    list fru-info {
+                        key "equipment-type";
+                        description "The packaged FRU information associated to a particular equipment-type.";
+
+                        leaf equipment-type {
+                            type string { length 0..32; }
+                            description "Type of the equipment";
+                        }
+
+                        list manifest-component {
+                            key name;
+                            description "packaged component details";
+                            uses package-details;
+                        }
+
+                        list manifest-firmware {
+                            key "fw-name";
+                            description "Packaged Firmware detials.";
+
+                            leaf fw-name {
+                                type string { length 0..32; }
+                                description "Name of the firmware.";
+                            }
+
+                            leaf fw-version {
+                                type string { length 0..32; }
+                                description "Included version of the firmware.";
+                            }
+                        }
+                    }
+
+                    list downloaded-image {
+                        key name;
+                        description "Downloaded software image files";
+
+                        leaf name {
+                            type string {
+                                length "0..256";
+                            }
+                            description "Downloaded software image name";  
+                        }
+
+                        leaf signature {
+                            type yang:hex-string {
+                                length "0..1024";
+                            }
+                            description "Downloaded software image file signature";
+                        }
+
+                        leaf image-type {
+                            type string {
+                                length "0..64";
+                            }
+                            description "Downloaded software image type";
+                        }
+                    }
+
+                    leaf downloaded-on {
+                        type yang:date-and-time;
+                        description "Manifest file downloaded timestamp";
+                    }
+
+                    leaf information {
+                        type string {
+                            length "0..256";
+                        }
+                        description "Information on the manifest downloaded";
+                    }
+                }
+            }
+
+            list software-location {
+                key location-id;
+                config false;
+                description "Software load information associated to each of the equipment.";
+
+                leaf location-id {
+                    type string {
+                       length "0..64";
+                    }
+                    description "Location of the equipment";
+                }
+
+                uses software-load;
+                        
+                list third-party-app-info {
+                    key app-name;                                     
+                    description "List of 3rd party applications available per location."; 
+                    uses third-party-app-content;                    
+                }                
+
+            }
+
+            list third-party-app {
+                key app-name;
+                description "List of 3rd party applications.";
+                uses third-party-app-content;  
+
+                leaf vendor {
+                    type string {
+                       length "0..64";
+                    }
+                    config false;
+                    description "Third party app vendor.";
+                }
+
+                leaf product {
+                    type string {
+                       length "0..256";
+                    }
+                    config false;
+                    description "Third party app product.";
+                }
+
+                leaf label {
+                    type string {
+                       length "0..256";
+                    }
+                    config false;
+                    description "Third party app label.";
+                }
+               
+                leaf enable {
+                    type boolean;
+                    default "true";
+                    description "Third-party-app enabled state. If enabled, app is started(app is enabled also upon system restart). If disabled, app is stopped.";
+                }
+            }
+
+            list third-party-fw {
+                key fw-name;
+                config false;
+                description "List of 3rd party fw files available to be used to upgrade 3rd party equipment.";
+    
+                leaf fw-name {
+                    type string {
+                        length "0..64";
+                    }
+                    description "Name of the firmware.";
+                }
+    
+                leaf file-status {
+                    type enumeration {
+                        enum valid  { value 1; description "fw file is present and is valid (crc matches)."; }
+                        enum invalid  { value 2; description "fw file is present but is invalid (crc doesn't match)."; }
+                        enum missing  { value 3; description "fw file is not present."; }
+                    }
+                    description "Firmware file status.";
+                }
+    
+                leaf path {
+                    type string {
+                        length "0..255";
+                    }
+                    description "Path for the firmware image.";
+                }
+    
+                leaf version {
+                    type string {
+                        length "0..64";
+                    }
+                    description "Firmware version.";
+                }
+    
+                leaf crc {
+                    type string {
+                        length "0..64";
+                    }
+                    description "Cyclic redundancy check (CRC) of the firmware image, used to validate the file when present.";
+                }
+    
+                leaf vendor {
+                    type string {
+                        length "0..64";
+                    }
+                    description "The vendor of the firmware.";
+                }
+    
+                leaf-list part-number {
+                    type string {
+                        length "0..64";
+                    }
+                    max-elements 50;
+                    description "The part-number of the firmware.";
+                }
+    
+                leaf nsa-upgrade-version {
+                    type string {
+                        length "0..255";
+                    }
+                    description "Versions from where the upgrade is non service affecting (nsa).";
+                }
+    
+                leaf-list present-in-eqpt {
+                    type instance-identifier;
+                    max-elements 80;
+                    description "List of resources that contain this version.";
+                }
+    
+                leaf-list applicable-eqpt {
+                    type instance-identifier;
+                    max-elements 80;
+                    description "List of resources that this firmware can be applied apply.";
+                }
+            }
+        }
+    }
+
+    grouping file-server {
+        container file-servers {
+            description "Container of all configured file-servers.";
+
+            list file-server {
+                key name;
+                description "User configurable file-server (e.g SFTP server), to be used by transfer operations (upload/download).";
+
+                leaf name {
+                    type ioa-common:object-name;
+                    description "Name of the server, as usable in download/upload commands.";
+                }
+
+                leaf server-address {
+                    when "../protocol != 'file'";
+                    type ioa-common:host;
+                    mandatory true;
+                    description "Address of the file-server";
+                }
+
+                leaf server-port {
+                    when "../protocol != 'file'";
+                    type  uint16;
+                    description "Port used for file transfer; if not provided, default will be used according with selected
+                                protocol.";
+                }
+
+                leaf protocol {
+                    type enumeration {
+                        enum sftp  { value 1; description "Represents sftp transfer protocol."; }
+                        enum ftp   { value 3; description "Represents ftp transfer protocol."; }
+                        enum scp   { value 4; description "Represents scp transfer protocol."; }
+                        enum http  { value 5; description "Represents http transfer protocol."; }
+                        enum https { value 6; description "Represents https transfer protocol."; }
+                        enum file  { value 7; description "Represents local storage, including USB storage. Requires initial-path to be provided."; }
+                    }
+                    mandatory true;
+                    description "The file transfer protocol that this server supports.
+                                Non-secure protocols (ftp and http) are supported conditionally on configured security policies.";
+                }
+
+                leaf user-name {
+                    when "../protocol != 'file'";
+                    type string { length 0..64; }
+                    description "User name credentials for the remote file server.";
+                }
+
+                leaf password {
+                    when "../protocol != 'file'";
+                    type string { length 0..128; }
+                    description "Password credentials for the remote file server.";
+                }
+
+                leaf initial-path {
+                    type string { length 0..256; }
+                    description "The directory in the file server that is used as source/destination.
+                                 If empty, means the root directory (/) on the server is the initial path.
+                                 Must be an absolute directory (e.g. starting with /).";
+                }
+
+                uses ioa-common:label;
+            }
+        }
+    }
+
+    grouping database {
+        list database {
+            key "database-type";
+            config false;
+            description "The list of the databases in the system.";
+
+            leaf database-type {
+                type enumeration {
+                    enum active{value 1; }
+                    enum onehour {value 2; }
+                    enum oneday{value 3; } 
+                    enum oneweek {value 4; }
+                    enum temp  {value 5; }
+                    enum manual{value 6; }
+                    enum rollback{value 7; }
+                }
+                description "Database identifier.";
+            }
+
+            leaf database-state {
+                type enumeration {
+                    enum active {value 1;}
+                    enum inactive {value 2;}
+                }
+                description "Indicates the state of the database.";
+            }
+ 
+            leaf database-version {
+                type string { length "0..20"; }
+                description "Indicates the database version.";
+            }
+ 
+            leaf database-vendor {
+                type string { length "0..32"; }
+                description "Vendor information of the database.";
+            }  
+ 
+            leaf database-product {
+                type string { length "0..32"; }
+                description "Indicates the network element family this database belongs to.";
+            }
+
+            leaf ne-name {
+                type string { length 0..256; }
+                description "User assigned name for this NE as present in this database.";
+            }
+
+            leaf node-controller-serial-number {
+                type string{ length 0..32; }
+                description "Serial number of the node controller.";
+            }
+
+            leaf loopback-ipv4 { 
+                type inet:ipv4-address; 
+                description "loopback ipv4 address.";
+            }
+
+            leaf loopback-ipv6 { 
+                type inet:ipv6-address; 
+                description "loopback ipv6 address.";
+            }
+
+            leaf backup-time  {
+                type yang:date-and-time;
+                description "Indicates the database snapshot backup time.";
+            }
+
+            leaf fips-mode {
+                type ioa-common:enable-switch;
+                default disabled;
+                description "Indicates if database was generated with FIPS mode enabled."; 
+            }
+ 
+            leaf description {
+                type string { length 0..128; }
+                description "Database description";
+            }
+        }
+    }
+}

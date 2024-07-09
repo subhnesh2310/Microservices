@@ -1,0 +1,212 @@
+{
+    "module": {
+        "@name": "ietf-restconf",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:rc": "urn:ietf:params:xml:ns:yang:ietf-restconf",
+        "yang-version": {
+            "@value": "1.1"
+        },
+        "namespace": {
+            "@uri": "urn:ietf:params:xml:ns:yang:ietf-restconf"
+        },
+        "prefix": {
+            "@value": "rc"
+        },
+        "organization": {
+            "text": "IETF NETCONF (Network Configuration) Working Group"
+        },
+        "contact": {
+            "text": "WG Web:   <https://datatracker.ietf.org/wg/netconf/>\nWG List:  <mailto:netconf@ietf.org>\n\nAuthor:   Andy Bierman\n          <mailto:andy@yumaworks.com>\n\nAuthor:   Martin Bjorklund\n          <mailto:mbj@tail-f.com>\n\nAuthor:   Kent Watsen\n          <mailto:kwatsen@juniper.net>"
+        },
+        "description": {
+            "text": "This module contains conceptual YANG specifications\nfor basic RESTCONF media type definitions used in\nRESTCONF protocol messages.\n\nNote that the YANG definitions within this module do not\nrepresent configuration data of any kind.\nThe 'restconf-media-type' YANG extension statement\nprovides a normative syntax for XML and JSON\nmessage-encoding purposes.\n\nCopyright (c) 2017 IETF Trust and the persons identified as\nauthors of the code.  All rights reserved.\n\nRedistribution and use in source and binary forms, with or\nwithout modification, is permitted pursuant to, and subject\nto the license terms contained in, the Simplified BSD License\nset forth in Section 4.c of the IETF Trust's Legal Provisions\nRelating to IETF Documents\n(http://trustee.ietf.org/license-info).\n\nThis version of this YANG module is part of RFC 8040; see\nthe RFC itself for full legal notices."
+        },
+        "revision": {
+            "@date": "2017-01-26",
+            "description": {
+                "text": "Initial revision."
+            },
+            "reference": {
+                "text": "RFC 8040: RESTCONF Protocol."
+            }
+        },
+        "extension": {
+            "@name": "yang-data",
+            "argument": {
+                "@name": "name",
+                "yin-element": {
+                    "@value": "true"
+                }
+            },
+            "description": {
+                "text": "This extension is used to specify a YANG data template that\nrepresents conceptual data defined in YANG.  It is\nintended to describe hierarchical data independent of\nprotocol context or specific message-encoding format.\nData definition statements within a yang-data extension\nspecify the generic syntax for the specific YANG data\ntemplate, whose name is the argument of the 'yang-data'\nextension statement.\n\nNote that this extension does not define a media type.\nA specification using this extension MUST specify the\nmessage-encoding rules, including the content media type.\n\nThe mandatory 'name' parameter value identifies the YANG\ndata template that is being defined.  It contains the\ntemplate name.\n\nThis extension is ignored unless it appears as a top-level\nstatement.  It MUST contain data definition statements\nthat result in exactly one container data node definition.\nAn instance of a YANG data template can thus be translated\ninto an XML instance document, whose top-level element\ncorresponds to the top-level container.\n\nThe module name and namespace values for the YANG module using\nthe extension statement are assigned to instance document data\nconforming to the data definition statements within\nthis extension.\n\nThe substatements of this extension MUST follow the\n'data-def-stmt' rule in the YANG ABNF.\n\nThe XPath document root is the extension statement itself,\nsuch that the child nodes of the document root are\nrepresented by the data-def-stmt substatements within\nthis extension.  This conceptual document is the context\nfor the following YANG statements:\n\n  - must-stmt\n  - when-stmt\n  - path-stmt\n  - min-elements-stmt\n  - max-elements-stmt\n  - mandatory-stmt\n  - unique-stmt\n  - ordered-by\n  - instance-identifier data type\n\nThe following data-def-stmt substatements are constrained\nwhen used within a 'yang-data' extension statement.\n\n  - The list-stmt is not required to have a key-stmt defined.\n  - The if-feature-stmt is ignored if present.\n  - The config-stmt is ignored if present.\n  - The available identity values for any 'identityref'\n    leaf or leaf-list nodes are limited to the module\n    containing this extension statement and the modules\n    imported into that module."
+            }
+        },
+        "rc:yang-data": [
+            {
+                "rc:name": "yang-errors",
+                "uses": {
+                    "@name": "errors"
+                }
+            },
+            {
+                "rc:name": "yang-api",
+                "uses": {
+                    "@name": "restconf"
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "errors",
+                "description": {
+                    "text": "A grouping that contains a YANG container\nrepresenting the syntax and semantics of a\nYANG Patch error report within a response message."
+                },
+                "container": {
+                    "@name": "errors",
+                    "description": {
+                        "text": "Represents an error report returned by the server if\na request results in an error."
+                    },
+                    "list": {
+                        "@name": "error",
+                        "description": {
+                            "text": "An entry containing information about one\nspecific error that occurred while processing\na RESTCONF request."
+                        },
+                        "reference": {
+                            "text": "RFC 6241, Section 4.3."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "error-type",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "transport",
+                                            "description": {
+                                                "text": "The transport layer."
+                                            }
+                                        },
+                                        {
+                                            "@name": "rpc",
+                                            "description": {
+                                                "text": "The rpc or notification layer."
+                                            }
+                                        },
+                                        {
+                                            "@name": "protocol",
+                                            "description": {
+                                                "text": "The protocol operation layer."
+                                            }
+                                        },
+                                        {
+                                            "@name": "application",
+                                            "description": {
+                                                "text": "The server application layer."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "The protocol layer where the error occurred."
+                                }
+                            },
+                            {
+                                "@name": "error-tag",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "The enumerated error-tag."
+                                }
+                            },
+                            {
+                                "@name": "error-app-tag",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "The application-specific error-tag."
+                                }
+                            },
+                            {
+                                "@name": "error-path",
+                                "type": {
+                                    "@name": "instance-identifier"
+                                },
+                                "description": {
+                                    "text": "The YANG instance identifier associated\nwith the error node."
+                                }
+                            },
+                            {
+                                "@name": "error-message",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "A message describing the error."
+                                }
+                            }
+                        ],
+                        "anydata": {
+                            "@name": "error-info",
+                            "description": {
+                                "text": "This anydata value MUST represent a container with\nzero or more data nodes representing additional\nerror information."
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "restconf",
+                "description": {
+                    "text": "Conceptual grouping representing the RESTCONF\nroot resource."
+                },
+                "container": {
+                    "@name": "restconf",
+                    "description": {
+                        "text": "Conceptual container representing the RESTCONF\nroot resource."
+                    },
+                    "container": [
+                        {
+                            "@name": "data",
+                            "description": {
+                                "text": "Container representing the datastore resource.\nRepresents the conceptual root of all state data\nand configuration data supported by the server.\nThe child nodes of this container can be any data\nresources that are defined as top-level data nodes\nfrom the YANG modules advertised by the server in\nthe 'ietf-yang-library' module."
+                            }
+                        },
+                        {
+                            "@name": "operations",
+                            "description": {
+                                "text": "Container for all operation resources.\n\nEach resource is represented as an empty leaf with the\nname of the RPC operation from the YANG 'rpc' statement.\n\nFor example, the 'system-restart' RPC operation defined\nin the 'ietf-system' module would be represented as\nan empty leaf in the 'ietf-system' namespace.  This is\na conceptual leaf and will not actually be found in\nthe module:\n\n   module ietf-system {\n     leaf system-reset {\n       type empty;\n     }\n   }\n\nTo invoke the 'system-restart' RPC operation:\n\n   POST /restconf/operations/ietf-system:system-restart\n\nTo discover the RPC operations supported by the server:\n\n   GET /restconf/operations\n\nIn XML, the YANG module namespace identifies the module:\n\n  <system-restart\n     xmlns='urn:ietf:params:xml:ns:yang:ietf-system'/>\n\nIn JSON, the YANG module name identifies the module:\n\n  { 'ietf-system:system-restart' : [null] }"
+                            }
+                        }
+                    ],
+                    "leaf": {
+                        "@name": "yang-library-version",
+                        "type": {
+                            "@name": "string",
+                            "pattern": {
+                                "@value": "\\d{4}-\\d{2}-\\d{2}"
+                            }
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Identifies the revision date of the 'ietf-yang-library'\nmodule that is implemented by this RESTCONF server.\nIndicates the year, month, and day in YYYY-MM-DD\nnumeric format."
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

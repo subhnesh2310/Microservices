@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-otu"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-otu="http://infinera.com/yang/ioa/otu"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-fac-common="http://infinera.com/yang/ioa/facilities-common"
+        xmlns:ioa-otn="http://infinera.com/yang/ioa/otn-common">
+  <namespace uri="http://infinera.com/yang/ioa/otu"/>
+  <prefix value="ioa-otu"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-facilities-common">
+    <prefix value="ioa-fac-common"/>
+  </import>
+  <import module="ioa-otn-common">
+    <prefix value="ioa-otn"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG definitions for OTN Optical channel Transport Unit (OTU) facilities
+in a typical Layer 1 optical transponder.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-06-30">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.2</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <grouping name="otu">
+    <description>
+      <text>A re-usable grouping that formulates the standard ITU-T G.709 OTUCn/OTUk facility model structure.</text>
+    </description>
+    <list name="otu">
+      <key value="name"/>
+      <description>
+        <text>Facility describing the OTUCn/OTUk according with standard ITU-T G.709.</text>
+      </description>
+      <uses name="ioa-fac-common:facilities-common-attributes"/>
+      <uses name="ioa-common:arc"/>
+      <leaf name="otu-type">
+        <type name="ioa-otn:otu-type"/>
+        <config value="false"/>
+        <description>
+          <text>The protocol type of the OTUk/OTUCn client.</text>
+        </description>
+        <reference>
+          <text>Section 7.4 in ITU-T G.875 (12/2018) and ITU-T G.709</text>
+        </reference>
+      </leaf>
+      <leaf name="rate">
+        <type name="ioa-common:rate"/>
+        <config value="false"/>
+        <description>
+          <text>The speed/rate of the OTUk/OTUCn client interface.</text>
+        </description>
+        <reference>
+          <text>Table 7-1 in ITU-T G.709 (June 2016).</text>
+        </reference>
+      </leaf>
+      <leaf name="otu-name">
+        <type name="string">
+          <length value="0..32"/>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>A system-defined user friendly name for this otu, considering both the type and the rate.
+Examples: OTUC4, OTUC5i90</text>
+        </description>
+      </leaf>
+      <leaf name="service-mode">
+        <type name="ioa-fac-common:service-mode"/>
+        <default value="none"/>
+        <config value="false"/>
+        <description>
+          <text>This attribute is to align with legacy Infinera OTN virtualization attribute (SM).
+The 'service mode' attribute indicates the OTUk/OTUCn client's treatment/processing
+vis-a-vis the service type (OTN multiplexing, OTU transport, ...)</text>
+        </description>
+        <reference>
+          <text>Infinera OTN Virtualization System Requirements Document (SRD).</text>
+        </reference>
+      </leaf>
+      <leaf name="service-mode-qualifier">
+        <type name="ioa-fac-common:service-mode-qualifier"/>
+        <default value="none"/>
+        <config value="false"/>
+        <description>
+          <text>This attribute is to align with legacy Infinera OTN virtualization attribute (SMQ).
+The 'service mode qualifier' attribute further adds to the 'service mode' attribute
+to indicate the OTUk/OTUCn client's contained payload vis-a-vis the service type
+(OTN multiplexing, OTU transport, ...)</text>
+        </description>
+        <reference>
+          <text>Infinera OTN Virtualization System Requirements Document (SRD).</text>
+        </reference>
+      </leaf>
+      <leaf name="fec-mode">
+        <type name="ioa-common:enable-switch"/>
+        <default value="enabled"/>
+        <description>
+          <text>The configured Forward Error Correction (FEC) mode on the OTUk/OTUCn client.</text>
+        </description>
+        <reference>
+          <text>ITU-T G.709, G.709.1 and B100G standards.</text>
+        </reference>
+      </leaf>
+      <leaf name="fec-generation-mode">
+        <type name="ioa-common:enable-switch"/>
+        <default value="enabled"/>
+        <description>
+          <text>The configured FEC generation mode on the OTUk/OTUCn client towards the far-end receiver.</text>
+        </description>
+      </leaf>
+      <leaf name="fec-type">
+        <type name="ioa-fac-common:fec-type"/>
+        <default value="noFEC"/>
+        <description>
+          <text>The FEC type</text>
+        </description>
+      </leaf>
+      <leaf name="tx-mapping-mode">
+        <type name="ioa-fac-common:mapping-mode"/>
+        <default value="none"/>
+        <description>
+          <text>The tx mapping mode of client port. The possible values are dependent on the HW and configuration.</text>
+        </description>
+      </leaf>
+      <leaf name="expected-mapping-mode">
+        <type name="ioa-fac-common:mapping-mode"/>
+        <default value="none"/>
+        <description>
+          <text>The expected mapping mode of client port. The possible values are dependent on the HW and configuration.</text>
+        </description>
+      </leaf>
+      <uses name="ioa-fac-common:loopback"/>
+      <uses name="ioa-fac-common:loopback-mode"/>
+      <uses name="ioa-common:circuit-id"/>
+      <list name="otu-diagnostics">
+        <key value="direction"/>
+        <description>
+          <text>Set of attributes associated with OTU diagnostics.Each direction has their own values.</text>
+        </description>
+        <leaf name="direction">
+          <type name="ioa-fac-common:direction"/>
+          <description>
+            <text>Diagnostics direction.Can be ingress or egress.</text>
+          </description>
+        </leaf>
+        <uses name="otu-diagnostics"/>
+      </list>
+    </list>
+  </grouping>
+  <grouping name="otu-diagnostics">
+    <description>
+      <text>Set of attributes associated with OTU diagnostics.</text>
+    </description>
+    <uses name="ioa-otn:otn-diagnostics"/>
+    <uses name="ioa-fac-common:nmoper-alarm-reporting"/>
+    <uses name="ioa-otn:otn-degrade"/>
+  </grouping>
+</module>

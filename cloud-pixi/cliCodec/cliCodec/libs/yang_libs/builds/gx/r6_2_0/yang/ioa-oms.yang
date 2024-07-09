@@ -1,0 +1,118 @@
+module ioa-oms {
+    namespace "http://infinera.com/yang/ioa/oms";
+    prefix ioa-oms;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+    import ioa-l0 { prefix ioa-l0; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions for Optical Multiplex Section (OMS) facilities.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    typedef att-control-mode {
+        type enumeration {
+            enum not-applicable { value 0; description "Not applicable."; }
+            enum auto { value 1; description "Automatic attenuation control mode in which system will decide the attenuation value."; }
+            enum manual { value 2; description "Manual attenuation control mode in which target attenuation will be used."; }
+        }
+        description "Attenuation control mode.";
+    }
+
+    typedef grid-type {
+        type enumeration {
+              enum fixed-50G-96ch {
+                  value 1;
+                  description "50GHz fixed grid with 96 channels in C-band.";
+              }
+              enum fixed-100G-48ch {
+                  value 2;
+                  description "100GHz fixed grid with 48 channels in C-band.";
+              }
+              enum fixed-75G-64ch {
+                  value 3;
+                  description "75GHz fixed grid with 64 channels in C-band.";
+              }
+              enum flexible {
+                  value 4; description "Flexible grid.";
+              }
+        }
+        description "Type of channel grid.";
+    }
+
+    typedef type-of-oms-monitoring-mode {
+        type enumeration {
+            enum intrusive { value 1; description "Intrusive monitoring (TTP)"; }
+            enum not-monitored { value 2; description "OMS-nim functionality, but no OCM (e.g. no DGE) required"; }
+            enum non-intrusive { value 3; description "Non-intrusive, with optional monitoring (CTP)"; }
+            enum dge-fixed-attenuation { value 4; description "Fixed attenuation, due to connected interstage device"; }
+        }
+        description "OMS monitoring mode (specific typedef).";
+    }
+
+    grouping oms {
+        description "A re-usable grouping that formulates the basic OMS facility structure.";
+
+        list oms {
+            key "name";
+            description "OMS: Optical Multiplex Section facility.";
+            reference "ITU-T G.872";
+
+            uses ioa-fac-common:facilities-common-attributes{
+                refine supported-facilities {
+                    max-elements 130;
+               }
+            }
+
+            uses ioa-common:arc;
+
+            leaf monitoring-mode {
+                type type-of-oms-monitoring-mode;
+                default intrusive;
+                description "OMS monitoring mode";
+                reference "ITU-T G.872; ITU-T G.876 (08/2021, prepub. Appendix III)";
+            }
+
+            uses ioa-l0:opm-optical-power-rx;
+
+            uses ioa-l0:opm-optical-power-tx;
+
+            leaf grid-mode {
+                when "../monitoring-mode = 'intrusive'" {
+                    description "Only of relevance for OMS TTP";
+                }
+                type grid-type;
+                default 'flexible';
+                description
+                    "Indicates Grid type of the OMS layer.
+                     - flexible: allows user to create/ delete of MC with different widths;
+                     - otherwise, allows user to create MC with specific width (and delete accordingly).
+                    ";
+            }
+
+            leaf attenuation-control-mode-rx {
+                when "../monitoring-mode = 'intrusive'" {
+                    description "Only of relevance for OMS TTP";
+                }
+                type att-control-mode;
+                default auto;
+                description "Attenuation control mode Rx (input) of the channel applicable to all channels of the OMS.";
+            }
+
+            leaf attenuation-control-mode-tx {
+                when "../monitoring-mode = 'intrusive'" {
+                    description "Only of relevance for OMS TTP";
+                }
+                type att-control-mode;
+                default auto;
+                description "Attenuation control mode Tx (output) of the channel applicable to all channels of the OMS.";
+            }
+        }
+    }
+}

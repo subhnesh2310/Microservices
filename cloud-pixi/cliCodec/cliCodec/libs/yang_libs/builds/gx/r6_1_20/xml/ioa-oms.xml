@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-oms"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-oms="http://infinera.com/yang/ioa/oms"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-fac-common="http://infinera.com/yang/ioa/facilities-common"
+        xmlns:ioa-l0="http://infinera.com/yang/ioa/l0">
+  <namespace uri="http://infinera.com/yang/ioa/oms"/>
+  <prefix value="ioa-oms"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-facilities-common">
+    <prefix value="ioa-fac-common"/>
+  </import>
+  <import module="ioa-l0">
+    <prefix value="ioa-l0"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG definitions for Optical Multiplex Section (OMS) facilities.</text>
+  </description>
+  <revision date="2023-03-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.1</text>
+    </description>
+  </revision>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <typedef name="att-control-mode">
+    <type name="enumeration">
+      <enum name="not-applicable">
+        <value value="0"/>
+        <description>
+          <text>Not applicable.</text>
+        </description>
+      </enum>
+      <enum name="auto">
+        <value value="1"/>
+        <description>
+          <text>Automatic attenuation control mode in which system will decide the attenuation value.</text>
+        </description>
+      </enum>
+      <enum name="manual">
+        <value value="2"/>
+        <description>
+          <text>Manual attenuation control mode in which target attenuation will be used.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Attenuation control mode.</text>
+    </description>
+  </typedef>
+  <typedef name="grid-type">
+    <type name="enumeration">
+      <enum name="fixed-50G-96ch">
+        <value value="1"/>
+        <description>
+          <text>50GHz fixed grid with 96 channels in C-band.</text>
+        </description>
+      </enum>
+      <enum name="fixed-100G-48ch">
+        <value value="2"/>
+        <description>
+          <text>100GHz fixed grid with 48 channels in C-band.</text>
+        </description>
+      </enum>
+      <enum name="fixed-75G-64ch">
+        <value value="3"/>
+        <description>
+          <text>75GHz fixed grid with 64 channels in C-band.</text>
+        </description>
+      </enum>
+      <enum name="flexible">
+        <value value="4"/>
+        <description>
+          <text>Flexible grid.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Type of channel grid.</text>
+    </description>
+  </typedef>
+  <typedef name="type-of-oms-monitoring-mode">
+    <type name="enumeration">
+      <enum name="intrusive">
+        <value value="1"/>
+        <description>
+          <text>Intrusive monitoring (TTP)</text>
+        </description>
+      </enum>
+      <enum name="not-monitored">
+        <value value="2"/>
+        <description>
+          <text>OMS-nim functionality, but no OCM (e.g. no DGE) required</text>
+        </description>
+      </enum>
+      <enum name="non-intrusive">
+        <value value="3"/>
+        <description>
+          <text>Non-intrusive, with optional monitoring (CTP)</text>
+        </description>
+      </enum>
+      <enum name="dge-fixed-attenuation">
+        <value value="4"/>
+        <description>
+          <text>Fixed attenuation, due to connected interstage device</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>OMS monitoring mode (specific typedef).</text>
+    </description>
+  </typedef>
+  <grouping name="oms">
+    <description>
+      <text>A re-usable grouping that formulates the basic OMS facility structure.</text>
+    </description>
+    <list name="oms">
+      <key value="name"/>
+      <description>
+        <text>OMS: Optical Multiplex Section facility.</text>
+      </description>
+      <reference>
+        <text>ITU-T G.872</text>
+      </reference>
+      <uses name="ioa-fac-common:facilities-common-attributes">
+        <refine target-node="supported-facilities">
+          <max-elements value="130"/>
+        </refine>
+      </uses>
+      <uses name="ioa-common:arc"/>
+      <leaf name="monitoring-mode">
+        <type name="type-of-oms-monitoring-mode"/>
+        <default value="intrusive"/>
+        <description>
+          <text>OMS monitoring mode</text>
+        </description>
+        <reference>
+          <text>ITU-T G.872; ITU-T G.876 (08/2021, prepub. Appendix III)</text>
+        </reference>
+      </leaf>
+      <uses name="ioa-l0:opm-optical-power-rx"/>
+      <uses name="ioa-l0:opm-optical-power-tx"/>
+      <leaf name="grid-mode">
+        <when condition="../monitoring-mode = 'intrusive'">
+          <description>
+            <text>Only of relevance for OMS TTP</text>
+          </description>
+        </when>
+        <type name="grid-type"/>
+        <default value="flexible"/>
+        <description>
+          <text>Indicates Grid type of the OMS layer.
+- flexible: allows user to create/ delete of MC with different widths;
+- otherwise, allows user to create MC with specific width (and delete accordingly).
+</text>
+        </description>
+      </leaf>
+      <leaf name="attenuation-control-mode-rx">
+        <when condition="../monitoring-mode = 'intrusive'">
+          <description>
+            <text>Only of relevance for OMS TTP</text>
+          </description>
+        </when>
+        <type name="att-control-mode"/>
+        <default value="auto"/>
+        <description>
+          <text>Attenuation control mode Rx (input) of the channel applicable to all channels of the OMS.</text>
+        </description>
+      </leaf>
+      <leaf name="attenuation-control-mode-tx">
+        <when condition="../monitoring-mode = 'intrusive'">
+          <description>
+            <text>Only of relevance for OMS TTP</text>
+          </description>
+        </when>
+        <type name="att-control-mode"/>
+        <default value="auto"/>
+        <description>
+          <text>Attenuation control mode Tx (output) of the channel applicable to all channels of the OMS.</text>
+        </description>
+      </leaf>
+    </list>
+  </grouping>
+</module>

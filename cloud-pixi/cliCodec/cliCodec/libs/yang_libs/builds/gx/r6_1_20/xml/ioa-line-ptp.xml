@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-line-ptp"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-line-ptp="http://infinera.com/yang/ioa/line-ptp"
+        xmlns:ioa-fac-common="http://infinera.com/yang/ioa/facilities-common">
+  <namespace uri="http://infinera.com/yang/ioa/line-ptp"/>
+  <prefix value="ioa-line-ptp"/>
+  <import module="ioa-facilities-common">
+    <prefix value="ioa-fac-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG model describing the line side physical termination layer.</text>
+  </description>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <grouping name="line-ptp">
+    <list name="line-ptp">
+      <key value="name"/>
+      <description>
+        <text>Basic LinePTP facility.</text>
+      </description>
+      <uses name="ioa-fac-common:facilities-common-attributes"/>
+      <uses name="ioa-fac-common:auto-in-service"/>
+      <leaf name="service-type">
+        <type name="enumeration">
+          <enum name="not-applicable">
+            <value value="1"/>
+          </enum>
+          <enum name="DP-16QAM-200G">
+            <value value="2"/>
+          </enum>
+          <enum name="DP-QPSK-100G">
+            <value value="3"/>
+          </enum>
+          <enum name="DP-8QAM-200G">
+            <value value="4"/>
+          </enum>
+          <enum name="DP-16QAM-400G">
+            <value value="7"/>
+          </enum>
+          <enum name="DP-8QAM-300G">
+            <value value="8"/>
+          </enum>
+          <enum name="DP-QPSK-200G">
+            <value value="9"/>
+          </enum>
+          <enum name="OTU2">
+            <value value="10"/>
+          </enum>
+          <enum name="OTU2e">
+            <value value="11"/>
+          </enum>
+          <enum name="DP-16QAM-E-400G">
+            <value value="12"/>
+          </enum>
+          <enum name="DP-16QAM-400G-OpenZR+">
+            <value value="13"/>
+          </enum>
+          <enum name="DP-16QAM-PS-400G">
+            <value value="14"/>
+          </enum>
+        </type>
+        <default value="not-applicable"/>
+        <description>
+          <text>service-type to provison line side service.</text>
+        </description>
+      </leaf>
+      <leaf name="line-system-mode">
+        <type name="enumeration">
+          <enum name="openwave">
+            <value value="1"/>
+            <description>
+              <text>Infinera WDM channels over non-Infinera line system.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="openwave"/>
+        <description>
+          <text>Indicates the specific mode of power control configured
+on the L1 transponder, and specifically, on this particular SCG port within
+the L1 transponder. The attribute indicates the L1 &lt;-&gt; L0 local power controls
+to adjust the Tx power from the L1 transponder towards the L0 line-system
+card (such as a WSS or Mux or Amplifier).</text>
+        </description>
+      </leaf>
+      <uses name="ioa-fac-common:power-threshold"/>
+    </list>
+  </grouping>
+</module>

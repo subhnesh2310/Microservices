@@ -1,0 +1,1125 @@
+{
+    "module": {
+        "@name": "ioa-capabilities",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-cap": "http://infinera.com/yang/ioa/capabilities",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-eqm": "http://infinera.com/yang/ioa/equipment",
+        "@xmlns:ioa-carrier-types": "http://infinera.com/yang/ioa/carrier-types",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/capabilities"
+        },
+        "prefix": {
+            "@value": "ioa-cap"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-equipment",
+                "prefix": {
+                    "@value": "ioa-eqm"
+                }
+            },
+            {
+                "@module": "ioa-carrier-types",
+                "prefix": {
+                    "@value": "ioa-carrier-types"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module which describes a model to describe system capabilities."
+        },
+        "revision": [
+            {
+                "@date": "2023-03-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.1"
+                }
+            },
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "configuration-mode",
+                "description": {
+                    "text": "Re-usable grouping for the configuration-mode attribute."
+                },
+                "leaf": {
+                    "@name": "configuration-mode",
+                    "type": {
+                        "@name": "enumeration",
+                        "enum": [
+                            {
+                                "@name": "system-configured",
+                                "value": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "Means system automaticaly configures the card in slot (or tom in this port), and user cannot\nmake changes to that."
+                                }
+                            },
+                            {
+                                "@name": "user-configured",
+                                "value": {
+                                    "@value": "2"
+                                },
+                                "description": {
+                                    "text": "Means that user can provision or unprovision cards in this slot (or toms in this port)."
+                                }
+                            }
+                        ]
+                    },
+                    "default": {
+                        "@value": "user-configured"
+                    },
+                    "description": {
+                        "text": "Configuration mode for the cards in this slot (or toms in this port)."
+                    }
+                }
+            },
+            {
+                "@name": "supported-slot-grouping",
+                "description": {
+                    "text": "Re-usable grouping."
+                },
+                "list": {
+                    "@name": "supported-slot",
+                    "key": {
+                        "@value": "slot-name"
+                    },
+                    "description": {
+                        "text": "Capability for each slot. The supported-slots can be within each supported-chassis or supported-card."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "slot-name",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "Name of the slot."
+                            }
+                        },
+                        {
+                            "@name": "slot-location",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "front",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "rear",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    }
+                                ]
+                            },
+                            "description": {
+                                "text": "Physical location of the slot in the chassis"
+                            }
+                        },
+                        {
+                            "@name": "slot-vertical-position",
+                            "type": {
+                                "@name": "uint8"
+                            },
+                            "description": {
+                                "text": "Position of the slot vertically in the chassis, counting\nfrom the top of the chassis/card, in RUs.\nExample: position 3 means third RU starting from the top of the chassis/card."
+                            }
+                        },
+                        {
+                            "@name": "slot-horizontal-position",
+                            "type": {
+                                "@name": "uint8"
+                            },
+                            "description": {
+                                "text": "Position of the slot horizontally in the chassis/card within the current RU, counting\nfrom the left of the chassis/card.\nFor back slots, the position is counted also from the left, from a point of view facing\nthe rear of the chassis/card."
+                            }
+                        },
+                        {
+                            "@name": "auto-provision-capable",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "description": {
+                                "text": "Whether this slot supports card auto-provisioning."
+                            }
+                        },
+                        {
+                            "@name": "default-card",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "Card that exists in this slot by default."
+                            }
+                        },
+                        {
+                            "@name": "requires-blank-when-empty",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "not-applicable",
+                                        "value": {
+                                            "@value": "0"
+                                        }
+                                    },
+                                    {
+                                        "@name": "optional",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "required",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    }
+                                ]
+                            },
+                            "description": {
+                                "text": "Whether this slot requires a BLANK filler card when empty."
+                            }
+                        },
+                        {
+                            "@name": "reset-power",
+                            "type": {
+                                "@name": "decimal64",
+                                "fraction-digits": {
+                                    "@value": "4"
+                                }
+                            },
+                            "units": {
+                                "@name": "W"
+                            },
+                            "description": {
+                                "text": "Reset power consumption for this card, at 55\u00c2\u00baC"
+                            }
+                        },
+                        {
+                            "@name": "virtual-slot",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Describes whether this slot is virtual."
+                            }
+                        }
+                    ],
+                    "leaf-list": [
+                        {
+                            "@name": "possible-card-types",
+                            "type": {
+                                "@name": "identityref",
+                                "base": {
+                                    "@name": "ioa-common:card"
+                                }
+                            },
+                            "description": {
+                                "text": "List of possible card types in this slot."
+                            }
+                        },
+                        {
+                            "@name": "leds",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..20"
+                                }
+                            },
+                            "max-elements": {
+                                "@value": "10"
+                            },
+                            "description": {
+                                "text": "List of LEDs available in the slot."
+                            }
+                        }
+                    ],
+                    "uses": {
+                        "@name": "configuration-mode"
+                    }
+                }
+            },
+            {
+                "@name": "capabilities",
+                "container": {
+                    "@name": "system-capabilities",
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Top level container for all capability information.\nThis data is read-only, and expected to be informative to the user\nregarding what are the system capabilities.\nThis information is static and independent on current configuration.\nCapabilities can be updated only:\n- with SW upgrade\n- with a dedicated capabilities file update (for specific cases only)"
+                    },
+                    "container": [
+                        {
+                            "@name": "equipment-capabilities",
+                            "description": {
+                                "text": "Top level container for all equipment capabilities."
+                            },
+                            "container": {
+                                "@name": "gadt",
+                                "description": {
+                                    "text": "Golden Application Description Table - provides human readable details for carrier-mode applications."
+                                },
+                                "leaf": {
+                                    "@name": "version",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..5"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Table version."
+                                    }
+                                },
+                                "uses": {
+                                    "@name": "ioa-carrier-types:golden-application-descriptions"
+                                }
+                            },
+                            "list": [
+                                {
+                                    "@name": "supported-chassis",
+                                    "key": {
+                                        "@value": "chassis-type"
+                                    },
+                                    "description": {
+                                        "text": "Capability information for supported chassis."
+                                    },
+                                    "leaf": [
+                                        {
+                                            "@name": "chassis-type",
+                                            "type": {
+                                                "@name": "identityref",
+                                                "base": {
+                                                    "@name": "ioa-common:chassis"
+                                                }
+                                            },
+                                            "description": {
+                                                "text": "Chassis type name."
+                                            }
+                                        },
+                                        {
+                                            "@name": "description",
+                                            "type": {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "0..255"
+                                                }
+                                            },
+                                            "description": {
+                                                "text": "Human readable description for this chassis-type."
+                                            }
+                                        },
+                                        {
+                                            "@name": "controller-redundancy-supported",
+                                            "type": {
+                                                "@name": "boolean"
+                                            },
+                                            "description": {
+                                                "text": "Whether this chassis supports controller redundancy or not."
+                                            }
+                                        },
+                                        {
+                                            "@name": "power-control-supported",
+                                            "type": {
+                                                "@name": "boolean"
+                                            },
+                                            "description": {
+                                                "text": "Whether this chassis supports power control, i.e. the ability to evaluate\nthe power supply currently provided by the PEMs against the configured equipment.\nA chassis that has power control support may put some cards into low power mode\nwhen not enough power is enabled, as well as raising alarms when power protection fail."
+                                            }
+                                        },
+                                        {
+                                            "@name": "depth",
+                                            "type": {
+                                                "@name": "uint16"
+                                            },
+                                            "units": {
+                                                "@name": "mm"
+                                            },
+                                            "description": {
+                                                "text": "Chassis depth in millimeters."
+                                            }
+                                        },
+                                        {
+                                            "@name": "height",
+                                            "type": {
+                                                "@name": "uint8"
+                                            },
+                                            "units": {
+                                                "@name": "RUs"
+                                            },
+                                            "description": {
+                                                "text": "Chassis height in RUs (Rack Units)."
+                                            }
+                                        },
+                                        {
+                                            "@name": "number-of-front-slots",
+                                            "type": {
+                                                "@name": "uint8"
+                                            },
+                                            "description": {
+                                                "text": "Number of equipment holder slots in the front plate on the chassis."
+                                            }
+                                        },
+                                        {
+                                            "@name": "number-of-rear-slots",
+                                            "type": {
+                                                "@name": "uint8"
+                                            },
+                                            "description": {
+                                                "text": "Number of equipment holder slots in the back plate on the chassis."
+                                            }
+                                        }
+                                    ],
+                                    "leaf-list": [
+                                        {
+                                            "@name": "leds",
+                                            "type": {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "1..20"
+                                                }
+                                            },
+                                            "max-elements": {
+                                                "@value": "10"
+                                            },
+                                            "description": {
+                                                "text": "List of LEDs available in the chassis."
+                                            }
+                                        },
+                                        {
+                                            "@name": "supported-subchassis-type",
+                                            "type": {
+                                                "@name": "leafref",
+                                                "path": {
+                                                    "@value": "../../supported-chassis/chassis-type"
+                                                }
+                                            },
+                                            "max-elements": {
+                                                "@value": "5"
+                                            },
+                                            "description": {
+                                                "text": "List of chassis-types that this chassis supports as sub-chassis.\nIf empty, means this chassis-type does not support multi-chassis feature."
+                                            }
+                                        }
+                                    ],
+                                    "uses": {
+                                        "@name": "supported-slot-grouping"
+                                    }
+                                },
+                                {
+                                    "@name": "supported-card",
+                                    "key": {
+                                        "@value": "card-type"
+                                    },
+                                    "description": {
+                                        "text": "Capability information for supported card."
+                                    },
+                                    "leaf": [
+                                        {
+                                            "@name": "card-type",
+                                            "type": {
+                                                "@name": "identityref",
+                                                "base": {
+                                                    "@name": "ioa-common:card"
+                                                }
+                                            },
+                                            "description": {
+                                                "text": "Card type name."
+                                            }
+                                        },
+                                        {
+                                            "@name": "description",
+                                            "type": {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "0..255"
+                                                }
+                                            },
+                                            "description": {
+                                                "text": "Human readable description for this card-type."
+                                            }
+                                        },
+                                        {
+                                            "@name": "default-card-mode",
+                                            "type": {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "0..20"
+                                                }
+                                            },
+                                            "description": {
+                                                "text": "The default card-mode, for cards whose supported-card-mode is not empty.\nOnly relevant if card has the concept of card-mode."
+                                            }
+                                        },
+                                        {
+                                            "@name": "card-width",
+                                            "type": {
+                                                "@name": "enumeration",
+                                                "enum": [
+                                                    {
+                                                        "@name": "na",
+                                                        "value": {
+                                                            "@value": "0"
+                                                        },
+                                                        "description": {
+                                                            "text": "Not Applicable."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "single-slot",
+                                                        "value": {
+                                                            "@value": "1"
+                                                        },
+                                                        "description": {
+                                                            "text": "Single slot width."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "double-slot",
+                                                        "value": {
+                                                            "@value": "2"
+                                                        },
+                                                        "description": {
+                                                            "text": "Double slot width."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "half-slot",
+                                                        "value": {
+                                                            "@value": "3"
+                                                        },
+                                                        "description": {
+                                                            "text": "Half slot width."
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            "description": {
+                                                "text": "Number of slots this card occupies; not-applicable for RU equipment."
+                                            }
+                                        },
+                                        {
+                                            "@name": "card-height",
+                                            "type": {
+                                                "@name": "uint8"
+                                            },
+                                            "units": {
+                                                "@name": "RUs"
+                                            },
+                                            "description": {
+                                                "text": "Card height in RUs."
+                                            }
+                                        },
+                                        {
+                                            "@name": "is-field-replaceable",
+                                            "type": {
+                                                "@name": "boolean"
+                                            },
+                                            "description": {
+                                                "text": "Whether this card-type is a field replaceable unit (FRU)."
+                                            }
+                                        },
+                                        {
+                                            "@name": "location-led-support",
+                                            "type": {
+                                                "@name": "boolean"
+                                            },
+                                            "description": {
+                                                "text": "Whether this card-type support location-led operation."
+                                            }
+                                        },
+                                        {
+                                            "@name": "console-port-support",
+                                            "type": {
+                                                "@name": "enumeration",
+                                                "enum": [
+                                                    {
+                                                        "@name": "no",
+                                                        "value": {
+                                                            "@value": "0"
+                                                        },
+                                                        "description": {
+                                                            "text": "Card-type does not have a serial console port."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "yes-with-auto-sensing-baud-rate",
+                                                        "value": {
+                                                            "@value": "1"
+                                                        },
+                                                        "description": {
+                                                            "text": "Card-type has a serial console port, supporting auto-sensing of baud-rate."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "yes-with-fixed-baud-rate",
+                                                        "value": {
+                                                            "@value": "2"
+                                                        },
+                                                        "description": {
+                                                            "text": "Card-type has a serial console port, supporting manually configured baud-rate."
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            "default": {
+                                                "@value": "no"
+                                            },
+                                            "description": {
+                                                "text": "Whether this card-type supports a serial console port, with or without auto-sensing capabilities."
+                                            }
+                                        },
+                                        {
+                                            "@name": "default-console-baud-rate",
+                                            "type": {
+                                                "@name": "ioa-eqm:console-baud-rate"
+                                            },
+                                            "description": {
+                                                "text": "For cards with fixed baud-rate, defines the default baud-rate."
+                                            }
+                                        },
+                                        {
+                                            "@name": "support-serdes-config",
+                                            "type": {
+                                                "@name": "boolean"
+                                            },
+                                            "default": {
+                                                "@value": "false"
+                                            },
+                                            "description": {
+                                                "text": "If true, it means this card-type allows user to configure 3rd Party TOM SerDes values. If false, the card has no need for such customization."
+                                            }
+                                        }
+                                    ],
+                                    "uses": [
+                                        {
+                                            "@name": "ioa-common:sw-support"
+                                        },
+                                        {
+                                            "@name": "ioa-eqm:card-category"
+                                        },
+                                        {
+                                            "@name": "ioa-eqm:max-power-draw"
+                                        },
+                                        {
+                                            "@name": "supported-slot-grouping"
+                                        }
+                                    ],
+                                    "leaf-list": [
+                                        {
+                                            "@name": "supported-subtype",
+                                            "type": {
+                                                "@name": "string"
+                                            },
+                                            "description": {
+                                                "text": "Supported card subtypes; may be empty if card doesn't support subtypes."
+                                            }
+                                        },
+                                        {
+                                            "@name": "supported-card-mode",
+                                            "type": {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "0..20"
+                                                }
+                                            },
+                                            "description": {
+                                                "text": "Supported card-modes; may be empty if card does not support any card-mode."
+                                            }
+                                        },
+                                        {
+                                            "@name": "leds",
+                                            "type": {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "1..20"
+                                                }
+                                            },
+                                            "max-elements": {
+                                                "@value": "10"
+                                            },
+                                            "description": {
+                                                "text": "List of LEDs available in the card."
+                                            }
+                                        }
+                                    ],
+                                    "list": [
+                                        {
+                                            "@name": "supported-power-profile",
+                                            "key": {
+                                                "@value": "name"
+                                            },
+                                            "description": {
+                                                "text": "Supported power profile for this card-type.\nDifferent power profiles can be supported to reflect different scenarios when using this card.\nUser is able to define, per card instance, which profile is in effect.\nThis will have impact on the power estimation for the system."
+                                            },
+                                            "leaf": [
+                                                {
+                                                    "@name": "name",
+                                                    "type": {
+                                                        "@name": "string"
+                                                    },
+                                                    "description": {
+                                                        "text": "Profile name."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "profile-description",
+                                                    "type": {
+                                                        "@name": "string",
+                                                        "length": {
+                                                            "@value": "0..255"
+                                                        }
+                                                    },
+                                                    "description": {
+                                                        "text": "Description of the profile."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "power-draw",
+                                                    "type": {
+                                                        "@name": "decimal64",
+                                                        "fraction-digits": {
+                                                            "@value": "2"
+                                                        }
+                                                    },
+                                                    "units": {
+                                                        "@name": "W"
+                                                    },
+                                                    "description": {
+                                                        "text": "Power draw of associated equipment when not in low-power."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "default",
+                                                    "type": {
+                                                        "@name": "boolean"
+                                                    },
+                                                    "description": {
+                                                        "text": "Whether is the default value or not."
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "@name": "supported-port",
+                                            "key": {
+                                                "@value": "port-name"
+                                            },
+                                            "description": {
+                                                "text": "Capabilities for each port in each supported card."
+                                            },
+                                            "leaf": [
+                                                {
+                                                    "@name": "port-name",
+                                                    "type": {
+                                                        "@name": "string"
+                                                    },
+                                                    "description": {
+                                                        "text": "The port name."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "faceplate-label",
+                                                    "type": {
+                                                        "@name": "string",
+                                                        "length": {
+                                                            "@value": "0..36"
+                                                        }
+                                                    },
+                                                    "description": {
+                                                        "text": "Label on the hardware faceplate."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "present",
+                                                    "type": {
+                                                        "@name": "enumeration",
+                                                        "enum": [
+                                                            {
+                                                                "@name": "always",
+                                                                "value": {
+                                                                    "@value": "1"
+                                                                },
+                                                                "description": {
+                                                                    "text": "This port is always present for this card type."
+                                                                }
+                                                            },
+                                                            {
+                                                                "@name": "in-node-controller-only",
+                                                                "value": {
+                                                                    "@value": "2"
+                                                                },
+                                                                "description": {
+                                                                    "text": "This port is only present if this card is instanciated in a node controller chassis.\nWill not be instanciated for sub-chassis cards."
+                                                                }
+                                                            }
+                                                        ]
+                                                    },
+                                                    "default": {
+                                                        "@value": "always"
+                                                    },
+                                                    "description": {
+                                                        "text": "Provides information regarding when is this port present (e.g. instanciated as a managed object).\nThe majority of ports are statically available for each card type, but some\nare only available in specific scenarios, described here."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "default-tom",
+                                                    "type": {
+                                                        "@name": "string"
+                                                    },
+                                                    "default": {
+                                                        "@value": "none"
+                                                    },
+                                                    "description": {
+                                                        "text": "Tom that exists in this port by default."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "parent-port",
+                                                    "type": {
+                                                        "@name": "string",
+                                                        "length": {
+                                                            "@value": "0..32"
+                                                        }
+                                                    },
+                                                    "description": {
+                                                        "text": "Name of the parent port. Only applicable for sub-ports."
+                                                    }
+                                                }
+                                            ],
+                                            "uses": [
+                                                {
+                                                    "@name": "ioa-eqm:port-common"
+                                                },
+                                                {
+                                                    "@name": "configuration-mode"
+                                                }
+                                            ],
+                                            "leaf-list": [
+                                                {
+                                                    "@name": "leds",
+                                                    "type": {
+                                                        "@name": "string",
+                                                        "length": {
+                                                            "@value": "1..20"
+                                                        }
+                                                    },
+                                                    "max-elements": {
+                                                        "@value": "10"
+                                                    },
+                                                    "description": {
+                                                        "text": "List of LEDs available for each port of this card."
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "subport-list",
+                                                    "type": {
+                                                        "@name": "string",
+                                                        "length": {
+                                                            "@value": "1..30"
+                                                        }
+                                                    },
+                                                    "description": {
+                                                        "text": "List of sub-ports associated with this port.\nOnly applicable when this port is a parent port."
+                                                    }
+                                                }
+                                            ],
+                                            "list": {
+                                                "@name": "supported-tom",
+                                                "key": {
+                                                    "@value": "tom-type tom-subtype-group"
+                                                },
+                                                "description": {
+                                                    "text": "Capability information for supported TOM (Transceiver Optical Module) in the scope\nof this particular card."
+                                                },
+                                                "leaf": [
+                                                    {
+                                                        "@name": "tom-type",
+                                                        "type": {
+                                                            "@name": "identityref",
+                                                            "base": {
+                                                                "@name": "ioa-common:tom"
+                                                            }
+                                                        },
+                                                        "description": {
+                                                            "text": "TOM type name."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "tom-subtype-group",
+                                                        "type": {
+                                                            "@name": "string",
+                                                            "length": {
+                                                                "@value": "0..32"
+                                                            }
+                                                        },
+                                                        "description": {
+                                                            "text": "TOM subtype group."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "default-phy-mode",
+                                                        "type": {
+                                                            "@name": "ioa-eqm:phy-mode"
+                                                        },
+                                                        "description": {
+                                                            "text": "The phy-mode that is used by default in this TOM for this card."
+                                                        }
+                                                    }
+                                                ],
+                                                "leaf-list": [
+                                                    {
+                                                        "@name": "supported-subtype",
+                                                        "type": {
+                                                            "@name": "string"
+                                                        },
+                                                        "max-elements": {
+                                                            "@value": "30"
+                                                        },
+                                                        "description": {
+                                                            "text": "Supported subtypes for this TOM type in this particular card/port."
+                                                        }
+                                                    },
+                                                    {
+                                                        "@name": "supported-phy-modes",
+                                                        "type": {
+                                                            "@name": "ioa-eqm:phy-mode"
+                                                        },
+                                                        "description": {
+                                                            "text": "The phy-mode that are supported in this TOM for this card."
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ],
+                                    "container": [
+                                        {
+                                            "@name": "gsct",
+                                            "description": {
+                                                "text": "Golden Subtype Constraint Table - contains additional restrictions on supported\ncarrier modes (defined by gcmt), based on card subtype."
+                                            },
+                                            "leaf": {
+                                                "@name": "version",
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "0..5"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "Table version."
+                                                }
+                                            },
+                                            "uses": {
+                                                "@name": "ioa-carrier-types:golden-subtype-constraints"
+                                            }
+                                        },
+                                        {
+                                            "@name": "gcmt",
+                                            "description": {
+                                                "text": "Golden Carrier Mode Table - provides list of supported carrier modes in this card.\nApplicable for cards that support configurable optical carriers (transponders).\nTo be used as reference, and in pre-provisioning scenarios.\nOnce card is physically present, its discovered supported modes will be used instead of these."
+                                            },
+                                            "leaf": {
+                                                "@name": "version",
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "0..5"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "Table version."
+                                                }
+                                            },
+                                            "uses": {
+                                                "@name": "ioa-carrier-types:golden-carrier-modes"
+                                            }
+                                        },
+                                        {
+                                            "@name": "gapt",
+                                            "description": {
+                                                "text": "Golden Advanced Parameters Table - provides a list of known advanced parameters that this card supports."
+                                            },
+                                            "leaf": {
+                                                "@name": "version",
+                                                "type": {
+                                                    "@name": "string",
+                                                    "length": {
+                                                        "@value": "0..5"
+                                                    }
+                                                },
+                                                "description": {
+                                                    "text": "Table version."
+                                                }
+                                            },
+                                            "uses": {
+                                                "@name": "ioa-carrier-types:golden-advanced-parameters"
+                                            },
+                                            "leaf-list": {
+                                                "@name": "applicable-resource-type",
+                                                "type": {
+                                                    "@name": "string"
+                                                },
+                                                "description": {
+                                                    "text": "The managed resource type(s) that are applicable for this particular advanced parameter."
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "@name": "tom-type",
+                                    "key": {
+                                        "@value": "tom-type"
+                                    },
+                                    "description": {
+                                        "text": "Capability information for supported TOM (Transceiver Optical Module)."
+                                    },
+                                    "leaf": [
+                                        {
+                                            "@name": "tom-type",
+                                            "type": {
+                                                "@name": "identityref",
+                                                "base": {
+                                                    "@name": "ioa-common:tom"
+                                                }
+                                            },
+                                            "description": {
+                                                "text": "TOM type name."
+                                            }
+                                        },
+                                        {
+                                            "@name": "data-rate",
+                                            "type": {
+                                                "@name": "uint16"
+                                            },
+                                            "units": {
+                                                "@name": "Gbps"
+                                            },
+                                            "description": {
+                                                "text": "The approximate data-rate for this TOM type."
+                                            }
+                                        },
+                                        {
+                                            "@name": "description",
+                                            "type": {
+                                                "@name": "string",
+                                                "length": {
+                                                    "@value": "0..255"
+                                                }
+                                            },
+                                            "description": {
+                                                "text": "Human readable description for this TOM type."
+                                            }
+                                        },
+                                        {
+                                            "@name": "support-third-party-toms",
+                                            "type": {
+                                                "@name": "boolean"
+                                            },
+                                            "description": {
+                                                "text": "Whether this TOM type accepts third party TOMs in addition to supported Infinera TOMs."
+                                            }
+                                        },
+                                        {
+                                            "@name": "generic-subtype",
+                                            "when": {
+                                                "@condition": "../support-third-party-toms = true()"
+                                            },
+                                            "type": {
+                                                "@name": "string"
+                                            },
+                                            "description": {
+                                                "text": "3rd party subtype for this TOM."
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "@name": "l0-capabilities",
+                            "description": {
+                                "text": "Layer 0 Capabilities."
+                            },
+                            "container": {
+                                "@name": "oadm-capabilities",
+                                "description": {
+                                    "text": "OADM capabilities"
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "max-degrees",
+                                        "type": {
+                                            "@name": "uint8"
+                                        },
+                                        "description": {
+                                            "text": "Maximum number of degrees."
+                                        }
+                                    },
+                                    {
+                                        "@name": "max-adgs",
+                                        "type": {
+                                            "@name": "uint8"
+                                        },
+                                        "description": {
+                                            "text": "Maximum number of ADGs (Add/ Drop Group(s))"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

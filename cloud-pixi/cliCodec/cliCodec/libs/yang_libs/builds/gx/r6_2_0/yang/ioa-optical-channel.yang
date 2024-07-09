@@ -1,0 +1,28 @@
+module ioa-optical-channel {
+    namespace "http://infinera.com/yang/ioa/optical-channel";
+    prefix ioa-och;
+    
+    import ioa-facilities-common { prefix ioa-fac-common; }
+    
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG model describing the optical-channel facility.";
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+    
+    grouping optical-channel {
+        list optical-channel {
+            key "name";
+            description "The OCh is a dummy, place-holder object merely
+                existing for the purposes of object model hierarchy. All
+                attributes of OCh are marked as read-only.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+        }
+    }
+}

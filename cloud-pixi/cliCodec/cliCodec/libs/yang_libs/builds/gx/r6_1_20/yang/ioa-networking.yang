@@ -1,0 +1,540 @@
+module ioa-networking {
+    namespace "http://infinera.com/yang/ioa/networking";
+    prefix networking;
+        
+    import ietf-yang-types { prefix yang; }
+    import ietf-inet-types { prefix inet; }
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-routing { prefix ioa-rt; } 
+    import ioa-acl { prefix ioa-acl; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module with the networking model.";
+
+    revision "2023-03-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.1";
+    }
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    typedef ip-address-config-mode {
+        type enumeration {
+            enum static {
+                value 1;
+            }
+            enum dhcp {
+                value 2;
+            }
+        }
+        description
+        "IP address assignment method.";
+    }
+    
+    typedef protection-mode {
+        type enumeration {
+            enum unknown {
+                value 0;
+                description "Unknown/Transient protection state; output only.";
+            }
+            enum protected {
+                value 1;
+                description "Protected by redundant ports.";
+            }
+            enum unprotected {
+                value 2;
+                description "No port redundancy.";
+            }
+        }
+
+        description "Protection-mode/state of interface.";
+    }
+
+    grouping ip {
+        description
+        "IPv4 and IPv6 interface parameters.";
+
+        list ipv4-address {
+            key "ip";
+            description
+            "The IPv4 address on the interface.";
+
+            leaf ip {
+                type inet:ipv4-address-no-zone {
+                    pattern '[^1].*|.([^2].*)?|.{2}([^7].*)?|.{3}([^\.].*)?';
+                    pattern '[^2].*|.([^2].*)?|.{2}([^4-9].*)?|.{3}([^\.].*)?';
+                    pattern '[^2].*|.([^3-5].*)?|.{2}([^0-9].*)?|.{3}([^\.].*)?';
+                }
+                mandatory true; 
+                description
+                    "The IPv4 addresses on the interface. The following
+                     addresses are disallowed from being configured:
+                     1. Addresses beginning with 0 (current network)
+                     2. Addresses beginning with 127 (loopback addresses)
+                     3. Addresses beginning with 224 up to 255 (broadcast,
+                            multicast and experimental addresses)";
+            }        
+        
+            leaf netmask {
+                type yang:dotted-quad {
+                    pattern '(((255\.){3}(255|254|252|248|240|224|192|128|0))|((255\.){2}(255|254|252|248|240|224|192|128|0)\.0)|((255\.)(255|254|252|248|240|224|192|128|0)(\.0){2})|((255|254|252|248|240|224|192|128|0)(\.0){3}))';
+                }
+                mandatory true;
+                description
+                   "The subnet specified as a netmask for a particular address.
+                    Only valid netmasks are allowed to be configured.";
+            }
+
+            leaf origin {
+                type enumeration {
+                    enum static {
+                        value 1;
+                        description
+                        "Indicates that the address has been statically
+                        configured - for example, using NETCONF or a Command Line
+                        Interface.";
+                    }
+                    enum dhcp {
+                        value 2;
+                        description
+                        "Indicates an address that has been assigned to this
+                        system by a DHCP server.";
+                    }
+                    enum auto-config {
+                        value 3;
+                        description
+                        "Indicates an address created by autoconfiguration.";
+                    }
+                }
+                default static;
+                config false;
+                description
+                "IPv4 address assignment method.";
+            }
+        }
+
+        list ipv6-address {
+            when "../if-type != 'ppp'";
+            key "ip";
+            description
+            "The IPv6 address on the interface.";
+
+            leaf ip {
+                type inet:ipv6-address-no-zone;
+                mandatory true;
+                description
+                    "The IPv6 address on the interface";
+            }
+
+            leaf prefix-length {
+                type uint8 {
+                    range "1..128";
+                }
+                mandatory true;
+                description
+                   "The length of the subnet prefix. Only valid prefixes are
+                    allowed to be configured.";
+            }
+
+            leaf origin {
+                type enumeration {
+                    enum static {
+                        value 1;
+                        description
+                        "Indicates that the address has been statically
+                        configured - for example, using NETCONF or a Command Line
+                        Interface.";
+                    }
+                    enum dhcp {
+                        value 2;
+                        description
+                        "Indicates an address that has been assigned to this
+                        system by a DHCP server.";
+                    }
+                    enum auto-config {
+                        value 3;
+                        description
+                        "Indicates an address created by autoconfiguration.";
+                    }
+                }
+                default static;
+                config false;
+                description
+                "IPv6 address assignment method.";
+            }
+        }
+    }
+
+    grouping interface {
+        description
+        "Interface parameters.";
+                
+        list interface {
+            // Keys
+            key "if-name";
+                        
+            description
+            "The list of configured interfaces on the device.";
+                        
+            leaf if-name {
+                type string {
+                    length "1..64";
+                }
+                mandatory true;
+                description
+                "The name of the interface.";
+            }
+
+            leaf if-description {
+                type string {
+                    length "0..255";
+                }
+                description
+                "A textual description of the interface.";
+                reference
+                "RFC 2863: The Interfaces Group MIB - ifAlias";
+            }
+
+            leaf if-type {
+                type enumeration {
+                    enum ethernet {
+                        value 1;
+                        description
+                        "For all Ethernet-like interfaces, regardless of speed, as per RFC 3635.";
+                        reference
+                        "RFC 3635 - Definitions of Managed Objects for the Ethernet-like Interface Types"; 
+                    } 
+                    enum software-loopback {
+                        value 2;
+                        description "Software Loopback interface type.";
+                    }
+                    enum point-to-point {
+                        value 3;
+                        description "Point to point interfaces associated with control channels.";
+                    }
+                    enum ppp {
+                        value 4;
+                        description "RFC 1661 Point-to-Point Protocol (PPP) interface. A Link Control
+                        Protocol (LCP) for establishing and configuring the data-link connection and 
+                        a family of Network Control Protocols (NCPs) for establishing and configuring
+                        different network-layer protocols will run over the interface.";
+                        reference
+                        "RFC 7224 - IANA Interface Type YANG Module";
+                    }
+                    enum hdlc {
+                        value 5;
+                        description "HDLC(High-Level Data Link Control)-like interface associated with OSCX channels.";
+                    }
+                    enum oscx {
+                        value 6;
+                        description "Interface associated with OSCX channels.";
+                    }
+                }
+                mandatory true;
+                description
+                "The type of the interface.";
+                reference
+                "RFC 2863: The Interfaces Group MIB - ifType";
+            }
+
+            leaf supporting-port {
+                when "../if-type != 'software-loopback'";
+                 type string {
+                    length "0..64";
+                }
+                config false;
+                description "Reference to the physical port that interface is currently mapped to.";
+            }
+
+             leaf backup-port {
+                when "../if-type = 'ethernet'";
+                 type string {
+                    length "0..64";
+                 }
+                 config false;
+                 description "Reference to the physical port that supports this interface (if applicable).";
+             }
+
+             leaf protection-mode {
+                when "../if-type = 'ethernet'";
+                type protection-mode;
+                default protected;
+                description "Reference to user given protection mode for interface.";
+            }
+
+            leaf protection-state {
+                when "../if-type = 'ethernet'";
+                type protection-mode;
+                default unknown;
+                config false;
+                description " Reference to current state of protection of interface so by default its unknown.";
+            }
+
+            leaf vrf {
+                type leafref {
+                    path "../../vrf/name";
+                }
+                config false;
+                description "VRF to which this interface is bound.";
+            }
+
+            leaf ipv4-enabled {
+                type boolean;
+                default true;
+                description
+                "Controls whether IPv4 is enabled or disabled on this
+                interface. When IPv4 is enabled, this interface is
+                connected to an IPv4 stack, and the interface can send
+                and receive IPv4 packets.";
+            }
+
+            leaf ipv4-address-assignment-method {
+                type ip-address-config-mode;
+                default static;
+                description
+                "IPv4 address assignment method.";
+            }
+
+            leaf ipv6-enabled {
+                when "../if-type != 'ppp' and ../if-type != 'hdlc'";
+                type boolean;
+                default true;
+                description
+                "Controls whether IPv6 is enabled or disabled on this
+                interface. When IPv6 is enabled, this interface is
+                connected to an IPv6 stack, and the interface can send
+                and receive IPv6 packets.";
+            }
+
+            leaf ipv6-address-assignment-method {
+                when "../if-type != 'ppp' and ../if-type != 'hdlc'";
+                type ip-address-config-mode;
+                default static;
+                description
+                "IPv6 address assignment method.";
+            }
+
+           leaf proxy-arp-enabled {
+                when "../if-type != 'ppp' and ../if-type != 'hdlc'";
+                type boolean;
+                default false;
+                description
+                "Controls whether or not Proxy ARP is to be enabled on the interface.";
+            }
+
+
+            uses ioa-common:common-states {
+                when "if-type != 'software-loopback'";
+            }
+
+            uses ip;
+            uses ioa-common:arc;
+            uses ioa-common:label;
+        }
+    }
+
+    grouping vrf {
+        list vrf {
+            key name;
+            description "Virtual Routing and Forwarding instance.";
+
+            leaf name {
+                type string {
+                    length 1..32;
+                }
+                description "Name of the VRF.";
+            }
+
+            leaf type {
+                type enumeration {
+                    enum mgmt {
+                        value 0;
+                        description "Management VRF.";
+                    }
+                    enum internal {
+                        value 1;
+                        description "Internal VRF.";
+                    }
+                    enum scn {
+                        value 2;
+                        description "SCN VRF.";
+                    }
+                }
+                config false;
+                description "VRF type.";
+            }
+
+            leaf chassis-name {
+                type leafref {
+                    path "../../../../equipment/chassis/name";
+                }
+                config false;
+                description "Associated chassis name to this VRF.";
+            }
+
+            leaf description {
+                type string {
+                    length "0..255";
+                }
+                config false;
+                description
+                    "Description of the VRF and its intended purpose.";
+            }
+        }
+    }
+
+    grouping dns {
+        container dns {
+            description 
+             "Domain Name Server configuration";
+
+            uses ioa-common:assignment-method;
+
+            leaf enabled {
+                 type boolean;
+                 default true;
+                 description "Whether DNS is enabled.";
+            }
+
+            leaf search {
+                type string {
+                     length 0..64;
+                     pattern '(([A-Za-z0-9]*\.)+[A-Za-z0-9]+)?';
+                }
+                description
+                 "DNS-search-suffix name, should contain atleast single dot. 
+                    To clear value, set to empty string.";
+            }
+
+            list dns-server {
+                key "address";
+                description "DNS server configuration.";
+
+                leaf address {
+                    type inet:ip-address;
+                     description "DNS address.";
+                }
+
+                leaf origin {
+                    type enumeration {
+                         enum manual {
+                             value 1;
+                             description
+                             "Indicates the dns address has been manually configured.";
+                         }
+                         enum dhcp {
+                                value 2;
+                                description
+                                    "Indicates dns address that has been assigned to this
+                                     system by a DHCP server.";
+                         }
+                    }
+                    description
+                        "DNS address assignment method, user can convert
+                         DHCP configured DNS entry into a manual configured  by changing this attribute.";
+                }
+            }
+        }
+    }
+
+    grouping rib {
+        list rib {
+            key "rib-name";
+            config false;
+            description
+            "Each entry represents a RIB identified by the 'name'
+            key. All routes in a RIB belong to the same address
+            family. For each routing instance, the system will 
+            provide one system-controlled default RIB for each
+            supported address family.";
+
+            leaf rib-name {
+                type ioa-common:object-name;
+                description "The name of the RIB.";
+            }
+
+            leaf vrf {
+                type leafref {
+                    path "../../vrf/name";
+                }
+                description "VRF to which this RIB is bound.";
+            }
+
+            leaf address-family {
+                type enumeration {
+                    enum ipv4-unicast { value 1; }
+                    enum ipv6-unicast { value 2; }
+                }
+                default "ipv4-unicast";
+                description "Address family.";
+            }
+
+            list route {
+                key "destination-prefix";
+                description "A list of system routes from various source, such as dynamic protocols and static route.";
+
+                leaf destination-prefix {
+                    type inet:ip-prefix;
+                    description "IP destination prefix.";
+                }
+
+                list next-hop {
+                    key "interface";
+                    description "Next-hop of a route item.";
+                    
+                    leaf interface {
+                        type leafref {
+                            path "../../../../interface/if-name";
+                        }
+                        description "Reference of the outgoing interface.";
+                    }
+
+                    leaf next-hop-address {
+                        type inet:ip-address;
+                        description
+                        "IP address of the next-hop.";
+                    }
+                }
+            }
+        }
+    }
+
+    grouping networking {
+        
+        container networking {
+            description "Top level container for networking model.";
+
+            uses interface;
+            uses vrf;
+            uses ioa-rt:routing; 
+            uses rib;
+            uses ioa-acl:acl-attributes;
+            uses dns;
+
+            leaf use-as-source{
+                type string{
+                    length "0..64";
+                }
+                description "Interface to use as source address";
+            }
+        }
+    }
+}

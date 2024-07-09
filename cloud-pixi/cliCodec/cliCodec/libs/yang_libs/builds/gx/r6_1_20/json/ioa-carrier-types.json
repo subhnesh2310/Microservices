@@ -1,0 +1,582 @@
+{
+    "module": {
+        "@name": "ioa-carrier-types",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-carrier-types": "http://infinera.com/yang/ioa/carrier-types",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/carrier-types"
+        },
+        "prefix": {
+            "@value": "ioa-carrier-types"
+        },
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module that defines carrier mode and advanced parameter types and groupings\nthat are common to controller module and line module (e.g. CHM6.)."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "typedef": {
+            "@name": "application-id-type",
+            "type": {
+                "@name": "string",
+                "length": {
+                    "@value": "1..15"
+                }
+            },
+            "description": {
+                "text": "Appication ID is a string."
+            }
+        },
+        "grouping": [
+            {
+                "@name": "carrier-mode-attributes",
+                "description": {
+                    "text": "Collection of attributes that uniquely identifies the mode of operation of each carrier within the SCH."
+                },
+                "leaf": [
+                    {
+                        "@name": "carrier-mode",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "1..15"
+                            }
+                        },
+                        "description": {
+                            "text": "An acronymized code (handle) that is indicative of the optical carrier line mode (4-tuple) combination.\nThe format is as follows:\n   <Capacity><ClientMode>.<Baud Rate><Application ID>\nExamples:\n   - 600E.84P\n   - 100X.73U\n   - 325M.66P"
+                        }
+                    },
+                    {
+                        "@name": "capacity",
+                        "type": {
+                            "@name": "uint16"
+                        },
+                        "units": {
+                            "@name": "Gbps"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The net capacity of the optical carrier."
+                        }
+                    },
+                    {
+                        "@name": "client-mode",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "ethernet",
+                                    "value": {
+                                        "@value": "10"
+                                    }
+                                },
+                                {
+                                    "@name": "ethernet-otn",
+                                    "value": {
+                                        "@value": "20"
+                                    }
+                                }
+                            ]
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "This indicates digital client modes of the signal\nthat is mapped into, and transported by the carriers within this\nsuperchannel."
+                        }
+                    },
+                    {
+                        "@name": "baud-rate",
+                        "type": {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "7"
+                            }
+                        },
+                        "units": {
+                            "@name": "GBaud"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The modulated symbol rate."
+                        }
+                    },
+                    {
+                        "@name": "application",
+                        "type": {
+                            "@name": "application-id-type"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The optical transport application ID this mode is optimized for."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "golden-carrier-modes",
+                "list": {
+                    "@name": "golden-carrier-mode",
+                    "key": {
+                        "@value": "carrier-mode"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "List of golden carrier modes."
+                    },
+                    "uses": {
+                        "@name": "supported-carrier-mode-attributes"
+                    }
+                }
+            },
+            {
+                "@name": "supported-carrier-modes",
+                "list": {
+                    "@name": "supported-carrier-mode",
+                    "key": {
+                        "@value": "carrier-mode"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "status": {
+                        "@value": "obsolete"
+                    },
+                    "description": {
+                        "text": "List of supported carrier modes.\nNote: this object is obsolete - this is kept for temporary backward compatibility.\nThe equivalent data can be found in the golden-carrier-mode list.\nHowever, instead of defining the list per card, the golden-carrier-mode list defines it globally."
+                    },
+                    "uses": {
+                        "@name": "supported-carrier-mode-attributes"
+                    }
+                }
+            },
+            {
+                "@name": "supported-carrier-mode-attributes",
+                "uses": {
+                    "@name": "carrier-mode-attributes"
+                },
+                "leaf": [
+                    {
+                        "@name": "compatibility-id",
+                        "type": {
+                            "@name": "uint16"
+                        },
+                        "description": {
+                            "text": "Identifies the compatible carrier modes that can be applied simultaneously"
+                        }
+                    },
+                    {
+                        "@name": "status",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "supported",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "candidate",
+                                    "value": {
+                                        "@value": "2"
+                                    }
+                                },
+                                {
+                                    "@name": "experimental",
+                                    "value": {
+                                        "@value": "3"
+                                    }
+                                },
+                                {
+                                    "@name": "deprecated",
+                                    "value": {
+                                        "@value": "4"
+                                    }
+                                },
+                                {
+                                    "@name": "diagnostic",
+                                    "value": {
+                                        "@value": "5"
+                                    }
+                                }
+                            ]
+                        },
+                        "description": {
+                            "text": "Describes carrier mode release status."
+                        }
+                    }
+                ],
+                "leaf-list": {
+                    "@name": "supported-subtypes",
+                    "type": {
+                        "@name": "string",
+                        "length": {
+                            "@value": "0..32"
+                        }
+                    },
+                    "max-elements": {
+                        "@value": "20"
+                    },
+                    "description": {
+                        "text": "Subtypes that each carrier mode supports."
+                    }
+                }
+            },
+            {
+                "@name": "golden-advanced-parameters",
+                "list": {
+                    "@name": "golden-advanced-parameter",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "A set of all optical carrier advanced parameters discovered from the equipment."
+                    },
+                    "uses": {
+                        "@name": "advanced-parameters-attributes"
+                    }
+                }
+            },
+            {
+                "@name": "advanced-parameters-attributes",
+                "leaf": [
+                    {
+                        "@name": "name",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..256"
+                            }
+                        },
+                        "description": {
+                            "text": "The name of the advanced parameter."
+                        }
+                    },
+                    {
+                        "@name": "description",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..256"
+                            }
+                        },
+                        "description": {
+                            "text": "A human readable description of this advanced parameter."
+                        }
+                    },
+                    {
+                        "@name": "type",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..255"
+                            }
+                        },
+                        "description": {
+                            "text": "Indicates the data type of the advanced parameter."
+                        }
+                    },
+                    {
+                        "@name": "supported-values",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..256"
+                            }
+                        },
+                        "description": {
+                            "text": "This list indicates the possible values that this parameter can take as input. It is a list of ranges.\n   E.g.'1-4, 10-14' indicating two ranges from 1 to 4 and 10 to 14. Or it could be a list of discrete\n   numbers like '10, 20, 30, 40'. Spaces are optional."
+                        }
+                    },
+                    {
+                        "@name": "direction",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "transmit",
+                                    "value": {
+                                        "@value": "10"
+                                    }
+                                },
+                                {
+                                    "@name": "receive",
+                                    "value": {
+                                        "@value": "20"
+                                    }
+                                },
+                                {
+                                    "@name": "transmit-and-receive",
+                                    "value": {
+                                        "@value": "30"
+                                    }
+                                }
+                            ]
+                        },
+                        "description": {
+                            "text": "Advanced parameter is applicable to the specified direction."
+                        }
+                    },
+                    {
+                        "@name": "multiplicity",
+                        "type": {
+                            "@name": "uint8"
+                        },
+                        "description": {
+                            "text": "Identifies number of values user need to enter for this advanced parameter.\n   Same range or allowed-values will apply for each entry."
+                        }
+                    },
+                    {
+                        "@name": "configuration-impact",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "no-change",
+                                    "value": {
+                                        "@value": "10"
+                                    }
+                                },
+                                {
+                                    "@name": "no-reacquire",
+                                    "value": {
+                                        "@value": "20"
+                                    }
+                                },
+                                {
+                                    "@name": "reacquire",
+                                    "value": {
+                                        "@value": "30"
+                                    }
+                                },
+                                {
+                                    "@name": "full-config-pll-change",
+                                    "value": {
+                                        "@value": "40"
+                                    }
+                                },
+                                {
+                                    "@name": "full-config-no-pll-change",
+                                    "value": {
+                                        "@value": "50"
+                                    }
+                                }
+                            ]
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Identifies the configuration steps to apply the change."
+                        }
+                    },
+                    {
+                        "@name": "service-impact",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "service-affecting",
+                                    "value": {
+                                        "@value": "10"
+                                    }
+                                },
+                                {
+                                    "@name": "non-service-affecting",
+                                    "value": {
+                                        "@value": "20"
+                                    }
+                                }
+                            ]
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Identifies if applying this parameter change causes service impact. If it is service impacting, user must perform admin lock/maintenance/ToDO operation."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "supported-advanced-parameters",
+                "list": {
+                    "@name": "supported-advanced-parameter",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "A set of all optical carrier advanced parameters discovered from the equipment."
+                    },
+                    "reference": {
+                        "text": "Discovered Advanced Parameter Table (DAPT)."
+                    },
+                    "uses": {
+                        "@name": "advanced-parameters-attributes"
+                    }
+                }
+            },
+            {
+                "@name": "golden-application-descriptions",
+                "list": {
+                    "@name": "application-description",
+                    "key": {
+                        "@value": "application"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "Detailed description of application ID"
+                    },
+                    "leaf": [
+                        {
+                            "@name": "application",
+                            "type": {
+                                "@name": "application-id-type"
+                            },
+                            "description": {
+                                "text": "The optical transport application ID this mode is optimized for."
+                            }
+                        },
+                        {
+                            "@name": "application-description",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..1024"
+                                }
+                            },
+                            "description": {
+                                "text": "Detailed description of application ID"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "golden-subtype-constraints",
+                "list": {
+                    "@name": "subtype-constraint",
+                    "key": {
+                        "@value": "subtype"
+                    },
+                    "config": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "List of subtype constraints."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "subtype",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..20"
+                                }
+                            },
+                            "description": {
+                                "text": "Card Subtype. Represents a group of related PONs for a card type to which these constraints applies."
+                            }
+                        },
+                        {
+                            "@name": "min-capacity",
+                            "type": {
+                                "@name": "int16"
+                            },
+                            "units": {
+                                "@name": "Gbps"
+                            },
+                            "description": {
+                                "text": "The minimum capacity supported by this subtype."
+                            }
+                        },
+                        {
+                            "@name": "max-capacity",
+                            "type": {
+                                "@name": "int16"
+                            },
+                            "units": {
+                                "@name": "Gbps"
+                            },
+                            "description": {
+                                "text": "The maximum capacity supported by this subtype. -1 means there is no maximum capacity constraint."
+                            }
+                        },
+                        {
+                            "@name": "description",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..255"
+                                }
+                            },
+                            "description": {
+                                "text": "Subtype description."
+                            }
+                        }
+                    ],
+                    "leaf-list": [
+                        {
+                            "@name": "supported-applications",
+                            "type": {
+                                "@name": "application-id-type"
+                            },
+                            "description": {
+                                "text": "List of applications supported by this subtype. If this list is empty, then this constraint is not applicable."
+                            }
+                        },
+                        {
+                            "@name": "unsupported-applications",
+                            "type": {
+                                "@name": "application-id-type"
+                            },
+                            "description": {
+                                "text": "List of applications not supported by this subtype. If this list is empty, then this constraint is not applicable."
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

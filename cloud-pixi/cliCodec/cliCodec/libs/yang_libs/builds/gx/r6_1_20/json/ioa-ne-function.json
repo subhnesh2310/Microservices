@@ -1,0 +1,415 @@
+{
+    "module": {
+        "@name": "ioa-ne-function",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-ne-function": "http://infinera.com/yang/ioa/ne-function",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-l0": "http://infinera.com/yang/ioa/l0",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/ne-function"
+        },
+        "prefix": {
+            "@value": "ioa-ne-function"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-l0",
+                "prefix": {
+                    "@value": "ioa-l0"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG definitions for common NE functions."
+        },
+        "revision": [
+            {
+                "@date": "2023-03-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.1"
+                }
+            },
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "ne-function-common-attributes",
+                "description": {
+                    "text": "Common attributes that are applicable to all ne-function(s)."
+                },
+                "leaf": [
+                    {
+                        "@name": "name",
+                        "type": {
+                            "@name": "ioa-common:object-name"
+                        },
+                        "description": {
+                            "text": "Non-configurable name: derived from chass/slot and degree."
+                        }
+                    },
+                    {
+                        "@name": "supporting-card",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "../../../equipment/card/name"
+                            }
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Card that holds this"
+                        }
+                    }
+                ],
+                "leaf-list": [
+                    {
+                        "@name": "supporting-input-port",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "../../../equipment/card/port/name"
+                            }
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "max-elements": {
+                            "@value": "4"
+                        },
+                        "description": {
+                            "text": "Rx (input) Port that hold this object"
+                        }
+                    },
+                    {
+                        "@name": "supporting-output-port",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "../../../equipment/card/port/name"
+                            }
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "max-elements": {
+                            "@value": "4"
+                        },
+                        "description": {
+                            "text": "Tx (output) Port that hold this object"
+                        }
+                    }
+                ],
+                "uses": [
+                    {
+                        "@name": "ioa-common:aid"
+                    },
+                    {
+                        "@name": "ioa-common:common-states"
+                    },
+                    {
+                        "@name": "ioa-common:label"
+                    }
+                ]
+            },
+            {
+                "@name": "ne-composition",
+                "list": [
+                    {
+                        "@name": "degree",
+                        "when": {
+                            "@condition": "/ne/node-type='OADM'"
+                        },
+                        "key": {
+                            "@value": "degree-number"
+                        },
+                        "description": {
+                            "text": "List of NE Degrees."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "degree-number",
+                                "type": {
+                                    "@name": "uint16",
+                                    "range": {
+                                        "@value": "1..20"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Degree number should be greater than zero and not greater than max-degrees."
+                                }
+                            },
+                            {
+                                "@name": "slot-width-granularity",
+                                "type": {
+                                    "@name": "ioa-l0:frequency-MHz"
+                                },
+                                "default": {
+                                    "@value": "6250"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Width of a slot (measured in GHz)."
+                                }
+                            },
+                            {
+                                "@name": "center-freq-granularity",
+                                "type": {
+                                    "@name": "ioa-l0:frequency-MHz"
+                                },
+                                "default": {
+                                    "@value": "3125"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Granularity of allowed center frequencies.\nThe base frequency for this computation is 193.1 THz (G.694.1)."
+                                }
+                            },
+                            {
+                                "@name": "min-slots",
+                                "type": {
+                                    "@name": "uint32"
+                                },
+                                "default": {
+                                    "@value": "8"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Minimum number of slots permitted to be joined together to form a media channel.\nMust be less than or equal to the max-slots."
+                                }
+                            },
+                            {
+                                "@name": "max-slots",
+                                "type": {
+                                    "@name": "uint32"
+                                },
+                                "default": {
+                                    "@value": "32"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Maximum number of slots permitted to be joined together to form a media channel.\nMust be greater than or equal to the min-slots."
+                                }
+                            }
+                        ],
+                        "uses": {
+                            "@name": "ioa-common:label"
+                        },
+                        "list": [
+                            {
+                                "@name": "connection-ports",
+                                "key": {
+                                    "@value": "index"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Port associated with degree: One if bi-directional; two if uni-directional.\nMin. and max. elements in the list is 1 in R6.0"
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "index",
+                                        "type": {
+                                            "@name": "uint32",
+                                            "range": {
+                                                "@value": "1..2"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "Always 1 in GX (since dwdm-line ports are bi-directional)."
+                                        }
+                                    },
+                                    {
+                                        "@name": "port-name",
+                                        "type": {
+                                            "@name": "instance-identifier"
+                                        },
+                                        "mandatory": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "The dwdm-line port of RDxx or ILAx card.\nAs a consequence, OMS of the corresponding dwdm-port is created."
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "@name": "modules-degree",
+                                "key": {
+                                    "@value": "index"
+                                },
+                                "description": {
+                                    "text": "List of cards/ subcards/ modules involved in degree: modules listed here must be listed as 'possibleDegrees'."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "index",
+                                        "type": {
+                                            "@name": "uint8",
+                                            "range": {
+                                                "@value": "1"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "Card with index 1 should be the card/ subcard/ module fibered to the Degree(s)."
+                                        }
+                                    },
+                                    {
+                                        "@name": "supported-card",
+                                        "type": {
+                                            "@name": "instance-identifier"
+                                        },
+                                        "mandatory": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "Instance of card or subcard that belongs to degree."
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "@name": "adg",
+                        "when": {
+                            "@condition": "/ne/node-type='OADM'",
+                            "description": {
+                                "text": "Only of relevance for OADM Node Types"
+                            }
+                        },
+                        "key": {
+                            "@value": "adg-number"
+                        },
+                        "description": {
+                            "text": "List of ADGs - Add/ Drop Group(s)"
+                        },
+                        "leaf": [
+                            {
+                                "@name": "adg-number",
+                                "type": {
+                                    "@name": "uint8",
+                                    "range": {
+                                        "@value": "1..110"
+                                    }
+                                },
+                                "description": {
+                                    "text": "ADG identifier as a number."
+                                }
+                            },
+                            {
+                                "@name": "max-add-drop-ports",
+                                "type": {
+                                    "@name": "uint16"
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "The max number of ports available for a given ADG."
+                                }
+                            },
+                            {
+                                "@name": "wavelength-duplication",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "one-per-adg",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "No duplication of frequencies in the ADG"
+                                            }
+                                        },
+                                        {
+                                            "@name": "one-per-degree",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "CDC: duplication of frequencies allowed in the ADG, but only one at the Degree"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "Whether the SRG can handle duplicate wavelengths and if so to what extent."
+                                }
+                            }
+                        ],
+                        "uses": {
+                            "@name": "ioa-common:label"
+                        },
+                        "list": {
+                            "@name": "modules-adg",
+                            "key": {
+                                "@value": "index"
+                            },
+                            "description": {
+                                "text": "List of cards/ subcards/ modules involved in ADG, for informational purposes."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "index",
+                                    "type": {
+                                        "@name": "uint8",
+                                        "range": {
+                                            "@value": "1..4"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Card with index 1 should be the card/ subcard/ module fibered to the Degree(s)."
+                                    }
+                                },
+                                {
+                                    "@name": "supported-card",
+                                    "type": {
+                                        "@name": "instance-identifier"
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "Instance of the card for the ADG."
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

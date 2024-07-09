@@ -1,0 +1,51 @@
+{
+    "interfaces": {
+        "interface": [
+            {
+                "name": {
+                    "type": {
+                        "ptype": "str",
+                        "leafref": "../config/name"
+                    },
+                    "isList": false,
+                    "description": "References the name of the interface",
+                    "key": true,
+                    "mandatory": false,
+                    "config": true,
+                    "default": "",
+                    "namespace": null,
+                    "hardcode": false
+                },
+                "config": {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The name of the interface.\n\nA device MAY restrict the allowed values for this leaf,\npossibly depending on the type of the interface.\nFor system-controlled interfaces, this leaf is the\ndevice-specific name of the interface.  The 'config false'\nlist interfaces/interface[name]/state contains the currently\nexisting interfaces on the device.\n\nIf a client tries to create configuration for a\nsystem-controlled interface that is not present in the\ncorresponding state list, the server MAY reject\nthe request if the implementation does not support\npre-provisioning of interfaces or if the name refers to\nan interface that can never exist in the system.  A\nNETCONF server MUST reply with an rpc-error with the\nerror-tag 'invalid-value' in this case.\n\nThe IETF model in RFC 7223 provides YANG features for the\nfollowing (i.e., pre-provisioning and arbitrary-names),\nhowever they are omitted here:\n\n If the device supports pre-provisioning of interface\n configuration, the 'pre-provisioning' feature is\n advertised.\n\n If the device allows arbitrarily named user-controlled\n interfaces, the 'arbitrary-names' feature is advertised.\n\nWhen a configured user-controlled interface is created by\nthe system, it is instantiated with the same name in the\n/interfaces/interface[name]/state list.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": null,
+                        "hardcode": false
+                    },
+                    "type": {
+                        "type": {
+                            "ptype": "str",
+                            "identityref": "ietf-if:interface-type"
+                        },
+                        "isList": false,
+                        "description": "The type of the interface.\n\nWhen an interface entry is created, a server MAY\ninitialize the type leaf with a valid value, e.g., if it\nis possible to derive the type from the name of the\ninterface.\n\nIf a client tries to set the type of an interface to a\nvalue that can never be used by the system, e.g., if the\ntype is not supported or if the type does not match the\nname of the interface, the server MUST reject the request.\nA NETCONF server MUST reply with an rpc-error with the\nerror-tag 'invalid-value' in this case.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": null,
+                        "hardcode": false
+                    }
+                }
+            }
+        ]
+    }
+}

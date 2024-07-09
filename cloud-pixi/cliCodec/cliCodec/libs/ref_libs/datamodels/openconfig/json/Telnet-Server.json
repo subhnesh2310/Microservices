@@ -1,0 +1,60 @@
+{
+    "system": {
+        "telnet-server": {
+            "config": {
+                "enable": {
+                    "type": {
+                        "ptype": "bool"
+                    },
+                    "isList": false,
+                    "description": "Enables the telnet server.  Telnet is disabled by\ndefault",
+                    "mandatory": false,
+                    "key": false,
+                    "config": true,
+                    "default": false,
+                    "namespace": null
+                },
+                "timeout": {
+                    "type": {
+                        "ptype": "int"
+                    },
+                    "isList": false,
+                    "description": "Set the idle timeout in seconds on terminal connections to\nthe system for the protocol.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": true,
+                    "default": 0,
+                    "namespace": null
+                },
+                "rate-limit": {
+                    "type": {
+                        "ptype": "int"
+                    },
+                    "isList": false,
+                    "description": "Set a limit on the number of connection attempts per\nminute to the system for the protocol.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": true,
+                    "default": 0,
+                    "namespace": null
+                },
+                "session-limit": {
+                    "type": {
+                        "ptype": "int"
+                    },
+                    "isList": false,
+                    "description": "Set a limit on the number of simultaneous active terminal\nsessions to the system for the protocol (e.g., ssh,\ntelnet, ...)",
+                    "mandatory": false,
+                    "key": false,
+                    "config": true,
+                    "default": 0,
+                    "namespace": null
+                }
+            }
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/system"
+        }
+    }
+}

@@ -1,0 +1,66 @@
+module ioa-fc {
+    namespace "http://infinera.com/yang/ioa/fc";
+    prefix ioa-fc;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions for Fiber Channel facilities in a typical Layer 1 optical transponder.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    grouping fc {
+        list fc {
+            key name;
+            description "FC facility.";
+            uses ioa-fac-common:facilities-common-attributes;
+            uses ioa-common:arc;
+            leaf fc-type {
+                type enumeration {
+                    enum FC1G { value 1; }
+                    enum FC4G { value 2; }
+                }
+                config false;
+                description "The type of fc signal.";
+            }
+            leaf service-mode {
+                type ioa-fac-common:service-mode;
+                default transport;
+                config false;
+                description "Service mode for the fc facility.";
+            }
+            leaf service-mode-qualifier {
+                type ioa-fac-common:service-mode-qualifier;
+                default none;
+                config false;
+                description "Service mode qualifier for the fc facility.";
+            }
+            leaf speed {
+                type decimal64 {
+                    fraction-digits 3;
+                }
+                units "Gbit/s";
+                config false;
+                description "The speed/rate of the fc client interfaces.";
+            }
+            leaf tx-mapping-mode {
+                type ioa-fac-common:mapping-mode;
+                description "The tx mapping mode of client port. The possible values are dependent on the HW and configuration.";
+            }
+            leaf expected-mapping-mode {
+                 type ioa-fac-common:mapping-mode;
+                description "The expected mapping mode of client port. The possible values are dependent on the HW and configuration.";
+            }
+            uses ioa-fac-common:loopback;
+            uses ioa-fac-common:loopback-mode;
+            uses ioa-fac-common:test-signal;
+            uses ioa-common:circuit-id;
+        }
+    }
+}

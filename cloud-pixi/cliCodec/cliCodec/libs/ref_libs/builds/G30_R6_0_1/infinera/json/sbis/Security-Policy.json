@@ -1,0 +1,479 @@
+{
+    "ne": {
+        "system": {
+            "security": {
+                "security-policies": {
+                    "secure-mode": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "If enabled, non-secure protocols are not supported.\nIf disabled, non-secure protocols can be used, including:\n- HTTP protocol for file transfer, REST API, or any other HTTP based application\n- FTP protocol for file transfer\n- SNMPv2c or SNMPv3 without encryption\n\nEnabling secure-mode will be rejected if any non-secure protocol is in use.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": true,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "strict-password-check": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "If enabled, ensures the strict password complexity rules. Including:\n- minimum length of 8 characters\n- at least one lower case letter (a-z)\n- at least one upper case letter (A-Z)\n- at least one number (0-9)\n- at least one symbol ()\n- user name cannot be part of the password\nIf disabled, all these rules are not enforced, except:\n- minimum length is 1 character\nOnce enabled, this policy only has impact on newly defined passwords.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": true,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "ssh-authentication-method": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "password",
+                                "public-key"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The method used to authenticate user for SSH access.\nNote: For two-factor authentication, use public-key method and employ PIN/password-protected hardware device (e.g.: smart card or USB token.)",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "password",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "enforce-password-history-check": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "If enabled, ensures that a new password being set cannot match any of the previous 5 password\nfor the user.\nIf disabled, password repetition is allowed.\nOnce enabled, this policy only has impact on newly defined passwords.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": true,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "aaa-authentication-method": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "local-only",
+                                "local-first-then-remote",
+                                "remote-first-then-local",
+                                "remote-unavailable-then-local"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Specify authentication method for the user login to the NE.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "local-only",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "aaa-authorization-method": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "local-only",
+                                "remote-if-authenticated-else-local",
+                                "remote-unavailable-then-local"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Specify authorization policy for the logged user. If the user changes this parameter, it should logout and login again to apply the rules.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "local-only",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "ssh-strict-host-key-checking": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "strict",
+                                "relaxed"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Specify the strictness of remote ssh/sftp/scp host identity checking.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "relaxed",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "root-password": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The password of the root user.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "console-user-password": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The password of the console-user.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "console-user-enabled": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "A switch to enable/disable console-user.\nThe console-user account is an emergency account that is only usable through the serial console.\nDisabling this account may put the device in a position where recovery is not possible,\nso it is recommended to keep this account enabled.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": true,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "csp-symmetrical-key": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Critical Security Parameters symmetrical key.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "max-system-sessions": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "The maximum number of management sessions that the system supports.\nNote: session via serial console does not count against this maximum.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "max-local-users": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "The maximum number of local users that can be configured in the system.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "disable-user-lockout": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "This policy allows to enable/disable user lockout when multiple invalid logins are detected.\nThe number of invalid logins that trigger the lockout is configurable at the individual user level with the max-invalid-logins parameter.\nThe time the user is locked-out is also configurable at user level with the suspension-time parameter.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": false,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supported-tls-version": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "1.2-only",
+                                "1.3-only",
+                                "1.3-with-fallback-to-1.2"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Transport Layer Security (TLS) supported version(s).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "1.2-only",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "crl-based-revocation": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "This policy allows to enable/disable CRL-based certificate revocation.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": false,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "crl-download-timeout": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Specifies the maximum time to wait (in seconds) for automatic CRL downloads.\nNote: This timeout does not apply to manual CRL downloads.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 15,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "ocsp-based-revocation": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "This policy defines whether OCSP responders can be consulted for certificate revocation checking.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": false,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "default-user-group": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../user-group/name"
+                        },
+                        "isList": true,
+                        "description": "Default roles for users access.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "ssh-ciphers": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "aes128-ctr",
+                                "aes192-ctr",
+                                "aes256-ctr",
+                                "aes128-gcm-at-openssh-com",
+                                "aes256-gcm-at-openssh-com",
+                                "chacha20-poly1305-at-openssh-com",
+                                "aes128-cbc",
+                                "aes256-cbc"
+                            ]
+                        },
+                        "isList": true,
+                        "description": "Allowed symmetric ciphers for SSH.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "ssh-macs": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "hmac-sha2-256",
+                                "hmac-sha2-512",
+                                "hmac-sha2-256-etm-at-openssh-com",
+                                "hmac-sha2-512-etm-at-openssh-com",
+                                "hmac-sha1",
+                                "hmac-sha1-96",
+                                "hmac-sha1-etm-at-openssh-com",
+                                "hmac-sha1-96-etm-at-openssh-com"
+                            ]
+                        },
+                        "isList": true,
+                        "description": "Allowed message authentication code algorithms for SSH.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "ssh-key-exchanges": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "diffie-hellman-group-exchange-sha256",
+                                "ecdh-sha2-nistp256",
+                                "ecdh-sha2-nistp384",
+                                "ecdh-sha2-nistp521",
+                                "diffie-hellman-group14-sha1",
+                                "diffie-hellman-group-exchange-sha1"
+                            ]
+                        },
+                        "isList": true,
+                        "description": "Allowed key exchange algorithms for SSH.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "ssh-host-key-algorithms": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "ssh-rsa",
+                                "rsa-sha2-256",
+                                "rsa-sha2-512",
+                                "ecdsa-sha2-nistp256",
+                                "ecdsa-sha2-nistp384",
+                                "ecdsa-sha2-nistp521"
+                            ]
+                        },
+                        "isList": true,
+                        "description": "Allowed host key algorithms for SSH.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "ssh-public-key-algorithms": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "ssh-rsa",
+                                "rsa-sha2-256",
+                                "rsa-sha2-512",
+                                "ecdsa-sha2-nistp256",
+                                "ecdsa-sha2-nistp384",
+                                "ecdsa-sha2-nistp521"
+                            ]
+                        },
+                        "isList": true,
+                        "description": "Allowed public key algorithms for SSH.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tls-1.2-cipher-suites": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "TLS_DHE_RSA_WITH_AES_128_CBC_SHA256",
+                                "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256",
+                                "TLS_DHE_RSA_WITH_AES_256_CBC_SHA256",
+                                "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384",
+                                "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+                                "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+                                "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384",
+                                "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+                                "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256",
+                                "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+                                "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384",
+                                "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+                                "TLS_RSA_WITH_AES_128_CBC_SHA256",
+                                "TLS_RSA_WITH_AES_128_GCM_SHA256",
+                                "TLS_RSA_WITH_AES_256_CBC_SHA256",
+                                "TLS_RSA_WITH_AES_256_GCM_SHA384"
+                            ]
+                        },
+                        "isList": true,
+                        "description": "Supported TLS 1.2 cipher suites.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tls-1.3-cipher-suites": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "TLS_AES_128_GCM_SHA256",
+                                "TLS_AES_256_GCM_SHA384",
+                                "TLS_CHACHA20_POLY1305_SHA256",
+                                "TLS_AES_128_CCM_SHA256",
+                                "TLS_AES_128_CCM_8_SHA256"
+                            ]
+                        },
+                        "isList": true,
+                        "description": "Supported TLS 1.3 cipher suites.\nTLS_CHACHA20_POLY1305_SHA256 note:\nIf present and requested by the client as first cipher, it will be prioritized regardless of server preferences.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tls-curves": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "secp256r1",
+                                "secp384r1",
+                                "secp521r1",
+                                "x25519",
+                                "x448"
+                            ]
+                        },
+                        "isList": true,
+                        "description": "Supported elliptic curve algorithms.\nThe tls-curve algorithm affects both key-exchange and authentication stages of TLS handshake.\nApplies to both TLS 1.2 and 1.3.\nNOTE: Restricting curves can cause interoperability issues.\nTLS 1.2 remark: if the configured curve is not sent by the client, handshake may fail.\nTLS 1.3 remark: for the Authentication stage, it is possible that the server\nselects another curve different from the certificate signing algorithm.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "db-passphrase": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Passphrase used for encrypting and decrypting DB snapshots.\nFor each command associated with DB snapshots (backup, restore, etc),\nthis db-passphrase will be used, except when it is directly provided in each command.\nAutomatic DB snapshots will not be enabled until this parameter is set.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

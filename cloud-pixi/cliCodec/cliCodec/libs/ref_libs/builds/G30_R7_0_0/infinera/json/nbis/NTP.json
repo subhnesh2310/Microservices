@@ -1,0 +1,182 @@
+{
+    "key_id": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "NTP Key-ID.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "key_id"
+    },
+    "key_type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "sha-1",
+                "aes-cmac",
+                "sha-256",
+                "md5"
+            ]
+        },
+        "description": "Hash algorithm for NTP message digest computation",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "key_type"
+    },
+    "key_value": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "NTP Key-value.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "key_value"
+    },
+    "is_trusted": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Is trusted NTP key.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "is_trusted"
+    },
+    "ip_address": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "NTP Server IP address. Ipv4/Ipv6/hostname supported.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "ip_address"
+    },
+    "origin": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "manual",
+                "dhcp"
+            ]
+        },
+        "description": "NTP address assignment method, user can convert\nDHCP configured NTP entry into a manual configured by changing this attribute.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "origin"
+    },
+    "auth_key_id": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Key ID to be used for this server.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "not-applicable",
+        "hardcode": false,
+        "argName": "auth_key_id"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "ntp_enabled": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Whether ntp is enabled.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": true,
+        "hardcode": false,
+        "argName": "ntp_enabled"
+    },
+    "ntp_auth_enabled": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Whether NTP authentication is enabled.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "ntp_auth_enabled"
+    },
+    "assignment_method": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "both",
+                "manual",
+                "dhcp"
+            ]
+        },
+        "description": "The system would contain manual and dhcp configured values.\nSystem can use those onfigurations/values defined by assignment-method attributes.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "both",
+        "hardcode": false,
+        "argName": "assignment_method"
+    }
+}

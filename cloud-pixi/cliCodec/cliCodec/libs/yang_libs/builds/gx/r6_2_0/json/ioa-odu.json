@@ -1,0 +1,490 @@
+{
+    "module": {
+        "@name": "ioa-odu",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-odu": "http://infinera.com/yang/ioa/odu",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "@xmlns:ioa-otn": "http://infinera.com/yang/ioa/otn-common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/odu"
+        },
+        "prefix": {
+            "@value": "ioa-odu"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            },
+            {
+                "@module": "ioa-otn-common",
+                "prefix": {
+                    "@value": "ioa-otn"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG definitions for OTN optical channel data transport unit (ODU)\nfacilities in a typical Layer 1 optical transponder."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-09-17",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.1"
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "odu",
+                "list": {
+                    "@name": "odu",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "description": {
+                        "text": "ODUCni/ODUki facility, representing both line side and client side ODUs.\nRepresents both Infinera proprietary line-side ODUki/ODUCni protocol, as well as ITU standard ODUk/OCUCn protocol\nRepresents both high order and low order ODUs."
+                    },
+                    "uses": [
+                        {
+                            "@name": "ioa-fac-common:facilities-common-attributes",
+                            "refine": {
+                                "@target-node": "managed-by",
+                                "default": {
+                                    "@value": "user"
+                                }
+                            }
+                        },
+                        {
+                            "@name": "ioa-common:arc"
+                        },
+                        {
+                            "@name": "ioa-otn:time-slots"
+                        },
+                        {
+                            "@name": "ioa-otn:opucn-time-slots"
+                        },
+                        {
+                            "@name": "ioa-fac-common:loopback"
+                        },
+                        {
+                            "@name": "ioa-fac-common:loopback-mode"
+                        },
+                        {
+                            "@name": "ioa-otn:odu-mux-info"
+                        },
+                        {
+                            "@name": "ioa-common:circuit-id"
+                        }
+                    ],
+                    "leaf": [
+                        {
+                            "@name": "parent-odu",
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "../../odu/name"
+                                }
+                            },
+                            "description": {
+                                "text": "For low order ODUs, points to the the parent HO-ODU name."
+                            }
+                        },
+                        {
+                            "@name": "odu-type",
+                            "type": {
+                                "@name": "ioa-otn:odu-type"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The protocol type of the ODUk/ODUCn client."
+                            },
+                            "reference": {
+                                "text": "Section 7.5 in ITU-T G.875 (12/2018) and ITU-T G.709"
+                            }
+                        },
+                        {
+                            "@name": "rate",
+                            "type": {
+                                "@name": "ioa-otn:rate"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "The speed/rate of the ODUk/ODUCn client interface."
+                            },
+                            "reference": {
+                                "text": "Table 7-1 in ITU-T G.709 (June 2016)."
+                            }
+                        },
+                        {
+                            "@name": "odu-name",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..32"
+                                }
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "A system-defined user friendly name for this odu, considering both the type and the rate.\nExamples: ODU4, ODUC8i"
+                            }
+                        },
+                        {
+                            "@name": "class",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "high-order",
+                                        "value": {
+                                            "@value": "10"
+                                        },
+                                        "description": {
+                                            "text": "Indicates all HO-ODUCn/HO-ODUk entities"
+                                        }
+                                    },
+                                    {
+                                        "@name": "low-order",
+                                        "value": {
+                                            "@value": "20"
+                                        },
+                                        "description": {
+                                            "text": "Indicates all LO-ODUCn/LO-ODUk/LO-ODUj entities"
+                                        }
+                                    },
+                                    {
+                                        "@name": "mapped",
+                                        "value": {
+                                            "@value": "30"
+                                        },
+                                        "description": {
+                                            "text": "Indicates a mapped non-OTN or OTN client signal, i.e. a terminated ODUk or and adapted ODUk acc. to the functional model."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "low-order"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "This attribute indicates the class/category of the ODUCn/ODUk entity.\n'High order' refers to the top-most ODUCn/ODUk entity that is created by the system.\nAll other children ODUk/ODUj entites are categorized as 'low order' (i.e., supported\nby another high-order ODUCn/ODUk). This attribute is set by the system based on the order\nof creation of these entities (system created v/s user created)."
+                            }
+                        },
+                        {
+                            "@name": "service-mode",
+                            "type": {
+                                "@name": "ioa-fac-common:service-mode"
+                            },
+                            "default": {
+                                "@value": "none"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "This attribute is to align with legacy Infinera OTN virtualization attribute (SM).\nThe 'service mode' attribute indicates the ODUk/ODUCn client's treatment/processing\nvis-a-vis the service type (OTN multiplexing, OTU transport, ...)"
+                            },
+                            "reference": {
+                                "text": "Infinera OTN Virtualization System Requirements Document (SRD)."
+                            }
+                        },
+                        {
+                            "@name": "service-mode-qualifier",
+                            "type": {
+                                "@name": "ioa-fac-common:service-mode-qualifier"
+                            },
+                            "default": {
+                                "@value": "none"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "This attribute is to align with legacy Infinera OTN virtualization attribute (SMQ).\nThe 'service mode qualifier' attribute further adds to the 'service mode' attribute\nto indicate the ODUk/ODUCn client's contained payload vis-a-vis the service type\n(OTN multiplexing, OTU transport, ...)"
+                            },
+                            "reference": {
+                                "text": "Infinera OTN Virtualization System Requirements Document (SRD)."
+                            }
+                        },
+                        {
+                            "@name": "trib-port-number",
+                            "type": {
+                                "@name": "uint8",
+                                "range": {
+                                    "@value": "1..max"
+                                }
+                            },
+                            "description": {
+                                "text": "Number of OPUk/OPUCn trib port that are part of this ODUk/ODUCn container."
+                            }
+                        },
+                        {
+                            "@name": "instance-id",
+                            "type": {
+                                "@name": "uint8",
+                                "range": {
+                                    "@value": "1..max"
+                                }
+                            },
+                            "description": {
+                                "text": "Optional parameter on LO-ODU creation, identifies the ODU within the parent/high-order ODU.\nIf not provided, it is automatically derived.\nMax value depends on capacity of the HO-ODU and of the odu-type.\n(ex: for creating an ODU4 in a HO ODUC8, instance can be between 1 and 8)"
+                            }
+                        },
+                        {
+                            "@name": "total-time-slots",
+                            "when": {
+                                "@condition": "../class = 'high-order'"
+                            },
+                            "type": {
+                                "@name": "uint16"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Number of OPUk/OPUCn time slots that are part of this ODUk/ODUCn container."
+                            }
+                        },
+                        {
+                            "@name": "available-time-slots",
+                            "when": {
+                                "@condition": "../class='high-order'"
+                            },
+                            "type": {
+                                "@name": "ioa-common:number-list"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "A list of all OPUk/OPUCn time-slots that are available for provisioning new services."
+                            }
+                        },
+                        {
+                            "@name": "client-defect-indicator",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "local-degraded",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "remote-degraded",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    },
+                                    {
+                                        "@name": "local-and-remote-degraded",
+                                        "value": {
+                                            "@value": "3"
+                                        }
+                                    },
+                                    {
+                                        "@name": "none",
+                                        "value": {
+                                            "@value": "4"
+                                        }
+                                    },
+                                    {
+                                        "@name": "unknown",
+                                        "value": {
+                                            "@value": "5"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "none"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Indicates current defect status on client side."
+                            }
+                        },
+                        {
+                            "@name": "rx-payload-type",
+                            "type": {
+                                "@name": "ioa-otn:payload-type"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Received payload-type of ODU."
+                            }
+                        },
+                        {
+                            "@name": "tx-payload-type",
+                            "type": {
+                                "@name": "ioa-otn:payload-type"
+                            },
+                            "description": {
+                                "text": "Transmitter payload-type of ODU"
+                            }
+                        },
+                        {
+                            "@name": "delay-measurement-enable",
+                            "type": {
+                                "@name": "ioa-common:enable-switch"
+                            },
+                            "default": {
+                                "@value": "disabled"
+                            },
+                            "description": {
+                                "text": "The enable switching of delay-measurement function, when applicable."
+                            }
+                        },
+                        {
+                            "@name": "msim-config",
+                            "type": {
+                                "@name": "ioa-common:enable-switch"
+                            },
+                            "default": {
+                                "@value": "enabled"
+                            },
+                            "description": {
+                                "text": "Specifies MSIM alarm reporting or not when msi value received not followed G.709 definition."
+                            }
+                        },
+                        {
+                            "@name": "client-signal-type",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "not-applicable",
+                                        "value": {
+                                            "@value": "0"
+                                        }
+                                    },
+                                    {
+                                        "@name": "200GBE",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "400GBE",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "not-applicable"
+                            },
+                            "description": {
+                                "text": "Client signal type for ODUflex  CBR client.\nApplied to 200/400 GBE client on CHM1R.\nIt is set automatically for the client side ODU,\nand need to be configured by the user at line side ODUj.\nUsed for rate matching and bandwidth validation in the odu cross connection."
+                            }
+                        }
+                    ],
+                    "list": {
+                        "@name": "odu-diagnostics",
+                        "key": {
+                            "@value": "direction"
+                        },
+                        "description": {
+                            "text": "Set of attributes associated with ODU diagnostics.Each direction has their own values."
+                        },
+                        "leaf": {
+                            "@name": "direction",
+                            "type": {
+                                "@name": "ioa-fac-common:direction"
+                            },
+                            "description": {
+                                "text": "Diagnostics direction.Can be ingress or egress."
+                            }
+                        },
+                        "uses": {
+                            "@name": "odu-diagnostics"
+                        }
+                    },
+                    "leaf-list": {
+                        "@name": "expected-payload-type",
+                        "type": {
+                            "@name": "ioa-otn:payload-type"
+                        },
+                        "max-elements": {
+                            "@value": "2"
+                        },
+                        "description": {
+                            "text": "Expected payload-type of ODU"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "odu-diagnostics",
+                "description": {
+                    "text": "Set of attributes associated with ODU diagnostics."
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-otn:otn-diagnostics"
+                    },
+                    {
+                        "@name": "ioa-otn:otn-degrade"
+                    },
+                    {
+                        "@name": "ioa-fac-common:test-signal"
+                    }
+                ]
+            }
+        ]
+    }
+}

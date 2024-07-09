@@ -1,0 +1,127 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/services",
+    "inputs": {
+        "payload-type": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "100GBE",
+                    "400GBE",
+                    "OTU4",
+                    "100G",
+                    "ODU2",
+                    "ODU2e",
+                    "10GBE",
+                    "OC192",
+                    "STM64",
+                    "10G",
+                    "empty"
+                ]
+            },
+            "isList": false,
+            "description": "Indicates a generic, high-level source (from) client payload type of the digital XCON.",
+            "mandatory": false
+        },
+        "direction": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "two-way"
+                ]
+            },
+            "isList": false,
+            "description": "Indicates whether the digital XCON is uni-directional (1-WAY) or bi-directional (2-WAY).",
+            "mandatory": false
+        },
+        "circuit-id-suffix": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "User configured circuit ID suffix.",
+            "mandatory": false
+        },
+        "label": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "User label.",
+            "mandatory": false
+        }
+    },
+    "cases": {
+        "src-existing-facility": {
+            "source": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "Source end-point of the xcon. Must be an existing facility that can be used\nas a XCON end-point.",
+                "mandatory": true
+            }
+        },
+        "src-non-existing-facility": {
+            "src-parent-odu": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "Name of the High Order parent ODU where to audst-create this ODU end-point.",
+                "mandatory": true
+            },
+            "src-time-slots": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "List of time-slots to allocate to the automatically created LO-ODU.\nValue can be:\n- omitted/empty - in which case system will audst-allocate time-slots based on the src-instance-id,\n                  which becomes mandatory (this is only supported for non ODUflex scenarios.)\n- starting time-slot - system automatically allocates the rest of the time-slots sequentially\n                       from this starting point; will fail if those time-slots are not available\n- time-slot list - full list of time-slots, using a comma separated list, with 'x..y' representing\n                   ranges; the total number of time-slots need to match the associated payload-type\n                   (e.g. 80 time-slots for 100G payload, 320 time-slots for 400G payload, etc)",
+                "mandatory": false
+            },
+            "src-instance-id": {
+                "type": {
+                    "ptype": "int"
+                },
+                "isList": false,
+                "description": "Optional parameter on LO-ODU creation, identifies the ODU within the parent/high-order ODU.\nIf not provided, it is automatically derived.\nMax value depends on capacity of the HO-ODU and of the odu-type.\n(ex: for creating an ODU4 in a HO ODUC8, instance can be between 1 and 8)\nNote: instance-id becomes mandatory if time-slots are not provided.",
+                "mandatory": false
+            }
+        },
+        "dst-existing-facility": {
+            "destination": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "Destination end-point of the xcon. Must be an existing facility that can be used\nas a XCON end-point.",
+                "mandatory": true
+            }
+        },
+        "dst-non-existing-facility": {
+            "dst-parent-odu": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "Name of the High Order parent ODU where to audst-create this ODU end-point.",
+                "mandatory": true
+            },
+            "dst-time-slots": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "List of time-slots to allocate to the automatically created LO-ODU.\nValue can be:\n- omitted/empty - in which case system will audst-allocate time-slots based on the dst-instance-id,\n                  which becomes mandatory (this is only supported for non ODUflex scenarios.)\n- starting time-slot - system automatically allocates the rest of the time-slots sequentially\n                       from this starting point; will fail if those time-slots are not available\n- time-slot list - full list of time-slots, using a comma separated list, with 'x..y' representing\n                   ranges; the total number of time-slots need to match the associated payload-type\n                   (e.g. 80 time-slots for 100G payload, 320 time-slots for 400G payload, etc)",
+                "mandatory": false
+            },
+            "dst-instance-id": {
+                "type": {
+                    "ptype": "int"
+                },
+                "isList": false,
+                "description": "Optional parameter on LO-ODU creation, identifies the ODU within the parent/high-order ODU.\nIf not provided, it is automatically derived.\nMax value depends on capacity of the HO-ODU and of the odu-type.\n(ex: for creating an ODU4 in a HO ODUC8, instance can be between 1 and 8)\nNote: instance-id becomes mandatory if time-slots are not provided.",
+                "mandatory": false
+            }
+        }
+    }
+}

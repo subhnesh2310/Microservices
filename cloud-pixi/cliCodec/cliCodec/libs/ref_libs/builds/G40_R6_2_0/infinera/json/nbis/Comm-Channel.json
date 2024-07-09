@@ -1,0 +1,102 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A generic, configurable name for every facility.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "OFEC-CC",
+                "GCC0",
+                "GCC1",
+                "OSCX1",
+                "OSCX2"
+            ]
+        },
+        "description": "Indicates the type of control channel.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "type"
+    },
+    "mtu": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "The maximum transmission unit size in octets for comm channel.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 1500,
+        "hardcode": false,
+        "argName": "mtu"
+    },
+    "parent": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Parent object of the comm-channel.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "parent"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    }
+}

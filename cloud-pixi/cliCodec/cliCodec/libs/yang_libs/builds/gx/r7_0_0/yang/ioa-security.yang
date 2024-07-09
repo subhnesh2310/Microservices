@@ -1,0 +1,1018 @@
+module ioa-security {
+    namespace "http://infinera.com/yang/ioa/security";
+    prefix ioa-sec;
+
+    import ietf-yang-types              { prefix yang;          }
+    import ietf-inet-types              { prefix inet;          }
+    import ioa-common                   { prefix ioa-common;    }
+    import ioa-image-key                { prefix ioa-image-key; }
+    import ioa-certificate              { prefix ioa-cert;      }
+    import ioa-ikev2                    { prefix ioa-ike;       }
+    import gx                           { prefix gx;            }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module describing the Security model.";
+
+    revision "2023-03-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.1";
+    }
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-09-17" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.1";
+    }
+
+
+    typedef ssh-key-algorithm {
+        type enumeration {
+            enum ssh-rsa {
+                value 1;
+                description
+                    "RSA key algorithm using SHA-1 hash.";
+            }
+            enum rsa-sha2-256 {
+                value 2;
+                description
+                    "RSA key algorithm using SHA-256 hash.";
+            }
+            enum rsa-sha2-512 {
+                value 3;
+                description
+                    "RSA key algorithm using SHA-512 hash.";
+            }
+            enum ecdsa-sha2-nistp256 {
+                value 4;
+                description
+                    "ECDSA key algorithm on the nistp256 curve using SHA-256 hash.";
+            }
+            enum ecdsa-sha2-nistp384 {
+                value 5;
+                description
+                    "ECDSA key algorithm on the nistp384 curve using SHA-384 hash.";
+            }
+            enum ecdsa-sha2-nistp521 {
+                value 6;
+                description
+                    "ECDSA key algorithm on the nistp521 curve using SHA-512 hash.";
+            }
+        }
+        description
+            "Key algorithms (and signatures) supported for SSH host keys and public keys.";
+    }
+
+    grouping security {
+
+        container security {
+            description "Top level security container.";
+
+            container security-policies {
+                description "Container with several flags that represent security policies of the system.";
+
+                leaf secure-mode {
+                    type boolean;
+                    default true;
+                    description "If enabled, non-secure protocols are not supported.
+                                 If disabled, non-secure protocols can be used, including:
+                                 - HTTP protocol for file transfer, REST API, or any other HTTP based application
+                                 - FTP protocol for file transfer
+                                 - SNMPv2c or SNMPv3 without encryption
+
+                                 Enabling secure-mode will be rejected if any non-secure protocol is in use.";
+                }
+
+                leaf strict-password-check {
+                    type boolean;
+                    default true;
+                    description "If enabled, ensures the strict password complexity rules. Including:
+                                 - minimum length of 8 characters (by default, configurable via the minimum-password-length policy)
+                                 - at least one lower case letter (a-z)
+                                 - at least one upper case letter (A-Z)
+                                 - at least one number (0-9)
+                                 - at least one symbol ()
+                                 - user name cannot be part of the password
+                                 If disabled, all these rules are not enforced, except:
+                                 - minimum length is 1 character (by default, configurable via the minimum-password-length policy)
+                                 Once enabled, this policy only has impact on newly defined passwords.";
+                }
+
+                leaf minimum-password-length {
+                    type uint8 { range 1..200; }
+                    default 8;
+                    description "Configurable minimum length for user passwords. When a password is changed, the password length will be verified according with this policy.
+                                 Note that changing this policy will not have impact on already set passwords, only on newly set passwords.
+                                 The default value will depend on whether the policy strict-password-check is enabled or not (min length is 8 if enabled, 1 if disabled),
+                                 but the user is able to override this value by editing this policy manually.
+                                 Note: this policy can only be enforced when the password is provided in a non-hashed way.";
+                }
+
+                leaf ssh-authentication-method {
+                    if-feature gx:multi-factor-authentication;
+                    type enumeration {
+                        enum password {
+                            value 1;
+                            description "Use password-based authentication for SSH access.";
+                        }
+                        enum public-key {
+                            value 2;
+                            description "Use public key authentication for SSH access.";
+                        }
+                    }
+                    default password;
+                    description "The method used to authenticate user for SSH access.
+                        Note: For two-factor authentication, use public-key method and employ PIN/password-protected hardware device (e.g.: smart card or USB token.)";
+                }
+
+                leaf-list default-user-group {
+                    type leafref {
+                        path "../../user-group/name";
+                    }
+                    max-elements 10;
+                    description "Default roles for users access.";
+                }
+
+                leaf enforce-password-history-check {
+                    type boolean;
+                    default true;
+                    description "If enabled, ensures that a new password being set cannot match any of the previous N passwords
+                                 for the user. N is configurable through password-history-size.
+                                 If disabled, password repetition is allowed.
+                                 Once enabled, this policy only has impact on newly defined passwords.";
+                }
+
+                leaf password-history-size {
+                    type uint8 { range 1..20; }
+                    default 5;
+                    description "The number of passwords to store for password reuse checking.";
+                }
+
+                leaf aaa-authentication-method {
+                    type enumeration {
+                        enum local-only {
+                            value 1;
+                            description "Authentication locally only";
+                        }
+                        enum local-first-then-remote {
+                            value 3;
+                            description "Authentication locally first, if not pass, then use remote AAA server";
+                        }
+                        enum remote-first-then-local {
+                            value 4;
+                            description "Authentication use remote AAA server first, if remote authentication failed or all servers could not be contacted, then authenticate locally";
+                        }
+                        enum remote-unavailable-then-local {
+                            value 5;
+                            description "Authentication use remote AAA server first, if all servers could not be contacted, then authenticate locally";
+                        }
+                    }
+                    default local-only;
+                    description "Specify authentication method for the user login to the NE.";
+                }
+
+                leaf aaa-authorization-method {
+                    type enumeration {
+                        enum local-only {
+                            value 1;
+                            description "Authorization locally only.";
+                        }
+                        enum remote-if-authenticated-else-local {
+                            value 2;
+                            description "Local users should follow local permissions and remote users should follow the remote ones.";
+                        }
+                        enum remote-unavailable-then-local {
+                            value 3;
+                            description "All users (local or remote) should follow remote permissions. If the permissions return unavailable, then use local ones.";
+                        }
+                    }
+                    default local-only;
+                    description "Specify authorization policy for the logged user. If the user changes this parameter, it should logout and login again to apply the rules.";
+                }
+
+                leaf ssh-strict-host-key-checking {
+                    type enumeration {
+                        enum strict {
+                            value 1;
+                            description "Only allow connection to a remote ssh/sftp/scp host if identity provided by remote host is known";
+                        }
+                        enum relaxed {
+                            value 2;
+                            description "Allow connection to a remote ssh/sftp/scp host, regardless if identity provided by remote host is known";
+                        }
+                    }
+                    default relaxed;
+                    description "Specify the strictness of remote ssh/sftp/scp host identity checking.";
+                }
+
+                leaf-list ssh-ciphers {
+                    type enumeration {
+                        enum aes128-ctr {
+                            value 1;
+                            description
+                                "Advanced Encryption Standard with 128-bit key in Counter mode.";
+                        }
+                        enum aes192-ctr {
+                            value 2;
+                            description
+                                "Advanced Encryption Standard with 192-bit key in Counter mode.";
+                        }
+                        enum aes256-ctr {
+                            value 3;
+                            description
+                                "Advanced Encryption Standard with 256-bit key in Counter mode.";
+                        }
+                        enum aes128-gcm-at-openssh-com {
+                            value 4;
+                            description
+                                "Advanced Encryption Standard with 128-bit key in Galois/Counter mode.";
+                        }
+                        enum aes256-gcm-at-openssh-com {
+                            value 5;
+                            description
+                                "Advanced Encryption Standard with 256-bit key in Galois/Counter mode.";
+                        }
+                        enum chacha20-poly1305-at-openssh-com {
+                            value 6;
+                            description
+                                "ChaCha20 stream cipher and Poly1305 MAC.";
+                        }
+                        enum aes128-cbc {
+                            value 7;
+                            description
+                                "Advanced Encryption Standard with 128-bit key in Cipher Block Chaining mode.";
+                        }
+                        enum aes256-cbc {
+                            value 8;
+                            description
+                                "Advanced Encryption Standard with 256-bit key in Cipher Block Chaining mode.";
+                        }
+                    }
+                    min-elements 1;
+                    max-elements 20;
+                    description
+                        "Allowed symmetric ciphers for SSH.";
+                }
+
+                leaf-list ssh-macs {
+                    type enumeration {
+                        enum hmac-sha2-256 {
+                            value 1;
+                            description
+                                "256-bit hash-based MAC using Secure Hash Algorithm-2.";
+                        }
+                        enum hmac-sha2-512 {
+                            value 2;
+                            description
+                                "512-bit hash-based MAC using Secure Hash Algorithm-2.";
+                        }
+                        enum hmac-sha2-256-etm-at-openssh-com {
+                            value 3;
+                            description
+                                "256-bit Encrypt-then-MAC using Secure Hash Algorithm-2.";
+                        }
+                        enum hmac-sha2-512-etm-at-openssh-com {
+                            value 4;
+                            description
+                                "512-bit Encrypt-then-MAC using Secure Hash Algorithm-2.";
+                        }
+                        enum hmac-sha1 {
+                            value 5;
+                            description
+                                "160-bit hash-based MAC using Secure Hash Algorithm-1.";
+                        }
+                        enum hmac-sha1-96 {
+                            value 6;
+                            description
+                                "Truncated 160-bit hash-based MAC using Secure Hash Algorithm-1.";
+                        }
+                        enum hmac-sha1-etm-at-openssh-com {
+                            value 7;
+                            description
+                                "160-bit Encrypt-then-MAC using Secure Hash Algorithm-1.";
+                        }
+                        enum hmac-sha1-96-etm-at-openssh-com {
+                            value 8;
+                            description
+                                "Truncated 160-bit Encrypt-then-MAC using Secure Hash Algorithm-1.";
+                        }
+                    }
+                    min-elements 1;
+                    max-elements 20;
+                    description
+                        "Allowed message authentication code algorithms for SSH.";
+                }
+
+                leaf-list ssh-key-exchanges {
+                    type enumeration {
+                        enum diffie-hellman-group-exchange-sha256 {
+                            value 1;
+                            description
+                                "Diffie-Hellman group exchange algorithm using Secure Hash Algorithm-2.";
+                        }
+                        enum ecdh-sha2-nistp256 {
+                            value 2;
+                            description
+                                "ECDH key exchange algorithm with ephemeral keys generated on the nistp256 curve using
+                                 Secure Hash Algorithm-2.";
+                        }
+                        enum ecdh-sha2-nistp384 {
+                            value 3;
+                            description
+                                "ECDH key exchange algorithm with ephemeral keys generated on the nistp384 curve using
+                                 Secure Hash Algorithm-2.";
+                        }
+                        enum ecdh-sha2-nistp521 {
+                            value 4;
+                            description
+                                "ECDH key exchange algorithm with ephemeral keys generated on the nistp521 curve using
+                                 Secure Hash Algorithm-2.";
+                        }
+                        enum diffie-hellman-group14-sha1 {
+                            value 5;
+                            description
+                                "Diffie-Hellman group 14 key exchange algorithm using Secure Hash Algorithm-1.";
+                        }
+                        enum diffie-hellman-group-exchange-sha1 {
+                            value 6;
+                            description
+                                "Diffie-Hellman group exchange algorithm using Secure Hash Algorithm-1.";
+                        }
+                        enum diffie-hellman-group14-sha256 {
+                            value 7;
+                            description
+                                "Diffie-Hellman group 14 key exchange algorithm using Secure Hash Algorithm-2.";
+                        }
+                    }
+                    min-elements 1;
+                    max-elements 20;
+                    description
+                        "Allowed key exchange algorithms for SSH.";
+                }
+
+                leaf-list ssh-host-key-algorithms {
+                    type ssh-key-algorithm;
+                    min-elements 1;
+                    max-elements 20;
+                    description
+                        "Allowed host key algorithms for SSH.";
+                }
+
+                leaf-list ssh-public-key-algorithms {
+                    type ssh-key-algorithm;
+                    min-elements 1;
+                    max-elements 20;
+                    description
+                        "Allowed public key algorithms for SSH.";
+                }
+
+                leaf ssh-key-aging-interval {
+                    type uint16 { range 0..3000; }
+                    units days;
+                    default 0;
+                    description "This policy defines the ssh-authorized-keys aging interval. Setting the value to 0 disables ssh-authorized-keys aging.
+                                 This affects the expiration date of all ssh-authorized-keys. Once aging is enabled, the expiration date is calculated
+                                 from current time, for previously configured keys, and from configuration time, for newly configured keys.";
+                }
+
+                leaf root-password {
+                    type ioa-common:password;
+                    description "The password of the root user.";
+                }
+
+                leaf console-user-password {
+                    type ioa-common:password;
+                    description "The password of the console-user.";
+                }
+
+                leaf console-user-enabled {
+                    type boolean;
+                    default true;
+                    description "A switch to enable/disable console-user.
+                                 The console-user account is an emergency account that is only usable through the serial console.
+                                 Disabling this account may put the device in a position where recovery is not possible,
+                                 so it is recommended to keep this account enabled.";
+                }
+
+                leaf csp-symmetrical-key {
+                    type ioa-common:password {
+                        length 1..32;
+                    }
+                    description "Critical Security Parameters symmetrical key.";
+                }
+
+                leaf max-system-sessions {
+                    type uint8;
+                    config false;
+                    description "The maximum number of management sessions that the system supports.
+                                 Note: session via serial console does not count against this maximum.";
+                }
+
+                leaf max-local-users {
+                    type uint8;
+                    config false;
+                    description "The maximum number of local users that can be configured in the system.";
+                }
+
+                leaf disable-user-lockout {
+                    type boolean;
+                    default false;
+                    description "This policy allows to enable/disable user lockout when multiple invalid logins are detected.
+                        The number of invalid logins that trigger the lockout is configurable at the individual user level with the max-invalid-logins parameter.
+                        The time the user is locked-out is also configurable at user level with the suspension-time parameter.";
+                }
+
+                uses ioa-common:db-passphrase;
+
+                leaf supported-tls-version {
+                    type enumeration {
+                        enum 1.2-only {
+                            value 1;
+                            description "Use TLS version 1.2 only.";
+                        }
+                        enum 1.3-only {
+                            value 2;
+                            description "Use TLS version 1.3 only.";
+                        }
+                        enum 1.3-with-fallback-to-1.2 {
+                            value 3;
+                            description "Try to use TLS version 1.3 but if it fails use version 1.2.";
+                        }
+                    }
+                    default 1.2-only;
+                    description "Transport Layer Security (TLS) supported version(s). Changing this attribute will not affect existing connections.";
+                }
+
+                leaf-list tls-1.2-cipher-suites {
+                    type enumeration {
+                        enum TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 {
+                            value 1;
+                            description "Diffie-Hellman Ephemeral,
+                                        Rivest Shamir Adleman algorithm,
+                                        Advanced Encryption Standard with 128-bit key in Cipher Block Chaining mode,
+                                        Secure Hash Algorithm 256.";
+                        }
+                        enum TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 {
+                            value 2;
+                            description "Diffie-Hellman Ephemeral,
+                                        Rivest Shamir Adleman algorithm,
+                                        Advanced Encryption Standard with 128-bit key in Galois/Counter mode,
+                                        Secure Hash Algorithm 256.";
+                        }
+                        enum TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 {
+                            value 3;
+                            description "Diffie-Hellman Ephemeral,
+                                        Rivest Shamir Adleman algorithm,
+                                        Advanced Encryption Standard with 256-bit key in Cipher Block Chaining mode,
+                                        Secure Hash Algorithm 256.";
+                        }
+                        enum TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 {
+                            value 4;
+                            description "Diffie-Hellman Ephemeral,
+                                        Rivest Shamir Adleman algorithm,
+                                        Advanced Encryption Standard with 256-bit key in Galois/Counter mode,
+                                        Secure Hash Algorithm 384.";
+                        }
+                        enum TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 {
+                            value 5;
+                            description "Elliptic Curve Diffie-Hellman Ephemeral,
+                                        Elliptic Curve Digital Signature Algorithm,
+                                        Advanced Encryption Standard with 128-bit key in Cipher Block Chaining mode,
+                                        Secure Hash Algorithm 256.";
+                        }
+                        enum TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 {
+                            value 6;
+                            description "Elliptic Curve Diffie-Hellman Ephemeral,
+                                        Elliptic Curve Digital Signature Algorithm,
+                                        Advanced Encryption Standard with 128-bit key in Galois/Counter mode,
+                                        Secure Hash Algorithm 256.";
+                        }
+                        enum TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 {
+                            value 7;
+                            description "Elliptic Curve Diffie-Hellman Ephemeral,
+                                        Elliptic Curve Digital Signature Algorithm,
+                                        Advanced Encryption Standard with 256-bit key in Cipher Block Chaining mode,
+                                        Secure Hash Algorithm 384.";
+                        }
+                        enum TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 {
+                            value 8;
+                            description "Elliptic Curve Diffie-Hellman Ephemeral,
+                                        Elliptic Curve Digital Signature Algorithm,
+                                        Advanced Encryption Standard with 256-bit key in Galois/Counter mode,
+                                        Secure Hash Algorithm 384.";
+                        }
+                        enum TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 {
+                            value 9;
+                            description "Elliptic Curve Diffie-Hellman Ephemeral,
+                                        Rivest Shamir Adleman algorithm,
+                                        Advanced Encryption Standard with 128-bit key in Cipher Block Chaining mode,
+                                        Secure Hash Algorithm 256.";
+                        }
+                        enum TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 {
+                            value 10;
+                            description "Elliptic Curve Diffie-Hellman Ephemeral,
+                                        Rivest Shamir Adleman algorithm,
+                                        Advanced Encryption Standard with 128-bit key in Galois/Counter mode,
+                                        Secure Hash Algorithm 256.";
+                        }
+                        enum TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 {
+                            value 11;
+                            description "Elliptic Curve Diffie-Hellman Ephemeral,
+                                        Rivest Shamir Adleman algorithm,
+                                        Advanced Encryption Standard with 256-bit key in Cipher Block Chaining mode,
+                                        Secure Hash Algorithm 384.";
+                        }
+                        enum TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 {
+                            value 12;
+                            description "Elliptic Curve Diffie-Hellman Ephemeral,
+                                        Rivest Shamir Adleman algorithm,
+                                        Advanced Encryption Standard with 256-bit key in Galois/Counter mode,
+                                        Secure Hash Algorithm 384.";
+                        }
+                        enum TLS_RSA_WITH_AES_128_CBC_SHA256 {
+                            value 13;
+                            status obsolete;
+                            description "Rivest Shamir Adleman algorithm,
+                                        Advanced Encryption Standard with 128-bit key in Cipher Block Chaining mode,
+                                        Secure Hash Algorithm 256.";
+                        }
+                        enum TLS_RSA_WITH_AES_128_GCM_SHA256 {
+                            value 14;
+                            status obsolete;
+                            description "Rivest Shamir Adleman algorithm,
+                                        Advanced Encryption Standard with 128-bit key in Galois/Counter mode,
+                                        Secure Hash Algorithm 256.";
+                        }
+                        enum TLS_RSA_WITH_AES_256_CBC_SHA256 {
+                            value 15;
+                            status obsolete;
+                            description "Rivest Shamir Adleman algorithm,
+                                        Advanced Encryption Standard with 256-bit key in Cipher Block Chaining mode,
+                                        Secure Hash Algorithm 256.";
+                        }
+                        enum TLS_RSA_WITH_AES_256_GCM_SHA384 {
+                            value 16;
+                            status obsolete;
+                            description "Rivest Shamir Adleman algorithm,
+                                        Advanced Encryption Standard with 256-bit key in Galois/Counter mode,
+                                        Secure Hash Algorithm 384.";
+                        }
+                    }
+                    min-elements 1;
+                    max-elements 16;
+                    ordered-by user;
+                    description "Supported TLS 1.2 cipher suites. Changing this attribute will not affect existing connections.";
+                }
+
+                leaf-list tls-1.3-cipher-suites {
+                    type enumeration {
+                        enum TLS_AES_128_GCM_SHA256 {
+                            value 1;
+                            description "Advanced Encryption Standard with 128-bit key in Galois/Counter mode (Secure Hash Algorithm 256).";
+                        }
+                        enum TLS_AES_256_GCM_SHA384 {
+                            value 2;
+                            description "Advanced Encryption Standard with 256-bit key in Galois/Counter mode (Secure Hash Algorithm 384).";
+                        }
+                        enum TLS_CHACHA20_POLY1305_SHA256 {
+                            value 3;
+                            description "ChaCha stream cipher and Poly1305 authenticator (Secure Hash Algorithm 256).";
+                        }
+                        enum TLS_AES_128_CCM_SHA256 {
+                            value 4;
+                            description "Advanced Encryption Standard with 128-bit key in Counter with CBC-MAC mode (Secure Hash Algorithm 256).";
+                        }
+                        enum TLS_AES_128_CCM_8_SHA256 {
+                            value 5;
+                            description "Advanced Encryption Standard with 128-bit key in Counter with CBC-MAC mode with 8-Octet ICV (Secure Hash Algorithm 256).";
+                        }
+                    }
+                    min-elements 1;
+                    ordered-by user;
+                    description "Supported TLS 1.3 cipher suites. Changing this attribute will not affect existing connections.
+                                 TLS_CHACHA20_POLY1305_SHA256 note:
+                                 If present and requested by the client, it will be prioritized regardless of cipher-suite order.";
+                }
+
+                leaf-list tls-curves {
+                    type enumeration {
+                        enum secp256r1 {
+                            value 1;
+                            description "256-bit Elliptic-curve Diffie-Hellman using curve SECP256r1.";
+                        }
+                        enum secp384r1 {
+                            value 2;
+                            description "384-bit Elliptic-curve Diffie-Hellman using curve SECP384r1.";
+                        }
+                        enum secp521r1 {
+                            value 3;
+                            description "521-bit Elliptic-curve Diffie-Hellman using curve SECP521r1.";
+                        }
+                        enum x25519 {
+                            value 4;
+                            description "256-bit Elliptic-curve Diffie-Hellman using curve 25519.";
+                        }
+                        enum x448 {
+                            value 5;
+                            description "448-bit Elliptic-curve Diffie-Hellman using curve 448.";
+                        }
+                    }
+                    min-elements 1;
+                    ordered-by user;
+                    description "Supported elliptic curve algorithms.
+                                 The tls-curve algorithm affects both key-exchange and authentication stages of TLS handshake.
+                                 Changing this attribute will not affect existing connections.
+                                 Applies to both TLS 1.2 and 1.3.
+                                 NOTE: Restricting curves can cause interoperability issues.
+                                 TLS 1.2 remark: if the configured curve is not sent by the client, handshake may fail.
+                                 TLS 1.3 remark: for the Authentication stage, it is possible that the server
+                                 selects another curve different from the certificate signing algorithm.";
+                }
+
+                leaf crl-based-revocation {
+                    type boolean;
+                    default false;
+                    description "This policy allows to enable/disable CRL-based certificate revocation.";
+                }
+
+                leaf crl-download-timeout {
+                    type uint16 { range "1..60"; }
+                    units seconds;
+                    default 15;
+                    description "Specifies the maximum time to wait (in seconds) for automatic CRL downloads.
+                                 Note: This timeout does not apply to manual CRL downloads.";
+                }
+
+                leaf ocsp-based-revocation {
+                    type boolean;
+                    default false;
+                    description "This policy defines whether OCSP responders can be consulted for certificate revocation checking.";
+                }
+            }
+
+
+            list user {
+                key user-name;
+                description "User details. Can represent both locally configured users, as well as temporary remote users.";
+
+                leaf user-name {
+                    type ioa-common:user-name;
+                    description "The name of the user.";
+                }
+
+                leaf password {
+                    type ioa-common:password;
+                    description "The password of the user.";
+                }
+
+                leaf password-hashed {
+                    type string {
+                        length 0..106;
+                    }
+                    description "Hashed password of the user. It is made of three mandatory fields,
+                     where the dollar sign is the field separator. The structure is: $id$salt$encrypted
+                     Only id 6 (SHA512) is supported. Salt minimum size is 2.
+                         reference: https://www.man7.org/linux/man-pages/man3/crypt.3.html";
+                }
+
+                leaf-list user-group {
+                    type leafref {
+                        path "../../user-group/name";
+                    }
+                    max-elements 10;
+                    description "Associated user groups for this user.";
+                }
+
+                leaf display-name {
+                    type string {
+                        length 0..128;
+                    }
+                    description "The display name for this user.";
+                }
+
+                leaf max-invalid-login {
+                    type uint8;
+                    default 5;
+                    description "This attribute is the maximum number of consecutive and invalid login attempts
+                        before an account is suspended (lockedout). Zero disables escalation on login failure.";
+                }
+
+                leaf suspension-time {
+                    type uint16 { range 0..1440; }
+                    units minutes;
+                    default 5;
+                    description "This attribute is the duration of UID suspension following consecutive invalid login attempts.
+                        Setting the value to 0 disables this behavior.";
+                }
+
+                leaf timeout {
+                    type uint16 { range 0..1440; }
+                    units minutes;
+                    default 60;
+                    description "This attribute is the Session Time Out Interval. If there are no messages between the user
+                        and the NE over the Time Out interval, the session is logged off. Setting the value to 0 disables
+                        this attribute (meaning the session will not time out).";
+                }
+
+                leaf password-aging-interval {
+                    type uint16 { range 0..365; }
+                    units days;
+                    default 90;
+                    description "This attribute is the Password Aging Interval. Setting the value to 0 disables password aging.";
+                }
+
+                leaf password-expiration-date {
+                    type yang:date-and-time;
+                    config false;
+                    description "This attribute shows the password expiration date.";
+                }
+
+                leaf enabled {
+                    type boolean;
+                    default true;
+                    description "Enable switch for the user, allows admins to explicitly disable users.";
+                }
+
+                leaf user-status {
+                    type enumeration {
+                        enum enabled {
+                            value 1;
+                            description "User account has access to the system.";
+                        }
+                        enum disabled {
+                            value 2;
+                            description "User account does not have access to the system.";
+                        }
+                        enum password-aged {
+                            value 3;
+                            description "User will be forced to change password upon next login.";
+                        }
+                        enum lockout {
+                            value 4;
+                            description "User account is locked out due to unsuccessful login attempts.
+                                         Note that 'lockout' only applies to remote connections.
+                                         Connections from local (i.e. directly attached) terminals including console and CRAFT port access cannot trigger 'lockout' and are not influenced by it.";
+                        }
+                    }
+                    default disabled;
+                    config false;
+                    description "This attribute shows the status of the user account.";
+                }
+
+                leaf force-password-change {
+                    type boolean;
+                    default false;
+                    description "Allows administrator to force user to change password on next login.";
+                }
+
+                leaf max-sessions {
+                    type uint8 { range 1..20; }
+                    default 10;
+                    description "This attribute specifies the maximum number of sessions allowed for this user.";
+                }
+
+                leaf last-login-date {
+                    type yang:date-and-time;
+                    default "1970-01-01T00:00:00Z";
+                    config false;
+                    description "The last login date/time of the user.";
+                }
+
+                leaf failed-logins {
+                    type uint8;
+                    default 0;
+                    config false;
+                    description "Number of previous failed logins. Resets to zero upon a successful login.
+                                 Note that login failures from local (i.e. directly attached) terminals do not contribute to this count.
+                                 This includes CLI, NETCONF, and direct shell access from the console and CRAFT ports.";
+                }
+
+                leaf user-aaa-type {
+                    type enumeration {
+                        enum local {value 1; description "User is authenticated locally.";}
+                        enum remote {value 2; description "User is authenticated through remote AAA server.";}
+                    }
+                    default local;
+                    config false;
+                    description "Indicates the authentication method of the user.";
+                }
+
+                uses ioa-common:arc;
+                uses ioa-common:label;
+            }
+
+
+            list user-group {
+                key name;
+                description "List of user groups, each one with its own access permissions.
+                             Each user will be associated with a list of groups, and will derive its permissions from them.";
+
+                leaf name {
+                    type string {
+                        length 1..32;
+                    }
+                    description "Name of the group.";
+                }
+                leaf description {
+                    type string {
+                        length 0..128;
+                    }
+                    description "Long description of the user group.";
+                }
+            }
+
+            list session {
+                key "session-id";
+                config false;
+                max-elements 100;
+                description "List of currently established management layer sessions.";
+
+                leaf session-id {
+                    type string;
+                    description "Specifies a unique identifier of the current session. It indicates the
+                        IP address and transport layer port number associated with this session.
+                        If the session is initiated from the serial port, the value is 'NA'.";
+                }
+
+                leaf session-user {
+                    type string;
+                    description "User name associated with this session.";
+                }
+
+                leaf session-type {
+                    type ioa-common:session-type;
+                    description "Session type.";
+                }
+
+                leaf session-protocol {
+                    type ioa-common:session-protocol;
+                    description "Indicates which protocol has been used to establish the session.";
+                }
+
+                leaf created-time {
+                    type yang:date-and-time;
+                    description "The timestamp the user has created this session.";
+                }
+
+                leaf local-ip-address {
+                    type inet:ip-address;
+                    description "Local ip address of the session";
+                }
+
+                leaf dial-out-server-name {
+                    type leafref {
+                        path "../../../protocols/dial-out-server/name";
+                    }
+                    config false;
+                    description "Name of the dial-out-server associated with this session.";
+                }
+            }
+
+            list aaa-server {
+                key "server-name";
+                unique "server-priority";
+                description "Configuration of AAA servers - RADIUS or TACACS+.";
+
+                leaf server-name {
+                    type ioa-common:object-name {
+                        length 1..32;
+                    }
+                    description "specify the name of aaa server.";
+                }
+
+                leaf server-priority {
+                    type uint32 {range "1..10";}
+                    mandatory true;
+                    description "This is used to sort the servers in the order of precedence.";
+                }
+
+                leaf protocol-supported {
+                    type enumeration {
+                        enum TACACSPLUS {value 1;}
+                        enum RADIUS {value 2;}
+                    }
+                    mandatory true;
+                    description "specify the protocol used for AAA.";
+                }
+
+                leaf server-address {
+                    type ioa-common:host;
+                    mandatory true;
+                    description "The IP address of AAA server.";
+                }
+
+                leaf server-port {
+                    type inet:port-number;
+                    default 49;
+                    description "AAA server port number.
+                                     Ony of relevance for protocol supported TACACSPLUS.";
+                }
+
+                leaf server-port-authentication {
+                    type inet:port-number;
+                    default 1812;
+                    description "AAA server authentication port number.
+                                     Ony of relevance for protocol supported RADIUS.";
+                }
+
+                leaf server-port-accounting {
+                    type inet:port-number;
+                    default 1813;
+                    description "AAA server accounting port number.
+                                     Ony of relevance for protocol supported RADIUS.";
+                }
+
+                leaf shared-secret {
+                    type ioa-common:password {
+                        length 0..128;
+                    }
+                    default 'sharedkey';
+                    description "The shared secret of the aaa server. The shared secret will be displayed as *.";
+                }
+
+                leaf role-supported {
+                    type bits {
+                        bit authentication {position 0;}
+                        bit authorization {position 1;}
+                        bit accounting {position 2;}
+                    }
+                    default "authentication authorization accounting";
+
+                    description "The configured roles for the AAA server.";
+                }
+
+                leaf enabled {
+                    type boolean;
+                    default true;
+                    description "Enable switch for this aaa-server.";
+                }
+
+                leaf timeout {
+                    type uint16 {range "1..90";}
+                    units seconds;
+                    default 5;
+                    description "Specifies the response timeout of Access-Request messages sent to a AAA server in seconds.";
+                }
+
+                leaf retry {
+                    type uint8 {range "0..5";}
+                    default "3";
+                    description "Specifies the number of attempted Access-Request messages to a single AAA server before failing authentication.";
+                }
+
+                leaf source-ip {
+                    type union {
+                        type enumeration {
+                            enum auto { value 0; }
+                        }
+                        type inet:ipv4-address;
+                        type inet:ipv6-address;
+                    }
+                    default auto;
+                    description "Source IP address used for RADIUS communications.
+                                     Only of relevance for protocol supported RADIUS.";
+                }
+
+                leaf common-password {
+                    type ioa-common:password {
+                        length 0..128;
+                    }
+                    description "Password used for RADIUS authorization after SSH public key authentication.
+                        If blank, username is reused as password for RADIUS authorization.
+                            Only of relevance for protocol supported RADIUS.";
+                }
+
+                leaf auth-protocol {
+                    type bits {
+                        bit pap { position 0; description "Password Authentication Protocol"; }
+                        bit chap { position 1; description "Challenge Handshake Authentication Protocol"; }
+                    }
+                    default "pap chap";
+                    description "The list of supported authentication protocols to use; if more than one is selected, system will try one at a time in a best-effort way.
+                        Authentication will be considered unsuccessful if none of the protocols work.
+                        Only of relevance for protocol supported TACACSPLUS.";
+                }
+            }
+
+            uses ioa-image-key:image-keys;
+            uses ioa-image-key:key-replacement-package;
+            uses ioa-cert:certificates;
+            uses ioa-ike:ikev2;
+        }
+    }
+}

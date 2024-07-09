@@ -1,0 +1,350 @@
+module ioa-services {
+    namespace "http://infinera.com/yang/ioa/services";
+    prefix ioa-services;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-data-path-encryption { prefix ioa-data-path-encryption; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions for for all data plane services supported by a typical Layer 1 transponder that enable traffic. 
+                 The services enable digital client traffic (such as Ethernet, SONET/SDH, ...) to be transported through the transponder. 
+                 Other services types include OTN services (switching, transport, multiplexing). 
+                 The transport of native services could include OTN framing, or could bypass/skip OTN layer, 
+                 depending upon the capability of the hardware.";
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    typedef network-mapping-type {
+        type enumeration {
+            enum ODUCn          { value 1; description "OTUCn protocol layer."; }
+            enum ODUCni         { value 2; description "Infinera proprietary OTUCni protocol layer."; }
+            enum ODUCni-M       { value 3; description "Infinera proprietary OTUCni protocol layer."; }
+            enum ODU4           { value 4; description "ODU4 protocol layer."; }
+            enum ODU4i          { value 5; description "Infinera proprietary ODU4i protocol layer."; }
+            enum ODUflexi       { value 6; description "Infinera proprietary ODUflexi protocol layer."; }
+            enum ODUflex        { value 7; description "ODU-flex protocol layer."; }
+            enum ODU0           { value 8; description "ODU0 protocol layer."; }
+            enum ODU1           { value 9; description "ODU1 protocol layer."; }
+            enum ODU2           { value 10; description "ODU2 protocol layer."; }
+            enum ODU2e          { value 11; description "ODU2e protocol layer."; }
+            enum ODU2_AMP       { value 12; description "AMP mapping"; }
+            enum ODU2_BMP       { value 13; description "BMP mapping"; }
+        }
+        description "Network mapping extra values.";
+    }
+
+    grouping services {
+        container services {
+            description "Services of multiples types commissioned in this NE.";
+
+            list xcon {
+                key name;
+                description "Layer 1 digital services that are currently provisioned in the system. 
+                             This includes pre-provisoned XCONs too.";
+
+                leaf name {
+                    type ioa-common:object-name;
+                    description "A user configured name for the XCON.";
+                }
+
+                uses ioa-common:aid;
+
+                uses ioa-common:operational-states;
+
+                
+
+                leaf source {
+                    type instance-identifier;
+                    mandatory true;
+                    description "The source end-point between which the XCON needs to be created.";
+                }
+
+                leaf destination {
+                    type instance-identifier;
+                    mandatory true;
+                    description "The destination end-point between which the XCON needs to be created.";
+                }
+
+                uses xcon-common {
+                    refine payload-type {
+                        config false;
+                    }
+                }
+
+                leaf src-time-slots {
+                    type ioa-common:number-list;
+                    config false;
+                    status deprecated;
+                    description "Time-slots allocated to the source lo-oduj in this xcon. Not applicable if source facility is not an ODU facility.
+                                 Note: parameter is deprecated - will stop being supported in a future release.";
+                }
+
+                leaf dst-time-slots {
+                    type ioa-common:number-list;
+                    config false;
+                    status deprecated;
+                    description "Time-slots allocated to the destination lo-oduj in this xcon. Not applicable if destination facility is not an ODU facility.
+                                 Note: parameter is deprecated - will stop being supported in a future release.";
+                }
+
+                leaf managed-by {
+                    type enumeration {
+                        enum system { value 1; }
+                        enum user { value 2; }
+                    }
+                    default user;
+                    config false;
+                    description "Describes whether this xcon was system created or not. Only user created xcon can be user deleted.";
+                }
+
+                leaf payload-treatment  {
+                    type enumeration {
+                        enum transport {
+                            value 10;
+                            description "payload-treatment for ethernet ctp xcon.";
+                        }
+                        enum transport-without-fec {
+                            value 20;
+                            description "payload-treatment for client otu4 and line odu4 xcon when PT is OTU4.";
+                        }
+                        enum switching  {
+                            value 30;
+                            description "payload-treatment for client odu4 and line odu4 xcon when PT is 100G.";
+                        }
+                        enum regen  {
+                            value 40;
+                            description "payload-treatment for two line lo-odu4 xcon when PT is OTU4.";
+                        }
+                        enum regen-switching  {
+                            value 50;
+                            description "payload-treatment for two line lo-odu4 xcon when PT is 100G.";
+                        }
+                    }
+                    config false;
+                    description "Indicates a generic payload treatment value of the digital XCON.";
+                }
+
+                leaf network-mapping {
+                    type network-mapping-type;
+                    config false;
+                    description "Indicates the server layer protocol type that supports this XCON.";
+                }
+
+                leaf type {
+                    type enumeration {
+                        enum add { value 1; }
+                        enum drop { value 2; }
+                        enum add-drop { value 3; }
+                        enum express { value 4; }
+                    }
+                    config false;
+                    description "Type of XCON.";
+                }
+
+                leaf protection-type {
+                    type enumeration {
+                        enum unprotected { value 1; }
+                    }
+                    default unprotected;
+                    config false;
+                    description "Represents the protection type this XCON has.";
+                }
+
+                uses ioa-common:circuit-id;
+
+                leaf from-adaptation {
+		            type ioa-common:server-layer-adaptation;
+		            config false;
+		            description "Indicate server layer adaptation at client side.";
+		        }
+
+                leaf to-adaptation {
+		            type ioa-common:server-layer-adaptation;
+		            config false;
+		            description "Indicate server layer adaptation at line side.";
+		        }
+            }
+            uses ioa-data-path-encryption:data-path-encryption;
+        }
+    }
+
+    grouping xcon-common {
+
+        leaf payload-type {
+            type enumeration {
+                enum 100GBE {
+                    value 10;
+                    description "A generic payload type for all 100GBASE-X Ethernet clients when provisioning a digital XCON.";
+                }
+                enum 400GBE {
+                    value 20;
+                    description "A generic payload type for all 400GBASE-X Ethernet clients when provisioning a digital XCON.";
+                }
+                enum OTU4 {
+                    value 30;
+                    description "A generic payload type for OTU4 Transport w/o FEC service.";
+                }
+                enum 100G {
+                    value 40;
+                    description "A generic payload type for ODU4 switching services.";
+                }
+                enum ODU2 {
+                    value 50;
+                    description "A generic payload type for ODU2 switching services.";
+                }
+                enum ODU2e {
+                    value 60;
+                    description "A generic payload type for ODU2e switching services.";
+                }
+                enum 10GBE {
+                    value 70;
+                }
+                enum OC192 {
+                    value 80;
+                }
+                enum STM64 {
+                    value 90;
+                }
+                enum 10G {
+                    value 100;
+                }
+                enum empty {
+                    value 110;
+                    description "Not applicable for 2-step XCON approach.";
+                }
+            }
+            description "Indicates a generic, high-level source (from) client payload type of the digital XCON.";
+        }
+
+        leaf direction {
+            type enumeration {
+                // FUTURE enum one-way { value 1; }
+                enum two-way { value 2; } 
+            }
+            default two-way;
+            description "Indicates whether the digital XCON is uni-directional (1-WAY) or bi-directional (2-WAY).";
+        }
+
+        uses ioa-common:label;
+
+        leaf circuit-id-suffix {
+            type string { length 0..48; }
+            description "User configured circuit ID suffix.";
+        }
+    }
+
+    rpc create-xcon {
+        description "Command for automatic creation of xcon and associated facilities.";
+        input {
+
+            choice source-facility {
+                mandatory true;
+                case src-existing-facility {
+                    description "To be used in case this end point refers to an existing facility.";
+                    leaf source {
+                        type instance-identifier;
+                        mandatory true;
+                        description "Source end-point of the xcon. Must be an existing facility that can be used 
+                                     as a XCON end-point.";
+                    }
+                }
+                case src-non-existing-facility {
+                    description "To be used in case this end point needs to be automatically created implicitly. 
+                                 Applies to the automatic creation of low order ODUs for XCON end-points.";
+
+                    leaf src-parent-odu {
+                        type string;
+                        mandatory true;
+                        description "Name of the High Order parent ODU where to audst-create this ODU end-point.";
+                    }
+
+                    leaf src-time-slots {
+                        type ioa-common:number-list {
+                           length "1..255";
+                        }
+                        description "List of time-slots to allocate to the automatically created LO-ODU.
+                                     Value can be:
+                                     - omitted/empty - in which case system will audst-allocate time-slots based on the src-instance-id,
+                                                       which becomes mandatory (this is only supported for non ODUflex scenarios.)
+                                     - starting time-slot - system automatically allocates the rest of the time-slots sequentially 
+                                                            from this starting point; will fail if those time-slots are not available
+                                     - time-slot list - full list of time-slots, using a comma separated list, with 'x..y' representing 
+                                                        ranges; the total number of time-slots need to match the associated payload-type
+                                                        (e.g. 80 time-slots for 100G payload, 320 time-slots for 400G payload, etc)";
+                    }
+
+                    leaf src-instance-id {
+                        type uint8 { range 1..max; }
+                        description "Optional parameter on LO-ODU creation, identifies the ODU within the parent/high-order ODU.
+                             If not provided, it is automatically derived.
+                             Max value depends on capacity of the HO-ODU and of the odu-type.
+                             (ex: for creating an ODU4 in a HO ODUC8, instance can be between 1 and 8)
+                             Note: instance-id becomes mandatory if time-slots are not provided.";
+                    }
+                }
+            }
+            choice destination-facility {
+                mandatory true;
+                case dst-existing-facility {
+                    description "To be used in case this end point refers to an existing facility.";
+                    leaf destination {
+                        type instance-identifier;
+                        mandatory true;
+                        description "Destination end-point of the xcon. Must be an existing facility that can be used 
+                                     as a XCON end-point.";
+                    }
+                }
+                case dst-non-existing-facility {
+                    description "To be used in case this end point needs to be automatically created implicitly. 
+                                 Applies to the automatic creation of low order ODUs for XCON end-points.";
+
+                    leaf dst-parent-odu {
+                        type string;
+                        mandatory true;
+                        description "Name of the High Order parent ODU where to audst-create this ODU end-point.";
+                    }
+
+                    leaf dst-time-slots {
+                        type ioa-common:number-list {
+                           length "1..255";
+                        }
+                        description "List of time-slots to allocate to the automatically created LO-ODU.
+                                     Value can be:
+                                     - omitted/empty - in which case system will audst-allocate time-slots based on the dst-instance-id,
+                                                       which becomes mandatory (this is only supported for non ODUflex scenarios.)
+                                     - starting time-slot - system automatically allocates the rest of the time-slots sequentially 
+                                                            from this starting point; will fail if those time-slots are not available
+                                     - time-slot list - full list of time-slots, using a comma separated list, with 'x..y' representing 
+                                                        ranges; the total number of time-slots need to match the associated payload-type
+                                                        (e.g. 80 time-slots for 100G payload, 320 time-slots for 400G payload, etc)";
+                    }
+
+                    leaf dst-instance-id {
+                        type uint8 { range 1..max; }
+                        description "Optional parameter on LO-ODU creation, identifies the ODU within the parent/high-order ODU.
+                             If not provided, it is automatically derived.
+                             Max value depends on capacity of the HO-ODU and of the odu-type.
+                             (ex: for creating an ODU4 in a HO ODUC8, instance can be between 1 and 8)
+                             Note: instance-id becomes mandatory if time-slots are not provided.";
+                    }
+                }
+            }
+
+            uses  xcon-common;
+        }
+    }
+}

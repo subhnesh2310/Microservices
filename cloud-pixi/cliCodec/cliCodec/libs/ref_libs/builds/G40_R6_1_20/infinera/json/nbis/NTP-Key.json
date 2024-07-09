@@ -1,0 +1,56 @@
+{
+    "key_id": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "NTP Key-ID.",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "key_id"
+    },
+    "key_type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "sha-1",
+                "aes-cmac",
+                "sha-256",
+                "md5"
+            ]
+        },
+        "description": "Hash algorithm for NTP message digest computation",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "key_type"
+    },
+    "key_value": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "NTP Key-value.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "key_value"
+    },
+    "is_trusted": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Is trusted NTP key.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "is_trusted"
+    }
+}

@@ -1,0 +1,261 @@
+{
+    "module": {
+        "@name": "ioa-ots-r",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-ots-r": "http://infinera.com/yang/ioa/ots-r",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "@xmlns:ioa-l0": "http://infinera.com/yang/ioa/l0",
+        "@xmlns:ioa-ots": "http://infinera.com/yang/ioa/ots",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/ots-r"
+        },
+        "prefix": {
+            "@value": "ioa-ots-r"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            },
+            {
+                "@module": "ioa-l0",
+                "prefix": {
+                    "@value": "ioa-l0"
+                }
+            },
+            {
+                "@module": "ioa-ots",
+                "prefix": {
+                    "@value": "ioa-ots"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG definitions for Optical Transmission Section Reduced (OTS-R) facilities."
+        },
+        "revision": {
+            "@date": "2022-10-31",
+            "description": {
+                "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+            }
+        },
+        "grouping": {
+            "@name": "ots-r",
+            "list": {
+                "@name": "ots-r",
+                "key": {
+                    "@value": "name"
+                },
+                "description": {
+                    "text": "OTS: Optical Transmission Section facility."
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-fac-common:facilities-common-attributes"
+                    },
+                    {
+                        "@name": "ioa-common:arc"
+                    },
+                    {
+                        "@name": "ioa-ots:external-attenuation-rx",
+                        "refine": {
+                            "@target-node": "external-attenuation-rx",
+                            "description": {
+                                "text": "Loss between Patch panel and the Raman dwdm-line Rx."
+                            }
+                        }
+                    },
+                    {
+                        "@name": "ioa-ots:span-loss-transmit"
+                    }
+                ],
+                "leaf": [
+                    {
+                        "@name": "required-fiber-type-rx",
+                        "type": {
+                            "@name": "ioa-l0:fiber-type"
+                        },
+                        "default": {
+                            "@value": "SSMF"
+                        },
+                        "description": {
+                            "text": "The required Fiber Type on the DWDM Line, with reference for the Rx fiber.\nOnly of relevance if control-mode = auto.\nAnd: when there is no fiber-connection."
+                        }
+                    },
+                    {
+                        "@name": "configured-fiber-type-rx",
+                        "type": {
+                            "@name": "ioa-l0:fiber-type"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The configured fiber-type-rx on EDFA.\nIf control-mode = auto, it is simply the rx.required-fiber-type."
+                        }
+                    },
+                    {
+                        "@name": "fiber-length-rx",
+                        "type": {
+                            "@name": "union",
+                            "type": [
+                                {
+                                    "@name": "enumeration",
+                                    "enum": {
+                                        "@name": "unspecified",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "For OTS (atomatic fiber-length configuration)"
+                                        }
+                                    }
+                                },
+                                {
+                                    "@name": "decimal64",
+                                    "fraction-digits": {
+                                        "@value": "3"
+                                    },
+                                    "range": {
+                                        "@value": "0..500.0"
+                                    }
+                                }
+                            ]
+                        },
+                        "units": {
+                            "@name": "km"
+                        },
+                        "default": {
+                            "@value": "unspecified"
+                        },
+                        "description": {
+                            "text": "Receiving Fiber Length"
+                        }
+                    },
+                    {
+                        "@name": "configured-fiber-length-rx",
+                        "type": {
+                            "@name": "ioa-ots:type-of-fiber-length"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The configured (receiving) fiber-length-rx on the amplifier."
+                        }
+                    },
+                    {
+                        "@name": "span-loss-receive",
+                        "type": {
+                            "@name": "ioa-l0:span-loss-info"
+                        },
+                        "default": {
+                            "@value": "99"
+                        },
+                        "description": {
+                            "text": "The Span Loss at the receiving dwdm-line."
+                        }
+                    },
+                    {
+                        "@name": "span-loss-at-amplifier",
+                        "type": {
+                            "@name": "ioa-l0:span-loss-info"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The Span Loss detected at amplifier, when there is a fiber-connection from/ RPB to the amplifier."
+                        }
+                    },
+                    {
+                        "@name": "pilot-tone-span-loss",
+                        "type": {
+                            "@name": "ioa-l0:span-loss-info"
+                        },
+                        "description": {
+                            "text": "The calculated span-loss based on Pilot Tone."
+                        }
+                    },
+                    {
+                        "@name": "delta-pointloss",
+                        "type": {
+                            "@name": "union",
+                            "type": [
+                                {
+                                    "@name": "enumeration",
+                                    "enum": {
+                                        "@name": "not-applicable",
+                                        "value": {
+                                            "@value": "0"
+                                        },
+                                        "description": {
+                                            "text": "Not Applicable/ Not specified."
+                                        }
+                                    }
+                                },
+                                {
+                                    "@name": "decimal64",
+                                    "fraction-digits": {
+                                        "@value": "2"
+                                    },
+                                    "range": {
+                                        "@value": "0..80"
+                                    }
+                                }
+                            ]
+                        },
+                        "units": {
+                            "@name": "dB"
+                        },
+                        "default": {
+                            "@value": "not-applicable"
+                        },
+                        "description": {
+                            "text": "Delta Pointloss (Rx)\nAdditional attenuation that can be determined after turning up pumps.\nThis is the fiber contribution for the pointloss: to be fine tuned in the field.\nThis additional optical attenuation may be due to e.g. bad splice at dwdm-line Rx, higher att. than 0.1 dB."
+                        }
+                    },
+                    {
+                        "@name": "power-actual-rx",
+                        "type": {
+                            "@name": "ioa-l0:optical-power-actual"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Optical power received, where applicable."
+                        }
+                    },
+                    {
+                        "@name": "connected-reference",
+                        "type": {
+                            "@name": "uint8"
+                        },
+                        "default": {
+                            "@value": "0"
+                        },
+                        "description": {
+                            "text": "Indicates the degree the Raman is connected to.\nIn ILA node-type(s), the direction the Raman is connected to (1 means direction 1-2, 2 means 2-1)."
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

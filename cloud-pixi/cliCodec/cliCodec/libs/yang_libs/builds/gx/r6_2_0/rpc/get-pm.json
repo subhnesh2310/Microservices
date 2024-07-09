@@ -1,0 +1,150 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/pm",
+    "inputs": {
+        "data-type": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "current",
+                    "history",
+                    "real-time"
+                ]
+            },
+            "isList": false,
+            "description": "Type of PM data to retrieve.",
+            "mandatory": false
+        },
+        "number-of-records": {
+            "type": {
+                "ptype": "int"
+            },
+            "isList": false,
+            "description": "Maximum number of records that will be retrieved.",
+            "mandatory": false
+        },
+        "skip-records": {
+            "type": {
+                "ptype": "int"
+            },
+            "isList": false,
+            "description": "Allows user to specify a number of records that will be skipped, so that\nthe total data can be fetched in multiple requests.\nExample:\n- system has 2300 PM records available\n- 1st get-pm with (number-of-records = 1000) and (skip-records = 0);    result has    0..1000 records\n- 2nd get-pm with (number-of-records = 1000) and (skip-records = 1000); result has 1001..2000 records\n- 3nd get-pm with (number-of-records = 1000) and (skip-records = 2000); result has 2001..2300 records",
+            "mandatory": false
+        },
+        "period": {
+            "type": {
+                "ptype": "str",
+                "identityref": "PM-PERIOD"
+            },
+            "isList": false,
+            "description": "Time period for PM data.",
+            "mandatory": false
+        },
+        "start-time": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "If provided, defines the start timestamp that will be considered to filter the PM results.\nIf not provided, the oldest data timestamp will be considered.",
+            "mandatory": false
+        },
+        "end-time": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "If provided, defines the end timestamp that will be considered to filter the PM results.\nIf not provided, the most recent data timestamp will be considered.",
+            "mandatory": false
+        },
+        "start-bin": {
+            "type": {
+                "ptype": "int"
+            },
+            "isList": false,
+            "description": "If provided, defines the start bin number that will be considered to filter the PM results.\nIf not provided, the smallest bin number (most recent data) will be considered.",
+            "mandatory": false
+        },
+        "end-bin": {
+            "type": {
+                "ptype": "int"
+            },
+            "isList": false,
+            "description": "If provided, defines the end bin number that will be considered to filter the PM results.\nIf not provided, the largest available bin number (oldest data) will be considered.",
+            "mandatory": false
+        },
+        "filter": [
+            {
+                "filter-id": {
+                    "type": {
+                        "ptype": "int"
+                    },
+                    "isList": false,
+                    "description": "Identifier for each filter, has no specific meaning.",
+                    "mandatory": false
+                },
+                "resource": {
+                    "type": {
+                        "ptype": "str"
+                    },
+                    "isList": false,
+                    "description": "Existing system resource.",
+                    "mandatory": false
+                },
+                "resource-type": {
+                    "type": {
+                        "ptype": "str",
+                        "identityref": "RESOURCE-TYPE"
+                    },
+                    "isList": false,
+                    "description": "Type of resource.",
+                    "mandatory": false
+                },
+                "AID": {
+                    "type": {
+                        "ptype": "str"
+                    },
+                    "isList": false,
+                    "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                    "mandatory": false
+                },
+                "parameter": {
+                    "type": {
+                        "ptype": "str",
+                        "identityref": "PM-PARAMETER"
+                    },
+                    "isList": false,
+                    "description": "PM parameter identifier (can be a counter or a gauge).",
+                    "mandatory": false
+                },
+                "direction": {
+                    "type": {
+                        "ptype": "str",
+                        "values": [
+                            "all",
+                            "na",
+                            "ingress",
+                            "egress"
+                        ]
+                    },
+                    "isList": false,
+                    "description": "PM parameter direction.",
+                    "mandatory": false
+                },
+                "location": {
+                    "type": {
+                        "ptype": "str",
+                        "values": [
+                            "all",
+                            "na",
+                            "near-end",
+                            "far-end"
+                        ]
+                    },
+                    "isList": false,
+                    "description": "PM parameter location.",
+                    "mandatory": false
+                }
+            }
+        ]
+    },
+    "cases": {}
+}

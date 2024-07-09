@@ -1,0 +1,154 @@
+{
+    "terminal-device": {
+        "logical-channels": {
+            "channel": [
+                {
+                    "index": {
+                        "type": {
+                            "ptype": "int",
+                            "leafref": "../config/index"
+                        },
+                        "isList": false,
+                        "description": "Reference to the index of the logical channel",
+                        "key": true,
+                        "mandatory": false,
+                        "config": true,
+                        "default": 2148147200,
+                        "namespace": null
+                    },
+                    "logical-channel-assignments": {
+                        "assignment": [
+                            {
+                                "index": {
+                                    "type": {
+                                        "ptype": "int",
+                                        "leafref": "../config/index"
+                                    },
+                                    "isList": false,
+                                    "description": "Reference to the index for the current tributary\nassignment",
+                                    "key": true,
+                                    "mandatory": false,
+                                    "config": true,
+                                    "default": 1
+                                },
+                                "namespace": null,
+                                "config": {
+                                    "index": {
+                                        "type": {
+                                            "ptype": "int"
+                                        },
+                                        "isList": false,
+                                        "description": "Index of the current logical client channel to tributary\nmapping",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": 1,
+                                        "namespace": null
+                                    },
+                                    "description": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "Name assigned to the logical client channel",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "",
+                                        "namespace": null
+                                    },
+                                    "assignment-type": {
+                                        "type": {
+                                            "ptype": "str",
+                                            "values": [
+                                                "LOGICAL_CHANNEL",
+                                                "OPTICAL_CHANNEL"
+                                            ]
+                                        },
+                                        "isList": false,
+                                        "description": "Each logical channel element may be assigned to subsequent\nstages of logical elements to implement further grooming, or\ncan be assigned to a line-side optical channel for\ntransmission.  Each assignment also has an associated\nbandwidth allocation.",
+                                        "mandatory": true,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "LOGICAL_CHANNEL",
+                                        "namespace": null
+                                    },
+                                    "logical-channel": {
+                                        "type": {
+                                            "ptype": "unknown",
+                                            "leafref": "/oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:index"
+                                        },
+                                        "isList": false,
+                                        "description": "Reference to another stage of logical channel elements.",
+                                        "mandatory": true,
+                                        "key": false,
+                                        "config": true,
+                                        "default": 10,
+                                        "namespace": null
+                                    },
+                                    "optical-channel": {
+                                        "type": {
+                                            "ptype": "unknown",
+                                            "leafref": "/oc-platform:components/oc-platform:component/oc-platform:name"
+                                        },
+                                        "isList": false,
+                                        "description": "Reference to the line-side optical channel that should\ncarry the current logical channel element.  Use this\nreference to exit the logical element stage.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": false,
+                                        "default": "",
+                                        "namespace": null
+                                    },
+                                    "allocation": {
+                                        "type": {
+                                            "ptype": "str"
+                                        },
+                                        "isList": false,
+                                        "description": "Allocation of the logical client channel to the tributary\nor sub-channel, expressed in Gbps. Please note that if the\nassignment is to an OTN logical channel, the allocation must\nbe an integer multiplication to tributary-slot-granularity\nof the OTN logical channel.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": true,
+                                        "default": "100",
+                                        "namespace": null
+                                    },
+                                    "tributary-slot-index": {
+                                        "type": {
+                                            "ptype": "int"
+                                        },
+                                        "isList": false,
+                                        "description": "Indicates the first tributary slot index allocated to the\nclient signal or logical channel in the assignment. Valid\nonly when the assignment is to an OTN logical channel.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": false,
+                                        "default": 0,
+                                        "namespace": null
+                                    },
+                                    "mapping": {
+                                        "type": {
+                                            "ptype": "str",
+                                            "identityref": "oc-opt-types:FRAME_MAPPING_PROTOCOL"
+                                        },
+                                        "isList": false,
+                                        "description": "Logical channel mapping procedure. Valid only when the\nassignment is to an OTN logical channel.",
+                                        "mandatory": false,
+                                        "key": false,
+                                        "config": false,
+                                        "default": "AMP",
+                                        "namespace": {
+                                            "namespace": "http://openconfig.net/yang/transport-types",
+                                            "prefix": "oc-opt-types"
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/terminal-device"
+        }
+    }
+}

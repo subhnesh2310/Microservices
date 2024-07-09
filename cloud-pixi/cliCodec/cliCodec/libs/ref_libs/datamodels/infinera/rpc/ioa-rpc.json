@@ -1,0 +1,882 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "clear-file": {
+        "input": [
+            {
+                "name": "filetype",
+                "type": "enum",
+                "values": [
+                    "database",
+                    "swimage",
+                    "krp",
+                    "script",
+                    "debug-log",
+                    "pm-logs",
+                    "local-certificate",
+                    "trusted-certificate",
+                    "fdr-log",
+                    "logs",
+                    "file",
+                    "peer-certificate"
+                ],
+                "mandatory": true
+            },
+            {
+                "name": "target-file",
+                "type": "str",
+                "when": {
+                    "@condition": "../filetype != 'krp'"
+                },
+                "mandatory": true
+            }
+        ]
+    },
+    "clear-app": {
+        "input": [
+            {
+                "name": "app-name",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "clear-database": {
+        "input": [
+            {
+                "name": "clear-type",
+                "type": "str",
+                "values": "full",
+                "default": "full"
+            }
+        ]
+    },
+    "kill-session": {
+        "input": [
+            {
+                "name": "session-id",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "clear-certificate": {
+        "input": [
+            {
+                "name": "type",
+                "type": "enum",
+                "values": [
+                    "trusted",
+                    "peer",
+                    "local"
+                ],
+                "mandatory": true
+            },
+            {
+                "name": "id",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "ssh-keygen": {
+        "input": [
+            {
+                "name": "key-length",
+                "type": "enum",
+                "values": [
+                    "2048",
+                    "3072",
+                    "4096",
+                    "256",
+                    "384",
+                    "521"
+                ],
+                "default": "2048"
+            },
+            {
+                "name": "key-type",
+                "type": "str",
+                "default": "rsa"
+            },
+            {
+                "name": "key-label",
+                "type": "str"
+            }
+        ]
+    },
+    "cert-gen": {
+        "input": [
+            {
+                "name": "certificate-name",
+                "type": "str",
+                "mandatory": true
+            },
+            {
+                "name": "days",
+                "type": "int",
+                "default": 365
+            },
+            {
+                "name": "org-name",
+                "type": "str",
+                "default": "Infinera"
+            },
+            {
+                "name": "common-name",
+                "type": "str",
+                "default": "Infinera"
+            },
+            {
+                "name": "auto-install",
+                "type": "bool",
+                "default": true
+            }
+        ]
+    },
+    "diff": {
+        "input": [
+            {
+                "name": "candidate",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "cli-command": {
+        "input": [
+            {
+                "name": "echo",
+                "type": "enum",
+                "values": [
+                    "on",
+                    "off"
+                ],
+                "default": "on"
+            },
+            {
+                "name": "error-option",
+                "type": "enum",
+                "values": [
+                    "stop-on-error",
+                    "continue-on-error",
+                    "rollback-on-error"
+                ],
+                "default": "continue-on-error"
+            },
+            {
+                "name": "replace",
+                "type": "bool",
+                "default": false
+            }
+        ]
+    },
+    "install-krp": {
+        "input": [
+            {
+                "name": "krp-name",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "delete-isk": {
+        "input": [
+            {
+                "name": "key-name",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "get-log": {
+        "input": [
+            {
+                "name": "log-file-name",
+                "type": "str",
+                "mandatory": true
+            },
+            {
+                "name": "start-time",
+                "type": "str"
+            },
+            {
+                "name": "end-time",
+                "type": "str"
+            },
+            {
+                "name": "number-of-entries",
+                "type": "str",
+                "default": "500"
+            },
+            {
+                "name": "pattern-match",
+                "type": "str"
+            }
+        ]
+    },
+    "clear-log": {
+        "input": [
+            {
+                "name": "log-file-name",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "change-ztp-mode": {
+        "input": [
+            {
+                "name": "ztp-mode",
+                "type": "enum",
+                "values": [
+                    "disabled",
+                    "enabled"
+                ],
+                "mandatory": true
+            }
+        ]
+    },
+    "enable-led": {
+        "input": [
+            {
+                "name": "entity",
+                "type": "str",
+                "mandatory": true
+            },
+            {
+                "name": "timeout",
+                "type": "int",
+                "default": 0
+            },
+            {
+                "name": "led-mode",
+                "type": "enum",
+                "values": [
+                    "flash",
+                    "solid"
+                ],
+                "default": "flash"
+            }
+        ]
+    },
+    "disable-led": {
+        "input": [
+            {
+                "name": "entity",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "simulate": {
+        "input": [
+            {
+                "name": "trigger",
+                "type": "enum",
+                "values": [
+                    "plug-in-fru",
+                    "plug-out-fru"
+                ],
+                "mandatory": true
+            }
+        ]
+    },
+    "restart": {
+        "input": [
+            {
+                "name": "resource",
+                "type": "str"
+            },
+            {
+                "name": "type",
+                "type": "enum",
+                "values": [
+                    "warm",
+                    "cold",
+                    "shutdown"
+                ],
+                "default": "warm"
+            },
+            {
+                "name": "sub-component",
+                "type": "str"
+            }
+        ]
+    },
+    "ping": {
+        "input": [
+            {
+                "name": "ping-count",
+                "type": "int",
+                "default": 4
+            },
+            {
+                "name": "ping-timeout",
+                "type": "int",
+                "default": 2
+            },
+            {
+                "name": "ping-pktsize",
+                "type": "int",
+                "default": 56
+            },
+            {
+                "name": "ping-dest",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "traceroute": {
+        "input": [
+            {
+                "name": "tr-hopcnt",
+                "type": "int",
+                "default": 30
+            },
+            {
+                "name": "tr-timeout",
+                "type": "int",
+                "default": 2
+            },
+            {
+                "name": "tr-dest",
+                "type": "str",
+                "mandatory": true
+            },
+            {
+                "name": "tr-pktsize",
+                "type": "int",
+                "default": 60
+            }
+        ]
+    },
+    "clear-ospf-instance": {
+        "input": [
+            {
+                "name": "instance",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "clear-topology": {
+        "input": [
+            {
+                "name": "target",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "clear-system": {
+        "input": [
+            {
+                "name": "type",
+                "type": "enum",
+                "values": [
+                    "factory-reset",
+                    "full-wipe",
+                    "inactive"
+                ],
+                "mandatory": true
+            },
+            {
+                "name": "target",
+                "type": "str",
+                "default": "system",
+                "when": {
+                    "@condition": "../type = 'factory-reset' or ../type = 'full-wipe'"
+                }
+            },
+            {
+                "name": "restart-behavior",
+                "type": "enum",
+                "values": [
+                    "restart",
+                    "shutdown"
+                ],
+                "default": "restart",
+                "when": {
+                    "@condition": "../type='factory-reset'"
+                }
+            },
+            {
+                "name": "action",
+                "type": "str",
+                "values": "delete",
+                "default": "delete",
+                "when": {
+                    "@condition": "../type='inactive'"
+                }
+            }
+        ]
+    },
+    "download": {
+        "input": [
+            {
+                "name": "filetype",
+                "type": "enum",
+                "values": [
+                    "database",
+                    "swimage",
+                    "krp",
+                    "script",
+                    "debug-log",
+                    "pm-logs",
+                    "local-certificate",
+                    "trusted-certificate",
+                    "fdr-log",
+                    "logs",
+                    "file",
+                    "peer-certificate"
+                ],
+                "mandatory": true
+            },
+            {
+                "name": "passphrase",
+                "type": "str",
+                "when": {
+                    "@condition": "../filetype = 'local-certificate' or ../filetype = 'peer-certificate'"
+                },
+                "mandatory": true
+            },
+            {
+                "name": "white-listed",
+                "type": "bool",
+                "default": false,
+                "when": {
+                    "@condition": "../filetype = 'peer-certificate'"
+                }
+            },
+            {
+                "name": "certificate-name",
+                "type": "str",
+                "when": {
+                    "@condition": "../filetype = 'local-certificate' or ../filetype = 'trusted-certificate' or ../filetype = 'peer-certificate'"
+                },
+                "mandatory": true
+            },
+            {
+                "name": "unattended",
+                "type": "bool"
+            },
+            {
+                "name": "async",
+                "type": "bool"
+            },
+            {
+                "name": "skip-secure-verification",
+                "type": "bool"
+            },
+            {
+                "name": "sanity-check-override",
+                "type": "bool",
+                "default": false,
+                "when": {
+                    "@condition": "../filetype = 'database'"
+                }
+            },
+            {
+                "name": "destination",
+                "type": "str",
+                "when": {
+                    "@condition": "../filetype = 'file'"
+                }
+            },
+            {
+                "name": "password",
+                "type": "str"
+            },
+            {
+                "name": "db-passphrase",
+                "type": "str",
+                "when": {
+                    "@condition": "filetype = 'database'"
+                }
+            },
+            {
+                "name": "db-action",
+                "type": "enum",
+                "values": [
+                    "empty-db",
+                    "upgrade-db",
+                    "rollback"
+                ],
+                "default": "upgrade-db",
+                "when": {
+                    "@condition": "filetype = 'swimage' and unattended = 'true'"
+                }
+            }
+        ]
+    },
+    "upload": {
+        "input": [
+            {
+                "name": "filetype",
+                "type": "enum",
+                "values": [
+                    "database",
+                    "swimage",
+                    "krp",
+                    "script",
+                    "debug-log",
+                    "pm-logs",
+                    "local-certificate",
+                    "trusted-certificate",
+                    "fdr-log",
+                    "logs",
+                    "file",
+                    "peer-certificate"
+                ],
+                "mandatory": true
+            },
+            {
+                "name": "source",
+                "type": "str",
+                "when": {
+                    "@condition": "../filetype = 'file'"
+                }
+            },
+            {
+                "name": "async",
+                "type": "bool"
+            },
+            {
+                "name": "skip-secure-verification",
+                "type": "bool"
+            },
+            {
+                "name": "debug-entity",
+                "type": "str",
+                "when": {
+                    "@condition": "../filetype = 'debug-log' or ../filetype = 'fdr-log'"
+                },
+                "mandatory": true
+            },
+            {
+                "name": "password",
+                "type": "str"
+            },
+            {
+                "name": "start-time",
+                "type": "str",
+                "when": {
+                    "@condition": "../filetype = 'logs' or ../filetype = 'pm-logs'"
+                }
+            },
+            {
+                "name": "db-instance",
+                "type": "enum",
+                "values": [
+                    "active",
+                    "onehour",
+                    "oneday",
+                    "oneweek",
+                    "temp",
+                    "manual",
+                    "rollback"
+                ],
+                "default": "active",
+                "when": {
+                    "@condition": "../filetype = 'database'"
+                }
+            },
+            {
+                "name": "period",
+                "type": "str",
+                "when": {
+                    "@condition": "filetype = 'pm-logs'"
+                }
+            },
+            {
+                "name": "db-passphrase",
+                "type": "str",
+                "when": {
+                    "@condition": "filetype = 'database'"
+                }
+            }
+        ]
+    },
+    "prepare-upgrade": {
+        "input": [
+            {
+                "name": "option",
+                "type": "enum",
+                "values": [
+                    "validate",
+                    "apply"
+                ],
+                "mandatory": true
+            },
+            {
+                "name": "manifest",
+                "type": "str",
+                "mandatory": true
+            },
+            {
+                "name": "ignore-precheck-failures",
+                "type": "bool",
+                "default": false
+            },
+            {
+                "name": "unattended",
+                "type": "bool",
+                "when": {
+                    "@condition": "../option = 'apply'"
+                }
+            },
+            {
+                "name": "db-action",
+                "type": "enum",
+                "values": [
+                    "empty-db",
+                    "upgrade-db",
+                    "rollback"
+                ],
+                "default": "upgrade-db",
+                "when": {
+                    "@condition": "unattended = 'true'"
+                }
+            }
+        ]
+    },
+    "activate-file": {
+        "input": [
+            {
+                "name": "filetype",
+                "type": "enum",
+                "values": [
+                    "database",
+                    "swimage",
+                    "krp",
+                    "script",
+                    "debug-log",
+                    "pm-logs",
+                    "local-certificate",
+                    "trusted-certificate",
+                    "fdr-log",
+                    "logs",
+                    "file",
+                    "peer-certificate"
+                ],
+                "mandatory": true
+            },
+            {
+                "name": "label",
+                "type": "str",
+                "when": {
+                    "@condition": "../filetype = 'swimage'"
+                }
+            },
+            {
+                "name": "db-instance",
+                "type": "enum",
+                "values": [
+                    "active",
+                    "onehour",
+                    "oneday",
+                    "oneweek",
+                    "temp",
+                    "manual",
+                    "rollback"
+                ],
+                "default": "temp",
+                "when": {
+                    "@condition": "../filetype = 'database'"
+                }
+            },
+            {
+                "name": "sanity-check-override",
+                "type": "bool",
+                "default": false,
+                "when": {
+                    "@condition": "../filetype = 'database' or ../filetype = 'swimage'"
+                }
+            },
+            {
+                "name": "db-action",
+                "type": "enum",
+                "values": [
+                    "empty-db",
+                    "upgrade-db",
+                    "rollback"
+                ],
+                "default": "upgrade-db",
+                "when": {
+                    "@condition": "filetype = 'swimage'"
+                }
+            },
+            {
+                "name": "db-passphrase",
+                "type": "str",
+                "when": {
+                    "@condition": "filetype = 'database'"
+                }
+            }
+        ]
+    },
+    "cancel-upgrade": {},
+    "set-time": {
+        "input": [
+            {
+                "name": "new-time",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "password": {
+        "input": [
+            {
+                "name": "old-password",
+                "type": "str",
+                "mandatory": true
+            },
+            {
+                "name": "new-password",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "clear-recover-mode": {},
+    "run-task": {
+        "input": [
+            {
+                "name": "task-name",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "take-snapshot": {
+        "input": [
+            {
+                "name": "db-instance",
+                "type": "enum",
+                "values": [
+                    "active",
+                    "onehour",
+                    "oneday",
+                    "oneweek",
+                    "temp",
+                    "manual",
+                    "rollback"
+                ],
+                "default": "temp"
+            },
+            {
+                "name": "description",
+                "type": "str"
+            },
+            {
+                "name": "db-passphrase",
+                "type": "str"
+            }
+        ]
+    },
+    "get-script": {
+        "input": []
+    },
+    "run-script": {
+        "input": [
+            {
+                "name": "script-name",
+                "type": "str",
+                "mandatory": true
+            },
+            {
+                "name": "arguments",
+                "type": "str"
+            }
+        ]
+    },
+    "manual-switchover": {
+        "input": [
+            {
+                "name": "resource",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "file-operation": {
+        "input": [
+            {
+                "name": "operation",
+                "type": "enum",
+                "values": [
+                    "rename",
+                    "delete",
+                    "view",
+                    "sha256sum",
+                    "md5sum"
+                ]
+            },
+            {
+                "name": "file-path",
+                "type": "str",
+                "mandatory": true
+            },
+            {
+                "name": "new-file-path",
+                "type": "str",
+                "when": {
+                    "@condition": "../operation = 'rename'"
+                },
+                "mandatory": true
+            }
+        ]
+    },
+    "call-home": {
+        "input": [
+            {
+                "name": "dial-out-server-name",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "activate-fw": {
+        "input": [
+            {
+                "name": "fw-image-name",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "re-key": {
+        "input": []
+    },
+    "re-auth": {
+        "input": [
+            {
+                "name": "ikev2-peer",
+                "type": "str",
+                "mandatory": true
+            }
+        ]
+    },
+    "clear-diagnostics": {
+        "input": [
+            {
+                "name": "entity-id",
+                "type": "str",
+                "mandatory": true
+            },
+            {
+                "name": "test-signal-direction",
+                "type": "enum",
+                "values": [
+                    "ingress",
+                    "egress",
+                    "auto"
+                ],
+                "default": "auto"
+            }
+        ]
+    },
+    "fast-telemetry-subscription": {}
+}

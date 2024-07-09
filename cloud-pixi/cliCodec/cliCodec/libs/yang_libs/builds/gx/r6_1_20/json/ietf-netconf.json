@@ -1,0 +1,1200 @@
+{
+    "module": {
+        "@name": "ietf-netconf",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:nc": "urn:ietf:params:xml:ns:netconf:base:1.0",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "@xmlns:nacm": "urn:ietf:params:xml:ns:yang:ietf-netconf-acm",
+        "namespace": {
+            "@uri": "urn:ietf:params:xml:ns:netconf:base:1.0"
+        },
+        "prefix": {
+            "@value": "nc"
+        },
+        "import": [
+            {
+                "@module": "ietf-inet-types",
+                "prefix": {
+                    "@value": "inet"
+                }
+            },
+            {
+                "@module": "ietf-netconf-acm",
+                "prefix": {
+                    "@value": "nacm"
+                }
+            }
+        ],
+        "organization": {
+            "text": "IETF NETCONF (Network Configuration) Working Group"
+        },
+        "contact": {
+            "text": "WG Web:   <http://tools.ietf.org/wg/netconf/>\nWG List:  <netconf@ietf.org>\n\nWG Chair: Bert Wijnen\n          <bertietf@bwijnen.net>\n\nWG Chair: Mehmet Ersue\n          <mehmet.ersue@nsn.com>\n\nEditor:   Martin Bjorklund\n          <mbj@tail-f.com>\n\nEditor:   Juergen Schoenwaelder\n          <j.schoenwaelder@jacobs-university.de>\n\nEditor:   Andy Bierman\n          <andy.bierman@brocade.com>"
+        },
+        "description": {
+            "text": "NETCONF Protocol Data Types and Protocol Operations.\n\nCopyright (c) 2011 IETF Trust and the persons identified as\nthe document authors.  All rights reserved.\n\nRedistribution and use in source and binary forms, with or\nwithout modification, is permitted pursuant to, and subject\nto the license terms contained in, the Simplified BSD License\nset forth in Section 4.c of the IETF Trust's Legal Provisions\nRelating to IETF Documents\n(http://trustee.ietf.org/license-info).\n\nThis version of this YANG module is part of RFC 6241; see\nthe RFC itself for full legal notices."
+        },
+        "revision": {
+            "@date": "2011-06-01",
+            "description": {
+                "text": "Initial revision;\n2013-09-29: Updated to include NACM attributes,\nas specified in RFC 6536: sec 3.2.5 and 3.2.8"
+            },
+            "reference": {
+                "text": "RFC 6241: Network Configuration Protocol"
+            }
+        },
+        "extension": {
+            "@name": "get-filter-element-attributes",
+            "description": {
+                "text": "If this extension is present within an 'anyxml'\nstatement named 'filter', which must be conceptually\ndefined within the RPC input section for the <get>\nand <get-config> protocol operations, then the\nfollowing unqualified XML attribute is supported\nwithin the <filter> element, within a <get> or\n<get-config> protocol operation:\n\n  type : optional attribute with allowed\n         value strings 'subtree' and 'xpath'.\n         If missing, the default value is 'subtree'.\n\nIf the 'xpath' feature is supported, then the\nfollowing unqualified XML attribute is\nalso supported:\n\n  select: optional attribute containing a\n          string representing an XPath expression.\n          The 'type' attribute must be equal to 'xpath'\n          if this attribute is present."
+            }
+        },
+        "feature": [
+            {
+                "@name": "writable-running",
+                "description": {
+                    "text": "NETCONF :writable-running capability;\nIf the server advertises the :writable-running\ncapability for a session, then this feature must\nalso be enabled for that session.  Otherwise,\nthis feature must not be enabled."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 8.2"
+                }
+            },
+            {
+                "@name": "candidate",
+                "description": {
+                    "text": "NETCONF :candidate capability;\nIf the server advertises the :candidate\ncapability for a session, then this feature must\nalso be enabled for that session.  Otherwise,\nthis feature must not be enabled."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 8.3"
+                }
+            },
+            {
+                "@name": "confirmed-commit",
+                "if-feature": {
+                    "@name": "candidate"
+                },
+                "description": {
+                    "text": "NETCONF :confirmed-commit:1.1 capability;\nIf the server advertises the :confirmed-commit:1.1\ncapability for a session, then this feature must\nalso be enabled for that session.  Otherwise,\nthis feature must not be enabled."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 8.4"
+                }
+            },
+            {
+                "@name": "rollback-on-error",
+                "description": {
+                    "text": "NETCONF :rollback-on-error capability;\nIf the server advertises the :rollback-on-error\ncapability for a session, then this feature must\nalso be enabled for that session.  Otherwise,\nthis feature must not be enabled."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 8.5"
+                }
+            },
+            {
+                "@name": "validate",
+                "description": {
+                    "text": "NETCONF :validate:1.1 capability;\nIf the server advertises the :validate:1.1\ncapability for a session, then this feature must\nalso be enabled for that session.  Otherwise,\nthis feature must not be enabled."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 8.6"
+                }
+            },
+            {
+                "@name": "startup",
+                "description": {
+                    "text": "NETCONF :startup capability;\nIf the server advertises the :startup\ncapability for a session, then this feature must\nalso be enabled for that session.  Otherwise,\nthis feature must not be enabled."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 8.7"
+                }
+            },
+            {
+                "@name": "url",
+                "description": {
+                    "text": "NETCONF :url capability;\nIf the server advertises the :url\ncapability for a session, then this feature must\nalso be enabled for that session.  Otherwise,\nthis feature must not be enabled."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 8.8"
+                }
+            },
+            {
+                "@name": "xpath",
+                "description": {
+                    "text": "NETCONF :xpath capability;\nIf the server advertises the :xpath\ncapability for a session, then this feature must\nalso be enabled for that session.  Otherwise,\nthis feature must not be enabled."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 8.9"
+                }
+            }
+        ],
+        "typedef": [
+            {
+                "@name": "session-id-type",
+                "type": {
+                    "@name": "uint32",
+                    "range": {
+                        "@value": "1..max"
+                    }
+                },
+                "description": {
+                    "text": "NETCONF Session Id"
+                }
+            },
+            {
+                "@name": "session-id-or-zero-type",
+                "type": {
+                    "@name": "uint32"
+                },
+                "description": {
+                    "text": "NETCONF Session Id or Zero to indicate none"
+                }
+            },
+            {
+                "@name": "error-tag-type",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "in-use",
+                            "description": {
+                                "text": "The request requires a resource that\nalready is in use."
+                            }
+                        },
+                        {
+                            "@name": "invalid-value",
+                            "description": {
+                                "text": "The request specifies an unacceptable value for one\nor more parameters."
+                            }
+                        },
+                        {
+                            "@name": "too-big",
+                            "description": {
+                                "text": "The request or response (that would be generated) is\ntoo large for the implementation to handle."
+                            }
+                        },
+                        {
+                            "@name": "missing-attribute",
+                            "description": {
+                                "text": "An expected attribute is missing."
+                            }
+                        },
+                        {
+                            "@name": "bad-attribute",
+                            "description": {
+                                "text": "An attribute value is not correct; e.g., wrong type,\nout of range, pattern mismatch."
+                            }
+                        },
+                        {
+                            "@name": "unknown-attribute",
+                            "description": {
+                                "text": "An unexpected attribute is present."
+                            }
+                        },
+                        {
+                            "@name": "missing-element",
+                            "description": {
+                                "text": "An expected element is missing."
+                            }
+                        },
+                        {
+                            "@name": "bad-element",
+                            "description": {
+                                "text": "An element value is not correct; e.g., wrong type,\nout of range, pattern mismatch."
+                            }
+                        },
+                        {
+                            "@name": "unknown-element",
+                            "description": {
+                                "text": "An unexpected element is present."
+                            }
+                        },
+                        {
+                            "@name": "unknown-namespace",
+                            "description": {
+                                "text": "An unexpected namespace is present."
+                            }
+                        },
+                        {
+                            "@name": "access-denied",
+                            "description": {
+                                "text": "Access to the requested protocol operation or\ndata model is denied because authorization failed."
+                            }
+                        },
+                        {
+                            "@name": "lock-denied",
+                            "description": {
+                                "text": "Access to the requested lock is denied because the\nlock is currently held by another entity."
+                            }
+                        },
+                        {
+                            "@name": "resource-denied",
+                            "description": {
+                                "text": "Request could not be completed because of\ninsufficient resources."
+                            }
+                        },
+                        {
+                            "@name": "rollback-failed",
+                            "description": {
+                                "text": "Request to roll back some configuration change (via\nrollback-on-error or <discard-changes> operations)\nwas not completed for some reason."
+                            }
+                        },
+                        {
+                            "@name": "data-exists",
+                            "description": {
+                                "text": "Request could not be completed because the relevant\ndata model content already exists.  For example,\na 'create' operation was attempted on data that\nalready exists."
+                            }
+                        },
+                        {
+                            "@name": "data-missing",
+                            "description": {
+                                "text": "Request could not be completed because the relevant\ndata model content does not exist.  For example,\na 'delete' operation was attempted on\ndata that does not exist."
+                            }
+                        },
+                        {
+                            "@name": "operation-not-supported",
+                            "description": {
+                                "text": "Request could not be completed because the requested\noperation is not supported by this implementation."
+                            }
+                        },
+                        {
+                            "@name": "operation-failed",
+                            "description": {
+                                "text": "Request could not be completed because the requested\noperation failed for some reason not covered by\nany other error condition."
+                            }
+                        },
+                        {
+                            "@name": "partial-operation",
+                            "description": {
+                                "text": "This error-tag is obsolete, and SHOULD NOT be sent\nby servers conforming to this document."
+                            }
+                        },
+                        {
+                            "@name": "malformed-message",
+                            "description": {
+                                "text": "A message could not be handled because it failed to\nbe parsed correctly.  For example, the message is not\nwell-formed XML or it uses an invalid character set."
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "NETCONF Error Tag"
+                },
+                "reference": {
+                    "text": "RFC 6241, Appendix A"
+                }
+            },
+            {
+                "@name": "error-severity-type",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "error",
+                            "description": {
+                                "text": "Error severity"
+                            }
+                        },
+                        {
+                            "@name": "warning",
+                            "description": {
+                                "text": "Warning severity"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "NETCONF Error Severity"
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 4.3"
+                }
+            },
+            {
+                "@name": "edit-operation-type",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "merge",
+                            "description": {
+                                "text": "The configuration data identified by the\nelement containing this attribute is merged\nwith the configuration at the corresponding\nlevel in the configuration datastore identified\nby the target parameter."
+                            }
+                        },
+                        {
+                            "@name": "replace",
+                            "description": {
+                                "text": "The configuration data identified by the element\ncontaining this attribute replaces any related\nconfiguration in the configuration datastore\nidentified by the target parameter.  If no such\nconfiguration data exists in the configuration\ndatastore, it is created.  Unlike a\n<copy-config> operation, which replaces the\nentire target configuration, only the configuration\nactually present in the config parameter is affected."
+                            }
+                        },
+                        {
+                            "@name": "create",
+                            "description": {
+                                "text": "The configuration data identified by the element\ncontaining this attribute is added to the\nconfiguration if and only if the configuration\ndata does not already exist in the configuration\ndatastore.  If the configuration data exists, an\n<rpc-error> element is returned with an\n<error-tag> value of 'data-exists'."
+                            }
+                        },
+                        {
+                            "@name": "delete",
+                            "description": {
+                                "text": "The configuration data identified by the element\ncontaining this attribute is deleted from the\nconfiguration if and only if the configuration\ndata currently exists in the configuration\ndatastore.  If the configuration data does not\nexist, an <rpc-error> element is returned with\nan <error-tag> value of 'data-missing'."
+                            }
+                        },
+                        {
+                            "@name": "remove",
+                            "description": {
+                                "text": "The configuration data identified by the element\ncontaining this attribute is deleted from the\nconfiguration if the configuration\ndata currently exists in the configuration\ndatastore.  If the configuration data does not\nexist, the 'remove' operation is silently ignored\nby the server."
+                            }
+                        }
+                    ]
+                },
+                "default": {
+                    "@value": "merge"
+                },
+                "description": {
+                    "text": "NETCONF 'operation' attribute values"
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 7.2"
+                }
+            }
+        ],
+        "rpc": [
+            {
+                "@name": "get-config",
+                "description": {
+                    "text": "Retrieve all or part of a specified configuration."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 7.1"
+                },
+                "input": {
+                    "container": {
+                        "@name": "source",
+                        "description": {
+                            "text": "Particular configuration to retrieve."
+                        },
+                        "choice": {
+                            "@name": "config-source",
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The configuration to retrieve."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "candidate",
+                                    "if-feature": {
+                                        "@name": "candidate"
+                                    },
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The candidate configuration is the config source."
+                                    }
+                                },
+                                {
+                                    "@name": "running",
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The running configuration is the config source."
+                                    }
+                                },
+                                {
+                                    "@name": "startup",
+                                    "if-feature": {
+                                        "@name": "startup"
+                                    },
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The startup configuration is the config source.\nThis is optional-to-implement on the server because\nnot all servers will support filtering for this\ndatastore."
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "anyxml": {
+                        "@name": "filter",
+                        "description": {
+                            "text": "Subtree or XPath filter to use."
+                        },
+                        "nc:get-filter-element-attributes": null
+                    }
+                },
+                "output": {
+                    "anyxml": {
+                        "@name": "data",
+                        "description": {
+                            "text": "Copy of the source datastore subset that matched\nthe filter criteria (if any).  An empty data container\nindicates that the request did not produce any results."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "edit-config",
+                "description": {
+                    "text": "The <edit-config> operation loads all or part of a specified\nconfiguration to the specified target configuration."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 7.2"
+                },
+                "input": {
+                    "container": {
+                        "@name": "target",
+                        "description": {
+                            "text": "Particular configuration to edit."
+                        },
+                        "choice": {
+                            "@name": "config-target",
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The configuration target."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "candidate",
+                                    "if-feature": {
+                                        "@name": "candidate"
+                                    },
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The candidate configuration is the config target."
+                                    }
+                                },
+                                {
+                                    "@name": "running",
+                                    "if-feature": {
+                                        "@name": "writable-running"
+                                    },
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The running configuration is the config source."
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "leaf": [
+                        {
+                            "@name": "default-operation",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "merge",
+                                        "description": {
+                                            "text": "The default operation is merge."
+                                        }
+                                    },
+                                    {
+                                        "@name": "replace",
+                                        "description": {
+                                            "text": "The default operation is replace."
+                                        }
+                                    },
+                                    {
+                                        "@name": "none",
+                                        "description": {
+                                            "text": "There is no default operation."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "merge"
+                            },
+                            "description": {
+                                "text": "The default operation to use."
+                            }
+                        },
+                        {
+                            "@name": "test-option",
+                            "if-feature": {
+                                "@name": "validate"
+                            },
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "test-then-set",
+                                        "description": {
+                                            "text": "The server will test and then set if no errors."
+                                        }
+                                    },
+                                    {
+                                        "@name": "set",
+                                        "description": {
+                                            "text": "The server will set without a test first."
+                                        }
+                                    },
+                                    {
+                                        "@name": "test-only",
+                                        "description": {
+                                            "text": "The server will only test and not set, even\nif there are no errors."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "test-then-set"
+                            },
+                            "description": {
+                                "text": "The test option to use."
+                            }
+                        },
+                        {
+                            "@name": "error-option",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "stop-on-error",
+                                        "description": {
+                                            "text": "The server will stop on errors."
+                                        }
+                                    },
+                                    {
+                                        "@name": "continue-on-error",
+                                        "description": {
+                                            "text": "The server may continue on errors."
+                                        }
+                                    },
+                                    {
+                                        "@name": "rollback-on-error",
+                                        "description": {
+                                            "text": "The server will roll back on errors.\nThis value can only be used if the 'rollback-on-error'\nfeature is supported."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "stop-on-error"
+                            },
+                            "description": {
+                                "text": "The error option to use."
+                            }
+                        }
+                    ],
+                    "choice": {
+                        "@name": "edit-content",
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "The content for the edit operation."
+                        },
+                        "anyxml": {
+                            "@name": "config",
+                            "description": {
+                                "text": "Inline Config content."
+                            }
+                        },
+                        "leaf": {
+                            "@name": "url",
+                            "if-feature": {
+                                "@name": "url"
+                            },
+                            "type": {
+                                "@name": "inet:uri"
+                            },
+                            "description": {
+                                "text": "URL-based config content."
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "copy-config",
+                "description": {
+                    "text": "Create or replace an entire configuration datastore with the\ncontents of another complete configuration datastore."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 7.3"
+                },
+                "input": {
+                    "container": [
+                        {
+                            "@name": "target",
+                            "description": {
+                                "text": "Particular configuration to copy to."
+                            },
+                            "choice": {
+                                "@name": "config-target",
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "The configuration target of the copy operation."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "candidate",
+                                        "if-feature": {
+                                            "@name": "candidate"
+                                        },
+                                        "type": {
+                                            "@name": "empty"
+                                        },
+                                        "description": {
+                                            "text": "The candidate configuration is the config target."
+                                        }
+                                    },
+                                    {
+                                        "@name": "running",
+                                        "if-feature": {
+                                            "@name": "writable-running"
+                                        },
+                                        "type": {
+                                            "@name": "empty"
+                                        },
+                                        "description": {
+                                            "text": "The running configuration is the config target.\nThis is optional-to-implement on the server."
+                                        }
+                                    },
+                                    {
+                                        "@name": "startup",
+                                        "if-feature": {
+                                            "@name": "startup"
+                                        },
+                                        "type": {
+                                            "@name": "empty"
+                                        },
+                                        "description": {
+                                            "text": "The startup configuration is the config target."
+                                        }
+                                    },
+                                    {
+                                        "@name": "url",
+                                        "if-feature": {
+                                            "@name": "url"
+                                        },
+                                        "type": {
+                                            "@name": "inet:uri"
+                                        },
+                                        "description": {
+                                            "text": "The URL-based configuration is the config target."
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "source",
+                            "description": {
+                                "text": "Particular configuration to copy from."
+                            },
+                            "choice": {
+                                "@name": "config-source",
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "The configuration source for the copy operation."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "candidate",
+                                        "if-feature": {
+                                            "@name": "candidate"
+                                        },
+                                        "type": {
+                                            "@name": "empty"
+                                        },
+                                        "description": {
+                                            "text": "The candidate configuration is the config source."
+                                        }
+                                    },
+                                    {
+                                        "@name": "running",
+                                        "type": {
+                                            "@name": "empty"
+                                        },
+                                        "description": {
+                                            "text": "The running configuration is the config source."
+                                        }
+                                    },
+                                    {
+                                        "@name": "startup",
+                                        "if-feature": {
+                                            "@name": "startup"
+                                        },
+                                        "type": {
+                                            "@name": "empty"
+                                        },
+                                        "description": {
+                                            "text": "The startup configuration is the config source."
+                                        }
+                                    },
+                                    {
+                                        "@name": "url",
+                                        "if-feature": {
+                                            "@name": "url"
+                                        },
+                                        "type": {
+                                            "@name": "inet:uri"
+                                        },
+                                        "description": {
+                                            "text": "The URL-based configuration is the config source."
+                                        }
+                                    }
+                                ],
+                                "anyxml": {
+                                    "@name": "config",
+                                    "description": {
+                                        "text": "Inline Config content: <config> element.  Represents\nan entire configuration datastore, not\na subset of the running datastore."
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "delete-config",
+                "nacm:default-deny-all": null,
+                "description": {
+                    "text": "Delete a configuration datastore."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 7.4"
+                },
+                "input": {
+                    "container": {
+                        "@name": "target",
+                        "description": {
+                            "text": "Particular configuration to delete."
+                        },
+                        "choice": {
+                            "@name": "config-target",
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The configuration target to delete."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "startup",
+                                    "if-feature": {
+                                        "@name": "startup"
+                                    },
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The startup configuration is the config target."
+                                    }
+                                },
+                                {
+                                    "@name": "url",
+                                    "if-feature": {
+                                        "@name": "url"
+                                    },
+                                    "type": {
+                                        "@name": "inet:uri"
+                                    },
+                                    "description": {
+                                        "text": "The URL-based configuration is the config target."
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "lock",
+                "description": {
+                    "text": "The lock operation allows the client to lock the configuration\nsystem of a device."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 7.5"
+                },
+                "input": {
+                    "container": {
+                        "@name": "target",
+                        "description": {
+                            "text": "Particular configuration to lock."
+                        },
+                        "choice": {
+                            "@name": "config-target",
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The configuration target to lock."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "candidate",
+                                    "if-feature": {
+                                        "@name": "candidate"
+                                    },
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The candidate configuration is the config target."
+                                    }
+                                },
+                                {
+                                    "@name": "running",
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The running configuration is the config target."
+                                    }
+                                },
+                                {
+                                    "@name": "startup",
+                                    "if-feature": {
+                                        "@name": "startup"
+                                    },
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The startup configuration is the config target."
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "unlock",
+                "description": {
+                    "text": "The unlock operation is used to release a configuration lock,\npreviously obtained with the 'lock' operation."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 7.6"
+                },
+                "input": {
+                    "container": {
+                        "@name": "target",
+                        "description": {
+                            "text": "Particular configuration to unlock."
+                        },
+                        "choice": {
+                            "@name": "config-target",
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The configuration target to unlock."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "candidate",
+                                    "if-feature": {
+                                        "@name": "candidate"
+                                    },
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The candidate configuration is the config target."
+                                    }
+                                },
+                                {
+                                    "@name": "running",
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The running configuration is the config target."
+                                    }
+                                },
+                                {
+                                    "@name": "startup",
+                                    "if-feature": {
+                                        "@name": "startup"
+                                    },
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The startup configuration is the config target."
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "get",
+                "description": {
+                    "text": "Retrieve running configuration and device state information."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 7.7"
+                },
+                "input": {
+                    "anyxml": {
+                        "@name": "filter",
+                        "description": {
+                            "text": "This parameter specifies the portion of the system\nconfiguration and state data to retrieve."
+                        },
+                        "nc:get-filter-element-attributes": null
+                    }
+                },
+                "output": {
+                    "anyxml": {
+                        "@name": "data",
+                        "description": {
+                            "text": "Copy of the running datastore subset and/or state\ndata that matched the filter criteria (if any).\nAn empty data container indicates that the request did not\nproduce any results."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "close-session",
+                "description": {
+                    "text": "Request graceful termination of a NETCONF session."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 7.8"
+                }
+            },
+            {
+                "@name": "kill-session",
+                "nacm:default-deny-all": null,
+                "description": {
+                    "text": "Force the termination of a NETCONF session."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 7.9"
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "session-id",
+                        "type": {
+                            "@name": "session-id-type"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Particular session to kill."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "commit",
+                "if-feature": {
+                    "@name": "candidate"
+                },
+                "description": {
+                    "text": "Commit the candidate configuration as the device's new\ncurrent configuration."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 8.3.4.1"
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "confirmed",
+                            "if-feature": {
+                                "@name": "confirmed-commit"
+                            },
+                            "type": {
+                                "@name": "empty"
+                            },
+                            "description": {
+                                "text": "Requests a confirmed commit."
+                            },
+                            "reference": {
+                                "text": "RFC 6241, Section 8.3.4.1"
+                            }
+                        },
+                        {
+                            "@name": "confirm-timeout",
+                            "if-feature": {
+                                "@name": "confirmed-commit"
+                            },
+                            "type": {
+                                "@name": "uint32",
+                                "range": {
+                                    "@value": "1..max"
+                                }
+                            },
+                            "units": {
+                                "@name": "seconds"
+                            },
+                            "default": {
+                                "@value": "600"
+                            },
+                            "description": {
+                                "text": "The timeout interval for a confirmed commit."
+                            },
+                            "reference": {
+                                "text": "RFC 6241, Section 8.3.4.1"
+                            }
+                        },
+                        {
+                            "@name": "persist",
+                            "if-feature": {
+                                "@name": "confirmed-commit"
+                            },
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "This parameter is used to make a confirmed commit\npersistent.  A persistent confirmed commit is not aborted\nif the NETCONF session terminates.  The only way to abort\na persistent confirmed commit is to let the timer expire,\nor to use the <cancel-commit> operation.\n\nThe value of this parameter is a token that must be given\nin the 'persist-id' parameter of <commit> or\n<cancel-commit> operations in order to confirm or cancel\nthe persistent confirmed commit.\n\nThe token should be a random string."
+                            },
+                            "reference": {
+                                "text": "RFC 6241, Section 8.3.4.1"
+                            }
+                        },
+                        {
+                            "@name": "persist-id",
+                            "if-feature": {
+                                "@name": "confirmed-commit"
+                            },
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "This parameter is given in order to commit a persistent\nconfirmed commit.  The value must be equal to the value\ngiven in the 'persist' parameter to the <commit> operation.\nIf it does not match, the operation fails with an\n'invalid-value' error."
+                            },
+                            "reference": {
+                                "text": "RFC 6241, Section 8.3.4.1"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "discard-changes",
+                "if-feature": {
+                    "@name": "candidate"
+                },
+                "description": {
+                    "text": "Revert the candidate configuration to the current\nrunning configuration."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 8.3.4.2"
+                }
+            },
+            {
+                "@name": "cancel-commit",
+                "if-feature": {
+                    "@name": "confirmed-commit"
+                },
+                "description": {
+                    "text": "This operation is used to cancel an ongoing confirmed commit.\nIf the confirmed commit is persistent, the parameter\n'persist-id' must be given, and it must match the value of the\n'persist' parameter."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 8.4.4.1"
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "persist-id",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "This parameter is given in order to cancel a persistent\nconfirmed commit.  The value must be equal to the value\ngiven in the 'persist' parameter to the <commit> operation.\nIf it does not match, the operation fails with an\n'invalid-value' error."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "validate",
+                "if-feature": {
+                    "@name": "validate"
+                },
+                "description": {
+                    "text": "Validates the contents of the specified configuration."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 8.6.4.1"
+                },
+                "input": {
+                    "container": {
+                        "@name": "source",
+                        "description": {
+                            "text": "Particular configuration to validate."
+                        },
+                        "choice": {
+                            "@name": "config-source",
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The configuration source to validate."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "candidate",
+                                    "if-feature": {
+                                        "@name": "candidate"
+                                    },
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The candidate configuration is the config source."
+                                    }
+                                },
+                                {
+                                    "@name": "running",
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The running configuration is the config source."
+                                    }
+                                },
+                                {
+                                    "@name": "startup",
+                                    "if-feature": {
+                                        "@name": "startup"
+                                    },
+                                    "type": {
+                                        "@name": "empty"
+                                    },
+                                    "description": {
+                                        "text": "The startup configuration is the config source."
+                                    }
+                                },
+                                {
+                                    "@name": "url",
+                                    "if-feature": {
+                                        "@name": "url"
+                                    },
+                                    "type": {
+                                        "@name": "inet:uri"
+                                    },
+                                    "description": {
+                                        "text": "The URL-based configuration is the config source."
+                                    }
+                                }
+                            ],
+                            "anyxml": {
+                                "@name": "config",
+                                "description": {
+                                    "text": "Inline Config content: <config> element.  Represents\nan entire configuration datastore, not\na subset of the running datastore."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

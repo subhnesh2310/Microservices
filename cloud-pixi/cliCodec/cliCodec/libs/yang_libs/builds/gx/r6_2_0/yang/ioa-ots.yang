@@ -1,0 +1,273 @@
+module ioa-ots {
+    namespace "http://infinera.com/yang/ioa/ots";
+    prefix ioa-ots;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+    import ioa-l0 { prefix ioa-l0; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions for Optical Transmission Section facilities.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+
+    typedef raman-coefficient {
+        type union {
+            type enumeration {
+                enum not-applicable { value 0; description "Not Applicable/ Not specified."; }
+            }
+            type decimal64 {
+                fraction-digits 2;
+                range 0..10;
+            }
+        }
+        units "dB/THz/W";
+        description "Raman coefficient.";
+    }
+
+    typedef fiber-length-auto {
+        type union {
+            type enumeration {
+                enum auto { value 1; description "For OTS (atomatic fiber-length configuration)"; }
+            }
+            type decimal64 {
+                fraction-digits 3;
+                range 0..500.0;
+            }
+        }
+        units km;
+        description "Fiber Length configuration for OTS.";
+    }
+
+    typedef type-of-fiber-length {
+        type union {
+            type enumeration {
+                enum not-applicable { value 0; description "Unknown length, or Not Specified/ Not Applicable."; }
+            }
+            type decimal64 {
+                fraction-digits 3;
+                range 0..500.0;
+            }
+        }
+        units km;
+        description "Fiber Length configuration or detection.";
+    }
+
+    typedef tilt-fsat-type {
+        type union {
+            type enumeration {
+                enum unspecified { value 2; description "Not Applicable/ Not specified."; }
+            }
+            type decimal64 {
+                fraction-digits 3;
+                range -1..1;
+            }
+        }
+        units "dB/THz";
+        default 'unspecified';
+        description "Spectrum Tilt.";
+    }
+
+
+    grouping ots {
+
+        list ots {
+            key "name";
+            description "OTS: Optical Transmission Section facility.";
+            reference "ITU-T G.872";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf osc-less {
+                type ioa-common:enable-switch;
+                default disabled;
+                description "OSC-less mode is required to provide interworking with systems with no compatible OSC 
+                             or spans with losses not compatible with the OSC budget.";
+            }
+
+            leaf fiber-type-rx {
+                type ioa-l0:fiber-type;
+                default "SSMF";
+                description
+                    "Fiber Type (OTS receiver) allows PCL to know the 'intercept' and 'slope'.";
+                reference "ITU-T G.978 (and 'G.65x series fibre')";
+            }
+
+            leaf fiber-type-tx {
+                type ioa-l0:fiber-type;
+                default "SSMF";
+                description
+                    "Fiber Type (OTS transmitter) allows PCL to know the 'intercept' and 'slope'.";
+                reference "ITU-T G.978 (and 'G.65x series fibre')";
+            }
+
+            leaf fiber-length-tx {
+                type fiber-length-auto;
+                default auto; 
+                description "Transmitting Fiber Length";
+            }
+
+            leaf fiber-length-rx {
+                type fiber-length-auto;
+                default auto; 
+                description "Receiving Fiber Length.";
+            }
+
+            leaf fiber-length-derived-rx {
+                type type-of-fiber-length;
+                config false;
+                description "Estimated fiber length, calculated from the configured fiber-type 
+                    and span loss measured via OSC powers.";
+            }
+
+            leaf fiber-spectral-attenuation-tilt-tx {
+                type tilt-fsat-type;
+                default 'unspecified';
+                description "Since different transmission bands are supported, it is simpler 
+                    to enter this parameter independent of the transmission bandwidth, 
+                    hence per Terahertz.";
+            }
+
+            leaf fiber-spectral-attenuation-tilt-rx {
+                type tilt-fsat-type;
+                default 'unspecified';
+                description "Since different transmission bands are supported, it is simpler 
+                    to enter this parameter independent of the transmission bandwidth, 
+                    hence per Terahertz.";
+            }
+
+            leaf raman-coefficient-tx {
+                type raman-coefficient;
+                default 'not-applicable';
+                description "Raman coefficient per Terahertz.
+                    Since different transmission bands are supported, it is simpler to enter this parameter 
+                    independent of the transmission bandwidth, hence per Terahertz.
+                    Required for tilt control (if tilt-control-mode = auto).
+                    Configuration mode depends on tilt-control-mode.";
+            }
+
+            leaf raman-coefficient-rx {
+                type raman-coefficient;
+                default 'not-applicable';
+                description "Raman coefficient per Terahertz.
+                    Since different transmission bands are supported, it is simpler to enter this parameter 
+                    independent of the transmission bandwidth, hence per Terahertz.
+                    Required for tilt control (if tilt-control-mode = auto).
+                    Configuration mode depends on tilt-control-mode.";
+            }
+
+            uses span-loss-transmit;
+
+            leaf span-loss-receive {
+                type ioa-l0:span-loss;
+                description "Fiber loss on the receiver side. (OTS-sk) 
+                    This is only the loss of the fiber.";
+            }
+
+            leaf span-loss-derived-rx {
+                type ioa-l0:span-loss-info;
+                config false;
+                description "Measured span loss (based on OSC).
+                    The value includes the losses external to the fiber.";
+            }
+
+            leaf external-attenuation-tx {
+                type ioa-l0:type-of-attenuation;
+                description "External padding attenuation at transmitting direction.
+                        Required for tilt control.";
+            }
+
+            uses external-attenuation-rx {
+                refine external-attenuation-rx {
+                    description "External padding attenuation at receiving direction, 
+                        for example, a patch-panel.";
+                }
+            }
+
+            leaf span-loss-aging-margin-rx {
+                type decimal64 {
+                    fraction-digits 2;
+                    range 0..10;
+                }
+                units "dB";
+                default 0.0;
+                description
+                    "In native operating-mode: used by system for defining value of NMC input power range and span loss high alarm.";
+            }
+
+            leaf target-power-setting {
+                when "/ne/node-type = 'OADM'" {
+                    description "Only of relevance for OADM node-type(s).";
+                }
+                type enumeration {
+                    enum manual {
+                        value 1;
+                        description "Users configures target values for oxcon.";
+                    }
+                    enum auto {
+                        value 2;
+                        description "System calculates target values for oxcon.";
+                    }
+                }
+                default "auto";
+                description "Allows automatic configuration of target values for oxcon.";
+            }
+
+            leaf laser-safety-mode {
+                type enumeration {
+                    enum 'OPLM' { value 1; description "Optical Power Limited Mode (OPLM)"; }
+                    enum 'APSD' { value 2; description "Automatic Power Shut Down (APSD)"; }
+                }
+                default 'OPLM';
+                config false;
+                description "Laser Safety Mode of the OTS instance.";
+            }
+
+            container ots-diagnostics {
+                description "OTS diagnostics";
+
+                uses ioa-fac-common:otn-ots-tti-style {
+                    refine tti-style {
+                        config false;
+                        description "Only ITU-T-G709 is supported.";
+                    }
+                }
+
+                uses ioa-fac-common:nmoper-alarm-reporting;
+
+                uses ioa-fac-common:tti-diagnostics-common {
+                    refine tx-operator {
+                        config false;
+                        description "Filled by the System. Cannot be written by the user.";
+                    }
+                }
+            }
+        }
+    }
+
+    grouping span-loss-transmit {
+        description "Re-usable grouping for Span Loss (Tx).";
+        leaf span-loss-transmit {
+            type ioa-l0:span-loss;
+            description "Fiber loss on the transmitter side (OTS-so). 
+                This is only the loss of the fiber.
+                Additional loss such as coming from patch panel is entered via the external-attenuation parameters.";
+        }
+    }
+
+    grouping external-attenuation-rx {
+        description "Re-usable grouping for the Rx External Attenuation(s).";
+        leaf external-attenuation-rx {
+            type ioa-l0:type-of-attenuation;
+            description "External Attenuation, configured by the user.";
+        }
+    }
+}

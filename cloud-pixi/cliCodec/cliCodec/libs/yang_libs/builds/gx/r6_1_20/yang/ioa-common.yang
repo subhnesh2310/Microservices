@@ -1,0 +1,758 @@
+module ioa-common {
+    namespace "http://infinera.com/yang/ioa/common";
+    prefix ioa-common;
+
+    import ietf-inet-types { prefix inet; }
+    import ietf-yang-types { prefix yang; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module with common typde definitions and groupings.";
+
+    revision "2023-03-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.1";
+    }
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-09-17" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.1";
+    }
+
+
+    // Identities
+
+    identity RESOURCE-TYPE {
+        description "Base identity for all types of entities that can be addressed via AID.";
+    }
+
+    identity ne { base RESOURCE-TYPE; }
+    identity chassis { base RESOURCE-TYPE; }
+    identity card { base RESOURCE-TYPE; }
+    identity tom { base RESOURCE-TYPE; }
+    identity slot { base RESOURCE-TYPE; }
+    identity user { base RESOURCE-TYPE; }
+    identity task { base RESOURCE-TYPE; }
+    identity ntp-server { base RESOURCE-TYPE; }
+    identity usb { base RESOURCE-TYPE; }
+    identity facility { base RESOURCE-TYPE; }
+    identity local-certificate { base RESOURCE-TYPE; }
+    identity trusted-certificate { base RESOURCE-TYPE; }
+    identity port { base RESOURCE-TYPE; }
+    identity syslog { base RESOURCE-TYPE; }
+    identity interface { base RESOURCE-TYPE; }
+    identity protection-group { base RESOURCE-TYPE; }
+    identity protection-unit { base RESOURCE-TYPE; }
+    identity ip-monitoring { base RESOURCE-TYPE; }
+    identity inci-neighbor { base RESOURCE-TYPE; }
+
+    identity ne-function {
+        base RESOURCE-TYPE;
+        description "NE function.";
+    }
+
+    identity ikev2-peer {
+        base RESOURCE-TYPE;
+        description "Internet Key Exchange version 2 peer.";
+    }
+
+    identity ikev2-local-instance {
+        base RESOURCE-TYPE;
+        description "Internet Key Exchange version 2 local instance.";
+    }
+
+    identity secure-entity {
+        base RESOURCE-TYPE;
+        description "Data path encryption secure entity (SecY).";
+    }
+
+    identity ipsec-spd-entry {
+        base RESOURCE-TYPE;
+        description "IPSec security policy database entry.";
+    }
+
+    // Facilities types
+    identity ETHERNET { base ioa-common:facility; }
+    identity trib-ptp { base ioa-common:facility; }
+    identity super-channel-group { base ioa-common:facility; }
+    identity super-channel { base ioa-common:facility; }
+    identity optical-carrier { base ioa-common:facility; }
+    identity optical-channel { base ioa-common:facility; }
+    identity OTUCni { base ioa-common:facility; }
+    identity OTUCn { base ioa-common:facility; }
+    identity OTU4 { base ioa-common:facility; }
+    identity OTU2 { base ioa-common:facility; }
+    identity OTU2e { base ioa-common:facility; }
+    identity ODUCni { base ioa-common:facility; }
+    identity ODUCn { base ioa-common:facility; }
+    identity ODU4i { base ioa-common:facility; }
+    identity ODU4 { base ioa-common:facility; }
+    identity ODU2 { base ioa-common:facility; }
+    identity ODU2e { base ioa-common:facility; }
+    identity ODU1 { base ioa-common:facility; }
+    identity ODU0 { base ioa-common:facility; }
+    identity ODUflexi { base ioa-common:facility; }
+    identity ODUflex { base ioa-common:facility; }
+    identity comm-channel { base ioa-common:facility; }
+    identity line-ptp { base ioa-common:facility; }
+    identity flexo-group { base ioa-common:facility; }
+    identity flexo { base ioa-common:facility; }
+    identity eth-zr { base ioa-common:facility; }
+    identity OC-N { base ioa-common:facility; description "OC-N (SONET)"; }
+    identity STM-M { base ioa-common:facility; description "STM (SDH)"; }
+
+    identity OC-192 {
+        base ioa-common:OC-N;
+        description "Optical Carrier level 192, also known as SONET.";
+    }
+
+    identity OC-48 {
+        base ioa-common:OC-N;
+        description "Optical Carrier level 48, also known as SONET.";
+    }
+
+    identity STM-64 {
+        base ioa-common:STM-M;
+        description "Synchronous Transport Module hierarchy 64, also known as SDH.";
+    }
+
+    identity STM-16 {
+        base ioa-common:STM-M;
+        description "Synchronous Transport Module hierarchy 16, also known as SDH.";
+    }
+
+    identity nmc {
+        base ioa-common:facility;
+        description "Network Media Channel";
+    }
+
+    identity mc {
+        base ioa-common:facility;
+        description "Media Channel";
+    }
+
+    identity optical-ptp {
+        base ioa-common:facility;
+        description "Optical Physical Termination Point";
+    }
+
+    identity oms {
+        base ioa-common:facility;
+        description "Optical Multiplex Section";
+    }
+
+    identity osc {
+        base ioa-common:facility;
+        description "Optical Supervisory Channel";
+    }
+
+    identity ots {
+        base ioa-common:facility;
+        description "Optical Transport Section";
+    }
+
+    identity ots-r {
+        base ioa-common:facility;
+        description "Optical Transmission Section, with Reduced scope";
+    }
+
+    identity amplifier {
+        base ioa-common:ne-function;
+        description "Amplifier";
+    }
+
+    identity amplifier-raman {
+        base ioa-common:ne-function;
+        description "Raman Amplifier";
+    }
+
+    identity pump {
+        base ioa-common:facility;
+        description "Pump";
+    }
+
+    identity rsc {
+        base ioa-common:facility;
+        description "Raman Supervisory Channel";
+    }
+
+    identity fc {
+        base ioa-common:facility;
+        description "Fiber Channel";
+    }    
+
+    // Typedefs
+
+    typedef percent {
+        type uint8 {
+            range "0 .. 100";
+        }
+        units percent;
+        description "Percentage";
+    }
+
+    typedef object-name {
+        type string {
+            length "1..64";
+            pattern '([A-Za-z0-9_\-.,]*)';
+        }
+        description "A custom type for entity (managed object) name";
+    }
+
+    typedef certificate-name {
+        type string {
+            length "1..128";
+            pattern '([A-Za-z0-9_.,/@][A-Za-z0-9_\-.,/@]*)';
+        }
+        description "A custom type for certificate name.";
+    }
+
+    typedef number-list {
+        type string {
+            length 0..255;
+            pattern '(([0-9]+(\.\.[0-9]+)?)(,([0-9]+(\.\.[0-9]+)?))*)?';
+        }
+        description "List of numbers using ',' as separator and '..' to represent ranges.
+                     Examples: '12' , '1..4' , '1,5,10..12,20' ";
+    }
+
+    typedef decimal-list {
+        type string {
+            length 0..500;
+            pattern '((([0-9]+(\.[0-9]+)?)+(\.\.([0-9]+(\.[0-9]+)?))?)(,(([0-9]+(\.[0-9]+)?)+(\.\.([0-9]+(\.[0-9]+)?))?))*)';
+        }
+        description "List of numbers using ',' as separator and '..' to represent ranges.
+                     Examples: '1.2' , '1.1..1.4' , '1.1,1.5,1.10..1..12,1..20'";
+    }
+
+    typedef date-time-never {
+        type union {
+            type enumeration {
+                enum never { value 0; }
+            }
+            type yang:date-and-time;
+        }
+        description "Typedef for a timestamp 'date+time' or the keyword 'never'.";
+    }
+
+    typedef date-time-or-time-only-or-never {
+        type union {
+            type enumeration {
+                enum never { value 0; }
+            }
+            type yang:date-and-time;
+            type hour-minutes-seconds;
+        }
+        description "Typedef for a timestamp 'date+time' or 'time' only or the keyword 'never'.";
+    }
+
+    typedef hour-minutes-seconds {
+        type string {
+            length 5..8;
+            pattern '\d{2}:\d{2}(:\d{2})?';
+        }
+        description "Timestamp with hours-minutes and optionally seconds.
+                     Leading zero is required (04:00 instead of 4:00).
+                     Examples:
+                        23:00     (same as 23:00:00)
+                        01:43:30
+                    ";
+    }
+
+    typedef date-time-or-time-only {
+        type union {
+            type yang:date-and-time;
+            type hour-minutes-seconds;
+        }
+        description "Typedef for a timestamp 'date+time' or 'time' only.";
+    }
+
+    typedef time-interval {
+        type string {
+            length 0..32;
+            pattern '(((1000)|(0*\d{1,3}))w)? *(((1000)|(0*\d{1,3}))d)? *(((1000)|(0*\d{1,3}))h)? *(((1000)|(0*\d{1,3}))m)? *(((1000)|(0*\d{1,3}))s)?';
+        }
+        description "Time interval using the following syntax:
+                        '[xw] [xd] [xh] [xm] [xs]'
+                     where:
+                        w(eeks), d(ays), h(ours), m(inutes), s(seconds).
+                     Examples:
+                        2w          - two weeks
+                        5d 12h      - 5 days and 12 hours
+                        1h 7m 30s   - 1 hour and 7 minutes and 30 seconds";
+    }
+
+    typedef enable-switch {
+        type enumeration {
+            enum disabled { value 0; }
+            enum enabled { value 1; }
+        }
+        default disabled;
+        description "Generic enabled switch.";
+    }
+
+    typedef host {
+        type union {
+            type inet:ipv4-address;
+            type inet:ipv6-address;
+            type inet:domain-name;
+        }
+        description "Generic address, may be an IPv4, IPv6 or a hostname for DNS resolution.";
+    }
+
+    typedef storage-size {
+        type uint16;
+        units MB;
+        description "A generic storage or file size, in megabytes.";
+    }
+
+    typedef user-name {
+        type string {
+            length 1..64;
+            pattern '[a-zA-Z_.][a-zA-Z0-9_\-.]*[$]?';
+        }
+        description "Generic type definition for a user-name attribute.";
+    }
+
+    typedef password {
+        type string {
+            length 0..200;
+            pattern "[ -~]*";
+        }
+        description "Generic type definition for a password attribute.
+                     Password characters may only include spaces, numbers, letters and ASCII symbols.
+                     Minimum length and password complexity rules are defined via security policy.";
+    }
+
+    typedef Z85-char-set {
+        type string {
+            pattern '[0-9a-zA-Z.\-:+=^!/*?&<>()\[\]{}@%$#]*';
+        }
+        description "A format for representing binary data as printable text.
+                     https://rfc.zeromq.org/spec/32/";
+    }
+
+    typedef db-passphrase {
+        type Z85-char-set {
+            length 40..200;
+        }
+        description "Generic type definition for a db-passphrase attribute.";
+    }
+
+    grouping db-passphrase {
+        description "Re-usable grouping.";
+        leaf db-passphrase {
+            type ioa-common:db-passphrase;
+            description "Passphrase used for encrypting and decrypting DB snapshots.
+                         For each command associated with DB snapshots (backup, restore, etc),
+                         this db-passphrase will be used, except when it is directly provided in each command.
+                         Automatic DB snapshots will not be enabled until this parameter is set.";
+        }
+    }
+
+    typedef session-type {
+        type enumeration {
+            enum none { value 0; }
+            enum cli { value 1; }
+            enum snmp { value 2; }
+            enum netconf { value 3; }
+            enum restconf { value 4; }
+            enum webgui { value 5; }
+            enum gnmi {
+                value 6;
+                status deprecated;
+            }
+            enum tl1 { value 7; }
+            enum gnmi-gnoi { value 8; }
+        }
+        description "Session type.";
+    }
+
+    typedef session-protocol {
+        type enumeration {
+            enum none { value 0; }
+            enum telnet { value 1; }
+            enum telnet-raw { value 2; }
+            enum serial { value 3; }
+            enum ssh { value 4; }
+            enum ssh-raw { value 5; }
+            enum https { value 6; }
+            enum http { value 7; }
+        }
+        description "Protocol used for session establishment.";
+    }
+
+    typedef server-layer-adaptation {
+        type string;
+        description "Indicates services endpoint hierarchy.";
+    }
+
+    typedef port-number {
+        type uint16 {
+            range "1..max";
+        }
+        description "Port number.";
+    }
+
+    // Groupings
+
+    grouping circuit-id {
+        leaf circuit-id {
+            type string { length 0..128; }
+            config false;
+            description "System configured circuit ID, present in XCONs and associated facilities.
+                         For facilities, circuit-id is only filled in if an associated XCON exists.
+                            Format of this ID is:
+                            <timestamp>|<ne-name>|<XCON-AID>|<user-configured-sufix>
+                            Example:
+                            2020-05-05T21:06:02Z|GX|1-4-T9,1-4-L1-1-ODUji#1|my-suffix
+
+                            Timestamp is the NE time at xcon creation, in UTC.
+                            If necessary, ne-name will be truncated so that total length remains at 128 characters.";
+        }
+    }
+
+    grouping common-attributes {
+        description "A set of attributes that are commonly applicable to every managed object supported by the system.";
+        uses aid;
+        uses label;
+    }
+
+    grouping oper-state {
+        description "Oper states common to multiple objects.";
+        leaf oper-state {
+            type enumeration {
+                enum enabled { value 1; }
+                enum disabled { value 2; }
+            }
+            default disabled;
+            config false;
+            description "The operational state of this object.";
+        }
+    }
+
+    grouping operational-states {
+        description "A grouping of system determined statuses.";
+
+        uses oper-state;
+
+        leaf avail-state {
+            type bits {
+                bit in-service {
+                    position 1;
+                    description "Entity is in service.";
+                }
+                bit out-of-service {
+                    position 2;
+                    description "Entity is out of service.";
+                }
+                bit normal {
+                    position 3;
+                    description "Entity is in normal operation.";
+                }
+                bit abnormal {
+                    position 4;
+                    description "Entity is in abnormal operation.";
+                }
+                bit low-power {
+                    position 5;
+                    description "Entity is not available due to the related FRU being in low power mode.";
+                }
+                bit automatic {
+                    position 6;
+                    description "Entity automatically locked by the system.";
+                }
+                bit manual {
+                    position 7;
+                    description "Entity manually locked by the user.";
+                }
+                bit equipment-not-present {
+                    position 8;
+                    description "Entity is not available because the related FRU is not present.";
+                }
+                bit equipment-mismatch {
+                    position 9;
+                    description "Entity is not available because the actual FRU mismatches against the expected FRU type.";
+                }
+                bit unassigned {
+                    position 10;
+                    description "Entity is not assigned.";
+                }
+                bit faulted {
+                    position 11;
+                    description "Entity is not available due to the related FRU is faulty.";
+                }
+                bit partially-faulted {
+                    position 12;
+                    description "Entity is not available due to the related FRU is partially faulty.";
+                }
+                bit maintenance {
+                    position 13;
+                    description "Entity is in maintenance mode.";
+                }
+                bit supporting-faulted {
+                    position 14;
+                    description "Entity is not available due to the parent entity is faulty.";
+                }
+                bit facility-failure {
+                    position 15;
+                    description "Facility is not available due to failure.";
+                }
+                bit auto-in-service {
+                    position 16;
+                    description "Auto-in-service (AINS) is active for the facility.";
+                }
+                bit shutdown {
+                    position 17;
+                    description "Entity is not available because the related FRU was shutdown.";
+                }
+                bit in-test {
+                    position 18;
+                    description "Entity is in a diagnostic operation.";
+                }
+                bit upgrading {
+                    position 19;
+                    description "Entity is upgrading.";
+                }
+                bit incomplete {
+                    position 20;
+                    description "Entity has incomplete configuration.";
+                }
+                bit reserved {
+                    position 21;
+                    description "Entity is reserved.";
+                }
+            }
+            config false;
+            description "Availability state of an entity.";
+        }
+    }
+
+    grouping admin-state {
+        description "Admin states common to multiple objects.";
+
+        leaf admin-state {
+            type enumeration {
+                enum lock { value 1; }
+                enum unlock { value 2; }
+                enum maintenance { value 3; }
+            }
+            default unlock;
+            description "The administrative state of the managed object.";
+        }
+    }
+
+    grouping common-states {
+        description "States common to multiple objects.";
+
+        uses admin-state;
+        uses operational-states;
+    }
+
+    grouping label {
+        description "Arbitrary user label";
+
+        leaf label {
+            type string {
+                length "0..256";
+            }
+            description "User label.";
+        }
+    }
+
+    grouping resource-instance-by-aid {
+        description "Set of leafs necessary to identify a resource by type and aid.";
+
+        uses resource-type;
+
+        uses aid;
+    }
+
+    grouping resource-type {
+        leaf resource-type {
+            type identityref {
+                base RESOURCE-TYPE;
+            }
+            description "Type of resource.";
+        }
+    }
+
+    grouping aid {
+        leaf AID {
+            type string { length "1..64"; }
+            config false;
+            description "Resource Access Identifier (AID). Identifies an instance within a specific resource type.";
+        }
+        description "Resource Access Identifier. Used on equipments and mgmt protocols.";
+    }
+
+    grouping resource-instance {
+        description "Set of attributes that are used to identity an individual resource instance.";
+
+        leaf resource {
+            type instance-identifier;
+            description "Existing system resource.";
+        }
+
+        uses resource-instance-by-aid {
+            description "Alternative way to represent a resource, using a resource type and an aid.";
+        }
+    }
+
+    grouping advanced-parameter-configuration-base {
+        description "Advanced parameters/serdes attributes.";
+        leaf name {
+            type string { length 0..256; }
+            description "Name of the advanced parameter.";
+        }
+
+        leaf value {
+            type string { length 0..256; }
+            mandatory true;
+            description "Value of the advanced parameter.";
+        }
+
+        leaf status {
+            type enumeration {
+                enum set { value 10; description "Parameter set."; }
+                enum unknown { value 20; description "Parameter unknown."; }
+                enum in-progress { value 30; description "Parameter in progress."; }
+                enum failed { value 40; description "Parameter failed."; }
+                enum not-supported { value 50; description "Parameter not supported."; }
+            }
+            default unknown;
+            config false;
+            description "State of the advanced parameter (as observable on the system) once it is configured.";
+        }
+    }
+
+    grouping current-advanced-parameter {
+
+        list current-advanced-parameter {
+            key name;
+            config false;
+            description "The current value for a supported advanced parameter.";
+
+            leaf name {
+                type string { length 0..256; }
+                description "Name of the advanced parameter.";
+            }
+
+            leaf value {
+                type string { length 0..256; }
+                description "Value of the advanced parameter.";
+            }
+        }
+    }
+
+
+    grouping arc {
+        description "Alarm Reporting Control grouping - to be added by all objects that support alarms (and therefore ARC).";
+
+        leaf alarm-report-control {
+            type enumeration {
+                enum allowed { value 1; description "Alarm reporting is allowed."; }
+                enum inhibited { value 2; description "Alarm reporting is inhibited."; }
+            }
+            default allowed;
+            description "Controls the reporting of alarms for this particular object.";
+        }
+    }
+
+    grouping notif-common {
+        description "Common notification grouping - notification id and ne name.";
+
+        leaf ne-name {
+            type string;
+            description "NE name associated with this event.";
+        }
+
+        leaf notification-id {
+            type uint64;
+            description "Notification id associated with this event.
+                         Notification id is a number that always increments with each notification,
+                         and that with a system reboot will keep increasing (even with a buffer added to it),
+                         guaranteeing that the id always grows.";
+
+        }
+    }
+
+    grouping sw-support {
+        description "Common software revision parameters.";
+        leaf sw-support-revision {
+            type uint16;
+            default 0;
+            config false;
+            description "Software revision currently installed.";
+        }
+    }
+
+    grouping properties {
+        description "Common property concept.";
+
+        list property {
+            key name;
+            description "Type specific property, auto instanciated by the system, but configurable by the user.";
+
+            leaf name {
+                type string;
+                description "Name of the property.";
+            }
+
+            leaf value {
+                type string;
+                description "Value of the property. Will always be a 'string', even if it corresponds to a number or other type.";
+            }
+
+            leaf description {
+                type string { length 0..512; }
+                config false;
+                description "Description of this property, including type restrictions.";
+            }
+        }
+    }
+
+    grouping assignment-method {
+        description "The assignment-method common to multiple objects.";
+
+        leaf assignment-method {
+
+            type enumeration {
+                
+                enum both {
+                    value 0;
+                    description "Assignment method is both manual and dhcp.";
+                }
+
+                enum manual {
+                    value 1;
+                    description "Assignment method is manual.";
+                }
+
+                enum dhcp {
+                    value 2;
+                    description "Assignment method is dhcp.";
+                }
+            }
+            default both;
+            description "The system would contain manual and dhcp configured values.
+                         System can use those onfigurations/values defined by assignment-method attributes.";
+        }
+    }
+}

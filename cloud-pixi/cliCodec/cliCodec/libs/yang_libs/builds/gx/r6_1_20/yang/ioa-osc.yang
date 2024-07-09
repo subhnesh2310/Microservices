@@ -1,0 +1,144 @@
+module ioa-osc {
+    namespace "http://infinera.com/yang/ioa/osc";
+    prefix ioa-osc;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-l0 { prefix ioa-l0; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions for Optical Supervision Channel (OSC) facilities.";
+
+    revision "2023-03-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.1";
+    }
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+
+    typedef type-of-osc-monitoring-mode {
+        type enumeration {
+            enum intrusive { value 20; description "Intrusive monitoring; OSC TTP"; }
+            enum non-intrusive { value 30; description "Non-intrusive monitoring; OSC CTP"; }
+        }
+         description "OSC monitoring mode (specific typedef).";
+    }
+
+
+    grouping osc {
+
+        list osc {
+            key "name";
+            description "Represents the Optical Supervision Channel (OSC) facility.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf monitoring-mode {
+                type type-of-osc-monitoring-mode;
+                default intrusive;
+                config false;
+                description "The monitoring mode on the OSC TP.";
+            }
+
+            leaf osc-mode {
+                when "../monitoring-mode='intrusive'" {
+                    description "Of relevance for OSC TTP - ILAx and RD cards";
+                }
+                type enumeration {
+                    enum OC3 {
+                        value 1;
+                        description "G30 Series OC-3 OSC (155Mbit/s datarate)";
+                    }
+                }
+                default "OC3";
+                config false;
+                description "OC-3 OSC format.";
+                reference "GR-253 Table 3-1";
+            }
+
+            leaf osc-wavelength {
+                when "../monitoring-mode='intrusive'" {
+                    description "Of relevance for OSC TTP - ILAx and RD cards";
+                }
+                type decimal64 {
+                    fraction-digits 1;
+                    range "0.0|950.0..1700.0";
+                }
+                units nm;
+                default 0.0;
+                config false;
+                description "Indicates the wavelength of the OSC channel transmitted";
+            }
+
+            leaf osc-control {
+                when "../monitoring-mode='intrusive'" {
+                    description "OSC control is only meaningful when monitoring-mode is intrusive";
+                }
+                type enumeration {
+                    enum manual { value 2; description "Manual OSC power control"; }
+                }
+                default manual;
+                description
+                    "OSC control configuration.";
+            }
+
+            leaf target-output-power {
+                when "../monitoring-mode='intrusive'" {
+                    description "Of relevance for OSC TTP - ILAx and RD cards";
+                }
+                type union {
+                    type enumeration {
+                        enum na { value 1; description "Not Applicable Tx config."; }
+                    }
+                    type decimal64 {
+                        fraction-digits 1;
+                        range "-2.5..4.5";
+                    }
+                }
+                units dBm;
+                default na;
+                description "Transmit OSC power.";
+            }
+
+            leaf voa-attenuation-target-rx {
+                when "../monitoring-mode='intrusive'" {
+                    description "Of relevance for OSC TTP - ILAx and RD cards";
+                }
+                type ioa-l0:type-of-attenuation;
+                default 10;
+                description
+                    "Target Rx VOA value in case of manual control mode. ";
+            }
+
+            leaf voa-attenuation-actual-rx {
+                when "../monitoring-mode='intrusive'" {
+                    description "Of relevance for OSC TTP - ILAx and RD cards";
+                }
+                type ioa-l0:attenuation-mon;
+                config false;
+                description
+                    "Reports the actual VOA value as configured.
+                     System returns not-applicable when card or SFP is not actually equipped.";
+            }
+
+            uses ioa-l0:opm-optical-power-rx;
+
+            uses ioa-l0:opm-optical-power-tx {
+                when "monitoring-mode='intrusive'" {
+                    description "OSC TX Power - only meaningful when monitoring-mode is intrusive";
+                }
+                description
+                    "OSC TX Power";
+                reference
+                    "GX-48265";
+            }
+        }
+    }
+}

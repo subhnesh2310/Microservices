@@ -1,0 +1,150 @@
+module ioa-comm-channel {
+    namespace "http://infinera.com/yang/ioa/comm-channel";
+    prefix ioa-cc;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+    import ietf-inet-types { prefix inet; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module describing Communication Channel facilities.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-09-17" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.1";
+    }
+
+    grouping ppp {
+            leaf fcs-length {
+                type enumeration {
+                    enum 16  { value 16; }
+                    enum 32  { value 32; }
+                }
+                units bits;
+                default 16;
+                config false;
+                description
+                    "Specifies whether the Frame Check Sequence(FCS) is a 16-bit or 32-bit value.";
+            }
+            leaf mru {
+                type uint16 { range "64..1500"; }
+                units octets;
+                default 1500;
+                config false;
+                description
+                    "Specifies the MRU(Maximum-Receive-Unit) in the Information and Padding fields.";
+                reference
+                "RFC 1661: The Point-to-Point Protocol (PPP)";
+            }
+            leaf restart-timer {
+                type uint8 { range "1..10"; }
+                units seconds;
+                default 3;
+                config false;
+                description
+                    "Specifies the restart timer of the PPP protocol in seconds.";
+            }
+            leaf max-failure {
+                type uint8 { range "2..10"; }
+                default 5;
+                config false;
+                description
+                    "Specifies the maximum failure value of the PPP protocol. Max-Failure
+                     indicates the number of Configure-Nak packets sent without sending
+                     a Configure-Ack before assuming that configuration is not converging.
+                     Any further Configure-Nak packets for peer requested options are 
+                     converted to Configure-Reject packets, and locally desired options
+                     are no longer appended.";
+                reference
+                    "RFC 1661: The Point-to-Point Protocol (PPP)";
+            }
+            leaf peer-address {
+                type inet:ip-address-no-zone;
+                default "0.0.0.0";
+                config false;
+                description "The IP address on the peer node.";
+            }
+    }
+    
+    grouping comm-channel {
+        description "A re-usable grouping that formulates the basic comm-channel facility structure.";
+        
+        list comm-channel {
+            key name;
+            description "Communication Channel facility.";
+            
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf type {
+                type enumeration {
+                    enum OFEC-CC { 
+                        value 1; 
+                        description "Control channel available due to Infinera's proprietry optical FEC overhead. 
+                            The rate of OFEC-CC (in case of Gen6) is 17.6 Mbps for each 100G optical carrier capacity. 
+                            For instance, in an 800G optical carrier, the OFEC-CC will be (8 x 17.6 = 140.8 Mbps).";
+                    }
+                    enum GCC0 { 
+                        value 2; 
+                        description "GCC0 bytes within OTUk overhead.";
+                    }
+                    enum GCC1 {
+                        value 3;
+                        description "GCC1 bytes within ODUk overhead." ;
+                    }
+                    enum OSCX1 {
+                        value 4;
+                        description "OSCX1 bytes." ;
+                    }
+                    enum OSCX2 {
+                        value 5;
+                        description "OSCX2 bytes." ;
+                    }
+                }
+                mandatory true;
+                description "Indicates the type of control channel.";
+            }
+
+            leaf bandwidth {
+                type decimal64 {
+                    fraction-digits 2;
+                }
+                units Mbps;
+                config false;
+                description "Indicates the control channel's bandwidth/capacity. 
+                             This is system determined based on the underlying facilities that support this control channel.";
+            }
+
+            leaf mtu {
+                type uint16 {
+                    range "1280..9202";
+                }
+                units octets;
+                default 1500;
+                description "The maximum transmission unit size in octets for comm channel.";
+            }
+
+            leaf parent {
+                when "(../type = 'GCC0' or ../type = 'GCC1')";
+                type instance-identifier;
+                mandatory true;
+                description "Parent object of the comm-channel.";
+            }
+            
+            uses ppp{
+                when "(type = 'GCC0' or type = 'GCC1')";
+            }
+        }
+    }
+}

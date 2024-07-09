@@ -1,0 +1,74 @@
+module ioa-optical-ptp {
+    namespace "http://infinera.com/yang/ioa/optical-ptp";
+    prefix ioa-optical-ptp;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+    import ioa-l0 { prefix ioa-l0; }
+
+
+    grouping optical-ptp {
+
+        list optical-ptp {
+            key name;
+            description
+                "List of Optical PTP facilities.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+            uses ioa-common:arc;
+
+            leaf ptp-type {
+                type enumeration {
+                    enum "dwdm-line" { value 1; description "DWDM line PTP"; }
+                    enum "dwdm" { value 2; description "System side DWDM, or other filter DWDM PTP"; }
+                    enum "osc" { value 3; description "OSC PTP"; }
+                    enum "sposc" { value 4; description "SPOSC PTP"; }
+                    enum "ade" { value 5; description "ADE: Add/ Drop or Express PTP"; }
+                    enum "ad" { value 6; description "ADE: Add/ Drop PTP (no express option)"; }
+                    enum "fac" { value 7; description "BAX Facility port PTP"; }
+                }
+                config false;
+                description "Type of Optical PTP.";
+            }
+
+            leaf port-direction-convention {
+                when "/ne/node-type='ILA'" {
+                    description "Only of relevance for ports exposing OTS and OMS-nim -- i.e. ILA.";
+                }
+                type string { length '0|3..6'; }
+                config false;
+                description "IOA port (PTP) direction convention.";
+            }
+
+            leaf laser-state {
+                when "../ptp-type = 'dwdm-line'" {
+                    description "Only of relevance for DWDM line ports";
+                }
+                type ioa-common:enable-switch;
+                config false;
+                description
+                    "The emitting pump (e.g. booster) laser state.
+                     RD amplifiers: source (Tx) pump disabled.
+                     RPB: Pump Laser, and actual traffic emitted from dwdm-line port: sink or source.
+                    ";
+            }
+
+            leaf power-actual-rx {
+                type ioa-l0:optical-power-actual;
+                config false;
+                description "Optical power received, where applicable.";
+            }
+
+            leaf power-actual-tx {
+                type ioa-l0:optical-power-actual;
+                config false;
+                description "Optical power transmitted, where applicable.";
+            }
+
+            leaf fix-rx-attenuation {
+                type ioa-l0:type-of-attenuation;
+                description "Fixed Attenuator before port Rx. 0 (dB) is equivalent to no fixed attenuator.";
+            }
+        }
+    }
+}

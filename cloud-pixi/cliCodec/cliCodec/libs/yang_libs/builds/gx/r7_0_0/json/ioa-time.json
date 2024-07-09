@@ -1,0 +1,1085 @@
+{
+    "module": {
+        "@name": "ioa-time",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-time": "http://infinera.com/yang/ioa/time",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/time"
+        },
+        "prefix": {
+            "@value": "ioa-time"
+        },
+        "import": [
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG model associated with Time Management, including time objects, clock and NTP."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-09-17",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.1"
+                }
+            }
+        ],
+        "typedef": {
+            "@name": "millisec",
+            "type": {
+                "@name": "decimal64",
+                "fraction-digits": {
+                    "@value": "3"
+                }
+            },
+            "units": {
+                "@name": "ms"
+            }
+        },
+        "grouping": [
+            {
+                "@name": "clock",
+                "container": {
+                    "@name": "clock",
+                    "description": {
+                        "text": "System clock."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "current-time",
+                            "type": {
+                                "@name": "yang:date-and-time"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Indicates the current Date and Time of this NE."
+                            }
+                        },
+                        {
+                            "@name": "universal-time",
+                            "type": {
+                                "@name": "yang:date-and-time"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Indicates the UTC Date and Time of this NE."
+                            }
+                        },
+                        {
+                            "@name": "timezone",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "International_Date_Line_West[GMT-12:00]",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Midway_Island-Samoa[GMT-11:00]",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Hawaii[GMT-10:00]",
+                                        "value": {
+                                            "@value": "3"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Alaska[GMT-09:00]",
+                                        "value": {
+                                            "@value": "4"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Pacific_Time[US_and_Canada][GMT-08:00]",
+                                        "value": {
+                                            "@value": "5"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Arizona[GMT-07:00]",
+                                        "value": {
+                                            "@value": "6"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Mountain_Time[US_and_Canada][GMT-07:00]",
+                                        "value": {
+                                            "@value": "7"
+                                        }
+                                    },
+                                    {
+                                        "@name": "CentralAmerica[GMT-06:00]",
+                                        "value": {
+                                            "@value": "8"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Central_Time[US_and_Canada][GMT-06:00]",
+                                        "value": {
+                                            "@value": "9"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Mexico_City-Tegucigalpa[GMT-06:00]",
+                                        "value": {
+                                            "@value": "10"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Saskatchewan[GMT-06:00]",
+                                        "value": {
+                                            "@value": "11"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Bagota-Lima-Quito[GMT-05:00]",
+                                        "value": {
+                                            "@value": "12"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Eastern_Time[US_and_Canada][GMT-05:00]",
+                                        "value": {
+                                            "@value": "13"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Indiana[East][GMT-05:00]",
+                                        "value": {
+                                            "@value": "14"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Caracas-La_Paz[GMT-04:30]",
+                                        "value": {
+                                            "@value": "15"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Atlantic_Time[Canada][GMT-04:00]",
+                                        "value": {
+                                            "@value": "16"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Santiago[GMT-04:00]",
+                                        "value": {
+                                            "@value": "17"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Newfoundland[GMT-03:30]",
+                                        "value": {
+                                            "@value": "18"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Brasilia[GMT-03:00]",
+                                        "value": {
+                                            "@value": "19"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Buenos_Aires-Georgetown[GMT-03:00]",
+                                        "value": {
+                                            "@value": "20"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Greenland[GMT-03:00]",
+                                        "value": {
+                                            "@value": "21"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Mid-Atlantic[GMT-02:00]",
+                                        "value": {
+                                            "@value": "22"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Azores[GMT-01:00]",
+                                        "value": {
+                                            "@value": "23"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Cape_Verde_Is.[GMT-01:00]",
+                                        "value": {
+                                            "@value": "24"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Casablanca-Monrovia[GMT]",
+                                        "value": {
+                                            "@value": "25"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Greenwich_Mean_Time:Dublin-Edinburgh-Lisbon-London[GMT]",
+                                        "value": {
+                                            "@value": "26"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Amsterdam-Copenhagen-Madrid-ParisVilnius[GMT+01:00]",
+                                        "value": {
+                                            "@value": "27"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Belgrade-Sarajevo-Skopje-Sofija-Zargreb[GMT+01:00]",
+                                        "value": {
+                                            "@value": "28"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Bratislava-Budapest-Ljublijana-Prague-Wasaw[GMT+01:00]",
+                                        "value": {
+                                            "@value": "29"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Brussels-Berlin-Bern-Rome-Stockholm-Vienna[GMT+01:00]",
+                                        "value": {
+                                            "@value": "30"
+                                        }
+                                    },
+                                    {
+                                        "@name": "West_Central_Africa[GMT+01:00]",
+                                        "value": {
+                                            "@value": "31"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Athens-Istanbul-Minsk[GMT+02:00]",
+                                        "value": {
+                                            "@value": "32"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Bucharest[GMT+02:00]",
+                                        "value": {
+                                            "@value": "33"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Cairo[GMT+02:00]",
+                                        "value": {
+                                            "@value": "34"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Harare-Pretoria[GMT+02:00]",
+                                        "value": {
+                                            "@value": "35"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Helsinki-Riga-Tallinn[GMT+02:00]",
+                                        "value": {
+                                            "@value": "36"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Jerusalem[GMT+02:00]",
+                                        "value": {
+                                            "@value": "37"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Israel[GMT+02:00]",
+                                        "value": {
+                                            "@value": "38"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Baghdad[GMT+03:00]",
+                                        "value": {
+                                            "@value": "39"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Kuwait-Riyadh[GMT+03:00]",
+                                        "value": {
+                                            "@value": "40"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Moscow-St.Petersburg-Volgograd[GMT+03:00]",
+                                        "value": {
+                                            "@value": "41"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Nairobi[GMT+03:00]",
+                                        "value": {
+                                            "@value": "42"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Tehran[GMT+03:30]",
+                                        "value": {
+                                            "@value": "43"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Abu_Dhabi-Muscat[GMT+04:00]",
+                                        "value": {
+                                            "@value": "44"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Baku[GMT+04:00]",
+                                        "value": {
+                                            "@value": "45"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Tbilisi[GMT+04:00]",
+                                        "value": {
+                                            "@value": "46"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Kabul[GMT+04:30]",
+                                        "value": {
+                                            "@value": "47"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Ekaterinburg[GMT+05:00]",
+                                        "value": {
+                                            "@value": "48"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Islamabad-Karachi-Tashkent[GMT+05:00]",
+                                        "value": {
+                                            "@value": "49"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Mumbai-Calcutta-Chennai-New_Delhi[GMT+05:30]",
+                                        "value": {
+                                            "@value": "50"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Colombo[GMT+05:30]",
+                                        "value": {
+                                            "@value": "51"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Kathmandu[GMT+05:45]",
+                                        "value": {
+                                            "@value": "52"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Dhaka[GMT+06:00]",
+                                        "value": {
+                                            "@value": "53"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Almaty[GMT+06:00]",
+                                        "value": {
+                                            "@value": "54"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Rangoon[GMT+06:30]",
+                                        "value": {
+                                            "@value": "55"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Bangkok-Hanoi-Jakarta[GMT+07:00]",
+                                        "value": {
+                                            "@value": "56"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Beijing-Chongqing-Hong_Kong-Urumqi[GMT+08:00]",
+                                        "value": {
+                                            "@value": "57"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Perth[GMT+08:00]",
+                                        "value": {
+                                            "@value": "58"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Singapore-Kuala_Lumpur[GMT+08:00]",
+                                        "value": {
+                                            "@value": "59"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Taipei[GMT+08:00]",
+                                        "value": {
+                                            "@value": "60"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Osaka-Sapporo-Tokyo[GMT+09:00]",
+                                        "value": {
+                                            "@value": "61"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Seoul[GMT+09:00]",
+                                        "value": {
+                                            "@value": "62"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Yakutsk[GMT+09:00]",
+                                        "value": {
+                                            "@value": "63"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Adelaide[GMT+09:30]",
+                                        "value": {
+                                            "@value": "64"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Darwin[GMT+09:30]",
+                                        "value": {
+                                            "@value": "65"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Brisbane[GMT+10:00]",
+                                        "value": {
+                                            "@value": "66"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Canberra-Melbourne-Sydney[GMT+10:00]",
+                                        "value": {
+                                            "@value": "67"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Guam-Port_Moresby[GMT+10:00]",
+                                        "value": {
+                                            "@value": "68"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Hobart[GMT+10:00]",
+                                        "value": {
+                                            "@value": "69"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Vladivostok[GMT+10:00]",
+                                        "value": {
+                                            "@value": "70"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Magadan-Solomon_Is.-New_Caledonia[GMT+11:00]",
+                                        "value": {
+                                            "@value": "71"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Auckland-Wellington[GMT+12:00]",
+                                        "value": {
+                                            "@value": "72"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Fiji-Kamchatka-Marshall_Is.[GMT+12:00]",
+                                        "value": {
+                                            "@value": "73"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Eniwetok-Kwajalein[GMT+12:00]",
+                                        "value": {
+                                            "@value": "74"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Nuku_alofa[GMT+13:00]",
+                                        "value": {
+                                            "@value": "75"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Kiritimati[GMT+14:00]",
+                                        "value": {
+                                            "@value": "76"
+                                        }
+                                    },
+                                    {
+                                        "@name": "Universal-Time-Coordinated",
+                                        "value": {
+                                            "@value": "77"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "Universal-Time-Coordinated"
+                            },
+                            "description": {
+                                "text": "Indicates the Name of the Time Zone of this NE."
+                            }
+                        },
+                        {
+                            "@name": "uptime",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..200"
+                                }
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Indicates how long the system has been running in days hh:mm:ss format."
+                            }
+                        },
+                        {
+                            "@name": "uptime-seconds",
+                            "type": {
+                                "@name": "uint32"
+                            },
+                            "units": {
+                                "@name": "sec"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Indicates how long the system has been running, in seconds."
+                            }
+                        },
+                        {
+                            "@name": "time-source",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "ntp",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Indicates that NE uses NTP for synchronization."
+                                        }
+                                    },
+                                    {
+                                        "@name": "manual",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "indicates that NE uses NE internal clock for Synchronization."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "manual"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Indicates the source of the system current time."
+                            }
+                        },
+                        {
+                            "@name": "DST-active",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Whether daylight saving is active."
+                            }
+                        },
+                        {
+                            "@name": "last-time-jump",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..200"
+                                }
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Indicates last system time jump in the format '<time1> to <time2>'. Time jumps of less than 10 seconds are ignored."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "ntp",
+                "description": {
+                    "text": "Network Time Protocol Configuration"
+                },
+                "container": {
+                    "@name": "ntp",
+                    "description": {
+                        "text": "Network Time Protocol Configuration."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "ntp-enabled",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Whether ntp is enabled."
+                            }
+                        },
+                        {
+                            "@name": "ntp-auth-enabled",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Whether NTP authentication is enabled."
+                            }
+                        },
+                        {
+                            "@name": "ntp-active-server",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Currently active NTP server."
+                            }
+                        }
+                    ],
+                    "uses": {
+                        "@name": "ioa-common:assignment-method"
+                    },
+                    "list": [
+                        {
+                            "@name": "ntp-key",
+                            "key": {
+                                "@value": "key-id"
+                            },
+                            "max-elements": {
+                                "@value": "20"
+                            },
+                            "description": {
+                                "text": "Keys to be used for NTP authentication."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "key-id",
+                                    "type": {
+                                        "@name": "uint32",
+                                        "range": {
+                                            "@value": "1..65534"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "NTP Key-ID."
+                                    }
+                                },
+                                {
+                                    "@name": "key-type",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "sha-1",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "Use sha-1 hash algorithm for NTP message digest computation"
+                                                }
+                                            },
+                                            {
+                                                "@name": "aes-cmac",
+                                                "value": {
+                                                    "@value": "2"
+                                                },
+                                                "description": {
+                                                    "text": "Use AES-CMAC hash algorithm for NTP message digest computation"
+                                                }
+                                            },
+                                            {
+                                                "@name": "sha-256",
+                                                "value": {
+                                                    "@value": "3"
+                                                },
+                                                "description": {
+                                                    "text": "Use sha-256 hash algorithm for NTP message digest computation"
+                                                }
+                                            },
+                                            {
+                                                "@name": "md5",
+                                                "value": {
+                                                    "@value": "4"
+                                                },
+                                                "description": {
+                                                    "text": "Use md5 hash algorithm for NTP message digest computation"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "Hash algorithm for NTP message digest computation"
+                                    }
+                                },
+                                {
+                                    "@name": "key-value",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "8..40"
+                                        }
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "NTP Key-value."
+                                    }
+                                },
+                                {
+                                    "@name": "is-trusted",
+                                    "type": {
+                                        "@name": "boolean"
+                                    },
+                                    "default": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Is trusted NTP key."
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "@name": "ntp-server",
+                            "key": {
+                                "@value": "ip-address"
+                            },
+                            "max-elements": {
+                                "@value": "6"
+                            },
+                            "description": {
+                                "text": "Configured NTP server."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "ip-address",
+                                    "type": {
+                                        "@name": "ioa-common:host"
+                                    },
+                                    "description": {
+                                        "text": "NTP Server IP address. Ipv4/Ipv6/hostname supported."
+                                    }
+                                },
+                                {
+                                    "@name": "origin",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "manual",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "Indicates NTP address has been manually configured."
+                                                }
+                                            },
+                                            {
+                                                "@name": "dhcp",
+                                                "value": {
+                                                    "@value": "2"
+                                                },
+                                                "description": {
+                                                    "text": "Indicates NTP address that has been assigned to this\nsystem by a DHCP server."
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "description": {
+                                        "text": "NTP address assignment method, user can convert\nDHCP configured NTP entry into a manual configured by changing this attribute."
+                                    }
+                                },
+                                {
+                                    "@name": "auth-key-id",
+                                    "type": {
+                                        "@name": "union",
+                                        "type": [
+                                            {
+                                                "@name": "enumeration",
+                                                "enum": {
+                                                    "@name": "not-applicable",
+                                                    "value": {
+                                                        "@value": "0"
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "@name": "uint32"
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "not-applicable"
+                                    },
+                                    "description": {
+                                        "text": "Key ID to be used for this server."
+                                    }
+                                }
+                            ],
+                            "uses": [
+                                {
+                                    "@name": "ioa-common:label"
+                                },
+                                {
+                                    "@name": "ioa-common:common-states"
+                                },
+                                {
+                                    "@name": "ioa-common:arc"
+                                }
+                            ],
+                            "container": {
+                                "@name": "ntp-server-status",
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "NTP server status."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "refid",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "0..32"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "Reference clock type or address for the peer."
+                                        }
+                                    },
+                                    {
+                                        "@name": "stratum",
+                                        "type": {
+                                            "@name": "uint8"
+                                        },
+                                        "description": {
+                                            "text": "Indicates the stratum of the remote peer."
+                                        }
+                                    },
+                                    {
+                                        "@name": "type",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "0..10"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "Type of the peer ('l' for local reference clock, 'u' for unicast, 'm' for multicast or 'b' for broadcast)"
+                                        }
+                                    },
+                                    {
+                                        "@name": "when",
+                                        "type": {
+                                            "@name": "uint32"
+                                        },
+                                        "units": {
+                                            "@name": "sec"
+                                        },
+                                        "description": {
+                                            "text": "Indicates time elapsed since last packet was received in seconds."
+                                        }
+                                    },
+                                    {
+                                        "@name": "poll",
+                                        "type": {
+                                            "@name": "uint32"
+                                        },
+                                        "units": {
+                                            "@name": "sec"
+                                        },
+                                        "description": {
+                                            "text": "Indicates the polling interval in seconds."
+                                        }
+                                    },
+                                    {
+                                        "@name": "reach",
+                                        "type": {
+                                            "@name": "uint16"
+                                        },
+                                        "description": {
+                                            "text": "Indicates the reachability of the configured server.\nThis is an 8-bit shift register with the most recent probe in the 2^0 position.\nThe value 377 indicates that all the recent probes have been answered."
+                                        }
+                                    },
+                                    {
+                                        "@name": "delay",
+                                        "type": {
+                                            "@name": "millisec"
+                                        },
+                                        "description": {
+                                            "text": "Delay along path to the server in milliseconds."
+                                        }
+                                    },
+                                    {
+                                        "@name": "offset",
+                                        "type": {
+                                            "@name": "millisec"
+                                        },
+                                        "description": {
+                                            "text": "Offset of clock to the peer in milliseconds."
+                                        }
+                                    },
+                                    {
+                                        "@name": "jitter",
+                                        "type": {
+                                            "@name": "millisec"
+                                        },
+                                        "description": {
+                                            "text": "Jitter along path to the server in milliseconds."
+                                        }
+                                    },
+                                    {
+                                        "@name": "auth-status",
+                                        "type": {
+                                            "@name": "enumeration",
+                                            "enum": [
+                                                {
+                                                    "@name": "ok",
+                                                    "value": {
+                                                        "@value": "1"
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "yes",
+                                                    "value": {
+                                                        "@value": "2"
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "bad",
+                                                    "value": {
+                                                        "@value": "3"
+                                                    }
+                                                },
+                                                {
+                                                    "@name": "none",
+                                                    "value": {
+                                                        "@value": "4"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "default": {
+                                            "@value": "none"
+                                        },
+                                        "description": {
+                                            "text": "Authentication status of NTP server"
+                                        }
+                                    },
+                                    {
+                                        "@name": "condition",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "0..16"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "Condition of NTP server. Some of possible values: sys.peer/reject/candidate/..."
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

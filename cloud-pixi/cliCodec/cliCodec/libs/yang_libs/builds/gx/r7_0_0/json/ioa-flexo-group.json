@@ -1,0 +1,132 @@
+{
+    "module": {
+        "@name": "ioa-flexo-group",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-flexo-group": "http://infinera.com/yang/ioa/flexo-group",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/flexo-group"
+        },
+        "prefix": {
+            "@value": "ioa-flexo-group"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module defining the flexo-group facility."
+        },
+        "revision": {
+            "@date": "2021-12-10",
+            "description": {
+                "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+            }
+        },
+        "grouping": {
+            "@name": "flexo-group",
+            "list": {
+                "@name": "flexo-group",
+                "key": {
+                    "@value": "name"
+                },
+                "description": {
+                    "text": "Facility describing the flexo-group."
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-fac-common:facilities-common-attributes"
+                    },
+                    {
+                        "@name": "ioa-common:arc"
+                    }
+                ],
+                "leaf-list": {
+                    "@name": "carriers",
+                    "type": {
+                        "@name": "string",
+                        "length": {
+                            "@value": "1..32"
+                        }
+                    },
+                    "min-elements": {
+                        "@value": "1"
+                    },
+                    "description": {
+                        "text": "A list of carriers that are bound to this facilities.\nPossible values can be any card/resources/supported-carriers."
+                    }
+                },
+                "leaf": [
+                    {
+                        "@name": "rate",
+                        "type": {
+                            "@name": "ioa-common:rate"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Carried signal basic rate class"
+                        }
+                    },
+                    {
+                        "@name": "modulation-format",
+                        "type": {
+                            "@name": "ioa-fac-common:modulation-format"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Current modulation format"
+                        }
+                    },
+                    {
+                        "@name": "fec-type",
+                        "type": {
+                            "@name": "ioa-fac-common:fec-type"
+                        },
+                        "default": {
+                            "@value": "ofec"
+                        },
+                        "description": {
+                            "text": "The FEC type"
+                        }
+                    },
+                    {
+                        "@name": "group-id",
+                        "type": {
+                            "@name": "uint32",
+                            "range": {
+                                "@value": "1..1048575"
+                            }
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "20bits, indicate the interface group instance\nthat the FlexO-x interface is a member of.\nIt will be unique in the NE"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

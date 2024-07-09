@@ -1,0 +1,2073 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-equipment"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-eqm="http://infinera.com/yang/ioa/equipment"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-opt="http://infinera.com/yang/ioa/optical-common">
+  <namespace uri="http://infinera.com/yang/ioa/equipment"/>
+  <prefix value="ioa-eqm"/>
+  <import module="ietf-yang-types">
+    <prefix value="yang"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-optical-common">
+    <prefix value="ioa-opt"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module with the equipment model.</text>
+  </description>
+  <revision date="2023-03-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.1</text>
+    </description>
+  </revision>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-06-30">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.2</text>
+    </description>
+  </revision>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-09-17">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.1</text>
+    </description>
+  </revision>
+  <typedef name="phy-mode">
+    <type name="enumeration">
+      <enum name="100GE">
+        <value value="1"/>
+        <description>
+          <text>100GE</text>
+        </description>
+        <reference>
+          <text>GRD-191; GX-18</text>
+        </reference>
+      </enum>
+      <enum name="200GE">
+        <value value="2"/>
+        <description>
+          <text>200GE</text>
+        </description>
+        <reference>
+          <text>GRD-225</text>
+        </reference>
+      </enum>
+      <enum name="400GE">
+        <value value="3"/>
+        <description>
+          <text>400GE</text>
+        </description>
+        <reference>
+          <text>GRD-225</text>
+        </reference>
+      </enum>
+      <enum name="4x100GE">
+        <value value="4"/>
+        <description>
+          <text>4x100GE</text>
+        </description>
+        <reference>
+          <text>GRD-191</text>
+        </reference>
+      </enum>
+      <enum name="100G">
+        <value value="5"/>
+        <description>
+          <text>100G</text>
+        </description>
+        <reference>
+          <text>GRD-510</text>
+        </reference>
+      </enum>
+      <enum name="4x10G">
+        <value value="6"/>
+        <description>
+          <text>4x10G</text>
+        </description>
+        <reference>
+          <text>GRD-156; GRD-259; GRD-424</text>
+        </reference>
+      </enum>
+      <enum name="4x10GE">
+        <value value="7"/>
+        <description>
+          <text>4x10GE</text>
+        </description>
+        <reference>
+          <text>GRD-156; GRD-353</text>
+        </reference>
+      </enum>
+      <enum name="1GE">
+        <value value="8"/>
+        <description>
+          <text>1GE</text>
+        </description>
+        <reference>
+          <text>GRD-121</text>
+        </reference>
+      </enum>
+      <enum name="2G5">
+        <value value="9"/>
+        <description>
+          <text>2G5</text>
+        </description>
+        <reference>
+          <text>GRD-316; GRD-387</text>
+        </reference>
+      </enum>
+      <enum name="10G">
+        <value value="10"/>
+        <description>
+          <text>10G</text>
+        </description>
+        <reference>
+          <text>GRD-156; GRD-259; GRD-353; GRD-424</text>
+        </reference>
+      </enum>
+      <enum name="10GE">
+        <value value="11"/>
+        <description>
+          <text>10GE</text>
+        </description>
+        <reference>
+          <text>GRD-156</text>
+        </reference>
+      </enum>
+      <enum name="2G5E">
+        <value value="12"/>
+        <description>
+          <text>2G5E</text>
+        </description>
+        <reference>
+          <text>GRD-156</text>
+        </reference>
+      </enum>
+      <enum name="40GE">
+        <value value="13"/>
+        <description>
+          <text>40GE</text>
+        </description>
+        <reference>
+          <text>GRD-156</text>
+        </reference>
+      </enum>
+      <enum name="40G">
+        <value value="14"/>
+        <description>
+          <text>40G</text>
+        </description>
+        <reference>
+          <text>GRD-156</text>
+        </reference>
+      </enum>
+      <enum name="4x100G">
+        <value value="15"/>
+        <description>
+          <text>4x100G</text>
+        </description>
+        <reference>
+          <text>GRD-156</text>
+        </reference>
+      </enum>
+      <enum name="200G">
+        <value value="16"/>
+        <description>
+          <text>200G</text>
+        </description>
+        <reference>
+          <text>GX-9732</text>
+        </reference>
+      </enum>
+      <enum name="155M">
+        <value value="17"/>
+        <description>
+          <text>OC-3 (155M/ 1G) OSC</text>
+        </description>
+        <reference>
+          <text>THANOS-3363</text>
+        </reference>
+      </enum>
+      <enum name="2x100GE">
+        <value value="18"/>
+        <description>
+          <text>2x100GE</text>
+        </description>
+        <reference>
+          <text>GRD-191</text>
+        </reference>
+      </enum>
+      <enum name="1G">
+        <value value="19"/>
+        <description>
+          <text>1G</text>
+        </description>
+        <reference>
+          <text>GRD-1277</text>
+        </reference>
+      </enum>
+      <enum name="4G">
+        <value value="20"/>
+        <description>
+          <text>4G</text>
+        </description>
+        <reference>
+          <text>GRD-1314</text>
+        </reference>
+      </enum>
+      <enum name="400G">
+        <value value="21"/>
+        <description>
+          <text>400G</text>
+        </description>
+        <reference>
+          <text>GRD-225</text>
+        </reference>
+      </enum>
+      <enum name="2G">
+        <value value="22"/>
+        <description>
+          <text>2G</text>
+        </description>
+        <reference>
+          <text>GRD-1734</text>
+        </reference>
+      </enum>
+      <enum name="8G">
+        <value value="23"/>
+        <description>
+          <text>8G</text>
+        </description>
+        <reference>
+          <text>GRD-1772</text>
+        </reference>
+      </enum>
+      <enum name="16G">
+        <value value="24"/>
+        <description>
+          <text>16G</text>
+        </description>
+        <reference>
+          <text>GRD-1490</text>
+        </reference>
+      </enum>
+      <enum name="32G">
+        <value value="25"/>
+        <description>
+          <text>32G</text>
+        </description>
+        <reference>
+          <text>GRD-1811</text>
+        </reference>
+      </enum>
+      <enum name="622M">
+        <value value="26"/>
+        <description>
+          <text>STM4</text>
+        </description>
+        <reference>
+          <text>GRD-1626</text>
+        </reference>
+      </enum>
+      <enum name="4x16G">
+        <value value="27"/>
+        <description>
+          <text>4x16G</text>
+        </description>
+        <reference>
+          <text>GRD-1490</text>
+        </reference>
+      </enum>
+      <enum name="4x8G">
+        <value value="28"/>
+        <description>
+          <text>4x8G</text>
+        </description>
+        <reference>
+          <text>GRD-1772</text>
+        </reference>
+      </enum>
+      <enum name="2x32G">
+        <value value="29"/>
+        <description>
+          <text>2x32G</text>
+        </description>
+        <reference>
+          <text>GRD-1811</text>
+        </reference>
+      </enum>
+    </type>
+    <description>
+      <text>Phy mode of a TOM.</text>
+    </description>
+  </typedef>
+  <typedef name="ethernet-rate">
+    <type name="enumeration">
+      <enum name="unknown">
+        <value value="0"/>
+      </enum>
+      <enum name="1">
+        <value value="1"/>
+      </enum>
+      <enum name="10">
+        <value value="10"/>
+      </enum>
+      <enum name="100">
+        <value value="100"/>
+      </enum>
+      <enum name="1000">
+        <value value="1000"/>
+      </enum>
+      <enum name="10000">
+        <value value="10000"/>
+      </enum>
+      <enum name="maximum">
+        <value value="2147483647"/>
+      </enum>
+    </type>
+    <units name="Mbit/s"/>
+    <description>
+      <text>The configured, negotiated, or actual speed.</text>
+    </description>
+  </typedef>
+  <typedef name="duplex-mode">
+    <type name="enumeration">
+      <enum name="unknown">
+        <description>
+          <text>Link is currently disconnected or initializing.</text>
+        </description>
+      </enum>
+      <enum name="full">
+        <description>
+          <text>Full duplex.</text>
+        </description>
+      </enum>
+      <enum name="half">
+        <description>
+          <text>Half duplex.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The configured, negotiated, or actual duplex mode.</text>
+    </description>
+  </typedef>
+  <typedef name="flow-control">
+    <type name="enumeration">
+      <enum name="unknown">
+        <description>
+          <text>Link is currently disconnected or initializing.</text>
+        </description>
+      </enum>
+      <enum name="disabled">
+        <description>
+          <text>No pause frames are supported.</text>
+        </description>
+      </enum>
+      <enum name="bi-directional">
+        <description>
+          <text>Symmetric flow (transmit and receive).</text>
+        </description>
+      </enum>
+      <enum name="egress-only">
+        <description>
+          <text>Transmit direction only.</text>
+        </description>
+      </enum>
+      <enum name="ingress-only">
+        <description>
+          <text>Receive direction only.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The configured, negotiated, or actual flow-control mode.</text>
+    </description>
+  </typedef>
+  <typedef name="console-baud-rate">
+    <type name="enumeration">
+      <enum name="unknown">
+        <value value="0"/>
+      </enum>
+      <enum name="9600">
+        <value value="6"/>
+      </enum>
+      <enum name="19200">
+        <value value="7"/>
+      </enum>
+      <enum name="38400">
+        <value value="8"/>
+      </enum>
+      <enum name="57600">
+        <value value="11"/>
+      </enum>
+      <enum name="115200">
+        <value value="12"/>
+      </enum>
+    </type>
+    <units name="baud"/>
+    <description>
+      <text>Possible baud-rates for a serial console port.</text>
+    </description>
+  </typedef>
+  <grouping name="card-category">
+    <leaf name="category">
+      <type name="enumeration">
+        <enum name="controller">
+          <value value="1"/>
+        </enum>
+        <enum name="line-card">
+          <value value="2"/>
+        </enum>
+        <enum name="fan">
+          <value value="3"/>
+        </enum>
+        <enum name="power-supply">
+          <value value="4"/>
+        </enum>
+        <enum name="other">
+          <value value="5"/>
+        </enum>
+        <enum name="carrier-card">
+          <value value="6"/>
+        </enum>
+        <enum name="blank">
+          <value value="7"/>
+        </enum>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Card category.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="port-common">
+    <leaf name="port-type">
+      <type name="enumeration">
+        <enum name="line">
+          <value value="1"/>
+          <description>
+            <text>Refers to line-side 'colored' CWDM or DWDM optical module/transceiver.</text>
+          </description>
+        </enum>
+        <enum name="tributary">
+          <value value="2"/>
+          <description>
+            <text>Refers to standard 'grey' interfaces/transceivers to interface with other client equipment.</text>
+          </description>
+        </enum>
+        <enum name="usb">
+          <value value="3"/>
+          <description>
+            <text>USB port.</text>
+          </description>
+        </enum>
+        <enum name="comm">
+          <value value="4"/>
+          <description>
+            <text>Communication ports.</text>
+          </description>
+        </enum>
+        <enum name="uplink">
+          <value value="5"/>
+          <description>
+            <text>Refers to ports of an aggregation function that connect to an adjunct line function.</text>
+          </description>
+        </enum>
+        <enum name="tributary-subport">
+          <value value="6"/>
+          <description>
+            <text>Same as tributary, but for scenarios where the main tributary port is split into multiple subports.</text>
+          </description>
+        </enum>
+        <enum name="optical">
+          <value value="7"/>
+          <description>
+            <text>General optical port, with or without monitoring function.</text>
+          </description>
+        </enum>
+        <enum name="otdr">
+          <value value="8"/>
+          <description>
+            <text>Generic OTDR function, except for external OTDR measurement.</text>
+          </description>
+        </enum>
+        <enum name="pluggable">
+          <value value="9"/>
+          <description>
+            <text>Port function represents the L0 module cage for pluggable interfaces.</text>
+          </description>
+        </enum>
+        <enum name="ocm">
+          <value value="10"/>
+          <description>
+            <text>OCM port.</text>
+          </description>
+        </enum>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>The port type. Each port type supports different features and services.</text>
+      </description>
+    </leaf>
+    <leaf name="direction">
+      <type name="enumeration">
+        <enum name="not-applicable">
+          <value value="0"/>
+          <description>
+            <text>Not applicable.</text>
+          </description>
+        </enum>
+        <enum name="tx">
+          <value value="1"/>
+          <description>
+            <text>Tx direction.</text>
+          </description>
+        </enum>
+        <enum name="rx">
+          <value value="2"/>
+          <description>
+            <text>Rx direction.</text>
+          </description>
+        </enum>
+        <enum name="rxtx">
+          <value value="3"/>
+          <description>
+            <text>Both Rx and Tx directions.</text>
+          </description>
+        </enum>
+      </type>
+      <default value="not-applicable"/>
+      <config value="false"/>
+      <description>
+        <text>Direction of the port.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="max-power-draw">
+    <leaf name="max-power-draw">
+      <type name="decimal64">
+        <fraction-digits value="2"/>
+      </type>
+      <units name="W"/>
+      <config value="false"/>
+      <description>
+        <text>Maximum power draw for this card.</text>
+      </description>
+      <reference>
+        <text>GX-740</text>
+      </reference>
+    </leaf>
+  </grouping>
+  <grouping name="eqm-common">
+    <description>
+      <text>Common parameters to all equipment objects.</text>
+    </description>
+    <leaf name="alias-name">
+      <type name="string">
+        <length value="0..256"/>
+        <pattern value="[A-Za-z0-9_\-/,\.]*"/>
+      </type>
+      <description>
+        <text>User defined alias for this entity. Must be an alphanumeric string with dash or underscore.</text>
+      </description>
+    </leaf>
+    <uses name="ioa-common:aid"/>
+    <uses name="ioa-common:common-states"/>
+    <uses name="ioa-common:arc"/>
+    <uses name="ioa-common:label"/>
+  </grouping>
+  <grouping name="equipment-holder">
+    <description>
+      <text>Attributes associated with all equipment holders (slots and ports).</text>
+    </description>
+    <leaf-list name="supported-type">
+      <type name="string">
+        <length value="0..32"/>
+      </type>
+      <config value="false"/>
+      <max-elements value="20"/>
+      <description>
+        <text>List of supported types in this equipment holder.
+If a specific type is provisioned, the list has only that type.</text>
+      </description>
+    </leaf-list>
+    <leaf name="installed-type">
+      <type name="string">
+        <length value="0..32"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Currently installed type in this equipment holder. If empty, means no FRU is present.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="inventory-core">
+    <description>
+      <text>Inventory data for equipment that are not yet accepted by the node controller in a Multi-chassis NE. This is a reduced set derived from the inventory container</text>
+    </description>
+    <leaf name="hardware-version">
+      <type name="string"/>
+      <description>
+        <text>Hardware version of this FRU.</text>
+      </description>
+    </leaf>
+    <leaf name="actual-type">
+      <type name="string"/>
+      <description>
+        <text>FRU type of actual equipment.</text>
+      </description>
+    </leaf>
+    <leaf name="actual-subtype">
+      <type name="string"/>
+      <description>
+        <text>FRU subtype of actual equipment - only available if applicable.</text>
+      </description>
+    </leaf>
+    <uses name="ioa-common:sw-support"/>
+    <leaf name="PON">
+      <type name="string"/>
+      <description>
+        <text>Current PON of the equipment.</text>
+      </description>
+    </leaf>
+    <leaf name="serial-number">
+      <type name="string">
+        <length value="1..16"/>
+      </type>
+      <description>
+        <text>Serial number of the equipment.</text>
+      </description>
+    </leaf>
+    <leaf name="clei">
+      <type name="string"/>
+      <description>
+        <text>Common Language Equipment Identifier.</text>
+      </description>
+    </leaf>
+    <leaf name="vendor">
+      <type name="string"/>
+      <description>
+        <text>Vendor of this equipment.</text>
+      </description>
+    </leaf>
+    <leaf name="part-number">
+      <type name="string"/>
+      <description>
+        <text>Part number for this equipment.</text>
+      </description>
+    </leaf>
+    <leaf name="manufacture-date">
+      <type name="string"/>
+      <description>
+        <text>Manufacture Date in a date-time format (YYYY-MM-DDThh:mm:ssZ) or 'NA' if not available.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="inventory">
+    <container name="inventory">
+      <config value="false"/>
+      <description>
+        <text>Inventory data for a present FRU.</text>
+      </description>
+      <uses name="inventory-core"/>
+      <leaf name="insertion-date">
+        <type name="string"/>
+        <description>
+          <text>Insertion Date in a date-time format (YYYY-MM-DDThh:mm:ssZ) or 'NA' if not available.</text>
+        </description>
+      </leaf>
+      <leaf name="number-of-lanes">
+        <type name="uint8"/>
+        <description>
+          <text>When applicatible, provides number of supported optical lanes in this equipment.</text>
+        </description>
+      </leaf>
+      <leaf name="vendor-compliance-code">
+        <type name="string">
+          <length value="0..128"/>
+        </type>
+        <description>
+          <text>Vendor Compliance Code information for 3rd party TOMs.</text>
+        </description>
+      </leaf>
+      <leaf name="fw-status">
+        <type name="enumeration">
+          <enum name="not-applicable">
+            <value value="0"/>
+            <description>
+              <text>Card doesn't have upgradable firmware.</text>
+            </description>
+          </enum>
+          <enum name="current">
+            <value value="1"/>
+            <description>
+              <text>All components have current firmware.</text>
+            </description>
+          </enum>
+          <enum name="not-current">
+            <value value="2"/>
+            <description>
+              <text>At least one component does not have current firmare.</text>
+            </description>
+          </enum>
+          <enum name="unavailable">
+            <value value="3"/>
+            <description>
+              <text>Information on all firmware status is currently unavailable.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="not-applicable"/>
+        <description>
+          <text>Summary status for all the firmware for this card.</text>
+        </description>
+      </leaf>
+      <list name="current-fw">
+        <key value="fw-name"/>
+        <description>
+          <text>List of current firmware available in the card.</text>
+        </description>
+        <leaf name="fw-name">
+          <type name="string">
+            <length value="0..32"/>
+          </type>
+          <description>
+            <text>Name of the firmware.</text>
+          </description>
+        </leaf>
+        <leaf name="fw-version">
+          <type name="string">
+            <length value="0..32"/>
+          </type>
+          <description>
+            <text>Current version of the firmware.</text>
+          </description>
+        </leaf>
+        <leaf name="expected-fw-version">
+          <type name="string">
+            <length value="0..32"/>
+          </type>
+          <description>
+            <text>Expected version of the firmware.</text>
+          </description>
+        </leaf>
+        <leaf name="fw-status">
+          <type name="enumeration">
+            <enum name="current">
+              <value value="1"/>
+              <description>
+                <text>Current firmware is up-to-date.</text>
+              </description>
+            </enum>
+            <enum name="not-current">
+              <value value="2"/>
+              <description>
+                <text>Current firmware is not up-to-date against the expected one.</text>
+              </description>
+            </enum>
+            <enum name="unavailable">
+              <value value="3"/>
+              <description>
+                <text>Information on firmware status is currently unavailable.</text>
+              </description>
+            </enum>
+          </type>
+          <description>
+            <text>Status for this particular firmware.</text>
+          </description>
+        </leaf>
+      </list>
+    </container>
+  </grouping>
+  <grouping name="slots">
+    <list name="slot">
+      <key value="name"/>
+      <config value="false"/>
+      <description>
+        <text>Slot equipment holder details.</text>
+      </description>
+      <reference>
+        <text>GX-606</text>
+      </reference>
+      <leaf name="name">
+        <type name="string"/>
+        <description>
+          <text>Slot name.</text>
+        </description>
+      </leaf>
+      <uses name="ioa-common:aid"/>
+      <uses name="equipment-holder"/>
+      <uses name="ioa-common:operational-states"/>
+      <leaf name="current-equipment">
+        <type name="leafref">
+          <path value="../../../card/name"/>
+        </type>
+        <description>
+          <text>Name of the equipment that is currently required in this slot.</text>
+        </description>
+      </leaf>
+      <uses name="inventory"/>
+    </list>
+    <description>
+      <text>Existing slots and respective information about them. This grouping represents a general slot.</text>
+    </description>
+  </grouping>
+  <grouping name="upgrade-status">
+    <leaf name="upgrade-status">
+      <type name="enumeration">
+        <enum name="idle">
+          <value value="1"/>
+          <description>
+            <text>Upgrade status not available.</text>
+          </description>
+        </enum>
+        <enum name="in-progress">
+          <value value="2"/>
+          <description>
+            <text>Upgrade install is in progress.</text>
+          </description>
+        </enum>
+        <enum name="success">
+          <value value="3"/>
+          <description>
+            <text>Upgrade installed.</text>
+          </description>
+        </enum>
+        <enum name="failed">
+          <value value="4"/>
+          <description>
+            <text>Upgrade instalation failed.</text>
+          </description>
+        </enum>
+        <enum name="unknown">
+          <value value="5"/>
+          <description>
+            <text>Upgrade status not known.</text>
+          </description>
+        </enum>
+      </type>
+      <default value="idle"/>
+      <config value="false"/>
+      <description>
+        <text>Current upgrade status.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="equipment">
+    <container name="equipment">
+      <description>
+        <text>Container for all equipment related resources.</text>
+      </description>
+      <list name="chassis">
+        <key value="name"/>
+        <description>
+          <text>Chassis configuration and state.</text>
+        </description>
+        <leaf name="name">
+          <type name="ioa-common:object-name"/>
+          <description>
+            <text>Chassis name.</text>
+          </description>
+        </leaf>
+        <leaf name="is-node-controller">
+          <type name="boolean"/>
+          <config value="false"/>
+          <description>
+            <text>Tells if this chassis the node controller of this NE.</text>
+          </description>
+        </leaf>
+        <leaf name="chassis-role">
+          <type name="enumeration">
+            <enum name="unknown">
+              <value value="0"/>
+              <description>
+                <text>Chassis role is not determined yet</text>
+              </description>
+            </enum>
+            <enum name="main-chassis">
+              <value value="1"/>
+              <description>
+                <text>The chassis is designated as a main-chassis of the Multi-chassis NE.</text>
+              </description>
+            </enum>
+            <enum name="sub-chassis">
+              <value value="2"/>
+              <description>
+                <text>The chassis is designated as a sub-chassis of the Multi-chassis NE.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="unknown"/>
+          <config value="false"/>
+          <description>
+            <text>Identifies the role of the chassis in a multi-chassis NE.</text>
+          </description>
+        </leaf>
+        <leaf name="expected-serial-number">
+          <type name="string">
+            <length value="0..16"/>
+          </type>
+          <description>
+            <text>Inform the NC the serial number of a sub-chassis. For the main-chassis, the value is auto-filled with its own serial number</text>
+          </description>
+        </leaf>
+        <uses name="eqm-common"/>
+        <leaf name="required-type">
+          <type name="identityref">
+            <base name="ioa-common:chassis"/>
+          </type>
+          <mandatory value="true"/>
+          <description>
+            <text>Chassis type.</text>
+          </description>
+        </leaf>
+        <leaf name="required-subtype">
+          <type name="string">
+            <length value="0..32"/>
+          </type>
+          <description>
+            <text>The subtype of the chassis</text>
+          </description>
+        </leaf>
+        <leaf name="chassis-location">
+          <type name="string">
+            <length value="0..128"/>
+          </type>
+          <description>
+            <text>User defined location</text>
+          </description>
+        </leaf>
+        <leaf name="rack-name">
+          <type name="string">
+            <length value="0..128"/>
+          </type>
+          <description>
+            <text>User defined rack name (withing the location)</text>
+          </description>
+        </leaf>
+        <leaf name="position-in-rack">
+          <type name="uint8"/>
+          <description>
+            <text>Position of the chassis within the rack.</text>
+          </description>
+        </leaf>
+        <leaf name="expected-pem-type">
+          <type name="enumeration">
+            <enum name="DC">
+              <value value="1"/>
+              <description>
+                <text>DC PEM</text>
+              </description>
+            </enum>
+            <enum name="AC-high-line">
+              <value value="2"/>
+              <description>
+                <text>High-line (220V) AC PEM</text>
+              </description>
+            </enum>
+            <enum name="AC-low-line">
+              <value value="3"/>
+              <description>
+                <text>Low-line (110V) AC PEM</text>
+              </description>
+            </enum>
+            <enum name="HV-DC">
+              <value value="4"/>
+              <description>
+                <text>High Voltage DC PEM</text>
+              </description>
+            </enum>
+          </type>
+          <default value="DC"/>
+          <description>
+            <text>Defines what is the expected type of PEMs that this chassis will have.
+It is not possible to configure each PEM slot individually, as all PEMs need to be of the same type.</text>
+          </description>
+        </leaf>
+        <leaf name="expected-fan-type">
+          <type name="enumeration">
+            <enum name="single-rotar">
+              <value value="1"/>
+              <description>
+                <text>Standard FAN type.</text>
+              </description>
+            </enum>
+            <enum name="counter-rotating">
+              <value value="2"/>
+              <description>
+                <text>Counter rotating FAN type.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="counter-rotating"/>
+          <description>
+            <text>Defines what is the expected type of FANs that this chassis will have.
+It is not possible to configure each FAN slot individually, this needs to be done at the chassis level.</text>
+          </description>
+        </leaf>
+        <leaf name="pem-under-voltage-threshold">
+          <type name="decimal64">
+            <fraction-digits value="2"/>
+          </type>
+          <units name="volt"/>
+          <description>
+            <text>Under voltage threshold on PEM input feed.</text>
+          </description>
+        </leaf>
+        <leaf name="pem-over-voltage-threshold">
+          <type name="decimal64">
+            <fraction-digits value="2"/>
+          </type>
+          <units name="volt"/>
+          <description>
+            <text>Over voltage threshold on PEM input feed.</text>
+          </description>
+        </leaf>
+        <leaf name="available-power">
+          <type name="decimal64">
+            <fraction-digits value="2"/>
+          </type>
+          <units name="W"/>
+          <config value="false"/>
+          <description>
+            <text>Available Power at the chassis based on the current provisioned equipment.</text>
+          </description>
+          <reference>
+            <text>GX-721</text>
+          </reference>
+        </leaf>
+        <leaf name="configured-max-power-draw">
+          <type name="decimal64">
+            <fraction-digits value="2"/>
+          </type>
+          <units name="W"/>
+          <default value="10000"/>
+          <description>
+            <text>User configured limit of power usable by this chassis.
+If current-estimated-power-draw used in this chassis goes above the configured-max-power-draw,
+the alarm PWRDRAW is raised. 10000W represents a 'very high' power draw that is beyond any
+chassis possibilities, so having this value means this feature is disabled, and the alarm is never raised.</text>
+          </description>
+          <reference>
+            <text>GX-720, GX-723</text>
+          </reference>
+        </leaf>
+        <leaf name="current-estimated-power-draw">
+          <type name="decimal64">
+            <fraction-digits value="2"/>
+          </type>
+          <units name="W"/>
+          <config value="false"/>
+          <description>
+            <text>Total estimated power of both installed and pre-provisioned FRUs</text>
+          </description>
+          <reference>
+            <text>GX-722</text>
+          </reference>
+        </leaf>
+        <leaf name="configured-ambient-temperature">
+          <type name="uint8"/>
+          <units name="Celsius"/>
+          <description>
+            <text>Configured ambient temperature for the chassis, used to compute the FRU's power consumption.</text>
+          </description>
+          <reference>
+            <text>GX-726</text>
+          </reference>
+        </leaf>
+        <leaf name="power-redundancy">
+          <type name="enumeration">
+            <enum name="one-plus-one">
+              <value value="1"/>
+              <description>
+                <text>PEM is redundant within a bank of 2 PEMs.</text>
+              </description>
+            </enum>
+            <enum name="one-for-n">
+              <value value="2"/>
+              <description>
+                <text>PEM is redundant against any other PEM.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="one-plus-one"/>
+          <description>
+            <text>Configuration of the PEM redundancy mode.</text>
+          </description>
+        </leaf>
+        <leaf name="no-switchover">
+          <type name="enumeration">
+            <enum name="enabled">
+              <value value="1"/>
+              <description>
+                <text>No switch over</text>
+              </description>
+            </enum>
+            <enum name="disabled">
+              <value value="2"/>
+              <description>
+                <text>Switch over possible</text>
+              </description>
+            </enum>
+          </type>
+          <default value="disabled"/>
+          <description>
+            <text>If enabled, the standby controller will be locked out from taking over the active card. This means no manual or autonomous switchovers will happen.</text>
+          </description>
+        </leaf>
+        <leaf name="active-controller-slot">
+          <type name="union">
+            <type name="enumeration">
+              <enum name="none">
+                <value value="0"/>
+              </enum>
+            </type>
+            <type name="string">
+              <length value="1..64"/>
+            </type>
+          </type>
+          <default value="none"/>
+          <config value="false"/>
+          <description>
+            <text>Identifies the active controller slot name. A change to this attribute implies a switchover has happened.</text>
+          </description>
+        </leaf>
+        <leaf name="equipment-discovery-ready">
+          <type name="boolean"/>
+          <default value="false"/>
+          <config value="false"/>
+          <description>
+            <text>Represents the equipment discovery state for the current chassis.
+It will remain as 'false' until all equipment was discovered during startup.
+Equipment added after startup will not contribute to the update of this state.</text>
+          </description>
+        </leaf>
+        <leaf name="alarm-report-ready">
+          <type name="boolean"/>
+          <default value="false"/>
+          <config value="false"/>
+          <description>
+            <text>Represents the alarm monitoring state for this chassis.
+After a system restart, alarms are kept persistent for a grace minute period,
+after which they will be cleared, unless they are reconfirmed.
+This state provides visibility whether that grace period has passed or not.
+When this state is true, there are no more cached alarms raised.</text>
+          </description>
+        </leaf>
+        <uses name="inventory"/>
+        <uses name="slots"/>
+      </list>
+      <list name="card">
+        <key value="name"/>
+        <description>
+          <text>Card base object.This object has parameters that are common to all existing card types (controller, fan, etc).</text>
+        </description>
+        <leaf name="name">
+          <type name="ioa-common:object-name"/>
+          <description>
+            <text>Card identifier.</text>
+          </description>
+        </leaf>
+        <leaf name="required-type">
+          <type name="identityref">
+            <base name="ioa-common:card"/>
+          </type>
+          <mandatory value="true"/>
+          <description>
+            <text>Required card type.</text>
+          </description>
+        </leaf>
+        <leaf name="required-subtype">
+          <type name="string">
+            <length value="0..32"/>
+          </type>
+          <description>
+            <text>The subtype of the card</text>
+          </description>
+        </leaf>
+        <leaf name="card-mode">
+          <type name="string">
+            <length value="0..20"/>
+          </type>
+          <description>
+            <text>The configured card-mode, identifies specific card functionality.</text>
+          </description>
+        </leaf>
+        <uses name="card-category"/>
+        <leaf name="chassis-name">
+          <type name="leafref">
+            <path value="../../chassis/name"/>
+          </type>
+          <mandatory value="true"/>
+          <description>
+            <text>Chassis where this card is located.</text>
+          </description>
+        </leaf>
+        <leaf name="slot-name">
+          <type name="string"/>
+          <mandatory value="true"/>
+          <description>
+            <text>Slot where this card is located.</text>
+          </description>
+        </leaf>
+        <leaf name="subslot-name">
+          <type name="string"/>
+          <description>
+            <text>Subslot where this card is located, e.g. 1-2.3 (slot 2, subslot 3).
+'subslot-name' can only be set on (sub)card creation.
+</text>
+          </description>
+        </leaf>
+        <uses name="max-power-draw"/>
+        <leaf name="power-profile">
+          <type name="string">
+            <length value="0..16"/>
+          </type>
+          <description>
+            <text>User configured power draw for this card.</text>
+          </description>
+        </leaf>
+        <leaf name="last-reboot-reason">
+          <type name="string"/>
+          <config value="false"/>
+          <description>
+            <text>Reason why the last reboot was done.</text>
+          </description>
+        </leaf>
+        <leaf name="last-reboot-time">
+          <type name="string"/>
+          <config value="false"/>
+          <description>
+            <text>Timestamp of the last reboot event of a card.</text>
+          </description>
+        </leaf>
+        <leaf name="parent-card">
+          <type name="leafref">
+            <path value="/ne/equipment/card/name"/>
+          </type>
+          <config value="false"/>
+          <description>
+            <text>Name of the parent card, only applicable for subcard(s).</text>
+          </description>
+        </leaf>
+        <leaf-list name="subcard-list">
+          <type name="leafref">
+            <path value="/ne/equipment/card/name"/>
+          </type>
+          <config value="false"/>
+          <description>
+            <text>List of sub-cards associated with this card.
+Only applicable for carrier cards.</text>
+          </description>
+        </leaf-list>
+        <uses name="eqm-common"/>
+        <uses name="slots"/>
+        <container name="controller-card">
+          <description>
+            <text>Container of parameters related with controller cards.</text>
+          </description>
+          <leaf name="redundancy-status">
+            <type name="enumeration">
+              <enum name="active">
+                <value value="1"/>
+              </enum>
+              <enum name="standby">
+                <value value="2"/>
+              </enum>
+              <enum name="not-in-service">
+                <value value="3"/>
+              </enum>
+            </type>
+            <default value="not-in-service"/>
+            <config value="false"/>
+            <description>
+              <text>Controller state.</text>
+            </description>
+            <reference>
+              <text>GX-697</text>
+            </reference>
+          </leaf>
+          <leaf name="redundancy-standby-status">
+            <type name="enumeration">
+              <enum name="ready-synchronized">
+                <value value="1"/>
+                <description>
+                  <text>Standby controller is sync and ready.</text>
+                </description>
+              </enum>
+              <enum name="not-ready-synchronizing">
+                <value value="2"/>
+                <description>
+                  <text>Standby controller synchronizing data with active controller.</text>
+                </description>
+              </enum>
+              <enum name="not-ready-synchronize-fail">
+                <value value="3"/>
+                <description>
+                  <text>Synchronization fail.</text>
+                </description>
+              </enum>
+              <enum name="lock-out">
+                <value value="4"/>
+                <description>
+                  <text>Protection in lock-out state.</text>
+                </description>
+              </enum>
+              <enum name="card-not-present">
+                <value value="5"/>
+                <description>
+                  <text>Standby card is not present</text>
+                </description>
+              </enum>
+            </type>
+            <default value="not-ready-synchronizing"/>
+            <config value="false"/>
+            <description>
+              <text>State of the controller redundancy.</text>
+            </description>
+          </leaf>
+          <leaf name="number-of-switchover-events">
+            <type name="uint32"/>
+            <config value="false"/>
+            <description>
+              <text>Number of times that an active controller card has switchover. Value only visibile on active controller card.</text>
+            </description>
+          </leaf>
+          <leaf name="time-of-last-switchover">
+            <type name="ioa-common:date-time-never"/>
+            <config value="false"/>
+            <description>
+              <text>Timestamp of the last controller switchover event. Value only visible on active controller card.</text>
+            </description>
+          </leaf>
+          <leaf name="additional-details">
+            <type name="string">
+              <length value="0..128"/>
+            </type>
+            <config value="false"/>
+            <description>
+              <text>Additional details for synchronization status.</text>
+            </description>
+          </leaf>
+        </container>
+        <uses name="ioa-common:properties"/>
+        <list name="port">
+          <key value="name"/>
+          <description>
+            <text>Generic card port.</text>
+          </description>
+          <leaf name="name">
+            <type name="string"/>
+            <description>
+              <text>Port name.</text>
+            </description>
+          </leaf>
+          <uses name="eqm-common"/>
+          <uses name="port-common"/>
+          <leaf name="parent-port">
+            <type name="leafref">
+              <path value="../../port/name"/>
+            </type>
+            <config value="false"/>
+            <description>
+              <text>Name of the parent port. Only applicable for sub-ports.</text>
+            </description>
+          </leaf>
+          <leaf-list name="subport-list">
+            <type name="leafref">
+              <path value="../../port/name"/>
+            </type>
+            <config value="false"/>
+            <description>
+              <text>List of sub-ports associated with this port.
+Only applicable when this port is a parent port.</text>
+            </description>
+          </leaf-list>
+          <leaf name="hosted-interface">
+            <type name="instance-identifier"/>
+            <config value="false"/>
+            <description>
+              <text>Top level interface hosted in this port.</text>
+            </description>
+          </leaf>
+          <uses name="equipment-holder"/>
+          <leaf name="connected-to">
+            <type name="string">
+              <length value="0..128"/>
+            </type>
+            <description>
+              <text>Indicate neighbour port entity to which the current port is connected to.
+This is not validated by the NE and can be used by the customers (or NMS) for topology construction.
+This parameter is available independently on any automated discovery mechanisms that may exist in the port.</text>
+            </description>
+          </leaf>
+          <leaf name="external-connectivity">
+            <type name="enumeration">
+              <enum name="no">
+                <value value="0"/>
+                <description>
+                  <text>Port has no NMS external connectivity.</text>
+                </description>
+              </enum>
+              <enum name="yes">
+                <value value="1"/>
+                <description>
+                  <text>Port has NMS external connectivity.</text>
+                </description>
+              </enum>
+            </type>
+            <default value="no"/>
+            <description>
+              <text>Indicates whether the port is connected or to be connected externally or not.</text>
+            </description>
+          </leaf>
+          <container name="tom">
+            <description>
+              <text>TOM (Transceiver Optical Module) pluggable information.</text>
+            </description>
+            <leaf name="required-type">
+              <type name="identityref">
+                <base name="ioa-common:tom"/>
+              </type>
+              <mandatory value="true"/>
+              <description>
+                <text>The type of the TOM.</text>
+              </description>
+            </leaf>
+            <leaf name="required-subtype">
+              <type name="string">
+                <length value="0..32"/>
+              </type>
+              <description>
+                <text>The subtype of the TOM.</text>
+              </description>
+            </leaf>
+            <leaf name="phy-mode">
+              <type name="ioa-eqm:phy-mode"/>
+              <description>
+                <text>Configured Phy Mode.</text>
+              </description>
+            </leaf>
+            <leaf-list name="supported-phy-modes">
+              <type name="ioa-eqm:phy-mode"/>
+              <config value="false"/>
+              <description>
+                <text>List of supported Phy Modes by this TOM type.</text>
+              </description>
+            </leaf-list>
+            <leaf name="power-class-override">
+              <type name="ioa-common:enable-switch"/>
+              <description>
+                <text>Used to override the power class for 3rd party TOM.</text>
+              </description>
+            </leaf>
+            <uses name="upgrade-status"/>
+            <uses name="eqm-common"/>
+            <leaf name="enable-serdes">
+              <type name="boolean"/>
+              <default value="false"/>
+              <description>
+                <text>Controls enabling/disabling of configuring TOM SerDes.</text>
+              </description>
+            </leaf>
+            <list name="serdes">
+              <when condition="../enable-serdes = 'true'"/>
+              <key value="name"/>
+              <description>
+                <text>The user configured (or overridden) set of serializer/desserializer.</text>
+              </description>
+              <uses name="ioa-common:advanced-parameter-configuration-base"/>
+            </list>
+          </container>
+          <container name="usb">
+            <config value="false"/>
+            <description>
+              <text>Represents the USB function of this port.</text>
+            </description>
+            <leaf name="type">
+              <type name="enumeration">
+                <enum name="storage">
+                  <value value="1"/>
+                  <description>
+                    <text>USB port can be used for file storage, and supports associated file management operations.</text>
+                  </description>
+                </enum>
+                <enum name="power-supply">
+                  <value value="2"/>
+                  <description>
+                    <text>USB port can be used to power additional external equipment (for example, passive shelves).</text>
+                  </description>
+                </enum>
+              </type>
+              <description>
+                <text>The role that this usb port has.</text>
+              </description>
+            </leaf>
+            <leaf name="present">
+              <type name="boolean"/>
+              <default value="false"/>
+              <description>
+                <text>Describes the presence state of the USB connector.</text>
+              </description>
+            </leaf>
+            <leaf name="available-space">
+              <when condition="../type = 'storage' and ../present = 'true'"/>
+              <type name="ioa-common:storage-size"/>
+              <description>
+                <text>The current available storage space in the file-system associated with this USB port.</text>
+              </description>
+            </leaf>
+            <leaf name="total-space">
+              <when condition="../type = 'storage' and ../present = 'true'"/>
+              <type name="ioa-common:storage-size"/>
+              <description>
+                <text>The total storage space available in the file-system associated with this USB port.</text>
+              </description>
+            </leaf>
+            <leaf name="usb-path">
+              <when condition="../type = 'storage' and ../present = 'true'"/>
+              <type name="string">
+                <length value="0..32"/>
+              </type>
+              <description>
+                <text>Local filesystem path on where this USB file-system is mounted; this can be used as a target/source for file transfer operations.</text>
+              </description>
+            </leaf>
+          </container>
+          <container name="comm-eth">
+            <description>
+              <text>Communication ethernet port.</text>
+            </description>
+            <leaf name="auto-negotiation">
+              <type name="ioa-common:enable-switch"/>
+              <default value="enabled"/>
+              <description>
+                <text>Auto negotiation mode.</text>
+              </description>
+            </leaf>
+            <leaf name="mtu">
+              <type name="uint16">
+                <range value="1280..9202"/>
+              </type>
+              <units name="octets"/>
+              <default value="1500"/>
+              <description>
+                <text>The maximum transmission unit size in octets for the physical Ethernet port.</text>
+              </description>
+            </leaf>
+            <leaf name="duplex-mode">
+              <when condition="../auto-negotiation = 'disabled'"/>
+              <type name="ioa-eqm:duplex-mode"/>
+              <default value="full"/>
+              <description>
+                <text>Duplex mode; only valid if auto-negotiation is disabled.</text>
+              </description>
+            </leaf>
+            <leaf name="operational-duplex-mode">
+              <type name="ioa-eqm:duplex-mode"/>
+              <default value="unknown"/>
+              <config value="false"/>
+              <description>
+                <text>Operational duplex mode.</text>
+              </description>
+            </leaf>
+            <leaf name="rate">
+              <when condition="../auto-negotiation = 'disabled'"/>
+              <type name="ioa-eqm:ethernet-rate"/>
+              <default value="maximum"/>
+              <description>
+                <text>Required Ethernet rate; only valid if auto-negotiation is disabled.</text>
+              </description>
+            </leaf>
+            <leaf name="operational-rate">
+              <type name="ioa-eqm:ethernet-rate"/>
+              <default value="unknown"/>
+              <config value="false"/>
+              <description>
+                <text>Operational Ethernet rate.</text>
+              </description>
+            </leaf>
+            <leaf name="flow-control">
+              <when condition="../auto-negotiation = 'disabled'"/>
+              <type name="ioa-eqm:flow-control"/>
+              <default value="disabled"/>
+              <description>
+                <text>Specifies the type of flow control to be supported.</text>
+              </description>
+            </leaf>
+            <leaf name="operational-flow-control">
+              <type name="ioa-eqm:flow-control"/>
+              <default value="unknown"/>
+              <config value="false"/>
+              <description>
+                <text>Operational flow control.</text>
+              </description>
+            </leaf>
+            <leaf name="redundancy-state">
+              <type name="enumeration">
+                <enum name="none">
+                  <value value="0"/>
+                  <description>
+                    <text>No redundancy.</text>
+                  </description>
+                </enum>
+                <enum name="active">
+                  <value value="1"/>
+                  <description>
+                    <text>Port is active.</text>
+                  </description>
+                </enum>
+                <enum name="standby">
+                  <value value="2"/>
+                  <description>
+                    <text>Port is on standby.</text>
+                  </description>
+                </enum>
+              </type>
+              <default value="none"/>
+              <config value="false"/>
+              <description>
+                <text>Redundancy state of the comm port.</text>
+              </description>
+            </leaf>
+            <leaf name="mac-address">
+              <type name="yang:mac-address"/>
+              <default value="00:00:00:00:00:00"/>
+              <config value="false"/>
+              <description>
+                <text>MAC Address of the port.</text>
+              </description>
+            </leaf>
+          </container>
+          <uses name="inventory"/>
+        </list>
+        <container name="console">
+          <description>
+            <text>Parameters associated with this card's serial console port.</text>
+          </description>
+          <leaf name="baud-rate">
+            <type name="enumeration">
+              <enum name="auto-sensing">
+                <value value="5"/>
+                <description>
+                  <text>System will auto-detect the baud-rate based on 'ENTER' presses on serial console client side.
+The detected baud-rate is then locked, and shown in the 'actual-baudrate' parameter.
+Note: not all cards support auto-sensing capability.</text>
+                </description>
+              </enum>
+              <enum name="9600">
+                <value value="6"/>
+              </enum>
+              <enum name="19200">
+                <value value="7"/>
+              </enum>
+              <enum name="38400">
+                <value value="8"/>
+              </enum>
+              <enum name="57600">
+                <value value="11"/>
+              </enum>
+              <enum name="115200">
+                <value value="12"/>
+              </enum>
+            </type>
+            <description>
+              <text>The configured baud-rate for this card's console port.
+Default value is card type specific.</text>
+            </description>
+          </leaf>
+          <leaf name="actual-baud-rate">
+            <type name="console-baud-rate"/>
+            <config value="false"/>
+            <description>
+              <text>The actual baud-rate for this card's console port.
+If auto-sensing is enabled, this will reveal the detected baud-rate.
+If a fixed baud-rate is configured, this will match the configured baud-rate.</text>
+            </description>
+          </leaf>
+          <leaf name="auto-sensing-state">
+            <when condition="../baud-rate = 'auto-sensing'"/>
+            <type name="enumeration">
+              <enum name="sensing">
+                <value value="1"/>
+                <description>
+                  <text>Represents that the auto-sensing algorithm is active, waiting for 'ENTER' presses
+on serial console client side.</text>
+                </description>
+              </enum>
+              <enum name="locked">
+                <value value="2"/>
+                <description>
+                  <text>Auto-sensing algorithm already discovered the port's baud-rate (visible in the actual-baud-rate parameter),
+and has locked that value. No further auto-sensing is performed until baud-rate is reconfigured or card reboots.</text>
+                </description>
+              </enum>
+            </type>
+            <default value="sensing"/>
+            <config value="false"/>
+            <description>
+              <text>Current state of the auto-sensing mechanism.
+Only visible if auto-sensing is enabled for this port.</text>
+            </description>
+          </leaf>
+          <leaf name="local-switch">
+            <type name="enumeration">
+              <enum name="use-global-switch">
+                <value value="6"/>
+                <description>
+                  <text>Console switch is using the global switch configuration.</text>
+                </description>
+              </enum>
+              <enum name="force-enable">
+                <value value="7"/>
+                <description>
+                  <text>Console switch is enabled.</text>
+                </description>
+              </enum>
+              <enum name="force-disable">
+                <value value="8"/>
+                <description>
+                  <text>Console switch is disabled.</text>
+                </description>
+              </enum>
+            </type>
+            <default value="use-global-switch"/>
+            <description>
+              <text>Defines the global access to all card's console port. Access can be overridden per console port at the card level.</text>
+            </description>
+          </leaf>
+          <leaf name="status">
+            <type name="ioa-common:enable-switch"/>
+            <default value="enabled"/>
+            <config value="false"/>
+            <description>
+              <text>Current status of the console for this card.</text>
+            </description>
+          </leaf>
+        </container>
+        <uses name="ioa-opt:optical-card-parameters"/>
+      </list>
+      <container name="leds">
+        <config value="false"/>
+        <description>
+          <text>Container of all equipment LEDs.</text>
+        </description>
+        <list name="led">
+          <key value="location name"/>
+          <description>
+            <text>Representation of a LED in a FRU.
+Object exists even if FRU is not physically present.</text>
+          </description>
+          <leaf name="location">
+            <type name="string">
+              <length value="1..32"/>
+            </type>
+            <description>
+              <text>AID of equipment location of the LED (may be a chassis, card or a port AID).</text>
+            </description>
+          </leaf>
+          <leaf name="name">
+            <type name="string">
+              <length value="1..16"/>
+            </type>
+            <description>
+              <text>Name of the LED within the FRU.</text>
+            </description>
+          </leaf>
+          <leaf name="status">
+            <type name="enumeration">
+              <enum name="not-available">
+                <value value="0"/>
+                <description>
+                  <text>LED status not available.</text>
+                </description>
+              </enum>
+              <enum name="off">
+                <value value="1"/>
+                <description>
+                  <text>LED is turned off and has no color.</text>
+                </description>
+              </enum>
+              <enum name="yellow">
+                <value value="2"/>
+                <description>
+                  <text>LED is turned on with yellow color.</text>
+                </description>
+              </enum>
+              <enum name="flashing-yellow">
+                <value value="3"/>
+                <description>
+                  <text>LED is flashing, alternating between off and yellow color.</text>
+                </description>
+              </enum>
+              <enum name="green">
+                <value value="4"/>
+                <description>
+                  <text>LED is turned on with green color.</text>
+                </description>
+              </enum>
+              <enum name="flashing-green">
+                <value value="5"/>
+                <description>
+                  <text>LED is flashing, alternating between off and green color.</text>
+                </description>
+              </enum>
+              <enum name="red">
+                <value value="6"/>
+                <description>
+                  <text>LED is turned on with red color.</text>
+                </description>
+              </enum>
+              <enum name="flashing-red">
+                <value value="7"/>
+                <description>
+                  <text>LED is flashing, alternating between off and red color.</text>
+                </description>
+              </enum>
+              <enum name="cycling-with-off">
+                <value value="8"/>
+                <description>
+                  <text>LED is cycling between all supported colors, including off state.</text>
+                </description>
+              </enum>
+              <enum name="cycling">
+                <value value="9"/>
+                <description>
+                  <text>LED is cycling between all supported colors (excluding off state) - used for lamp test.</text>
+                </description>
+              </enum>
+              <enum name="amber">
+                <value value="10"/>
+                <description>
+                  <text>LED is turned on with amber color.</text>
+                </description>
+              </enum>
+              <enum name="flashing-amber">
+                <value value="11"/>
+                <description>
+                  <text>LED is flashing, alternating between off and amber color.</text>
+                </description>
+              </enum>
+            </type>
+            <default value="not-available"/>
+            <description>
+              <text>Current color status of the LED.</text>
+            </description>
+          </leaf>
+        </list>
+      </container>
+      <container name="equipment-policies">
+        <description>
+          <text>Container with all existing equipment policies.</text>
+        </description>
+        <leaf name="tom-auto-migration">
+          <type name="ioa-common:enable-switch"/>
+          <default value="enabled"/>
+          <description>
+            <text>Enables automatic update of tom subtype based on present equipment.
+This update may have direct impact on existing configurations.
+Note: this has impact on tom subtype migration, but not for tom type migration (e.g. no update between QSFPDD and QSFP28).</text>
+          </description>
+        </leaf>
+        <leaf name="chassis-assignment-mode">
+          <type name="enumeration">
+            <enum name="manual">
+              <value value="1"/>
+              <description>
+                <text>Manual mode where sub-chassis ID is assigned either via user configuration or ZTP mechanism.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="manual"/>
+          <description>
+            <text>Determine if the chassis id assignment is done manually or automatically.</text>
+          </description>
+        </leaf>
+        <leaf name="comm-eth-location">
+          <type name="enumeration">
+            <enum name="prefer-dcn-in-front">
+              <value value="1"/>
+              <description>
+                <text>The DCN port is at the front of the chassis.  Depending on the chassis type, may imply that the CRAFT port is at the back.</text>
+              </description>
+            </enum>
+            <enum name="prefer-dcn-in-back">
+              <value value="2"/>
+              <description>
+                <text>The DCN port is at the back of the chassis.  If the chassis supports this option, implies that the CRAFT port is at the front.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="prefer-dcn-in-front"/>
+          <description>
+            <text>Physical location of the communication ethernet ports.</text>
+          </description>
+        </leaf>
+        <container name="equipment-templates">
+          <description>
+            <text>Container for templates associated with equipment.</text>
+          </description>
+          <leaf name="use-serdes-templates">
+            <type name="boolean"/>
+            <default value="false"/>
+            <description>
+              <text>Whether serdes-templates are globally enabled or not. See description of 'serdes-template' list for details.
+On enabling: templates are not automatically applies; they'll be applied from that moment onward.
+On disabling: no impact; existing serdes configuration is kept on all TOMs, independently on whether they were applied via template or manually.</text>
+            </description>
+          </leaf>
+          <list name="serdes-template">
+            <key value="tom-part-number"/>
+            <description>
+              <text>A template that allows to auto-configure serdes for 3rd party TOMs.
+serdes-templates are created by the user per tom-part-number and apply to all line cards that support serdes;
+when a TOM is plugged-in with that part-number, the template will be automatically applied.
+User can narrow down the list of ports to which the template applies, but by default all ports are considered.
+Manual configuration of serdes can still be done, and will be kept even if it deviates from the template.
+Switching a TOM with another TOM with a different part-number will imply a reset of the
+serdes configuration, and re-apply of the new template (if existing).
+Application of serdes-templates is dependent on the use-serdes-templates flag being set to 'true'.
+User can force the re-application of a serdes-template by using the 'apply-template' command.</text>
+            </description>
+            <leaf name="tom-part-number">
+              <type name="string">
+                <length value="1..16"/>
+              </type>
+              <description>
+                <text>The TOM part-number to which this template applies.</text>
+              </description>
+            </leaf>
+            <leaf-list name="ports-applicable">
+              <type name="string">
+                <length value="0..16"/>
+              </type>
+              <max-elements value="20"/>
+              <description>
+                <text>The list of ports to which this template is applicable, or 'all' if all ports are to be considered (default).</text>
+              </description>
+            </leaf-list>
+            <list name="serdes-template-entry">
+              <key value="name"/>
+              <description>
+                <text>An individual entry to the serdes-template, composed
+of a serdes parameter name and associated value.</text>
+              </description>
+              <leaf name="name">
+                <type name="string">
+                  <length value="0..256"/>
+                </type>
+                <description>
+                  <text>Name of the serdes parameter.</text>
+                </description>
+              </leaf>
+              <leaf name="value">
+                <type name="string">
+                  <length value="0..256"/>
+                </type>
+                <mandatory value="true"/>
+                <description>
+                  <text>Value of the serdes parameter.</text>
+                </description>
+              </leaf>
+            </list>
+          </list>
+        </container>
+        <list name="global-power-profile">
+          <key value="card-type"/>
+          <description>
+            <text>Allows configuration of the power profile used for all instances of a given
+card type, if that card supports power-profiles.
+Alternatively, the global-power-profile can be disabled, which means each card
+instance will have its own power profile individually configurable.
+Changing the global-power-profile will have impact on both existing card instances,
+as well as newly created card instances.
+Power profiles are a way to categorize the power estimation for the system.</text>
+          </description>
+          <leaf name="card-type">
+            <type name="identityref">
+              <base name="ioa-common:card"/>
+            </type>
+            <description>
+              <text>The card-type associated with this global-power-profile configuration.</text>
+            </description>
+          </leaf>
+          <leaf name="enabled">
+            <type name="boolean"/>
+            <default value="false"/>
+            <description>
+              <text>Whether this global-power-profile is enabled.
+If enabled, both existing and newly created instances of card-type will have its power-profile set to
+the selected global value.
+If disabled, each card instance has the ability to configure its own power-profile.
+The enabling of the global profile is only allowed if all chassis have enough available-power.</text>
+            </description>
+          </leaf>
+          <leaf name="profile-name">
+            <type name="string">
+              <length value="0..16"/>
+            </type>
+            <description>
+              <text>Globally used profile-name for this card-type, if enabled.
+Needs to match an existing supported-power-profile name for this card.
+Attribute has no impact if global profile is not enabled.
+The changing of the global profile is only allowed if all chassis have enough available-power.</text>
+            </description>
+          </leaf>
+        </list>
+      </container>
+      <list name="unprovisioned-inventory">
+        <key value="chassis-serial-number slot-name"/>
+        <config value="false"/>
+        <description>
+          <text>List of detected inventory but not yet accepted by the Node Controller in Multi-Chassis configuration.</text>
+        </description>
+        <leaf name="chassis-serial-number">
+          <type name="string">
+            <length value="0..16"/>
+          </type>
+          <description>
+            <text>The residing chassis serial number.</text>
+          </description>
+        </leaf>
+        <leaf name="slot-name">
+          <type name="string">
+            <length value="0..16"/>
+          </type>
+          <description>
+            <text>The residing slot name for the equipment. If the equipment is the chassis, the slot-name is empty</text>
+          </description>
+        </leaf>
+        <uses name="inventory-core"/>
+        <leaf name="detection-timestamp">
+          <type name="yang:date-and-time"/>
+          <description>
+            <text>Timestamp with the last time the unprovisioned equipment was detected by the Node Controller.</text>
+          </description>
+        </leaf>
+      </list>
+    </container>
+  </grouping>
+</module>

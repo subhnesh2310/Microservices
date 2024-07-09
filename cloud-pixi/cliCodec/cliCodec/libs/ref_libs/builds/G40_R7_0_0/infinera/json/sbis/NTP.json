@@ -1,0 +1,256 @@
+{
+    "ne": {
+        "system": {
+            "ntp": {
+                "ntp-key": [
+                    {
+                        "key-id": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "NTP Key-ID.",
+                            "key": true,
+                            "mandatory": false,
+                            "config": true,
+                            "default": 0,
+                            "hardcode": false
+                        },
+                        "namespace": null,
+                        "key-type": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "sha-1",
+                                    "aes-cmac",
+                                    "sha-256",
+                                    "md5"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Hash algorithm for NTP message digest computation",
+                            "mandatory": true,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "key-value": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "NTP Key-value.",
+                            "mandatory": true,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "is-trusted": {
+                            "type": {
+                                "ptype": "bool"
+                            },
+                            "isList": false,
+                            "description": "Is trusted NTP key.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": false,
+                            "hardcode": false,
+                            "namespace": null
+                        }
+                    }
+                ],
+                "ntp-server": [
+                    {
+                        "ip-address": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "NTP Server IP address. Ipv4/Ipv6/hostname supported.",
+                            "key": true,
+                            "mandatory": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false
+                        },
+                        "namespace": null,
+                        "origin": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "manual",
+                                    "dhcp"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "NTP address assignment method, user can convert\nDHCP configured NTP entry into a manual configured by changing this attribute.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "auth-key-id": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Key ID to be used for this server.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "not-applicable",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "label": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "User label.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "admin-state": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "lock",
+                                    "unlock",
+                                    "maintenance"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "The administrative state of the managed object.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "unlock",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "avail-state": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Availability state of an entity.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "oper-state": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "enabled",
+                                    "disabled"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "The operational state of this object.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "disabled",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "alarm-report-control": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "allowed",
+                                    "inhibited"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Controls the reporting of alarms for this particular object.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "allowed",
+                            "hardcode": false,
+                            "namespace": null
+                        }
+                    }
+                ],
+                "ntp-enabled": {
+                    "type": {
+                        "ptype": "bool"
+                    },
+                    "isList": false,
+                    "description": "Whether ntp is enabled.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": true,
+                    "default": true,
+                    "hardcode": false,
+                    "namespace": null
+                },
+                "ntp-auth-enabled": {
+                    "type": {
+                        "ptype": "bool"
+                    },
+                    "isList": false,
+                    "description": "Whether NTP authentication is enabled.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": true,
+                    "default": false,
+                    "hardcode": false,
+                    "namespace": null
+                },
+                "ntp-active-server": {
+                    "type": {
+                        "ptype": "str"
+                    },
+                    "isList": false,
+                    "description": "Currently active NTP server.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": false,
+                    "default": "",
+                    "hardcode": false,
+                    "namespace": null
+                },
+                "assignment-method": {
+                    "type": {
+                        "ptype": "str",
+                        "values": [
+                            "both",
+                            "manual",
+                            "dhcp"
+                        ]
+                    },
+                    "isList": false,
+                    "description": "The system would contain manual and dhcp configured values.\nSystem can use those onfigurations/values defined by assignment-method attributes.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": true,
+                    "default": "both",
+                    "hardcode": false,
+                    "namespace": null
+                }
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

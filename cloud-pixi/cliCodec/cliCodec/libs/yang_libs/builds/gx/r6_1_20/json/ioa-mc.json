@@ -1,0 +1,156 @@
+{
+    "module": {
+        "@name": "ioa-mc",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-mc": "http://infinera.com/yang/ioa/mc",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-l0": "http://infinera.com/yang/ioa/l0",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/mc"
+        },
+        "prefix": {
+            "@value": "ioa-mc"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-l0",
+                "prefix": {
+                    "@value": "ioa-l0"
+                }
+            },
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG definitions for Media Channel (MC) facilities."
+        },
+        "revision": {
+            "@date": "2022-10-31",
+            "description": {
+                "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+            }
+        },
+        "grouping": [
+            {
+                "@name": "mc",
+                "description": {
+                    "text": "A re-usable grouping that formulates the basic MC facility structure."
+                },
+                "list": {
+                    "@name": "mc",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "ordered-by": {
+                        "@value": "system"
+                    },
+                    "description": {
+                        "text": "MC: Media Channel.\nA media association that represents both the topology (i.e., the path throughthe media) and the resource (i.e., frequency slot or effective frequency slot) that it occupies.\nIn IOA, the frequency-slot is provided by the lower and upper-frequency."
+                    },
+                    "reference": {
+                        "text": "ITU-T G.807, section 3.2.2"
+                    },
+                    "uses": {
+                        "@name": "mc-top"
+                    },
+                    "leaf": [
+                        {
+                            "@name": "parent-oms",
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "../../oms/name"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Parent Media Channel. Only set by creation.\nThe referenced supporting-card must be part of a Degree (cannot be in an ADG)."
+                            }
+                        },
+                        {
+                            "@name": "center-frequency",
+                            "type": {
+                                "@name": "ioa-l0:frequency-MHz"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Center Frequency of the MC, determined by the SYSTEM."
+                            }
+                        },
+                        {
+                            "@name": "lower-frequency",
+                            "type": {
+                                "@name": "ioa-l0:frequency-MHz"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Lower Frequency of a Media Channel."
+                            }
+                        },
+                        {
+                            "@name": "upper-frequency",
+                            "type": {
+                                "@name": "ioa-l0:frequency-MHz"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Upper Frequency of a Media Channel."
+                            }
+                        },
+                        {
+                            "@name": "slot-width",
+                            "type": {
+                                "@name": "ioa-l0:frequency-MHz"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Slot width, as calculated by the system, from upper-frequency - lower-frequency."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "mc-top",
+                "description": {
+                    "text": "Re-usable grouping for NMC, common attributes."
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-fac-common:facilities-common-attributes"
+                    },
+                    {
+                        "@name": "ioa-common:arc"
+                    }
+                ]
+            }
+        ]
+    }
+}

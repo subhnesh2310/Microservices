@@ -1,0 +1,418 @@
+{
+    "module": {
+        "@name": "ioa-transfer",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-transfer": "http://infinera.com/yang/ioa/transfer",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/transfer"
+        },
+        "prefix": {
+            "@value": "ioa-transfer"
+        },
+        "import": [
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG model associated File Transfer status."
+        },
+        "revision": [
+            {
+                "@date": "2023-03-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.1"
+                }
+            },
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "typedef": {
+            "@name": "fts-filetype",
+            "type": {
+                "@name": "enumeration",
+                "enum": [
+                    {
+                        "@name": "database",
+                        "value": {
+                            "@value": "1"
+                        },
+                        "description": {
+                            "text": "Database"
+                        }
+                    },
+                    {
+                        "@name": "swimage",
+                        "value": {
+                            "@value": "2"
+                        },
+                        "description": {
+                            "text": "SW Image"
+                        }
+                    },
+                    {
+                        "@name": "krp",
+                        "value": {
+                            "@value": "3"
+                        },
+                        "description": {
+                            "text": "Key replacement package (KRP)"
+                        }
+                    },
+                    {
+                        "@name": "script",
+                        "value": {
+                            "@value": "5"
+                        },
+                        "description": {
+                            "text": "Scripts to download from the remote Server"
+                        }
+                    },
+                    {
+                        "@name": "debug-log",
+                        "value": {
+                            "@value": "6"
+                        },
+                        "description": {
+                            "text": "Debug Logs"
+                        }
+                    },
+                    {
+                        "@name": "pm-logs",
+                        "value": {
+                            "@value": "7"
+                        },
+                        "description": {
+                            "text": "PM Logs"
+                        }
+                    },
+                    {
+                        "@name": "local-certificate",
+                        "value": {
+                            "@value": "8"
+                        },
+                        "description": {
+                            "text": "Either an x509 certificate in PKCS#12 format (with password-protected private key) or PKCS#7 format."
+                        }
+                    },
+                    {
+                        "@name": "trusted-certificate",
+                        "value": {
+                            "@value": "9"
+                        },
+                        "description": {
+                            "text": "x509v3 PKCS#7 trusted certificate, either Root or Intermediate CA"
+                        }
+                    },
+                    {
+                        "@name": "fdr-log",
+                        "value": {
+                            "@value": "10"
+                        },
+                        "description": {
+                            "text": "Flight Data Recorder(FDR) Logs"
+                        }
+                    },
+                    {
+                        "@name": "logs",
+                        "value": {
+                            "@value": "11"
+                        },
+                        "description": {
+                            "text": "Specific logs"
+                        }
+                    },
+                    {
+                        "@name": "file",
+                        "value": {
+                            "@value": "12"
+                        },
+                        "description": {
+                            "text": "Generic file"
+                        }
+                    },
+                    {
+                        "@name": "peer-certificate",
+                        "value": {
+                            "@value": "13"
+                        },
+                        "description": {
+                            "text": "An x509v3 certificate in PKCS#12 format (with password-protected private key)"
+                        }
+                    },
+                    {
+                        "@name": "crl",
+                        "value": {
+                            "@value": "14"
+                        },
+                        "description": {
+                            "text": "Certificate Revocation List (CRL) in PEM format"
+                        }
+                    }
+                ]
+            },
+            "description": {
+                "text": "Global list of file-types supported in the system for both upload and download.\nNote that not all file-types support both upload and download operations, some support only one of them."
+            }
+        },
+        "grouping": [
+            {
+                "@name": "transfer",
+                "container": {
+                    "@name": "transfer",
+                    "description": {
+                        "text": "Information associated with file transfer."
+                    },
+                    "leaf-list": {
+                        "@name": "debug-log-optional-content",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..64"
+                            }
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "List of keywords associated with optional content to be selected for debug-log upload."
+                        }
+                    },
+                    "leaf": {
+                        "@name": "http-proxy",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..1024"
+                            },
+                            "pattern": {
+                                "@value": "((http://)?([^\\s/$.?#][^\\s/]*))?"
+                            }
+                        },
+                        "description": {
+                            "text": "Proxy server for internally-generated HTTP requests leaving the NE.\nThis includes certificate revocation-related requests, i.e.: CRL downloads and OCSP requests.\nThe format is '[http://]<host>[:<port>]' where\n    - 'http://' is optional,\n    - '<host>' may be the IPv4 address, IPv6 address, or DNS name of the proxy server,\n    - '<port>' is optional\nIf <port> is omitted, the default is 1080.\nNote: This proxy is not used for file transfers."
+                        }
+                    },
+                    "list": {
+                        "@name": "transfer-status",
+                        "key": {
+                            "@value": "filetype operation"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Status of the last operation for this filetype.\nThis object will only exist if at least one of the operation of that kind was done for that filetype."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "filetype",
+                                "type": {
+                                    "@name": "fts-filetype"
+                                },
+                                "description": {
+                                    "text": "File transfer status per filetype."
+                                }
+                            },
+                            {
+                                "@name": "operation",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "upload",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "last operation upload."
+                                            }
+                                        },
+                                        {
+                                            "@name": "download",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "last operation download."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "description": {
+                                    "text": "Last transfer operation."
+                                }
+                            },
+                            {
+                                "@name": "last-completion-status",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..128"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Success indicates a successful operation."
+                                }
+                            },
+                            {
+                                "@name": "last-transfer",
+                                "type": {
+                                    "@name": "yang:date-and-time"
+                                },
+                                "description": {
+                                    "text": "Last transfer Start Timestamp."
+                                }
+                            },
+                            {
+                                "@name": "last-duration",
+                                "type": {
+                                    "@name": "ioa-common:time-interval"
+                                },
+                                "description": {
+                                    "text": "Last transfer duration."
+                                }
+                            },
+                            {
+                                "@name": "transfer-type",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "sync",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "last transfer type sync."
+                                            }
+                                        },
+                                        {
+                                            "@name": "async",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "last transfer type async"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "description": {
+                                    "text": "Last transfer type."
+                                }
+                            },
+                            {
+                                "@name": "session-id",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..100"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Last transfer session-id."
+                                }
+                            },
+                            {
+                                "@name": "session-user-name",
+                                "type": {
+                                    "@name": "ioa-common:user-name"
+                                },
+                                "description": {
+                                    "text": "Last transfer session-user-name."
+                                }
+                            },
+                            {
+                                "@name": "filename",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..100"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Last transferred file URL."
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "@name": "fdr",
+                "container": {
+                    "@name": "fdr",
+                    "description": {
+                        "text": "Flight Data Recorder(FDR)"
+                    },
+                    "leaf": {
+                        "@name": "streaming-mode",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "disabled",
+                                    "value": {
+                                        "@value": "0"
+                                    }
+                                },
+                                {
+                                    "@name": "enabled",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "disabled"
+                        },
+                        "description": {
+                            "text": "Allows live streaming of FDR information when Enabled"
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

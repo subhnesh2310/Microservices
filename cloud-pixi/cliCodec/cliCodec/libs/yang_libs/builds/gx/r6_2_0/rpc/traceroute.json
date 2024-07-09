@@ -1,0 +1,55 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "tr-hopcnt": {
+            "type": {
+                "ptype": "int"
+            },
+            "isList": false,
+            "description": "Specifies the maximum number of hops (max time-to-live value) traceroute will probe. The default is 10.",
+            "mandatory": false
+        },
+        "tr-timeout": {
+            "type": {
+                "ptype": "int"
+            },
+            "isList": false,
+            "description": "Specify the timeout, in seconds, before trace route exits.",
+            "mandatory": false
+        },
+        "tr-dest": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "IPv4/v6 address or FQDN of the destination node.",
+            "mandatory": true
+        },
+        "tr-pktsize": {
+            "type": {
+                "ptype": "int"
+            },
+            "isList": false,
+            "description": "Specifies the total  size  of  the  probing packet (default 60 bytes for IPv4).",
+            "mandatory": false
+        },
+        "tr-interface": {
+            "type": {
+                "ptype": "unknown",
+                "leafref": "/ioa-ne:ne/ioa-ne:system/ioa-ne:networking/ioa-ne:interface/ioa-ne:if-name"
+            },
+            "isList": false,
+            "description": "Specify source interface name",
+            "mandatory": false
+        },
+        "tr-vrf": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "VRF to use. If not provided, defaults to MGMT.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

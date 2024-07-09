@@ -1,0 +1,170 @@
+{
+    "module": {
+        "@name": "ioa-fc",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-fc": "http://infinera.com/yang/ioa/fc",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/fc"
+        },
+        "prefix": {
+            "@value": "ioa-fc"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG definitions for Fiber Channel facilities in a typical Layer 1 optical transponder."
+        },
+        "revision": {
+            "@date": "2022-10-31",
+            "description": {
+                "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+            }
+        },
+        "grouping": {
+            "@name": "fc",
+            "list": {
+                "@name": "fc",
+                "key": {
+                    "@value": "name"
+                },
+                "description": {
+                    "text": "FC facility."
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-fac-common:facilities-common-attributes"
+                    },
+                    {
+                        "@name": "ioa-common:arc"
+                    },
+                    {
+                        "@name": "ioa-fac-common:loopback"
+                    },
+                    {
+                        "@name": "ioa-fac-common:loopback-mode"
+                    },
+                    {
+                        "@name": "ioa-fac-common:test-signal"
+                    },
+                    {
+                        "@name": "ioa-common:circuit-id"
+                    }
+                ],
+                "leaf": [
+                    {
+                        "@name": "fc-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "FC1G",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "FC4G",
+                                    "value": {
+                                        "@value": "2"
+                                    }
+                                }
+                            ]
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The type of fc signal."
+                        }
+                    },
+                    {
+                        "@name": "service-mode",
+                        "type": {
+                            "@name": "ioa-fac-common:service-mode"
+                        },
+                        "default": {
+                            "@value": "transport"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Service mode for the fc facility."
+                        }
+                    },
+                    {
+                        "@name": "service-mode-qualifier",
+                        "type": {
+                            "@name": "ioa-fac-common:service-mode-qualifier"
+                        },
+                        "default": {
+                            "@value": "none"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Service mode qualifier for the fc facility."
+                        }
+                    },
+                    {
+                        "@name": "speed",
+                        "type": {
+                            "@name": "decimal64",
+                            "fraction-digits": {
+                                "@value": "3"
+                            }
+                        },
+                        "units": {
+                            "@name": "Gbit/s"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The speed/rate of the fc client interfaces."
+                        }
+                    },
+                    {
+                        "@name": "tx-mapping-mode",
+                        "type": {
+                            "@name": "ioa-fac-common:mapping-mode"
+                        },
+                        "description": {
+                            "text": "The tx mapping mode of client port. The possible values are dependent on the HW and configuration."
+                        }
+                    },
+                    {
+                        "@name": "expected-mapping-mode",
+                        "type": {
+                            "@name": "ioa-fac-common:mapping-mode"
+                        },
+                        "description": {
+                            "text": "The expected mapping mode of client port. The possible values are dependent on the HW and configuration."
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

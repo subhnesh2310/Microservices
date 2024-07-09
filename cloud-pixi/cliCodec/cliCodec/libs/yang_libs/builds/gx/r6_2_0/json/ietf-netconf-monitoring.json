@@ -1,0 +1,670 @@
+{
+    "module": {
+        "@name": "ietf-netconf-monitoring",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ncm": "urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "namespace": {
+            "@uri": "urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring"
+        },
+        "prefix": {
+            "@value": "ncm"
+        },
+        "import": [
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            },
+            {
+                "@module": "ietf-inet-types",
+                "prefix": {
+                    "@value": "inet"
+                }
+            }
+        ],
+        "organization": {
+            "text": "IETF NETCONF (Network Configuration) Working Group"
+        },
+        "contact": {
+            "text": "WG Web:   <http://tools.ietf.org/wg/netconf/>\nWG List:  <mailto:netconf@ietf.org>\n\nWG Chair: Mehmet Ersue\n     <mailto:mehmet.ersue@nsn.com>\n\nWG Chair: Bert Wijnen\n     <mailto:bertietf@bwijnen.net>\n\nEditor:   Mark Scott\n     <mailto:mark.scott@ericsson.com>\n\nEditor:   Martin Bjorklund\n     <mailto:mbj@tail-f.com>"
+        },
+        "description": {
+            "text": "NETCONF Monitoring Module.\nAll elements in this module are read-only.\n\nCopyright (c) 2010 IETF Trust and the persons identified as\nauthors of the code. All rights reserved.\n\nRedistribution and use in source and binary forms, with or\nwithout modification, is permitted pursuant to, and subject\nto the license terms contained in, the Simplified BSD\nLicense set forth in Section 4.c of the IETF Trust's\nLegal Provisions Relating to IETF Documents\n(http://trustee.ietf.org/license-info).\n\nThis version of this YANG module is part of RFC 6022; see\nthe RFC itself for full legal notices."
+        },
+        "revision": {
+            "@date": "2010-10-04",
+            "description": {
+                "text": "Initial revision."
+            },
+            "reference": {
+                "text": "RFC 6022: YANG Module for NETCONF Monitoring"
+            }
+        },
+        "typedef": {
+            "@name": "netconf-datastore-type",
+            "type": {
+                "@name": "enumeration",
+                "enum": [
+                    {
+                        "@name": "running"
+                    },
+                    {
+                        "@name": "candidate"
+                    },
+                    {
+                        "@name": "startup"
+                    }
+                ]
+            },
+            "description": {
+                "text": "Enumeration of possible NETCONF datastore types."
+            },
+            "reference": {
+                "text": "RFC 4741: NETCONF Configuration Protocol"
+            }
+        },
+        "identity": [
+            {
+                "@name": "transport",
+                "description": {
+                    "text": "Base identity for NETCONF transport types."
+                }
+            },
+            {
+                "@name": "netconf-ssh",
+                "base": {
+                    "@name": "transport"
+                },
+                "description": {
+                    "text": "NETCONF over Secure Shell (SSH)."
+                },
+                "reference": {
+                    "text": "RFC 4742: Using the NETCONF Configuration Protocol\n   over Secure SHell (SSH)"
+                }
+            },
+            {
+                "@name": "netconf-soap-over-beep",
+                "base": {
+                    "@name": "transport"
+                },
+                "description": {
+                    "text": "NETCONF over Simple Object Access Protocol (SOAP) over\nBlocks Extensible Exchange Protocol (BEEP)."
+                },
+                "reference": {
+                    "text": "RFC 4743: Using NETCONF over the Simple Object\n   Access Protocol (SOAP)"
+                }
+            },
+            {
+                "@name": "netconf-soap-over-https",
+                "base": {
+                    "@name": "transport"
+                },
+                "description": {
+                    "text": "NETCONF over Simple Object Access Protocol (SOAP)\nover Hypertext Transfer Protocol Secure (HTTPS)."
+                },
+                "reference": {
+                    "text": "RFC 4743: Using NETCONF over the Simple Object\n   Access Protocol (SOAP)"
+                }
+            },
+            {
+                "@name": "netconf-beep",
+                "base": {
+                    "@name": "transport"
+                },
+                "description": {
+                    "text": "NETCONF over Blocks Extensible Exchange Protocol (BEEP)."
+                },
+                "reference": {
+                    "text": "RFC 4744: Using the NETCONF Protocol over the\n   Blocks Extensible Exchange Protocol (BEEP)"
+                }
+            },
+            {
+                "@name": "netconf-tls",
+                "base": {
+                    "@name": "transport"
+                },
+                "description": {
+                    "text": "NETCONF over Transport Layer Security (TLS)."
+                },
+                "reference": {
+                    "text": "RFC 5539: NETCONF over Transport Layer Security (TLS)"
+                }
+            },
+            {
+                "@name": "schema-format",
+                "description": {
+                    "text": "Base identity for data model schema languages."
+                }
+            },
+            {
+                "@name": "xsd",
+                "base": {
+                    "@name": "schema-format"
+                },
+                "description": {
+                    "text": "W3C XML Schema Definition."
+                },
+                "reference": {
+                    "text": "W3C REC REC-xmlschema-1-20041028:\nXML Schema Part 1: Structures"
+                }
+            },
+            {
+                "@name": "yang",
+                "base": {
+                    "@name": "schema-format"
+                },
+                "description": {
+                    "text": "The YANG data modeling language for NETCONF."
+                },
+                "reference": {
+                    "text": "RFC 6020:  YANG - A Data Modeling Language for the\n    Network Configuration Protocol (NETCONF)"
+                }
+            },
+            {
+                "@name": "yin",
+                "base": {
+                    "@name": "schema-format"
+                },
+                "description": {
+                    "text": "The YIN syntax for YANG."
+                },
+                "reference": {
+                    "text": "RFC 6020:  YANG - A Data Modeling Language for the\n    Network Configuration Protocol (NETCONF)"
+                }
+            },
+            {
+                "@name": "rng",
+                "base": {
+                    "@name": "schema-format"
+                },
+                "description": {
+                    "text": "Regular Language for XML Next Generation (RELAX NG)."
+                },
+                "reference": {
+                    "text": "ISO/IEC 19757-2:2008: RELAX NG"
+                }
+            },
+            {
+                "@name": "rnc",
+                "base": {
+                    "@name": "schema-format"
+                },
+                "description": {
+                    "text": "Relax NG Compact Syntax"
+                },
+                "reference": {
+                    "text": "ISO/IEC 19757-2:2008: RELAX NG"
+                }
+            }
+        ],
+        "grouping": {
+            "@name": "common-counters",
+            "description": {
+                "text": "Counters that exist both per session, and also globally,\naccumulated from all sessions."
+            },
+            "leaf": [
+                {
+                    "@name": "in-rpcs",
+                    "type": {
+                        "@name": "yang:zero-based-counter32"
+                    },
+                    "description": {
+                        "text": "Number of correct <rpc> messages received."
+                    }
+                },
+                {
+                    "@name": "in-bad-rpcs",
+                    "type": {
+                        "@name": "yang:zero-based-counter32"
+                    },
+                    "description": {
+                        "text": "Number of messages received when an <rpc> message was expected,\nthat were not correct <rpc> messages.  This includes XML parse\nerrors and errors on the rpc layer."
+                    }
+                },
+                {
+                    "@name": "out-rpc-errors",
+                    "type": {
+                        "@name": "yang:zero-based-counter32"
+                    },
+                    "description": {
+                        "text": "Number of <rpc-reply> messages sent that contained an\n<rpc-error> element."
+                    }
+                },
+                {
+                    "@name": "out-notifications",
+                    "type": {
+                        "@name": "yang:zero-based-counter32"
+                    },
+                    "description": {
+                        "text": "Number of <notification> messages sent."
+                    }
+                }
+            ]
+        },
+        "container": {
+            "@name": "netconf-state",
+            "config": {
+                "@value": "false"
+            },
+            "description": {
+                "text": "The netconf-state container is the root of the monitoring\ndata model."
+            },
+            "container": [
+                {
+                    "@name": "capabilities",
+                    "description": {
+                        "text": "Contains the list of NETCONF capabilities supported by the\nserver."
+                    },
+                    "leaf-list": {
+                        "@name": "capability",
+                        "type": {
+                            "@name": "inet:uri"
+                        },
+                        "description": {
+                            "text": "List of NETCONF capabilities supported by the server."
+                        }
+                    }
+                },
+                {
+                    "@name": "datastores",
+                    "description": {
+                        "text": "Contains the list of NETCONF configuration datastores."
+                    },
+                    "list": {
+                        "@name": "datastore",
+                        "key": {
+                            "@value": "name"
+                        },
+                        "description": {
+                            "text": "List of NETCONF configuration datastores supported by\nthe NETCONF server and related information."
+                        },
+                        "leaf": {
+                            "@name": "name",
+                            "type": {
+                                "@name": "netconf-datastore-type"
+                            },
+                            "description": {
+                                "text": "Name of the datastore associated with this list entry."
+                            }
+                        },
+                        "container": {
+                            "@name": "locks",
+                            "presence": {
+                                "@value": "This container is present only if the datastore\nis locked."
+                            },
+                            "description": {
+                                "text": "The NETCONF <lock> and <partial-lock> operations allow\na client to lock specific resources in a datastore.  The\nNETCONF server will prevent changes to the locked\nresources by all sessions except the one that acquired\nthe lock(s).\n\nMonitoring information is provided for each datastore\nentry including details such as the session that acquired\nthe lock, the type of lock (global or partial) and the\nlist of locked resources.  Multiple locks per datastore\nare supported."
+                            },
+                            "grouping": {
+                                "@name": "lock-info",
+                                "description": {
+                                    "text": "Lock related parameters, common to both global and\npartial locks."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "locked-by-session",
+                                        "type": {
+                                            "@name": "uint32"
+                                        },
+                                        "mandatory": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "The session ID of the session that has locked\nthis resource.  Both a global lock and a partial\nlock MUST contain the NETCONF session-id.\n\nIf the lock is held by a session that is not managed\nby the NETCONF server (e.g., a CLI session), a session\nid of 0 (zero) is reported."
+                                        },
+                                        "reference": {
+                                            "text": "RFC 4741: NETCONF Configuration Protocol"
+                                        }
+                                    },
+                                    {
+                                        "@name": "locked-time",
+                                        "type": {
+                                            "@name": "yang:date-and-time"
+                                        },
+                                        "mandatory": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "The date and time of when the resource was\nlocked."
+                                        }
+                                    }
+                                ]
+                            },
+                            "choice": {
+                                "@name": "lock-type",
+                                "description": {
+                                    "text": "Indicates if a global lock or a set of partial locks\nare set."
+                                },
+                                "container": {
+                                    "@name": "global-lock",
+                                    "description": {
+                                        "text": "Present if the global lock is set."
+                                    },
+                                    "uses": {
+                                        "@name": "lock-info"
+                                    }
+                                },
+                                "list": {
+                                    "@name": "partial-lock",
+                                    "key": {
+                                        "@value": "lock-id"
+                                    },
+                                    "description": {
+                                        "text": "List of partial locks."
+                                    },
+                                    "reference": {
+                                        "text": "RFC 5717: Partial Lock Remote Procedure Call (RPC) for\nNETCONF"
+                                    },
+                                    "leaf": {
+                                        "@name": "lock-id",
+                                        "type": {
+                                            "@name": "uint32"
+                                        },
+                                        "description": {
+                                            "text": "This is the lock id returned in the <partial-lock>\nresponse."
+                                        }
+                                    },
+                                    "uses": {
+                                        "@name": "lock-info"
+                                    },
+                                    "leaf-list": [
+                                        {
+                                            "@name": "select",
+                                            "type": {
+                                                "@name": "yang:xpath1.0"
+                                            },
+                                            "min-elements": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "The xpath expression that was used to request\nthe lock.  The select expression indicates the\noriginal intended scope of the lock."
+                                            }
+                                        },
+                                        {
+                                            "@name": "locked-node",
+                                            "type": {
+                                                "@name": "instance-identifier"
+                                            },
+                                            "description": {
+                                                "text": "The list of instance-identifiers (i.e., the\nlocked nodes).\n\nThe scope of the partial lock is defined by the list\nof locked nodes."
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "@name": "schemas",
+                    "description": {
+                        "text": "Contains the list of data model schemas supported by the\nserver."
+                    },
+                    "list": {
+                        "@name": "schema",
+                        "key": {
+                            "@value": "identifier version format"
+                        },
+                        "description": {
+                            "text": "List of data model schemas supported by the server."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "identifier",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "Identifier to uniquely reference the schema.  The\nidentifier is used in the <get-schema> operation and may\nbe used for other purposes such as file retrieval.\n\nFor modeling languages that support or require a data\nmodel name (e.g., YANG module name) the identifier MUST\nmatch that name.  For YANG data models, the identifier is\nthe name of the module or submodule.  In other cases, an\nidentifier such as a filename MAY be used instead."
+                                }
+                            },
+                            {
+                                "@name": "version",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "Version of the schema supported.  Multiple versions MAY be\nsupported simultaneously by a NETCONF server.  Each\nversion MUST be reported individually in the schema list,\ni.e., with same identifier, possibly different location,\nbut different version.\n\nFor YANG data models, version is the value of the most\nrecent YANG 'revision' statement in the module or\nsubmodule, or the empty string if no 'revision' statement\nis present."
+                                }
+                            },
+                            {
+                                "@name": "format",
+                                "type": {
+                                    "@name": "identityref",
+                                    "base": {
+                                        "@name": "schema-format"
+                                    }
+                                },
+                                "description": {
+                                    "text": "The data modeling language the schema is written\nin (currently xsd, yang, yin, rng, or rnc).\nFor YANG data models, 'yang' format MUST be supported and\n'yin' format MAY also be provided."
+                                }
+                            },
+                            {
+                                "@name": "namespace",
+                                "type": {
+                                    "@name": "inet:uri"
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "The XML namespace defined by the data model.\n\nFor YANG data models, this is the module's namespace.\nIf the list entry describes a submodule, this field\ncontains the namespace of the module to which the\nsubmodule belongs."
+                                }
+                            }
+                        ],
+                        "leaf-list": {
+                            "@name": "location",
+                            "type": {
+                                "@name": "union",
+                                "type": [
+                                    {
+                                        "@name": "enumeration",
+                                        "enum": {
+                                            "@name": "NETCONF"
+                                        }
+                                    },
+                                    {
+                                        "@name": "inet:uri"
+                                    }
+                                ]
+                            },
+                            "description": {
+                                "text": "One or more locations from which the schema can be\nretrieved.  This list SHOULD contain at least one\nentry per schema.\n\nA schema entry may be located on a remote file system\n(e.g., reference to file system for ftp retrieval) or\nretrieved directly from a server supporting the\n<get-schema> operation (denoted by the value 'NETCONF')."
+                            }
+                        }
+                    }
+                },
+                {
+                    "@name": "sessions",
+                    "description": {
+                        "text": "The sessions container includes session-specific data for\nNETCONF management sessions.  The session list MUST include\nall currently active NETCONF sessions."
+                    },
+                    "list": {
+                        "@name": "session",
+                        "key": {
+                            "@value": "session-id"
+                        },
+                        "description": {
+                            "text": "All NETCONF sessions managed by the NETCONF server\nMUST be reported in this list."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "session-id",
+                                "type": {
+                                    "@name": "uint32",
+                                    "range": {
+                                        "@value": "1..max"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Unique identifier for the session.  This value is the\nNETCONF session identifier, as defined in RFC 4741."
+                                },
+                                "reference": {
+                                    "text": "RFC 4741: NETCONF Configuration Protocol"
+                                }
+                            },
+                            {
+                                "@name": "transport",
+                                "type": {
+                                    "@name": "identityref",
+                                    "base": {
+                                        "@name": "transport"
+                                    }
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "Identifies the transport for each session, e.g.,\n'netconf-ssh', 'netconf-soap', etc."
+                                }
+                            },
+                            {
+                                "@name": "username",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "The username is the client identity that was authenticated\nby the NETCONF transport protocol.  The algorithm used to\nderive the username is NETCONF transport protocol specific\nand in addition specific to the authentication mechanism\nused by the NETCONF transport protocol."
+                                }
+                            },
+                            {
+                                "@name": "source-host",
+                                "type": {
+                                    "@name": "inet:host"
+                                },
+                                "description": {
+                                    "text": "Host identifier of the NETCONF client.  The value\nreturned is implementation specific (e.g., hostname,\nIPv4 address, IPv6 address)"
+                                }
+                            },
+                            {
+                                "@name": "login-time",
+                                "type": {
+                                    "@name": "yang:date-and-time"
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "Time at the server at which the session was established."
+                                }
+                            }
+                        ],
+                        "uses": {
+                            "@name": "common-counters",
+                            "description": {
+                                "text": "Per-session counters.  Zero based with following reset\nbehaviour:\n- at start of a session\n- when max value is reached"
+                            }
+                        }
+                    }
+                },
+                {
+                    "@name": "statistics",
+                    "description": {
+                        "text": "Statistical data pertaining to the NETCONF server."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "netconf-start-time",
+                            "type": {
+                                "@name": "yang:date-and-time"
+                            },
+                            "description": {
+                                "text": "Date and time at which the management subsystem was\nstarted."
+                            }
+                        },
+                        {
+                            "@name": "in-bad-hellos",
+                            "type": {
+                                "@name": "yang:zero-based-counter32"
+                            },
+                            "description": {
+                                "text": "Number of sessions silently dropped because an\ninvalid <hello> message was received.  This includes <hello>\nmessages with a 'session-id' attribute, bad namespace, and\nbad capability declarations."
+                            }
+                        },
+                        {
+                            "@name": "in-sessions",
+                            "type": {
+                                "@name": "yang:zero-based-counter32"
+                            },
+                            "description": {
+                                "text": "Number of sessions started.  This counter is incremented\nwhen a <hello> message with a <session-id> is sent.\n\n'in-sessions' - 'in-bad-hellos' =\n'number of correctly started netconf sessions'"
+                            }
+                        },
+                        {
+                            "@name": "dropped-sessions",
+                            "type": {
+                                "@name": "yang:zero-based-counter32"
+                            },
+                            "description": {
+                                "text": "Number of sessions that were abnormally terminated, e.g.,\ndue to idle timeout or transport close.  This counter is not\nincremented when a session is properly closed by a\n<close-session> operation, or killed by a <kill-session>\noperation."
+                            }
+                        }
+                    ],
+                    "uses": {
+                        "@name": "common-counters",
+                        "description": {
+                            "text": "Global counters, accumulated from all sessions.\nZero based with following reset behaviour:\n- re-initialization of NETCONF server\n- when max value is reached"
+                        }
+                    }
+                }
+            ]
+        },
+        "rpc": {
+            "@name": "get-schema",
+            "description": {
+                "text": "This operation is used to retrieve a schema from the\nNETCONF server.\n\nPositive Response:\nThe NETCONF server returns the requested schema.\n\nNegative Response:\nIf requested schema does not exist, the <error-tag> is\n'invalid-value'.\n\nIf more than one schema matches the requested parameters, the\n<error-tag> is 'operation-failed', and <error-app-tag> is\n'data-not-unique'."
+            },
+            "input": {
+                "leaf": [
+                    {
+                        "@name": "identifier",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Identifier for the schema list entry."
+                        }
+                    },
+                    {
+                        "@name": "version",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Version of the schema requested.  If this parameter is not\npresent, and more than one version of the schema exists on\nthe server, a 'data-not-unique' error is returned, as\ndescribed above."
+                        }
+                    },
+                    {
+                        "@name": "format",
+                        "type": {
+                            "@name": "identityref",
+                            "base": {
+                                "@name": "schema-format"
+                            }
+                        },
+                        "description": {
+                            "text": "The data modeling language of the schema.  If this\nparameter is not present, and more than one formats of\nthe schema exists on the server, a 'data-not-unique' error\nis returned, as described above."
+                        }
+                    }
+                ]
+            },
+            "output": {
+                "anyxml": {
+                    "@name": "data",
+                    "description": {
+                        "text": "Contains the schema content."
+                    }
+                }
+            }
+        }
+    }
+}

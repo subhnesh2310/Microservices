@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-optical-carrier"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-carrier="http://infinera.com/yang/ioa/optical-carrier"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-fac-common="http://infinera.com/yang/ioa/facilities-common"
+        xmlns:ioa-opt="http://infinera.com/yang/ioa/optical-common">
+  <namespace uri="http://infinera.com/yang/ioa/optical-carrier"/>
+  <prefix value="ioa-carrier"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-facilities-common">
+    <prefix value="ioa-fac-common"/>
+  </import>
+  <import module="ioa-optical-common">
+    <prefix value="ioa-opt"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG model describing the optical-carrier facility.</text>
+  </description>
+  <revision date="2023-03-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.1</text>
+    </description>
+  </revision>
+  <revision date="2022-06-30">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.2</text>
+    </description>
+  </revision>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-09-17">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.1</text>
+    </description>
+  </revision>
+  <grouping name="client-specific-attrs">
+    <description>
+      <text>Attributes specific to client port.</text>
+    </description>
+    <leaf name="media-interface">
+      <type name="enumeration">
+        <enum name="400ZR-CFEC-DP-16QAM">
+          <value value="1"/>
+        </enum>
+      </type>
+      <default value="400ZR-CFEC-DP-16QAM"/>
+      <description>
+        <text>Media interface type of ZR tom.</text>
+      </description>
+    </leaf>
+    <leaf name="capacity">
+      <type name="uint16"/>
+      <units name="Gbps"/>
+      <config value="false"/>
+      <description>
+        <text>The net capacity of the optical carrier.</text>
+      </description>
+    </leaf>
+    <leaf name="baud-rate">
+      <type name="decimal64">
+        <fraction-digits value="7"/>
+      </type>
+      <units name="GBaud"/>
+      <config value="false"/>
+      <description>
+        <text>The modulated symbol rate.</text>
+      </description>
+    </leaf>
+    <leaf name="grid-spacing">
+      <type name="enumeration">
+        <enum name="100">
+          <value value="1"/>
+        </enum>
+        <enum name="75">
+          <value value="2"/>
+        </enum>
+        <enum name="50">
+          <value value="3"/>
+        </enum>
+        <enum name="33">
+          <value value="4"/>
+        </enum>
+        <enum name="25">
+          <value value="5"/>
+        </enum>
+        <enum name="12.5">
+          <value value="6"/>
+        </enum>
+        <enum name="6.25">
+          <value value="7"/>
+        </enum>
+        <enum name="3.125">
+          <value value="8"/>
+        </enum>
+      </type>
+      <units name="GHz"/>
+      <default value="100"/>
+      <description>
+        <text>Fixed Grid tunability for new 3rd party TOM.</text>
+      </description>
+    </leaf>
+    <uses name="ioa-fac-common:spectral-bw"/>
+  </grouping>
+  <grouping name="line-specific-attrs">
+    <description>
+      <text>Attributes specific to line port.</text>
+    </description>
+    <leaf name="tx-cd">
+      <type name="decimal64">
+        <fraction-digits value="2"/>
+        <range value="-211000.00..211000.00"/>
+      </type>
+      <units name="ps/nm"/>
+      <default value="0.0"/>
+      <description>
+        <text>The configured transmit pre-compensation chromatic dispersion.</text>
+      </description>
+    </leaf>
+    <leaf name="dgd-high-threshold">
+      <type name="uint16">
+        <range value="180..350"/>
+      </type>
+      <units name="ps"/>
+      <default value="300"/>
+      <config value="false"/>
+      <description>
+        <text>The threshold to raise the DGD-OORH alarm.</text>
+      </description>
+    </leaf>
+    <leaf name="post-fec-q-sig-deg-threshold">
+      <type name="decimal64">
+        <fraction-digits value="1"/>
+        <range value="12.5..18.0"/>
+      </type>
+      <units name="dB"/>
+      <default value="18"/>
+      <description>
+        <text>The threshold based on which the POST-FEC-Q-SIGNAL-DEGRADE alarm is raised.</text>
+      </description>
+    </leaf>
+    <leaf name="post-fec-q-sig-deg-hysteresis">
+      <type name="decimal64">
+        <fraction-digits value="1"/>
+        <range value="0.1..3.0"/>
+      </type>
+      <units name="dB"/>
+      <default value="2.5"/>
+      <description>
+        <text>Hysteresis to account for raising of the POST-FEC-Q-SIGNAL-DEGRADE alarm.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="line-otn-attrs">
+    <description>
+      <text>Attributes specific to line otn port.</text>
+    </description>
+    <leaf name="rate">
+      <type name="ioa-common:rate"/>
+      <description>
+        <text>
+Carried signal basic rate class.
+</text>
+      </description>
+    </leaf>
+    <leaf name="modulation-format">
+      <type name="ioa-fac-common:modulation-format"/>
+      <description>
+        <text>
+Current modulation format.
+</text>
+      </description>
+    </leaf>
+    <leaf name="line-encoding">
+      <type name="enumeration">
+        <enum name="non-differential">
+          <value value="1"/>
+        </enum>
+        <enum name="differential">
+          <value value="2"/>
+        </enum>
+      </type>
+      <default value="non-differential"/>
+      <config value="false"/>
+      <description>
+        <text>
+Currently line-encoding mode.
+</text>
+      </description>
+    </leaf>
+    <leaf name="rx-frequency">
+      <type name="ioa-opt:optical-frequency-config"/>
+      <units name="MHz"/>
+      <default value="0"/>
+      <description>
+        <text>
+The rx laser frequency. Special for 0 means it is same as tx laser frequency.
+</text>
+      </description>
+    </leaf>
+    <leaf name="rx-attenuation">
+      <type name="ioa-opt:optical-power">
+        <range value="0.0..10.0"/>
+      </type>
+      <default value="0.0"/>
+      <description>
+        <text>
+This is to support configurable optical attenuation at receiver side which is based on the hardware capability on the port.
+</text>
+      </description>
+    </leaf>
+    <leaf name="tx-filter-roll-off">
+      <type name="decimal64">
+        <fraction-digits value="2"/>
+        <range value="0.01 .. 1.0"/>
+      </type>
+      <default value="0.2"/>
+      <description>
+        <text>Transmitter filter roll off factor.</text>
+      </description>
+    </leaf>
+    <leaf name="preemphasis">
+      <type name="ioa-common:enable-switch"/>
+      <default value="enabled"/>
+      <description>
+        <text>Preemphasis of transmitted signal.</text>
+      </description>
+    </leaf>
+    <leaf name="preemphasis-value">
+      <type name="decimal64">
+        <fraction-digits value="1"/>
+        <range value="0.0..3.0"/>
+      </type>
+      <default value="1.0"/>
+      <description>
+        <text>Preemphasis of transmitted signal.</text>
+      </description>
+    </leaf>
+    <leaf name="cd-range-low">
+      <type name="int32"/>
+      <units name="ps/nm"/>
+      <default value="-45000"/>
+      <description>
+        <text>Low value of chromatic dispersion search range.</text>
+      </description>
+    </leaf>
+    <leaf name="cd-range-high">
+      <type name="int32"/>
+      <units name="ps/nm"/>
+      <default value="45000"/>
+      <description>
+        <text>high value of chromatic dispersion search range.</text>
+      </description>
+    </leaf>
+    <leaf name="cd-compensation-mode">
+      <type name="enumeration">
+        <enum name="auto">
+          <value value="1"/>
+          <description>
+            <text>CD auto search by system</text>
+          </description>
+        </enum>
+        <enum name="manual">
+          <value value="2"/>
+          <description>
+            <text>CD manual setting by user</text>
+          </description>
+        </enum>
+      </type>
+      <default value="auto"/>
+      <description>
+        <text>chromatic dispersion compensation value source mode.</text>
+      </description>
+    </leaf>
+    <leaf name="cd-compensation-value">
+      <type name="int32"/>
+      <units name="ps/nm"/>
+      <description>
+        <text>manual chromatic dispersion compensation value</text>
+      </description>
+    </leaf>
+    <leaf name="fast-sop-mode">
+      <type name="ioa-common:enable-switch"/>
+      <default value="disabled"/>
+      <description>
+        <text>Specify if enable fast SOP (state of polarization) change tracking; if enabled, the interface
+   will tolerate very fast SOP and transient.</text>
+      </description>
+    </leaf>
+    <leaf name="BICHM">
+      <type name="int32">
+        <range value="0..127"/>
+      </type>
+      <default value="64"/>
+      <description>
+        <text>The BICHM (bit interleaved coded hybrid modulation) incremental step in 1/128 bits/symbol added to base modulation bits/symbol for the hybrid modes modulation-format.
+0: Base modulation format bits/symbol;
+1: 1/128 bits/symbol added to base modulation format bits/symbol;
+...
+127: 127/128 bits/symbol added to base modulation format bits/symbol</text>
+      </description>
+    </leaf>
+    <leaf name="propagate-shutdown">
+      <type name="ioa-common:enable-switch"/>
+      <default value="disabled"/>
+      <description>
+        <text>When the attribute value is set to yes, the transmit laser will
+be shutdown if the whole service of the direction has signal failure,
+the function mainly used in regeneration node to propagate signal failure as LOS.</text>
+      </description>
+    </leaf>
+    <leaf name="propagate-shutdown-holdoff-timer">
+      <type name="uint16">
+        <range value="0..2000"/>
+      </type>
+      <units name="milliseconds"/>
+      <default value="0"/>
+      <description>
+        <text>The hold off time of propagate shutdown.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="line-otn-actual-frequencies">
+    <description>
+      <text>Actual frequencies specific to line otn port.</text>
+    </description>
+    <leaf name="actual-rx-frequency">
+      <type name="ioa-opt:optical-frequency-config"/>
+      <units name="MHz"/>
+      <default value="0"/>
+      <config value="false"/>
+      <description>
+        <text>
+The actual rx laser frequency for coherent interface with separating Lo laser from Tx.
+0 means Lo and Tx share the same laser where 'frequency' attriute will indicate both Tx and Rx.
+</text>
+      </description>
+    </leaf>
+    <leaf name="actual-frequency">
+      <type name="ioa-opt:optical-frequency-config"/>
+      <units name="MHz"/>
+      <default value="0"/>
+      <config value="false"/>
+      <description>
+        <text>
+The actual laser frequency.
+If rx-frequency is 0, it reflects both Rx and Tx frequency for coherent interface.
+</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="carrier">
+    <description>
+      <text>A re-usable grouping that formulates the basic optical-carrier facility structure.</text>
+    </description>
+    <list name="optical-carrier">
+      <key value="name"/>
+      <ordered-by value="system"/>
+      <description>
+        <text>Optical carrier facility.</text>
+      </description>
+      <uses name="ioa-fac-common:facilities-common-attributes"/>
+      <uses name="ioa-common:arc"/>
+      <leaf name="frequency">
+        <type name="ioa-opt:optical-frequency-config"/>
+        <units name="MHz"/>
+        <default value="0"/>
+        <description>
+          <text>The center frequency this carrier is tuned to. Zero means 'not configured'.</text>
+        </description>
+      </leaf>
+      <leaf name="frequency-offset">
+        <type name="int16">
+          <range value="-6000..6000"/>
+        </type>
+        <units name="MHz"/>
+        <default value="0"/>
+        <description>
+          <text>A super set range for line and client side carrier, specific sub-range is depend on application. Frequency-offset can be used for bright tuning
+of the wavelengths.
+Once set, the frequency will slowly change (over 1-10s) without affecting service.</text>
+        </description>
+      </leaf>
+      <leaf name="wavelength">
+        <type name="ioa-opt:optical-wavelength"/>
+        <units name="nm"/>
+        <config value="false"/>
+        <description>
+          <text>The wavelength of the optical carrier.</text>
+        </description>
+      </leaf>
+      <leaf name="tx-power">
+        <type name="ioa-opt:optical-power"/>
+        <default value="-6.0"/>
+        <description>
+          <text>The optical carrier's transmit power into the fiber from the transponder's optics.
+NOTE: The accuracy of the Tx Power can be adjusted in steps of 0.5 dBm.</text>
+        </description>
+      </leaf>
+      <leaf name="pre-fec-q-sig-deg-threshold">
+        <type name="decimal64">
+          <fraction-digits value="2"/>
+          <range value="0|4.50..9.60"/>
+        </type>
+        <units name="dB"/>
+        <default value="6.0"/>
+        <description>
+          <text>The threshold based on which the PRE-FEC-Q-SIGNAL-DEGRADE alarm is raised.
+0 implies threshold crossing alarming disabled.
+Specific sub-range is per carrier use-case.</text>
+        </description>
+      </leaf>
+      <leaf name="pre-fec-q-sig-deg-hysteresis">
+        <type name="decimal64">
+          <fraction-digits value="1"/>
+          <range value="0.1..1.0"/>
+        </type>
+        <units name="dB"/>
+        <default value="0.5"/>
+        <description>
+          <text>Hysteresis to account for raising of the PRE-FEC-Q-SIGNAL-DEGRADE alarm.</text>
+        </description>
+      </leaf>
+      <leaf name="carrier-type">
+        <type name="enumeration">
+          <enum name="ICE6">
+            <value value="1"/>
+          </enum>
+          <enum name="ZR">
+            <value value="2"/>
+          </enum>
+          <enum name="ZR+">
+            <value value="3"/>
+          </enum>
+          <enum name="OTN">
+            <value value="4"/>
+          </enum>
+        </type>
+        <default value="ICE6"/>
+        <config value="false"/>
+        <description>
+          <text>Intent is to differentiate the multiple CarierCTPs.</text>
+        </description>
+      </leaf>
+      <uses name="ioa-carrier:client-specific-attrs">
+        <description>
+          <text>Only of relevance for carrier type ZR.</text>
+        </description>
+      </uses>
+      <uses name="ioa-carrier:line-specific-attrs">
+        <description>
+          <text>Only of relevance for carrier type not ZR.</text>
+        </description>
+      </uses>
+      <uses name="ioa-carrier:line-otn-attrs">
+        <description>
+          <text>Only of relevance for carrier type OTN.</text>
+        </description>
+      </uses>
+      <uses name="ioa-carrier:line-otn-actual-frequencies"/>
+      <leaf name="enable-advanced-parameters">
+        <type name="boolean"/>
+        <default value="false"/>
+        <description>
+          <text>Controls enabling/disabling of configuring advanced parameters for this object.</text>
+        </description>
+      </leaf>
+      <leaf name="sop-data-collection">
+        <type name="union">
+          <type name="enumeration">
+            <enum name="disabled">
+              <value value="0"/>
+              <description>
+                <text>Disable collection for given optical-carrier.</text>
+              </description>
+            </enum>
+          </type>
+          <type name="uint16">
+            <range value="10..500"/>
+          </type>
+        </type>
+        <default value="disabled"/>
+        <description>
+          <text>Controls enabling/disabling sop data collection, providing the collection interval in ms.
+    Only of relevance for carrier type ICE6.</text>
+        </description>
+      </leaf>
+      <uses name="ioa-common:circuit-id"/>
+      <leaf name="sop-vector">
+        <type name="string">
+          <length value="0..18"/>
+        </type>
+        <default value=""/>
+        <config value="false"/>
+        <description>
+          <text>The RX SOP (State Of Polarization) Stokes Vector S1 S2 S3, Example: 0.96, -0.12, -0.22.
+    Only of relevance for carrier type OTN.</text>
+        </description>
+      </leaf>
+      <list name="advanced-parameter">
+        <when condition="../enable-advanced-parameters = 'true'"/>
+        <key value="name"/>
+        <description>
+          <text>The user configured (or overridden) set of advanced parameters.</text>
+        </description>
+        <uses name="ioa-common:advanced-parameter-configuration-base"/>
+      </list>
+      <uses name="ioa-common:current-advanced-parameter"/>
+      <uses name="ioa-fac-common:loopback"/>
+    </list>
+  </grouping>
+</module>

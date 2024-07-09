@@ -1,0 +1,154 @@
+{
+    "system": {
+        "aaa": {
+            "server-groups": {
+                "server-group": [
+                    {
+                        "name": {
+                            "type": {
+                                "ptype": "str",
+                                "leafref": "../config/name"
+                            },
+                            "isList": false,
+                            "description": "Reference to configured name of the server group",
+                            "key": true,
+                            "mandatory": true,
+                            "config": true,
+                            "default": "TACACSPLUS",
+                            "hardcode": true
+                        },
+                        "config": {
+                            "name": {
+                                "type": {
+                                    "ptype": "str",
+                                    "leafref": "../config/name"
+                                },
+                                "isList": false,
+                                "description": "Reference to configured name of the server group",
+                                "key": true,
+                                "mandatory": true,
+                                "config": true,
+                                "default": "TACACSPLUS",
+                                "hardcode": true
+                            },
+                            "type": {
+                                "type": {
+                                    "ptype": "str",
+                                    "identityref": "oc-aaa-types:AAA_SERVER_TYPE"
+                                },
+                                "isList": false,
+                                "description": "Reference to configured name of the server group",
+                                "key": true,
+                                "mandatory": true,
+                                "config": true,
+                                "default": "TACACS",
+                                "namespace": {
+                                    "prefix": "oc-aaa",
+                                    "namespace": "http://openconfig.net/yang/aaa"
+                                },
+                                "hardcode": true
+                            }
+                        },
+                        "namespace": null,
+                        "servers": {
+                            "server": [
+                                {
+                                    "address": {
+                                        "type": {
+                                            "ptype": "str",
+                                            "leafref": "../config/address"
+                                        },
+                                        "isList": false,
+                                        "description": "Reference to the configured address of the AAA server",
+                                        "key": true,
+                                        "mandatory": true,
+                                        "config": true,
+                                        "default": "1.1.1.1",
+                                        "hardcode": false
+                                    },
+                                    "config": {
+                                        "name": {
+                                            "type": {
+                                                "ptype": "str"
+                                            },
+                                            "isList": false,
+                                            "description": "Reference to the configured address of the AAA server",
+                                            "key": false,
+                                            "mandatory": false,
+                                            "config": false,
+                                            "default": "",
+                                            "hardcode": false
+                                        },
+                                        "address": {
+                                            "type": {
+                                                "ptype": "str"
+                                            },
+                                            "isList": false,
+                                            "description": "Reference to the configured address of the AAA server",
+                                            "key": false,
+                                            "mandatory": true,
+                                            "config": true,
+                                            "default": "1.1.1.1",
+                                            "hardcode": false
+                                        },
+                                        "timeout": {
+                                            "type": {
+                                                "ptype": "int"
+                                            },
+                                            "isList": false,
+                                            "description": "Reference to the configured address of the AAA server",
+                                            "key": false,
+                                            "mandatory": false,
+                                            "config": true,
+                                            "default": 5,
+                                            "hardcode": false
+                                        },
+                                        "server-priority": {
+                                            "type": {
+                                                "ptype": "uint32",
+                                                "range": "1..10"
+                                            },
+                                            "isList": false,
+                                            "description": "This is used to sort the servers in the order of precedence",
+                                            "key": false,
+                                            "mandatory": true,
+                                            "config": true,
+                                            "default": "",
+                                            "namespace": {
+                                                "prefix": null,
+                                                "namespace": "http://openconfig.net/yang/infinera/yang/extensions"
+                                            },
+                                            "hardcode": false
+                                        }
+                                    },
+                                    "namespace": null,
+                                    "tacacs": {
+                                        "config": {
+                                            "port": {
+                                                "type": {
+                                                    "ptype": "int"
+                                                },
+                                                "isList": false,
+                                                "description": "Port number for authentication requests",
+                                                "mandatory": false,
+                                                "key": false,
+                                                "config": true,
+                                                "default": 1815,
+                                                "namespace": null,
+                                                "hardcode": false
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/system"
+        }
+    }
+}

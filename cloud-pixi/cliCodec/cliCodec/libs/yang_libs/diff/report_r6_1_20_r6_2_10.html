@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <title>YANG Diff Report</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        h2 {
+            font-size: 20px;
+        }
+        h3 {
+            font-size: 18px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        ul ul {
+            list-style-type: circle;
+            margin-left: 5px;
+        }
+        ul ul ul {
+            list-style-type: square;
+            margin-left: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: auto
+         
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        
+    </style>
+
+
+</head>
+<body>
+    <div id="contentdiv" class="content">
+
+<h2>New/Changed Elements in Existing Modules</h2>
+<ul>
+  <li><strong>ioa-certificate</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>x509-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>certificates.certificates.trusted-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>certificates.certificates.local-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>certificates.certificates.peer-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    </ul>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>x509-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>certificates.certificates.trusted-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>certificates.certificates.local-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>certificates.certificates.peer-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-equipment</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>equipment.equipment.chassis.equipment-discovery-ready</li>
+      <ul>
+      <li>Represents the equipment discovery state for the current chassis.
+It will remain as 'false' until all equipment was discovered during startup.
+Equipment added after startup will not contribute to the update of this state.</li>
+      <li>Type: bool</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-mgmt-protocols</strong></li>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>protocols.protocols.notifications</li>
+      <ul>
+      <li>Information on supported NETCONF streams and notifications.</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-mgmt-protocols</strong></li>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>protocols.protocols.data-model.config-cache</li>
+      <ul>
+      <li>Allows caching of config data for the given data-model.</li>
+      <li>Type: bool</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-network-element</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>system.system.security.niap</li>
+      <ul>
+      <li>Container for NIAP (National Information Assurance Partnership) compliance configuration and status.
+NIAP is responsible for the United States implementation of Common Criteria, see niap-ccevs.org for details.
+This container allows configuration of whether NIAP compliance is expected and provides information about the current NIAP compliance status.</li>
+      </ul>
+    <li>ne.system.security.niap</li>
+      <ul>
+      <li>Container for NIAP (National Information Assurance Partnership) compliance configuration and status.
+NIAP is responsible for the United States implementation of Common Criteria, see niap-ccevs.org for details.
+This container allows configuration of whether NIAP compliance is expected and provides information about the current NIAP compliance status.</li>
+      </ul>
+    </ul>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>system.system.protocols.notifications</li>
+      <ul>
+      <li>Information on supported NETCONF streams and notifications.</li>
+      </ul>
+    <li>ne.system.protocols.notifications</li>
+      <ul>
+      <li>Information on supported NETCONF streams and notifications.</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-network-element</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>system.system.security.security-policies.minimum-password-length</li>
+      <ul>
+      <li>Configurable minimum length for user passwords. When a password is changed, the password length will be verified according with this policy.
+Note that changing this policy will not have impact on already set passwords, only on newly set passwords.
+The default value will depend on whether the policy strict-password-check is enabled or not (min length is 8 if enabled, 1 if disabled),
+but the user is able to override this value by editing this policy manually.
+Note: this policy can only be enforced when the password is provided in a non-hashed way.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>system.system.security.security-policies.supported-signature-hash-algorithms</li>
+      <ul>
+      <li>Supported hash algorithms for digital signatures for certificates.
+This applies to locally-managed certificates as well as certificates received from a remote peer.
+NOTE: If algorithms are removed from this list, any installed certificates using them will become unusable
+and transition to the 'unsupported' status, potentially disabling secure-applications and services.
+It also will prevent TLS connections to remote peers using unsupported signature hashes.
+Also, note that SHA-1 support is limited to root CA certificates.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: sha256, sha384, sha512, sha1</li>
+        </ul>
+      </ul>
+    <li>system.system.security.certificates.trusted-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>system.system.security.certificates.local-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>system.system.security.certificates.peer-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>system.system.security.aaa-server.oper-state</li>
+      <ul>
+      <li>The operational state of this object.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: enabled, disabled</li>
+        </ul>
+      </ul>
+    <li>system.system.syslog.niap-compliant-logging</li>
+      <ul>
+      <li>Wether the logs are NIAP compliant.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>system.system.sw-management.downloads.manifest.downloaded-image.image-type</li>
+      <ul>
+      <li>Downloaded software image type</li>
+      <li>Type: str</li>
+      </ul>
+    <li>system.system.database.fips-mode</li>
+      <ul>
+      <li>Indicates if database was generated with FIPS mode enabled.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: disabled, enabled</li>
+        </ul>
+      </ul>
+    <li>ne.equipment.chassis.equipment-discovery-ready</li>
+      <ul>
+      <li>Represents the equipment discovery state for the current chassis.
+It will remain as 'false' until all equipment was discovered during startup.
+Equipment added after startup will not contribute to the update of this state.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.system.security.security-policies.minimum-password-length</li>
+      <ul>
+      <li>Configurable minimum length for user passwords. When a password is changed, the password length will be verified according with this policy.
+Note that changing this policy will not have impact on already set passwords, only on newly set passwords.
+The default value will depend on whether the policy strict-password-check is enabled or not (min length is 8 if enabled, 1 if disabled),
+but the user is able to override this value by editing this policy manually.
+Note: this policy can only be enforced when the password is provided in a non-hashed way.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>ne.system.security.security-policies.supported-signature-hash-algorithms</li>
+      <ul>
+      <li>Supported hash algorithms for digital signatures for certificates.
+This applies to locally-managed certificates as well as certificates received from a remote peer.
+NOTE: If algorithms are removed from this list, any installed certificates using them will become unusable
+and transition to the 'unsupported' status, potentially disabling secure-applications and services.
+It also will prevent TLS connections to remote peers using unsupported signature hashes.
+Also, note that SHA-1 support is limited to root CA certificates.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: sha256, sha384, sha512, sha1</li>
+        </ul>
+      </ul>
+    <li>ne.system.security.certificates.trusted-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>ne.system.security.certificates.local-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>ne.system.security.certificates.peer-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>ne.system.security.aaa-server.oper-state</li>
+      <ul>
+      <li>The operational state of this object.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: enabled, disabled</li>
+        </ul>
+      </ul>
+    <li>ne.system.syslog.niap-compliant-logging</li>
+      <ul>
+      <li>Wether the logs are NIAP compliant.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.system.sw-management.downloads.manifest.downloaded-image.image-type</li>
+      <ul>
+      <li>Downloaded software image type</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.system.database.fips-mode</li>
+      <ul>
+      <li>Indicates if database was generated with FIPS mode enabled.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: disabled, enabled</li>
+        </ul>
+      </ul>
+    </ul>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>system.system.security.certificates.trusted-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>system.system.security.certificates.local-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>system.system.security.certificates.peer-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>system.system.protocols.data-model.config-cache</li>
+      <ul>
+      <li>Allows caching of config data for the given data-model.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>system.system.networking.routing.ipv4-static-route.label</li>
+      <ul>
+      <li>User label.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>system.system.networking.routing.ipv6-static-route.label</li>
+      <ul>
+      <li>User label.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.system.security.certificates.trusted-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.system.security.certificates.local-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.system.security.certificates.peer-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.system.protocols.data-model.config-cache</li>
+      <ul>
+      <li>Allows caching of config data for the given data-model.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.system.networking.routing.ipv4-static-route.label</li>
+      <ul>
+      <li>User label.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.system.networking.routing.ipv6-static-route.label</li>
+      <ul>
+      <li>User label.</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-networking</strong></li>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>networking.networking.routing.ipv4-static-route.label</li>
+      <ul>
+      <li>User label.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>networking.networking.routing.ipv6-static-route.label</li>
+      <ul>
+      <li>User label.</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-routing</strong></li>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>static-route.ipv4-static-route.label</li>
+      <ul>
+      <li>User label.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>static-route.ipv6-static-route.label</li>
+      <ul>
+      <li>User label.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>routing.routing.ipv4-static-route.label</li>
+      <ul>
+      <li>User label.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>routing.routing.ipv6-static-route.label</li>
+      <ul>
+      <li>User label.</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-security</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>security.security.niap</li>
+      <ul>
+      <li>Container for NIAP (National Information Assurance Partnership) compliance configuration and status.
+NIAP is responsible for the United States implementation of Common Criteria, see niap-ccevs.org for details.
+This container allows configuration of whether NIAP compliance is expected and provides information about the current NIAP compliance status.</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-security</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>security.security.security-policies.minimum-password-length</li>
+      <ul>
+      <li>Configurable minimum length for user passwords. When a password is changed, the password length will be verified according with this policy.
+Note that changing this policy will not have impact on already set passwords, only on newly set passwords.
+The default value will depend on whether the policy strict-password-check is enabled or not (min length is 8 if enabled, 1 if disabled),
+but the user is able to override this value by editing this policy manually.
+Note: this policy can only be enforced when the password is provided in a non-hashed way.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>security.security.security-policies.supported-signature-hash-algorithms</li>
+      <ul>
+      <li>Supported hash algorithms for digital signatures for certificates.
+This applies to locally-managed certificates as well as certificates received from a remote peer.
+NOTE: If algorithms are removed from this list, any installed certificates using them will become unusable
+and transition to the 'unsupported' status, potentially disabling secure-applications and services.
+It also will prevent TLS connections to remote peers using unsupported signature hashes.
+Also, note that SHA-1 support is limited to root CA certificates.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: sha256, sha384, sha512, sha1</li>
+        </ul>
+      </ul>
+    <li>security.security.certificates.trusted-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>security.security.certificates.local-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>security.security.certificates.peer-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>security.security.aaa-server.oper-state</li>
+      <ul>
+      <li>The operational state of this object.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: enabled, disabled</li>
+        </ul>
+      </ul>
+    </ul>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>security.security.certificates.trusted-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>security.security.certificates.local-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>security.security.certificates.peer-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-sw-management</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>sw-management.sw-management.downloads.manifest.downloaded-image.image-type</li>
+      <ul>
+      <li>Downloaded software image type</li>
+      <li>Type: str</li>
+      </ul>
+    <li>database.database.fips-mode</li>
+      <ul>
+      <li>Indicates if database was generated with FIPS mode enabled.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: disabled, enabled</li>
+        </ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-syslog</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>syslog.syslog.niap-compliant-logging</li>
+      <ul>
+      <li>Wether the logs are NIAP compliant.</li>
+      <li>Type: bool</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+
+
+    </div>
+
+
+</body>
+</html>

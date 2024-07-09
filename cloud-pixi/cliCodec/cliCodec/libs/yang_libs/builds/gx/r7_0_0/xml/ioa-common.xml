@@ -1,0 +1,1216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-common"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:inet="urn:ietf:params:xml:ns:yang:ietf-inet-types"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types">
+  <namespace uri="http://infinera.com/yang/ioa/common"/>
+  <prefix value="ioa-common"/>
+  <import module="ietf-inet-types">
+    <prefix value="inet"/>
+  </import>
+  <import module="ietf-yang-types">
+    <prefix value="yang"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module with common typde definitions and groupings.</text>
+  </description>
+  <revision date="2023-03-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.1</text>
+    </description>
+  </revision>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-06-30">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.2</text>
+    </description>
+  </revision>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-09-17">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.1</text>
+    </description>
+  </revision>
+  <identity name="RESOURCE-TYPE">
+    <description>
+      <text>Base identity for all types of entities that can be addressed via AID.</text>
+    </description>
+  </identity>
+  <identity name="ne">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="chassis">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="card">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="tom">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="slot">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="user">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="task">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="ntp-server">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="usb">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="facility">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="local-certificate">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="trusted-certificate">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="ssh-authorized-key">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="port">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="syslog">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="interface">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="protection-group">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="protection-unit">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="ip-monitoring">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="inci-neighbor">
+    <base name="RESOURCE-TYPE"/>
+  </identity>
+  <identity name="ne-function">
+    <base name="RESOURCE-TYPE"/>
+    <description>
+      <text>NE function.</text>
+    </description>
+  </identity>
+  <identity name="ikev2-peer">
+    <base name="RESOURCE-TYPE"/>
+    <description>
+      <text>Internet Key Exchange version 2 peer.</text>
+    </description>
+  </identity>
+  <identity name="ikev2-local-instance">
+    <base name="RESOURCE-TYPE"/>
+    <description>
+      <text>Internet Key Exchange version 2 local instance.</text>
+    </description>
+  </identity>
+  <identity name="secure-entity">
+    <base name="RESOURCE-TYPE"/>
+    <description>
+      <text>Data path encryption secure entity (SecY).</text>
+    </description>
+  </identity>
+  <identity name="secure-application">
+    <base name="RESOURCE-TYPE"/>
+    <description>
+      <text>Secure application.</text>
+    </description>
+  </identity>
+  <identity name="ipsec-spd-entry">
+    <base name="RESOURCE-TYPE"/>
+    <description>
+      <text>IPSec security policy database entry.</text>
+    </description>
+  </identity>
+  <identity name="log-server">
+    <base name="RESOURCE-TYPE"/>
+    <description>
+      <text>Remote syslog server.</text>
+    </description>
+  </identity>
+  <identity name="dial-out-server">
+    <base name="RESOURCE-TYPE"/>
+    <description>
+      <text>Dial out server.</text>
+    </description>
+  </identity>
+  <identity name="ETHERNET">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="trib-ptp">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="super-channel-group">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="super-channel">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="optical-carrier">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="optical-channel">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="OTUCni">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="OTUCn">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="OTU4">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="OTU2">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="OTU2e">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="ODUCni">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="ODUCn">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="ODU4i">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="ODU4">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="ODU2">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="ODU2e">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="ODU1">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="ODU0">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="ODUflexi">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="ODUflex">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="comm-channel">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="line-ptp">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="flexo-group">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="flexo">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="dsc-group">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="dsc">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="eth-zr">
+    <base name="ioa-common:facility"/>
+  </identity>
+  <identity name="OC-N">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>OC-N (SONET)</text>
+    </description>
+  </identity>
+  <identity name="STM-M">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>STM (SDH)</text>
+    </description>
+  </identity>
+  <identity name="OC-192">
+    <base name="ioa-common:OC-N"/>
+    <description>
+      <text>Optical Carrier level 192, also known as SONET.</text>
+    </description>
+  </identity>
+  <identity name="OC-48">
+    <base name="ioa-common:OC-N"/>
+    <description>
+      <text>Optical Carrier level 48, also known as SONET.</text>
+    </description>
+  </identity>
+  <identity name="OC-3">
+    <base name="ioa-common:OC-N"/>
+    <description>
+      <text>Optical Carrier level 3, also known as SONET.</text>
+    </description>
+  </identity>
+  <identity name="OC-12">
+    <base name="ioa-common:OC-N"/>
+    <description>
+      <text>Optical Carrier level 12, also known as SONET.</text>
+    </description>
+  </identity>
+  <identity name="STM-64">
+    <base name="ioa-common:STM-M"/>
+    <description>
+      <text>Synchronous Transport Module hierarchy 64, also known as SDH.</text>
+    </description>
+  </identity>
+  <identity name="STM-16">
+    <base name="ioa-common:STM-M"/>
+    <description>
+      <text>Synchronous Transport Module hierarchy 16, also known as SDH.</text>
+    </description>
+  </identity>
+  <identity name="STM-1">
+    <base name="ioa-common:STM-M"/>
+    <description>
+      <text>Synchronous Transport Module hierarchy 1, also known as SDH.</text>
+    </description>
+  </identity>
+  <identity name="STM-4">
+    <base name="ioa-common:STM-M"/>
+    <description>
+      <text>Synchronous Transport Module hierarchy 4, also known as SDH.</text>
+    </description>
+  </identity>
+  <identity name="nmc">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>Network Media Channel</text>
+    </description>
+  </identity>
+  <identity name="mc">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>Media Channel</text>
+    </description>
+  </identity>
+  <identity name="optical-ptp">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>Optical Physical Termination Point</text>
+    </description>
+  </identity>
+  <identity name="oms">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>Optical Multiplex Section</text>
+    </description>
+  </identity>
+  <identity name="osc">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>Optical Supervisory Channel</text>
+    </description>
+  </identity>
+  <identity name="ots">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>Optical Transport Section</text>
+    </description>
+  </identity>
+  <identity name="ots-r">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>Optical Transmission Section, with Reduced scope</text>
+    </description>
+  </identity>
+  <identity name="amplifier">
+    <base name="ioa-common:ne-function"/>
+    <description>
+      <text>Amplifier</text>
+    </description>
+  </identity>
+  <identity name="amplifier-raman">
+    <base name="ioa-common:ne-function"/>
+    <description>
+      <text>Raman Amplifier</text>
+    </description>
+  </identity>
+  <identity name="pump">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>Pump</text>
+    </description>
+  </identity>
+  <identity name="rsc">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>Raman Supervisory Channel</text>
+    </description>
+  </identity>
+  <identity name="fc">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>Fiber Channel</text>
+    </description>
+  </identity>
+  <identity name="ochm">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>Optical Channel Monitoring</text>
+    </description>
+  </identity>
+  <identity name="spectrum">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>Spectrum</text>
+    </description>
+  </identity>
+  <identity name="interlaken">
+    <base name="ioa-common:facility"/>
+    <description>
+      <text>Interlaken</text>
+    </description>
+  </identity>
+  <typedef name="node-type">
+    <type name="enumeration">
+      <enum name="ILA">
+        <value value="10"/>
+        <description>
+          <text>In-Line Amplifier, two-directions.</text>
+        </description>
+      </enum>
+      <enum name="OADM">
+        <value value="20"/>
+        <description>
+          <text>Optical Add/Drop Multiplexer</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Main function NE agent operates.</text>
+    </description>
+  </typedef>
+  <typedef name="percent">
+    <type name="uint8">
+      <range value="0 .. 100"/>
+    </type>
+    <units name="percent"/>
+    <description>
+      <text>Percentage</text>
+    </description>
+  </typedef>
+  <typedef name="object-name">
+    <type name="string">
+      <length value="1..64"/>
+      <pattern value="([A-Za-z0-9_\-.,]*)"/>
+    </type>
+    <description>
+      <text>A custom type for entity (managed object) name</text>
+    </description>
+  </typedef>
+  <typedef name="certificate-name">
+    <type name="string">
+      <length value="1..128"/>
+      <pattern value="([A-Za-z0-9_.,/@][A-Za-z0-9_\-.,/@]*)"/>
+    </type>
+    <description>
+      <text>A custom type for certificate name.</text>
+    </description>
+  </typedef>
+  <typedef name="number-list">
+    <type name="string">
+      <length value="0..255"/>
+      <pattern value="(([0-9]+(\.\.[0-9]+)?)(,([0-9]+(\.\.[0-9]+)?))*)?"/>
+    </type>
+    <description>
+      <text>List of numbers using ',' as separator and '..' to represent ranges.
+Examples: '12' , '1..4' , '1,5,10..12,20' </text>
+    </description>
+  </typedef>
+  <typedef name="decimal-list">
+    <type name="string">
+      <length value="0..500"/>
+      <pattern value="((([0-9]+(\.[0-9]+)?)+(\.\.([0-9]+(\.[0-9]+)?))?)(,(([0-9]+(\.[0-9]+)?)+(\.\.([0-9]+(\.[0-9]+)?))?))*)"/>
+    </type>
+    <description>
+      <text>List of numbers using ',' as separator and '..' to represent ranges.
+Examples: '1.2' , '1.1..1.4' , '1.1,1.5,1.10..1..12,1..20'</text>
+    </description>
+  </typedef>
+  <typedef name="date-time-never">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="never">
+          <value value="0"/>
+        </enum>
+      </type>
+      <type name="yang:date-and-time"/>
+    </type>
+    <description>
+      <text>Typedef for a timestamp 'date+time' or the keyword 'never'.</text>
+    </description>
+  </typedef>
+  <typedef name="date-time-or-time-only-or-never">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="never">
+          <value value="0"/>
+        </enum>
+      </type>
+      <type name="yang:date-and-time"/>
+      <type name="hour-minutes-seconds"/>
+    </type>
+    <description>
+      <text>Typedef for a timestamp 'date+time' or 'time' only or the keyword 'never'.</text>
+    </description>
+  </typedef>
+  <typedef name="hour-minutes-seconds">
+    <type name="string">
+      <length value="5..8"/>
+      <pattern value="\d{2}:\d{2}(:\d{2})?"/>
+    </type>
+    <description>
+      <text>Timestamp with hours-minutes and optionally seconds.
+Leading zero is required (04:00 instead of 4:00).
+Examples:
+   23:00     (same as 23:00:00)
+   01:43:30
+</text>
+    </description>
+  </typedef>
+  <typedef name="date-time-or-time-only">
+    <type name="union">
+      <type name="yang:date-and-time"/>
+      <type name="hour-minutes-seconds"/>
+    </type>
+    <description>
+      <text>Typedef for a timestamp 'date+time' or 'time' only.</text>
+    </description>
+  </typedef>
+  <typedef name="time-interval">
+    <type name="string">
+      <length value="0..32"/>
+      <pattern value="(((1000)|(0*\d{1,3}))w)? *(((1000)|(0*\d{1,3}))d)? *(((1000)|(0*\d{1,3}))h)? *(((1000)|(0*\d{1,3}))m)? *(((1000)|(0*\d{1,3}))s)?"/>
+    </type>
+    <description>
+      <text>Time interval using the following syntax:
+   '[xw] [xd] [xh] [xm] [xs]'
+where:
+   w(eeks), d(ays), h(ours), m(inutes), s(seconds).
+Examples:
+   2w          - two weeks
+   5d 12h      - 5 days and 12 hours
+   1h 7m 30s   - 1 hour and 7 minutes and 30 seconds</text>
+    </description>
+  </typedef>
+  <typedef name="enable-switch">
+    <type name="enumeration">
+      <enum name="disabled">
+        <value value="0"/>
+      </enum>
+      <enum name="enabled">
+        <value value="1"/>
+      </enum>
+    </type>
+    <default value="disabled"/>
+    <description>
+      <text>Generic enabled switch.</text>
+    </description>
+  </typedef>
+  <typedef name="host">
+    <type name="union">
+      <type name="inet:ipv4-address"/>
+      <type name="inet:ipv6-address"/>
+      <type name="inet:domain-name"/>
+    </type>
+    <description>
+      <text>Generic address, may be an IPv4, IPv6 or a hostname for DNS resolution.</text>
+    </description>
+  </typedef>
+  <typedef name="storage-size">
+    <type name="uint16"/>
+    <units name="MB"/>
+    <description>
+      <text>A generic storage or file size, in megabytes.</text>
+    </description>
+  </typedef>
+  <typedef name="user-name">
+    <type name="string">
+      <length value="1..64"/>
+      <pattern value="[a-zA-Z_.][a-zA-Z0-9_\-.]*[$]?"/>
+    </type>
+    <description>
+      <text>Generic type definition for a user-name attribute.</text>
+    </description>
+  </typedef>
+  <typedef name="password">
+    <type name="string">
+      <length value="0..200"/>
+      <pattern value="[ -~]*"/>
+    </type>
+    <description>
+      <text>Generic type definition for a password attribute.
+Password characters may only include spaces, numbers, letters and ASCII symbols.
+Minimum length and password complexity rules are defined via security policy.</text>
+    </description>
+  </typedef>
+  <typedef name="Z85-char-set">
+    <type name="string">
+      <pattern value="[0-9a-zA-Z.\-:+=^!/*?&amp;&lt;&gt;()\[\]{}@%$#]*"/>
+    </type>
+    <description>
+      <text>A format for representing binary data as printable text.
+https://rfc.zeromq.org/spec/32/</text>
+    </description>
+  </typedef>
+  <typedef name="db-passphrase">
+    <type name="Z85-char-set">
+      <length value="40..200"/>
+    </type>
+    <description>
+      <text>Generic type definition for a db-passphrase attribute.</text>
+    </description>
+  </typedef>
+  <grouping name="db-passphrase">
+    <description>
+      <text>Re-usable grouping.</text>
+    </description>
+    <leaf name="db-passphrase">
+      <type name="ioa-common:db-passphrase"/>
+      <description>
+        <text>Passphrase used for encrypting and decrypting DB snapshots.
+For each command associated with DB snapshots (backup, restore, etc),
+this db-passphrase will be used, except when it is directly provided in each command.
+Automatic DB snapshots will not be enabled until this parameter is set.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <typedef name="session-type">
+    <type name="enumeration">
+      <enum name="none">
+        <value value="0"/>
+      </enum>
+      <enum name="cli">
+        <value value="1"/>
+      </enum>
+      <enum name="snmp">
+        <value value="2"/>
+      </enum>
+      <enum name="netconf">
+        <value value="3"/>
+      </enum>
+      <enum name="restconf">
+        <value value="4"/>
+      </enum>
+      <enum name="webgui">
+        <value value="5"/>
+      </enum>
+      <enum name="gnmi">
+        <value value="6"/>
+        <status value="deprecated"/>
+      </enum>
+      <enum name="tl1">
+        <value value="7"/>
+      </enum>
+      <enum name="gnmi-gnoi">
+        <value value="8"/>
+      </enum>
+    </type>
+    <description>
+      <text>Session type.</text>
+    </description>
+  </typedef>
+  <typedef name="session-protocol">
+    <type name="enumeration">
+      <enum name="none">
+        <value value="0"/>
+      </enum>
+      <enum name="telnet">
+        <value value="1"/>
+      </enum>
+      <enum name="telnet-raw">
+        <value value="2"/>
+      </enum>
+      <enum name="serial">
+        <value value="3"/>
+      </enum>
+      <enum name="ssh">
+        <value value="4"/>
+      </enum>
+      <enum name="ssh-raw">
+        <value value="5"/>
+      </enum>
+      <enum name="https">
+        <value value="6"/>
+      </enum>
+      <enum name="http">
+        <value value="7"/>
+      </enum>
+    </type>
+    <description>
+      <text>Protocol used for session establishment.</text>
+    </description>
+  </typedef>
+  <typedef name="server-layer-adaptation">
+    <type name="string"/>
+    <description>
+      <text>Indicates services endpoint hierarchy.</text>
+    </description>
+  </typedef>
+  <typedef name="port-number">
+    <type name="uint16">
+      <range value="1..max"/>
+    </type>
+    <description>
+      <text>Port number.</text>
+    </description>
+  </typedef>
+  <typedef name="protection-type">
+    <type name="enumeration">
+      <enum name="y-cable">
+        <value value="10"/>
+      </enum>
+      <enum name="snc-n">
+        <value value="20"/>
+      </enum>
+      <enum name="unprotected">
+        <value value="30"/>
+      </enum>
+    </type>
+    <default value="unprotected"/>
+    <description>
+      <text>Represents the protection type this PG has.</text>
+    </description>
+  </typedef>
+  <typedef name="rate">
+    <type name="decimal64">
+      <fraction-digits value="3"/>
+    </type>
+    <units name="Gbit/s"/>
+    <description>
+      <text>Rate of facilities in GBit/s.</text>
+    </description>
+  </typedef>
+  <grouping name="circuit-id">
+    <leaf name="circuit-id">
+      <type name="string">
+        <length value="0..128"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>System configured circuit ID, present in XCONs and associated facilities.
+For facilities, circuit-id is only filled in if an associated XCON exists.
+   Format of this ID is:
+   &lt;timestamp&gt;|&lt;ne-name&gt;|&lt;XCON-AID&gt;|&lt;user-configured-sufix&gt;
+   Example:
+   2020-05-05T21:06:02Z|GX|1-4-T9,1-4-L1-1-ODUji#1|my-suffix
+
+   Timestamp is the NE time at xcon creation, in UTC.
+   If necessary, ne-name will be truncated so that total length remains at 128 characters.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="common-attributes">
+    <description>
+      <text>A set of attributes that are commonly applicable to every managed object supported by the system.</text>
+    </description>
+    <uses name="aid"/>
+    <uses name="label"/>
+  </grouping>
+  <grouping name="oper-state">
+    <description>
+      <text>Oper states common to multiple objects.</text>
+    </description>
+    <leaf name="oper-state">
+      <type name="enumeration">
+        <enum name="enabled">
+          <value value="1"/>
+        </enum>
+        <enum name="disabled">
+          <value value="2"/>
+        </enum>
+      </type>
+      <default value="disabled"/>
+      <config value="false"/>
+      <description>
+        <text>The operational state of this object.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="operational-states">
+    <description>
+      <text>A grouping of system determined statuses.</text>
+    </description>
+    <uses name="oper-state"/>
+    <leaf name="avail-state">
+      <type name="bits">
+        <bit name="in-service">
+          <position value="1"/>
+          <description>
+            <text>Entity is in service.</text>
+          </description>
+        </bit>
+        <bit name="out-of-service">
+          <position value="2"/>
+          <description>
+            <text>Entity is out of service.</text>
+          </description>
+        </bit>
+        <bit name="normal">
+          <position value="3"/>
+          <description>
+            <text>Entity is in normal operation.</text>
+          </description>
+        </bit>
+        <bit name="abnormal">
+          <position value="4"/>
+          <description>
+            <text>Entity is in abnormal operation.</text>
+          </description>
+        </bit>
+        <bit name="low-power">
+          <position value="5"/>
+          <description>
+            <text>Entity is not available due to the related FRU being in low power mode.</text>
+          </description>
+        </bit>
+        <bit name="automatic">
+          <position value="6"/>
+          <description>
+            <text>Entity automatically locked by the system.</text>
+          </description>
+        </bit>
+        <bit name="manual">
+          <position value="7"/>
+          <description>
+            <text>Entity manually locked by the user.</text>
+          </description>
+        </bit>
+        <bit name="equipment-not-present">
+          <position value="8"/>
+          <description>
+            <text>Entity is not available because the related FRU is not present.</text>
+          </description>
+        </bit>
+        <bit name="equipment-mismatch">
+          <position value="9"/>
+          <description>
+            <text>Entity is not available because the actual FRU mismatches against the expected FRU type.</text>
+          </description>
+        </bit>
+        <bit name="unassigned">
+          <position value="10"/>
+          <description>
+            <text>Entity is not assigned.</text>
+          </description>
+        </bit>
+        <bit name="faulted">
+          <position value="11"/>
+          <description>
+            <text>Entity is not available due to the related FRU is faulty.</text>
+          </description>
+        </bit>
+        <bit name="partially-faulted">
+          <position value="12"/>
+          <description>
+            <text>Entity is not available due to the related FRU is partially faulty.</text>
+          </description>
+        </bit>
+        <bit name="maintenance">
+          <position value="13"/>
+          <description>
+            <text>Entity is in maintenance mode.</text>
+          </description>
+        </bit>
+        <bit name="supporting-faulted">
+          <position value="14"/>
+          <description>
+            <text>Entity is not available due to the parent entity is faulty.</text>
+          </description>
+        </bit>
+        <bit name="facility-failure">
+          <position value="15"/>
+          <description>
+            <text>Facility is not available due to failure.</text>
+          </description>
+        </bit>
+        <bit name="auto-in-service">
+          <position value="16"/>
+          <description>
+            <text>Auto-in-service (AINS) is active for the facility.</text>
+          </description>
+        </bit>
+        <bit name="shutdown">
+          <position value="17"/>
+          <description>
+            <text>Entity is not available because the related FRU was shutdown.</text>
+          </description>
+        </bit>
+        <bit name="in-test">
+          <position value="18"/>
+          <description>
+            <text>Entity is in a diagnostic operation.</text>
+          </description>
+        </bit>
+        <bit name="upgrading">
+          <position value="19"/>
+          <description>
+            <text>Entity is upgrading.</text>
+          </description>
+        </bit>
+        <bit name="incomplete">
+          <position value="20"/>
+          <description>
+            <text>Entity has incomplete configuration.</text>
+          </description>
+        </bit>
+        <bit name="reserved">
+          <position value="21"/>
+          <description>
+            <text>Entity is reserved.</text>
+          </description>
+        </bit>
+        <bit name="providing-service">
+          <position value="22"/>
+          <description>
+            <text>Entity is providing service.</text>
+          </description>
+        </bit>
+        <bit name="standby">
+          <position value="23"/>
+          <description>
+            <text>Entity is in standby state.</text>
+          </description>
+        </bit>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Availability state of an entity.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="admin-state">
+    <description>
+      <text>Admin states common to multiple objects.</text>
+    </description>
+    <leaf name="admin-state">
+      <type name="enumeration">
+        <enum name="lock">
+          <value value="1"/>
+        </enum>
+        <enum name="unlock">
+          <value value="2"/>
+        </enum>
+        <enum name="maintenance">
+          <value value="3"/>
+        </enum>
+      </type>
+      <default value="unlock"/>
+      <description>
+        <text>The administrative state of the managed object.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="common-states">
+    <description>
+      <text>States common to multiple objects.</text>
+    </description>
+    <uses name="admin-state"/>
+    <uses name="operational-states"/>
+  </grouping>
+  <grouping name="label">
+    <description>
+      <text>Arbitrary user label</text>
+    </description>
+    <leaf name="label">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <description>
+        <text>User label.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="resource-instance-by-aid">
+    <description>
+      <text>Set of leafs necessary to identify a resource by type and aid.</text>
+    </description>
+    <uses name="resource-type"/>
+    <uses name="aid"/>
+  </grouping>
+  <grouping name="resource-type">
+    <leaf name="resource-type">
+      <type name="identityref">
+        <base name="RESOURCE-TYPE"/>
+      </type>
+      <description>
+        <text>Type of resource.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="aid">
+    <leaf name="AID">
+      <type name="string">
+        <length value="1..64"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Resource Access Identifier (AID). Identifies an instance within a specific resource type.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Resource Access Identifier. Used on equipments and mgmt protocols.</text>
+    </description>
+  </grouping>
+  <grouping name="resource-instance">
+    <description>
+      <text>Set of attributes that are used to identity an individual resource instance.</text>
+    </description>
+    <leaf name="resource">
+      <type name="instance-identifier"/>
+      <description>
+        <text>Existing system resource.</text>
+      </description>
+    </leaf>
+    <uses name="resource-instance-by-aid">
+      <description>
+        <text>Alternative way to represent a resource, using a resource type and an aid.</text>
+      </description>
+    </uses>
+  </grouping>
+  <grouping name="advanced-parameter-configuration-base">
+    <description>
+      <text>Advanced parameters/serdes attributes.</text>
+    </description>
+    <leaf name="name">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <description>
+        <text>Name of the advanced parameter.</text>
+      </description>
+    </leaf>
+    <leaf name="value">
+      <type name="string">
+        <length value="0..256"/>
+      </type>
+      <mandatory value="true"/>
+      <description>
+        <text>Value of the advanced parameter.</text>
+      </description>
+    </leaf>
+    <leaf name="status">
+      <type name="enumeration">
+        <enum name="set">
+          <value value="10"/>
+          <description>
+            <text>Parameter set.</text>
+          </description>
+        </enum>
+        <enum name="unknown">
+          <value value="20"/>
+          <description>
+            <text>Parameter unknown.</text>
+          </description>
+        </enum>
+        <enum name="in-progress">
+          <value value="30"/>
+          <description>
+            <text>Parameter in progress.</text>
+          </description>
+        </enum>
+        <enum name="failed">
+          <value value="40"/>
+          <description>
+            <text>Parameter failed.</text>
+          </description>
+        </enum>
+        <enum name="not-supported">
+          <value value="50"/>
+          <description>
+            <text>Parameter not supported.</text>
+          </description>
+        </enum>
+      </type>
+      <default value="unknown"/>
+      <config value="false"/>
+      <description>
+        <text>State of the advanced parameter (as observable on the system) once it is configured.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="current-advanced-parameter">
+    <list name="current-advanced-parameter">
+      <key value="name"/>
+      <config value="false"/>
+      <description>
+        <text>The current value for a supported advanced parameter.</text>
+      </description>
+      <leaf name="name">
+        <type name="string">
+          <length value="0..256"/>
+        </type>
+        <description>
+          <text>Name of the advanced parameter.</text>
+        </description>
+      </leaf>
+      <leaf name="value">
+        <type name="string">
+          <length value="0..256"/>
+        </type>
+        <description>
+          <text>Value of the advanced parameter.</text>
+        </description>
+      </leaf>
+    </list>
+  </grouping>
+  <grouping name="arc">
+    <description>
+      <text>Alarm Reporting Control grouping - to be added by all objects that support alarms (and therefore ARC).</text>
+    </description>
+    <leaf name="alarm-report-control">
+      <type name="enumeration">
+        <enum name="allowed">
+          <value value="1"/>
+          <description>
+            <text>Alarm reporting is allowed.</text>
+          </description>
+        </enum>
+        <enum name="inhibited">
+          <value value="2"/>
+          <description>
+            <text>Alarm reporting is inhibited.</text>
+          </description>
+        </enum>
+      </type>
+      <default value="allowed"/>
+      <description>
+        <text>Controls the reporting of alarms for this particular object.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="notif-common">
+    <description>
+      <text>Common notification grouping - notification id and ne name.</text>
+    </description>
+    <leaf name="ne-name">
+      <type name="string"/>
+      <description>
+        <text>NE name associated with this event.</text>
+      </description>
+    </leaf>
+    <leaf name="notification-id">
+      <type name="uint64"/>
+      <description>
+        <text>Notification id associated with this event.
+Notification id is a number that always increments with each notification,
+and that with a system reboot will keep increasing (even with a buffer added to it),
+guaranteeing that the id always grows.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="sw-support">
+    <description>
+      <text>Common software revision parameters.</text>
+    </description>
+    <leaf name="sw-support-revision">
+      <type name="uint16"/>
+      <default value="0"/>
+      <config value="false"/>
+      <description>
+        <text>Software revision currently installed.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="properties">
+    <description>
+      <text>Common property concept.</text>
+    </description>
+    <list name="property">
+      <key value="name"/>
+      <description>
+        <text>Type specific property, auto instanciated by the system, but configurable by the user.</text>
+      </description>
+      <leaf name="name">
+        <type name="string"/>
+        <description>
+          <text>Name of the property.</text>
+        </description>
+      </leaf>
+      <leaf name="value">
+        <type name="string"/>
+        <description>
+          <text>Value of the property. Will always be a 'string', even if it corresponds to a number or other type.</text>
+        </description>
+      </leaf>
+      <leaf name="description">
+        <type name="string">
+          <length value="0..512"/>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>Description of this property, including type restrictions.</text>
+        </description>
+      </leaf>
+    </list>
+  </grouping>
+  <grouping name="assignment-method">
+    <description>
+      <text>The assignment-method common to multiple objects.</text>
+    </description>
+    <leaf name="assignment-method">
+      <type name="enumeration">
+        <enum name="both">
+          <value value="0"/>
+          <description>
+            <text>Assignment method is both manual and dhcp.</text>
+          </description>
+        </enum>
+        <enum name="manual">
+          <value value="1"/>
+          <description>
+            <text>Assignment method is manual.</text>
+          </description>
+        </enum>
+        <enum name="dhcp">
+          <value value="2"/>
+          <description>
+            <text>Assignment method is dhcp.</text>
+          </description>
+        </enum>
+      </type>
+      <default value="both"/>
+      <description>
+        <text>The system would contain manual and dhcp configured values.
+System can use those onfigurations/values defined by assignment-method attributes.</text>
+      </description>
+    </leaf>
+  </grouping>
+</module>

@@ -1,0 +1,156 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "filetype": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "database",
+                    "swimage",
+                    "krp",
+                    "script",
+                    "debug-log",
+                    "pm-logs",
+                    "local-certificate",
+                    "trusted-certificate",
+                    "fdr-log",
+                    "logs",
+                    "file",
+                    "peer-certificate",
+                    "crl"
+                ]
+            },
+            "isList": false,
+            "description": "Predefined filetype available for upload",
+            "mandatory": true
+        },
+        "source": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Allows user to provide the source for the file to be uploaded, including directory and/or filename.\nThis is only applicable when file-type is 'file', representing a generic file transfer.\nCan be a path relative to the default user directory, or an absolute path - as long as\nuser has access to the target file.",
+            "mandatory": false
+        },
+        "async": {
+            "type": {
+                "ptype": "bool"
+            },
+            "isList": false,
+            "description": "Uploads asynchronously.",
+            "mandatory": false
+        },
+        "skip-secure-verification": {
+            "type": {
+                "ptype": "bool"
+            },
+            "isList": false,
+            "description": "For HTTPS transfers, skip TLS verification. For SCP/SFTP transfers, skip ssh known host checking.\nIf flag not set, verification is done according with current security-policy.",
+            "mandatory": false
+        },
+        "debug-entity": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Targets a specific entity in the system for having its Logs to be collected. Can be a chassis or a card",
+            "mandatory": false
+        },
+        "password": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "SFTP/SCP/FTP/HTTP/HTTPS password",
+            "mandatory": false
+        },
+        "start-time": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Start time from where the logs should be collected. It can be a timestamp or\na time interval from the actual time (now). If empty all log history is selected",
+            "mandatory": false
+        },
+        "db-instance": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "active",
+                    "onehour",
+                    "oneday",
+                    "oneweek",
+                    "temp",
+                    "manual",
+                    "rollback"
+                ]
+            },
+            "isList": false,
+            "description": "Selected DB instance",
+            "mandatory": false
+        },
+        "optional-content": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": true,
+            "description": "List of files to be included for debug-log upload.",
+            "mandatory": false
+        },
+        "log-file-list": {
+            "type": {
+                "ptype": "unknown",
+                "leafref": "/ioa-ne:ne/ioa-ne:system/ioa-ne:syslog/ioa-ne:log-file/ioa-ne:name"
+            },
+            "isList": true,
+            "description": "List of log files to be uploaded. If empty all available logs are selected.",
+            "mandatory": false
+        },
+        "period": {
+            "type": {
+                "ptype": "str",
+                "identityref": "PM-PERIOD"
+            },
+            "isList": false,
+            "description": "Time period for PM data.",
+            "mandatory": false
+        },
+        "db-passphrase": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Passphrase used for encrypting and decrypting DB snapshots.\nFor each command associated with DB snapshots (backup, restore, etc),\nthis db-passphrase will be used, except when it is directly provided in each command.\nAutomatic DB snapshots will not be enabled until this parameter is set.",
+            "mandatory": false
+        },
+        "destination": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Destination of the upload ([sftp|scp|ftp|https|http|file]://[user@]hostname/directorypath/filename)",
+            "mandatory": true
+        }
+    },
+    "cases": {
+        "file-server-based": {
+            "file-server": {
+                "type": {
+                    "ptype": "unknown",
+                    "leafref": "/ioa-ne:ne/ioa-ne:system/ioa-ne:file-servers/ioa-ne:file-server/ioa-ne:name"
+                },
+                "isList": false,
+                "description": "The preconfigured file-server name.",
+                "mandatory": true
+            },
+            "path": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "Path (directory and filename) to be used in the remote file-server.\nIf not provided, the file-server initial-path is used, with system defined filename.\nIf the path targets a directory (e.g. /path/ ), the filename is dynamically generated.\nOtherwise, the user defined filename may use some placeholders %t and %m (representing\ntimestamp and ne-name respectively).",
+                "mandatory": false
+            }
+        }
+    }
+}

@@ -1,0 +1,816 @@
+{
+    "ne": {
+        "equipment": {
+            "card": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Card identifier.",
+                        "key": true,
+                        "mandatory": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "controller-card": {
+                        "redundancy-status": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "active",
+                                    "standby",
+                                    "not-in-service"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Controller state.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "not-in-service",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "redundancy-standby-status": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "ready-synchronized",
+                                    "not-ready-synchronizing",
+                                    "not-ready-synchronize-fail",
+                                    "lock-out",
+                                    "card-not-present"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "State of the controller redundancy.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "not-ready-synchronizing",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "number-of-switchover-events": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "Number of times that an active controller card has switchover. Value only visibile on active controller card.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": 0,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "time-of-last-switchover": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Timestamp of the last controller switchover event. Value only visible on active controller card.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "additional-details": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Additional details for synchronization status.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        }
+                    },
+                    "console": {
+                        "baud-rate": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "auto-sensing",
+                                    "9600",
+                                    "19200",
+                                    "38400",
+                                    "57600",
+                                    "115200"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "The configured baud-rate for this card's console port.\nDefault value is card type specific.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "actual-baud-rate": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "unknown",
+                                    "9600",
+                                    "19200",
+                                    "38400",
+                                    "57600",
+                                    "115200"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "The actual baud-rate for this card's console port.\nIf auto-sensing is enabled, this will reveal the detected baud-rate.\nIf a fixed baud-rate is configured, this will match the configured baud-rate.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "auto-sensing-state": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "sensing",
+                                    "locked"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Current state of the auto-sensing mechanism.\nOnly visible if auto-sensing is enabled for this port.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "sensing",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "local-switch": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "use-global-switch",
+                                    "force-enable",
+                                    "force-disable"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Defines the global access to all card's console port. Access can be overridden per console port at the card level.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "use-global-switch",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "status": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "disabled",
+                                    "enabled"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Current status of the console for this card.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "enabled",
+                            "hardcode": false,
+                            "namespace": null
+                        }
+                    },
+                    "port": [
+                        {
+                            "name": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Port name.",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false
+                            },
+                            "namespace": null,
+                            "parent-port": {
+                                "type": {
+                                    "ptype": "unknown",
+                                    "leafref": "../../port/name"
+                                },
+                                "isList": false,
+                                "description": "Name of the parent port. Only applicable for sub-ports.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "hosted-interface": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Top level interface hosted in this port.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "connected-to": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Indicate neighbour port entity to which the current port is connected to.\nThis is not validated by the NE and can be used by the customers (or NMS) for topology construction.\nThis parameter is available independently on any automated discovery mechanisms that may exist in the port.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "external-connectivity": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "no",
+                                        "yes"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Indicates whether the port is connected or to be connected externally or not.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "no",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "subport-list": {
+                                "type": {
+                                    "ptype": "unknown",
+                                    "leafref": "../../port/name"
+                                },
+                                "isList": true,
+                                "description": "List of sub-ports associated with this port.\nOnly applicable when this port is a parent port.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "alias-name": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "AID": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "admin-state": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "lock",
+                                        "unlock",
+                                        "maintenance"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The administrative state of the managed object.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "unlock",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "avail-state": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Availability state of an entity.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "oper-state": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "enabled",
+                                        "disabled"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The operational state of this object.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "disabled",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "alarm-report-control": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "allowed",
+                                        "inhibited"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Controls the reporting of alarms for this particular object.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "allowed",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "label": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "User label.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "port-type": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "line",
+                                        "tributary",
+                                        "usb",
+                                        "comm",
+                                        "uplink",
+                                        "tributary-subport",
+                                        "optical",
+                                        "otdr",
+                                        "pluggable",
+                                        "ocm"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The port type. Each port type supports different features and services.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "direction": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "not-applicable",
+                                        "tx",
+                                        "rx",
+                                        "rxtx"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Direction of the port.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "not-applicable",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "installed-type": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Currently installed type in this equipment holder. If empty, means no FRU is present.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "supported-type": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": true,
+                                "description": "List of supported types in this equipment holder.\nIf a specific type is provisioned, the list has only that type.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ],
+                    "property": [
+                        {
+                            "name": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Name of the property.",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false
+                            },
+                            "namespace": null,
+                            "value": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Value of the property. Will always be a 'string', even if it corresponds to a number or other type.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "description": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Description of this property, including type restrictions.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ],
+                    "required-type": {
+                        "type": {
+                            "ptype": "str",
+                            "identityref": "ioa-common:card",
+                            "values": [
+                                "FRCU31",
+                                "UTM2",
+                                "CHM1R",
+                                "RD09SM",
+                                "RD20TM",
+                                "OCC2T",
+                                "OCC2E",
+                                "CAD10A",
+                                "CAD16AOFP2",
+                                "CDC8D6",
+                                "BAXOFP2",
+                                "DGE2M2OFP2",
+                                "WS04SOFP2",
+                                "RPBM",
+                                "RPBL",
+                                "OMD48S",
+                                "OMD48E",
+                                "OMD64",
+                                "ILAx",
+                                "XMM4-FAN",
+                                "FAN-CTRL",
+                                "CHM6",
+                                "CHM6L",
+                                "UCM4",
+                                "XMM4",
+                                "FRCU",
+                                "FRCU32",
+                                "IOPANEL",
+                                "IOPANEL32",
+                                "FAN",
+                                "FAN32",
+                                "FAN34c",
+                                "PEM",
+                                "BLANK",
+                                "BLANK2"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Required card type.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": {
+                            "namespace": "http://infinera.com/yang/ioa/common",
+                            "prefix": "ioa-common"
+                        }
+                    },
+                    "required-subtype": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The subtype of the card",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "card-mode": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The configured card-mode, identifies specific card functionality.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "chassis-name": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../chassis/name"
+                        },
+                        "isList": false,
+                        "description": "Chassis where this card is located.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "slot-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Slot where this card is located.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "subslot-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Subslot where this card is located, e.g. 1-2.3 (slot 2, subslot 3).\n'subslot-name' can only be set on (sub)card creation.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "power-profile": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User configured power draw for this card.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "last-reboot-reason": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Reason why the last reboot was done.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "parent-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "/ne/equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Name of the parent card, only applicable for subcard(s).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "subcard-list": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "/ne/equipment/card/name"
+                        },
+                        "isList": true,
+                        "description": "List of sub-cards associated with this card.\nOnly applicable for carrier cards.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "category": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "controller",
+                                "line-card",
+                                "fan",
+                                "power-supply",
+                                "other",
+                                "carrier-card",
+                                "blank"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Card category.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "max-power-draw": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Maximum power draw for this card.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alias-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

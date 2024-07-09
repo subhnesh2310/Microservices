@@ -1,0 +1,382 @@
+{
+    "module": {
+        "@name": "ietf-netconf-notifications",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ncn": "urn:ietf:params:xml:ns:yang:ietf-netconf-notifications",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "@xmlns:nc": "urn:ietf:params:xml:ns:netconf:base:1.0",
+        "namespace": {
+            "@uri": "urn:ietf:params:xml:ns:yang:ietf-netconf-notifications"
+        },
+        "prefix": {
+            "@value": "ncn"
+        },
+        "import": [
+            {
+                "@module": "ietf-inet-types",
+                "prefix": {
+                    "@value": "inet"
+                }
+            },
+            {
+                "@module": "ietf-netconf",
+                "prefix": {
+                    "@value": "nc"
+                }
+            }
+        ],
+        "organization": {
+            "text": "IETF NETCONF (Network Configuration Protocol) Working Group"
+        },
+        "contact": {
+            "text": "WG Web:   <http://tools.ietf.org/wg/netconf/>\nWG List:  <mailto:netconf@ietf.org>\n\nWG Chair: Bert Wijnen\n          <mailto:bertietf@bwijnen.net>\n\nWG Chair: Mehmet Ersue\n          <mailto:mehmet.ersue@nsn.com>\n\nEditor:   Andy Bierman\n          <mailto:andy@netconfcentral.org>"
+        },
+        "description": {
+            "text": "This module defines a YANG data model for use with the\nNETCONF protocol that allows the NETCONF client to\nreceive common NETCONF base event notifications.\n\nCopyright (c) 2012 IETF Trust and the persons identified as\nthe document authors.  All rights reserved.\n\nRedistribution and use in source and binary forms, with or\nwithout modification, is permitted pursuant to, and subject\nto the license terms contained in, the Simplified BSD License\n\n\n\nset forth in Section 4.c of the IETF Trust's Legal Provisions\nRelating to IETF Documents\n(http://trustee.ietf.org/license-info).\n\nThis version of this YANG module is part of RFC 6470; see\nthe RFC itself for full legal notices."
+        },
+        "revision": {
+            "@date": "2012-02-06",
+            "description": {
+                "text": "Initial version. Errata 3957 added."
+            },
+            "reference": {
+                "text": "RFC 6470: NETCONF Base Notifications"
+            }
+        },
+        "grouping": [
+            {
+                "@name": "common-session-parms",
+                "description": {
+                    "text": "Common session parameters to identify a\nmanagement session."
+                },
+                "leaf": [
+                    {
+                        "@name": "username",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Name of the user for the session."
+                        }
+                    },
+                    {
+                        "@name": "session-id",
+                        "type": {
+                            "@name": "nc:session-id-or-zero-type"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Identifier of the session.\nA NETCONF session MUST be identified by a non-zero value.\nA non-NETCONF session MAY be identified by the value zero."
+                        }
+                    },
+                    {
+                        "@name": "source-host",
+                        "type": {
+                            "@name": "inet:ip-address"
+                        },
+                        "description": {
+                            "text": "Address of the remote host for the session."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "changed-by-parms",
+                "description": {
+                    "text": "Common parameters to identify the source\nof a change event, such as a configuration\nor capability change."
+                },
+                "container": {
+                    "@name": "changed-by",
+                    "description": {
+                        "text": "Indicates the source of the change.\nIf caused by internal action, then the\nempty leaf 'server' will be present.\nIf caused by a management session, then\nthe name, remote host address, and session ID\nof the session that made the change will be reported."
+                    },
+                    "choice": {
+                        "@name": "server-or-user",
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "leaf": {
+                            "@name": "server",
+                            "type": {
+                                "@name": "empty"
+                            },
+                            "description": {
+                                "text": "If present, the change was caused\nby the server."
+                            }
+                        },
+                        "case": {
+                            "@name": "by-user",
+                            "uses": {
+                                "@name": "common-session-parms"
+                            }
+                        }
+                    }
+                }
+            }
+        ],
+        "notification": [
+            {
+                "@name": "netconf-config-change",
+                "description": {
+                    "text": "Generated when the NETCONF server detects that the\n<running> or <startup> configuration datastore\nhas been changed by a management session.\nThe notification summarizes the edits that\nhave been detected.\n\nThe server MAY choose to also generate this\nnotification while loading a datastore during the\nboot process for the device."
+                },
+                "uses": {
+                    "@name": "changed-by-parms"
+                },
+                "leaf": {
+                    "@name": "datastore",
+                    "type": {
+                        "@name": "enumeration",
+                        "enum": [
+                            {
+                                "@name": "running",
+                                "description": {
+                                    "text": "The <running> datastore has changed."
+                                }
+                            },
+                            {
+                                "@name": "startup",
+                                "description": {
+                                    "text": "The <startup> datastore has changed"
+                                }
+                            }
+                        ]
+                    },
+                    "default": {
+                        "@value": "running"
+                    },
+                    "description": {
+                        "text": "Indicates which configuration datastore has changed."
+                    }
+                },
+                "list": {
+                    "@name": "edit",
+                    "description": {
+                        "text": "An edit record SHOULD be present for each distinct\nedit operation that the server has detected on\nthe target datastore.  This list MAY be omitted\nif the detailed edit operations are not known.\nThe server MAY report entries in this list for\nchanges not made by a NETCONF session (e.g., CLI)."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "target",
+                            "type": {
+                                "@name": "instance-identifier"
+                            },
+                            "description": {
+                                "text": "Topmost node associated with the configuration change.\nA server SHOULD set this object to the node within\nthe datastore that is being altered.  A server MAY\nset this object to one of the ancestors of the actual\nnode that was changed, or omit this object, if the\nexact node is not known."
+                            }
+                        },
+                        {
+                            "@name": "operation",
+                            "type": {
+                                "@name": "nc:edit-operation-type"
+                            },
+                            "description": {
+                                "text": "Type of edit operation performed.\nA server MUST set this object to the NETCONF edit\noperation performed on the target datastore."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "netconf-capability-change",
+                "description": {
+                    "text": "Generated when the NETCONF server detects that\nthe server capabilities have changed.\nIndicates which capabilities have been added, deleted,\nand/or modified.  The manner in which a server\ncapability is changed is outside the scope of this\ndocument."
+                },
+                "uses": {
+                    "@name": "changed-by-parms"
+                },
+                "leaf-list": [
+                    {
+                        "@name": "added-capability",
+                        "type": {
+                            "@name": "inet:uri"
+                        },
+                        "description": {
+                            "text": "List of capabilities that have just been added."
+                        }
+                    },
+                    {
+                        "@name": "deleted-capability",
+                        "type": {
+                            "@name": "inet:uri"
+                        },
+                        "description": {
+                            "text": "List of capabilities that have just been deleted."
+                        }
+                    },
+                    {
+                        "@name": "modified-capability",
+                        "type": {
+                            "@name": "inet:uri"
+                        },
+                        "description": {
+                            "text": "List of capabilities that have just been modified.\nA capability is considered to be modified if the\nbase URI for the capability has not changed, but\none or more of the parameters encoded at the end of\nthe capability URI have changed.\nThe new modified value of the complete URI is returned."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "netconf-session-start",
+                "description": {
+                    "text": "Generated when a NETCONF server detects that a\nNETCONF session has started.  A server MAY generate\nthis event for non-NETCONF management sessions.\nIndicates the identity of the user that started\nthe session."
+                },
+                "uses": {
+                    "@name": "common-session-parms"
+                }
+            },
+            {
+                "@name": "netconf-session-end",
+                "description": {
+                    "text": "Generated when a NETCONF server detects that a\nNETCONF session has terminated.\nA server MAY optionally generate this event for\nnon-NETCONF management sessions.  Indicates the\nidentity of the user that owned the session,\nand why the session was terminated."
+                },
+                "uses": {
+                    "@name": "common-session-parms"
+                },
+                "leaf": [
+                    {
+                        "@name": "killed-by",
+                        "when": {
+                            "@condition": "../termination-reason = 'killed'"
+                        },
+                        "type": {
+                            "@name": "nc:session-id-type"
+                        },
+                        "description": {
+                            "text": "The ID of the session that directly caused this session\nto be abnormally terminated.  If this session was abnormally\nterminated by a non-NETCONF session unknown to the server,\nthen this leaf will not be present."
+                        }
+                    },
+                    {
+                        "@name": "termination-reason",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "closed",
+                                    "description": {
+                                        "text": "The session was terminated by the client in normal\nfashion, e.g., by the NETCONF <close-session>\nprotocol operation."
+                                    }
+                                },
+                                {
+                                    "@name": "killed",
+                                    "description": {
+                                        "text": "The session was terminated in abnormal\nfashion, e.g., by the NETCONF <kill-session>\nprotocol operation."
+                                    }
+                                },
+                                {
+                                    "@name": "dropped",
+                                    "description": {
+                                        "text": "The session was terminated because the transport layer\nconnection was unexpectedly closed."
+                                    }
+                                },
+                                {
+                                    "@name": "timeout",
+                                    "description": {
+                                        "text": "The session was terminated because of inactivity,\ne.g., waiting for the <hello> message or <rpc>\nmessages."
+                                    }
+                                },
+                                {
+                                    "@name": "bad-hello",
+                                    "description": {
+                                        "text": "The client's <hello> message was invalid."
+                                    }
+                                },
+                                {
+                                    "@name": "other",
+                                    "description": {
+                                        "text": "The session was terminated for some other reason."
+                                    }
+                                }
+                            ]
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Reason the session was terminated."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "netconf-confirmed-commit",
+                "description": {
+                    "text": "Generated when a NETCONF server detects that a\nconfirmed-commit event has occurred.  Indicates the event\nand the current state of the confirmed-commit procedure\nin progress."
+                },
+                "reference": {
+                    "text": "RFC 6241, Section 8.4"
+                },
+                "uses": {
+                    "@name": "common-session-parms",
+                    "when": {
+                        "@condition": "confirm-event != 'timeout'"
+                    }
+                },
+                "leaf": [
+                    {
+                        "@name": "confirm-event",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "start",
+                                    "description": {
+                                        "text": "The confirmed-commit procedure has started."
+                                    }
+                                },
+                                {
+                                    "@name": "cancel",
+                                    "description": {
+                                        "text": "The confirmed-commit procedure has been canceled,\ne.g., due to the session being terminated, or an\nexplicit <cancel-commit> operation."
+                                    }
+                                },
+                                {
+                                    "@name": "timeout",
+                                    "description": {
+                                        "text": "The confirmed-commit procedure has been canceled\ndue to the confirm-timeout interval expiring.\nThe common session parameters will not be present\nin this sub-mode."
+                                    }
+                                },
+                                {
+                                    "@name": "extend",
+                                    "description": {
+                                        "text": "The confirmed-commit timeout has been extended,\ne.g., by a new <confirmed-commit> operation."
+                                    }
+                                },
+                                {
+                                    "@name": "complete",
+                                    "description": {
+                                        "text": "The confirmed-commit procedure has been completed."
+                                    }
+                                }
+                            ]
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Indicates the event that caused the notification."
+                        }
+                    },
+                    {
+                        "@name": "timeout",
+                        "when": {
+                            "@condition": "../confirm-event = 'start' or ../confirm-event = 'extend'"
+                        },
+                        "type": {
+                            "@name": "uint32"
+                        },
+                        "units": {
+                            "@name": "seconds"
+                        },
+                        "description": {
+                            "text": "The configured timeout value if the event type\nis 'start' or 'extend'.  This value represents\nthe approximate number of seconds from the event\ntime when the 'timeout' event might occur."
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

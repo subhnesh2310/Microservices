@@ -1,0 +1,130 @@
+al
+	+resource : str
+	+alarm-type-id : str
+	alarm-type-qualifier : str
+	alt-resource : str
+	impacted-resource : str
+	root-cause-resource : str
+	related-alarm
+		resource : unknown
+		alarm-type-id : unknown
+		alarm-type-qualifier : unknown
+	+time : str
+	+perceived-severity : str
+	+alarm-text : str
+	+time : str
+	+operator : str
+	+state : str
+	text : str
+	+is-cleared : bool
+	+last-raised : str
+	+last-changed : str
+	+perceived-severity : str
+	+alarm-text : str
+	status-change
+		+time : str
+		+perceived-severity : str
+		+alarm-text : str
+	+alarm-clearance-status : str
+	older-than
+	severity
+	operator-state-filter
+		state : str
+		user : str
+	alarms
+		control
+			max-alarm-status-changes : str
+			notify-status-changes : str
+			notify-severity-level : str
+			alarm-shelving
+				shelf
+					name : str
+					description : str
+					resource : str
+					alarm-type
+						alarm-type-id : str
+						alarm-type-qualifier-match : str
+		alarm-inventory
+			alarm-type
+				alarm-type-id : str
+				alarm-type-qualifier : str
+				+will-clear : bool
+				+description : str
+				resource : str
+				severity-level : str
+		summary
+			shelves-active : str
+			alarm-summary
+				severity : str
+				total : int
+				not-cleared : int
+				cleared : int
+				cleared-not-closed : int
+				cleared-closed : int
+				not-cleared-closed : int
+				not-cleared-not-closed : int
+		alarm-list
+			number-of-alarms : int
+			last-changed : str
+			alarm
+				+time-created : str
+				+resource : str
+				+alarm-type-id : str
+				alarm-type-qualifier : str
+				alt-resource : str
+				impacted-resource : str
+				root-cause-resource : str
+				+is-cleared : bool
+				+last-raised : str
+				+last-changed : str
+				+perceived-severity : str
+				+alarm-text : str
+				operator-state-change
+					+time : str
+					+operator : str
+					+state : str
+					text : str
+				related-alarm
+					resource : unknown
+					alarm-type-id : unknown
+					alarm-type-qualifier : unknown
+				status-change
+					+time : str
+					+perceived-severity : str
+					+alarm-text : str
+		shelved-alarms
+			number-of-shelved-alarms : int
+			shelved-alarms-last-changed : str
+			shelved-alarm
+				shelf-name : unknown
+				+resource : str
+				+alarm-type-id : str
+				alarm-type-qualifier : str
+				alt-resource : str
+				impacted-resource : str
+				root-cause-resource : str
+				+is-cleared : bool
+				+last-raised : str
+				+last-changed : str
+				+perceived-severity : str
+				+alarm-text : str
+				operator-state-change
+					+time : str
+					+operator : str
+					+state : str
+					text : str
+				related-alarm
+					resource : unknown
+					alarm-type-id : unknown
+					alarm-type-qualifier : unknown
+				status-change
+					+time : str
+					+perceived-severity : str
+					+alarm-text : str
+		alarm-profile
+			alarm-type-id : str
+			alarm-type-qualifier-match : str
+			resource : str
+			+description : str
+			alarm-severity-assignment-profile
+				severity-level : str

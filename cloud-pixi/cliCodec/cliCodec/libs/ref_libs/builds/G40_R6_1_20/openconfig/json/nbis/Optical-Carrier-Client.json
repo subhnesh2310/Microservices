@@ -1,0 +1,143 @@
+{
+    "component_name": {
+        "type": {
+            "ptype": "str",
+            "leafref": "../config/name"
+        },
+        "description": "References the component name",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "optical-carrier-1-6-L1-1",
+        "hardcode": false,
+        "argName": "component_name"
+    },
+    "frequency_offset": {
+        "type": {
+            "ptype": "int",
+            "range": "-6000..6000"
+        },
+        "description": "A super set range for line and client side carrier, specific sub-range is depend on application. Frequency-offset can be used for bright tuning\n   of the wavelengths.\n   Once set, the frequency will slowly change (over 1-10s) without affecting service.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "frequency_offset"
+    },
+    "pre_fec_q_sig_deg_threshold": {
+        "type": {
+            "ptype": "decimal64",
+            "range": "0|5.60..9.60",
+            "fraction-digits": 2
+        },
+        "description": "The threshold based on which the PRE-FEC-Q-SIGNAL-DEGRADE alarm is raised.\n   0 implies threshold crossing alarming disabled.\n   Specific sub-range is per carrier use-case.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "6.0",
+        "hardcode": false,
+        "argName": "pre_fec_q_sig_deg_threshold"
+    },
+    "pre_fec_q_sig_deg_hysteresis": {
+        "type": {
+            "ptype": "decimal64",
+            "fraction-digits": 1,
+            "range": "0.1..1.0"
+        },
+        "description": "Hysteresis to account for raising of the PRE-FEC-Q-SIGNAL-DEGRADE alarm.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0.5",
+        "hardcode": false,
+        "argName": "pre_fec_q_sig_deg_hysteresis"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "frequency": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Frequency of the optical channel, expressed in MHz",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "frequency"
+    },
+    "target_output_power": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Target output optical power level of the optical channel,\nexpressed in increments of 0.01 dBm (decibel-milliwats)",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "-6.00",
+        "hardcode": false,
+        "argName": "target_output_power"
+    },
+    "state_of_polarization_sampling": {
+        "type": {
+            "ptype": "union",
+            "types": [
+                "boolean",
+                "uint16"
+            ],
+            "range": "10..500",
+            "units": "milliseconds"
+        },
+        "description": "Enables per-optical channel collection of SoP data.\nIf SoP collection is enabled, this attribute\nindicates the sampling interval (i.e., sampling\nof the SoP data done by the DSP.)",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "state_of_polarization_sampling"
+    }
+}

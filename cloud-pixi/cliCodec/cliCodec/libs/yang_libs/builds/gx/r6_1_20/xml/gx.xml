@@ -1,0 +1,4024 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="gx"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:gx="http://infinera.com/yang/gx"
+        xmlns:ioa-alarm="http://infinera.com/yang/ioa/alarm"
+        xmlns:ioa-pm="http://infinera.com/yang/ioa/pm"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common">
+  <namespace uri="http://infinera.com/yang/gx"/>
+  <prefix value="gx"/>
+  <import module="ioa-alarm">
+    <prefix value="ioa-alarm"/>
+  </import>
+  <import module="ioa-pm">
+    <prefix value="ioa-pm"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>Module that contains GX specific identities, including:
+- equipment types (chassis, cards, toms)
+- PM parameters
+- Alarm types</text>
+  </description>
+  <revision date="2023-03-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.1</text>
+    </description>
+  </revision>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-06-30">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.2</text>
+    </description>
+  </revision>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-09-17">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.1</text>
+    </description>
+  </revision>
+  <identity name="G31">
+    <base name="ioa-common:chassis"/>
+    <description>
+      <text>1RU Chassis for G31.
+Has the following features:
+- front panel houses 1 FRCU31 controllers and 4 slots for line cards.
+- rear panel houses 2 PEMs, 3 main Fans and 1 IOPANEL.
+- supports both AC and DC power suply.</text>
+    </description>
+    <reference>
+      <text>GX-615</text>
+    </reference>
+  </identity>
+  <identity name="G42">
+    <base name="ioa-common:chassis"/>
+    <description>
+      <text>3RU Chassis for GX.
+Has the following features:
+- front panel houses 2 XMM4 controllers, 1 IO Panel and 4 slots for line cards.
+- rear panel houses 4 PEMs, 2 XMM4 Fans, 5 main Fans and 1 Fan Controller.
+- supports both AC and DC power suply.</text>
+    </description>
+    <reference>
+      <text>GX-615</text>
+    </reference>
+  </identity>
+  <identity name="G34c">
+    <base name="ioa-common:chassis"/>
+    <description>
+      <text>4RU Chassis for GX.
+Has the following features:
+- front panel houses 2 FRCU controllers, 4 service rows for double width slot line-card(s).
+- front panel also houses 2 PEMs, 2 Fan trays.
+- Hw support for both AC and DC power supply.</text>
+    </description>
+    <reference>
+      <text>GX-41881</text>
+    </reference>
+  </identity>
+  <identity name="G32">
+    <base name="ioa-common:chassis"/>
+    <description>
+      <text>2RU Chassis for GX.
+Has the following features:
+- front panel houses 2 FRCU32 controllers, 8 slots for line cards.
+- rear panel houses 4 PEMs, 3 Fan trays, 2 IO Panel.
+- Hw support for both AC and DC power supply.</text>
+    </description>
+    <reference>
+      <text>GX-42400</text>
+    </reference>
+  </identity>
+  <identity name="FRCU31">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>FRCU31: Field Replaceable Shelf Controller for G31.</text>
+    </description>
+  </identity>
+  <identity name="UTM2">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>UTM2: Universal Transponder Muxponder type II</text>
+    </description>
+  </identity>
+  <identity name="CHM1R">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>CHM1R: Coherent Module of type I, with ZR/ZR+/openROADM line optics</text>
+    </description>
+  </identity>
+  <identity name="RD09SM">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>RD09SM: dual-sled carrier card with broadcast &amp; select 1x9 ROADM degree including pre-amplifier, booster, 1x9 WSS and 1x9 splitter and 2xOCM</text>
+    </description>
+    <reference>
+      <text>GX-8193</text>
+    </reference>
+  </identity>
+  <identity name="RD20TM">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>RD20TM: dual-sled carrier card with route &amp; select 1x20 ROADM degree including pre-amplifier, booster, 1x20 twin WSS and 2xOCM</text>
+    </description>
+    <reference>
+      <text>GX-8602</text>
+    </reference>
+  </identity>
+  <identity name="OCC2T">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>OCC2T: Optical carrier card of type II</text>
+    </description>
+  </identity>
+  <identity name="OCC2E">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>OCC2E: Optical carrier card</text>
+    </description>
+  </identity>
+  <identity name="CAD10A">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>CAD10A: colorless Add/Drop 10A</text>
+    </description>
+  </identity>
+  <identity name="CAD16AOFP2">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>CAD16AOFP2: colorless Add/Drop 16A Optical Form Factor Pluggable 2</text>
+    </description>
+  </identity>
+  <identity name="CDC8D6">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>CDC86D6: colorless directionless contentionless card</text>
+    </description>
+  </identity>
+  <identity name="BAXOFP2">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>BAX OFP2: High Power Variable Gain Booster Amplifier with High Gain Range</text>
+    </description>
+  </identity>
+  <identity name="DGE2M2OFP2">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>DGE OFP2: High Power Variable Gain Booster Amplifier with High Gain Range</text>
+    </description>
+  </identity>
+  <identity name="WS04SOFP2">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>WSS OFP2: Broadcast and Select OFP2 Wavelength Selective Switch</text>
+    </description>
+  </identity>
+  <identity name="RPBM">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>RPBM: Raman card with backward propagation Raman amplification</text>
+    </description>
+    <reference>
+      <text>GX-7762</text>
+    </reference>
+  </identity>
+  <identity name="RPBL">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>RPBL: Raman card with backward propagation Raman amplification with low span loss support</text>
+    </description>
+    <reference>
+      <text>GX-45757</text>
+    </reference>
+  </identity>
+  <identity name="OMD48S">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>OMD48S 48 channel optical multiplexer/ demultiplexer - 1RU equipment</text>
+    </description>
+    <reference>
+      <text>GX-10216</text>
+    </reference>
+  </identity>
+  <identity name="OMD48E">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>OMD48E wide band 48 channel optical multiplexer/ demultiplexer - 2RU equipment</text>
+    </description>
+    <reference>
+      <text>GX-10215</text>
+    </reference>
+  </identity>
+  <identity name="OMD64">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>OMD64: Optical Multiplexing/Demultiplexing Module 64 - 2RU equipment</text>
+    </description>
+    <reference>
+      <text>GX-10214</text>
+    </reference>
+  </identity>
+  <identity name="ILAx">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>Inline Amplifier</text>
+    </description>
+  </identity>
+  <identity name="XMM4-FAN">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>XMM4 Fan Module - provides cooling to the XMM4 controller cards.</text>
+    </description>
+  </identity>
+  <identity name="FAN-CTRL">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>FAN controller module - controls chassis FANs.</text>
+    </description>
+  </identity>
+  <identity name="CHM6">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>CHM6 (Coherent Module with ICE6) Transponder.</text>
+    </description>
+  </identity>
+  <identity name="CHM6L">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>CHM6L (Coherent Module with ICE6 L-Band) Transponder.</text>
+    </description>
+  </identity>
+  <identity name="UCM4">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>UCM4 Aggretator</text>
+    </description>
+  </identity>
+  <identity name="XMM4">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>XMM4 (GX Main Module 4) - Main Controller card</text>
+    </description>
+  </identity>
+  <identity name="FRCU">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>Field Replaceable Chassis Controller.</text>
+    </description>
+    <reference>
+      <text>GX-38540</text>
+    </reference>
+  </identity>
+  <identity name="FRCU32">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>Field Replaceable Shelf Controller for G32.</text>
+    </description>
+    <reference>
+      <text>GX-42400</text>
+    </reference>
+  </identity>
+  <identity name="IOPANEL">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>Input/Output Panel - Auxiliary panel with port and chassis level LEDs</text>
+    </description>
+  </identity>
+  <identity name="IOPANEL32">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>Input/Output Panel for G32 chassis - Auxiliary panel with port and chassis level LEDs</text>
+    </description>
+  </identity>
+  <identity name="FAN">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>Fan Module - provides cooling to the chassis line cards.</text>
+    </description>
+  </identity>
+  <identity name="FAN32">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>Fan Module for G32 chassis - provides cooling to the chassis line cards.</text>
+    </description>
+  </identity>
+  <identity name="FAN34c">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>Fan Module for G34c chassis - provides cooling to the chassis line cards.</text>
+    </description>
+  </identity>
+  <identity name="PEM">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>PEM (Power Entry Module) - Provides AC or DC power to the chassis.</text>
+    </description>
+  </identity>
+  <identity name="BLANK">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>Generic Blank card, with multiple form factors (single slot).</text>
+    </description>
+    <reference>
+      <text>GX-638</text>
+    </reference>
+  </identity>
+  <identity name="BLANK2">
+    <base name="ioa-common:card"/>
+    <description>
+      <text>Generic Blank card, with multiple form factors (double slot).</text>
+    </description>
+    <reference>
+      <text>GX-44632</text>
+    </reference>
+  </identity>
+  <identity name="CFP2-DCO">
+    <base name="ioa-common:tom"/>
+    <description>
+      <text>CFP2-DCO line TOM type.</text>
+    </description>
+  </identity>
+  <identity name="SFP">
+    <base name="ioa-common:tom"/>
+    <description>
+      <text>SFP 1G and 2.5G TOM type.</text>
+    </description>
+  </identity>
+  <identity name="SFPPLUS">
+    <base name="ioa-common:tom"/>
+    <description>
+      <text>SFP+ 10G TOM type.</text>
+    </description>
+  </identity>
+  <identity name="QSFPPLUS">
+    <base name="ioa-common:tom"/>
+    <description>
+      <text>QSFP+ 40G TOM type.</text>
+    </description>
+  </identity>
+  <identity name="QSFP28">
+    <base name="ioa-common:tom"/>
+    <description>
+      <text>QSFP28 100G TOM type.</text>
+    </description>
+  </identity>
+  <identity name="QSFPDD">
+    <base name="ioa-common:tom"/>
+    <description>
+      <text>QSFPDD 400G TOM type.</text>
+    </description>
+  </identity>
+  <identity name="QSFPDD-ZR">
+    <base name="ioa-common:tom"/>
+    <description>
+      <text>ZR 400G TOM type.</text>
+    </description>
+  </identity>
+  <identity name="ETH100G">
+    <base name="ioa-common:ETHERNET"/>
+    <description>
+      <text>Ethernet 100G.</text>
+    </description>
+  </identity>
+  <identity name="ETH400G">
+    <base name="ioa-common:ETHERNET"/>
+    <description>
+      <text>Ethernet 400G.</text>
+    </description>
+  </identity>
+  <identity name="ETH10G">
+    <base name="ioa-common:ETHERNET"/>
+    <description>
+      <text>Ethernet 10G.</text>
+    </description>
+  </identity>
+  <identity name="ETH1G">
+    <base name="ioa-common:ETHERNET"/>
+    <description>
+      <text>Ethernet 1G.</text>
+    </description>
+  </identity>
+  <identity name="OTUC1i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC2i-30">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC2i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC3i-50">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC3i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC4i-70">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC4i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC5i-90">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC5i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC6i-110">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC6i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC7i-130">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC7i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC8i-150">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC8i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC9i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC10i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC11i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC12i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC13i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC14i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC15i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="OTUC16i">
+    <base name="ioa-common:OTUCni"/>
+  </identity>
+  <identity name="ODUC1i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC2i-30">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC2i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC3i-50">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC3i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC4i-70">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC4i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC5i-90">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC5i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC6i-110">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC6i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC7i-130">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC7i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC8i-150">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC8i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC9i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC10i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC11i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC12i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC13i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC14i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC15i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="ODUC16i">
+    <base name="ioa-common:ODUCni"/>
+  </identity>
+  <identity name="OTUC1">
+    <base name="ioa-common:OTUCn"/>
+    <description>
+      <text>Optical Transport Unit-C1</text>
+    </description>
+  </identity>
+  <identity name="OTUC2">
+    <base name="ioa-common:OTUCn"/>
+    <description>
+      <text>Optical Transport Unit-C2</text>
+    </description>
+  </identity>
+  <identity name="OTUC3">
+    <base name="ioa-common:OTUCn"/>
+    <description>
+      <text>Optical Transport Unit-C3</text>
+    </description>
+  </identity>
+  <identity name="OTUC4">
+    <base name="ioa-common:OTUCn"/>
+    <description>
+      <text>Optical Transport Unit-C4</text>
+    </description>
+  </identity>
+  <identity name="ODUC1">
+    <base name="ioa-common:ODUCn"/>
+    <description>
+      <text>Optical Data Unit-C1</text>
+    </description>
+  </identity>
+  <identity name="ODUC2">
+    <base name="ioa-common:ODUCn"/>
+    <description>
+      <text>Optical Data Unit-C2</text>
+    </description>
+  </identity>
+  <identity name="ODUC3">
+    <base name="ioa-common:ODUCn"/>
+    <description>
+      <text>Optical Data Unit-C3</text>
+    </description>
+  </identity>
+  <identity name="ODUC4">
+    <base name="ioa-common:ODUCn"/>
+    <description>
+      <text>Optical Data Unit-C4</text>
+    </description>
+  </identity>
+  <identity name="FC1G">
+    <base name="ioa-common:fc"/>
+    <description>
+      <text>Fiber Channel 1G.</text>
+    </description>
+  </identity>
+  <identity name="FC4G">
+    <base name="ioa-common:fc"/>
+    <description>
+      <text>Fiber Channel 4G.</text>
+    </description>
+  </identity>
+  <identity name="actual-power-draw">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="input-voltage">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="input-current">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="input-power">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>PM parameter for Input Power</text>
+    </description>
+    <reference>
+      <text>GX-44667</text>
+    </reference>
+  </identity>
+  <identity name="output-voltage">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>PM parameter for PEM Output Voltage</text>
+    </description>
+    <reference>
+      <text>GX-44667</text>
+    </reference>
+  </identity>
+  <identity name="output-current">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>PM parameter for PEM Output Current</text>
+    </description>
+    <reference>
+      <text>GX-44667</text>
+    </reference>
+  </identity>
+  <identity name="output-power">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>PM parameter for Output Power</text>
+    </description>
+    <reference>
+      <text>GX-44667</text>
+    </reference>
+  </identity>
+  <identity name="fan-speed">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="temperature">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="framer-chip-temperature-1">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="framer-chip-temperature-2">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="inlet-temperature">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="outlet-temperature">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>PM parameter for IOPANEL Outlet Temperature</text>
+    </description>
+    <reference>
+      <text>GX-27996</text>
+    </reference>
+  </identity>
+  <identity name="dsp-chip-temperature">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>PM parameter for DCO Temperature (CHM6/L only)</text>
+    </description>
+    <reference>
+      <text>GX-27947</text>
+    </reference>
+  </identity>
+  <identity name="link-utilization">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="packets">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="octets">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="err-packets">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="err-octets">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="jabbers">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="fragments">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="crc-aligned-err">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="undersized">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="oversized">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="broadcast-pkts">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="multicast-pkts">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="in-pause-frames">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="out-pause-frames">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="size-64">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="size-65-to-127">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="size-128-to-255">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="size-256-to-511">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="size-512-to-1023">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="size-1024-to-1518">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="size-1519-to-jumbo">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-errored-blocks">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="corrected-words">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-total">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-01">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-02">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-03">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-04">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-05">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-06">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-07">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-08">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-09">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-10">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-11">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-12">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-13">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-14">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-15">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-16">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-17">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-18">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-19">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pcs-bip-20">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="fec-corrected-bits">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="fec-symbol-error">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="fec-symbol-error-rate">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="opt">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="dgd">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="so-dgd">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="opr">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="edfa-opt">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="edfa-opr">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="edfa-lbc">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="errored-blocks">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="severely-errored-seconds">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="unavailable-seconds">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="errored-seconds">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="propagation-delay">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="corrected-bits">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="uncorrected-words">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-lbc">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opt">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opr">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-lbc1">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opt1">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opr1">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-lbc2">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opt2">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opr2">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-lbc3">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opt3">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opr3">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-lbc4">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opt4">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opr4">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-lbc5">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opt5">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opr5">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-lbc6">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opt6">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opr6">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-lbc7">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opt7">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opr7">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-lbc8">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opt8">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opr8">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-lbc9">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opt9">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opr9">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-lbc10">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opt10">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opr10">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opt-total">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="tom-opr-total">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="cd">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="snr-avg-x">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="snr-avg-y">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="subcarrier0-snr">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="subcarrier1-snr">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="subcarrier2-snr">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="subcarrier3-snr">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="subcarrier4-snr">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="subcarrier5-snr">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="subcarrier6-snr">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="subcarrier7-snr">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="snr-inner">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="snr-outer">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="snr-total">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="snr-diff-left">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="snr-diff-right">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pre-fec-q">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="post-fec-q">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pre-fec-ber">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="post-fec-ber">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="passing-fec-frames">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="failed-fec-frames">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="total-fec-frames">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="frequency">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="osnr">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="phase-correction">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="packets-dropped">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="protection-switch-duration">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="protection-switch-count">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="loss">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="pdl">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="cfo">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="line-test-sig-err">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <status value="obsolete"/>
+  </identity>
+  <identity name="trib-test-sig-err">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="odu-test-sig-err">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <status value="obsolete"/>
+  </identity>
+  <identity name="oof-seconds">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="sef-seconds">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="coding-violation">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="drop-events">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="prbs-errors">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="prbs-sync-errors">
+    <base name="ioa-pm:PM-PARAMETER"/>
+  </identity>
+  <identity name="lbc">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Laser Bias Curremt</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="iae">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Incoming Alignment Error</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="biae">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Backward Incoming Alignment Error</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="utilization-cpu">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Aggregate CPU utilization across all cores</text>
+    </description>
+    <reference>
+      <text>THANOS-16594</text>
+    </reference>
+  </identity>
+  <identity name="utilization-cpu-core0">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Per-core CPU utilization</text>
+    </description>
+    <reference>
+      <text>THANOS-16594</text>
+    </reference>
+  </identity>
+  <identity name="utilization-cpu-core1">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Per-core CPU utilization</text>
+    </description>
+    <reference>
+      <text>THANOS-16594</text>
+    </reference>
+  </identity>
+  <identity name="utilization-cpu-core2">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Per-core CPU utilization</text>
+    </description>
+    <reference>
+      <text>THANOS-16594</text>
+    </reference>
+  </identity>
+  <identity name="utilization-cpu-core3">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Per-core CPU utilization</text>
+    </description>
+    <reference>
+      <text>THANOS-16594</text>
+    </reference>
+  </identity>
+  <identity name="utilization-memory">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Memory</text>
+    </description>
+    <reference>
+      <text>THANOS-16594</text>
+    </reference>
+  </identity>
+  <identity name="system-load-average-1min">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>System load average (1 min)</text>
+    </description>
+    <reference>
+      <text>THANOS-16594</text>
+    </reference>
+  </identity>
+  <identity name="system-load-average-5min">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>System load average (5 min)</text>
+    </description>
+    <reference>
+      <text>THANOS-16594</text>
+    </reference>
+  </identity>
+  <identity name="system-load-average-15min">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>System load average (15 min)</text>
+    </description>
+    <reference>
+      <text>THANOS-16594</text>
+    </reference>
+  </identity>
+  <identity name="number-of-processes">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Number of processes</text>
+    </description>
+    <reference>
+      <text>THANOS-16594</text>
+    </reference>
+  </identity>
+  <identity name="number-of-threads">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Number of threads</text>
+    </description>
+    <reference>
+      <text>THANOS-16594</text>
+    </reference>
+  </identity>
+  <identity name="disk-free-space">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Free disk space</text>
+    </description>
+    <reference>
+      <text>THANOS-16594</text>
+    </reference>
+  </identity>
+  <identity name="disk-used-space">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Used disk space</text>
+    </description>
+    <reference>
+      <text>THANOS-16594</text>
+    </reference>
+  </identity>
+  <identity name="pic-temp">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Temperature of the PIC</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="pic-case-temp">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Temperature of the PIC Case</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="soa-current-te">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Transverse electric component</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="soa-current-tm">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Transverse magnetic component</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="mzm-sub-phase-te-i">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Transverse electric, in-phase (i) component</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="mzm-sub-phase-te-q">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Transverse electric,  quadrature (q) component</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="mzm-sub-phase-tm-i">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Transverse magnetic, in-phase (i) component</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="mzm-sub-phase-tm-q">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Transverse magnetic,  quadrature (q) component</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="mzm-super-phase-te">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Transverse electric component</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="mzm-super-phase-tm">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Transverse magnetic component</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="pic-output-power">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Transmit Power from PIC to EDFA Input</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="edfa-pump-current">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Transmit EDFA pump laser current</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="edfa-output-power">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Transmit EDFA output power</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="avoa-output-attenuation">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Transmit Attenuation Variable Optical Attenuator</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="tunable-filter-wavelength-drift">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Transmit Tunable Filter's Wavelength Drift</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="output-optical-power">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Transmit Output Optical Power of the CHM6</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="input-optical-power">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Receive Optical Power of the CHM6</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="avoa-input-attenuation">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Receive Attenuation Variable Optical Attenuator</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="pic-input-power">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Receive Optical Power Delivered to the PIC</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="tia-agc-gain-x1">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>This is a tia gain for polarization x branch 1</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="tia-agc-gain-x2">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>This is a tia gain for polarization x branch 2</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="tia-agc-gain-y1">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>This is a tia gain for polarization y branch 1</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="tia-agc-gain-y2">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>This is a tia gain for polarization y branch 2</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="tia-agc-output-amplitude-x">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Receive (TIA) Automatic Gain Control Output Amplitude for X Polarization</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="tia-agc-output-amplitude-y">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Receive (TIA) Automatic Gain Control Output Amplitude for Y Polarization</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="tia-agc-output-balance-x1">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>This is a tia out balance for polarization x branch 1</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="tia-agc-output-balance-x2">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>This is a tia out balance for polarization x branch 2</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="tia-agc-output-balance-y1">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>This is a tia out balance for polarization y branch 1</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="tia-agc-output-balance-y2">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>This is a tia out balance for polarization y branch 2</text>
+    </description>
+    <reference>
+      <text>GX-50636</text>
+    </reference>
+  </identity>
+  <identity name="symbol-errors">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>A count of the number of 8B/10B Line Code Violations</text>
+    </description>
+    <reference>
+      <text>GX-40541</text>
+    </reference>
+  </identity>
+  <identity name="gain">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Raman gain for DWDM signal frequency range as calculated by power control library</text>
+    </description>
+    <reference>
+      <text>THANOS-3372</text>
+    </reference>
+  </identity>
+  <identity name="laser-power">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Total Raman pump power sent out at DWDM Line port input</text>
+    </description>
+    <reference>
+      <text>THANOS-3372</text>
+    </reference>
+  </identity>
+  <identity name="orl">
+    <base name="ioa-pm:PM-PARAMETER"/>
+    <description>
+      <text>Raman optical return loss</text>
+    </description>
+    <reference>
+      <text>THANOS-3372</text>
+    </reference>
+  </identity>
+  <identity name="ADMIN-LOCK">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Administrative Lock</text>
+    </description>
+    <reference>
+      <text>GX-748</text>
+    </reference>
+  </identity>
+  <identity name="PWRDRAW">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Chassis power draw exceeds configured maximum value</text>
+    </description>
+    <reference>
+      <text>GX-749</text>
+    </reference>
+  </identity>
+  <identity name="PWRCTRL-INIT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Power Control: System needed power is more than available power</text>
+    </description>
+    <reference>
+      <text>GX-750</text>
+    </reference>
+  </identity>
+  <identity name="PWR-PROT-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Chassis power protection failed</text>
+    </description>
+    <reference>
+      <text>GX-752</text>
+    </reference>
+  </identity>
+  <identity name="AMBIENT-TEMP-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Ambient (inlet) Temperature Out of Range - High</text>
+    </description>
+    <reference>
+      <text>GX-746</text>
+    </reference>
+  </identity>
+  <identity name="AMBIENT-TEMP-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Ambient (inlet) Temperature Out of Range - Low</text>
+    </description>
+    <reference>
+      <text>GX-746</text>
+    </reference>
+  </identity>
+  <identity name="ADMIN-MAINT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Administrative Maintenance</text>
+    </description>
+    <reference>
+      <text>GX-747</text>
+    </reference>
+  </identity>
+  <identity name="ACTIVE-BLANK-MISSING">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Active blank missing</text>
+    </description>
+    <reference>
+      <text>GX-761</text>
+    </reference>
+  </identity>
+  <identity name="NO-CTRLR-MODULE-REDUNDANCY">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Redundant Controller Not Present or Not Ready</text>
+    </description>
+    <reference>
+      <text>GX-744,THANOS-16833</text>
+    </reference>
+  </identity>
+  <identity name="EQPTMSMT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Equipment type mismatch</text>
+    </description>
+  </identity>
+  <identity name="IMPROPRMVL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Equipment improper removal</text>
+    </description>
+    <reference>
+      <text>GX-753</text>
+    </reference>
+  </identity>
+  <identity name="EQPTFAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Equipment failure</text>
+    </description>
+    <reference>
+      <text>GX-753</text>
+    </reference>
+  </identity>
+  <identity name="EQPT-PARTFAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Equipment partial failure</text>
+    </description>
+    <reference>
+      <text>GX-753</text>
+    </reference>
+  </identity>
+  <identity name="EQPTCOMFAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Equipment Communication Fail</text>
+    </description>
+    <reference>
+      <text>GX-753</text>
+    </reference>
+  </identity>
+  <identity name="PWR-CLASS-UNSUPPORTED">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TOMs power class is unsupported (i.e. out-of-range) on the specific port</text>
+    </description>
+    <reference>
+      <text>GX-13801</text>
+    </reference>
+  </identity>
+  <identity name="TEMP-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Temperature Out Of Range - High</text>
+    </description>
+    <reference>
+      <text>GX-753</text>
+    </reference>
+  </identity>
+  <identity name="LATCH-OPEN">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Latch opened</text>
+    </description>
+    <reference>
+      <text>GX-753</text>
+    </reference>
+  </identity>
+  <identity name="EQPT-USB-NOACCESS">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>No access to USB ports</text>
+    </description>
+    <reference>
+      <text>GX-753</text>
+    </reference>
+  </identity>
+  <identity name="SW-ACTIVATION">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Software Activation in progress</text>
+    </description>
+    <reference>
+      <text>GX-753</text>
+    </reference>
+  </identity>
+  <identity name="PWR-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Main Power failure</text>
+    </description>
+    <reference>
+      <text>GX-754</text>
+    </reference>
+  </identity>
+  <identity name="PWRUV">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Power under voltage</text>
+    </description>
+    <reference>
+      <text>GX-754</text>
+    </reference>
+  </identity>
+  <identity name="PWROV">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Power over voltage</text>
+    </description>
+    <reference>
+      <text>GX-754</text>
+    </reference>
+  </identity>
+  <identity name="EQPTDEGRADE">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Equipment degradation</text>
+    </description>
+    <reference>
+      <text>GX-753</text>
+    </reference>
+  </identity>
+  <identity name="RECOVER-MODE">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Recover mode</text>
+    </description>
+    <reference>
+      <text>GX-7882</text>
+    </reference>
+  </identity>
+  <identity name="EQPTCPRESET">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Equipment's control plane is resetting</text>
+    </description>
+    <reference>
+      <text>GX-753</text>
+    </reference>
+  </identity>
+  <identity name="EQPTCPUR">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Equipment's control plane is unreachable</text>
+    </description>
+    <reference>
+      <text>GX-753</text>
+    </reference>
+  </identity>
+  <identity name="INITFAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Initialization failure</text>
+    </description>
+    <reference>
+      <text>GX-753</text>
+    </reference>
+  </identity>
+  <identity name="PEER-CTRLR-COMM-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Internal ethernet link failure to peer controller module</text>
+    </description>
+    <reference>
+      <text>GX-753</text>
+    </reference>
+  </identity>
+  <identity name="NO-NCT-REDUNDANCY">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Redundant NCT connectivity unavailable.</text>
+    </description>
+    <reference>
+      <text>THANOS-14278</text>
+    </reference>
+  </identity>
+  <identity name="UNEXP-CONFIGURED-CHASSIS">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>NC determines the Infinera chassis is not part of the Multi-chassis NE but is connected in the internal communication LAN or has database not belonging to the current NE</text>
+    </description>
+    <reference>
+      <text>THANOS-14279,THANOS-20469</text>
+    </reference>
+  </identity>
+  <identity name="SCHEDFAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Scheduled Task Failed</text>
+    </description>
+    <reference>
+      <text>Management Interfaces SRD - 4.10.2.</text>
+    </reference>
+  </identity>
+  <identity name="CREDENTIAL-AGING">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>User credential expiration</text>
+    </description>
+    <reference>
+      <text>THANOSSEC-215</text>
+    </reference>
+  </identity>
+  <identity name="NTPSERVER-FAULT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Configured NTP server unavailable</text>
+    </description>
+  </identity>
+  <identity name="FLASH-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Flash device failed</text>
+    </description>
+    <reference>
+      <text>GX-765</text>
+    </reference>
+  </identity>
+  <identity name="INIT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Initialization Under Progress</text>
+    </description>
+    <reference>
+      <text>GX-579</text>
+    </reference>
+  </identity>
+  <identity name="DATAPATH-INIT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Datapath initialization under progress</text>
+    </description>
+    <reference>
+      <text>GX-33730</text>
+    </reference>
+  </identity>
+  <identity name="TEMP-OOR-DEVICE-SHUTDOWN">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Temperature Out Of Range - device auto shutdown</text>
+    </description>
+    <reference>
+      <text>GX-579</text>
+    </reference>
+  </identity>
+  <identity name="TEMP-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Temperature Out Of Range - Low</text>
+    </description>
+    <reference>
+      <text>GX-579</text>
+    </reference>
+  </identity>
+  <identity name="CFG-MSMT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Configuration mismatch</text>
+    </description>
+    <reference>
+      <text>GX-577,GX-15433</text>
+    </reference>
+  </identity>
+  <identity name="SW-MSMT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Software Version Mismatch</text>
+    </description>
+    <reference>
+      <text>THANOS-1299</text>
+    </reference>
+  </identity>
+  <identity name="FW-INSTAL-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Firmware Installation Failed</text>
+    </description>
+    <reference>
+      <text>THANOS-4655,GX-11551</text>
+    </reference>
+  </identity>
+  <identity name="SW-INSTAL-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Software Installation Failed</text>
+    </description>
+    <reference>
+      <text>THANOS-1300</text>
+    </reference>
+  </identity>
+  <identity name="SW-SERVICE-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Software service failure</text>
+    </description>
+    <reference>
+      <text>THANOS-1119</text>
+    </reference>
+  </identity>
+  <identity name="OPR-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>OPR Out of Range - Low</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="OPR-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>OPR Out of Range - High</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="OLOS">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Optical Loss of Signal</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="LS-ACTIVE">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Laser Shutdown Active</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="CDR-LOL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>CDR Loss Of Lock</text>
+    </description>
+    <reference>
+      <text>GX-580</text>
+    </reference>
+  </identity>
+  <identity name="SD">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Signal Degraded</text>
+    </description>
+    <reference>
+      <text>GX-580</text>
+    </reference>
+  </identity>
+  <identity name="LPBKFACILITY">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Facility loopback enabled</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967,GX-11570</text>
+    </reference>
+  </identity>
+  <identity name="LPBKTERM">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Terminal loopback enabled</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967,GX-11570</text>
+    </reference>
+  </identity>
+  <identity name="LOSYNC">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Loss of Sync</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="RF">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Remote Fault</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="LF">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Local Fault</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="LOA">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Loss of Alignment</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="LOLM">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Loss of Lane Marker</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="ADTIMEOUT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Auto-Discovery Timeout</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="BDI">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Backward Defect Indication</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="PRE-FEC-Q-SIGNAL-DEGRADE">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Pre-FEC Q-based Signal Degraded</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="DGD-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Differential Group Delay Out Of Range - High</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="POST-FEC-Q-SIGNAL-DEGRADE">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Post-FEC Q-based Signal Degraded</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967,GX-7733</text>
+    </reference>
+  </identity>
+  <identity name="POST-FEC-Q-SIGNAL-FAILURE">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Post-FEC Q-based Signal Failure</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967,GX-7733</text>
+    </reference>
+  </identity>
+  <identity name="HIBER">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>High BER</text>
+    </description>
+    <reference>
+      <text>GX-6886</text>
+    </reference>
+  </identity>
+  <identity name="LOF">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Loss of Frame</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="LOM">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Loss of Multi-Frame</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-6620</text>
+    </reference>
+  </identity>
+  <identity name="FDI">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Forward Defect Indication</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="TIM">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Trace Identifier Mismatch</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="AIS">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Alarm Indication Signal</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="OCI">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Open Connection Indication</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="LCK">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Locked Indication</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="MSIM">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Multiplex Structure Identifier Mismatch</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="PLM">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Payload Label Mismatch</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="LOFLOM">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Loss of Frame Or Loss of Multi-frame</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="LOOMFI">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Loss of OPU Multi-frame Identifier</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="CSF">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Client Signal Failure</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="CSF-LOS">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Client Signal Failure - Loss of Signal</text>
+    </description>
+    <reference>
+      <text>GX-22017</text>
+    </reference>
+  </identity>
+  <identity name="LFD">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>GFP Loss of Frame Delineation</text>
+    </description>
+    <reference>
+      <text>GX-22017</text>
+    </reference>
+  </identity>
+  <identity name="EXM">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>GFP Extension Header Mismatch</text>
+    </description>
+    <reference>
+      <text>GX-22017</text>
+    </reference>
+  </identity>
+  <identity name="UPM">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>GFP User Payload Mismatch</text>
+    </description>
+    <reference>
+      <text>GX-22017</text>
+    </reference>
+  </identity>
+  <identity name="LINE-TESTSIG-GEN">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Test signal generation activated, toward network</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="LINE-TESTSIG-OOS">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Test signal out of sync, from network</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="TRIB-TESTSIG-GEN">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Test signal generation activated, toward client</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="TRIB-TESTSIG-OOS">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Test signal out of sync, from client</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="PRBS-GEN">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>PRBS Generation Activated</text>
+    </description>
+    <reference>
+      <text>GX-13100</text>
+    </reference>
+  </identity>
+  <identity name="PRBS-OOS">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>PRBS Out of Sync</text>
+    </description>
+    <reference>
+      <text>GX-13100</text>
+    </reference>
+  </identity>
+  <identity name="OPT-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>OPT Out of Range - High</text>
+    </description>
+    <reference>
+      <text>GX-7728</text>
+    </reference>
+  </identity>
+  <identity name="OPT-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>OPT Out of Range - Low</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="PARTFAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Partial Facility Failure</text>
+    </description>
+    <reference>
+      <text>GX-150,GX-53,GX-2967</text>
+    </reference>
+  </identity>
+  <identity name="SEVERITY-DEFAULT-LEVEL-CHANGED">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Default logging severity level changed</text>
+    </description>
+    <reference>
+      <text>THANOS-657</text>
+    </reference>
+  </identity>
+  <identity name="CERTIFICATE-EXPIRING">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Certificate expiration</text>
+    </description>
+    <reference>
+      <text>THANOSSEC-242</text>
+    </reference>
+  </identity>
+  <identity name="CERTIFICATE-EXPIRED">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Certificate expired</text>
+    </description>
+    <reference>
+      <text>THANOSSEC-242</text>
+    </reference>
+  </identity>
+  <identity name="CERTIFICATE-REVOKED">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Certificate revoked</text>
+    </description>
+  </identity>
+  <identity name="CERTIFICATE-UNTRUSTED">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Certificate trust chain is broken</text>
+    </description>
+  </identity>
+  <identity name="LINKDOWN">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Ethernet link down</text>
+    </description>
+    <reference>
+      <text>GX-762,THANOS-11143</text>
+    </reference>
+  </identity>
+  <identity name="LINKDOWN-CRAFT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Ethernet link down</text>
+    </description>
+    <reference>
+      <text>GX-20780</text>
+    </reference>
+  </identity>
+  <identity name="LINKDOWN-NCT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Ethernet link down</text>
+    </description>
+    <reference>
+      <text>THANOS-14276</text>
+    </reference>
+  </identity>
+  <identity name="DUPLICATE-IPV6-ADDR-DETECT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Duplicated IPv6 address detected</text>
+    </description>
+    <reference>
+      <text>THANOS-1427</text>
+    </reference>
+  </identity>
+  <identity name="DUPLICATE-IPV4-ADDR-DETECT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Duplicated IPv4 address detected</text>
+    </description>
+    <reference>
+      <text>THANOS-1389</text>
+    </reference>
+  </identity>
+  <identity name="NO-OSPFV2-NEIGHBOR">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>No OSPFv2 neighbour detected</text>
+    </description>
+    <reference>
+      <text>GX-762</text>
+    </reference>
+  </identity>
+  <identity name="NO-OSPFV3-NEIGHBOR">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>No OSPFv3 neighbour detected</text>
+    </description>
+    <reference>
+      <text>GX-762</text>
+    </reference>
+  </identity>
+  <identity name="EQPT-UNSUPPORTED">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Equipment not supported</text>
+    </description>
+    <reference>
+      <text>NA</text>
+    </reference>
+  </identity>
+  <identity name="OPT-CARRIER-FREQ-CONTENTION">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Optical Carrier Frequency Contention Detected</text>
+    </description>
+    <reference>
+      <text>GX-1096</text>
+    </reference>
+  </identity>
+  <identity name="ALL-CARRIER-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>All Carriers under SCH failed</text>
+    </description>
+    <reference>
+      <text>GX-8915</text>
+    </reference>
+  </identity>
+  <identity name="BSD">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Rx Backward Indication - Signal Degrade</text>
+    </description>
+    <reference>
+      <text>GX-11394,GX-34696</text>
+    </reference>
+  </identity>
+  <identity name="COMM-CHNL-DOWN">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Communications channel down</text>
+    </description>
+    <reference>
+      <text>THANOS-11143</text>
+    </reference>
+  </identity>
+  <identity name="DBRESTOREFAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>The activation of a snapshot failed</text>
+    </description>
+    <reference>
+      <text>THANOSSEC-782</text>
+    </reference>
+  </identity>
+  <identity name="MANAGEMENT-SESSION-THRESHOLD-HIGH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Number of management sessions above threshold</text>
+    </description>
+    <reference>
+      <text>GX-4190</text>
+    </reference>
+  </identity>
+  <identity name="PEER-UNREACHABLE">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Unable to reach IKE peer</text>
+    </description>
+    <reference>
+      <text>THANOSSEC-985</text>
+    </reference>
+  </identity>
+  <identity name="IKE-CONFIG-MSMT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Misconfiguration in IKE peer parameters between the near-end and the far-end</text>
+    </description>
+    <reference>
+      <text>THANOSSEC-657</text>
+    </reference>
+  </identity>
+  <identity name="ENCR-CONFIG-MSMT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Mismatch in encryption related attributes between the near-end and the far-end</text>
+    </description>
+    <reference>
+      <text>THANOSSEC-657</text>
+    </reference>
+  </identity>
+  <identity name="PEER-AUTHENTICATION-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Authentication (or re-authentication) with IKE peer failed</text>
+    </description>
+    <reference>
+      <text>THANOSSEC-858</text>
+    </reference>
+  </identity>
+  <identity name="REKEY-SA-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Re-Key Security Association Failure</text>
+    </description>
+    <reference>
+      <text>THANOSSEC-987,THANOSSEC-988</text>
+    </reference>
+  </identity>
+  <identity name="ENCRYPTION-UNSUPPORTED">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Encryption not supported in line-card, but configurations present</text>
+    </description>
+    <reference>
+      <text>THANOSSEC-1025</text>
+    </reference>
+  </identity>
+  <identity name="PRE-SHARED-KEY-EXPIRING">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>IKE peer pre-shared key expiration warning</text>
+    </description>
+    <reference>
+      <text>THANOSSEC-813</text>
+    </reference>
+  </identity>
+  <identity name="PRE-SHARED-KEY-EXPIRED">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>IKE peer pre-shared key expiration</text>
+    </description>
+    <reference>
+      <text>THANOSSEC-1546</text>
+    </reference>
+  </identity>
+  <identity name="FEC-DEGRADED-SER">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>FEC degraded SER</text>
+    </description>
+    <reference>
+      <text>GX-5220</text>
+    </reference>
+  </identity>
+  <identity name="LOCAL-DEGRADED">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Local degraded</text>
+    </description>
+    <reference>
+      <text>GX-5220</text>
+    </reference>
+  </identity>
+  <identity name="REMOTE-DEGRADED">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Remote degraded</text>
+    </description>
+    <reference>
+      <text>GX-5220,GX-23187</text>
+    </reference>
+  </identity>
+  <identity name="EQPT-INCOMPATIBLE">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Equipment is incompatible with system software</text>
+    </description>
+    <reference>
+      <text>THANOS-8254,THANOS-12332</text>
+    </reference>
+  </identity>
+  <identity name="SUBCOMPONENT-WARM-RESET">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Subcomponent warm resetting</text>
+    </description>
+    <reference>
+      <text>GX-10614</text>
+    </reference>
+  </identity>
+  <identity name="SUBCOMPONENT-COLD-RESET">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Subcomponent cold resetting</text>
+    </description>
+    <reference>
+      <text>GX-10614</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-BROADCAST-PKTS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-CRC-ALIGNED-ERR-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-ERR-OCTETS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-FRAGMENTS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-IN-PAUSE-FRAMES-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-JABBERS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-MULTICAST-PKTS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-OCTETS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-OUT-PAUSE-FRAMES-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-OVERSIZED-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-PACKETS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-ERR-PACKETS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-PCS-ERRORED-BLOCKS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-SIZE-1024-TO-1518-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-SIZE-128-TO-255-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-SIZE-1519-TO-JUMBO-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-SIZE-256-TO-511-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-SIZE-512-TO-1023-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-SIZE-64-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-SIZE-65-TO-127-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-UNDERSIZED-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-SEVERELY-ERRORED-SECONDS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-ERRORED-BLOCKS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-ERRORED-SECONDS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-UNAVAILABLE-SECONDS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-LINK-UTILIZATION-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-LINK-UTILIZATION-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-PCS-BIP-TOTAL-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-PROPAGATION-DELAY-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-16454,GX-11047</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-PROPAGATION-DELAY-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-16454,GX-11047</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-IAE-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-BIAE-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-UNCORRECTED-WORDS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-CORRECTED-WORDS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-CORRECTED-BITS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-PRE-FEC-BER-OOLH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-OOF-SECONDS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-13342</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-SEF-SECONDS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-13349</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-CODING-VIOLATION-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-13349</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-OPR-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-3372</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-OPR-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-3372</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-OPT-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-3372</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-OPT-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-3372</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-ORL-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-3372</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-UTILIZATION-MEMORY-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-21652</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-UTILIZATION-MEMORY-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (15 min) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-21652</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-BROADCAST-PKTS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-CRC-ALIGNED-ERR-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-ERR-OCTETS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-FRAGMENTS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-IN-PAUSE-FRAMES-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-JABBERS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-MULTICAST-PKTS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-OCTETS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-OUT-PAUSE-FRAMES-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-OVERSIZED-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-PACKETS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-ERR-PACKETS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-PCS-ES-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-PCS-SES-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-PCS-SESS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-SIZE-1024-TO-1518-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-SIZE-128-TO-255-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-SIZE-1519-TO-JUMBO-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-SIZE-256-TO-511-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-SIZE-512-TO-1023-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-SIZE-64-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-SIZE-65-TO-127-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-UNDERSIZED-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-SEVERELY-ERRORED-SECONDS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-ERRORED-BLOCKS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-ERRORED-SECONDS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-UNAVAILABLE-SECONDS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-LINK-UTILIZATION-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-LINK-UTILIZATION-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-PCS-BIP-TOTAL-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-PCS-ERRORED-BLOCKS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-8075</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-PROPAGATION-DELAY-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-16454,GX-11047</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-PROPAGATION-DELAY-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-16454,GX-11047</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-IAE-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-BIAE-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-UNCORRECTED-WORDS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-CORRECTED-WORDS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-CORRECTED-BITS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-PRE-FEC-BER-OOLH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-OOF-SECONDS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-13342</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-SEF-SECONDS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-13349</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-CODING-VIOLATION-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-13349</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-OPR-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-3372</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-OPR-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-3372</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-OPT-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-3372</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-OPT-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-3372</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-ORL-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-3372</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-UTILIZATION-MEMORY-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-21652</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-UTILIZATION-MEMORY-OORL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>TCA (24 h) Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>THANOS-21652</text>
+    </reference>
+  </identity>
+  <identity name="PROT-ACTIVE">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Protection entity active</text>
+    </description>
+    <reference>
+      <text>GX-6817</text>
+    </reference>
+  </identity>
+  <identity name="PROT-LOCKOUT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Protection group lockout</text>
+    </description>
+    <reference>
+      <text>GX-6818</text>
+    </reference>
+  </identity>
+  <identity name="PROT-FORCED">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Protection group forced switch</text>
+    </description>
+    <reference>
+      <text>GX-6819</text>
+    </reference>
+  </identity>
+  <identity name="PROT-FROZEN">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Protection group frozen</text>
+    </description>
+    <reference>
+      <text>GRD-1051</text>
+    </reference>
+  </identity>
+  <identity name="PROT-UNAVAILABLE">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Protection group unavailable</text>
+    </description>
+    <reference>
+      <text>GX-6820</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-PROTECTION-SWITCH-COUNT-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-6822</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-PROTECTION-SWITCH-COUNT-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-6823</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-PROTECTION-SWITCH-DURATION-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-6824</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-PROTECTION-SWITCH-DURATION-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-6825</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-15MIN-SYMBOL-ERRORS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-40541</text>
+    </reference>
+  </identity>
+  <identity name="TCA-PM-24H-SYMBOL-ERRORS-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Parameter threshold crossed</text>
+    </description>
+    <reference>
+      <text>GX-40541</text>
+    </reference>
+  </identity>
+  <identity name="IP-MONITOR-FAILED">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>The monitoring of an IP address failed</text>
+    </description>
+    <reference>
+      <text>THANOS-11373</text>
+    </reference>
+  </identity>
+  <identity name="FREQ-PROV-PENDING">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Frequency provision pending</text>
+    </description>
+    <reference>
+      <text>GX-11560</text>
+    </reference>
+  </identity>
+  <identity name="COH-LOL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Coherent Rx - Loss of lock</text>
+    </description>
+    <reference>
+      <text>GX-11570,GX-19682</text>
+    </reference>
+  </identity>
+  <identity name="LOL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Loss of lane alignment</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="RDI">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Remote Defect Indication</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="FDD">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>FEC Detected Degrade</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="FED">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>FEC Excessive Degrade</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="GIDM">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Group ID Mismatch</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="FMM">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>FlexO PHY Map Mismatch</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="LRC">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Loss Of RC Blocks</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="BERSD">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Bit Error Rate Signal Degrade</text>
+    </description>
+    <reference>
+      <text>GX-7698</text>
+    </reference>
+  </identity>
+  <identity name="MS-AIS">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Alarm Indication Signal</text>
+    </description>
+    <reference>
+      <text>GX-13339</text>
+    </reference>
+  </identity>
+  <identity name="AIS-L">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Alarm Indication Signal</text>
+    </description>
+    <reference>
+      <text>GX-13339</text>
+    </reference>
+  </identity>
+  <identity name="INCI-NBR-CONN-DOWN">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>INCI neighbor connectivity down</text>
+    </description>
+    <reference>
+      <text>GX-31334</text>
+    </reference>
+  </identity>
+  <identity name="DIAL-OUT-COMM-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Dial-out server connect state changed to Failed state</text>
+    </description>
+    <reference>
+      <text>THANOS-18193</text>
+    </reference>
+  </identity>
+  <identity name="SW-INIT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Software under initialization</text>
+    </description>
+    <reference>
+      <text>GX-31461,GX-32074</text>
+    </reference>
+  </identity>
+  <identity name="NMOPER">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Neighbor Mismatch based on Operator-Specific Field in TTI</text>
+    </description>
+    <reference>
+      <text>GRD-1193</text>
+    </reference>
+  </identity>
+  <identity name="INTERNAL-ERROR">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Internal error</text>
+    </description>
+    <reference>
+      <text>GX-32773</text>
+    </reference>
+  </identity>
+  <identity name="AUTOSHUTOFF">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Automatic Laser Shutdown triggered by laser safety mechanism</text>
+    </description>
+    <reference>
+      <text>GX-31257</text>
+    </reference>
+  </identity>
+  <identity name="FORCED-REMOTE-OFF">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Alarm derived from the condition forced-remote-off</text>
+    </description>
+    <reference>
+      <text>GX-31258</text>
+    </reference>
+  </identity>
+  <identity name="RGAIN-SUSP-LOW">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Large negative deviation  (&lt;= -2dB) of measured Raman gain versus expected Raman gain</text>
+    </description>
+    <reference>
+      <text>GX-31258</text>
+    </reference>
+  </identity>
+  <identity name="RGAIN-SUSP-HIGH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Large positive deviation (&gt;= 3dB) of measured Raman gain versus expected Raman gain</text>
+    </description>
+    <reference>
+      <text>GX-31258</text>
+    </reference>
+  </identity>
+  <identity name="RGAIN-TARGET-LOW">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Raman gain resulting from configuration too low &lt;= 7 dB</text>
+    </description>
+    <reference>
+      <text>GX-31258</text>
+    </reference>
+  </identity>
+  <identity name="GAIN-OOR">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Gain or tilt not in valid mask range</text>
+    </description>
+    <reference>
+      <text>GX-31257</text>
+    </reference>
+  </identity>
+  <identity name="INTERSTAGE-LOS">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Open fiber detected at the interstage port</text>
+    </description>
+    <reference>
+      <text>GX-31257</text>
+    </reference>
+  </identity>
+  <identity name="REQUIRED-GAIN-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Amplifier target gain cannot be achieved due to power limitation or gain limitation</text>
+    </description>
+    <reference>
+      <text>GX-31257</text>
+    </reference>
+  </identity>
+  <identity name="WRONG-GAIN-RANGE">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Current amplifier gain is better supported in a different gain range than currently</text>
+    </description>
+    <reference>
+      <text>GX-33238</text>
+    </reference>
+  </identity>
+  <identity name="OPR-SPREAD-OORH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Measured power difference between NMCs added via this SRG is too high</text>
+    </description>
+    <reference>
+      <text>THANOS-11697</text>
+    </reference>
+  </identity>
+  <identity name="SPAN-LOSS-HIGH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Span loss too high</text>
+    </description>
+    <reference>
+      <text>THANOS-11693</text>
+    </reference>
+  </identity>
+  <identity name="LASER-SAFETY-MODE-MISMATCH">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>The detected laser safety mode from the peer NE is not consistent with the local laser safety mode</text>
+    </description>
+    <reference>
+      <text>GX-24453</text>
+    </reference>
+  </identity>
+  <identity name="LASER-SAFETY-MODE-COMMFAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>The NE detects loss of responses from the peer NE during the laser-safety-mode negotiation process</text>
+    </description>
+    <reference>
+      <text>GX-24454</text>
+    </reference>
+  </identity>
+  <identity name="PUMP-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Raman pump failure</text>
+    </description>
+    <reference>
+      <text>GX-24454</text>
+    </reference>
+  </identity>
+  <identity name="PUMP-DEGRADE">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Raman pump degraded</text>
+    </description>
+    <reference>
+      <text>GX-24454</text>
+    </reference>
+  </identity>
+  <identity name="DATA-ENCRYPTION-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Data encryption or decryption failed</text>
+    </description>
+    <reference>
+      <text>GX-38753</text>
+    </reference>
+  </identity>
+  <identity name="AUTOSHUTOFF-OVERPOWER">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Automatic pump shutdown due to overpower</text>
+    </description>
+    <reference>
+      <text>GX-46757</text>
+    </reference>
+  </identity>
+  <identity name="DBSYNC-TIMEOUT">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Database synchronization Timeout</text>
+    </description>
+    <reference>
+      <text>THANOS-21799</text>
+    </reference>
+  </identity>
+  <identity name="CHASSIS-UPGRADE-IN-PROGRESS">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Node Controller software management initiates software upgrade to a shelf controller</text>
+    </description>
+    <reference>
+      <text>THANOS-24757</text>
+    </reference>
+  </identity>
+  <identity name="PPP-NEGO-FAIL">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>PPP negotiation with peer failed</text>
+    </description>
+    <reference>
+      <text>GX-49464</text>
+    </reference>
+  </identity>
+  <identity name="LPBKFACILITY-HOST">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Facility Loopback Enabled on Host Interface</text>
+    </description>
+    <reference>
+      <text>GX-53922</text>
+    </reference>
+  </identity>
+  <identity name="LPBKTERM-HOST">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Terminal Loopback Enabled on Host Interface</text>
+    </description>
+    <reference>
+      <text>GX-53922</text>
+    </reference>
+  </identity>
+  <identity name="LPBKFACILITY-MODEM">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Facility Loopback Enabled on Modem Interface</text>
+    </description>
+    <reference>
+      <text>GX-53922</text>
+    </reference>
+  </identity>
+  <identity name="LPBKTERM-MODEM">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Terminal Loopback Enabled on Modem Interface</text>
+    </description>
+    <reference>
+      <text>GX-53922</text>
+    </reference>
+  </identity>
+  <identity name="LSS">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Loss of PRBS Lock</text>
+    </description>
+    <reference>
+      <text>GX-53922</text>
+    </reference>
+  </identity>
+  <identity name="TEST-SIG-GEN">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Test Signal Generation Activated</text>
+    </description>
+    <reference>
+      <text>GX-53922</text>
+    </reference>
+  </identity>
+  <identity name="TEST-SIG-MON">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Test Signal Monitoring Activated</text>
+    </description>
+    <reference>
+      <text>GX-53922</text>
+    </reference>
+  </identity>
+  <identity name="HIGH-SPEED-LOGGING">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>High speed logging running on at least one card within the NE</text>
+    </description>
+    <reference>
+      <text>GX-10533</text>
+    </reference>
+  </identity>
+  <identity name="CABLE-MISSING">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Cable problem detected for connection to OCM</text>
+    </description>
+    <reference>
+      <text>GX-31262</text>
+    </reference>
+  </identity>
+  <identity name="MIN-PEM-REQUIRED">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Chassis functional PEM number less than required</text>
+    </description>
+    <reference>
+      <text>GX-67337</text>
+    </reference>
+  </identity>
+  <identity name="TEMP-OOR-AMPLIFIER-SHUTDOWN">
+    <base name="ioa-alarm:ALARM-TYPE"/>
+    <description>
+      <text>Temperature Out Of Range - amplifier auto shutdown</text>
+    </description>
+    <reference>
+      <text>GX-69951</text>
+    </reference>
+  </identity>
+</module>

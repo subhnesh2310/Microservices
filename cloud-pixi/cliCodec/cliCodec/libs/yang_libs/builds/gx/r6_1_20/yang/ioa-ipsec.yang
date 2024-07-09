@@ -1,0 +1,486 @@
+module ioa-ipsec {
+    namespace "http://infinera.com/yang/ioa/ipsec";
+    prefix "ioa-ipsec";
+
+    import ioa-common      { prefix ioa-common; }
+    import ietf-inet-types { prefix inet;       }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module that defines the data model for IPsec used across control and management plane
+                 security applications supported on Infinera platforms.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+
+    typedef ike-sa-prf {
+        type enumeration {
+            enum hmac-sha2-256     { value 1; }
+            enum hmac-sha2-384     { value 2; }
+            enum hmac-sha2-512     { value 3; }
+            enum hmac-sha1         { value 4; }
+        }
+        description "All pseudo random functions used with the IKE SA.";
+        reference "https://www.iana.org/assignments/ikev2-parameters/ikev2-parameters.xhtml#ikev2-parameters-6";
+    }
+
+    typedef ike-sa-dh-group {
+        type enumeration {
+            enum dhe-2048     { value 1; } // MODP Group - 2048 bit
+            enum dhe-3072     { value 2; } // MODP Group - 3072 bit
+            enum dhe-4096     { value 3; } // MODP Group - 4096 bit
+            enum dhe-6144     { value 4; } // MODP Group - 6144 bit
+            enum dhe-8192     { value 5; } // MODP Group - 8192 bit
+            enum ecp-256      { value 6; } // Random ECP Group - 256-bit
+            enum ecp-384      { value 7; } // Random ECP Group - 384-bit
+            enum ecp-521      { value 8; } // Random ECP Group - 521-bit
+            enum curve-25519  { value 9; } // Curve25519
+            enum curve-448    { value 10; } // Curve448
+        }
+
+        description "All Diffie-Hellman groups used with the IKE SA.";
+        reference "https://www.iana.org/assignments/ikev2-parameters/ikev2-parameters.xhtml#ikev2-parameters-8";
+    }
+
+    typedef encryption-algorithm {
+        type enumeration {
+            enum null              { value 1; description "NULL encryption, used when authentication-only (no confidentiality) usage is desired";}
+            enum aes-gcm-8         { value 2; description "AES-GCM with 8-byte ICV."; }
+            enum aes-gcm-12        { value 3; description "AES-GCM with 12-byte ICV."; }
+            enum aes-gcm-16        { value 4; description "AES-GCM with 16-byte ICV."; }
+            enum aes-ctr           { value 5; description "AES-CTR mode."; }
+            enum aes-cbc           { value 6; description "AES-CBC mode."; }
+            enum aes-ccm-8         { value 7; description "AES-CCM with 8-byte ICV."; }
+            enum aes-ccm-12        { value 8; description "AES-CCM with 12-byte ICV."; }
+            enum aes-ccm-16        { value 9; description "AES-CCM with 16-byte ICV."; }
+            enum chacha20-poly1305 { value 10; description "ChaCha20/Poly1305 with 128 bit ICV "; }
+        }
+        description "All encryption algorithms used with the Child SA and the IKE SA.";
+        reference "https://www.iana.org/assignments/ikev2-parameters/ikev2-parameters.xhtml#ikev2-parameters-5";
+    }
+
+    typedef integrity-algorithm {
+        type enumeration {
+            enum none {
+                value 0;
+                description "Can be used only when the encryption algorithm uses authenticated " +
+                            "encryption/AEAD (such as AES-GCM). Cannot be used with other non " +
+                            "AEAD encryption algorithms such as AES-CTR or AES-CBC.";
+            }
+            enum hmac-sha2-256-128 { value 1; }
+            enum hmac-sha2-384-192 { value 2; }
+            enum hmac-sha2-512-256 { value 3; }
+            enum hmac-sha1-160     { value 4; }
+            enum hmac-sha1-96      { value 5; } // legacy
+        }
+        description "All Integrity algorithms used with the Child SA and the IKE SA.";
+        reference "https://www.iana.org/assignments/ikev2-parameters/ikev2-parameters.xhtml#ikev2-parameters-7";
+    }
+
+    typedef child-sa-dh-group {
+        type enumeration {
+            enum dhe-2048     { value 1; } // MODP Group - 2048 bit
+            enum dhe-3072     { value 2; } // MODP Group - 3072 bit
+            enum dhe-4096     { value 3; } // MODP Group - 4096 bit
+            enum dhe-6144     { value 4; } // MODP Group - 6144 bit
+            enum dhe-8192     { value 5; } // MODP Group - 8192 bit
+            enum ecp-256      { value 6; } // Random ECP Group - 256-bit
+            enum ecp-384      { value 7; } // Random ECP Group - 384-bit
+            enum ecp-521      { value 8; } // Random ECP Group - 521-bit
+            enum curve-25519  { value 9; } // Curve25519
+            enum curve-448    { value 10; } // Curve448
+        }
+
+        description "All Diffie-Hellman groups used with the Child SA.";
+        reference "https://www.iana.org/assignments/ikev2-parameters/ikev2-parameters.xhtml#ikev2-parameters-8";
+    }
+
+    typedef protocol-id {
+        type enumeration {
+            enum IKE {
+                value 1;
+            }
+
+            enum ESP {
+                value 3;
+            }
+        }
+
+        description "The protocol ID used in the IKE SA and IPsec SA protocol proposals.";
+        reference "Section 3.3 in RFC 7296.";
+    }
+
+    typedef encryption-key-length {
+        type enumeration {
+            enum none{
+                value 0;
+            }
+
+            enum key-length-128 {
+                value 128;
+            }
+
+            enum key-length-192 {
+                value 192;
+            }
+
+            enum key-length-256 {
+                value 256;
+            }
+        }
+        units "bits";
+        description "The key length (in bits) for the encryption algorithm.";
+    }
+
+
+    typedef start-port {
+            type union {
+                type inet:port-number;
+                type enumeration {
+                    enum all {
+                        value 0;
+                    }
+                    enum opaque {
+                        value 255;
+                    }
+                }
+            }
+
+        description "The values for the starting port";
+    }
+
+    grouping ipsec-sa-protocol-proposals {
+        list ipsec-sa-proposal {
+            key "number";
+
+            leaf number {
+                type uint8 {
+                    range "1..max";
+                }
+                description "The proposal number for the IPsec SA.";
+                reference "Section 3.3 in RFC 7296.";
+            }
+
+            leaf protocol-id {
+                type protocol-id;
+                default "ESP";
+                config false;
+                description "The protocol ID (type) for which the IPsec Child SA " +
+                            "proposal applies to.";
+            }
+
+            list encryption-algorithm {
+                when "../../ipsec-protocol = 'ESP'";
+                key "algorithm key-length";
+
+                leaf algorithm {
+                    type encryption-algorithm;
+                    mandatory true;
+                    description "The encryption algorithm for the IPsec SA.";
+                }
+
+                leaf key-length {
+                    type encryption-key-length;
+                    mandatory true;
+                    description "The IPsec SA encryption algorithm key length.";
+                }
+
+                description "A list of IPsec SA encryption algorithms
+                             advertised to the far-end IKE peer.";
+            }
+
+            leaf-list integrity-algorithm {
+                type integrity-algorithm;
+                description "A list of IPsec SA integrity algorithms
+                             advertised to the far-end IKE peer.";
+            }
+
+            leaf-list dh-group {
+                type child-sa-dh-group;
+                min-elements 1; // ESP IPsec SA PFS is always enabled.
+                description "A list of IPsec SA Diffie-Hellman groups
+                             advertised to the far-end IKE peer. NOTE:
+                             The 'min-elements' is 1, which means perfect
+                             forward secrecy (PFS) for IPsec Child SA is
+                             always enabled.";
+            }
+
+            description "A list of protocol proposals when negotiating the IPsec SA
+                         for this SPD entry with the far-end IKE peer.";
+        }
+    }
+
+    grouping ipsec-traffic-selector-attributes {
+        description "A collection of attributes associated with
+                     IPsec traffic selectors.";
+
+        leaf name {
+            type ioa-common:object-name;
+            description "A unique name to identify this IPsec traffic selector entry.";
+        }
+
+        uses ioa-common:aid {
+            refine AID {
+                description "A system-populated access identifier for this traffic selector entry.";
+            }
+        }
+
+        list local-subnet {
+            key "prefix";
+            leaf prefix {
+                type inet:ip-prefix;
+            }
+            description "This is a list of ranges of IPv4/IPv6
+                         addresses (unicast, broadcast (IPv4 only)).";
+            reference "Section 4.4.1.1, 4.4.1.2 in RFC 4301";
+        }
+
+        list remote-subnet {
+            key "prefix";
+            leaf prefix {
+                type inet:ip-prefix;
+            }
+
+            description "This is a list of ranges of IPv4/IPv6
+                         addresses (unicast, broadcast (IPv4 only)).";
+            reference "Section 4.4.1.1, 4.4.1.2 in RFC 4301";
+        }
+
+        leaf next-layer-protocol {
+            type union {
+                type uint8;
+                type enumeration {
+                    enum any {
+                        value 0;
+                    }
+                    enum opaque {
+                        value 255;
+                    }
+                }
+            }
+
+            default any;
+            description "Indicates the inner protocol (upper layer), obtained
+                         from the IPv4 protocol or the IPv6 next header field.";
+            reference "Section 4.4.1.1, 4.4.1.2 in RFC 4301 and
+                       https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml";
+        }
+
+        list local-ports {
+            key "start stop";
+            leaf start {
+                type start-port;
+                description "The port number where the range starts or a predefined value (all, opaque).";
+            }
+
+            leaf stop {
+                type inet:port-number;
+                description "The port number where the range ends.";
+            }
+            description "A list of local ports ranges associated with this traffic selector.";
+            reference "Section 4.4.1.1, 4.4.1.2 in RFC 4301";
+        }
+
+        list remote-ports {
+            key "start stop";
+            leaf start {
+                type start-port;
+                description "The port number where the range starts or a predefined value (all, opaque).";
+            }
+
+            leaf stop {
+                type inet:port-number;
+                description "The port number where the range ends";
+            }
+            description "A list of remote ports ranges associated with this traffic selector.";
+            reference "Section 4.4.1.1, 4.4.1.2 in RFC 4301";
+        }
+    }
+
+    grouping ipsec-spd-entry {
+        description "A collection of attributes that are associated
+                     with every IKEv2 SPD Entry.";
+
+        reference "IETF draft-ietf-i2nsf-sdn-ipsec-flow-protection,
+                   12ietf-i2nsf-ike@2020-10-30.yang module and
+                   Section 4.4.1.2 in RFC 4301.";
+
+        leaf name {
+            type ioa-common:object-name {
+                length 1..32;
+            }
+            description "A unique name to identify this SPD entry.";
+        }
+
+        uses ioa-common:aid {
+            refine AID {
+                description "A system-populated access identifier for this SPD entry.";
+            }
+        }
+
+        leaf priority {
+            type uint8;
+            mandatory true;
+            description "A priority value for each SPD entry. This is
+                         used to give precedence to the SPD entries.";
+            reference "Section 4.4.1.2 in RFC 4301.";
+        }
+
+        leaf description {
+            type string {
+                length "0..128";
+            }
+
+            description "User configurable label/description.";
+        }
+
+        list ipsec-traffic-selector {
+            key "name";
+            uses ipsec-traffic-selector-attributes;
+            description "A list of traffic selectors associated with an IPSec SPD entry.";
+        }
+
+        leaf action {
+            type enumeration {
+                enum protect { value 100; }
+                enum bypass  { value 200; }
+                enum discard { value 300; }
+            }
+            default protect;
+            description "Indicates the IPsec treatment given to the IP datagrams.";
+            reference "Section 4.4.1 ('Processing Choices') in RFC 4301.";
+        }
+
+        leaf ipsec-protocol {
+            when "../action = 'protect'";
+            type enumeration {
+                enum ESP {
+                    value 100;
+                    reference "RFC 4301 and RFC 4303.";
+                }
+            }
+            default ESP;
+            description "Indicates the use of ESP or AH IPsec protocols.";
+        }
+
+        leaf mode {
+            when "../action = 'protect'";
+            type enumeration {
+                enum tunnel    { value 100; }
+                enum transport { value 200; }
+            }
+            default tunnel;
+            description "Indicates if the IPsec session should operate in
+                         transport or tunnel mode.";
+        }
+
+        uses ioa-common:arc;
+
+        leaf esn {
+            type boolean;
+            default true;
+            description "Extended Sequence Number (ESN) support.";
+            reference "Section 2.2.1 in RFC 4303.";
+        }
+
+        container ipsec-sa-re-key {
+            when "../action = 'protect'";
+
+            leaf frequency {
+                type uint32 {
+                    range "3600..86400";
+                }
+                units "seconds";
+                default "14400"; // 4 hours
+                description "The rekeying frequency for the IPsec child
+                             security association with the far-end peer.";
+		    }
+
+            leaf bytes {
+                type union {
+                    type enumeration { enum disabled; }
+                    type uint32 {
+                        range "1048576..max"; // 1MB to 4GB
+                    }
+                }
+                units "bytes";
+                default "1073741824"; // 1 Gigabytes
+                description "The rekeying frequency for the IPsec child
+                             security association with the far-end peer
+                             based on amount of bytes transmitted.";
+            }
+
+            leaf packets{
+                type union {
+                    type enumeration {
+                        enum disabled{value 0;}
+                    }
+                    type uint64{
+                        range "1 .. 9223372036854775808"; // 1 .. 2^63 packets
+                    }
+                }
+                units "packets";
+                default disabled;
+                description "The rekeying frequency for the IPsec child
+                             security association with the far-end peer
+                             based on amount of packets transmitted.";
+            }
+            description "Contains the rekeying configurations of an IPSec SPD entry.";
+        }
+
+        uses ioa-common:oper-state;
+
+        uses ipsec-sa-protocol-proposals {
+            when "action = 'protect'";
+        }
+
+        leaf anti-replay-window {
+            when "../action = 'protect'";
+            type union {
+                type enumeration { enum disabled; }
+                type uint32 {
+                    range "32..1024";
+                }
+            }
+            default 64;
+            description "Indicates the replay window size tolerance.";
+        }
+
+        leaf dynamic-ts {
+            type enumeration {
+                enum disabled { value 0; }
+                enum enabled { value 1; }
+            }
+            default disabled;
+            description "Indicates whether dynamic traffic selector is enabled in this SPD entry.";
+        }
+    }
+
+    grouping ipsec-spd-attributes {
+        description "Collection of all attributes that describe the
+                     IPsec security policy data (SPD).";
+
+            list ipsec-spd-entry {
+                key "name";
+                ordered-by "user";
+                uses ipsec-spd-entry;
+                description "A list of SPD entries associated with an IPSec IKEv2 peer.";
+            }
+    }
+}

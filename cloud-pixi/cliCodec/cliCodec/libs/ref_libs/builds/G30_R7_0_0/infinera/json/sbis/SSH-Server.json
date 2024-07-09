@@ -1,0 +1,266 @@
+{
+    "ne": {
+        "system": {
+            "protocols": {
+                "ssh": {
+                    "ssh-known-host": [
+                        {
+                            "id": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "A unique identifier (name) for this entry.",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false
+                            },
+                            "namespace": null,
+                            "address": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The hostname/IPv4/IPv6 address of the allowed/known peer host.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "public-key-algorithm": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "ecdsa-sha2-nistp256",
+                                        "ecdsa-sha2-nistp384",
+                                        "ecdsa-sha2-nistp521",
+                                        "ssh-rsa2048",
+                                        "ssh-rsa3072",
+                                        "ssh-rsa4096"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The type of host key algorithm in use.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "public-key": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "SSHv2(OpenSSH Portable) host public key component encoded in PEM format:\n<key type><SPACE>...base64 encoded OpenSSH public key....<SPACE><comment>",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "label": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "User label.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ],
+                    "ssh-authorized-key": [
+                        {
+                            "user-name": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "User owning the authorized key. Can be local or remote user.",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false
+                            },
+                            "namespace": null,
+                            "key-id": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "A unique identifier (name) for this entry.",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false
+                            },
+                            "key-expiration-date": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Expiration date for SSH authorized key.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "key-state": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "disabled",
+                                        "enabled"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "State is 'disabled' if key is expired, 'enabled' otherwise.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "enabled",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "alarm-report-control": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "allowed",
+                                        "inhibited"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Controls the reporting of alarms for this particular object.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "allowed",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "public-key-algorithm": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "ecdsa-sha2-nistp256",
+                                        "ecdsa-sha2-nistp384",
+                                        "ecdsa-sha2-nistp521",
+                                        "ssh-rsa2048",
+                                        "ssh-rsa3072",
+                                        "ssh-rsa4096"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The type of host key algorithm in use.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "public-key": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "SSHv2(OpenSSH Portable) host public key component encoded in PEM format:\n<key type><SPACE>...base64 encoded OpenSSH public key....<SPACE><comment>",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "label": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "User label.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ],
+                    "enabled": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "Enables direct access to shell via ssh.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": false,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "port": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Port listening for ssh login that goes directly to shell.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 8022,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "pre-login-message": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Welcome message displayed before user login.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "post-login-message": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Welcome message displayed after user login.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "****************************************** Warning ******************************************\n\nThis system is restricted to authorized users for business purposes. Unauthorized access is a\nviolation of the law. This service may be monitored for administrative and security reasons.\nBy proceeding, you consent to this monitoring.\n\n*********************************************************************************************\n",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

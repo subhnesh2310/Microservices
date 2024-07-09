@@ -1,0 +1,110 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A generic, configurable name for every facility.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "line_system_mode": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "openwave"
+            ]
+        },
+        "description": "Indicates the specific mode of power control configured\non the L1 transponder, and specifically, on this particular SCG port within\nthe L1 transponder. The attribute indicates the L1 <-> L0 local power controls\nto adjust the Tx power from the L1 transponder towards the L0 line-system\ncard (such as a WSS or Mux or Amplifier).",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "openwave",
+        "hardcode": false,
+        "argName": "line_system_mode"
+    },
+    "openwave_contention_check": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Enables DNA assisted contention control mechanism in openwave mode.\n    Only of relevance for line system mode openwave",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "openwave_contention_check"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "auto_in_service_enabled": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Auto-in-service switch for this facility.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "auto_in_service_enabled"
+    },
+    "valid_signal_time": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Configurable time that represents a detection of a valid signal.\nUsed for auto-in-service mechanism.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 480,
+        "hardcode": false,
+        "argName": "valid_signal_time"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    }
+}

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-nmc"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-nmc="http://infinera.com/yang/ioa/nmc"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-l0="http://infinera.com/yang/ioa/l0"
+        xmlns:ioa-fac-common="http://infinera.com/yang/ioa/facilities-common">
+  <namespace uri="http://infinera.com/yang/ioa/nmc"/>
+  <prefix value="ioa-nmc"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-l0">
+    <prefix value="ioa-l0"/>
+  </import>
+  <import module="ioa-facilities-common">
+    <prefix value="ioa-fac-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG definitions for Network Media Channel (NMC) facilities in a Layer 0 context.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <typedef name="nmc-attenuation-actual">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="na">
+          <value value="0"/>
+          <description>
+            <text>Not applicable</text>
+          </description>
+        </enum>
+        <enum name="blocked">
+          <value value="1"/>
+          <description>
+            <text>Blocked (VOA)</text>
+          </description>
+        </enum>
+      </type>
+      <type name="decimal64">
+        <fraction-digits value="2"/>
+        <range value="0..15"/>
+      </type>
+    </type>
+    <units name="dB"/>
+    <default value="na"/>
+    <description>
+      <text>Network Media Channel current attenuation</text>
+    </description>
+  </typedef>
+  <typedef name="nmc-attenuation-target">
+    <type name="union">
+      <type name="enumeration">
+        <enum name="na">
+          <value value="0"/>
+          <description>
+            <text>Not applicable</text>
+          </description>
+        </enum>
+        <enum name="max">
+          <value value="1"/>
+          <description>
+            <text>Maximum attenuation</text>
+          </description>
+        </enum>
+      </type>
+      <type name="decimal64">
+        <fraction-digits value="2"/>
+        <range value="0..15"/>
+      </type>
+    </type>
+    <units name="dB"/>
+    <default value="max"/>
+    <description>
+      <text>Network Media Channel target attenuation.</text>
+    </description>
+  </typedef>
+  <grouping name="nmc">
+    <description>
+      <text>A re-usable grouping that formulates the basic NMC facility structure.</text>
+    </description>
+    <list name="nmc">
+      <key value="name"/>
+      <description>
+        <text>NMC: Network Media Channel facility.</text>
+      </description>
+      <reference>
+        <text>ITU-T G.807, section 3.2.6</text>
+      </reference>
+      <uses name="ioa-fac-common:facilities-common-attributes"/>
+      <uses name="ioa-common:arc"/>
+      <leaf name="parent-facility">
+        <type name="instance-identifier"/>
+        <mandatory value="true"/>
+        <description>
+          <text>Parent facility: can be either a Media Channel or an OMS. Only set on creation.</text>
+        </description>
+      </leaf>
+      <leaf name="monitoring-state">
+        <type name="ioa-common:enable-switch"/>
+        <default value="disabled"/>
+        <config value="false"/>
+        <description>
+          <text>System reports this attribute, to indicate whether the NMC is intended
+to be in use (instead of simply being pre-provisioned);
+enabled if NMC is a member of an 'oxcon'.
+</text>
+        </description>
+      </leaf>
+      <leaf name="center-frequency">
+        <type name="ioa-l0:frequency-MHz">
+          <range value="184600000..196150000"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Nominal Center Frequency of the NMC</text>
+        </description>
+      </leaf>
+      <leaf name="width">
+        <type name="ioa-l0:frequency-MHz">
+          <range value="15000..200000"/>
+        </type>
+        <default value="50000"/>
+        <description>
+          <text>Network Media Channel frequency width; unit is MHz.
+User must configure the 3 dB signal bandwidth.
+Only set by creation.
+</text>
+        </description>
+      </leaf>
+      <leaf name="input-power-min">
+        <type name="ioa-l0:optical-power-config"/>
+        <description>
+          <text>Minimum Input Power.</text>
+        </description>
+      </leaf>
+      <leaf name="input-power-max">
+        <type name="ioa-l0:optical-power-config"/>
+        <description>
+          <text>Maximum Input Power.</text>
+        </description>
+      </leaf>
+      <leaf name="input-power-typical">
+        <type name="ioa-l0:optical-power-config"/>
+        <description>
+          <text>Typical Input Power.</text>
+        </description>
+      </leaf>
+      <leaf name="input-power-min-offset">
+        <type name="decimal64">
+          <fraction-digits value="2"/>
+          <range value="-30..30"/>
+        </type>
+        <units name="dB"/>
+        <default value="0"/>
+        <description>
+          <text>Minimum Input Power offset, of relevance for NMCs within MCs.</text>
+        </description>
+      </leaf>
+      <leaf name="input-psd-min">
+        <type name="ioa-l0:actual-psd"/>
+        <config value="false"/>
+        <description>
+          <text>Calculated by the SYSTEM from input-power-min.</text>
+        </description>
+      </leaf>
+      <leaf name="input-psd-max">
+        <type name="ioa-l0:actual-psd"/>
+        <config value="false"/>
+        <description>
+          <text>Calculated by the SYSTEM from input-power-max.</text>
+        </description>
+      </leaf>
+      <leaf name="input-psd-typical">
+        <type name="ioa-l0:actual-psd"/>
+        <config value="false"/>
+        <description>
+          <text>Calculated by the SYSTEM from input-power-typ.</text>
+        </description>
+      </leaf>
+      <leaf name="input-attenuation-actual">
+        <type name="nmc-attenuation-actual"/>
+        <config value="false"/>
+        <description>
+          <text>Actual input attentuation.</text>
+        </description>
+      </leaf>
+      <leaf name="input-attenuation-target">
+        <type name="nmc-attenuation-target"/>
+        <description>
+          <text>Configurable target input attentuation.</text>
+        </description>
+      </leaf>
+      <leaf name="output-attenuation-actual">
+        <type name="nmc-attenuation-actual"/>
+        <config value="false"/>
+        <description>
+          <text>Actual output attentuation.</text>
+        </description>
+      </leaf>
+      <leaf name="output-attenuation-target">
+        <type name="nmc-attenuation-target"/>
+        <description>
+          <text>Configurable target output attentuation.</text>
+        </description>
+      </leaf>
+      <uses name="ioa-l0:opm-optical-power-rx"/>
+      <uses name="ioa-l0:opm-optical-power-tx"/>
+      <leaf name="psd-actual-rx">
+        <type name="ioa-l0:actual-psd"/>
+        <config value="false"/>
+        <description>
+          <text>Calculated by the SYSTEM from power-actual-rx (i.e. dependent on spectrum width).</text>
+        </description>
+      </leaf>
+      <leaf name="psd-actual-tx">
+        <type name="ioa-l0:actual-psd"/>
+        <config value="false"/>
+        <description>
+          <text>Calculated by the SYSTEM from power-actual-tx (i.e. dependent on spectrum width).</text>
+        </description>
+      </leaf>
+    </list>
+  </grouping>
+</module>

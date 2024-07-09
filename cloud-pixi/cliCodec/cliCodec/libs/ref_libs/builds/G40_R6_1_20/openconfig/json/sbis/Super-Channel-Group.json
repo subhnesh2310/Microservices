@@ -1,0 +1,166 @@
+{
+    "components": {
+        "component": [
+            {
+                "name": {
+                    "type": {
+                        "ptype": "str",
+                        "leafref": "../config/name"
+                    },
+                    "isList": false,
+                    "description": "References the component name",
+                    "key": true,
+                    "mandatory": false,
+                    "config": true,
+                    "default": "",
+                    "namespace": null,
+                    "hardcode": false
+                },
+                "config": {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Device name for the component -- this may not be a\nconfigurable parameter on many implementations.  Where\ncomponent preconfiguration is supported, for example,\nthe component name may be configurable.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": null,
+                        "hardcode": false
+                    },
+                    "auto-in-service-enabled": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "Auto-in-service switch for this facility.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": false,
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "valid-signal-time": {
+                        "type": {
+                            "ptype": "int",
+                            "range": "1..7200"
+                        },
+                        "isList": false,
+                        "description": "Configurable time that represents a detection of a valid signal.\nUsed for auto-in-service mechanism.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 480,
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "line-system-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "openwave"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Indicates the specific mode of power control configured\n   on the L1 transponder, and specifically, on this particular SCG port within\n   the L1 transponder. The attribute indicates the L1 <-> L0 local power controls\n   to adjust the Tx power from the L1 transponder towards the L0 line-system\n   card (such as a WSS or Mux or Amplifier).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "openwave",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "openwave-contention-check": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "Enables DNA assisted contention control mechanism in openwave mode.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": false,
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    }
+                },
+                "transceiver":  {
+                    "namespace": {
+                        "namespace": "http://openconfig.net/yang/platform/transceiver",
+                        "prefix": null
+                    },
+                    "config":  {
+                        "enabled": {
+                            "type": {
+                                "ptype": "bool"
+                            },
+                            "isList": false,
+                            "description": "Turns power on / off to the transceiver -- provides a means\nto power on/off the transceiver (in the case of SFP, SFP+,\nQSFP,...) or enable high-power mode (in the case of CFP,\nCFP2, CFP4) and is optionally supported (device can choose to\nalways enable).  True = power on / high power, False =\npowered off",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": true,
+                            "namespace": null,
+                            "hardcode": false
+                        }
+                    }
+                }
+            }
+        ],
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/platform"
+        }
+    }
+}

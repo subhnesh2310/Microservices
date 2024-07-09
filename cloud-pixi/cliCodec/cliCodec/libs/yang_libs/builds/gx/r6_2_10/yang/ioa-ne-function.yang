@@ -1,0 +1,202 @@
+module ioa-ne-function {
+    namespace "http://infinera.com/yang/ioa/ne-function";
+    prefix ioa-ne-function;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-l0 { prefix ioa-l0; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions for common NE functions.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    grouping ne-function-common-attributes {
+        description "Common attributes that are applicable to all ne-function(s).";
+
+        leaf name { 
+            type ioa-common:object-name;
+            description "Non-configurable name: derived from chass/slot and degree.";
+        }
+
+        leaf supporting-card {
+            type leafref {
+                path "../../../equipment/card/name";
+            }
+            config false;
+            description "Card that holds this ";
+        }
+
+        leaf-list supporting-input-port {
+            type leafref {
+                path "../../../equipment/card/port/name";
+            }
+            config false;
+            max-elements 4;
+            description "Rx (input) Port that hold this object";
+        }
+
+        leaf-list supporting-output-port {
+            type leafref {
+                path "../../../equipment/card/port/name";
+            }
+            config false;
+            max-elements 4;
+            description "Tx (output) Port that hold this object";
+        }
+
+        uses ioa-common:aid;
+
+        uses ioa-common:common-states;
+
+        uses ioa-common:label;
+    }
+
+
+    grouping ne-composition {
+
+        list degree {
+            when "/ne/node-type='OADM'";
+            key "degree-number";
+            description "List of NE Degrees.";
+
+            leaf degree-number {
+                type uint16 { range 1..20; }
+                description
+                    "Degree number should be greater than zero and not greater than max-degrees.";
+            }
+
+            uses ioa-common:label;
+
+            leaf slot-width-granularity {
+                type ioa-l0:frequency-MHz;
+                default "6250";
+                config false;
+                description
+                    "Width of a slot (measured in GHz).";
+            }
+
+            leaf center-freq-granularity {
+                type ioa-l0:frequency-MHz;
+                default "3125";
+                config false;
+                description
+                    "Granularity of allowed center frequencies.
+                    The base frequency for this computation is 193.1 THz (G.694.1).
+                    ";
+            }
+
+            leaf min-slots {
+                type uint32;
+                default "8";
+                config false;
+                description
+                    "Minimum number of slots permitted to be joined together to form a media channel.
+                    Must be less than or equal to the max-slots.";
+            }
+
+            leaf max-slots {
+                type uint32;
+                default "32";
+                config false;
+                description
+                    "Maximum number of slots permitted to be joined together to form a media channel.
+                    Must be greater than or equal to the min-slots.
+                    ";
+            }
+
+            list connection-ports {
+                key "index";
+                config false;
+                description
+                    "Port associated with degree: One if bi-directional; two if uni-directional.
+                    Min. and max. elements in the list is 1 in R6.0";
+
+                leaf index {
+                    type uint32 { range 1..2; }
+                    description "Always 1 in GX (since dwdm-line ports are bi-directional).";
+                }
+
+                leaf port-name {
+                    type instance-identifier;
+                    mandatory true;
+                    description
+                        "The dwdm-line port of RDxx or ILAx card.
+                         As a consequence, OMS of the corresponding dwdm-port is created.";
+                }
+            }
+
+            list modules-degree {
+                key "index";
+                description "List of cards/ subcards/ modules involved in degree: modules listed here must be listed as 'possibleDegrees'.";
+
+                leaf index {
+                    type uint8 { range 1; }
+                    description "Card with index 1 should be the card/ subcard/ module fibered to the Degree(s).";
+                }
+
+                leaf supported-card {
+                    type instance-identifier;
+                    mandatory true;
+                    description "Instance of card or subcard that belongs to degree.";
+                }
+            }
+        }
+
+        list adg {
+            when "/ne/node-type='OADM'" {
+                description "Only of relevance for OADM Node Types";
+            }
+            key "adg-number";
+            description "List of ADGs - Add/ Drop Group(s)";
+
+            leaf adg-number {
+                type uint8 { range 1..110; }
+                description
+                    "ADG identifier as a number.";
+            }
+
+            uses ioa-common:label;
+
+            leaf max-add-drop-ports {
+                type uint16;
+                config false;
+                description "The max number of ports available for a given ADG.";
+            }
+
+            leaf wavelength-duplication {
+                type enumeration {
+                    enum one-per-adg {
+                        value 1;
+                        description "No duplication of frequencies in the ADG";
+                    }
+                    enum one-per-degree {
+                        value 2;
+                        description "CDC: duplication of frequencies allowed in the ADG, but only one at the Degree";
+                    }
+                }
+                config false;
+                description "Whether the SRG can handle duplicate wavelengths and if so to what extent.";
+            }
+
+            list modules-adg {
+                key "index";
+                description "List of cards/ subcards/ modules involved in ADG, for informational purposes.";
+
+                leaf index {
+                    type uint8 { range 1..4; }
+                    description "Card with index 1 should be the card/ subcard/ module fibered to the Degree(s).";
+                }
+                leaf supported-card {
+                    type instance-identifier;
+                    mandatory true;
+                    description "Instance of the card for the ADG.";
+                }
+            }
+        }
+    }
+}

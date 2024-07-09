@@ -1,0 +1,237 @@
+{
+    "module": {
+        "@name": "ioa-optical-ptp",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-optical-ptp": "http://infinera.com/yang/ioa/optical-ptp",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-fac-common": "http://infinera.com/yang/ioa/facilities-common",
+        "@xmlns:ioa-l0": "http://infinera.com/yang/ioa/l0",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/optical-ptp"
+        },
+        "prefix": {
+            "@value": "ioa-optical-ptp"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-facilities-common",
+                "prefix": {
+                    "@value": "ioa-fac-common"
+                }
+            },
+            {
+                "@module": "ioa-l0",
+                "prefix": {
+                    "@value": "ioa-l0"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG definitions for Optical Physical Termination Point (PTP) facilities used in Layer 0 context."
+        },
+        "revision": {
+            "@date": "2022-10-31",
+            "description": {
+                "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+            }
+        },
+        "grouping": {
+            "@name": "optical-ptp",
+            "list": {
+                "@name": "optical-ptp",
+                "key": {
+                    "@value": "name"
+                },
+                "description": {
+                    "text": "List of Optical PTP facilities."
+                },
+                "uses": [
+                    {
+                        "@name": "ioa-fac-common:facilities-common-attributes"
+                    },
+                    {
+                        "@name": "ioa-common:arc"
+                    }
+                ],
+                "leaf": [
+                    {
+                        "@name": "ptp-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "dwdm-line",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "DWDM line PTP"
+                                    }
+                                },
+                                {
+                                    "@name": "dwdm",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "System side DWDM, or other filter DWDM PTP"
+                                    }
+                                },
+                                {
+                                    "@name": "osc",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "OSC PTP"
+                                    }
+                                },
+                                {
+                                    "@name": "sposc",
+                                    "value": {
+                                        "@value": "4"
+                                    },
+                                    "description": {
+                                        "text": "SPOSC PTP"
+                                    }
+                                },
+                                {
+                                    "@name": "ade",
+                                    "value": {
+                                        "@value": "5"
+                                    },
+                                    "description": {
+                                        "text": "ADE: Add/ Drop or Express PTP"
+                                    }
+                                },
+                                {
+                                    "@name": "ad",
+                                    "value": {
+                                        "@value": "6"
+                                    },
+                                    "description": {
+                                        "text": "ADE: Add/ Drop PTP (no express option)"
+                                    }
+                                },
+                                {
+                                    "@name": "fac",
+                                    "value": {
+                                        "@value": "7"
+                                    },
+                                    "description": {
+                                        "text": "BAX Facility port PTP"
+                                    }
+                                }
+                            ]
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Type of Optical PTP."
+                        }
+                    },
+                    {
+                        "@name": "port-direction-convention",
+                        "when": {
+                            "@condition": "/ne/node-type='ILA'",
+                            "description": {
+                                "text": "Only of relevance for ports exposing OTS and OMS-nim -- i.e. ILA."
+                            }
+                        },
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0|3..6"
+                            }
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "IOA port (PTP) direction convention."
+                        }
+                    },
+                    {
+                        "@name": "laser-state",
+                        "when": {
+                            "@condition": "../ptp-type = 'dwdm-line'",
+                            "description": {
+                                "text": "Only of relevance for DWDM line ports"
+                            }
+                        },
+                        "type": {
+                            "@name": "ioa-common:enable-switch"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "The emitting pump (e.g. booster) laser state.\nRD amplifiers: source (Tx) pump disabled.\nRPB: Pump Laser, and actual traffic emitted from dwdm-line port: sink or source."
+                        }
+                    },
+                    {
+                        "@name": "power-actual-rx",
+                        "type": {
+                            "@name": "ioa-l0:optical-power-actual"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Optical power received, where applicable."
+                        }
+                    },
+                    {
+                        "@name": "power-actual-tx",
+                        "type": {
+                            "@name": "ioa-l0:optical-power-actual"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Optical power transmitted, where applicable."
+                        }
+                    },
+                    {
+                        "@name": "fix-rx-attenuation",
+                        "type": {
+                            "@name": "ioa-l0:type-of-attenuation"
+                        },
+                        "description": {
+                            "text": "Fixed Attenuator before port Rx. 0 (dB) is equivalent to no fixed attenuator."
+                        }
+                    },
+                    {
+                        "@name": "monitoring-state",
+                        "type": {
+                            "@name": "ioa-common:enable-switch"
+                        },
+                        "default": {
+                            "@value": "enabled"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "System reports this attribute, to indicate whether the optical-ptp is intended\nto be in use (instead of simply being pre-provisioned);\nwhen optical-ptp is created the the monitoring-state need to be calculated:\n- 'disabled' for a combination of card/ptp-type\n- 'enabled' other cases;"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

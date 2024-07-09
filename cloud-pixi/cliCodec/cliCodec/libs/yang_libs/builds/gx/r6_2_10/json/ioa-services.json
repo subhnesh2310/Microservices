@@ -1,0 +1,1007 @@
+{
+    "module": {
+        "@name": "ioa-services",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-services": "http://infinera.com/yang/ioa/services",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-data-path-encryption": "http://infinera.com/yang/ioa/data-path-encryption",
+        "@xmlns:ioa-l0": "http://infinera.com/yang/ioa/l0",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/services"
+        },
+        "prefix": {
+            "@value": "ioa-services"
+        },
+        "import": [
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-data-path-encryption",
+                "prefix": {
+                    "@value": "ioa-data-path-encryption"
+                }
+            },
+            {
+                "@module": "ioa-l0",
+                "prefix": {
+                    "@value": "ioa-l0"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG definitions for for all data plane services supported by a typical Layer 1 transponder that enable traffic.\nThe services enable digital client traffic (such as Ethernet, SONET/SDH, ...) to be transported through the transponder.\nOther services types include OTN services (switching, transport, multiplexing).\nThe transport of native services could include OTN framing, or could bypass/skip OTN layer,\ndepending upon the capability of the hardware."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "typedef": [
+            {
+                "@name": "network-mapping-type",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "NA",
+                            "value": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "To be used where mapping is not applicable"
+                            }
+                        },
+                        {
+                            "@name": "ODUCn",
+                            "value": {
+                                "@value": "1"
+                            },
+                            "description": {
+                                "text": "OTUCn protocol layer."
+                            }
+                        },
+                        {
+                            "@name": "ODUCni",
+                            "value": {
+                                "@value": "2"
+                            },
+                            "description": {
+                                "text": "Infinera proprietary OTUCni protocol layer."
+                            }
+                        },
+                        {
+                            "@name": "ODUCni-M",
+                            "value": {
+                                "@value": "3"
+                            },
+                            "description": {
+                                "text": "Infinera proprietary OTUCni protocol layer."
+                            }
+                        },
+                        {
+                            "@name": "ODU4",
+                            "value": {
+                                "@value": "4"
+                            },
+                            "description": {
+                                "text": "ODU4 protocol layer."
+                            }
+                        },
+                        {
+                            "@name": "ODU4i",
+                            "value": {
+                                "@value": "5"
+                            },
+                            "description": {
+                                "text": "Infinera proprietary ODU4i protocol layer."
+                            }
+                        },
+                        {
+                            "@name": "ODUflexi",
+                            "value": {
+                                "@value": "6"
+                            },
+                            "description": {
+                                "text": "Infinera proprietary ODUflexi protocol layer."
+                            }
+                        },
+                        {
+                            "@name": "ODUflex",
+                            "value": {
+                                "@value": "7"
+                            },
+                            "description": {
+                                "text": "ODU-flex protocol layer."
+                            }
+                        },
+                        {
+                            "@name": "ODU0",
+                            "value": {
+                                "@value": "8"
+                            },
+                            "description": {
+                                "text": "ODU0 protocol layer."
+                            }
+                        },
+                        {
+                            "@name": "ODU1",
+                            "value": {
+                                "@value": "9"
+                            },
+                            "description": {
+                                "text": "ODU1 protocol layer."
+                            }
+                        },
+                        {
+                            "@name": "ODU2",
+                            "value": {
+                                "@value": "10"
+                            },
+                            "description": {
+                                "text": "ODU2 protocol layer."
+                            }
+                        },
+                        {
+                            "@name": "ODU2e",
+                            "value": {
+                                "@value": "11"
+                            },
+                            "description": {
+                                "text": "ODU2e protocol layer."
+                            }
+                        },
+                        {
+                            "@name": "ODU2_AMP",
+                            "value": {
+                                "@value": "12"
+                            },
+                            "description": {
+                                "text": "AMP mapping"
+                            }
+                        },
+                        {
+                            "@name": "ODU2_BMP",
+                            "value": {
+                                "@value": "13"
+                            },
+                            "description": {
+                                "text": "BMP mapping"
+                            }
+                        }
+                    ]
+                },
+                "description": {
+                    "text": "Network mapping extra values."
+                }
+            },
+            {
+                "@name": "target-power-type",
+                "type": {
+                    "@name": "decimal64",
+                    "fraction-digits": {
+                        "@value": "2"
+                    },
+                    "range": {
+                        "@value": "-55.0..55.00"
+                    }
+                },
+                "units": {
+                    "@name": "dBm"
+                },
+                "default": {
+                    "@value": "-55.0"
+                },
+                "description": {
+                    "text": "A custom data type that can be used for configuring optical Tx/Rx power attributes."
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "services",
+                "container": {
+                    "@name": "services",
+                    "description": {
+                        "text": "Services of multiples types commissioned in this NE."
+                    },
+                    "list": [
+                        {
+                            "@name": "xcon",
+                            "key": {
+                                "@value": "name"
+                            },
+                            "description": {
+                                "text": "Layer 1 digital services that are currently provisioned in the system.\nThis includes pre-provisoned XCONs too."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "name",
+                                    "type": {
+                                        "@name": "ioa-common:object-name"
+                                    },
+                                    "description": {
+                                        "text": "A user configured name for the XCON."
+                                    }
+                                },
+                                {
+                                    "@name": "source",
+                                    "type": {
+                                        "@name": "instance-identifier"
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "The source end-point between which the XCON needs to be created."
+                                    }
+                                },
+                                {
+                                    "@name": "destination",
+                                    "type": {
+                                        "@name": "instance-identifier"
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "The destination end-point between which the XCON needs to be created."
+                                    }
+                                },
+                                {
+                                    "@name": "src-time-slots",
+                                    "type": {
+                                        "@name": "ioa-common:number-list"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "status": {
+                                        "@value": "deprecated"
+                                    },
+                                    "description": {
+                                        "text": "Time-slots allocated to the source lo-oduj in this xcon. Not applicable if source facility is not an ODU facility.\nNote: parameter is deprecated - will stop being supported in a future release."
+                                    }
+                                },
+                                {
+                                    "@name": "dst-time-slots",
+                                    "type": {
+                                        "@name": "ioa-common:number-list"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "status": {
+                                        "@value": "deprecated"
+                                    },
+                                    "description": {
+                                        "text": "Time-slots allocated to the destination lo-oduj in this xcon. Not applicable if destination facility is not an ODU facility.\nNote: parameter is deprecated - will stop being supported in a future release."
+                                    }
+                                },
+                                {
+                                    "@name": "managed-by",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "system",
+                                                "value": {
+                                                    "@value": "1"
+                                                }
+                                            },
+                                            {
+                                                "@name": "user",
+                                                "value": {
+                                                    "@value": "2"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "user"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Describes whether this xcon was system created or not. Only user created xcon can be user deleted."
+                                    }
+                                },
+                                {
+                                    "@name": "payload-treatment",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "transport",
+                                                "value": {
+                                                    "@value": "10"
+                                                },
+                                                "description": {
+                                                    "text": "payload-treatment for ethernet ctp xcon."
+                                                }
+                                            },
+                                            {
+                                                "@name": "transport-without-fec",
+                                                "value": {
+                                                    "@value": "20"
+                                                },
+                                                "description": {
+                                                    "text": "payload-treatment for client otu4 and line odu4 xcon when PT is OTU4."
+                                                }
+                                            },
+                                            {
+                                                "@name": "switching",
+                                                "value": {
+                                                    "@value": "30"
+                                                },
+                                                "description": {
+                                                    "text": "payload-treatment for client odu4 and line odu4 xcon when PT is 100G."
+                                                }
+                                            },
+                                            {
+                                                "@name": "regen",
+                                                "value": {
+                                                    "@value": "40"
+                                                },
+                                                "description": {
+                                                    "text": "payload-treatment for two line lo-odu4 xcon when PT is OTU4."
+                                                }
+                                            },
+                                            {
+                                                "@name": "regen-switching",
+                                                "value": {
+                                                    "@value": "50"
+                                                },
+                                                "description": {
+                                                    "text": "payload-treatment for two line lo-odu4 xcon when PT is 100G."
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Indicates a generic payload treatment value of the digital XCON."
+                                    }
+                                },
+                                {
+                                    "@name": "network-mapping",
+                                    "type": {
+                                        "@name": "network-mapping-type"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Indicates the server layer protocol type that supports this XCON."
+                                    }
+                                },
+                                {
+                                    "@name": "type",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "add",
+                                                "value": {
+                                                    "@value": "1"
+                                                }
+                                            },
+                                            {
+                                                "@name": "drop",
+                                                "value": {
+                                                    "@value": "2"
+                                                }
+                                            },
+                                            {
+                                                "@name": "add-drop",
+                                                "value": {
+                                                    "@value": "3"
+                                                }
+                                            },
+                                            {
+                                                "@name": "express",
+                                                "value": {
+                                                    "@value": "4"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Type of XCON."
+                                    }
+                                },
+                                {
+                                    "@name": "protection-type",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "unprotected",
+                                                "value": {
+                                                    "@value": "1"
+                                                }
+                                            },
+                                            {
+                                                "@name": "protected",
+                                                "value": {
+                                                    "@value": "2"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "unprotected"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Represents the protection type this XCON has."
+                                    }
+                                },
+                                {
+                                    "@name": "from-adaptation",
+                                    "type": {
+                                        "@name": "ioa-common:server-layer-adaptation"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Indicate server layer adaptation at client side."
+                                    }
+                                },
+                                {
+                                    "@name": "to-adaptation",
+                                    "type": {
+                                        "@name": "ioa-common:server-layer-adaptation"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Indicate server layer adaptation at line side."
+                                    }
+                                }
+                            ],
+                            "uses": [
+                                {
+                                    "@name": "ioa-common:aid"
+                                },
+                                {
+                                    "@name": "ioa-common:operational-states"
+                                },
+                                {
+                                    "@name": "xcon-common"
+                                },
+                                {
+                                    "@name": "ioa-common:circuit-id"
+                                }
+                            ],
+                            "leaf-list": {
+                                "@name": "used-resources",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "0..64"
+                                    }
+                                },
+                                "config": {
+                                    "@value": "false"
+                                },
+                                "description": {
+                                    "text": "List of resources being used by this XCON besides the two main source/destination end-points."
+                                }
+                            }
+                        },
+                        {
+                            "@name": "oxcon",
+                            "when": {
+                                "@condition": "/ne/node-type = 'OADM'",
+                                "description": {
+                                    "text": "Only of relevance for OADM NEs with Layer 0 support."
+                                }
+                            },
+                            "key": {
+                                "@value": "name"
+                            },
+                            "description": {
+                                "text": "List of Optical Cross Connections (OXcon)."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "name",
+                                    "type": {
+                                        "@name": "ioa-common:object-name"
+                                    },
+                                    "description": {
+                                        "text": "A user configured name for the OXcon."
+                                    }
+                                },
+                                {
+                                    "@name": "source",
+                                    "type": {
+                                        "@name": "instance-identifier"
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "The source end-point required for OXcon creation."
+                                    }
+                                },
+                                {
+                                    "@name": "destination",
+                                    "type": {
+                                        "@name": "instance-identifier"
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "The destination end-point required for OXcon creation."
+                                    }
+                                },
+                                {
+                                    "@name": "direction",
+                                    "type": {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "two-way",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "Two-way indicates the OXcon is bi-directional."
+                                                }
+                                            },
+                                            {
+                                                "@name": "one-way",
+                                                "value": {
+                                                    "@value": "2"
+                                                },
+                                                "description": {
+                                                    "text": "One-way indicates the OXcon is uni-directional"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "default": {
+                                        "@value": "two-way"
+                                    },
+                                    "description": {
+                                        "text": "Set-by-create OXcon type."
+                                    }
+                                },
+                                {
+                                    "@name": "target-output-power-src",
+                                    "when": {
+                                        "@condition": "../direction='two-way'",
+                                        "description": {
+                                            "text": "Only of relevance for power working mode and two-way OXcon."
+                                        }
+                                    },
+                                    "type": {
+                                        "@name": "target-power-type",
+                                        "range": {
+                                            "@value": "-18.00..15.00"
+                                        }
+                                    },
+                                    "default": {
+                                        "@value": "0"
+                                    },
+                                    "description": {
+                                        "text": "The source interface target power."
+                                    }
+                                },
+                                {
+                                    "@name": "target-output-power-dst",
+                                    "type": {
+                                        "@name": "target-power-type",
+                                        "range": {
+                                            "@value": "-18.00..15.00"
+                                        }
+                                    },
+                                    "default": {
+                                        "@value": "0"
+                                    },
+                                    "description": {
+                                        "text": "The destination interface target power."
+                                    }
+                                },
+                                {
+                                    "@name": "target-actual-power-dst",
+                                    "type": {
+                                        "@name": "ioa-l0:optical-power-actual"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Value: as calculated by Power Control if target-power-setting = auto;\notherwise it is the exact value configured at target-output-power-dst/ src."
+                                    }
+                                },
+                                {
+                                    "@name": "target-actual-power-src",
+                                    "type": {
+                                        "@name": "ioa-l0:optical-power-actual"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Value: as calculated by Power Control if target-power-setting = auto;\notherwise it is the exact value configured at target-output-power-dst/ src."
+                                    }
+                                },
+                                {
+                                    "@name": "target-actual-psd-dst",
+                                    "type": {
+                                        "@name": "ioa-l0:actual-psd"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Actual PSD destination"
+                                    }
+                                },
+                                {
+                                    "@name": "target-actual-psd-src",
+                                    "type": {
+                                        "@name": "ioa-l0:actual-psd"
+                                    },
+                                    "config": {
+                                        "@value": "false"
+                                    },
+                                    "description": {
+                                        "text": "Actual PSD source"
+                                    }
+                                }
+                            ],
+                            "uses": [
+                                {
+                                    "@name": "ioa-common:aid"
+                                },
+                                {
+                                    "@name": "ioa-common:label"
+                                },
+                                {
+                                    "@name": "ioa-common:operational-states"
+                                }
+                            ]
+                        }
+                    ],
+                    "uses": {
+                        "@name": "ioa-data-path-encryption:data-path-encryption"
+                    }
+                }
+            },
+            {
+                "@name": "xcon-common",
+                "leaf": [
+                    {
+                        "@name": "payload-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "100GBE",
+                                    "value": {
+                                        "@value": "10"
+                                    },
+                                    "description": {
+                                        "text": "A generic payload type for all 100GBASE-X Ethernet clients when provisioning a digital XCON."
+                                    }
+                                },
+                                {
+                                    "@name": "400GBE",
+                                    "value": {
+                                        "@value": "20"
+                                    },
+                                    "description": {
+                                        "text": "A generic payload type for all 400GBASE-X Ethernet clients when provisioning a digital XCON."
+                                    }
+                                },
+                                {
+                                    "@name": "OTU4",
+                                    "value": {
+                                        "@value": "30"
+                                    },
+                                    "description": {
+                                        "text": "A generic payload type for OTU4 Transport w/o FEC service."
+                                    }
+                                },
+                                {
+                                    "@name": "100G",
+                                    "value": {
+                                        "@value": "40"
+                                    },
+                                    "description": {
+                                        "text": "A generic payload type for ODU4 switching services."
+                                    }
+                                },
+                                {
+                                    "@name": "ODU2",
+                                    "value": {
+                                        "@value": "50"
+                                    },
+                                    "description": {
+                                        "text": "A generic payload type for ODU2 switching services."
+                                    }
+                                },
+                                {
+                                    "@name": "ODU2e",
+                                    "value": {
+                                        "@value": "60"
+                                    },
+                                    "description": {
+                                        "text": "A generic payload type for ODU2e switching services."
+                                    }
+                                },
+                                {
+                                    "@name": "10GBE",
+                                    "value": {
+                                        "@value": "70"
+                                    }
+                                },
+                                {
+                                    "@name": "OC192",
+                                    "value": {
+                                        "@value": "80"
+                                    }
+                                },
+                                {
+                                    "@name": "STM64",
+                                    "value": {
+                                        "@value": "90"
+                                    }
+                                },
+                                {
+                                    "@name": "10G",
+                                    "value": {
+                                        "@value": "100"
+                                    }
+                                },
+                                {
+                                    "@name": "empty",
+                                    "value": {
+                                        "@value": "110"
+                                    },
+                                    "description": {
+                                        "text": "Not applicable for 2-step XCON approach."
+                                    }
+                                }
+                            ]
+                        },
+                        "description": {
+                            "text": "Indicates a generic, high-level source (from) client payload type of the digital XCON."
+                        }
+                    },
+                    {
+                        "@name": "direction",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "two-way",
+                                "value": {
+                                    "@value": "2"
+                                }
+                            }
+                        },
+                        "default": {
+                            "@value": "two-way"
+                        },
+                        "description": {
+                            "text": "Indicates whether the digital XCON is uni-directional (1-WAY) or bi-directional (2-WAY)."
+                        }
+                    },
+                    {
+                        "@name": "circuit-id-suffix",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..48"
+                            }
+                        },
+                        "description": {
+                            "text": "User configured circuit ID suffix."
+                        }
+                    }
+                ],
+                "uses": {
+                    "@name": "ioa-common:label"
+                }
+            }
+        ],
+        "rpc": {
+            "@name": "create-xcon",
+            "description": {
+                "text": "Command for automatic creation of xcon and associated facilities."
+            },
+            "input": {
+                "choice": [
+                    {
+                        "@name": "source-facility",
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "case": [
+                            {
+                                "@name": "src-existing-facility",
+                                "description": {
+                                    "text": "To be used in case this end point refers to an existing facility."
+                                },
+                                "leaf": {
+                                    "@name": "source",
+                                    "type": {
+                                        "@name": "instance-identifier"
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "Source end-point of the xcon. Must be an existing facility that can be used\nas a XCON end-point."
+                                    }
+                                }
+                            },
+                            {
+                                "@name": "src-non-existing-facility",
+                                "description": {
+                                    "text": "To be used in case this end point needs to be automatically created implicitly.\nApplies to the automatic creation of low order ODUs for XCON end-points."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "src-parent-odu",
+                                        "type": {
+                                            "@name": "string"
+                                        },
+                                        "mandatory": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "Name of the High Order parent ODU where to audst-create this ODU end-point."
+                                        }
+                                    },
+                                    {
+                                        "@name": "src-time-slots",
+                                        "type": {
+                                            "@name": "ioa-common:number-list",
+                                            "length": {
+                                                "@value": "1..255"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "List of time-slots to allocate to the automatically created LO-ODU.\nValue can be:\n- omitted/empty - in which case system will audst-allocate time-slots based on the src-instance-id,\n                  which becomes mandatory (this is only supported for non ODUflex scenarios.)\n- starting time-slot - system automatically allocates the rest of the time-slots sequentially\n                       from this starting point; will fail if those time-slots are not available\n- time-slot list - full list of time-slots, using a comma separated list, with 'x..y' representing\n                   ranges; the total number of time-slots need to match the associated payload-type\n                   (e.g. 80 time-slots for 100G payload, 320 time-slots for 400G payload, etc)"
+                                        }
+                                    },
+                                    {
+                                        "@name": "src-instance-id",
+                                        "type": {
+                                            "@name": "uint8",
+                                            "range": {
+                                                "@value": "1..max"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "Optional parameter on LO-ODU creation, identifies the ODU within the parent/high-order ODU.\nIf not provided, it is automatically derived.\nMax value depends on capacity of the HO-ODU and of the odu-type.\n(ex: for creating an ODU4 in a HO ODUC8, instance can be between 1 and 8)\nNote: instance-id becomes mandatory if time-slots are not provided."
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "@name": "destination-facility",
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "case": [
+                            {
+                                "@name": "dst-existing-facility",
+                                "description": {
+                                    "text": "To be used in case this end point refers to an existing facility."
+                                },
+                                "leaf": {
+                                    "@name": "destination",
+                                    "type": {
+                                        "@name": "instance-identifier"
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "Destination end-point of the xcon. Must be an existing facility that can be used\nas a XCON end-point."
+                                    }
+                                }
+                            },
+                            {
+                                "@name": "dst-non-existing-facility",
+                                "description": {
+                                    "text": "To be used in case this end point needs to be automatically created implicitly.\nApplies to the automatic creation of low order ODUs for XCON end-points."
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "dst-parent-odu",
+                                        "type": {
+                                            "@name": "string"
+                                        },
+                                        "mandatory": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "Name of the High Order parent ODU where to audst-create this ODU end-point."
+                                        }
+                                    },
+                                    {
+                                        "@name": "dst-time-slots",
+                                        "type": {
+                                            "@name": "ioa-common:number-list",
+                                            "length": {
+                                                "@value": "1..255"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "List of time-slots to allocate to the automatically created LO-ODU.\nValue can be:\n- omitted/empty - in which case system will audst-allocate time-slots based on the dst-instance-id,\n                  which becomes mandatory (this is only supported for non ODUflex scenarios.)\n- starting time-slot - system automatically allocates the rest of the time-slots sequentially\n                       from this starting point; will fail if those time-slots are not available\n- time-slot list - full list of time-slots, using a comma separated list, with 'x..y' representing\n                   ranges; the total number of time-slots need to match the associated payload-type\n                   (e.g. 80 time-slots for 100G payload, 320 time-slots for 400G payload, etc)"
+                                        }
+                                    },
+                                    {
+                                        "@name": "dst-instance-id",
+                                        "type": {
+                                            "@name": "uint8",
+                                            "range": {
+                                                "@value": "1..max"
+                                            }
+                                        },
+                                        "description": {
+                                            "text": "Optional parameter on LO-ODU creation, identifies the ODU within the parent/high-order ODU.\nIf not provided, it is automatically derived.\nMax value depends on capacity of the HO-ODU and of the odu-type.\n(ex: for creating an ODU4 in a HO ODUC8, instance can be between 1 and 8)\nNote: instance-id becomes mandatory if time-slots are not provided."
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "uses": {
+                    "@name": "xcon-common"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+module ioa-dsc {
+    namespace "http://infinera.com/yang/ioa/dsc";
+    prefix ioa-dsc;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module defining the dsc facility.";
+
+    revision "2022-12-22" {
+        description "YANG Models for Infinera Open API (IOA) for release R7.0";
+    }
+
+
+    grouping dsc {
+        list dsc {
+            key name;
+            description "Facility describing the dsc. Refer to G.709.1 and G.709.3";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+        }
+    }
+}

@@ -1,0 +1,307 @@
+{
+    "components": {
+        "component": [
+            {
+                "name": {
+                    "type": {
+                        "ptype": "str",
+                        "leafref": "../config/name"
+                    },
+                    "isList": false,
+                    "description": "References the component name",
+                    "key": true,
+                    "mandatory": true,
+                    "config": true,
+                    "default": "optical-carrier-1-6-L1-1",
+                    "namespace": null,
+                    "hardcode": false
+                },
+                "config": {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Device name for the component -- this may not be a\nconfigurable parameter on many implementations.  Where\ncomponent preconfiguration is supported, for example,\nthe component name may be configurable.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "optical-carrier-1-6-L1-1",
+                        "namespace": null,
+                        "hardcode": false
+                    },
+                    "frequency-offset": {
+                        "type": {
+                            "ptype": "int",
+                            "range": "-6000..6000"
+                        },
+                        "isList": false,
+                        "description": "A super set range for line and client side carrier, specific sub-range is depend on application. Frequency-offset can be used for bright tuning\n   of the wavelengths.\n   Once set, the frequency will slowly change (over 1-10s) without affecting service.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 0,
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "pre-fec-q-sig-deg-threshold": {
+                        "type": {
+                            "ptype": "decimal64",
+                            "range": "0|5.60..9.60",
+                            "fraction-digits": 2
+                        },
+                        "isList": false,
+                        "description": "The threshold based on which the PRE-FEC-Q-SIGNAL-DEGRADE alarm is raised.\n   0 implies threshold crossing alarming disabled.\n   Specific sub-range is per carrier use-case.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "6.0",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "pre-fec-q-sig-deg-hysteresis": {
+                        "type": {
+                            "ptype": "decimal64",
+                            "fraction-digits": 1,
+                            "range": "0.1..1.0"
+                        },
+                        "isList": false,
+                        "description": "Hysteresis to account for raising of the PRE-FEC-Q-SIGNAL-DEGRADE alarm.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.5",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "tx-cd": {
+                        "type": {
+                            "ptype": "decimal64",
+                            "fraction-digits": 2,
+                            "range": "-211000.00..211000.00"
+                        },
+                        "isList": false,
+                        "description": "The configured transmit pre-compensation chromatic dispersion.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.0",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "post-fec-q-sig-deg-threshold": {
+                        "type": {
+                            "ptype": "decimal64",
+                            "fraction-digits": 1,
+                            "range": "12.5..18.0"
+                        },
+                        "isList": false,
+                        "description": "The threshold based on which the POST-FEC-Q-SIGNAL-DEGRADE alarm is raised.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "18",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "post-fec-q-sig-deg-hysteresis": {
+                        "type": {
+                            "ptype": "decimal64",
+                            "fraction-digits": 1,
+                            "range": "0.1..3.0"
+                        },
+                        "isList": false,
+                        "description": "Hysteresis to account for raising of the POST-FEC-Q-SIGNAL-DEGRADE alarm.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "2.5",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "enable-advanced-parameters": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "Controls enabling/disabling of configuring advanced parameters for this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": false,
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                            "prefix": null
+                        },
+                        "hardcode": false
+                    },
+                    "advanced-parameter":  [{
+                        "name": {
+                            "type": {
+                                "ptype": "str",
+                                "length": "0..256"
+                            },
+                            "isList": false,
+                            "description": "Name of the advanced parameter.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": {
+                                "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                                "prefix": null
+                            },
+                            "hardcode": false
+                        },
+                        "value": {
+                            "type": {
+                                "ptype": "str",
+                                "length": "0..256"
+                            },
+                            "isList": false,
+                            "description": "Value of the advanced parameter.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": {
+                                "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                                "prefix": null
+                            },
+                            "hardcode": false
+                        }
+                    }]
+                },
+                "optical-channel": {
+                    "namespace": {
+                        "namespace": "http://openconfig.net/yang/terminal-device",
+                        "prefix": null
+                    },
+                    "config": {
+                        "frequency": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "Frequency of the optical channel, expressed in MHz",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 0,
+                            "namespace": null,
+                            "hardcode": false
+                        },
+                        "target-output-power": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Target output optical power level of the optical channel,\nexpressed in increments of 0.01 dBm (decibel-milliwats)",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "-6.00",
+                            "namespace": null,
+                            "hardcode": false
+                        },
+                        "state-of-polarization-sampling": {
+                            "type": {
+                                "ptype": "union",
+                                "types": ["boolean", "uint16"],
+                                "range": "10..500",
+                                "units": "milliseconds"
+                            },
+                            "isList": false,
+                            "description": "Enables per-optical channel collection of SoP data.\nIf SoP collection is enabled, this attribute\nindicates the sampling interval (i.e., sampling\nof the SoP data done by the DSP.)",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": false,
+                            "namespace": null,
+                            "hardcode": false
+                        }
+                    }
+                }
+            }
+        ],
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/platform"
+        }
+    }
+}

@@ -1,0 +1,89 @@
+module ioa-scg {
+    namespace "http://infinera.com/yang/ioa/scg";
+    prefix ioa-scg;
+
+    import ioa-facilities-common { prefix ioa-fac-common; }
+    import ioa-optical-common { prefix ioa-opt; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module describing Super-Channel-Group facilities.";
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+    grouping scg {
+        description "A re-usable grouping that formulates the basic superchannel group facility structure.";
+
+        list super-channel-group {
+            key name;
+            description "Super-channel Group facility.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-fac-common:auto-in-service;
+
+
+            /* FUTURE these 3 attributes are for 2.0
+            leaf auto-discovery-enabled {
+                type boolean;
+                description "This attribute controls whether the L1 transponder is
+                configured to enable/disable the line-side auto-discovery of the peer
+                entity that is on the other end of the optical fiber connected to this
+                SCG physical port. The neighbor could be a far-end transponder line-card
+                or a L0 card.";
+            }
+
+            leaf discovered-neighbor-termination-point {
+                when "../auto-discovery-enabled = 'true'";
+                type ioa-scg:neighbor-tp;
+                config false;
+                description "The discovered neighbor termination point identity
+                             in case when auto-discovery is turned-on. This attribute identifies the far-end
+                             entity on the other end of the optical fiber connected to this SCG physical
+                             port.";
+            }
+
+            leaf auto-discovery-identity {
+                type string { length 0..128; }
+                description "Identity of this port to be discovered by the neighbor.";
+            }            
+            */
+
+            leaf line-system-mode {
+                type enumeration {
+                    enum openwave { value 1; description "Infinera WDM channels over non-Infinera line system."; } 
+                }
+                default openwave;
+                description "Indicates the specific mode of power control configured
+                             on the L1 transponder, and specifically, on this particular SCG port within
+                             the L1 transponder. The attribute indicates the L1 <-> L0 local power controls
+                             to adjust the Tx power from the L1 transponder towards the L0 line-system
+                             card (such as a WSS or Mux or Amplifier).";
+            }
+
+            leaf openwave-contention-check {
+                when "../line-system-mode = 'openwave'";
+                type boolean;
+                default false;
+                description "Enables DNA assisted contention control mechanism in openwave mode.";
+                reference GX-1096;
+            }
+
+            leaf expected-total-tx-power {
+                when "../line-system-mode = 'openwave'";
+                type ioa-opt:optical-power;
+                default -55.0;
+                config false;
+                description "Theoretical total TX power at Front Panel calculated based on per carrier Target TX power value.";
+            }
+        }
+    }
+}

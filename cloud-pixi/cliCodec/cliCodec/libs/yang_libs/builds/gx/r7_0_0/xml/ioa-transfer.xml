@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-transfer"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-transfer="http://infinera.com/yang/ioa/transfer"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common">
+  <namespace uri="http://infinera.com/yang/ioa/transfer"/>
+  <prefix value="ioa-transfer"/>
+  <import module="ietf-yang-types">
+    <prefix value="yang"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG model associated File Transfer status.</text>
+  </description>
+  <revision date="2023-03-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.1</text>
+    </description>
+  </revision>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-06-30">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.2</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <typedef name="fts-filetype">
+    <type name="enumeration">
+      <enum name="database">
+        <value value="1"/>
+        <description>
+          <text>Database</text>
+        </description>
+      </enum>
+      <enum name="swimage">
+        <value value="2"/>
+        <description>
+          <text>SW Image</text>
+        </description>
+      </enum>
+      <enum name="krp">
+        <value value="3"/>
+        <description>
+          <text>Key replacement package (KRP)</text>
+        </description>
+      </enum>
+      <enum name="script">
+        <value value="5"/>
+        <description>
+          <text> Scripts to download from the remote Server</text>
+        </description>
+      </enum>
+      <enum name="debug-log">
+        <value value="6"/>
+        <description>
+          <text>Debug Logs</text>
+        </description>
+      </enum>
+      <enum name="pm-logs">
+        <value value="7"/>
+        <description>
+          <text>PM Logs</text>
+        </description>
+      </enum>
+      <enum name="local-certificate">
+        <value value="8"/>
+        <description>
+          <text>Either an x509 certificate in PKCS#12 format (with password-protected private key) or PKCS#7 format.</text>
+        </description>
+      </enum>
+      <enum name="trusted-certificate">
+        <value value="9"/>
+        <description>
+          <text>x509v3 PKCS#7 trusted certificate, either Root or Intermediate CA</text>
+        </description>
+      </enum>
+      <enum name="fdr-log">
+        <value value="10"/>
+        <description>
+          <text>Flight Data Recorder(FDR) Logs</text>
+        </description>
+      </enum>
+      <enum name="logs">
+        <value value="11"/>
+        <description>
+          <text>Specific logs</text>
+        </description>
+      </enum>
+      <enum name="file">
+        <value value="12"/>
+        <description>
+          <text>Generic file</text>
+        </description>
+      </enum>
+      <enum name="peer-certificate">
+        <value value="13"/>
+        <description>
+          <text>An x509v3 certificate in PKCS#12 format (with password-protected private key)</text>
+        </description>
+      </enum>
+      <enum name="crl">
+        <value value="14"/>
+        <description>
+          <text>Certificate Revocation List (CRL) in PEM format</text>
+        </description>
+      </enum>
+      <enum name="otdr-result">
+        <value value="15"/>
+        <description>
+          <text>Otdr result</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Global list of file-types supported in the system for both upload and download.
+Note that not all file-types support both upload and download operations, some support only one of them.</text>
+    </description>
+  </typedef>
+  <grouping name="transfer">
+    <container name="transfer">
+      <description>
+        <text>Information associated with file transfer.</text>
+      </description>
+      <leaf-list name="debug-log-optional-content">
+        <type name="string">
+          <length value="0..64"/>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>List of keywords associated with optional content to be selected for debug-log upload.</text>
+        </description>
+      </leaf-list>
+      <leaf name="http-proxy">
+        <type name="string">
+          <length value="0..1024"/>
+          <pattern value="((http://)?([^\s/$.?#][^\s/]*))?"/>
+        </type>
+        <description>
+          <text>Proxy server for internally-generated HTTP requests leaving the NE.
+This includes certificate revocation-related requests, i.e.: CRL downloads and OCSP requests.
+The format is '[http://]&lt;host&gt;[:&lt;port&gt;]' where
+    - 'http://' is optional,
+    - '&lt;host&gt;' may be the IPv4 address, IPv6 address, or DNS name of the proxy server,
+    - '&lt;port&gt;' is optional
+If &lt;port&gt; is omitted, the default is 1080.
+Note: This proxy is not used for file transfers.</text>
+        </description>
+      </leaf>
+      <list name="transfer-status">
+        <key value="filetype operation"/>
+        <config value="false"/>
+        <description>
+          <text>Status of the last operation for this filetype.
+This object will only exist if at least one of the operation of that kind was done for that filetype.</text>
+        </description>
+        <leaf name="filetype">
+          <type name="fts-filetype"/>
+          <description>
+            <text>File transfer status per filetype.</text>
+          </description>
+        </leaf>
+        <leaf name="operation">
+          <type name="enumeration">
+            <enum name="upload">
+              <value value="1"/>
+              <description>
+                <text>last operation upload.</text>
+              </description>
+            </enum>
+            <enum name="download">
+              <value value="2"/>
+              <description>
+                <text>last operation download.</text>
+              </description>
+            </enum>
+          </type>
+          <description>
+            <text>Last transfer operation.</text>
+          </description>
+        </leaf>
+        <leaf name="last-completion-status">
+          <type name="string">
+            <length value="0..128"/>
+          </type>
+          <description>
+            <text>Success indicates a successful operation.</text>
+          </description>
+        </leaf>
+        <leaf name="last-transfer">
+          <type name="yang:date-and-time"/>
+          <description>
+            <text>Last transfer Start Timestamp.</text>
+          </description>
+        </leaf>
+        <leaf name="last-duration">
+          <type name="ioa-common:time-interval"/>
+          <description>
+            <text>Last transfer duration.</text>
+          </description>
+        </leaf>
+        <leaf name="transfer-type">
+          <type name="enumeration">
+            <enum name="sync">
+              <value value="1"/>
+              <description>
+                <text>last transfer type sync.</text>
+              </description>
+            </enum>
+            <enum name="async">
+              <value value="2"/>
+              <description>
+                <text>last transfer type async</text>
+              </description>
+            </enum>
+          </type>
+          <description>
+            <text>Last transfer type.</text>
+          </description>
+        </leaf>
+        <leaf name="session-id">
+          <type name="string">
+            <length value="0..100"/>
+          </type>
+          <description>
+            <text>Last transfer session-id.</text>
+          </description>
+        </leaf>
+        <leaf name="session-user-name">
+          <type name="ioa-common:user-name"/>
+          <description>
+            <text>Last transfer session-user-name.</text>
+          </description>
+        </leaf>
+        <leaf name="filename">
+          <type name="string">
+            <length value="0..512"/>
+          </type>
+          <description>
+            <text>Last transferred file URL. Filename larger than 512 chars are truncated.</text>
+          </description>
+        </leaf>
+      </list>
+    </container>
+  </grouping>
+</module>

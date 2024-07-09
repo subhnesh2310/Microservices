@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <title>YANG Diff Report</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        h2 {
+            font-size: 20px;
+        }
+        h3 {
+            font-size: 18px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        ul ul {
+            list-style-type: circle;
+            margin-left: 5px;
+        }
+        ul ul ul {
+            list-style-type: square;
+            margin-left: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: auto
+         
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        
+    </style>
+
+
+</head>
+<body>
+    <div id="contentdiv" class="content">
+
+<h2>New Modules</h2>
+<ul>
+<li>ioa-dsc-group</li>
+<li>ioa-dsc</li>
+</ul>
+<h2>Removed Modules</h2>
+<ul>
+<li>iana-if-type</li>
+<li>ietf-alarms</li>
+<li>ietf-interfaces</li>
+</ul>
+<h2>New/Changed Elements in Existing Modules</h2>
+<ul>
+  <li><strong>ioa-alarm</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>operator-data</li>
+      <ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-amp-raman</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>amplifier-list.amplifier-raman.pump-power.min-target-pump-power</li>
+      <ul>
+      <li>Minimum target pump power.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>amplifier-list.amplifier-raman.pump-power.max-target-pump-power</li>
+      <ul>
+      <li>Maximum target pump power.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>amplifier-list.amplifier-raman.number-of-pumps</li>
+      <ul>
+      <li>Number of pumps for the required-equipped card.</li>
+      <li>Type: int</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-amp</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>amplifier-list.amplifier.partner-amplifier</li>
+      <ul>
+      <li>The partner amplifier for PAx/ BAX instalments</li>
+      <li>Type: str</li>
+      </ul>
+    <li>amplifier-list.amplifier.amp-control-support</li>
+      <ul>
+      <li>Whether 'control-mode' can be configured as 'auto-max-pw' or not.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, manual-only</li>
+        </ul>
+      </ul>
+    <li>amplifier-list.amplifier.actual-transmission-band</li>
+      <ul>
+      <li>Currently assigned transmission band. If amplifier is not at a degree, it will be 4.85 THz by convention.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: c-band-4.85THz, c-band-6.1THz</li>
+        </ul>
+      </ul>
+    <li>amplifier-list.amplifier.interstage-support</li>
+      <ul>
+      <li>'true' if interstage port is supported in this amplifier.</li>
+      <li>Type: bool</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-capabilities</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>capabilities.system-capabilities.equipment-capabilities.supported-chassis.default-subtype</li>
+      <ul>
+      <li>Default subtype Supported by chassis.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>capabilities.system-capabilities.equipment-capabilities.supported-chassis.fan-adjustment-on-altitude</li>
+      <ul>
+      <li>Whether FAN(s) rotation are automatically adjusting based on the configured altitude.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>capabilities.system-capabilities.equipment-capabilities.supported-chassis.supported-subtype</li>
+      <ul>
+      <li>Supported chassis subtypes; may be empty if chassis doesn't support subtypes.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>capabilities.system-capabilities.equipment-capabilities.supported-card.grid-mode-support</li>
+      <ul>
+      <li>grid-mode capabilities.
+    Only of relevance for line-card(s).</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: not-applicable, flexible-c-band-only, general-c-band, general-fixed-c-band</li>
+        </ul>
+      </ul>
+    <li>capabilities.system-capabilities.equipment-capabilities.supported-card.node-type-compatibility</li>
+      <ul>
+      <li>Node Type Compatibility refers to supported NE Node-type for a sled card.
+    Only of relevance for line-card(s) and carrier-card(s).</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-certificate</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>x509-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>certificates.certificates.trusted-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>certificates.certificates.local-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>certificates.certificates.peer-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    </ul>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>x509-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>certificates.certificates.trusted-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>certificates.certificates.local-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>certificates.certificates.peer-certificate.white-listed</li>
+      <ul>
+      <li>If true, peer-certificate does not have an associated trust-chain, and was explicitly white-listed at import time.
+Otherwise, it has an associated trust-chain.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>certificates.certificates.peer-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-equipment</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>equipment.equipment.equipment-policies.global-power-profile</li>
+      <ul>
+      <li>Allows configuration of the power profile used for all instances of a given
+card type, if that card supports power-profiles.
+Alternatively, the global-power-profile can be disabled, which means each card
+instance will have its own power profile individually configurable.
+Changing the global-power-profile will have impact on both existing card instances,
+as well as newly created card instances.
+Power profiles are a way to categorize the power estimation for the system.</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-equipment</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>equipment.equipment.chassis.required-subtype</li>
+      <ul>
+      <li>The subtype of the chassis</li>
+      <li>Type: str</li>
+      </ul>
+    <li>equipment.equipment.chassis.equipment-discovery-ready</li>
+      <ul>
+      <li>Represents the equipment discovery state for the current chassis.
+It will remain as 'false' until all equipment was discovered during startup.
+Equipment added after startup will not contribute to the update of this state.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>equipment.equipment.card.resources.paired-slot-total-bandwidth</li>
+      <ul>
+      <li>Total supported bandwidth for the paired slot connection. This is applicable only for card models that support paired mode.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>equipment.equipment.card.resources.paired-slot-available-bandwidth</li>
+      <ul>
+      <li>Available bandwidth for the paired slot connection. This is applicable only for card models that support paired mode.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>equipment.equipment.card.last-reboot-time</li>
+      <ul>
+      <li>Timestamp of the last reboot event of a card.</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-facilities</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>facilities.facilities.spectrum</li>
+      <ul>
+      <li>OMS specific equalization within interstage access; and monitoring.</li>
+      </ul>
+    <li>facilities.facilities.ochm</li>
+      <ul>
+      <li>ochm: Optical Channel non-intrusive monitoring.
+ECDP within OMS-nim.</li>
+      </ul>
+    <li>facilities.facilities.dsc</li>
+      <ul>
+      <li>Facility describing the dsc. Refer to G.709.1 and G.709.3</li>
+      </ul>
+    <li>facilities.facilities.dsc-group</li>
+      <ul>
+      <li>Facility describing the dsc-group.</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-facilities</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>facilities.facilities.ots.osc-compatibility</li>
+      <ul>
+      <li>Informs the system about the connected 7100 compatibility required.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: osc-g30, osc-7100</li>
+        </ul>
+      </ul>
+    <li>facilities.facilities.ots.osc-less-support</li>
+      <ul>
+      <li>'true' if OTS port supports OSC-less operation.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>facilities.facilities.ots.span-loss-reference</li>
+      <ul>
+      <li>Configures span-loss source intended to be used by the system to calculate automatic target powers.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: measured, configured</li>
+        </ul>
+      </ul>
+    <li>facilities.facilities.ots.span-loss-alarm-threshold</li>
+      <ul>
+      <li>Configures the threshold for the SPAN-LOSS-HIGH alarm.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>facilities.facilities.ots.span-loss-derived-tx</li>
+      <ul>
+      <li>Measured span loss transmit.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>facilities.facilities.osc.oscc-support</li>
+      <ul>
+      <li>OSC Control support.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>facilities.facilities.osc.tx-power-adjustment</li>
+      <ul>
+      <li>Adjustment to the automatically calculated Tx power target.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>facilities.facilities.oms.wss-less</li>
+      <ul>
+      <li>True if there is no WSS component in the Degree.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>facilities.facilities.oms.assigned-degree</li>
+      <ul>
+      <li>Display degree number when card is added in modules-degree.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>facilities.facilities.oms.grid-mode-support</li>
+      <ul>
+      <li>Which C-band is supported, for the purpose of grid-mode configuration.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: not-applicable, flexible-c-band-only, general-c-band, general-fixed-c-band</li>
+        </ul>
+      </ul>
+    <li>facilities.facilities.nmc.och-connection</li>
+      <ul>
+      <li>NMC redux - optical channel connection.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>facilities.facilities.optical-carrier.sop-vector</li>
+      <ul>
+      <li>The RX SOP (State Of Polarization) Stokes Vector S1 S2 S3, Example: 0.96, -0.12, -0.22.
+    Only of relevance for carrier type OTN.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>facilities.facilities.otu.tx-mapping-mode</li>
+      <ul>
+      <li>The tx mapping mode of client port. The possible values are dependent on the HW and configuration.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: GMP, BMP, openZR+, FlexE-4x100G, GFP-F, GFP-F-extOPU2, AMP, iGMP, none</li>
+        </ul>
+      </ul>
+    <li>facilities.facilities.otu.expected-mapping-mode</li>
+      <ul>
+      <li>The expected mapping mode of client port. The possible values are dependent on the HW and configuration.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: GMP, BMP, openZR+, FlexE-4x100G, GFP-F, GFP-F-extOPU2, AMP, iGMP, none</li>
+        </ul>
+      </ul>
+    <li>facilities.facilities.odu.odu-diagnostics.test-signal-monitoring-type</li>
+      <ul>
+      <li>The type of test pattern that is monitored.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: none, PRBS31Q, PRBS13Q, scrambled-idles, PRBS9, PRBS31, PRBS31_NONINV</li>
+        </ul>
+      </ul>
+    <li>facilities.facilities.optical-ptp.actual-power-support</li>
+      <ul>
+      <li>Port power monitoring support.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: not-applicable, power-rx-tx, power-rx, ocm</li>
+        </ul>
+      </ul>
+    </ul>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>facilities.facilities.ots-r.pilot-tone-span-loss</li>
+      <ul>
+      <li>The calculated span-loss based on Pilot Tone.</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-ietf</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>chassis-scope-group</li>
+      <ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-mgmt-protocols</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>protocols.protocols.ssh.ssh-authorized-key.key-expiration-date</li>
+      <ul>
+      <li>Expiration date for SSH authorized key.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>protocols.protocols.ssh.ssh-authorized-key.key-state</li>
+      <ul>
+      <li>State is 'disabled' if key is expired, 'enabled' otherwise.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: disabled, enabled</li>
+        </ul>
+      </ul>
+    <li>protocols.protocols.ssh.ssh-authorized-key.alarm-report-control</li>
+      <ul>
+      <li>Controls the reporting of alarms for this particular object.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: allowed, inhibited</li>
+        </ul>
+      </ul>
+    <li>protocols.protocols.cli.show-alarm-columns</li>
+      <ul>
+      <li>Columns to display in the output of 'show alarm' CLI command.
+Possible options are the standard alarm fields, and additionally the following values:
+- default-columns: represents the group of columns shown by default.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>protocols.protocols.netconf.static-info-in-notifs</li>
+      <ul>
+      <li>List of YANG identifiers that are statically included in notifications.
+If they are present in objects that are notified.
+Applicable for management protocols with support for YANG-type notifications (NETCONF, etc).
+For example, if object user[user-name='tom'] has had the 'timeout' attribute updated,
+and the static-info-in-notifs included the 'user-status' string,
+the associated notification would include not only the 'timeout' parameter,
+but also the 'user-status' (despite the fact that it had not changed).</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-ne-function</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>ne-composition.degree.is-foadm</li>
+      <ul>
+      <li>True if there is no WSS component at the Degree and PAx assigned to the degree appropriately.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne-composition.degree.wss-less</li>
+      <ul>
+      <li>True if there is no WSS component in the Degree.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne-composition.adg.modules-adg.ocm-monitoring</li>
+      <ul>
+      <li>'true' if monitoring is provided by the Degree, or CD-AD structure; 'false' otherwise.</li>
+      <li>Type: bool</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-network-element</strong></li>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>system.system.fdr</li>
+      <ul>
+      <li>Flight Data Recorder(FDR)</li>
+      </ul>
+    <li>ne.system.fdr</li>
+      <ul>
+      <li>Flight Data Recorder(FDR)</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-network-element</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>system.system.sw-management.upgrade-status</li>
+      <ul>
+      <li>Provides information of the upgrade status for each entity in the system.</li>
+      </ul>
+    <li>ne.equipment.equipment-policies.global-power-profile</li>
+      <ul>
+      <li>Allows configuration of the power profile used for all instances of a given
+card type, if that card supports power-profiles.
+Alternatively, the global-power-profile can be disabled, which means each card
+instance will have its own power profile individually configurable.
+Changing the global-power-profile will have impact on both existing card instances,
+as well as newly created card instances.
+Power profiles are a way to categorize the power estimation for the system.</li>
+      </ul>
+    <li>ne.facilities.spectrum</li>
+      <ul>
+      <li>OMS specific equalization within interstage access; and monitoring.</li>
+      </ul>
+    <li>ne.facilities.ochm</li>
+      <ul>
+      <li>ochm: Optical Channel non-intrusive monitoring.
+ECDP within OMS-nim.</li>
+      </ul>
+    <li>ne.facilities.dsc</li>
+      <ul>
+      <li>Facility describing the dsc. Refer to G.709.1 and G.709.3</li>
+      </ul>
+    <li>ne.facilities.dsc-group</li>
+      <ul>
+      <li>Facility describing the dsc-group.</li>
+      </ul>
+    <li>ne.system.sw-management.upgrade-status</li>
+      <ul>
+      <li>Provides information of the upgrade status for each entity in the system.</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-network-element</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>system.system.security.security-policies.minimum-password-length</li>
+      <ul>
+      <li>Configurable minimum length for user passwords. When a password is changed, the password length will be verified according with this policy.
+Note that changing this policy will not have impact on already set passwords, only on newly set passwords.
+The default value will depend on whether the policy strict-password-check is enabled or not (min length is 8 if enabled, 1 if disabled),
+but the user is able to override this value by editing this policy manually.
+Note: this policy can only be enforced when the password is provided in a non-hashed way.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>system.system.security.security-policies.password-history-size</li>
+      <ul>
+      <li>The number of passwords to store for password reuse checking.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>system.system.security.security-policies.ssh-key-aging-interval</li>
+      <ul>
+      <li>This policy defines the ssh-authorized-keys aging interval. Setting the value to 0 disables ssh-authorized-keys aging.
+This affects the expiration date of all ssh-authorized-keys. Once aging is enabled, the expiration date is calculated
+from current time, for previously configured keys, and from configuration time, for newly configured keys.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>system.system.security.certificates.trusted-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>system.system.security.certificates.local-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>system.system.security.certificates.peer-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>system.system.security.aaa-server.auth-protocol</li>
+      <ul>
+      <li>The list of supported authentication protocols to use; if more than one is selected, system will try one at a time in a best-effort way.
+Authentication will be considered unsuccessful if none of the protocols work.
+Only of relevance for protocol supported TACACSPLUS.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>system.system.syslog.log-server.sensitive-data</li>
+      <ul>
+      <li>Whether the local file has logs include sensitive data.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: none, both, only</li>
+        </ul>
+      </ul>
+    <li>system.system.syslog.log-server.alarm-report-control</li>
+      <ul>
+      <li>Controls the reporting of alarms for this particular object.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: allowed, inhibited</li>
+        </ul>
+      </ul>
+    <li>system.system.syslog.log-file.sensitive-data</li>
+      <ul>
+      <li>Whether the local file has logs include sensitive data.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: none, both, only</li>
+        </ul>
+      </ul>
+    <li>system.system.syslog.niap-compliant-logging</li>
+      <ul>
+      <li>Whether the logs are NIAP compliant.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>system.system.protocols.ssh.ssh-authorized-key.key-expiration-date</li>
+      <ul>
+      <li>Expiration date for SSH authorized key.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>system.system.protocols.ssh.ssh-authorized-key.key-state</li>
+      <ul>
+      <li>State is 'disabled' if key is expired, 'enabled' otherwise.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: disabled, enabled</li>
+        </ul>
+      </ul>
+    <li>system.system.protocols.ssh.ssh-authorized-key.alarm-report-control</li>
+      <ul>
+      <li>Controls the reporting of alarms for this particular object.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: allowed, inhibited</li>
+        </ul>
+      </ul>
+    <li>system.system.protocols.cli.show-alarm-columns</li>
+      <ul>
+      <li>Columns to display in the output of 'show alarm' CLI command.
+Possible options are the standard alarm fields, and additionally the following values:
+- default-columns: represents the group of columns shown by default.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>system.system.protocols.netconf.static-info-in-notifs</li>
+      <ul>
+      <li>List of YANG identifiers that are statically included in notifications.
+If they are present in objects that are notified.
+Applicable for management protocols with support for YANG-type notifications (NETCONF, etc).
+For example, if object user[user-name='tom'] has had the 'timeout' attribute updated,
+and the static-info-in-notifs included the 'user-status' string,
+the associated notification would include not only the 'timeout' parameter,
+but also the 'user-status' (despite the fact that it had not changed).</li>
+      <li>Type: str</li>
+      </ul>
+    <li>system.system.clock.uptime-seconds</li>
+      <ul>
+      <li>Indicates how long the system has been running, in seconds.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>ne-functions.ne-function.amplifier.partner-amplifier</li>
+      <ul>
+      <li>The partner amplifier for PAx/ BAX instalments</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne-functions.ne-function.amplifier.amp-control-support</li>
+      <ul>
+      <li>Whether 'control-mode' can be configured as 'auto-max-pw' or not.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, manual-only</li>
+        </ul>
+      </ul>
+    <li>ne-functions.ne-function.amplifier.actual-transmission-band</li>
+      <ul>
+      <li>Currently assigned transmission band. If amplifier is not at a degree, it will be 4.85 THz by convention.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: c-band-4.85THz, c-band-6.1THz</li>
+        </ul>
+      </ul>
+    <li>ne-functions.ne-function.amplifier.interstage-support</li>
+      <ul>
+      <li>'true' if interstage port is supported in this amplifier.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne-functions.ne-function.amplifier-raman.pump-power.min-target-pump-power</li>
+      <ul>
+      <li>Minimum target pump power.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne-functions.ne-function.amplifier-raman.pump-power.max-target-pump-power</li>
+      <ul>
+      <li>Maximum target pump power.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne-functions.ne-function.amplifier-raman.number-of-pumps</li>
+      <ul>
+      <li>Number of pumps for the required-equipped card.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>ne-functions.ne-function.degree.is-foadm</li>
+      <ul>
+      <li>True if there is no WSS component at the Degree and PAx assigned to the degree appropriately.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne-functions.ne-function.degree.wss-less</li>
+      <ul>
+      <li>True if there is no WSS component in the Degree.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne-functions.ne-function.adg.modules-adg.ocm-monitoring</li>
+      <ul>
+      <li>'true' if monitoring is provided by the Degree, or CD-AD structure; 'false' otherwise.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.equipment.chassis.required-subtype</li>
+      <ul>
+      <li>The subtype of the chassis</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.equipment.chassis.equipment-discovery-ready</li>
+      <ul>
+      <li>Represents the equipment discovery state for the current chassis.
+It will remain as 'false' until all equipment was discovered during startup.
+Equipment added after startup will not contribute to the update of this state.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.equipment.card.resources.paired-slot-total-bandwidth</li>
+      <ul>
+      <li>Total supported bandwidth for the paired slot connection. This is applicable only for card models that support paired mode.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.equipment.card.resources.paired-slot-available-bandwidth</li>
+      <ul>
+      <li>Available bandwidth for the paired slot connection. This is applicable only for card models that support paired mode.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.equipment.card.last-reboot-time</li>
+      <ul>
+      <li>Timestamp of the last reboot event of a card.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.facilities.ots.osc-compatibility</li>
+      <ul>
+      <li>Informs the system about the connected 7100 compatibility required.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: osc-g30, osc-7100</li>
+        </ul>
+      </ul>
+    <li>ne.facilities.ots.osc-less-support</li>
+      <ul>
+      <li>'true' if OTS port supports OSC-less operation.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.facilities.ots.span-loss-reference</li>
+      <ul>
+      <li>Configures span-loss source intended to be used by the system to calculate automatic target powers.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: measured, configured</li>
+        </ul>
+      </ul>
+    <li>ne.facilities.ots.span-loss-alarm-threshold</li>
+      <ul>
+      <li>Configures the threshold for the SPAN-LOSS-HIGH alarm.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.facilities.ots.span-loss-derived-tx</li>
+      <ul>
+      <li>Measured span loss transmit.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.facilities.osc.oscc-support</li>
+      <ul>
+      <li>OSC Control support.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.facilities.osc.tx-power-adjustment</li>
+      <ul>
+      <li>Adjustment to the automatically calculated Tx power target.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.facilities.oms.wss-less</li>
+      <ul>
+      <li>True if there is no WSS component in the Degree.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.facilities.oms.assigned-degree</li>
+      <ul>
+      <li>Display degree number when card is added in modules-degree.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>ne.facilities.oms.grid-mode-support</li>
+      <ul>
+      <li>Which C-band is supported, for the purpose of grid-mode configuration.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: not-applicable, flexible-c-band-only, general-c-band, general-fixed-c-band</li>
+        </ul>
+      </ul>
+    <li>ne.facilities.nmc.och-connection</li>
+      <ul>
+      <li>NMC redux - optical channel connection.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.facilities.optical-carrier.sop-vector</li>
+      <ul>
+      <li>The RX SOP (State Of Polarization) Stokes Vector S1 S2 S3, Example: 0.96, -0.12, -0.22.
+    Only of relevance for carrier type OTN.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.facilities.otu.tx-mapping-mode</li>
+      <ul>
+      <li>The tx mapping mode of client port. The possible values are dependent on the HW and configuration.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: GMP, BMP, openZR+, FlexE-4x100G, GFP-F, GFP-F-extOPU2, AMP, iGMP, none</li>
+        </ul>
+      </ul>
+    <li>ne.facilities.otu.expected-mapping-mode</li>
+      <ul>
+      <li>The expected mapping mode of client port. The possible values are dependent on the HW and configuration.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: GMP, BMP, openZR+, FlexE-4x100G, GFP-F, GFP-F-extOPU2, AMP, iGMP, none</li>
+        </ul>
+      </ul>
+    <li>ne.facilities.odu.odu-diagnostics.test-signal-monitoring-type</li>
+      <ul>
+      <li>The type of test pattern that is monitored.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: none, PRBS31Q, PRBS13Q, scrambled-idles, PRBS9, PRBS31, PRBS31_NONINV</li>
+        </ul>
+      </ul>
+    <li>ne.facilities.optical-ptp.actual-power-support</li>
+      <ul>
+      <li>Port power monitoring support.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: not-applicable, power-rx-tx, power-rx, ocm</li>
+        </ul>
+      </ul>
+    <li>ne.services.oxcon.monitored</li>
+      <ul>
+      <li>Monitoring/ not-monitored indication; does not change during oxcon lifetime.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.services.oxcon.circuit-id</li>
+      <ul>
+      <li>Path/ service name of optical cross-connection.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.system.security.security-policies.minimum-password-length</li>
+      <ul>
+      <li>Configurable minimum length for user passwords. When a password is changed, the password length will be verified according with this policy.
+Note that changing this policy will not have impact on already set passwords, only on newly set passwords.
+The default value will depend on whether the policy strict-password-check is enabled or not (min length is 8 if enabled, 1 if disabled),
+but the user is able to override this value by editing this policy manually.
+Note: this policy can only be enforced when the password is provided in a non-hashed way.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>ne.system.security.security-policies.password-history-size</li>
+      <ul>
+      <li>The number of passwords to store for password reuse checking.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>ne.system.security.security-policies.ssh-key-aging-interval</li>
+      <ul>
+      <li>This policy defines the ssh-authorized-keys aging interval. Setting the value to 0 disables ssh-authorized-keys aging.
+This affects the expiration date of all ssh-authorized-keys. Once aging is enabled, the expiration date is calculated
+from current time, for previously configured keys, and from configuration time, for newly configured keys.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>ne.system.security.certificates.trusted-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>ne.system.security.certificates.local-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>ne.system.security.certificates.peer-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>ne.system.security.aaa-server.auth-protocol</li>
+      <ul>
+      <li>The list of supported authentication protocols to use; if more than one is selected, system will try one at a time in a best-effort way.
+Authentication will be considered unsuccessful if none of the protocols work.
+Only of relevance for protocol supported TACACSPLUS.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.system.syslog.log-server.sensitive-data</li>
+      <ul>
+      <li>Whether the local file has logs include sensitive data.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: none, both, only</li>
+        </ul>
+      </ul>
+    <li>ne.system.syslog.log-server.alarm-report-control</li>
+      <ul>
+      <li>Controls the reporting of alarms for this particular object.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: allowed, inhibited</li>
+        </ul>
+      </ul>
+    <li>ne.system.syslog.log-file.sensitive-data</li>
+      <ul>
+      <li>Whether the local file has logs include sensitive data.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: none, both, only</li>
+        </ul>
+      </ul>
+    <li>ne.system.syslog.niap-compliant-logging</li>
+      <ul>
+      <li>Whether the logs are NIAP compliant.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.system.protocols.ssh.ssh-authorized-key.key-expiration-date</li>
+      <ul>
+      <li>Expiration date for SSH authorized key.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.system.protocols.ssh.ssh-authorized-key.key-state</li>
+      <ul>
+      <li>State is 'disabled' if key is expired, 'enabled' otherwise.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: disabled, enabled</li>
+        </ul>
+      </ul>
+    <li>ne.system.protocols.ssh.ssh-authorized-key.alarm-report-control</li>
+      <ul>
+      <li>Controls the reporting of alarms for this particular object.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: allowed, inhibited</li>
+        </ul>
+      </ul>
+    <li>ne.system.protocols.cli.show-alarm-columns</li>
+      <ul>
+      <li>Columns to display in the output of 'show alarm' CLI command.
+Possible options are the standard alarm fields, and additionally the following values:
+- default-columns: represents the group of columns shown by default.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.system.protocols.netconf.static-info-in-notifs</li>
+      <ul>
+      <li>List of YANG identifiers that are statically included in notifications.
+If they are present in objects that are notified.
+Applicable for management protocols with support for YANG-type notifications (NETCONF, etc).
+For example, if object user[user-name='tom'] has had the 'timeout' attribute updated,
+and the static-info-in-notifs included the 'user-status' string,
+the associated notification would include not only the 'timeout' parameter,
+but also the 'user-status' (despite the fact that it had not changed).</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.system.clock.uptime-seconds</li>
+      <ul>
+      <li>Indicates how long the system has been running, in seconds.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>ne.ne-function.amplifier.partner-amplifier</li>
+      <ul>
+      <li>The partner amplifier for PAx/ BAX instalments</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.ne-function.amplifier.amp-control-support</li>
+      <ul>
+      <li>Whether 'control-mode' can be configured as 'auto-max-pw' or not.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, manual-only</li>
+        </ul>
+      </ul>
+    <li>ne.ne-function.amplifier.actual-transmission-band</li>
+      <ul>
+      <li>Currently assigned transmission band. If amplifier is not at a degree, it will be 4.85 THz by convention.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: c-band-4.85THz, c-band-6.1THz</li>
+        </ul>
+      </ul>
+    <li>ne.ne-function.amplifier.interstage-support</li>
+      <ul>
+      <li>'true' if interstage port is supported in this amplifier.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.ne-function.amplifier-raman.pump-power.min-target-pump-power</li>
+      <ul>
+      <li>Minimum target pump power.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.ne-function.amplifier-raman.pump-power.max-target-pump-power</li>
+      <ul>
+      <li>Maximum target pump power.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.ne-function.amplifier-raman.number-of-pumps</li>
+      <ul>
+      <li>Number of pumps for the required-equipped card.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>ne.ne-function.degree.is-foadm</li>
+      <ul>
+      <li>True if there is no WSS component at the Degree and PAx assigned to the degree appropriately.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.ne-function.degree.wss-less</li>
+      <ul>
+      <li>True if there is no WSS component in the Degree.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.ne-function.adg.modules-adg.ocm-monitoring</li>
+      <ul>
+      <li>'true' if monitoring is provided by the Degree, or CD-AD structure; 'false' otherwise.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.system-capabilities.equipment-capabilities.supported-chassis.default-subtype</li>
+      <ul>
+      <li>Default subtype Supported by chassis.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.system-capabilities.equipment-capabilities.supported-chassis.fan-adjustment-on-altitude</li>
+      <ul>
+      <li>Whether FAN(s) rotation are automatically adjusting based on the configured altitude.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.system-capabilities.equipment-capabilities.supported-chassis.supported-subtype</li>
+      <ul>
+      <li>Supported chassis subtypes; may be empty if chassis doesn't support subtypes.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.system-capabilities.equipment-capabilities.supported-card.grid-mode-support</li>
+      <ul>
+      <li>grid-mode capabilities.
+    Only of relevance for line-card(s).</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: not-applicable, flexible-c-band-only, general-c-band, general-fixed-c-band</li>
+        </ul>
+      </ul>
+    <li>ne.system-capabilities.equipment-capabilities.supported-card.node-type-compatibility</li>
+      <ul>
+      <li>Node Type Compatibility refers to supported NE Node-type for a sled card.
+    Only of relevance for line-card(s) and carrier-card(s).</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>system.system.security.certificates.trusted-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>system.system.security.certificates.local-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>system.system.security.certificates.peer-certificate.white-listed</li>
+      <ul>
+      <li>If true, peer-certificate does not have an associated trust-chain, and was explicitly white-listed at import time.
+Otherwise, it has an associated trust-chain.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>system.system.security.certificates.peer-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.facilities.ots-r.pilot-tone-span-loss</li>
+      <ul>
+      <li>The calculated span-loss based on Pilot Tone.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ne.system.security.certificates.trusted-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.system.security.certificates.local-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.system.security.certificates.peer-certificate.white-listed</li>
+      <ul>
+      <li>If true, peer-certificate does not have an associated trust-chain, and was explicitly white-listed at import time.
+Otherwise, it has an associated trust-chain.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ne.system.security.certificates.peer-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-nmc</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>nmc.nmc.och-connection</li>
+      <ul>
+      <li>NMC redux - optical channel connection.</li>
+      <li>Type: bool</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-odu</strong></li>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>odu-diagnostics</li>
+      <ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-odu</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>odu.odu.odu-diagnostics.test-signal-monitoring-type</li>
+      <ul>
+      <li>The type of test pattern that is monitored.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: none, PRBS31Q, PRBS13Q, scrambled-idles, PRBS9, PRBS31, PRBS31_NONINV</li>
+        </ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-oms</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>oms-nim</li>
+      <ul>
+      </ul>
+    <li>dge-equalization</li>
+      <ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-oms</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>oms.oms.wss-less</li>
+      <ul>
+      <li>True if there is no WSS component in the Degree.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>oms.oms.assigned-degree</li>
+      <ul>
+      <li>Display degree number when card is added in modules-degree.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>oms.oms.grid-mode-support</li>
+      <ul>
+      <li>Which C-band is supported, for the purpose of grid-mode configuration.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: not-applicable, flexible-c-band-only, general-c-band, general-fixed-c-band</li>
+        </ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-optical-carrier</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>carrier.optical-carrier.sop-vector</li>
+      <ul>
+      <li>The RX SOP (State Of Polarization) Stokes Vector S1 S2 S3, Example: 0.96, -0.12, -0.22.
+    Only of relevance for carrier type OTN.</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>client-specific-attrs.loopback</li>
+      <ul>
+      <li>Loopback mode.Useful to debug on the fiber connection.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: none, facility, terminal</li>
+        </ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-optical-common</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>optical-card-parameters.resources.paired-slot-total-bandwidth</li>
+      <ul>
+      <li>Total supported bandwidth for the paired slot connection. This is applicable only for card models that support paired mode.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>optical-card-parameters.resources.paired-slot-available-bandwidth</li>
+      <ul>
+      <li>Available bandwidth for the paired slot connection. This is applicable only for card models that support paired mode.</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-optical-ptp</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>optical-ptp.optical-ptp.actual-power-support</li>
+      <ul>
+      <li>Port power monitoring support.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: not-applicable, power-rx-tx, power-rx, ocm</li>
+        </ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-osc</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>osc.osc.oscc-support</li>
+      <ul>
+      <li>OSC Control support.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>osc.osc.tx-power-adjustment</li>
+      <ul>
+      <li>Adjustment to the automatically calculated Tx power target.</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-ots-r</strong></li>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>ots-r.ots-r.pilot-tone-span-loss</li>
+      <ul>
+      <li>The calculated span-loss based on Pilot Tone.</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-ots</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>ots.ots.osc-compatibility</li>
+      <ul>
+      <li>Informs the system about the connected 7100 compatibility required.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: osc-g30, osc-7100</li>
+        </ul>
+      </ul>
+    <li>ots.ots.osc-less-support</li>
+      <ul>
+      <li>'true' if OTS port supports OSC-less operation.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>ots.ots.span-loss-reference</li>
+      <ul>
+      <li>Configures span-loss source intended to be used by the system to calculate automatic target powers.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: measured, configured</li>
+        </ul>
+      </ul>
+    <li>ots.ots.span-loss-alarm-threshold</li>
+      <ul>
+      <li>Configures the threshold for the SPAN-LOSS-HIGH alarm.</li>
+      <li>Type: str</li>
+      </ul>
+    <li>ots.ots.span-loss-derived-tx</li>
+      <ul>
+      <li>Measured span loss transmit.</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-otu</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>otu.otu.tx-mapping-mode</li>
+      <ul>
+      <li>The tx mapping mode of client port. The possible values are dependent on the HW and configuration.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: GMP, BMP, openZR+, FlexE-4x100G, GFP-F, GFP-F-extOPU2, AMP, iGMP, none</li>
+        </ul>
+      </ul>
+    <li>otu.otu.expected-mapping-mode</li>
+      <ul>
+      <li>The expected mapping mode of client port. The possible values are dependent on the HW and configuration.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: GMP, BMP, openZR+, FlexE-4x100G, GFP-F, GFP-F-extOPU2, AMP, iGMP, none</li>
+        </ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-pm</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>chassis-scope-grouping</li>
+      <ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-pm</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>pm.pm-control.pm-resource.real-time-data-last-reset</li>
+      <ul>
+      <li>Date and time of the last real time data reset for this resource. If the data was never reset, this is the date and time of this resource's creation.</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-rpc</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>bert-input-parameters</li>
+      <ul>
+      </ul>
+    <li>bert-result-parameters</li>
+      <ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-rpc</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>db-action.clear-type</li>
+      <ul>
+      <li>Defines the type of 'clear database' that the system must do.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: full, keep-networking</li>
+        </ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-security</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>security.security.security-policies.minimum-password-length</li>
+      <ul>
+      <li>Configurable minimum length for user passwords. When a password is changed, the password length will be verified according with this policy.
+Note that changing this policy will not have impact on already set passwords, only on newly set passwords.
+The default value will depend on whether the policy strict-password-check is enabled or not (min length is 8 if enabled, 1 if disabled),
+but the user is able to override this value by editing this policy manually.
+Note: this policy can only be enforced when the password is provided in a non-hashed way.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>security.security.security-policies.password-history-size</li>
+      <ul>
+      <li>The number of passwords to store for password reuse checking.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>security.security.security-policies.ssh-key-aging-interval</li>
+      <ul>
+      <li>This policy defines the ssh-authorized-keys aging interval. Setting the value to 0 disables ssh-authorized-keys aging.
+This affects the expiration date of all ssh-authorized-keys. Once aging is enabled, the expiration date is calculated
+from current time, for previously configured keys, and from configuration time, for newly configured keys.</li>
+      <li>Type: int</li>
+      </ul>
+    <li>security.security.certificates.trusted-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>security.security.certificates.local-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>security.security.certificates.peer-certificate.revocation-mode</li>
+      <ul>
+      <li>Controls how the revocation status of the certificate is determined.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: auto, force-revoked, force-unrevoked</li>
+        </ul>
+      </ul>
+    <li>security.security.aaa-server.auth-protocol</li>
+      <ul>
+      <li>The list of supported authentication protocols to use; if more than one is selected, system will try one at a time in a best-effort way.
+Authentication will be considered unsuccessful if none of the protocols work.
+Only of relevance for protocol supported TACACSPLUS.</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>security.security.certificates.trusted-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>security.security.certificates.local-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>security.security.certificates.peer-certificate.white-listed</li>
+      <ul>
+      <li>If true, peer-certificate does not have an associated trust-chain, and was explicitly white-listed at import time.
+Otherwise, it has an associated trust-chain.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>security.security.certificates.peer-certificate.force-revoked</li>
+      <ul>
+      <li>If true, the certificate is forced to the 'revoked' status.</li>
+      <li>Type: bool</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-services</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>services.services.oxcon.monitored</li>
+      <ul>
+      <li>Monitoring/ not-monitored indication; does not change during oxcon lifetime.</li>
+      <li>Type: bool</li>
+      </ul>
+    <li>services.services.oxcon.circuit-id</li>
+      <ul>
+      <li>Path/ service name of optical cross-connection.</li>
+      <li>Type: str</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-sw-management</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>upgrade-status</li>
+      <ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-sw-management</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>sw-management.sw-management.upgrade-status</li>
+      <ul>
+      <li>Provides information of the upgrade status for each entity in the system.</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-syslog</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>syslog.syslog.log-server.sensitive-data</li>
+      <ul>
+      <li>Whether the local file has logs include sensitive data.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: none, both, only</li>
+        </ul>
+      </ul>
+    <li>syslog.syslog.log-server.alarm-report-control</li>
+      <ul>
+      <li>Controls the reporting of alarms for this particular object.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: allowed, inhibited</li>
+        </ul>
+      </ul>
+    <li>syslog.syslog.log-file.sensitive-data</li>
+      <ul>
+      <li>Whether the local file has logs include sensitive data.</li>
+      <li>Type: str</li>
+        <ul>
+          <li>Values: none, both, only</li>
+        </ul>
+      </ul>
+    <li>syslog.syslog.niap-compliant-logging</li>
+      <ul>
+      <li>Whether the logs are NIAP compliant.</li>
+      <li>Type: bool</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-time</strong></li>
+  <ul>
+  <li>New Elements:</li>
+    <ul>
+    <li>clock.clock.uptime-seconds</li>
+      <ul>
+      <li>Indicates how long the system has been running, in seconds.</li>
+      <li>Type: int</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+<ul>
+  <li><strong>ioa-transfer</strong></li>
+  <ul>
+<li>Removed Elements:</li>
+    <ul>
+    <li>fdr</li>
+      <ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+
+
+    </div>
+
+
+</body>
+</html>

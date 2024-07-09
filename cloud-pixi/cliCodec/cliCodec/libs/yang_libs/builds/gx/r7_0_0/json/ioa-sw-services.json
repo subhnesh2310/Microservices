@@ -1,0 +1,378 @@
+{
+    "module": {
+        "@name": "ioa-sw-services",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-sw-svc": "http://infinera.com/yang/ioa/sw-services",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/sw-services"
+        },
+        "prefix": {
+            "@value": "ioa-sw-svc"
+        },
+        "import": [
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module for Software Services model."
+        },
+        "revision": {
+            "@date": "2021-06-01",
+            "description": {
+                "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+            }
+        },
+        "grouping": {
+            "@name": "sw-services",
+            "container": {
+                "@name": "sw-services",
+                "description": {
+                    "text": "Information about the software services and containers on the node."
+                },
+                "list": [
+                    {
+                        "@name": "sw-control-rule",
+                        "key": {
+                            "@value": "service-name"
+                        },
+                        "description": {
+                            "text": "Optional service-specific custom rules to overide default action upon service failure."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "service-name",
+                                "type": {
+                                    "@name": "ioa-common:object-name"
+                                },
+                                "description": {
+                                    "text": "Name of the service to be monitored."
+                                }
+                            },
+                            {
+                                "@name": "fail-action",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "system-restart",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Warm restart the system/card software immediately upon service failure."
+                                            }
+                                        },
+                                        {
+                                            "@name": "default-action",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Default policy of restarting the service, then rebooting the system if service not recovered."
+                                            }
+                                        },
+                                        {
+                                            "@name": "ignore",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "No automatic action taken in case of service failure."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "Action profile to be used in the case of service failure."
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "@name": "sw-service",
+                        "key": {
+                            "@value": "sv-name"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Software service running in the system."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "sv-name",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "A unique Id for each service instance on the NE. Contains card type, shelf, slot information."
+                                }
+                            },
+                            {
+                                "@name": "equipment",
+                                "type": {
+                                    "@name": "leafref",
+                                    "path": {
+                                        "@value": "../../../../equipment/card/AID"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Reference to the equipment on which the service is running."
+                                }
+                            },
+                            {
+                                "@name": "location",
+                                "type": {
+                                    "@name": "union",
+                                    "type": [
+                                        {
+                                            "@name": "enumeration",
+                                            "enum": {
+                                                "@name": "host",
+                                                "value": {
+                                                    "@value": "1"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "1..128"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "description": {
+                                    "text": "Location where the service is running - host/container info."
+                                }
+                            },
+                            {
+                                "@name": "state",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "off",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Default state of a service, indicates not being monitored."
+                                            }
+                                        },
+                                        {
+                                            "@name": "ok",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Indicates the service is ready and functional."
+                                            }
+                                        },
+                                        {
+                                            "@name": "fail",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "Indicates the service failed to launch/turn-up or is unresponsive."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "description": {
+                                    "text": "Current status of the service."
+                                }
+                            },
+                            {
+                                "@name": "state-details",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "Brief description of the service status."
+                                }
+                            },
+                            {
+                                "@name": "cpu-usage",
+                                "type": {
+                                    "@name": "ioa-common:percent"
+                                },
+                                "description": {
+                                    "text": "Current usage of CPU by the service, in percentage. In a multi-core system, this indicates the overall usage relative to all cores."
+                                }
+                            },
+                            {
+                                "@name": "memory-usage",
+                                "type": {
+                                    "@name": "ioa-common:percent"
+                                },
+                                "description": {
+                                    "text": "Current usage of memory by the service, in percentage."
+                                }
+                            },
+                            {
+                                "@name": "uptime",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "Time since the service turned up, in days:hours:minutes."
+                                }
+                            },
+                            {
+                                "@name": "last-start-time",
+                                "type": {
+                                    "@name": "yang:date-and-time"
+                                },
+                                "description": {
+                                    "text": "Time of the last service start/boot."
+                                }
+                            },
+                            {
+                                "@name": "reboot-count",
+                                "type": {
+                                    "@name": "uint16"
+                                },
+                                "description": {
+                                    "text": "The number of times a service has restarted."
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "@name": "sw-container",
+                        "key": {
+                            "@value": "container-name"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "List of OS-level containers."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "container-name",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "A unique Id for each container."
+                                }
+                            },
+                            {
+                                "@name": "equipment",
+                                "type": {
+                                    "@name": "leafref",
+                                    "path": {
+                                        "@value": "../../../../equipment/card/AID"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Reference to the equipment on which the container is running."
+                                }
+                            },
+                            {
+                                "@name": "state",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "off",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Default state of a container, indicates it is not launched yet."
+                                            }
+                                        },
+                                        {
+                                            "@name": "up",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "Indicates the container is up and running."
+                                            }
+                                        },
+                                        {
+                                            "@name": "exited",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "Indicates the container has exited."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "description": {
+                                    "text": "Current status of the container."
+                                }
+                            },
+                            {
+                                "@name": "description",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "Brief description of the container instance."
+                                }
+                            },
+                            {
+                                "@name": "cpu-usage",
+                                "type": {
+                                    "@name": "ioa-common:percent"
+                                },
+                                "description": {
+                                    "text": "Current usage of CPU by the container, in percentage. In a multi-core system, this indicates the overall usage relative to all cores."
+                                }
+                            },
+                            {
+                                "@name": "memory-usage",
+                                "type": {
+                                    "@name": "ioa-common:percent"
+                                },
+                                "description": {
+                                    "text": "Current usage of memory by the container, in percentage."
+                                }
+                            },
+                            {
+                                "@name": "uptime",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "Time since the container started."
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

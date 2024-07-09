@@ -1,0 +1,144 @@
+{
+    "module": {
+        "@name": "ietf-netconf-with-defaults",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ncwd": "urn:ietf:params:xml:ns:yang:ietf-netconf-with-defaults",
+        "@xmlns:nc": "urn:ietf:params:xml:ns:netconf:base:1.0",
+        "namespace": {
+            "@uri": "urn:ietf:params:xml:ns:yang:ietf-netconf-with-defaults"
+        },
+        "prefix": {
+            "@value": "ncwd"
+        },
+        "import": {
+            "@module": "ietf-netconf",
+            "prefix": {
+                "@value": "nc"
+            }
+        },
+        "organization": {
+            "text": "IETF NETCONF (Network Configuration Protocol) Working Group"
+        },
+        "contact": {
+            "text": "WG Web:   <http://tools.ietf.org/wg/netconf/>\n\nWG List:  <netconf@ietf.org>\n\nWG Chair: Bert Wijnen\n          <bertietf@bwijnen.net>\n\nWG Chair: Mehmet Ersue\n          <mehmet.ersue@nsn.com>\n\nEditor: Andy Bierman\n        <andy.bierman@brocade.com>\n\nEditor: Balazs Lengyel\n        <balazs.lengyel@ericsson.com>"
+        },
+        "description": {
+            "text": "This module defines an extension to the NETCONF protocol\nthat allows the NETCONF client to control how default\nvalues are handled by the server in particular NETCONF\noperations.\n\nCopyright (c) 2011 IETF Trust and the persons identified as\nthe document authors.  All rights reserved.\n\nRedistribution and use in source and binary forms, with or\nwithout modification, is permitted pursuant to, and subject\nto the license terms contained in, the Simplified BSD License\nset forth in Section 4.c of the IETF Trust's Legal Provisions\nRelating to IETF Documents\n(http://trustee.ietf.org/license-info).\n\nThis version of this YANG module is part of RFC 6243; see\nthe RFC itself for full legal notices."
+        },
+        "revision": {
+            "@date": "2011-06-01",
+            "description": {
+                "text": "Initial version."
+            },
+            "reference": {
+                "text": "RFC 6243: With-defaults Capability for NETCONF"
+            }
+        },
+        "typedef": {
+            "@name": "with-defaults-mode",
+            "description": {
+                "text": "Possible modes to report default data."
+            },
+            "reference": {
+                "text": "RFC 6243; Section 3."
+            },
+            "type": {
+                "@name": "enumeration",
+                "enum": [
+                    {
+                        "@name": "report-all",
+                        "description": {
+                            "text": "All default data is reported."
+                        },
+                        "reference": {
+                            "text": "RFC 6243; Section 3.1"
+                        }
+                    },
+                    {
+                        "@name": "report-all-tagged",
+                        "description": {
+                            "text": "All default data is reported.\nAny nodes considered to be default data\nwill contain a 'default' XML attribute,\nset to 'true' or '1'."
+                        },
+                        "reference": {
+                            "text": "RFC 6243; Section 3.4"
+                        }
+                    },
+                    {
+                        "@name": "trim",
+                        "description": {
+                            "text": "Values are not reported if they contain the default."
+                        },
+                        "reference": {
+                            "text": "RFC 6243; Section 3.2"
+                        }
+                    },
+                    {
+                        "@name": "explicit",
+                        "description": {
+                            "text": "Report values that contain the definition of\nexplicitly set data."
+                        },
+                        "reference": {
+                            "text": "RFC 6243; Section 3.3"
+                        }
+                    }
+                ]
+            }
+        },
+        "grouping": {
+            "@name": "with-defaults-parameters",
+            "description": {
+                "text": "Contains the <with-defaults> parameter for control\nof defaults in NETCONF retrieval operations."
+            },
+            "leaf": {
+                "@name": "with-defaults",
+                "description": {
+                    "text": "The explicit defaults processing mode requested."
+                },
+                "reference": {
+                    "text": "RFC 6243; Section 4.5.1"
+                },
+                "type": {
+                    "@name": "with-defaults-mode"
+                }
+            }
+        },
+        "augment": [
+            {
+                "@target-node": "/nc:get-config/nc:input",
+                "description": {
+                    "text": "Adds the <with-defaults> parameter to the\ninput of the NETCONF <get-config> operation."
+                },
+                "reference": {
+                    "text": "RFC 6243; Section 4.5.1"
+                },
+                "uses": {
+                    "@name": "with-defaults-parameters"
+                }
+            },
+            {
+                "@target-node": "/nc:get/nc:input",
+                "description": {
+                    "text": "Adds the <with-defaults> parameter to\nthe input of the NETCONF <get> operation."
+                },
+                "reference": {
+                    "text": "RFC 6243; Section 4.5.1"
+                },
+                "uses": {
+                    "@name": "with-defaults-parameters"
+                }
+            },
+            {
+                "@target-node": "/nc:copy-config/nc:input",
+                "description": {
+                    "text": "Adds the <with-defaults> parameter to\nthe input of the NETCONF <copy-config> operation."
+                },
+                "reference": {
+                    "text": "RFC 6243; Section 4.5.1"
+                },
+                "uses": {
+                    "@name": "with-defaults-parameters"
+                }
+            }
+        ]
+    }
+}

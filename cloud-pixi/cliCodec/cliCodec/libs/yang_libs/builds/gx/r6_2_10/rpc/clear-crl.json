@@ -1,0 +1,29 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "clear-target": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "single-crl",
+                    "purge-invalid-crls",
+                    "purge-cached-crls",
+                    "purge-all-crls"
+                ]
+            },
+            "isList": false,
+            "description": "Defines the target CRL(s) of the clear operation.",
+            "mandatory": false
+        },
+        "crl-name": {
+            "type": {
+                "ptype": "unknown",
+                "leafref": "/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:certificates/ioa-ne:certificate-revocation/ioa-ne:crls/ioa-ne:crl/ioa-ne:name"
+            },
+            "isList": false,
+            "description": "Name of the CRL to delete.",
+            "mandatory": true
+        }
+    },
+    "cases": {}
+}

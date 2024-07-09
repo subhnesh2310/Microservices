@@ -1,0 +1,30 @@
+{
+    "namespace": "urn:ietf:params:xml:ns:netconf:notification:1.0",
+    "inputs": {
+        "stream": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "An optional parameter that indicates which stream of events\nis of interest. If not present, then events in the default\nNETCONF stream will be sent.",
+            "mandatory": false
+        },
+        "startTime": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "A parameter used to trigger the replay feature and\nindicates that the replay should start at the time\nspecified. If start time is not present, this is not a\nreplay subscription.",
+            "mandatory": false
+        },
+        "stopTime": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "An optional parameter used with the optional replay\nfeature to indicate the newest notifications of\ninterest. If stop time is not present, the notifications\nwill continue until the subscription is terminated.\nMust be used with startTime.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

@@ -1,0 +1,144 @@
+{
+    "local-routes": {
+        "static-routes": {
+            "static": [{
+                "prefix": {
+                    "type": {
+                        "ptype": "str"
+                    },
+                    "isList": false,
+                    "description": "",
+                    "key": true,
+                    "mandatory": false,
+                    "config": true,
+                    "default": "10.220.0.0/16"
+                },
+                "config": {
+                    "prefix": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "",
+                        "key": false,
+                        "mandatory": false,
+                        "config": true,
+                        "default": "10.220.0.0/16"
+                    },
+                    "vrf": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "",
+                        "key": false,
+                        "mandatory": false,
+                        "config": true,
+                        "default": "MGMT",
+                        "namespace": {
+                            "prefix": null,
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions"
+                        }
+                    },
+                    "advertised": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "",
+                        "key": false,
+                        "mandatory": false,
+                        "config": true,
+                        "default": false,
+                        "namespace": {
+                            "prefix": null,
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions"
+                        }
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "",
+                        "key": false,
+                        "mandatory": false,
+                        "config": true,
+                        "default": "",
+                        "namespace": {
+                            "prefix": null,
+                            "namespace": "http://openconfig.net/yang/infinera/yang/extensions"
+                        }
+                    }
+                },
+                "next-hops": {
+                    "next-hop": [
+                        {
+                            "index": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": "1"
+                            },
+                            "config": {
+                                "index": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "",
+                                    "key": false,
+                                    "mandatory": false,
+                                    "config": true,
+                                    "default": "1"
+                                },
+                                "next-hop": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "",
+                                    "key": false,
+                                    "mandatory": false,
+                                    "config": true,
+                                    "default": "10.220.224.1"
+                                },
+                                "metric": {
+                                    "type": {
+                                        "ptype": "str"
+                                    },
+                                    "isList": false,
+                                    "description": "",
+                                    "key": false,
+                                    "mandatory": false,
+                                    "config": true,
+                                    "default": "1"
+                                },
+                                "recurse": {
+                                    "type": {
+                                        "ptype": "bool"
+                                    },
+                                    "isList": false,
+                                    "description": "",
+                                    "key": false,
+                                    "mandatory": false,
+                                    "config": true,
+                                    "default": true
+                                }
+                            }
+                        }
+                    ]
+                }
+            }]
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/local-routing"
+        }
+    }
+}

@@ -1,0 +1,137 @@
+ioa-mgmt
+	public-key-algorithm : str
+	public-key : str
+	label : str
+	protocols
+		ssh
+			enabled : bool
+			port : int
+			pre-login-message : str
+			post-login-message : str
+			ssh-host-key
+				fingerprint-algorithm : str
+				fingerprint : str
+				public-key-algorithm : str
+				public-key : str
+				label : str
+			ssh-known-host
+				id : str
+				+address : str
+				public-key-algorithm : str
+				public-key : str
+				label : str
+			ssh-authorized-key
+				user-name : str
+				key-id : str
+				public-key-algorithm : str
+				public-key : str
+				label : str
+		cli
+			enabled : bool
+			port : int
+			-script-dir : str
+			default-interactive-mode : bool
+			cli-alias
+				name : str
+				value : str
+			cli-session-config
+				session-id : str
+				cli-lines : int
+				cli-columns : int
+				interactive-mode : bool
+				display-timestamp : bool
+		serial-console
+			global-switch : str
+			global-timeout : int
+		netconf
+			enabled : bool
+			port : int
+			annotate-cli-name : bool
+			hello-timeout : int
+		tl1
+			tl1-over-ssh-enabled : bool
+			ssh-interactive-port : int
+			ssh-scripting-port : int
+		restconf
+			enabled : bool
+			http-enabled : bool
+			https-enabled : bool
+			http-port : int
+			https-port : int
+			cookie-timeout : int
+			-api-root : str
+		grpc
+			enabled : bool
+			port : int
+			gnmi-get-encoding-granularity : str
+		snmp
+			enabled : bool
+			port : int
+			-snmp-engine-id : str
+			-engine-boot-count : int
+			snmp-community
+				name : str
+				+community-string : str
+				enabled : bool
+				community-string-access : str
+			snmp-target
+				target-name : str
+				enabled : bool
+				snmp-version : str
+				trap-community-string : str
+				+snmpv3-user : str
+				+target-address : str
+				target-port : str
+				target-transport : str
+			snmpv3-user
+				snmpv3-user-name : str
+				user-sec-level : str
+				auth-protocol : str
+				+auth-passphrase : str
+				priv-protocol : str
+				+priv-passphrase : str
+		http-file-server
+			enabled : bool
+			http-enabled : bool
+			https-enabled : bool
+			http-port : int
+			https-port : int
+			-url-base : str
+		fast-telemetry
+			enabled : bool
+			protocol : str
+			port : int
+		dial-out-server
+			name : str
+			+address : str
+			protocol : str
+			port : int
+			-transport : str
+			retry-policy : str
+			retry : int
+			timeout : int
+			auto-connect : bool
+			-connection-state : str
+			alarm-report-control : str
+			label : str
+		data-model
+			name : str
+			-description : str
+			enabled : bool
+	scheduled-tasks
+		task
+			name : str
+			enabled : bool
+			+command : str
+			command-type : str
+			frequency : str
+			start-time : str
+			end-time : str
+			persistent : bool
+			-task-status : str
+			-next-run : str
+			-previous-run : str
+			-previous-result : str
+			-previous-output : str
+			label : str
+			alarm-report-control : str

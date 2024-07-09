@@ -1,0 +1,4047 @@
+{
+    "module": {
+        "@name": "ioa-rpc",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-rpc": "http://infinera.com/yang/ioa/rpc",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "@xmlns:ioa-ne": "http://infinera.com/yang/ioa/ne",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "@xmlns:ioa-cert": "http://infinera.com/yang/ioa/certificate",
+        "@xmlns:nc": "urn:ietf:params:xml:ns:netconf:base:1.0",
+        "@xmlns:ioa-pm": "http://infinera.com/yang/ioa/pm",
+        "@xmlns:ioa-transfer": "http://infinera.com/yang/ioa/transfer",
+        "@xmlns:ioa-alarm": "http://infinera.com/yang/ioa/alarm",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/rpc"
+        },
+        "prefix": {
+            "@value": "ioa-rpc"
+        },
+        "import": [
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            },
+            {
+                "@module": "ietf-inet-types",
+                "prefix": {
+                    "@value": "inet"
+                }
+            },
+            {
+                "@module": "ioa-network-element",
+                "prefix": {
+                    "@value": "ioa-ne"
+                }
+            },
+            {
+                "@module": "ioa-common",
+                "prefix": {
+                    "@value": "ioa-common"
+                }
+            },
+            {
+                "@module": "ioa-certificate",
+                "prefix": {
+                    "@value": "ioa-cert"
+                }
+            },
+            {
+                "@module": "ietf-netconf",
+                "prefix": {
+                    "@value": "nc"
+                }
+            },
+            {
+                "@module": "ioa-pm",
+                "prefix": {
+                    "@value": "ioa-pm"
+                }
+            },
+            {
+                "@module": "ioa-transfer",
+                "prefix": {
+                    "@value": "ioa-transfer"
+                }
+            },
+            {
+                "@module": "ioa-alarm",
+                "prefix": {
+                    "@value": "ioa-alarm"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module dedicated for Operations (YANG RPCs)."
+        },
+        "revision": [
+            {
+                "@date": "2023-03-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.1"
+                }
+            },
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-09-17",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.1"
+                }
+            }
+        ],
+        "typedef": {
+            "@name": "db-instance-type",
+            "type": {
+                "@name": "enumeration",
+                "enum": [
+                    {
+                        "@name": "active",
+                        "value": {
+                            "@value": "1"
+                        }
+                    },
+                    {
+                        "@name": "onehour",
+                        "value": {
+                            "@value": "2"
+                        }
+                    },
+                    {
+                        "@name": "oneday",
+                        "value": {
+                            "@value": "3"
+                        }
+                    },
+                    {
+                        "@name": "oneweek",
+                        "value": {
+                            "@value": "4"
+                        }
+                    },
+                    {
+                        "@name": "temp",
+                        "value": {
+                            "@value": "5"
+                        }
+                    },
+                    {
+                        "@name": "manual",
+                        "value": {
+                            "@value": "6"
+                        }
+                    },
+                    {
+                        "@name": "rollback",
+                        "value": {
+                            "@value": "7"
+                        }
+                    }
+                ]
+            }
+        },
+        "rpc": [
+            {
+                "@name": "no-op",
+                "description": {
+                    "text": "No operation - used for session keep-alive."
+                }
+            },
+            {
+                "@name": "default",
+                "description": {
+                    "text": "Assign default values to the specified attributes"
+                },
+                "input": {
+                    "leaf-list": [
+                        {
+                            "@name": "entity-id",
+                            "type": {
+                                "@name": "instance-identifier"
+                            },
+                            "min-elements": {
+                                "@value": "1"
+                            },
+                            "description": {
+                                "text": "Instances to be defaulted."
+                            }
+                        },
+                        {
+                            "@name": "attribute",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "Attribute names to be defaulted. If empty, default all entities' attributes."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "clear-file",
+                "description": {
+                    "text": "Clears file in the system."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "filetype",
+                            "type": {
+                                "@name": "ioa-transfer:fts-filetype"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Predefined filetype available for clearing the file"
+                            }
+                        },
+                        {
+                            "@name": "target-file",
+                            "when": {
+                                "@condition": "../filetype != 'krp'"
+                            },
+                            "type": {
+                                "@name": "string"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Filepath of the file to be deleted"
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "clear-result",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Result of the clear operation"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "clear-app",
+                "description": {
+                    "text": "Allows to clear 3rd party app."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "app-name",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:sw-management/ioa-ne:third-party-app/ioa-ne:app-name"
+                            }
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Third party app name."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "clear-database",
+                "description": {
+                    "text": "Sets NE to default by deleting the system database.\nThis request will wipe the whole DB, and reboot the system."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "clear-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "full",
+                                "value": {
+                                    "@value": "2"
+                                },
+                                "description": {
+                                    "text": "Full wipe of DB contents; reset to factory defaults"
+                                }
+                            }
+                        },
+                        "default": {
+                            "@value": "full"
+                        },
+                        "description": {
+                            "text": "Defines the type of 'clear database' that the system must do."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "kill-session",
+                "description": {
+                    "text": "Forces the termination of any established session.\nCan target an session, independently on the type of management protocol.\nA user cannot use this command to kill its own session."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "session-id",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:session/ioa-ne:session-id"
+                            }
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Identifier of the session that will be killed."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "clear-certificate",
+                "description": {
+                    "text": "Deletes one or more trusted/local/peer certificates."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "type",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "trusted",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Deletes a trusted certificate."
+                                        }
+                                    },
+                                    {
+                                        "@name": "peer",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Deletes a peer certificate."
+                                        }
+                                    },
+                                    {
+                                        "@name": "local",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Deletes a local certificate."
+                                        }
+                                    },
+                                    {
+                                        "@name": "purge-all-invalid",
+                                        "value": {
+                                            "@value": "4"
+                                        },
+                                        "description": {
+                                            "text": "Purges all revoked, expired, and untrusted certificates."
+                                        }
+                                    },
+                                    {
+                                        "@name": "purge-expired",
+                                        "value": {
+                                            "@value": "5"
+                                        },
+                                        "description": {
+                                            "text": "Purges all expired certificates."
+                                        }
+                                    },
+                                    {
+                                        "@name": "purge-local-unused",
+                                        "value": {
+                                            "@value": "6"
+                                        },
+                                        "description": {
+                                            "text": "Purges unused local certificates."
+                                        }
+                                    },
+                                    {
+                                        "@name": "purge-peer-unused",
+                                        "value": {
+                                            "@value": "7"
+                                        },
+                                        "description": {
+                                            "text": "Purges unused peer certificates."
+                                        }
+                                    },
+                                    {
+                                        "@name": "purge-all-unused",
+                                        "value": {
+                                            "@value": "8"
+                                        },
+                                        "description": {
+                                            "text": "Purges all unused local, peer, and trusted certificates."
+                                        }
+                                    }
+                                ]
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Defines the type of 'clear certificate' that the system must do."
+                            }
+                        },
+                        {
+                            "@name": "id",
+                            "when": {
+                                "@condition": "../type = 'trusted' or ../type = 'local' or ../type = 'peer'"
+                            },
+                            "type": {
+                                "@name": "ioa-common:certificate-name"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Foreign Key pointing to the id of the certificate to delete."
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "clear-result",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..13096"
+                            }
+                        },
+                        "description": {
+                            "text": "Result of the clear operation."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "display-cert",
+                "description": {
+                    "text": "Show the details of a certificate or CSR in a human-readable form, or display a tree reflecting the\ntrust-chains of one or all certificates."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "display-type",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "certificate-details",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Displays details of the certificate or CSR in human-readable form."
+                                        }
+                                    },
+                                    {
+                                        "@name": "certificate-hierarchy",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Displays a tree reflecting the trust-chain of a specified certificate."
+                                        }
+                                    },
+                                    {
+                                        "@name": "all-certificate-hierarchy",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Displays a tree reflecting the full trust graph including all certificates."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "certificate-details"
+                            },
+                            "description": {
+                                "text": "Defines the requested type of display operation."
+                            }
+                        },
+                        {
+                            "@name": "certificate",
+                            "when": {
+                                "@condition": "../display-type != 'all-certificate-hierarchy'"
+                            },
+                            "type": {
+                                "@name": "instance-identifier"
+                            },
+                            "description": {
+                                "text": "The target certificate to display details or trust-chain."
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "result",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Certificate or CSR in text form, or tree reflecting trust-chain(s)."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "clear-crl",
+                "description": {
+                    "text": "Deletes one or more manual or auto-downloaded Certificate Revocation Lists (CRLs)."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "clear-target",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "single-crl",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Deletes a single CRL."
+                                        }
+                                    },
+                                    {
+                                        "@name": "purge-invalid-crls",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Purges all invalid CRL."
+                                        }
+                                    },
+                                    {
+                                        "@name": "purge-cached-crls",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Purges all CRLs that were automatically cached from a configured CDP or certificate CDP\nextension."
+                                        }
+                                    },
+                                    {
+                                        "@name": "purge-all-crls",
+                                        "value": {
+                                            "@value": "4"
+                                        },
+                                        "description": {
+                                            "text": "Purges all CRLs."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "single-crl"
+                            },
+                            "description": {
+                                "text": "Defines the target CRL(s) of the clear operation."
+                            }
+                        },
+                        {
+                            "@name": "crl-name",
+                            "when": {
+                                "@condition": "../clear-target = 'single-crl'"
+                            },
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:certificates/ioa-ne:certificate-revocation/ioa-ne:crls/ioa-ne:crl/ioa-ne:name"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Name of the CRL to delete."
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "removed-crls",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..2048"
+                            }
+                        },
+                        "description": {
+                            "text": "List of CRL(s) that have been removed."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "ssh-keygen",
+                "description": {
+                    "text": "Regenerates existing public/private host key pair for the NE's SSH based applications.\nNOTE: The on-going SSH sessions could be disconnected if the host key in use is regenerated."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "key-length",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "2048",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "3072",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    },
+                                    {
+                                        "@name": "4096",
+                                        "value": {
+                                            "@value": "3"
+                                        }
+                                    },
+                                    {
+                                        "@name": "256",
+                                        "value": {
+                                            "@value": "4"
+                                        }
+                                    },
+                                    {
+                                        "@name": "384",
+                                        "value": {
+                                            "@value": "5"
+                                        }
+                                    },
+                                    {
+                                        "@name": "521",
+                                        "value": {
+                                            "@value": "6"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "2048"
+                            },
+                            "description": {
+                                "text": "Strength of the key used for regenerating the private-public key pair"
+                            }
+                        },
+                        {
+                            "@name": "key-type",
+                            "type": {
+                                "@name": "ioa-cert:public-key-types"
+                            },
+                            "default": {
+                                "@value": "rsa"
+                            },
+                            "description": {
+                                "text": "Type of key to generate"
+                            }
+                        },
+                        {
+                            "@name": "key-label",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..255"
+                                }
+                            },
+                            "description": {
+                                "text": "Label associated with the key. If no value provided, label will be the value of ne-id"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "cert-gen",
+                "description": {
+                    "text": "Generates a self-signed certificate."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "certificate-name",
+                            "type": {
+                                "@name": "ioa-common:certificate-name"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Specifies the name of the certificate to be generated."
+                            }
+                        },
+                        {
+                            "@name": "days",
+                            "type": {
+                                "@name": "uint16",
+                                "range": {
+                                    "@value": "1..36525"
+                                }
+                            },
+                            "default": {
+                                "@value": "365"
+                            },
+                            "description": {
+                                "text": "Number of days a certificate is valid for."
+                            }
+                        },
+                        {
+                            "@name": "org-name",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..64"
+                                }
+                            },
+                            "description": {
+                                "text": "Organization Name."
+                            }
+                        },
+                        {
+                            "@name": "common-name",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..64"
+                                }
+                            },
+                            "description": {
+                                "text": "IP or hostname to identify the server."
+                            }
+                        },
+                        {
+                            "@name": "subject",
+                            "type": {
+                                "@name": "ioa-cert:cert-subject-name"
+                            },
+                            "description": {
+                                "text": "The full certificate subject name"
+                            }
+                        },
+                        {
+                            "@name": "auto-install",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Auto-assign certificate to any secure-application without active certificate."
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "result",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..256"
+                            }
+                        },
+                        "description": {
+                            "text": "Output status of the self-sign process."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "csr-gen",
+                "description": {
+                    "text": "Generates a Certificate Signing Request based on user provided information.\nThe consequence of this command is the creation of a local-certificate in the 'pending' state,\nand the output of a CSR in PKCS#10 PEM format.\nThis CSR can then be used with an external Certificate Authority to produce a full certificate,\nwhich can then be downloaded into the system to produce a complete local-certificate."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "certificate-name",
+                            "type": {
+                                "@name": "ioa-common:certificate-name"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Specifies the name of the certificate to be generated. Using existing name implies rotation.\nNOTE: When importing the signed certificate at a later step, the exact same certificate-name needs to be used."
+                            }
+                        },
+                        {
+                            "@name": "signature-hash-algorithm",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "sha256",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Secure Hash Algorithm 2, digest size 256 bits."
+                                        }
+                                    },
+                                    {
+                                        "@name": "sha384",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Secure Hash Algorithm 2, digest size 384 bits."
+                                        }
+                                    },
+                                    {
+                                        "@name": "sha512",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Secure Hash Algorithm 2, digest size 512 bits."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "sha512"
+                            },
+                            "description": {
+                                "text": "Hash algorithm to be used. Default value depends on the selected key-algorithm."
+                            }
+                        },
+                        {
+                            "@name": "metadata-template",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "from-existing-certificate",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Metadata is provided/copied from existing a certificate."
+                                        }
+                                    },
+                                    {
+                                        "@name": "from-openssl-cnf",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Metadata is provided from an openssl .cnf file."
+                                        }
+                                    },
+                                    {
+                                        "@name": "generic",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Metadata intended for a large variety of applications and scenarios."
+                                        }
+                                    },
+                                    {
+                                        "@name": "generic-tls-server",
+                                        "value": {
+                                            "@value": "4"
+                                        },
+                                        "description": {
+                                            "text": "Metadata intended for a server secure-application."
+                                        }
+                                    },
+                                    {
+                                        "@name": "generic-tls-client",
+                                        "value": {
+                                            "@value": "5"
+                                        },
+                                        "description": {
+                                            "text": "Metadata intended for a client secure-application."
+                                        }
+                                    },
+                                    {
+                                        "@name": "generic-ikev2-identity",
+                                        "value": {
+                                            "@value": "6"
+                                        },
+                                        "description": {
+                                            "text": "Metadata intended for ikev2 node identity."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "generic"
+                            },
+                            "description": {
+                                "text": "Selects the possible sources for the CSR metadata, including reusing it from\nan existing certificate, loading from an openssl cnf file, or using a generic template which\ndefines the metadata defaults.\nIn all cases except for 'from-openssl-cnf', it is possible to override the metadata individual\nparameters by providing the metadata parameters (subject, SAN, etc) explicitly."
+                            }
+                        },
+                        {
+                            "@name": "metadata-from-certificate",
+                            "when": {
+                                "@condition": "../metadata-template = 'from-existing-certificate'"
+                            },
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:certificates/ioa-ne:local-certificate/ioa-ne:id"
+                                }
+                            },
+                            "description": {
+                                "text": "A local-certificate id to be used as metadata source. Metadata details can be overridden separately."
+                            }
+                        },
+                        {
+                            "@name": "metadata-from-cnf",
+                            "when": {
+                                "@condition": "../metadata-template = 'from-openssl-cnf'"
+                            },
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..4096"
+                                }
+                            },
+                            "description": {
+                                "text": "Multi-line string input of cnf with metadata. Metadata details can be overridden separately."
+                            },
+                            "reference": {
+                                "text": "https://www.openssl.org/docs/man1.0.2/man1/openssl-req.html"
+                            }
+                        },
+                        {
+                            "@name": "subject",
+                            "when": {
+                                "@condition": "../metadata-template != 'from-openssl-cnf'"
+                            },
+                            "type": {
+                                "@name": "ioa-cert:cert-subject-name"
+                            },
+                            "description": {
+                                "text": "The certificate subject. The common name (CN) RDN is *mandatory*. Each relative DN must have a prefix slash (/).\nExample a minimal valid subject (contains CN only):\n   '/CN=Infinera'\nAn example with all supported RDN fields:\n   '/CN=InfineraRoot/C=US/ST=California/L=Sunnyvale/O=InfineraCorporation/OU=InfineraR&D'"
+                            }
+                        },
+                        {
+                            "@name": "SAN",
+                            "when": {
+                                "@condition": "../metadata-template != 'from-openssl-cnf'"
+                            },
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..1024"
+                                }
+                            },
+                            "description": {
+                                "text": "The certificate SAN (Subject Alternate Name) fields.\nSANs are specified as Type-Value comma separated list. Valid types are 'IP', 'DNS' and 'otherName'.\nExamples: SAN='IP:127.0.0.1,DNS:localhost'\n SAN='dns:GX-10-4,otherName:1.3.6.1.4.1.21296.1.2.2.1.2;UTF8:GX-10-4'"
+                            }
+                        }
+                    ],
+                    "choice": {
+                        "@name": "key-source",
+                        "description": {
+                            "text": "Provides a way to select the source for the public-private key pair to use in this CSR.\nCan select either a new key pair, or select the key pair of an existing certificate."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "key-algorithm",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "rsa4096",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "RSA (Rivest-Shamir-Adleman) public-key cryptosystem algorithm with key size 4096."
+                                            }
+                                        },
+                                        {
+                                            "@name": "rsa3072",
+                                            "value": {
+                                                "@value": "2"
+                                            },
+                                            "description": {
+                                                "text": "RSA (Rivest-Shamir-Adleman) public-key cryptosystem algorithm with key size 3072."
+                                            }
+                                        },
+                                        {
+                                            "@name": "rsa2048",
+                                            "value": {
+                                                "@value": "3"
+                                            },
+                                            "description": {
+                                                "text": "RSA (Rivest-Shamir-Adleman) public-key cryptosystem algorithm with key size 2048."
+                                            }
+                                        },
+                                        {
+                                            "@name": "eccp256",
+                                            "value": {
+                                                "@value": "5"
+                                            },
+                                            "description": {
+                                                "text": "ECC (Elliptic Curve Cryptography) 256-bit prime field Weierstrass curve - prime256v1."
+                                            }
+                                        },
+                                        {
+                                            "@name": "eccp384",
+                                            "value": {
+                                                "@value": "6"
+                                            },
+                                            "description": {
+                                                "text": "ECC (Elliptic Curve Cryptography) 384-bit prime field Weierstrass curve - secp384r1."
+                                            }
+                                        },
+                                        {
+                                            "@name": "eccp521",
+                                            "value": {
+                                                "@value": "7"
+                                            },
+                                            "description": {
+                                                "text": "ECC (Elliptic Curve Cryptography) 521-bit prime field Weierstrass curve - ecp521r1."
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "eccp256"
+                                },
+                                "description": {
+                                    "text": "Specifies the algorithm to be used for a new key pair for this CSR."
+                                }
+                            },
+                            {
+                                "@name": "key-from-certificate",
+                                "type": {
+                                    "@name": "leafref",
+                                    "path": {
+                                        "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:certificates/ioa-ne:local-certificate/ioa-ne:id"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Allows to reuse the key pair from an existing local-certificate."
+                                }
+                            }
+                        ]
+                    },
+                    "leaf-list": [
+                        {
+                            "@name": "key-usage",
+                            "when": {
+                                "@condition": "../metadata-template != 'from-openssl-cnf'"
+                            },
+                            "type": {
+                                "@name": "ioa-cert:key-usage-type"
+                            },
+                            "description": {
+                                "text": "The Key Usage type(s) for the certificate.\nDefault is derived from the metadata-template parameter."
+                            }
+                        },
+                        {
+                            "@name": "extended-key-usage",
+                            "when": {
+                                "@condition": "../metadata-template != 'from-openssl-cnf'"
+                            },
+                            "type": {
+                                "@name": "ioa-cert:extended-key-usage-type"
+                            },
+                            "description": {
+                                "text": "The Extended Key Usage type(s) for the certificate.\nDefault is derived from the metadata-template parameter."
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "csr-bytes",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..8192"
+                            }
+                        },
+                        "description": {
+                            "text": "PKCS#10 output of the CSR process in PEM format."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "diff",
+                "description": {
+                    "text": "Performs a diff between the candidate and current configurations.\nProvides output as a list a differences. By using the table-view parameter, the output is displayed\nin table format, for northbound protocols that support such visualization."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "candidate",
+                        "if-feature": {
+                            "@name": "nc:candidate"
+                        },
+                        "type": {
+                            "@name": "empty"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "The candidate datastore configuration."
+                        }
+                    }
+                },
+                "output": {
+                    "anyxml": {
+                        "@name": "differences",
+                        "description": {
+                            "text": "List of differences between the rollback point and the current system configuration.\nIs composedsubset that matches the running datastore hierarchy, annotated with two metadata attributes:\n- old-value, which in case of attribute value changes, represents the old value of the attribute.\n- operation, which represent MO creation and deletion in the context of the diff\nBoth old-value and operation are metadata annotations in accordance to RFC7952, and are qualified with the\nsame namespace as the datastore they are related with.\nAs such, these annotations will be encoded in XML/JSON in accordance to RFC7952."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "cli-command",
+                "description": {
+                    "text": "Runs one or more CLI commands via YANG RPC.\nNote: Execution is synchronous, so executing long scripts may take a while.\n      Please consider that when selecting the timeout for this RPC."
+                },
+                "input": {
+                    "choice": {
+                        "@name": "source",
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "The source of the CLI commands to execute: a script, or an RPC input"
+                        },
+                        "leaf": [
+                            {
+                                "@name": "script-file",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "The filepath of the previously downloaded CLI script"
+                                }
+                            },
+                            {
+                                "@name": "commands",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "CLI commands to execute; multiple commands can be provided, one per line"
+                                }
+                            }
+                        ]
+                    },
+                    "leaf": [
+                        {
+                            "@name": "echo",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "on",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "off",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "on"
+                            },
+                            "description": {
+                                "text": "If echo on, result includes commands and their output;\notherwise it will only include the commands output"
+                            }
+                        },
+                        {
+                            "@name": "error-option",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "stop-on-error",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "The server will stop on errors."
+                                        }
+                                    },
+                                    {
+                                        "@name": "continue-on-error",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "The server may continue on errors."
+                                        }
+                                    },
+                                    {
+                                        "@name": "rollback-on-error",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "The server will roll back on errors (all-or-nothing behavior)"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "continue-on-error"
+                            },
+                            "description": {
+                                "text": "How the command execution should behave when errors occur."
+                            }
+                        },
+                        {
+                            "@name": "replace",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "If true, it tries to push the entire script/commands as a replace operation"
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": [
+                        {
+                            "@name": "result",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "Output of the CLI script"
+                            }
+                        },
+                        {
+                            "@name": "error-location",
+                            "type": {
+                                "@name": "uint16"
+                            },
+                            "description": {
+                                "text": "Line number that locates the command that caused the error.\nIf no error occurred, this output parameter is omitted.\nIf multiple errors occur, show only the first command that caused the error."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "install-krp",
+                "description": {
+                    "text": "Install key replacement package (KRP)"
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "krp-name",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Key replacement package name"
+                        }
+                    }
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "install-krp-result",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Result of the install-krp operation"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "delete-isk",
+                "description": {
+                    "text": "Delete Image Signing Key (ISK) from the system"
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "key-name",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:security/ioa-ne:image-keys/ioa-ne:ISKs/ioa-ne:ISK/ioa-ne:key-name"
+                            }
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Image Signing Key (ISK) name"
+                        }
+                    }
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "delete-isk-result",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Result of the delete-isk operation"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "get-log",
+                "description": {
+                    "text": "Generic Log reader, that provides log content as a response.\nNote: providing a large amount of text via a RPC is not an ideal solution, so the output is restricted to 10000 entries.\nPlease use the 'upload' RPC for getting the entire log content without restrictions."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "log-file-name",
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:syslog/ioa-ne:log-file/ioa-ne:name"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The log file to read; must match a currently configured log-file."
+                            }
+                        },
+                        {
+                            "@name": "start-time",
+                            "type": {
+                                "@name": "yang:date-and-time"
+                            },
+                            "description": {
+                                "text": "Returns log entries starting from this timestamp.\nIf not provided, consider the oldest available logs."
+                            }
+                        },
+                        {
+                            "@name": "end-time",
+                            "type": {
+                                "@name": "yang:date-and-time"
+                            },
+                            "description": {
+                                "text": "Returns log entries ending at this timestamp.\nIf not provided, consider all the logs until the most recent timestamp."
+                            }
+                        },
+                        {
+                            "@name": "number-of-entries",
+                            "type": {
+                                "@name": "union",
+                                "type": [
+                                    {
+                                        "@name": "enumeration",
+                                        "enum": [
+                                            {
+                                                "@name": "all",
+                                                "value": {
+                                                    "@value": "1"
+                                                },
+                                                "description": {
+                                                    "text": "Maximum number of logs that can be sent with this RPC (10000)."
+                                                }
+                                            },
+                                            {
+                                                "@name": "all-since-last-reboot",
+                                                "value": {
+                                                    "@value": "2"
+                                                },
+                                                "description": {
+                                                    "text": "Maximum number of logs that can be sent with this RPC (10000), starting only in last reboot timestamp."
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "@name": "uint32",
+                                        "range": {
+                                            "@value": "1..10000"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "500"
+                            },
+                            "description": {
+                                "text": "Describes the amount of log entries that are to be returned."
+                            }
+                        },
+                        {
+                            "@name": "pattern-match",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "Allows to provide a regex that filters log entries."
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "log-entries",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "The resulting log entries."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "clear-log",
+                "description": {
+                    "text": "Allows to clear the content of a log file"
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "log-file-name",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:syslog/ioa-ne:log-file/ioa-ne:name"
+                            }
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "The log file to clear; file will still exist, but with empty content."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "change-ztp-mode",
+                "description": {
+                    "text": "Enable/disable ztp-mode and optionally reset the configuration database to factory default."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "ztp-mode",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "disabled",
+                                    "value": {
+                                        "@value": "0"
+                                    }
+                                },
+                                {
+                                    "@name": "enabled",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                }
+                            ]
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Selects new ztp mode."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "enable-led",
+                "description": {
+                    "text": "Enables a location led test in a chassis or a card."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "entity",
+                            "type": {
+                                "@name": "instance-identifier"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Targets a specific entity in the system for enabling its location led test.\nCan be a chassis or a card."
+                            }
+                        },
+                        {
+                            "@name": "timeout",
+                            "type": {
+                                "@name": "uint16",
+                                "range": {
+                                    "@value": "0..120"
+                                }
+                            },
+                            "units": {
+                                "@name": "seconds"
+                            },
+                            "default": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "Specify the timeout, in seconds, before enable-led terminates.\n0 means no timeout."
+                            }
+                        },
+                        {
+                            "@name": "led-mode",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "flash",
+                                        "value": {
+                                            "@value": "0"
+                                        },
+                                        "description": {
+                                            "text": "Led color flashing."
+                                        }
+                                    },
+                                    {
+                                        "@name": "solid",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Led color solid."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "flash"
+                            },
+                            "description": {
+                                "text": "Selects the led flash pattern."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "disable-led",
+                "description": {
+                    "text": "Disables any LED test that was initiated with the enable-led command."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "entity",
+                        "type": {
+                            "@name": "instance-identifier"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Targets a specific entity in the system for having its location led test disabled.\nCan be a chassis or a card."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "simulate",
+                "description": {
+                    "text": "Generic command that triggers simulated events in the system (alarms, equipment, etc)"
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "trigger",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "raise-alarm",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "Simulates the raising of an alarm."
+                                    }
+                                },
+                                {
+                                    "@name": "clear-alarm",
+                                    "value": {
+                                        "@value": "2"
+                                    },
+                                    "description": {
+                                        "text": "Clears a simulated alarm."
+                                    }
+                                },
+                                {
+                                    "@name": "plug-in-fru",
+                                    "value": {
+                                        "@value": "3"
+                                    },
+                                    "description": {
+                                        "text": "Simulates the plugin of equipment."
+                                    }
+                                },
+                                {
+                                    "@name": "plug-out-fru",
+                                    "value": {
+                                        "@value": "4"
+                                    },
+                                    "description": {
+                                        "text": "Simulates the plugout of equipment."
+                                    }
+                                }
+                            ]
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "The alarm event trigger to simulate."
+                        }
+                    },
+                    "choice": {
+                        "@name": "simulation-type",
+                        "case": [
+                            {
+                                "@name": "equipment",
+                                "when": {
+                                    "@condition": "trigger = 'plug-in-fru' or trigger = 'plug-out-fru'"
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "holder-AID",
+                                        "type": {
+                                            "@name": "string",
+                                            "length": {
+                                                "@value": "1..64"
+                                            }
+                                        },
+                                        "mandatory": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "AID of the equipment holder (slot or port) where the equipment will be simulated."
+                                        }
+                                    },
+                                    {
+                                        "@name": "type",
+                                        "type": {
+                                            "@name": "string"
+                                        },
+                                        "mandatory": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "The type of the equipment to be simulated."
+                                        }
+                                    },
+                                    {
+                                        "@name": "subtype",
+                                        "type": {
+                                            "@name": "string"
+                                        },
+                                        "description": {
+                                            "text": "The subtype of the equipment to be simulated."
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "@name": "alarm",
+                                "when": {
+                                    "@condition": "trigger = 'raise-alarm' or trigger = 'clear-alarm'"
+                                },
+                                "leaf": [
+                                    {
+                                        "@name": "alarmed-entity",
+                                        "type": {
+                                            "@name": "instance-identifier"
+                                        },
+                                        "mandatory": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "The entity affected by the alarm; if ommitted when clearing alarms, all simulated alarms are cleared."
+                                        }
+                                    },
+                                    {
+                                        "@name": "alarm-type",
+                                        "type": {
+                                            "@name": "identityref",
+                                            "base": {
+                                                "@name": "ioa-alarm:ALARM-TYPE"
+                                            }
+                                        },
+                                        "mandatory": {
+                                            "@value": "true"
+                                        },
+                                        "description": {
+                                            "text": "The alarm type to be simulated; if ommitted when clearing alarms, all simulated alarms are cleared."
+                                        }
+                                    },
+                                    {
+                                        "@name": "alarm-direction",
+                                        "type": {
+                                            "@name": "union",
+                                            "type": [
+                                                {
+                                                    "@name": "ioa-alarm:direction"
+                                                },
+                                                {
+                                                    "@name": "enumeration",
+                                                    "enum": {
+                                                        "@name": "auto",
+                                                        "value": {
+                                                            "@value": "5"
+                                                        },
+                                                        "description": {
+                                                            "text": "Direction is selected automatically."
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "default": {
+                                            "@value": "auto"
+                                        },
+                                        "description": {
+                                            "text": "The direction of the simulated alarm. If ommitted, system selects direction automatically."
+                                        }
+                                    },
+                                    {
+                                        "@name": "alarm-location",
+                                        "type": {
+                                            "@name": "union",
+                                            "type": [
+                                                {
+                                                    "@name": "ioa-alarm:location"
+                                                },
+                                                {
+                                                    "@name": "enumeration",
+                                                    "enum": {
+                                                        "@name": "auto",
+                                                        "value": {
+                                                            "@value": "5"
+                                                        },
+                                                        "description": {
+                                                            "text": "Location is selected automatically."
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "default": {
+                                            "@value": "auto"
+                                        },
+                                        "description": {
+                                            "text": "The location of the simulated alarm. If ommitted, system selects location automatically."
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "@name": "restart",
+                "description": {
+                    "text": "Restarts a specific resource of the system.\nSupports restarting of:\n- card\n- card sub-component (e.g. DCO)\n- tom"
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "resource",
+                            "type": {
+                                "@name": "instance-identifier"
+                            },
+                            "description": {
+                                "text": "Resource to restart.\nIf not provided, by default restarts the node controller."
+                            }
+                        },
+                        {
+                            "@name": "type",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "warm",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Warm starts a FRU"
+                                        }
+                                    },
+                                    {
+                                        "@name": "cold",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Cold reboots a FRU."
+                                        }
+                                    },
+                                    {
+                                        "@name": "shutdown",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Shuts down a FRU for controlled removal."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "warm"
+                            },
+                            "description": {
+                                "text": "Restart type"
+                            }
+                        },
+                        {
+                            "@name": "sub-component",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "Allows to target a card sub-component to restart."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "appctl",
+                "description": {
+                    "text": "Control command for third party applications."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "command",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "restart",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Restarts the third party application."
+                                        }
+                                    },
+                                    {
+                                        "@name": "netls",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Shows the list of subnet networks used by the containers."
+                                        }
+                                    }
+                                ]
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Application control commands."
+                            }
+                        },
+                        {
+                            "@name": "app-name",
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:sw-management/ioa-ne:third-party-app/ioa-ne:app-name"
+                                }
+                            },
+                            "description": {
+                                "text": "Third party app name."
+                            }
+                        },
+                        {
+                            "@name": "target",
+                            "type": {
+                                "@name": "union",
+                                "type": [
+                                    {
+                                        "@name": "enumeration",
+                                        "enum": {
+                                            "@name": "system",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Command will be executed for the entire system."
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "@name": "string"
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "system"
+                            },
+                            "description": {
+                                "text": "Entire system or chassis/card AID."
+                            }
+                        }
+                    ],
+                    "leaf-list": {
+                        "@name": "parameters",
+                        "when": {
+                            "@condition": "../command = 'restart'"
+                        },
+                        "type": {
+                            "@name": "string"
+                        },
+                        "max-elements": {
+                            "@value": "50"
+                        },
+                        "description": {
+                            "text": "Optional parameters to be passed in the command."
+                        }
+                    }
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "appctl-result",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Result of appctl command action."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "ping",
+                "description": {
+                    "text": "Sends an echo message to another TCP/IP node to determine if the node is visible on the network."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "ping-count",
+                            "type": {
+                                "@name": "uint8",
+                                "range": {
+                                    "@value": "1..100"
+                                }
+                            },
+                            "default": {
+                                "@value": "4"
+                            },
+                            "description": {
+                                "text": "Stops after sending 'count' ECHO_REQUEST packets."
+                            }
+                        },
+                        {
+                            "@name": "ping-timeout",
+                            "type": {
+                                "@name": "uint16",
+                                "range": {
+                                    "@value": "1..20"
+                                }
+                            },
+                            "units": {
+                                "@name": "seconds"
+                            },
+                            "default": {
+                                "@value": "2"
+                            },
+                            "description": {
+                                "text": "Specify the timeout, in seconds, before ping exits."
+                            }
+                        },
+                        {
+                            "@name": "ping-pktsize",
+                            "type": {
+                                "@name": "uint16"
+                            },
+                            "units": {
+                                "@name": "bytes"
+                            },
+                            "default": {
+                                "@value": "56"
+                            },
+                            "description": {
+                                "text": "Specifies the number of bytes to be sent. Default is 56, exclusive of headers."
+                            },
+                            "reference": {
+                                "text": "THANOS-6920"
+                            }
+                        },
+                        {
+                            "@name": "ping-dest",
+                            "type": {
+                                "@name": "union",
+                                "type": [
+                                    {
+                                        "@name": "inet:ipv4-address"
+                                    },
+                                    {
+                                        "@name": "inet:ipv6-address"
+                                    },
+                                    {
+                                        "@name": "inet:domain-name"
+                                    }
+                                ]
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "IP address or FQDN of the destination node."
+                            }
+                        }
+                    ],
+                    "choice": {
+                        "@name": "source",
+                        "leaf": [
+                            {
+                                "@name": "ping-interface",
+                                "type": {
+                                    "@name": "leafref",
+                                    "path": {
+                                        "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:networking/ioa-ne:interface/ioa-ne:if-name"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Specify source interface name"
+                                }
+                            },
+                            {
+                                "@name": "ping-vrf",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "default": {
+                                    "@value": "MGMT"
+                                },
+                                "description": {
+                                    "text": "VRF to use. If not provided, defaults to MGMT."
+                                }
+                            }
+                        ]
+                    }
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "result",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Result of ping."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "traceroute",
+                "description": {
+                    "text": "Tracks the route packets take from an IP network on their way to a given host"
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "tr-hopcnt",
+                            "type": {
+                                "@name": "uint8",
+                                "range": {
+                                    "@value": "1..255"
+                                }
+                            },
+                            "default": {
+                                "@value": "30"
+                            },
+                            "description": {
+                                "text": "Specifies the maximum number of hops (max time-to-live value) traceroute will probe. The default is 10."
+                            }
+                        },
+                        {
+                            "@name": "tr-timeout",
+                            "type": {
+                                "@name": "uint16",
+                                "range": {
+                                    "@value": "1..10"
+                                }
+                            },
+                            "units": {
+                                "@name": "seconds"
+                            },
+                            "default": {
+                                "@value": "2"
+                            },
+                            "description": {
+                                "text": "Specify the timeout, in seconds, before trace route exits."
+                            }
+                        },
+                        {
+                            "@name": "tr-dest",
+                            "type": {
+                                "@name": "union",
+                                "type": [
+                                    {
+                                        "@name": "inet:ipv4-address"
+                                    },
+                                    {
+                                        "@name": "inet:ipv6-address"
+                                    },
+                                    {
+                                        "@name": "inet:domain-name"
+                                    }
+                                ]
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "IPv4/v6 address or FQDN of the destination node."
+                            }
+                        },
+                        {
+                            "@name": "tr-pktsize",
+                            "type": {
+                                "@name": "uint16"
+                            },
+                            "units": {
+                                "@name": "bytes"
+                            },
+                            "default": {
+                                "@value": "60"
+                            },
+                            "description": {
+                                "text": "Specifies the total  size  of  the  probing packet (default 60 bytes for IPv4)."
+                            }
+                        }
+                    ],
+                    "choice": {
+                        "@name": "source",
+                        "leaf": [
+                            {
+                                "@name": "tr-interface",
+                                "type": {
+                                    "@name": "leafref",
+                                    "path": {
+                                        "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:networking/ioa-ne:interface/ioa-ne:if-name"
+                                    }
+                                },
+                                "description": {
+                                    "text": "Specify source interface name"
+                                }
+                            },
+                            {
+                                "@name": "tr-vrf",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "default": {
+                                    "@value": "MGMT"
+                                },
+                                "description": {
+                                    "text": "VRF to use. If not provided, defaults to MGMT."
+                                }
+                            }
+                        ]
+                    }
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "result",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Result of trace route."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "clear-ospf-instance",
+                "description": {
+                    "text": "This RPC request restarts the OSPF instance."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "instance",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:networking/ioa-ne:routing/ioa-ne:ospf-instance/ioa-ne:instance-id"
+                            }
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "OSPF protocol instance which need to be re-started."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "clear-topology",
+                "description": {
+                    "text": "Allows manual removal of existing topology neighbor information."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "target",
+                        "type": {
+                            "@name": "instance-identifier"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Target instance to be cleared. May be a lldp-neighbor, a carrier-neighbor or a lldp-port-statistics instance."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "clear-system",
+                "description": {
+                    "text": "Wipes the system/specific instance and reset to the factory configurations."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "type",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "factory-reset",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Reset the system or a particular equipment to factory configuration."
+                                        }
+                                    },
+                                    {
+                                        "@name": "full-wipe",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Clean the entire system and reinstall the SW on the controller and the line-cards."
+                                        }
+                                    },
+                                    {
+                                        "@name": "inactive",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Clear the inactive software partition."
+                                        }
+                                    }
+                                ]
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Clear system type."
+                            }
+                        },
+                        {
+                            "@name": "target",
+                            "when": {
+                                "@condition": "../type = 'factory-reset' or ../type = 'full-wipe'"
+                            },
+                            "type": {
+                                "@name": "union",
+                                "type": [
+                                    {
+                                        "@name": "enumeration",
+                                        "enum": {
+                                            "@name": "system",
+                                            "value": {
+                                                "@value": "1"
+                                            },
+                                            "description": {
+                                                "text": "Clean the system (main controller chassis)."
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "@name": "string"
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "system"
+                            },
+                            "description": {
+                                "text": "Entire system (main controller chassis) or specific chassis/card AID."
+                            }
+                        },
+                        {
+                            "@name": "restart-behavior",
+                            "when": {
+                                "@condition": "../type='factory-reset'"
+                            },
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "restart",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Restart the system after the clean."
+                                        }
+                                    },
+                                    {
+                                        "@name": "shutdown",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Shutdown the system after the clean."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "restart"
+                            },
+                            "description": {
+                                "text": "Action to do after the clean operation."
+                            }
+                        },
+                        {
+                            "@name": "action",
+                            "when": {
+                                "@condition": "../type='inactive'"
+                            },
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": {
+                                    "@name": "delete",
+                                    "value": {
+                                        "@value": "1"
+                                    },
+                                    "description": {
+                                        "text": "delete the partition."
+                                    }
+                                }
+                            },
+                            "default": {
+                                "@value": "delete"
+                            },
+                            "description": {
+                                "text": "Action to clean the partition."
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "clear-system-result",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Result of the clear system operation"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "download",
+                "description": {
+                    "text": "Transfers a file from an external location to the NE"
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "filetype",
+                            "type": {
+                                "@name": "ioa-transfer:fts-filetype"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Predefined filetype available for download"
+                            }
+                        },
+                        {
+                            "@name": "passphrase",
+                            "when": {
+                                "@condition": "../filetype = 'local-certificate' or ../filetype = 'peer-certificate'"
+                            },
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..1024"
+                                }
+                            },
+                            "description": {
+                                "text": "To decode encrypted input files."
+                            }
+                        },
+                        {
+                            "@name": "white-listed",
+                            "when": {
+                                "@condition": "../filetype = 'peer-certificate'"
+                            },
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "If true, peer-certificate does not have an associated trust-chain. Else, has an associated trust-chain."
+                            }
+                        },
+                        {
+                            "@name": "certificate-name",
+                            "when": {
+                                "@condition": "../filetype = 'local-certificate' or ../filetype = 'trusted-certificate' or ../filetype = 'peer-certificate'"
+                            },
+                            "type": {
+                                "@name": "ioa-common:certificate-name"
+                            },
+                            "description": {
+                                "text": "X509v3 local/trusted/peer certificate id."
+                            }
+                        },
+                        {
+                            "@name": "intermediate-import",
+                            "when": {
+                                "@condition": "../filetype = 'local-certificate' or ../filetype = 'trusted-certificate' or ../filetype = 'peer-certificate'"
+                            },
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Allow to import any intermediate certificates present in a certificate file bundle. If certificate-name\nis not provided, it will be auto-generated from the topmost certificate Issuer CN plus a numeric suffix."
+                            }
+                        },
+                        {
+                            "@name": "unattended",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "description": {
+                                "text": "Auto prepare and auto activate file after a successful download.\nOnly some files support 'activation'; others just ignore this flag."
+                            }
+                        },
+                        {
+                            "@name": "async",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "description": {
+                                "text": "Download asynchronously."
+                            }
+                        },
+                        {
+                            "@name": "skip-secure-verification",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "description": {
+                                "text": "For HTTPS transfers, skip TLS verification. For SCP/SFTP transfers, skip ssh known host checking.\nIf flag not set, verification is done according with current security-policy."
+                            }
+                        },
+                        {
+                            "@name": "sanity-check-override",
+                            "when": {
+                                "@condition": "../filetype = 'database'"
+                            },
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "If true, skips the sanity check override when downloading a database snapshot."
+                            }
+                        },
+                        {
+                            "@name": "destination",
+                            "when": {
+                                "@condition": "../filetype = 'file'"
+                            },
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "Allows user to provide the destination for the downloaded file, including directory and/or filename.\nThis is only applicable when file-type is 'file', representing a generic file transfer.\nThe parameter can be:\n- omitted: means file is downloaded to the default directory with the original file-name\n- a file-name only: uses default directory with the new file-name\n- a relative path: uses the default directory as starting path, plus relative path\n- an absolute path: Absolute path for the user accessible directories can be used\nIt is necessary for the user to have write access to the destination path for the download to succeed.\nTip: use 'show transfer' to see what is the default storage directory.\nFor generic file transfer, no further activity occurs after download, so the 'unattended' flag will be ignored."
+                            }
+                        },
+                        {
+                            "@name": "password",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..255"
+                                }
+                            },
+                            "description": {
+                                "text": "SFTP/SCP/FTP/HTTP/HTTPS password"
+                            }
+                        }
+                    ],
+                    "choice": {
+                        "@name": "target",
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Download target may be an explicit URL, or may just reference a pre-configured file-server\ntogether with a path."
+                        },
+                        "leaf": {
+                            "@name": "source",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..1024"
+                                },
+                                "pattern": {
+                                    "@value": "((ftp|sftp|scp|http|https|file):/)?/[^\\s/$.?#].[^\\s]*"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Source of the download ([sftp|scp|http|https|ftp|file]://[user@]hostname/directorypath/filename)"
+                            }
+                        },
+                        "case": {
+                            "@name": "file-server-based",
+                            "leaf": [
+                                {
+                                    "@name": "file-server",
+                                    "type": {
+                                        "@name": "leafref",
+                                        "path": {
+                                            "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:file-servers/ioa-ne:file-server/ioa-ne:name"
+                                        }
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "The preconfigured file-server name."
+                                    }
+                                },
+                                {
+                                    "@name": "path",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..512"
+                                        }
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "Path (directory and filename) of the remote file."
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "uses": [
+                        {
+                            "@name": "ioa-common:db-passphrase",
+                            "when": {
+                                "@condition": "filetype = 'database'"
+                            }
+                        },
+                        {
+                            "@name": "db-action",
+                            "when": {
+                                "@condition": "filetype = 'swimage' and unattended = 'true'"
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "download-result",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Result of the download operation"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "upload",
+                "description": {
+                    "text": "Uploads files to remote server"
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "filetype",
+                            "type": {
+                                "@name": "ioa-transfer:fts-filetype"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Predefined filetype available for upload"
+                            }
+                        },
+                        {
+                            "@name": "source",
+                            "when": {
+                                "@condition": "../filetype = 'file'"
+                            },
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..255"
+                                }
+                            },
+                            "description": {
+                                "text": "Allows user to provide the source for the file to be uploaded, including directory and/or filename.\nThis is only applicable when file-type is 'file', representing a generic file transfer.\nCan be a path relative to the default user directory, or an absolute path - as long as\nuser has access to the target file."
+                            }
+                        },
+                        {
+                            "@name": "async",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "description": {
+                                "text": "Uploads asynchronously."
+                            }
+                        },
+                        {
+                            "@name": "skip-secure-verification",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "description": {
+                                "text": "For HTTPS transfers, skip TLS verification. For SCP/SFTP transfers, skip ssh known host checking.\nIf flag not set, verification is done according with current security-policy."
+                            }
+                        },
+                        {
+                            "@name": "debug-entity",
+                            "when": {
+                                "@condition": "../filetype = 'debug-log' or ../filetype = 'fdr-log' or ../filetype = 'pm-logs' or ../filetype = 'logs' "
+                            },
+                            "type": {
+                                "@name": "instance-identifier"
+                            },
+                            "description": {
+                                "text": "Targets a specific entity in the system for having its Logs to be collected. Can be a chassis or a card"
+                            }
+                        },
+                        {
+                            "@name": "password",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..255"
+                                }
+                            },
+                            "description": {
+                                "text": "SFTP/SCP/FTP/HTTP/HTTPS password"
+                            }
+                        },
+                        {
+                            "@name": "start-time",
+                            "when": {
+                                "@condition": "../filetype = 'logs' or ../filetype = 'pm-logs'"
+                            },
+                            "type": {
+                                "@name": "union",
+                                "type": [
+                                    {
+                                        "@name": "yang:date-and-time"
+                                    },
+                                    {
+                                        "@name": "ioa-common:time-interval"
+                                    }
+                                ]
+                            },
+                            "description": {
+                                "text": "Start time from where the logs should be collected. It can be a timestamp or\na time interval from the actual time (now). If empty all log history is selected"
+                            }
+                        },
+                        {
+                            "@name": "db-instance",
+                            "when": {
+                                "@condition": "../filetype = 'database'"
+                            },
+                            "type": {
+                                "@name": "db-instance-type"
+                            },
+                            "default": {
+                                "@value": "active"
+                            },
+                            "description": {
+                                "text": "Selected DB instance"
+                            }
+                        }
+                    ],
+                    "choice": {
+                        "@name": "target",
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Upload target may be an explicit URL, or may just reference a pre-configured file-server\ntogether with a path."
+                        },
+                        "leaf": {
+                            "@name": "destination",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..1024"
+                                },
+                                "pattern": {
+                                    "@value": "((ftp|sftp|scp|file|https|http):/)?/[^\\s/$.?#].[^\\s]*"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Destination of the upload ([sftp|scp|ftp|https|http|file]://[user@]hostname/directorypath/filename)"
+                            }
+                        },
+                        "case": {
+                            "@name": "file-server-based",
+                            "leaf": [
+                                {
+                                    "@name": "file-server",
+                                    "type": {
+                                        "@name": "leafref",
+                                        "path": {
+                                            "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:file-servers/ioa-ne:file-server/ioa-ne:name"
+                                        }
+                                    },
+                                    "mandatory": {
+                                        "@value": "true"
+                                    },
+                                    "description": {
+                                        "text": "The preconfigured file-server name."
+                                    }
+                                },
+                                {
+                                    "@name": "path",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "0..512"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "Path (directory and filename) to be used in the remote file-server.\nIf not provided, the file-server initial-path is used, with system defined filename.\nIf the path targets a directory (e.g. /path/ ), the filename is dynamically generated.\nOtherwise, the user defined filename may use some placeholders %t and %m (representing\ntimestamp and ne-name respectively)."
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "uses": [
+                        {
+                            "@name": "ioa-pm:period",
+                            "when": {
+                                "@condition": "filetype = 'pm-logs'"
+                            }
+                        },
+                        {
+                            "@name": "ioa-common:db-passphrase",
+                            "when": {
+                                "@condition": "filetype = 'database'"
+                            }
+                        }
+                    ],
+                    "leaf-list": [
+                        {
+                            "@name": "optional-content",
+                            "when": {
+                                "@condition": "../filetype = 'debug-log'"
+                            },
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..64"
+                                }
+                            },
+                            "description": {
+                                "text": "List of files to be included for debug-log upload."
+                            }
+                        },
+                        {
+                            "@name": "log-file-list",
+                            "when": {
+                                "@condition": "../filetype = 'logs'"
+                            },
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:syslog/ioa-ne:log-file/ioa-ne:name"
+                                }
+                            },
+                            "description": {
+                                "text": "List of log files to be uploaded. If empty all available logs are selected."
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "upload-result",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Result of the upload operation"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "import-certificate",
+                "description": {
+                    "text": "Imports one or more certificates as a PEM format string into the NE."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "type",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "local-certificate",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Either an x509 certificate in PKCS#12 format (with password-protected private key) or PKCS#7 format."
+                                        }
+                                    },
+                                    {
+                                        "@name": "peer-certificate",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "An x509v3 certificate in PKCS#12 format (with password-protected private key)."
+                                        }
+                                    },
+                                    {
+                                        "@name": "trusted-certificate",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "x509v3 PKCS#7 trusted certificate, either Root or Intermediate CA."
+                                        }
+                                    }
+                                ]
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Certificate types available for import."
+                            }
+                        },
+                        {
+                            "@name": "certificate-name",
+                            "type": {
+                                "@name": "ioa-common:certificate-name"
+                            },
+                            "description": {
+                                "text": "X509v3 local/peer/trusted certificate ID."
+                            }
+                        },
+                        {
+                            "@name": "certificate-pem",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..81920"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Certificate bytes or certificates bundle in PEM format."
+                            }
+                        },
+                        {
+                            "@name": "passphrase",
+                            "when": {
+                                "@condition": "../type = 'local-certificate' or ../type = 'peer-certificate'"
+                            },
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "1..1024"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "To decode encrypted input certificates."
+                            }
+                        },
+                        {
+                            "@name": "intermediate-import",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Allow to import any intermediate certificates present in a PEM string bundle. If certificate-name\nis not provided, it will be auto-generated from the topmost certificate issuer CN plus a numeric suffix."
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "import-result",
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..128"
+                            }
+                        },
+                        "description": {
+                            "text": "Result of the import operation."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "prepare-upgrade",
+                "description": {
+                    "text": "Prepares NE for upgrade"
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "option",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "validate",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Validate"
+                                        }
+                                    },
+                                    {
+                                        "@name": "apply",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Apply"
+                                        }
+                                    }
+                                ]
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Predefined options available for prepare-upgrade"
+                            }
+                        },
+                        {
+                            "@name": "manifest",
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:sw-management/ioa-ne:downloads/ioa-ne:manifest/ioa-ne:manifest-file"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "manifest to be prepared for upgrade"
+                            }
+                        },
+                        {
+                            "@name": "ignore-precheck-failures",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Ignore validation failures."
+                            }
+                        },
+                        {
+                            "@name": "unattended",
+                            "when": {
+                                "@condition": "../option = 'apply'"
+                            },
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "description": {
+                                "text": "Auto activate software after prepare upgrade."
+                            }
+                        }
+                    ],
+                    "uses": {
+                        "@name": "db-action",
+                        "when": {
+                            "@condition": "unattended = 'true'"
+                        }
+                    }
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "prepare-upgrade-result",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Result of the prepare-upgrade operation"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "activate-file",
+                "description": {
+                    "text": "Allows to activate a downloaded database or software image"
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "filetype",
+                            "type": {
+                                "@name": "ioa-transfer:fts-filetype"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Predefined filetype available for upload"
+                            }
+                        },
+                        {
+                            "@name": "label",
+                            "when": {
+                                "@condition": "../filetype = 'swimage'"
+                            },
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "Label to be activated"
+                            }
+                        },
+                        {
+                            "@name": "db-instance",
+                            "when": {
+                                "@condition": "../filetype = 'database'"
+                            },
+                            "type": {
+                                "@name": "db-instance-type"
+                            },
+                            "default": {
+                                "@value": "temp"
+                            },
+                            "description": {
+                                "text": "Database instance name to activate."
+                            }
+                        },
+                        {
+                            "@name": "sanity-check-override",
+                            "when": {
+                                "@condition": "../filetype = 'database' or ../filetype = 'swimage'"
+                            },
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Allows user to skip the database/swimage sanity check."
+                            }
+                        }
+                    ],
+                    "uses": [
+                        {
+                            "@name": "db-action",
+                            "when": {
+                                "@condition": "filetype = 'swimage'"
+                            }
+                        },
+                        {
+                            "@name": "ioa-common:db-passphrase",
+                            "when": {
+                                "@condition": "filetype = 'database'"
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "activate-file-result",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Result of the activate-file operation"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "cancel-upgrade",
+                "description": {
+                    "text": "Cancels any active upgrade."
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "cancel-upgrade-result",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Result of the cancel-upgrade operation"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "set-time",
+                "description": {
+                    "text": "Sets system time. Only applicable when clock time-source is 'manual'."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "new-time",
+                        "type": {
+                            "@name": "yang:date-and-time"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Time to set in the system"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "password",
+                "description": {
+                    "text": "Allows user to change his own password."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "old-password",
+                            "type": {
+                                "@name": "ioa-common:password"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The current password."
+                            }
+                        },
+                        {
+                            "@name": "new-password",
+                            "type": {
+                                "@name": "ioa-common:password"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The new password."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "clear-recover-mode",
+                "description": {
+                    "text": "Clears the recover mode flag.\nThis request will clear the recover mode flag, implicitly accepting the current configuration and\nreturning to normal system operation."
+                }
+            },
+            {
+                "@name": "run-task",
+                "description": {
+                    "text": "Forces the execution of a previously configured scheduled task."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "task-name",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:scheduled-tasks/ioa-ne:task/ioa-ne:name"
+                            }
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "The task name to be executed."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "take-snapshot",
+                "description": {
+                    "text": "Generates a snapshot of DB and/or SW and stores it in a specified location."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "type",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "db-backup",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Stores the current state of the Configuration database into one of the available backup slots."
+                                        }
+                                    },
+                                    {
+                                        "@name": "system-backup",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Perform a system backup into the chassis storage."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "db-backup"
+                            },
+                            "description": {
+                                "text": "Location where the snapshot will be stored."
+                            }
+                        },
+                        {
+                            "@name": "db-instance",
+                            "when": {
+                                "@condition": "../type = 'db-backup'"
+                            },
+                            "type": {
+                                "@name": "db-instance-type"
+                            },
+                            "default": {
+                                "@value": "temp"
+                            },
+                            "description": {
+                                "text": "Target db-instance name which will hold the DB snapshot."
+                            }
+                        },
+                        {
+                            "@name": "description",
+                            "when": {
+                                "@condition": "../type = 'db-backup'"
+                            },
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..128"
+                                }
+                            },
+                            "description": {
+                                "text": "Optional description for this DB snapshot."
+                            }
+                        }
+                    ],
+                    "uses": {
+                        "@name": "ioa-common:db-passphrase",
+                        "when": {
+                            "@condition": "type = 'db-backup'"
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "get-script",
+                "description": {
+                    "text": "Returns the existing scripts or shows existing script's content."
+                },
+                "input": {
+                    "choice": {
+                        "@name": "option",
+                        "leaf": [
+                            {
+                                "@name": "list-scripts",
+                                "type": {
+                                    "@name": "empty"
+                                },
+                                "description": {
+                                    "text": "List all existing scripts."
+                                }
+                            },
+                            {
+                                "@name": "script-name",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "Get the content of an existing script. The script name is a relative path to the script directory."
+                                }
+                            }
+                        ]
+                    }
+                },
+                "output": {
+                    "list": {
+                        "@name": "script-list",
+                        "key": {
+                            "@value": "script"
+                        },
+                        "description": {
+                            "text": "List with the existing scripts."
+                        },
+                        "leaf": [
+                            {
+                                "@name": "script",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "Script name."
+                                }
+                            },
+                            {
+                                "@name": "script-type",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "Script type."
+                                }
+                            },
+                            {
+                                "@name": "file-size",
+                                "type": {
+                                    "@name": "uint16"
+                                },
+                                "units": {
+                                    "@name": "kb"
+                                },
+                                "description": {
+                                    "text": "Fize size."
+                                }
+                            },
+                            {
+                                "@name": "created",
+                                "type": {
+                                    "@name": "yang:date-and-time"
+                                },
+                                "description": {
+                                    "text": "Creation date."
+                                }
+                            },
+                            {
+                                "@name": "description",
+                                "type": {
+                                    "@name": "string"
+                                },
+                                "description": {
+                                    "text": "Script description defined on the begining of the file."
+                                }
+                            }
+                        ]
+                    },
+                    "leaf": {
+                        "@name": "script-content",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "Script content."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "run-script",
+                "description": {
+                    "text": "Runs a previously installed script."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "script-name",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Script absolute or relative path from the script directory."
+                            }
+                        },
+                        {
+                            "@name": "arguments",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "Optional arguments to the script."
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": [
+                        {
+                            "@name": "success",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "description": {
+                                "text": "Script was executed with success."
+                            }
+                        },
+                        {
+                            "@name": "result",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "Returns the output of the script."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "manual-switchover",
+                "description": {
+                    "text": "Triggers controller switchover."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "resource",
+                        "type": {
+                            "@name": "instance-identifier"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Active controller card to switchover."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "file-operation",
+                "description": {
+                    "text": "Command for basic file and directory operations."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "operation",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "rename",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Renames a file or directory."
+                                        }
+                                    },
+                                    {
+                                        "@name": "delete",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Deletes a file."
+                                        }
+                                    },
+                                    {
+                                        "@name": "view",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Does listing for a file or directory."
+                                        }
+                                    },
+                                    {
+                                        "@name": "sha256sum",
+                                        "value": {
+                                            "@value": "4"
+                                        },
+                                        "description": {
+                                            "text": "Generates SHA256 hash checksum of a file."
+                                        }
+                                    },
+                                    {
+                                        "@name": "md5sum",
+                                        "value": {
+                                            "@value": "5"
+                                        },
+                                        "description": {
+                                            "text": "Generates md5 hash checksum of a file."
+                                        }
+                                    }
+                                ]
+                            },
+                            "description": {
+                                "text": "File operations to do."
+                            }
+                        },
+                        {
+                            "@name": "file-path",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Current file path."
+                            }
+                        },
+                        {
+                            "@name": "new-file-path",
+                            "when": {
+                                "@condition": "../operation = 'rename'"
+                            },
+                            "type": {
+                                "@name": "string",
+                                "pattern": {
+                                    "@value": "[A-Za-z0-9_\\-/\\.]*"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "New file path."
+                            }
+                        }
+                    ]
+                },
+                "output": {
+                    "leaf": {
+                        "@name": "result",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "description": {
+                            "text": "The file operation result."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "call-home",
+                "description": {
+                    "text": "Manual connection trigger to a configured dial-out-server."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "dial-out-server-name",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:protocols/ioa-ne:dial-out-server/ioa-ne:name"
+                            }
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "The dial-out-server to connect to."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "activate-fw",
+                "description": {
+                    "text": "Allows to activate a 3rd party firmware"
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "fw-image-name",
+                        "type": {
+                            "@name": "leafref",
+                            "path": {
+                                "@value": "/ioa-ne:ne/ioa-ne:system/ioa-ne:sw-management/ioa-ne:third-party-fw/ioa-ne:fw-name"
+                            }
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "FW file name"
+                        }
+                    },
+                    "leaf-list": {
+                        "@name": "resource",
+                        "type": {
+                            "@name": "instance-identifier"
+                        },
+                        "min-elements": {
+                            "@value": "1"
+                        },
+                        "description": {
+                            "text": "List of equipment to be activated."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "re-key",
+                "description": {
+                    "text": "On-demand re-keying of a data path encryption secure entity, IKEv2 peer or an IPSec Child security association (Security Policy Database entry)."
+                },
+                "reference": {
+                    "text": "THANOSSEC-623"
+                },
+                "input": {
+                    "choice": {
+                        "@name": "re-key-type",
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "The input choice for re-key"
+                        },
+                        "leaf": [
+                            {
+                                "@name": "ipsec-security-association",
+                                "type": {
+                                    "@name": "instance-identifier"
+                                },
+                                "description": {
+                                    "text": "Points to IPsec SPD entry object (Child SA)."
+                                }
+                            },
+                            {
+                                "@name": "ikev2-peer",
+                                "type": {
+                                    "@name": "instance-identifier"
+                                },
+                                "description": {
+                                    "text": "A reference to the IKE peer object (IKE SA)."
+                                }
+                            },
+                            {
+                                "@name": "secure-entity",
+                                "type": {
+                                    "@name": "instance-identifier"
+                                },
+                                "description": {
+                                    "text": "Points to secure entity object (Child SA)."
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "@name": "re-auth",
+                "description": {
+                    "text": "On-demand re-authentication of IKEv2 security associations."
+                },
+                "reference": {
+                    "text": "THANOSSEC-620"
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "ikev2-peer",
+                        "type": {
+                            "@name": "instance-identifier"
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "A reference to the IKE peer object (IKE SA)."
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "clear-diagnostics",
+                "description": {
+                    "text": "Command to perform maintenance and diagnostic counter clear."
+                },
+                "input": {
+                    "leaf": [
+                        {
+                            "@name": "entity-id",
+                            "type": {
+                                "@name": "instance-identifier"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Target entity for the command. Must exist."
+                            }
+                        },
+                        {
+                            "@name": "test-signal-direction",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "ingress",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "egress",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    },
+                                    {
+                                        "@name": "auto",
+                                        "value": {
+                                            "@value": "3"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "auto"
+                            },
+                            "description": {
+                                "text": "The test signal direction. If not specified, the counter for the enabled direction would be cleared."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "get-file",
+                "description": {
+                    "text": "Returns the existing files in directory or shows existing file's content."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "path-name",
+                        "type": {
+                            "@name": "string"
+                        },
+                        "default": {
+                            "@value": "/storage"
+                        },
+                        "description": {
+                            "text": "If name is a directory, display its list, if name is a file, display its\ncontents. The path can be relative to the /storage directory or absolute."
+                        }
+                    }
+                },
+                "output": {
+                    "choice": {
+                        "@name": "path-contents",
+                        "description": {
+                            "text": "If path was a directory, list its contents, if it was as file,\nreturn its content unless it is a binary file"
+                        },
+                        "list": {
+                            "@name": "directory-list",
+                            "key": {
+                                "@value": "path"
+                            },
+                            "description": {
+                                "text": "List with the existing scripts."
+                            },
+                            "leaf": [
+                                {
+                                    "@name": "path",
+                                    "type": {
+                                        "@name": "string"
+                                    },
+                                    "description": {
+                                        "text": "File name."
+                                    }
+                                },
+                                {
+                                    "@name": "path-type",
+                                    "type": {
+                                        "@name": "string",
+                                        "length": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    "description": {
+                                        "text": "'-' for file, 'd' for directory and 'l' for link"
+                                    }
+                                },
+                                {
+                                    "@name": "permissions",
+                                    "type": {
+                                        "@name": "uint16"
+                                    },
+                                    "description": {
+                                        "text": "Read, Write and Exec permissions for user.\nRepresented as the octal format of standard UNIX\nex. 775: user read/write/execute, group read/write/execute,\nglobal read/execute."
+                                    }
+                                },
+                                {
+                                    "@name": "size",
+                                    "type": {
+                                        "@name": "uint64"
+                                    },
+                                    "units": {
+                                        "@name": "bytes"
+                                    },
+                                    "description": {
+                                        "text": "File size."
+                                    }
+                                },
+                                {
+                                    "@name": "last-changed",
+                                    "type": {
+                                        "@name": "yang:date-and-time"
+                                    },
+                                    "description": {
+                                        "text": "Creation date."
+                                    }
+                                },
+                                {
+                                    "@name": "umask",
+                                    "type": {
+                                        "@name": "uint16"
+                                    },
+                                    "description": {
+                                        "text": "File creation mask. Represented as the octal\nformat of standard UNIX. ex. 22: group and global\nwill not have write permissions over newly created files"
+                                    }
+                                }
+                            ]
+                        },
+                        "leaf": {
+                            "@name": "file-content",
+                            "type": {
+                                "@name": "string"
+                            },
+                            "description": {
+                                "text": "File content. Limited to 1MB."
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "@name": "apply-template",
+                "description": {
+                    "text": "Generic operation that applies templates of multiple types."
+                },
+                "input": {
+                    "leaf": {
+                        "@name": "template-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": {
+                                "@name": "serdes-template",
+                                "value": {
+                                    "@value": "1"
+                                },
+                                "description": {
+                                    "text": "Applies all existing serdes-templates to the provided TOM list as the 'applicable-tom' parameter.\nIf no specific TOMs are provided, all TOMs are considered for template application."
+                                }
+                            }
+                        },
+                        "mandatory": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "The type of template to apply. Other parameters may be required depending on the template type."
+                        }
+                    },
+                    "choice": {
+                        "@name": "template-type-choice",
+                        "case": {
+                            "@name": "serdes-template",
+                            "description": {
+                                "text": "Parameters associated with the serdes-template use-case."
+                            },
+                            "leaf-list": {
+                                "@name": "applicable-tom",
+                                "type": {
+                                    "@name": "instance-identifier"
+                                },
+                                "description": {
+                                    "text": "List of TOMs to which to apply serdes-templates against.\nIf not provided (e.g. list is empty), all system TOMs will be considered for application."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ],
+        "grouping": {
+            "@name": "db-action",
+            "leaf": {
+                "@name": "db-action",
+                "type": {
+                    "@name": "enumeration",
+                    "enum": [
+                        {
+                            "@name": "empty-db",
+                            "value": {
+                                "@value": "1"
+                            },
+                            "description": {
+                                "text": "Activate software image with empty database."
+                            }
+                        },
+                        {
+                            "@name": "upgrade-db",
+                            "value": {
+                                "@value": "2"
+                            },
+                            "description": {
+                                "text": "Activate software image with upgrading the current database."
+                            }
+                        },
+                        {
+                            "@name": "rollback",
+                            "value": {
+                                "@value": "3"
+                            },
+                            "description": {
+                                "text": "Rollback to previous active software image."
+                            }
+                        }
+                    ]
+                },
+                "default": {
+                    "@value": "upgrade-db"
+                },
+                "description": {
+                    "text": "Specify the expected database operation during activating software image."
+                }
+            }
+        }
+    }
+}

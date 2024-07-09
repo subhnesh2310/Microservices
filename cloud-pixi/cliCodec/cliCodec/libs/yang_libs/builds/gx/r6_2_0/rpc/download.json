@@ -1,0 +1,158 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "filetype": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "database",
+                    "swimage",
+                    "krp",
+                    "script",
+                    "debug-log",
+                    "pm-logs",
+                    "local-certificate",
+                    "trusted-certificate",
+                    "fdr-log",
+                    "logs",
+                    "file",
+                    "peer-certificate",
+                    "crl"
+                ]
+            },
+            "isList": false,
+            "description": "Predefined filetype available for download",
+            "mandatory": true
+        },
+        "passphrase": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "To decode encrypted input files.",
+            "mandatory": false
+        },
+        "white-listed": {
+            "type": {
+                "ptype": "bool"
+            },
+            "isList": false,
+            "description": "If true, peer-certificate does not have an associated trust-chain. Else, has an associated trust-chain.",
+            "mandatory": false
+        },
+        "certificate-name": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "X509v3 local/trusted/peer certificate id.",
+            "mandatory": false
+        },
+        "intermediate-import": {
+            "type": {
+                "ptype": "bool"
+            },
+            "isList": false,
+            "description": "Allow to import any intermediate certificates present in a certificate file bundle. If certificate-name\nis not provided, it will be auto-generated from the topmost certificate Issuer CN plus a numeric suffix.",
+            "mandatory": false
+        },
+        "unattended": {
+            "type": {
+                "ptype": "bool"
+            },
+            "isList": false,
+            "description": "Auto prepare and auto activate file after a successful download.\nOnly some files support 'activation'; others just ignore this flag.",
+            "mandatory": false
+        },
+        "async": {
+            "type": {
+                "ptype": "bool"
+            },
+            "isList": false,
+            "description": "Download asynchronously.",
+            "mandatory": false
+        },
+        "skip-secure-verification": {
+            "type": {
+                "ptype": "bool"
+            },
+            "isList": false,
+            "description": "For HTTPS transfers, skip TLS verification. For SCP/SFTP transfers, skip ssh known host checking.\nIf flag not set, verification is done according with current security-policy.",
+            "mandatory": false
+        },
+        "sanity-check-override": {
+            "type": {
+                "ptype": "bool"
+            },
+            "isList": false,
+            "description": "If true, skips the sanity check override when downloading a database snapshot.",
+            "mandatory": false
+        },
+        "destination": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Allows user to provide the destination for the downloaded file, including directory and/or filename.\nThis is only applicable when file-type is 'file', representing a generic file transfer.\nThe parameter can be:\n- omitted: means file is downloaded to the default directory with the original file-name\n- a file-name only: uses default directory with the new file-name\n- a relative path: uses the default directory as starting path, plus relative path\n- an absolute path: Absolute path for the user accessible directories can be used\nIt is necessary for the user to have write access to the destination path for the download to succeed.\nTip: use 'show transfer' to see what is the default storage directory.\nFor generic file transfer, no further activity occurs after download, so the 'unattended' flag will be ignored.",
+            "mandatory": false
+        },
+        "password": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "SFTP/SCP/FTP/HTTP/HTTPS password",
+            "mandatory": false
+        },
+        "db-passphrase": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Passphrase used for encrypting and decrypting DB snapshots.\nFor each command associated with DB snapshots (backup, restore, etc),\nthis db-passphrase will be used, except when it is directly provided in each command.\nAutomatic DB snapshots will not be enabled until this parameter is set.",
+            "mandatory": false
+        },
+        "db-action": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "empty-db",
+                    "upgrade-db",
+                    "rollback"
+                ]
+            },
+            "isList": false,
+            "description": "Specify the expected database operation during activating software image.",
+            "mandatory": false
+        },
+        "source": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Source of the download ([sftp|scp|http|https|ftp|file]://[user@]hostname/directorypath/filename)",
+            "mandatory": true
+        }
+    },
+    "cases": {
+        "file-server-based": {
+            "file-server": {
+                "type": {
+                    "ptype": "unknown",
+                    "leafref": "/ioa-ne:ne/ioa-ne:system/ioa-ne:file-servers/ioa-ne:file-server/ioa-ne:name"
+                },
+                "isList": false,
+                "description": "The preconfigured file-server name.",
+                "mandatory": true
+            },
+            "path": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "Path (directory and filename) of the remote file.",
+                "mandatory": true
+            }
+        }
+    }
+}

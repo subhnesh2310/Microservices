@@ -1,0 +1,278 @@
+{
+    "ne": {
+        "system": {
+            "security": {
+                "user": [
+                    {
+                        "user-name": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "The name of the user.",
+                            "mandatory": true,
+                            "key": true,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "password": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "The password of the user.",
+                            "mandatory": true,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "password-hashed": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Hashed password of the user. It is made of three mandatory fields,\nwhere the dollar sign is the field separator. The structure is: $id$salt$encrypted\nOnly id 6 (SHA512) is supported. Salt minimum size is 2.\nreference: https://www.man7.org/linux/man-pages/man3/crypt.3.html",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "display-name": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "The display name for this user.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "max-invalid-login": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "This attribute is the maximum number of consecutive and invalid login attempts\nbefore an account is suspended (lockedout). Zero disables escalation on login failure.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 5,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "suspension-time": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "This attribute is the duration of UID suspension following consecutive invalid login attempts.\nSetting the value to 0 disables this behavior.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 5,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "timeout": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "This attribute is the Session Time Out Interval. If there are no messages between the user\nand the NE over the Time Out interval, the session is logged off. Setting the value to 0 disables\nthis attribute (meaning the session will not time out).",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 60,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "password-aging-interval": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "This attribute is the Password Aging Interval. Setting the value to 0 disables password aging.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 90,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "password-expiration-date": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "This attribute shows the password expiration date.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "enabled": {
+                            "type": {
+                                "ptype": "bool"
+                            },
+                            "isList": false,
+                            "description": "Enable switch for the user, allows admins to explicitly disable users.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": true,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "user-status": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "enabled",
+                                    "disabled",
+                                    "password-aged",
+                                    "lockout"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "This attribute shows the user status.\nUser with status 'enabled' will have access to the system.\nUser with status 'disabled' not have access to the system.\nUser with status 'password-aged' will have access to the system but will be forced to change his password on first-time login.\nUser with status 'lockout' means the account is locked out due to unsuccessful login attempts.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "disabled",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "force-password-change": {
+                            "type": {
+                                "ptype": "bool"
+                            },
+                            "isList": false,
+                            "description": "Allows administrator to force user to change password on next login.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": false,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "max-sessions": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "This attribute specifies the maximum number of sessions allowed for this user.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 10,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "last-login-date": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "The last login date/time of the user.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "1970-01-01T00:00:00Z",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "failed-logins": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "Number of previous failed logins. Resets to zero upon a successful login.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": 0,
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "user-aaa-type": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "local",
+                                    "remote"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Indicates the authentication method of the user.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": false,
+                            "default": "local",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "user-group": {
+                            "type": {
+                                "ptype": "unknown",
+                                "leafref": "../../user-group/name"
+                            },
+                            "isList": true,
+                            "description": "Associated user groups for this user.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "alarm-report-control": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "allowed",
+                                    "inhibited"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Controls the reporting of alarms for this particular object.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "allowed",
+                            "hardcode": false,
+                            "namespace": null
+                        },
+                        "label": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "User label.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false,
+                            "namespace": null
+                        }
+                    }
+                ]
+            },
+            "namespace": {
+                "prefix": null,
+                "namespace": "http://openconfig.net/yang/system"
+            }
+        }
+    }
+}

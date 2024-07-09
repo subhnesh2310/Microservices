@@ -1,0 +1,618 @@
+{
+    "ne": {
+        "ne-function": {
+            "amplifier": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Non-configurable name: derived from chass/slot and degree.",
+                        "key": true,
+                        "mandatory": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "partner-amplifier": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The partner amplifier for PAx/ BAX instalments",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "not-applicable",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "amplifier-enable": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The enable switch of the amplifier.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "control-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "auto-max-pw",
+                                "manual"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Type of control-mode.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "auto-max-pw",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "amp-control-support": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "auto",
+                                "manual-only"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Whether 'control-mode' can be configured as 'auto-max-pw' or not.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "auto",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "amplifier-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "constant-power",
+                                "constant-gain"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operating mode of the amplifier (gain or power control).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "constant-gain",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "pump-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The state of the pump.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "actual-transmission-band": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "c-band-4.85THz",
+                                "c-band-6.1THz"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Currently assigned transmission band. If amplifier is not at a degree, it will be 4.85 THz by convention.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "c-band-4.85THz",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "gain-range-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "auto",
+                                "manual"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Automatic or Manual Gain Range configuration.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "auto",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "span-loss-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Span Loss Control configuration.\n    Only of relevance for inline amplifier(s) and preamp(s).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "enabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "gain-range-target": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "standard",
+                                "low",
+                                "high"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Gain Range Target",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "standard",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "gain-range-actual": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "standard",
+                                "low",
+                                "high"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Actual Gain Range",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "gain-target": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "For manual control mode: setting gain to the amplifier for constant-gain mode.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "gain-operating": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Operating gain of the amplifier that is the actually configured gain on the amplifier.\nWhen card is plugged out, or EDFA disabled, gain-operating is 0.0.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "0.0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "optimum-edfa-gain": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "System reports the optimum EDFA gain the required equipped EDFA has.\nBy convention system reports 0 dB when card is not required equipped.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "gain-adjustment": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Gain range adjustment:\nFor auto control mode: gain offset defined by the user.\nThe value is used for adjustment of gain when the amplifier is in automatic control mode, the automatically calculated gain will include offset of this attribute.\nOnly supported on amplifiers with 'function' = 'pa' or 'inline'.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "amplifier-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "fixed-gain-EDFA",
+                                "variable-gain-EDFA"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Type of the amplifier HW.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "output-power-mon": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Monitored aggregate signal output power.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "output-power-mon-with-ase": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Monitored aggregate total output power including both signal and ASE.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "input-power-mon": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Monitored aggregate input power.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "output-voa-attenuation": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "For control-mode = 'manual': target VOA attenuation at output of the amplifier (line padding VOA).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "output-voa-actual": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Actual VOA output.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "not-applicable",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "power-before-output-voa": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Measured optical power before output VOA.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "interstage-support": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "'true' if interstage port is supported in this amplifier.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": false,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "interstage-loss": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Amplifier interstage loss.\n   Only of relevance when amplifier has an interstage port.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tilt-control-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "manual",
+                                "auto",
+                                "auto-planned"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Specify the tilt control mode. Defines whether amplifier tilt is automatically set by system or configured manually by the user",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "auto",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tilt-target": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "For manual control mode: target tilt, to be configured on the amplifier.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tilt-adjustment": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Used to offset the target tilt when tilt-control-mode = 'auto' / 'auto-planned'",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tilt-actual": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Actual setting of tilt on the amplifier.\nSpectrum Tilt (measured by the EDFA): 0 means both no tilt, or amplifier not available.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "0",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "raman-signal-gain": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Raman Gain of C-Band (signal)\n- if there is a fiber-connection from/to Raman, the API raman-signal-gain at amplifier needs to be appropriately configured autonomously;\n- if there is no fiber-connection from/to Raman, user reads out the amplifier-raman.raman-signal-gain and should configure it on the amplifier.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "raman-osc-gain": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Raman Gain OSC (see raman-signal-gain).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "function": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "pa",
+                                "ba",
+                                "inline",
+                                "add",
+                                "drop",
+                                "backward-raman"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Amplifier function.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Card that holds this",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-input-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Rx (input) Port that hold this object",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-output-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Tx (output) Port that hold this object",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

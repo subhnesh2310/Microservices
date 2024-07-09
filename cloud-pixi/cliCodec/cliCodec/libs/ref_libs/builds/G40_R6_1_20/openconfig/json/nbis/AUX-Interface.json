@@ -1,0 +1,150 @@
+{
+    "interface_name": {
+        "type": {
+            "ptype": "str",
+            "leafref": "../config/name"
+        },
+        "description": "References the name of the interface",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "AUX-1-1-AUX-1",
+        "hardcode": false,
+        "argName": "interface_name"
+    },
+    "type": {
+        "type": {
+            "ptype": "str",
+            "identityref": "ietf-if:interface-type"
+        },
+        "description": "The type of the interface.\n\nWhen an interface entry is created, a server MAY\ninitialize the type leaf with a valid value, e.g., if it\nis possible to derive the type from the name of the\ninterface.\n\nIf a client tries to set the type of an interface to a\nvalue that can never be used by the system, e.g., if the\ntype is not supported or if the type does not match the\nname of the interface, the server MUST reject the request.\nA NETCONF server MUST reply with an rpc-error with the\nerror-tag 'invalid-value' in this case.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "ethernetCsmacd",
+        "hardcode": true,
+        "argName": "type"
+    },
+    "mtu": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Set the max transmission unit size in octets\nfor the physical interface.  If this is not set, the mtu is\nset to the operational default -- e.g., 1514 bytes on an\nEthernet interface.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "mtu"
+    },
+    "subinterface_index": {
+        "type": {
+            "ptype": "int",
+            "leafref": "../config/index"
+        },
+        "description": "The index number of the subinterface -- used to address\nthe logical interface",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "subinterface_index"
+    },
+    "description": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A textual description of the interface.\n\nA server implementation MAY map this leaf to the ifAlias\nMIB object.  Such an implementation needs to use some\nmechanism to handle the differences in size and characters\nallowed between this leaf and ifAlias.  The definition of\nsuch a mechanism is outside the scope of this document.\n\nSince ifAlias is defined to be stored in non-volatile\nstorage, the MIB implementation MUST map ifAlias to the\nvalue of 'description' in the persistently stored\ndatastore.\n\nSpecifically, if the device supports ':startup', when\nifAlias is read the device MUST return the value of\n'description' in the 'startup' datastore, and when it is\nwritten, it MUST be written to the 'running' and 'startup'\ndatastores.  Note that it is up to the implementation to\n\ndecide whether to modify this single leaf in 'startup' or\nperform an implicit copy-config from 'running' to\n'startup'.\n\nIf the device does not support ':startup', ifAlias MUST\nbe mapped to the 'description' leaf in the 'running'\ndatastore.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "description"
+    },
+    "ipv4_enabled": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": true,
+        "hardcode": false,
+        "argName": "ipv4_enabled"
+    },
+    "ipv4_dhcp_client": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "ipv4_dhcp_client"
+    },
+    "address_ip": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "169.254.0.1",
+        "hardcode": false,
+        "argName": "address_ip"
+    },
+    "address_prefix_length": {
+        "type": {
+            "ptype": "int",
+            "range": "0..32"
+        },
+        "description": "",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 16,
+        "hardcode": false,
+        "argName": "address_prefix_length"
+    },
+    "ipv6_enabled": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": true,
+        "hardcode": false,
+        "argName": "ipv6_enabled"
+    },
+    "ipv6_dhcp_client": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false,
+        "argName": "ipv6_dhcp_client"
+    },
+    "auto_negotiate": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": true,
+        "hardcode": false,
+        "argName": "auto_negotiate"
+    }
+}

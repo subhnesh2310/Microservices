@@ -1,0 +1,50 @@
+{
+    "module": {
+        "@name": "ioa-ietf",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-ietf": "http://infinera.com/yang/ioa/common/ioa-ietf",
+        "@xmlns:nc": "urn:ietf:params:xml:ns:netconf:base:1.0",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/common/ioa-ietf"
+        },
+        "prefix": {
+            "@value": "ioa-ietf"
+        },
+        "import": {
+            "@module": "ietf-netconf",
+            "prefix": {
+                "@value": "nc"
+            }
+        },
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "Proprietary Infinera augments to IETF modules."
+        },
+        "revision": {
+            "@date": "2021-06-01",
+            "description": {
+                "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+            }
+        },
+        "augment": {
+            "@target-node": "/nc:edit-config/nc:input",
+            "leaf": {
+                "@name": "wildcard-support",
+                "type": {
+                    "@name": "boolean"
+                },
+                "default": {
+                    "@value": "false"
+                },
+                "description": {
+                    "text": "If true, allow configuration data to have lists without all keys included,\nwhich acts as a wildcard edition."
+                }
+            }
+        }
+    }
+}

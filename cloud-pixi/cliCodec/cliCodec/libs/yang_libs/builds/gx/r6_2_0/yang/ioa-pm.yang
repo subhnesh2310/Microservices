@@ -1,0 +1,625 @@
+module ioa-pm {
+    namespace "http://infinera.com/yang/ioa/pm";
+    prefix ioa-pm;
+
+    import ietf-yang-types { prefix yang; }
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module defining Performance Management (PM) data model.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    identity PM-PARAMETER {
+        description "Base identity for all PM parameters.";
+    }
+
+    identity PM-PERIOD {
+        description "Base identity for supported PM periods";
+    }
+
+    identity pm-real-time {
+        base PM-PERIOD;
+    }
+
+    identity pm-15min {
+        base PM-PERIOD;
+    }
+
+    identity pm-24h {
+        base PM-PERIOD;
+    }
+
+    typedef data-type {
+        type enumeration {
+            enum current { value 1; }
+            enum history { value 2; }
+            enum real-time { value 3; }
+        }
+        description "Type of PM data to retrieve.";
+    }
+
+    typedef pm-value-type {
+        type union {
+          type uint64;
+          type int64;
+          type decimal64 {
+            fraction-digits 2;
+          }
+          type decimal64 {
+            fraction-digits 4;
+          }
+          type decimal64 {
+            fraction-digits 7;
+          }
+          type decimal64 {
+            fraction-digits 12;
+          }
+          type decimal64 {
+            fraction-digits 18;
+          }
+          type enumeration {
+              enum na { value 0; description "Not applicable"; }
+              enum not-supported { value 1; description "Not supported; applicable for PM thresholds only."; }
+          }
+        }
+        default na;
+        description "Data type that is used for all PM parameters.";
+    }
+
+    typedef pm-unit-type {
+        type enumeration {
+            enum na {value 0; description "Not applicable";}
+            enum dBm {value 1;}
+            enum ms {value 2;}
+            enum ps {value 3;}
+            enum ps/nm {value 4;}
+            enum dB {value 5;}
+            enum seconds {value 6;}
+            enum packets {value 7;}
+            enum events {value 8;}
+            enum octets {value 9;}
+            enum bits {value 10;}
+            enum blocks {value 11;}
+            enum times {value 12;}
+            enum percent {value 13;}
+            enum bit-ratio {value 14;}
+            enum C {value 15;}
+            enum frames {value 16;}
+            enum W {value 17;}
+            enum V {value 18;}
+            enum A {value 19;}
+            enum rpm {value 20;}
+            enum ps2 {value 21;}
+            enum mA {value 22;}
+            enum words {value 23;}
+            enum cw {value 24;}
+            enum nm {value 25;}
+            enum bytes {value 26;}
+            enum errors {value 27;}
+            enum MHz {value 28;}
+            enum KiB {value 29;}
+            enum degrees {value 30;}
+        }
+        description "Unit of the PM parameter.";
+    }
+
+    typedef pm-data-type {
+        type enumeration {
+            enum na {value 0; description "Not applicable"; }
+            enum uint {value 1;}
+            enum int {value 2;}
+            enum decimal2 {value 3;}
+            enum decimal4 {value 4;}
+            enum decimal7 {value 5;}
+            enum decimal18 {value 6;}
+            enum decimal12 {value 7;}
+        }
+        description "Data type of the PM parameter.";
+    }
+
+    container pm {
+        description "Top level container for all Performance Management (pm) data and configuration.";
+
+        container real-time-pm-data {
+            config false;
+            description "Container for real-time-pm entries.";
+
+            list real-time-pm {
+                key "resource parameter direction location";
+                description "Individual real-time-pm record. Contains data updated continuously in real-time.";
+                uses pm-entry;
+            }
+        }
+
+        container current-pm-data {
+            config false;
+            description "Container for current-pm entries.";
+
+            list current-pm {
+                key "resource parameter direction location period";
+                description "Individual current-pm record. Contains the current bin being counted (bin zero).";
+                uses pm-current-entry;
+            }
+        }
+
+        container history-pm-data {
+            config false;
+            description "Container for history-pm entries.";
+            list history-pm {
+                key "resource parameter direction location period bin";
+                description "Individual history-pm record. Contains performance bins (history records) stored in the system.";
+                uses pm-bin-entry;
+            }
+        }
+
+        container pm-control {
+            description "Configuration for currently existing resources in the system that support PM data.";
+
+            list pm-resource {
+                key resource;
+                description "PM configuration per resource instance.";
+
+                uses ioa-common:resource-instance {
+                    refine resource-type { config false; }
+                    refine AID { config false; }
+                }
+
+                leaf real-time-supervision {
+                    type boolean;
+                    default true;
+                    description "Real-time data supervision for this resource.";
+                }
+
+                list pm-control-entry {
+                    key "period direction location";
+                    description "PM configuration for one particular resource, for one particular period, direction and location.";
+
+                    uses period;
+                    uses direction;
+                    uses location;
+
+                    leaf-list supported-parameters {
+                        type identityref {
+                            base PM-PARAMETER;
+                        }
+                        config false;
+                        max-elements 100;
+                        description "List of PM parameters that this resource type supports for this direction/location.";
+                    }
+
+                    leaf data-supervision {
+                        type boolean;
+                        description "PM data supervision for this resource.";
+                    }
+
+                    leaf tca-supervision {
+                        type boolean;
+                        description "TCA supervision for this resource.";
+                    }
+
+                    list pm-threshold {
+                        key parameter;
+                        description "Per resource instance/parameter TCA threshold configuration. Needs to be explicitly created by the user, otherwise
+                                     TCA configuration is done per resource-type (in the pm-threshold-profile list).
+                                     This object allows to have per resource instance TCA threshold configuration, deviating from per resource-type TCA
+                                     configuration.
+                                     The absence of this object for a particular resource/parameter implies that the profile is used
+                                     instead.";
+
+                        uses parameter;
+
+                        leaf low-threshold {
+                            type ioa-pm:pm-value-type;
+                            description "Configured low threshold value for this parameter for this individual resource.";
+                        }
+
+                        leaf high-threshold {
+                            type ioa-pm:pm-value-type;
+                            description "Configured high threshold value for this parameter for this individual resource.";
+                        }
+                    }
+                }
+            }
+        }
+
+        container pm-profile {
+            description "PM profile which contains information on all resources that support PM data, together with its related default configuration.
+            Changing this configuration has impact on newly created objects.";
+
+            leaf global-data-supervision {
+                type enumeration {
+                    enum auto-enabled { value 1; description "Global enabling of PM data-supervision flag.";}
+                    enum manual { value 2; description "PM data-supervision flag is controlled via pm-profile-entry, or directly per pm-control-entry.";}
+                }
+                default manual;
+                description "This parameter provides a way to globally enable PM data-supervision without having to toggle it individually.";
+            }
+
+            list pm-profile-entry {
+                key "resource-type direction location period";
+                description "PM configuration per resource type.";
+
+                uses ioa-common:resource-type;
+                uses period;
+                uses direction;
+                uses location;
+
+                leaf default-data-supervision {
+                    type boolean;
+                    description "For newly created resources of this type, whether they have PM data supervision automatically enabled or not.";
+                }
+
+                leaf default-tca-supervision {
+                    when "../pm-threshold-profile";
+                    type boolean;
+                    description "For newly created resources of this type, whether they have PM threshold crossing supervision automatically enabled or not.";
+                }
+
+                list pm-threshold-profile {
+                    key parameter;
+                    description "PM configuration per parameter, for this resource type.";
+
+                    uses parameter;
+
+                    leaf low-threshold {
+                        type ioa-pm:pm-value-type;
+                        description "Configured low threshold value for resources that have this parameter.";
+                    }
+
+                    leaf high-threshold {
+                        type ioa-pm:pm-value-type;
+                        description "Configured high threshold value for resources that have this parameter.";
+                    }
+
+                    leaf default-low-threshold {
+                        type ioa-pm:pm-value-type;
+                        config false;
+                        description "System defined default value for low threshold for this parameter.";
+                    }
+
+                    leaf default-high-threshold {
+                        type ioa-pm:pm-value-type;
+                        config false;
+                        description "System defined default value for high threshold for this parameter.";
+                    }
+
+                    leaf min-value {
+                        type ioa-pm:pm-value-type;
+                        config false;
+                        description "Minimum value for this parameter.";
+                    }
+
+                    leaf max-value {
+                        type ioa-pm:pm-value-type;
+                        config false;
+                        description "Maximum value for this parameter.";
+                    }
+                }
+            }
+        }
+
+        container pm-catalog {
+            config false;
+            description "PM catalog which contains information on all PM parameters, such as units and type";
+
+            list pm-parameter {
+                key parameter;
+                description "Catalog information for a single PM parameter.";
+
+                uses parameter;
+
+                leaf units {
+                    type ioa-pm:pm-unit-type;
+                    description "Units for this parameter.";
+                }
+
+                leaf type {
+                    type enumeration {
+                        enum counter {
+                            value 1;
+                            description "Counters are parameters that correspond to positive integer numbers, that
+                                         can only increment over time.";
+                        }
+                        enum gauge {
+                            value 2;
+                            description "Gauges are analogic values that are measured; they are available as
+                                         instant, average, maximum and minimum values.";
+                        }
+                    }
+                    description "Type of PM parameter, it can be either a counter or a gauge.";
+                }
+            }
+        }
+    }
+
+    grouping parameter {
+        leaf parameter {
+            type identityref {
+                base PM-PARAMETER;
+            }
+            description "PM parameter identifier (can be a counter or a gauge).";
+        }
+    }
+
+    grouping direction {
+        leaf direction {
+            type enumeration {
+                enum all { value 0; }
+                enum na { value 1; description "Not-applicable"; }
+                enum ingress { value 2; }
+                enum egress { value 3; }
+            }
+            default all;
+            description "PM parameter direction.";
+        }
+    }
+
+    grouping location {
+        leaf location {
+            type enumeration {
+                enum all { value 0; }
+                enum na { value 1; description "Not-applicable"; }
+                enum near-end { value 2; }
+                enum far-end { value 3; }
+            }
+            default all;
+            description "PM parameter location.";
+        }
+    }
+
+    grouping period {
+        leaf period {
+            type identityref {
+                base PM-PERIOD;
+            }
+            description "Time period for PM data.";
+        }
+    }
+
+    grouping retrieval-time-entry {
+        leaf retrieval-date-time {
+            type yang:date-and-time;
+            description "Represents the time at which the corresponding PM data is retrieved and returned.";
+        }
+    }
+
+    grouping pm-current-entry {
+        description "Common leafs that describes a PM current entry.";
+
+        uses period;
+
+        leaf monitoring-date-time {
+            type yang:date-and-time;
+            description "Monitoring date and time that this data refers to.
+                         For real-time and current PM, it represents the start time of the PM data collection.
+                         For history PM, it represents the start time of the bin.";
+        }
+
+        uses pm-entry;
+
+        leaf validity {
+            type enumeration {
+                enum complete { value 1; description "valid throughout an entire period interval"; }
+                enum suspect  { value 2; description "either an error occurred during the period interval or the period
+                                                      interval in which measurements were taken is not the nominal one.
+                                                      (e.g. change of clock time, data-supervision being disabled)"; }
+                enum partial  { value 3; description "indicates that PM collection is still occurring for this bin,
+                                                      the collection has been continuously been collected since the start
+                                                      of the bin, and there were no invalid readings in the bin"; }
+            }
+            description "PM parameter validity.";
+        }
+    }
+
+    grouping pm-bin-entry {
+        description "Common leafs that describes a PM bin.";
+
+        uses pm-current-entry;
+
+         leaf bin {
+            type uint16;
+            description "Bin number of history PM. Most recent bins have lowest numbers.";
+        }
+    }
+
+    grouping pm-entry {
+        description "Common leafs that describes PM data";
+
+        uses ioa-common:resource-instance;
+        uses parameter;
+        uses direction;
+        uses location;
+
+        leaf pm-value {
+            type ioa-pm:pm-value-type;
+            description "PM parameter value. Provided for real-time PM and counters.";
+        }
+
+        leaf pm-value-min {
+            type ioa-pm:pm-value-type;
+            description "PM parameter minimum value. Provided for gauges.";
+        }
+
+        leaf pm-value-max {
+            type ioa-pm:pm-value-type;
+            description "PM parameter maximum value. Provided for gauges.";
+        }
+
+        leaf pm-value-avg {
+            type ioa-pm:pm-value-type;
+            description "PM parameter average value. Provided for gauges.";
+        }
+
+        leaf pm-unit {
+            type ioa-pm:pm-unit-type;
+            description "Unit of the PM parameter value.";
+        }
+    }
+
+
+    grouping pm-history-filter {
+        description "Set of leafs to be used in get-pm to define a sub-set of PM history data.";
+
+        leaf start-time {
+            type yang:date-and-time;
+            description "If provided, defines the start timestamp that will be considered to filter the PM results.
+                         If not provided, the oldest data timestamp will be considered.";
+        }
+
+        leaf end-time {
+            type yang:date-and-time;
+            description "If provided, defines the end timestamp that will be considered to filter the PM results.
+                         If not provided, the most recent data timestamp will be considered.";
+        }
+
+        leaf start-bin {
+            type uint16 { range 1..max; }
+            description "If provided, defines the start bin number that will be considered to filter the PM results.
+                         If not provided, the smallest bin number (most recent data) will be considered.";
+        }
+
+        leaf end-bin {
+            type uint16 { range 1..max; }
+            description "If provided, defines the end bin number that will be considered to filter the PM results.
+                         If not provided, the largest available bin number (oldest data) will be considered.";
+        }
+    }
+
+
+    // RPCs
+
+    rpc get-pm {
+        description "Auxiliary RPC to retrieve PM data.
+                     No parameters are mandatory; each provided parameter will be handled as a filter.
+                     Data can be filtered by:
+                     - resource instance
+                     - resource type
+                     - PM time period (15min, 24h, etc)
+                     - PM data type (current, history, real-time)
+                     - PM parameter name
+                     Multiple fitlers can be provided (e.g. provide PM data for entity x and entity y)";
+
+        input {
+            leaf data-type {
+                type ioa-pm:data-type;
+                default real-time;
+                description "Type of PM data to retrieve.";
+            }
+
+            uses period {
+                when "data-type != 'real-time'";
+            }
+
+            leaf number-of-records {
+                type uint16;
+                default 1000;
+                description "Maximum number of records that will be retrieved.";
+            }
+
+            leaf skip-records {
+                type uint16;
+                default 0;
+                description "Allows user to specify a number of records that will be skipped, so that
+                            the total data can be fetched in multiple requests.
+                            Example:
+                            - system has 2300 PM records available
+                            - 1st get-pm with (number-of-records = 1000) and (skip-records = 0);    result has    0..1000 records
+                            - 2nd get-pm with (number-of-records = 1000) and (skip-records = 1000); result has 1001..2000 records
+                            - 3nd get-pm with (number-of-records = 1000) and (skip-records = 2000); result has 2001..2300 records";
+            }
+
+            uses pm-history-filter {
+                when "data-type = 'history'";
+            }
+
+            list filter {
+                key filter-id;
+                description "Set of parameters that create a filter for PM data.
+                             Multiple filters are considered with an AND logic.";
+
+                leaf filter-id {
+                    type uint8;
+                    description "Identifier for each filter, has no specific meaning.";
+                }
+
+                uses ioa-common:resource-instance;
+                uses parameter;
+                uses direction;
+                uses location;
+            }
+        }
+        output {
+            leaf number-of-result-records {
+                type uint16;
+                description "Counter of the number of pm-records included in this response.";
+            }
+
+            leaf additional-records-available {
+                type boolean;
+                default false;
+                description "If true, the system had more PM records than the ones that are being delivered.
+                             Result will contain only the configured number-of-records.";
+            }
+
+            uses retrieval-time-entry;
+
+            list pm-record {
+                key "resource parameter direction location period bin";
+                description "Individual PM record, containing one parameter value for one specific combination of resource, period and bin.
+                             The bin key is only used for history; current and real-time always use 0.";
+
+                uses pm-bin-entry;
+            }
+        }
+    }
+
+
+    rpc clear-pm {
+        description "Allows to clear/reset PM data from the system.
+                     Data can be reset using filters:
+                     - by data type (real-time, current, history)
+                     - by period (15min/24h)
+                     - by direction (na/ingress/egress)
+                     - by location (na/near-end/far-end)
+                     - by resource
+                     - by resource type
+                     - by AID
+                     or a combination between them.
+                     An absense of a filter parameter means 'all'.
+                     This means triggering this RPC without any parameters clears all PM in the system.";
+        input {
+            leaf data-type {
+                type ioa-pm:data-type;
+                mandatory true;
+                description "Type of PM data to clear.";
+            }
+
+            uses period {
+                when "data-type != 'real-time'";
+            }
+
+            uses direction;
+            uses location;
+            uses ioa-common:resource-instance;
+        }
+    }
+}

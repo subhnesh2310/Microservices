@@ -1,0 +1,349 @@
+module ioa-amp {
+    namespace "http://infinera.com/yang/ioa/amp";
+    prefix ioa-amp;
+
+    import ioa-l0 { prefix ioa-l0; }
+    import ioa-common { prefix ioa-common; }
+    import ioa-ne-function { prefix ioa-ne-function; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG model describing the amplifier function.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    typedef dge-mode-type {
+        type enumeration {
+            enum none;
+            enum dge-mode;
+        }
+    }
+
+    typedef gain-range-type {
+        type enumeration {
+            enum standard { value 1; description "standard gain"; }
+            enum low { value 2; description "low gain"; }
+            enum high { value 3; description "high gain"; }
+        }
+        description "Type of gain-range.";
+    }
+
+    typedef gain-value {
+        type decimal64 {
+            fraction-digits 2;
+        }
+        units dB;
+        default 0.0;
+        description "A type representing an amplifier gain. 0 dB means no gain (e.g. amplifier not in operation)";
+    }
+
+    typedef gain-adjustable-value {
+        type union {
+            type enumeration {
+                enum not-applicable { value 0; description "Not Applicable/ Not specified."; }
+            }
+            type decimal64 {
+                fraction-digits 2;
+                range 0..30;
+            }
+        }
+        units dB;
+        default 0.0;
+        description "The adjustable gain value at the EDFA.";
+    }
+
+
+    grouping amplifier-list {
+
+        list amplifier {
+            key name;
+            description "Amplifier container.";
+
+            uses amplifier-common;
+
+            uses ioa-common:arc;
+
+            leaf amplifier-enable {
+                type ioa-common:enable-switch;
+                description "The enable switch of the amplifier.";
+            }
+
+            leaf control-mode {
+                type enumeration {
+                    enum auto-max-pw { value 1; description "Automatic Maximum Power."; }
+                    enum manual { value 2; description "Manual gain."; }
+                }
+                default 'auto-max-pw';
+                description "Type of control-mode.";
+            }
+
+            leaf amplifier-mode {
+                type enumeration {
+                    enum constant-power { value 1; description "Contant Power"; }
+                    enum constant-gain  { value 2; description "Constant Gain"; }
+                }
+                default constant-gain;
+                config false;
+                description
+                    "The operating mode of the amplifier (gain or power control).";
+            }
+
+            leaf pump-state {
+                type ioa-common:enable-switch;
+                default disabled;
+                config false;
+                description "The state of the pump.";
+            }
+
+            leaf gain-range-control {
+                type enumeration {
+                    enum auto { value 1; description "Automatic Gain Range"; }
+                    enum manual { value 2; description "Manual Gain Range"; }
+                }
+                default 'auto';
+                description "Automatic or Manual Gain Range configuration.";
+            }
+
+            leaf span-loss-control {
+                when "../function = 'pa' or ../function = 'inline'" {
+                    description "Only of relevance for inline amplifier(s) and preamp(s).";
+                }
+                type ioa-common:enable-switch;
+                default 'enabled';
+                description "Span Loss Control configuration.";
+            }
+
+            leaf gain-range-target {
+                when "../gain-range-control = 'manual'" {
+                    description "Gain range specific control is only applicable when gain-range-control is 'manual'.";
+                }
+                type gain-range-type;
+                default 'standard';
+                description "Gain Range Target";
+            }
+
+            leaf gain-range-actual {
+                type gain-range-type;
+                config false;
+                description "Actual Gain Range";
+            }
+
+            leaf gain-target {
+                type gain-value {
+                    range '0..40.0';
+                }
+                default 0.0;
+                description
+                    "For manual control mode: setting gain to the amplifier for constant-gain mode.";
+            }
+
+            leaf gain-operating {
+                type gain-value;
+                default 0.0;
+                config false;
+                description
+                    "Operating gain of the amplifier that is the actually configured gain on the amplifier.
+                    When card is plugged out, or EDFA disabled, gain-operating is 0.0.
+                    ";
+            }
+
+            leaf optimum-edfa-gain {
+                type decimal64 {
+                    fraction-digits 2;
+                }
+                units dB;
+                config false;
+                description
+                    "System reports the optimum EDFA gain the required equipped EDFA has.
+                    By convention system reports 0 dB when card is not required equipped.
+                    ";
+            }
+
+            leaf gain-adjustment {
+                when "../control-mode != 'manual'" {
+                    description "Only of relevance in automatic control-mode.";
+                }
+                type gain-value {
+                    range "-20.00..20.00";
+                }
+                default 0;
+                description
+                    "Gain range adjustment:
+                    For auto control mode: gain offset defined by the user.
+                    The value is used for adjustment of gain when the amplifier is in automatic control mode, the automatically calculated gain will include offset of this attribute.
+                    Only supported on amplifiers with 'function' = 'pa' or 'inline'.
+                    ";
+            }
+
+            leaf amplifier-type {
+                type enumeration {
+                    enum 'fixed-gain-EDFA' { value 1; description "Fixed Gain EDFA"; }
+                    enum 'variable-gain-EDFA' { value 2; description "Variable Gain EDFA"; }
+                }
+                config false;
+                mandatory true;
+                description "Type of the amplifier HW.";
+            }
+
+            leaf output-power-mon {
+                type ioa-l0:optical-power-actual;
+                config false;
+                description "Monitored aggregate signal output power.";
+            }
+
+            leaf output-power-mon-with-ase {
+                type ioa-l0:optical-power-actual;
+                config false;
+                description "Monitored aggregate total output power including both signal and ASE.";
+            }
+
+            leaf input-power-mon {
+                type ioa-l0:optical-power-actual;
+                config false;
+                description "Monitored aggregate input power.";
+            }
+
+            leaf output-voa-attenuation {
+                type ioa-l0:type-of-attenuation;
+                default 0;
+                description "For control-mode = 'manual': target VOA attenuation at output of the amplifier (line padding VOA).";
+            }
+
+            leaf output-voa-actual {
+                type ioa-l0:attenuation-mon;
+                default 'not-applicable';
+                config false;
+                description "Actual VOA output.";
+            }
+
+            leaf power-before-output-voa {
+                type ioa-l0:optical-power-actual;
+                config false;
+                description "Measured optical power before output VOA.";
+            }
+
+            leaf interstage-loss {
+                when "/ne/node-type='ILA'" {
+                    description "Only of relevance for node-type = ILA";
+                }
+                type decimal64 {
+                    fraction-digits 2;
+                }
+                units dB;
+                default 0;
+                config false;
+                description
+                    "Amplifier interstage loss.
+                    ";
+            }
+
+            leaf tilt-control-mode {
+                type enumeration {
+                    enum manual { value 1; description "User manually controls amplifier tilt"; }
+                    enum auto { value 2; description "System implicitly control amplifier tilt per configured fiber parameters"; }
+                    enum auto-planned { value 3; description "System implicitly controls amplifier tilt per planning tool configured parameters"; }
+                }
+                default 'auto';
+                description "Specify the tilt control mode. Defines whether amplifier tilt is automatically set by system or configured manually by the user";
+            }
+
+            leaf tilt-target {
+                when "../tilt-control-mode = 'manual'" {
+                    description "For manual control mode: target tilt of the amplifier.";
+                }
+                type decimal64 {
+                    fraction-digits 2;
+                    range -5..5;
+                }
+                units "dB";
+                default 0;
+                description "For manual control mode: target tilt, to be configured on the amplifier.";
+            }
+
+            leaf tilt-adjustment {
+                when "../tilt-control-mode != 'manual'" {
+                    description "For auto control mode: tilt adjustment of the amplifier.";
+                }
+                type decimal64 {
+                    fraction-digits 2;
+                    range -5..5;
+                }
+                units "dB";
+                default 0;
+                description "Used to offset the target tilt when tilt-control-mode = 'auto' / 'auto-planned'";
+            }
+
+            leaf tilt-actual {
+                type decimal64 {
+                    fraction-digits 2;
+                }
+                units "dB";
+                default 0;
+                config false;
+                description
+                    "Actual setting of tilt on the amplifier.
+                    Spectrum Tilt (measured by the EDFA): 0 means both no tilt, or amplifier not available.";
+            }
+
+            leaf raman-signal-gain {
+                type gain-adjustable-value;
+                description
+                    "Raman Gain of C-Band (signal)
+                     - if there is a fiber-connection from/to Raman, the API raman-signal-gain at amplifier needs to be appropriately configured autonomously;
+                     - if there is no fiber-connection from/to Raman, user reads out the amplifier-raman.raman-signal-gain and should configure it on the amplifier.
+                    ";
+            }
+
+            leaf raman-osc-gain {
+                type gain-adjustable-value;
+                description
+                    "Raman Gain OSC (see raman-signal-gain).";
+            }
+
+            list supported-gain-range {
+                key "gain-range-type";
+                config false;
+                description "Supported gain range(s), min. and max. gain";
+
+                leaf gain-range-type {
+                    type gain-range-type;
+                    description "Type of Gain Range";
+                }
+
+                leaf gain-range-min {
+                    type gain-value;
+                    description "The minimum settable gain-target for this type of range ('standard'/ 'low'/ 'high').";
+                }
+
+                leaf gain-range-max {
+                    type gain-value;
+                    description "The maximum settable gain-target for this type of range ('standard'/ 'low'/ 'high').";
+                }
+            }
+        }
+    }
+
+    grouping amplifier-common {
+        description "Generic Amplifier definition.";
+
+        uses ioa-ne-function:ne-function-common-attributes;
+
+        leaf function {
+            type enumeration {
+                enum pa { value 1; description "pre-amplifier"; }
+                enum ba { value 2; description "booster (booster-amplifier)"; }
+                enum inline { value 3; description "inline amplifier (ILA node-types)"; }
+                enum add { value 4; description "add amplifier"; }
+                enum drop { value 5; description "drop amplifier"; }
+                enum backward-raman { value 20; description "raman amplifier"; }
+            }
+            config false;
+            description
+                "Amplifier function.";
+        }
+    }
+}

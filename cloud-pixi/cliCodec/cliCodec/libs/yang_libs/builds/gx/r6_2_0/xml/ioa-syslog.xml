@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-syslog"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-syslog="http://infinera.com/yang/ioa/syslog"
+        xmlns:inet="urn:ietf:params:xml:ns:yang:ietf-inet-types"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common">
+  <namespace uri="http://infinera.com/yang/ioa/syslog"/>
+  <prefix value="ioa-syslog"/>
+  <import module="ietf-inet-types">
+    <prefix value="inet"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module for Syslog and Logging model.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <typedef name="syslog-facility">
+    <type name="enumeration">
+      <enum name="kernel">
+        <value value="0"/>
+        <description>
+          <text>Kernel messages.</text>
+        </description>
+      </enum>
+      <enum name="user-level">
+        <value value="1"/>
+        <description>
+          <text>User level messages.</text>
+        </description>
+      </enum>
+      <enum name="mail-system">
+        <value value="2"/>
+        <description>
+          <text>Mail system.</text>
+        </description>
+      </enum>
+      <enum name="system-daemons">
+        <value value="3"/>
+        <description>
+          <text>System daemons.</text>
+        </description>
+      </enum>
+      <enum name="authentication">
+        <value value="4"/>
+        <description>
+          <text>Authentication/authorization attempt messages.</text>
+        </description>
+      </enum>
+      <enum name="syslog-internal">
+        <value value="5"/>
+        <description>
+          <text>Messages generated internally by syslog.</text>
+        </description>
+      </enum>
+      <enum name="line-printer">
+        <value value="6"/>
+        <description>
+          <text>Line printer subsystem.</text>
+        </description>
+      </enum>
+      <enum name="network-news">
+        <value value="7"/>
+        <description>
+          <text>Network news subsystem.</text>
+        </description>
+      </enum>
+      <enum name="uucp">
+        <value value="8"/>
+        <description>
+          <text>UUCP subsystem.</text>
+        </description>
+      </enum>
+      <enum name="clock-daemon-9">
+        <value value="9"/>
+        <description>
+          <text>Clock daemon.</text>
+        </description>
+      </enum>
+      <enum name="security">
+        <value value="10"/>
+        <description>
+          <text>Security related events and error messages.</text>
+        </description>
+      </enum>
+      <enum name="ftp-daemon">
+        <value value="11"/>
+        <description>
+          <text>FTP daemon.</text>
+        </description>
+      </enum>
+      <enum name="ntp">
+        <value value="12"/>
+        <description>
+          <text>NTP subsystem.</text>
+        </description>
+      </enum>
+      <enum name="log-audit">
+        <value value="13"/>
+        <description>
+          <text>Log audit.</text>
+        </description>
+      </enum>
+      <enum name="log-alert">
+        <value value="14"/>
+        <description>
+          <text>Log alert.</text>
+        </description>
+      </enum>
+      <enum name="clock-daemon-15">
+        <value value="15"/>
+        <description>
+          <text>Clock daemon.</text>
+        </description>
+      </enum>
+      <enum name="local0">
+        <value value="16"/>
+        <description>
+          <text>Local use 0 (unused).</text>
+        </description>
+      </enum>
+      <enum name="local1">
+        <value value="17"/>
+        <description>
+          <text>Alarm logs.</text>
+        </description>
+      </enum>
+      <enum name="local2">
+        <value value="18"/>
+        <description>
+          <text>All commands, in a protocol agnostic format.</text>
+        </description>
+      </enum>
+      <enum name="local3">
+        <value value="19"/>
+        <description>
+          <text>All commands, in a protocol specific format (CLI, NETCONF, etc).</text>
+        </description>
+      </enum>
+      <enum name="local4">
+        <value value="20"/>
+        <description>
+          <text>Line card logs above severity level ERROR.</text>
+        </description>
+      </enum>
+      <enum name="local5">
+        <value value="21"/>
+        <description>
+          <text>Initial HW initialization and EEPROM status sysinfo log.</text>
+        </description>
+      </enum>
+      <enum name="local6">
+        <value value="22"/>
+        <description>
+          <text>Any changes to the configuration DB, both internal or externally triggered.</text>
+        </description>
+      </enum>
+      <enum name="local7">
+        <value value="23"/>
+        <description>
+          <text>All Infinera applications.</text>
+        </description>
+      </enum>
+      <enum name="all">
+        <value value="100"/>
+        <description>
+          <text>Selects all other syslog facilities.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>List of syslog facilities.</text>
+    </description>
+  </typedef>
+  <grouping name="source-facilities">
+    <leaf-list name="source-facilities">
+      <type name="syslog-facility"/>
+      <max-elements value="24"/>
+      <description>
+        <text>List of syslog facilities used in this configuration.
+Will default to 'all' facilities if not provided.</text>
+      </description>
+    </leaf-list>
+  </grouping>
+  <grouping name="syslog">
+    <container name="syslog">
+      <description>
+        <text>Central configuration for logging functionality via syslog.
+Includes control of local log files, remote logging configuration and logging in serial console.</text>
+      </description>
+      <leaf name="remote-logging-switch">
+        <type name="boolean"/>
+        <default value="true"/>
+        <description>
+          <text>If false, disable all remote logging destinations.</text>
+        </description>
+      </leaf>
+      <leaf name="log-relay">
+        <type name="boolean"/>
+        <default value="false"/>
+        <description>
+          <text>If false, disable all remote logging from shelf controller to node controller.</text>
+        </description>
+      </leaf>
+      <leaf name="source-address">
+        <type name="ioa-common:host"/>
+        <default value="localhost"/>
+        <description>
+          <text>Source address or hostname to inserted in HOST field of log message.</text>
+        </description>
+      </leaf>
+      <leaf name="log-file-message-coalescence">
+        <type name="boolean"/>
+        <default value="true"/>
+        <description>
+          <text>If true, prevent flooding of identical messages during abnormal conditions.
+If there are multiple identical log messages for log files, there will be one
+message logged fully and follow with 'last message repeated n times' message.</text>
+        </description>
+      </leaf>
+      <uses name="ioa-common:assignment-method"/>
+      <list name="log-server">
+        <key value="name"/>
+        <max-elements value="13"/>
+        <description>
+          <text>Grouping the configuration parameters for log forwarding.</text>
+        </description>
+        <leaf name="name">
+          <type name="string">
+            <length value="1..64"/>
+            <pattern value="[A-Za-z0-9_\-]*"/>
+          </type>
+          <description>
+            <text>The name for the endpoint to forwarding logs to.</text>
+          </description>
+        </leaf>
+        <leaf name="address">
+          <type name="ioa-common:host"/>
+          <mandatory value="true"/>
+          <description>
+            <text>The leaf uniquely specifies the ipv4 or ipv6 address of the remote host.</text>
+          </description>
+        </leaf>
+        <leaf name="transport">
+          <type name="enumeration">
+            <enum name="tcp">
+              <value value="1"/>
+            </enum>
+            <enum name="udp">
+              <value value="2"/>
+            </enum>
+          </type>
+          <default value="udp"/>
+          <description>
+            <text>It is the transport protocol used when forwarding logs.</text>
+          </description>
+        </leaf>
+        <leaf name="port">
+          <type name="inet:port-number">
+            <range value="1..max"/>
+          </type>
+          <default value="514"/>
+          <description>
+            <text>This leaf specifies the port number used to deliver messages to the remote server.</text>
+          </description>
+        </leaf>
+        <leaf name="destination-facility-override">
+          <type name="union">
+            <type name="enumeration">
+              <enum name="disabled">
+                <value value="0"/>
+              </enum>
+            </type>
+            <type name="uint8">
+              <range value="0..11 | 16..23"/>
+            </type>
+          </type>
+          <default value="disabled"/>
+          <description>
+            <text>When not disabled, this leaf specifies the facility used in messages delivered
+to the remote server.</text>
+          </description>
+        </leaf>
+        <uses name="source-facilities"/>
+        <leaf name="pattern-match">
+          <type name="string">
+            <length value="0..255"/>
+          </type>
+          <description>
+            <text>Regex pattern that all entries need to obey.</text>
+          </description>
+        </leaf>
+        <leaf name="message-coalescence">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>If true, prevent flooding of identical messages during abnormal conditions.
+If there are multiple identical log messages, there will be one message logged fully
+and follow with 'last message repeated n times' message.</text>
+          </description>
+        </leaf>
+        <leaf name="enabled">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>Allows to toggle this syslog server.</text>
+          </description>
+        </leaf>
+        <leaf name="message-format">
+          <type name="enumeration">
+            <enum name="rfc5424">
+              <value value="1"/>
+              <description>
+                <text>&lt;${PRI}&gt;1 ${ISODATE} ${HOST} ${PROGRAM} ${PID} ${MSGID} ${SDATA} $MSG
+&lt;45&gt;1 2019-11-20T12:55:50+00:00 localhost syslog-ng 2392 - [meta sequenceId='1'] syslog-ng starting up; version='3.24.1'</text>
+              </description>
+            </enum>
+            <enum name="rfc3164">
+              <value value="2"/>
+              <description>
+                <text>&lt;${PRI}&gt; ${TIMESTAMP} ${HOSTNAME} ${TAG} $MSG
+&lt;34&gt;Nov 20 12:55:50 localhost syslog-ng[2392] syslog-ng starting up; version='3.24.1'</text>
+              </description>
+            </enum>
+          </type>
+          <default value="rfc5424"/>
+          <description>
+            <text>Identifies the syslog messaging format</text>
+          </description>
+        </leaf>
+        <leaf name="origin">
+          <type name="enumeration">
+            <enum name="manual">
+              <value value="1"/>
+              <description>
+                <text>Indicates Log-server address has been manually configured.</text>
+              </description>
+            </enum>
+            <enum name="dhcp">
+              <value value="2"/>
+              <description>
+                <text>Indicates Log-server address  has been assigned to this
+system by a DHCP server.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="manual"/>
+          <description>
+            <text>Log-server address assignment method, user can convert
+DHCP configured Log-server entry into a manual configured by changing this attribute.</text>
+          </description>
+        </leaf>
+        <list name="log-server-facility-filter">
+          <key value="name"/>
+          <description>
+            <text>Selector that allows to filter log messages based on their source facilities and severities.
+This is a filter based on source-facilities leaf-list (can only add filter to the configured
+source facilities).</text>
+          </description>
+          <uses name="log-facility"/>
+        </list>
+      </list>
+      <list name="log-file">
+        <key value="name"/>
+        <description>
+          <text>Local syslog files supported by the system.</text>
+        </description>
+        <leaf name="name">
+          <type name="string">
+            <length value="1..128"/>
+            <pattern value="[A-Za-z0-9_\-]*"/>
+          </type>
+          <description>
+            <text>The file name without the .log extension.</text>
+          </description>
+        </leaf>
+        <leaf name="number-of-files">
+          <type name="uint8">
+            <range value="1..20"/>
+          </type>
+          <default value="10"/>
+          <description>
+            <text>Maximum number of log files retained.
+When rotating files due to max size being reached, the oldest files will be discarded
+if the total number of files is greater than number-of-files.</text>
+          </description>
+        </leaf>
+        <leaf name="max-file-size">
+          <type name="uint8">
+            <range value="1..30"/>
+          </type>
+          <units name="megabytes"/>
+          <default value="30"/>
+          <description>
+            <text>Maximum file size before rotation.</text>
+          </description>
+        </leaf>
+        <uses name="source-facilities"/>
+        <leaf name="pattern-match">
+          <type name="string">
+            <length value="0..255"/>
+          </type>
+          <description>
+            <text>Regex pattern that all entries need to obey.</text>
+          </description>
+        </leaf>
+        <list name="log-file-facility-filter">
+          <key value="name"/>
+          <description>
+            <text>Selector that allows to filter log messages based on their source facilities and severities.</text>
+          </description>
+          <uses name="log-facility"/>
+        </list>
+      </list>
+      <container name="log-console">
+        <description>
+          <text>Console logging supported by the system.</text>
+        </description>
+        <uses name="source-facilities"/>
+        <list name="log-console-facility-filter">
+          <key value="name"/>
+          <description>
+            <text>Selector that allows to filter log messages based on their source facilities and severities.</text>
+          </description>
+          <uses name="log-facility"/>
+        </list>
+        <leaf name="enabled">
+          <type name="boolean"/>
+          <default value="false"/>
+          <description>
+            <text>Switches on and off the console logging.</text>
+          </description>
+        </leaf>
+      </container>
+      <uses name="ioa-common:arc"/>
+      <uses name="ioa-common:label"/>
+    </container>
+  </grouping>
+  <grouping name="log-facility">
+    <leaf name="name">
+      <type name="syslog-facility"/>
+      <description>
+        <text>Identifies a single syslog facility, or all of them if value is 'all'.</text>
+      </description>
+    </leaf>
+    <leaf name="severity">
+      <type name="enumeration">
+        <enum name="emergency">
+          <value value="0"/>
+          <description>
+            <text>Level 0 - System is unusable.</text>
+          </description>
+        </enum>
+        <enum name="alert">
+          <value value="1"/>
+          <description>
+            <text>Level 1 - Action must be taken immediately.</text>
+          </description>
+        </enum>
+        <enum name="critical">
+          <value value="2"/>
+          <description>
+            <text>Level 2 - Critical conditions.</text>
+          </description>
+        </enum>
+        <enum name="error">
+          <value value="3"/>
+          <description>
+            <text>Level 3 - Error conditions.</text>
+          </description>
+        </enum>
+        <enum name="warning">
+          <value value="4"/>
+          <description>
+            <text>Level 4 - Warning conditions.</text>
+          </description>
+        </enum>
+        <enum name="notice">
+          <value value="5"/>
+          <description>
+            <text>Level 5 - Normal but significant condition.</text>
+          </description>
+        </enum>
+        <enum name="informational">
+          <value value="6"/>
+          <description>
+            <text>Level 6 - Informational messages.</text>
+          </description>
+        </enum>
+        <enum name="debug">
+          <value value="7"/>
+          <description>
+            <text>Level 7 - Debug-level messages.</text>
+          </description>
+        </enum>
+      </type>
+      <default value="informational"/>
+      <description>
+        <text>The system log selected severity level for forwarding.
+The default severity level is all levels</text>
+      </description>
+      <reference>
+        <text>THANOS-1489</text>
+      </reference>
+    </leaf>
+    <leaf name="compare-op">
+      <type name="enumeration">
+        <enum name="equals-or-higher">
+          <value value="1"/>
+        </enum>
+        <enum name="equals">
+          <value value="2"/>
+        </enum>
+        <enum name="not-equals">
+          <value value="3"/>
+        </enum>
+      </type>
+      <default value="equals-or-higher"/>
+      <description>
+        <text>This leaf describes the option to specify how the severity comparison is performed.
+The default severity level is all levels</text>
+      </description>
+      <reference>
+        <text>THANOS-1489</text>
+      </reference>
+    </leaf>
+  </grouping>
+</module>

@@ -1,0 +1,184 @@
+module ioa-nmc {
+    namespace "http://infinera.com/yang/ioa/nmc";
+    prefix ioa-nmc;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-l0 { prefix ioa-l0; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+
+
+    typedef nmc-attenuation-actual {
+        type union {
+            type enumeration {
+                enum na { value 0; description "Not applicable"; }
+                enum blocked { value 1; description "Blocked (VOA)"; }
+            }
+            type decimal64 {
+                fraction-digits 2;
+                range 0..15;
+            }
+        }
+        units "dB";
+        default "na";
+        description "Network Media Channel current attenuation";
+    }
+
+    typedef nmc-attenuation-target {
+        type union {
+            type enumeration {
+                enum na { value 0; description "Not applicable"; }
+                enum max { value 1; description "Maximum attenuation"; }
+            }
+            type decimal64 {
+                fraction-digits 2;
+                range 0..15;
+            }
+        }
+        units "dB";
+        default "max";
+        description "Network Media Channel target attenuation.";
+    }
+
+
+    grouping nmc {
+        description "A re-usable grouping that formulates the basic NMC facility structure.";
+
+        list nmc {
+            key "name";
+            description "NMC: Network Media Channel facility.";
+            reference "ITU-T G.807, section 3.2.6";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf parent-facility {
+                type instance-identifier;
+                mandatory true;
+                description "Parent facility: can be either a Media Channel or an OMS. Only set on creation.";
+            }
+
+            leaf monitoring {
+                type ioa-common:enable-switch;
+                default disabled;
+                description
+                    "user configures this parameter to inform the system the NMC is to be monitored
+                     (only of interest for scenarios where there is no cross-connection needed like disaggregated CAD10A).
+                    ";
+            }
+
+            leaf monitoring-state {
+                type ioa-common:enable-switch;
+                default disabled;
+                config false;
+                description
+                    "System reports this attribute, to indicate whether the NMC is intended 
+                     to be in use (instead of simply being pre-provisioned);
+                     enabled if ('NMC is a member of one cross-connection' OR 'monitoring=enabled').
+                    ";
+            }
+
+            leaf center-frequency {
+                type ioa-l0:frequency-MHz {
+                    range "184600000..196150000";
+                }
+                mandatory true;
+                description
+                    "Nominal Center Frequency of the NMC";
+            }
+
+            leaf width {
+                type ioa-l0:frequency-MHz {
+                    range "15000..200000";
+                }
+                default 50000;
+                description
+                    "Network Media Channel frequency width; unit is MHz.
+                     User must configure the 3 dB signal bandwidth.
+                     Only set by creation.
+                    ";
+            }
+
+            leaf input-power-min {
+                type ioa-l0:optical-power-config;
+                description "Minimum Input Power.";
+            }
+
+            leaf input-power-max {
+                type ioa-l0:optical-power-config;
+                description "Maximum Input Power.";
+            }
+
+            leaf input-power-typical {
+                type ioa-l0:optical-power-config;
+                description "Typical Input Power.";
+            }
+
+            leaf input-power-min-offset {
+                type decimal64 {
+                    fraction-digits 2;
+                    range -30..30;
+                }
+                units "dB";
+                default 0;
+                description "Minimum Input Power offset, of relevance for NMCs within MCs.";
+            }
+
+            leaf input-psd-min {
+                type ioa-l0:actual-psd;
+                config false;
+                description "Calculated by the SYSTEM from input-power-min.";
+            }
+
+            leaf input-psd-max {
+                type ioa-l0:actual-psd;
+                config false;
+                description "Calculated by the SYSTEM from input-power-max.";
+            }
+
+            leaf input-psd-typical {
+                type ioa-l0:actual-psd;
+                config false;
+                description "Calculated by the SYSTEM from input-power-typ.";
+            }
+
+            leaf input-attenuation-actual {
+                type nmc-attenuation-actual;
+                config false;
+                description "TODO";
+            }
+
+            leaf input-attenuation-target {
+                type nmc-attenuation-target;
+                description "TODO";
+            }
+
+            leaf output-attenuation-actual {
+                type nmc-attenuation-actual;
+                config false;
+                description "TODO";
+            }
+
+            leaf output-attenuation-target {
+                type nmc-attenuation-target;
+                description "TODO";
+            }
+
+            uses ioa-l0:opm-optical-power-rx;
+
+            uses ioa-l0:opm-optical-power-tx;
+
+            leaf psd-actual-rx {
+                type ioa-l0:actual-psd;
+                config false;
+                description "Calculated by the SYSTEM from power-actual-rx (i.e. dependent on spectrum width).";
+            }
+
+            leaf psd-actual-tx {
+                type ioa-l0:actual-psd;
+                config false;
+                description "Calculated by the SYSTEM from power-actual-tx (i.e. dependent on spectrum width).";
+            }
+        }
+    }
+}

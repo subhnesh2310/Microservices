@@ -1,0 +1,31 @@
+{
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring",
+    "inputs": {
+        "identifier": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Identifier for the schema list entry.",
+            "mandatory": true
+        },
+        "version": {
+            "type": {
+                "ptype": "str"
+            },
+            "isList": false,
+            "description": "Version of the schema requested.  If this parameter is not\npresent, and more than one version of the schema exists on\nthe server, a 'data-not-unique' error is returned, as\ndescribed above.",
+            "mandatory": false
+        },
+        "format": {
+            "type": {
+                "ptype": "str",
+                "identityref": "schema-format"
+            },
+            "isList": false,
+            "description": "The data modeling language of the schema.  If this\nparameter is not present, and more than one formats of\nthe schema exists on the server, a 'data-not-unique' error\nis returned, as described above.",
+            "mandatory": false
+        }
+    },
+    "cases": {}
+}

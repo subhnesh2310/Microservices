@@ -1,0 +1,1028 @@
+{
+    "ne": {
+        "facilities": {
+            "odu": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A generic, configurable name for every facility.",
+                        "mandatory": true,
+                        "key": true,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "odu-diagnostics": [
+                        {
+                            "direction": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "ingress",
+                                        "egress"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Diagnostics direction.Can be ingress or egress.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "namespace": null,
+                            "monitoring-mode": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "unused",
+                                        "intrusive",
+                                        "non-intrusive",
+                                        "limited-non-intrusive"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The monitoring mode on the ODU/OTU client.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "intrusive",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "tti-mismatch-alarm-reporting": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "disabled",
+                                        "full-64-bytes",
+                                        "SAPI",
+                                        "DAPI",
+                                        "OPER",
+                                        "SAPI_DAPI",
+                                        "SAPI_OPER",
+                                        "DAPI_OPER",
+                                        "SAPI_DAPI_OPER"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Indicates if TTI-Mismatch (TIM) alarm is reported or not.\nIf it is to be reported, indicates the criteria based on with the TIM alarm is reported.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "disabled",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "tim-act-enabled": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "disabled",
+                                        "enabled"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Support configurable TIM action which decide if insert maintenance signal per TIM: enable or disable, default disable",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "disabled",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "tti-style": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "ITU-T-G709",
+                                        "proprietary"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The configured mode of the TTI for this OTU/ODU client or OTS.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "ITU-T-G709",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "tx-tti": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Transmit TTI - Sent by this facility to the far-end remote facility.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "rx-tti": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Receive TTI - Received by this facility from the far-end remote facility.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "rx-tti-hex": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Receive TTI in HEX.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "expected-tti": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Expected TTI - The TTI this facility expects to receive from the far-end remote facility.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "expected-sapi": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The expected SAPI (Source Access Point Identifier).",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "expected-dapi": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The expected DAPI (Destination Access Point Identifier).",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "tx-sapi": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The transmitted SAPI bytes.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "tx-dapi": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The transmitted DAPI bytes.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "rx-sapi": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The received SAPI bytes as an ASCII string; will not be available if bytes cannot be encoded as a printable string.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "rx-sapi-hex": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Received SAPI in HEX.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "rx-dapi": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The received DAPI bytes as an ASCII string; will not be available if bytes cannot be encoded as a printable string.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "rx-dapi-hex": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Received DAPI in HEX.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "rx-operator-hex": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Received operator in HEX.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "expected-operator": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The expected operator specific bytes.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "tx-operator": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The transmitted operator specific bytes.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "rx-operator": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The received operation specific bytes as an ASCII string; will not be available if bytes cannot be encoded as a printable string.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": false,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "degrade-interval": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "The consecutive number of 1s intervals with the number of detected block errors exceeding the block error\nthreshold for each of those seconds for the purposes of SDBER detection.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": 7,
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "degrade-threshold": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "The threshold in percentage of block errors versus total blocks at which a degrade-interval number of seconds\nwill be considered degraded for the purposes of SDBER detection.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": 30,
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "test-signal-type": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "none",
+                                        "PRBS31Q",
+                                        "PRBS13Q",
+                                        "scrambled-idles",
+                                        "PRBS9",
+                                        "PRBS31"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The type of test pattern that is injected.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "none",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "test-signal-direction": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "ingress",
+                                        "egress",
+                                        "both"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "The direction of the test signal.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": "ingress",
+                                "hardcode": false,
+                                "namespace": null
+                            },
+                            "test-signal-monitoring": {
+                                "type": {
+                                    "ptype": "bool"
+                                },
+                                "isList": false,
+                                "description": "Monitor the incoming test signals for diagnostics.",
+                                "mandatory": false,
+                                "key": false,
+                                "config": true,
+                                "default": false,
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ],
+                    "parent-odu": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../odu/name"
+                        },
+                        "isList": false,
+                        "description": "For low order ODUs, points to the the parent HO-ODU name.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "odu-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "ODUCn",
+                                "ODUCni",
+                                "ODUCni-M",
+                                "ODU4",
+                                "ODU4i",
+                                "ODUflexi",
+                                "ODUflex",
+                                "ODU0",
+                                "ODU1",
+                                "ODU2",
+                                "ODU2e"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The protocol type of the ODUk/ODUCn client.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "rate": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The speed/rate of the ODUk/ODUCn client interface.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "odu-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A system-defined user friendly name for this odu, considering both the type and the rate.\nExamples: ODU4, ODUC8i",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "class": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "high-order",
+                                "low-order",
+                                "mapped"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "This attribute indicates the class/category of the ODUCn/ODUk entity.\n'High order' refers to the top-most ODUCn/ODUk entity that is created by the system.\nAll other children ODUk/ODUj entites are categorized as 'low order' (i.e., supported\nby another high-order ODUCn/ODUk). This attribute is set by the system based on the order\nof creation of these entities (system created v/s user created).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "low-order",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "service-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "none",
+                                "network-wrapper",
+                                "adaptation",
+                                "switching",
+                                "transport"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "This attribute is to align with legacy Infinera OTN virtualization attribute (SM).\nThe 'service mode' attribute indicates the ODUk/ODUCn client's treatment/processing\nvis-a-vis the service type (OTN multiplexing, OTU transport, ...)",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "service-mode-qualifier": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "This attribute is to align with legacy Infinera OTN virtualization attribute (SMQ).\nThe 'service mode qualifier' attribute further adds to the 'service mode' attribute\nto indicate the ODUk/ODUCn client's contained payload vis-a-vis the service type\n(OTN multiplexing, OTU transport, ...)",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "trib-port-number": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Number of OPUk/OPUCn trib port that are part of this ODUk/ODUCn container.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "instance-id": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Optional parameter on LO-ODU creation, identifies the ODU within the parent/high-order ODU.\nIf not provided, it is automatically derived.\nMax value depends on capacity of the HO-ODU and of the odu-type.\n(ex: for creating an ODU4 in a HO ODUC8, instance can be between 1 and 8)",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "total-time-slots": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Number of OPUk/OPUCn time slots that are part of this ODUk/ODUCn container.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "available-time-slots": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A list of all OPUk/OPUCn time-slots that are available for provisioning new services.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "client-defect-indicator": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "local-degraded",
+                                "remote-degraded",
+                                "local-and-remote-degraded",
+                                "none",
+                                "unknown"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Indicates current defect status on client side.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "rx-payload-type": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Received payload-type of ODU.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tx-payload-type": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Transmitter payload-type of ODU",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "delay-measurement-enable": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The enable switching of delay-measurement function, when applicable.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "msim-config": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Specifies MSIM alarm reporting or not when msi value received not followed G.709 definition.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "enabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "client-signal-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "not-applicable",
+                                "200GBE",
+                                "400GBE"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Client signal type for ODUflex  CBR client.\nApplied to 200/400 GBE client on CHM1R.\nIt is set automatically for the client side ODU,\nand need to be configured by the user at line side ODUj.\nUsed for rate matching and bandwidth validation in the odu cross connection.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "not-applicable",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "expected-payload-type": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "Expected payload-type of ODU",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Card that holds this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "managed-by": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "system",
+                                "user"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Describes whether this facility was system created or not.\nOnly user created facilities can be user deleted.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "system",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Ports that hold this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the parent facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supported-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the children facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "time-slots": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Time slots of the ODU.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "opucn-time-slots": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Opucn Time slots of the ODUCn.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "loopback": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "none",
+                                "facility",
+                                "terminal"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Loopback mode.Useful to debug on the fiber connection.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "loopback-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "loopback",
+                                "loopback-and-continue"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Indicates loopback action for facility or terminal.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "accepted-trib-port-number": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Received and accepted Tributary Port Number for the LO-ODU entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "expected-trib-port-number": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Expected Tributary Port Number for the LO-ODU entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "accepted-time-slots": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Received and accepted TS for the LO-ODU entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "expected-time-slots": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Expected TS for the LO-ODU entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "rx-msi": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Received and accepted MSI values (up to 80), including a valid/invalid indication\n(valid if acceptance process successful, invalid if not; when invalid the last accepted MSI set is shown).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "rx-msi-hex": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Received and accepted MSI hex values (up to 80) (if acceptance process was not successful the last accepted MSI set is shown).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "expected-msi": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Expected MSI values (up to 80). For format see rx-msi without valid/invalid flag.\nUser-friendly representation of expected-msi-hex.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "expected-msi-hex": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Expected MSI hex values (up to 80).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "circuit-id": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "System configured circuit ID, present in XCONs and associated facilities.\nFor facilities, circuit-id is only filled in if an associated XCON exists.\n   Format of this ID is:\n   <timestamp>|<ne-name>|<XCON-AID>|<user-configured-sufix>\n   Example:\n   2020-05-05T21:06:02Z|GX|1-4-T9,1-4-L1-1-ODUji#1|my-suffix\n\n   Timestamp is the NE time at xcon creation, in UTC.\n   If necessary, ne-name will be truncated so that total length remains at 128 characters.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

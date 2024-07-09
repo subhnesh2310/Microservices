@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-scg"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-scg="http://infinera.com/yang/ioa/scg"
+        xmlns:ioa-fac-common="http://infinera.com/yang/ioa/facilities-common"
+        xmlns:ioa-opt="http://infinera.com/yang/ioa/optical-common">
+  <namespace uri="http://infinera.com/yang/ioa/scg"/>
+  <prefix value="ioa-scg"/>
+  <import module="ioa-facilities-common">
+    <prefix value="ioa-fac-common"/>
+  </import>
+  <import module="ioa-optical-common">
+    <prefix value="ioa-opt"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module describing Super-Channel-Group facilities.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <grouping name="scg">
+    <description>
+      <text>A re-usable grouping that formulates the basic superchannel group facility structure.</text>
+    </description>
+    <list name="super-channel-group">
+      <key value="name"/>
+      <description>
+        <text>Super-channel Group facility.</text>
+      </description>
+      <uses name="ioa-fac-common:facilities-common-attributes"/>
+      <uses name="ioa-fac-common:auto-in-service"/>
+      <leaf name="line-system-mode">
+        <type name="enumeration">
+          <enum name="openwave">
+            <value value="1"/>
+            <description>
+              <text>Infinera WDM channels over non-Infinera line system.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="openwave"/>
+        <description>
+          <text>Indicates the specific mode of power control configured
+on the L1 transponder, and specifically, on this particular SCG port within
+the L1 transponder. The attribute indicates the L1 &lt;-&gt; L0 local power controls
+to adjust the Tx power from the L1 transponder towards the L0 line-system
+card (such as a WSS or Mux or Amplifier).</text>
+        </description>
+      </leaf>
+      <leaf name="openwave-contention-check">
+        <when condition="../line-system-mode = 'openwave'"/>
+        <type name="boolean"/>
+        <default value="false"/>
+        <description>
+          <text>Enables DNA assisted contention control mechanism in openwave mode.</text>
+        </description>
+        <reference>
+          <text>GX-1096</text>
+        </reference>
+      </leaf>
+      <leaf name="expected-total-tx-power">
+        <when condition="../line-system-mode = 'openwave'"/>
+        <type name="ioa-opt:optical-power"/>
+        <default value="-55.00"/>
+        <config value="false"/>
+        <description>
+          <text>Theoretical total TX power at Front Panel calculated based on per carrier Target TX power value.</text>
+        </description>
+      </leaf>
+    </list>
+  </grouping>
+</module>

@@ -1,0 +1,3035 @@
+ioa-ne
+	-ne-id : str
+	ne-name : str
+	-ne-type : str
+	node-type : str
+	-ne-vendor : str
+	ne-site : str
+	ne-location : str
+	ne-sub-location : str
+	clli : str
+	node-controller-chassis-name : str
+	altitude : int
+	latitude : str
+	longitude : str
+	-equipment-discovery-ready : bool
+	-alarm-report-ready : bool
+	contact : str
+	-recover-mode : bool
+	-original-recover-mode-reason : str
+	-recover-mode-reason : str
+	label : str
+	-avail-state : str
+	-oper-state : str
+	alarm-report-control : str
+	system
+		security
+			security-policies
+				secure-mode : bool
+				strict-password-check : bool
+				minimum-password-length : int
+				ssh-authentication-method : str
+				enforce-password-history-check : bool
+				aaa-authentication-method : str
+				aaa-authorization-method : str
+				ssh-strict-host-key-checking : str
+				root-password : str
+				console-user-password : str
+				console-user-enabled : bool
+				csp-symmetrical-key : str
+				-max-system-sessions : int
+				-max-local-users : int
+				disable-user-lockout : bool
+				supported-tls-version : str
+				crl-based-revocation : bool
+				crl-download-timeout : int
+				ocsp-based-revocation : bool
+				default-user-group : str
+				ssh-ciphers : str
+				ssh-macs : str
+				ssh-key-exchanges : str
+				ssh-host-key-algorithms : str
+				ssh-public-key-algorithms : str
+				tls-1.2-cipher-suites : str
+				tls-1.3-cipher-suites : str
+				tls-curves : str
+				supported-signature-hash-algorithms : str
+				db-passphrase : str
+			niap
+				expected-niap-compliance : bool
+				-niap-compliance : bool
+				-non-compliance-reason : str
+			image-keys
+				ISKs
+					ISK
+						is-key-in-use : bool
+						is-key-verified : bool
+						being-deleted : bool
+						name : str
+						CPU : int
+						key-name : str
+						key-serial-number : str
+						issuer-name : str
+						key-length : int
+						key-payload : str
+						KRK-name : str
+						signature-hash-scheme : str
+						signature-algorithm : str
+						signature-payload : str
+						signature-gen-time : str
+				KRKs
+					KRK
+						name : str
+						CPU : int
+						key-name : str
+						key-serial-number : str
+						issuer-name : str
+						key-length : int
+						key-payload : str
+			key-replacement-package
+				KRP-name : str
+				KRP-version : int
+				install-status : str
+				key-name : str
+				key-serial-number : str
+				issuer-name : str
+				key-length : int
+				key-payload : str
+				KRK-name : str
+				signature-hash-scheme : str
+				signature-algorithm : str
+				signature-payload : str
+				signature-gen-time : str
+			certificates
+				certificate-revocation
+					crls
+						crl
+							name : str
+							issuer : str
+							crl-number : int
+							effective-date : str
+							next-update : str
+							type : str
+							status : str
+							last-used-time : str
+							associated-cdp : str
+							downloaded-from-uri : str
+							issuing-distribution-point-uri : str
+							-signature-key-type : str
+							-signature-hash-algorithm : str
+					cdps
+						cdp
+							name : str
+							+url : str
+							enabled : bool
+							refresh-interval : str
+							-next-update-time : str
+							-last-update-time : str
+							-last-update-result : str
+					ocsp-servers
+						ocsp-server
+							name : str
+							+url : str
+							enabled : bool
+							+priority : int
+							-last-query : str
+				secure-applications
+					secure-application
+						id : str
+						-type : str
+						-in-use : str
+						-status : str
+						verify-client-cert : str
+						active-certificate-id : str
+				trusted-certificate
+					id : str
+					-version : str
+					-serial-number : str
+					-subject-name : str
+					-issuer : str
+					-valid-from : str
+					-valid-to : str
+					-modification-time : str
+					-status : str
+					-public-key-length : str
+					-public-key-type : str
+					-certificate-bytes : str
+					revocation-mode : str
+					-trust-chain : unknown
+					-key-usage : str
+					-extended-key-usage : str
+					-signature-key-type : str
+					-signature-hash-algorithm : str
+					alarm-report-control : str
+					label : str
+				local-certificate
+					-self-signed : bool
+					id : str
+					-version : str
+					-serial-number : str
+					-subject-name : str
+					-issuer : str
+					-valid-from : str
+					-valid-to : str
+					-modification-time : str
+					-status : str
+					-public-key-length : str
+					-public-key-type : str
+					-certificate-bytes : str
+					revocation-mode : str
+					-trust-chain : unknown
+					-key-usage : str
+					-extended-key-usage : str
+					-signature-key-type : str
+					-signature-hash-algorithm : str
+					-used-by : str
+					-subject-alternative-names : str
+					alarm-report-control : str
+					label : str
+				peer-certificate
+					-white-listed : bool
+					id : str
+					-version : str
+					-serial-number : str
+					-subject-name : str
+					-issuer : str
+					-valid-from : str
+					-valid-to : str
+					-modification-time : str
+					-status : str
+					-public-key-length : str
+					-public-key-type : str
+					-certificate-bytes : str
+					revocation-mode : str
+					-trust-chain : unknown
+					-key-usage : str
+					-extended-key-usage : str
+					-signature-key-type : str
+					-signature-hash-algorithm : str
+					-used-by : str
+					-subject-alternative-names : str
+					alarm-report-control : str
+					label : str
+			user
+				user-name : str
+				password : str
+				password-hashed : str
+				display-name : str
+				max-invalid-login : int
+				suspension-time : int
+				timeout : int
+				password-aging-interval : int
+				-password-expiration-date : str
+				enabled : bool
+				-user-status : str
+				force-password-change : bool
+				max-sessions : int
+				-last-login-date : str
+				-failed-logins : int
+				-user-aaa-type : str
+				user-group : str
+				alarm-report-control : str
+				label : str
+			user-group
+				name : str
+				description : str
+			session
+				session-id : str
+				session-user : str
+				session-type : str
+				session-protocol : str
+				created-time : str
+				local-ip-address : str
+				-dial-out-server-name : str
+			aaa-server
+				server-name : str
+				+server-priority : int
+				+protocol-supported : str
+				+server-address : str
+				server-port : str
+				server-port-authentication : str
+				server-port-accounting : str
+				shared-secret : str
+				role-supported : str
+				enabled : bool
+				timeout : int
+				retry : int
+				source-ip : str
+				common-password : str
+				-oper-state : str
+		syslog
+			remote-logging-switch : bool
+			log-relay : bool
+			source-address : str
+			log-file-message-coalescence : bool
+			niap-compliant-logging : bool
+			assignment-method : str
+			alarm-report-control : str
+			label : str
+			log-console
+				enabled : bool
+				source-facilities : str
+				log-console-facility-filter
+					name : str
+					severity : str
+					compare-op : str
+			log-server
+				name : str
+				+address : str
+				transport : str
+				port : str
+				destination-facility-override : str
+				pattern-match : str
+				message-coalescence : bool
+				enabled : bool
+				message-format : str
+				origin : str
+				source-facilities : str
+				log-server-facility-filter
+					name : str
+					severity : str
+					compare-op : str
+			log-file
+				name : str
+				number-of-files : int
+				max-file-size : int
+				pattern-match : str
+				source-facilities : str
+				log-file-facility-filter
+					name : str
+					severity : str
+					compare-op : str
+		protocols
+			ssh
+				enabled : bool
+				port : int
+				pre-login-message : str
+				post-login-message : str
+				ssh-host-key
+					fingerprint-algorithm : str
+					fingerprint : str
+					public-key-algorithm : str
+					public-key : str
+					label : str
+				ssh-known-host
+					id : str
+					+address : str
+					public-key-algorithm : str
+					public-key : str
+					label : str
+				ssh-authorized-key
+					user-name : str
+					key-id : str
+					public-key-algorithm : str
+					public-key : str
+					label : str
+			cli
+				enabled : bool
+				port : int
+				-script-dir : str
+				default-interactive-mode : bool
+				cli-alias
+					name : str
+					value : str
+				cli-session-config
+					session-id : str
+					cli-lines : int
+					cli-columns : int
+					interactive-mode : bool
+					display-timestamp : bool
+			serial-console
+				global-switch : str
+				global-timeout : int
+			netconf
+				enabled : bool
+				port : int
+				annotate-cli-name : bool
+				hello-timeout : int
+			tl1
+				tl1-over-ssh-enabled : bool
+				ssh-interactive-port : int
+				ssh-scripting-port : int
+			restconf
+				enabled : bool
+				http-enabled : bool
+				https-enabled : bool
+				http-port : int
+				https-port : int
+				cookie-timeout : int
+				-api-root : str
+			grpc
+				enabled : bool
+				port : int
+				gnmi-get-encoding-granularity : str
+			snmp
+				enabled : bool
+				port : int
+				-snmp-engine-id : str
+				-engine-boot-count : int
+				snmp-community
+					name : str
+					+community-string : str
+					enabled : bool
+					community-string-access : str
+				snmp-target
+					target-name : str
+					enabled : bool
+					snmp-version : str
+					trap-community-string : str
+					+snmpv3-user : str
+					+target-address : str
+					target-port : str
+					target-transport : str
+				snmpv3-user
+					snmpv3-user-name : str
+					user-sec-level : str
+					auth-protocol : str
+					+auth-passphrase : str
+					priv-protocol : str
+					+priv-passphrase : str
+			http-file-server
+				enabled : bool
+				http-enabled : bool
+				https-enabled : bool
+				http-port : int
+				https-port : int
+				-url-base : str
+			fast-telemetry
+				enabled : bool
+				protocol : str
+				port : int
+			dial-out-server
+				name : str
+				+address : str
+				protocol : str
+				port : int
+				-transport : str
+				retry-policy : str
+				retry : int
+				timeout : int
+				auto-connect : bool
+				-connection-state : str
+				alarm-report-control : str
+				label : str
+			data-model
+				name : str
+				-description : str
+				enabled : bool
+		scheduled-tasks
+			task
+				name : str
+				enabled : bool
+				+command : str
+				command-type : str
+				frequency : str
+				start-time : str
+				end-time : str
+				persistent : bool
+				-task-status : str
+				-next-run : str
+				-previous-run : str
+				-previous-result : str
+				-previous-output : str
+				label : str
+				alarm-report-control : str
+		ztp
+			ztp-mode : str
+			ztp-state : str
+			ztp-details : str
+			ztp-completion-status : str
+		transfer
+			http-proxy : str
+			-debug-log-optional-content : str
+			transfer-status
+				filetype : str
+				operation : str
+				last-completion-status : str
+				last-transfer : str
+				last-duration : str
+				transfer-type : str
+				session-id : str
+				session-user-name : str
+				filename : str
+		networking
+			use-as-source : str
+			routing
+				ipv4-static-route
+					+ipv4-destination-prefix : str
+					advertised : bool
+					next-hop-address : str
+					vrf : str
+					distance : int
+					interface : str
+					-monitoring-state : str
+					-monitoring-instance : str
+					origin : str
+				ipv6-static-route
+					+ipv6-destination-prefix : str
+					vrf : str
+					advertised : bool
+					next-hop-address : str
+					distance : int
+					interface : str
+					-monitoring-state : str
+					-monitoring-instance : str
+					origin : str
+				ospf-instance
+					+router-id : str
+					instance-id : int
+					version : str
+					description : str
+					-vrf : str
+					router-id-mode : str
+					ospf-area
+						ospf-area-id : str
+						ospf-area-type : str
+						ospf-area-range
+							prefix : str
+							advertise : bool
+						ospf-interface
+							ospf-if-name : str
+							ospf-if-routing : str
+							enable : bool
+							hello-interval : int
+							router-dead-interval : int
+							retransmission-interval : int
+							transmit-delay : int
+							ospf-cost : int
+							-ospf-network-type : str
+							priority : int
+							ospf-auth-enable : bool
+							ospf-auth-algorithm : str
+							ospf-auth-key : str
+							ospfv3-ipsec-security-association
+								spi : int
+								ipsec-protocol : str
+								ipsec-mode : str
+								+integrity-algorithm : str
+								auth-key
+									type : str
+									+key : str
+				ip-monitoring
+					name : str
+					probe-interval : int
+					+destination : str
+					drop-rate : int
+					enabled : bool
+					-monitoring-state : str
+					action : str
+					+next-hop : str
+					static-route : str
+					alarm-report-control : str
+			access-control-list
+				acl
+					name : str
+					+type : str
+					+interface : str
+					admin-state : str
+					-avail-state : str
+					-oper-state : str
+					ace
+						sequence-id : int
+						direction : str
+						logging-action : bool
+						source-ip-address : str
+						source-lower-port : str
+						source-upper-port : str
+						destination-ip-address : str
+						destination-lower-port : str
+						destination-upper-port : str
+						ttl : str
+						action : str
+						protocol : str
+						label : str
+			dns
+				enabled : bool
+				search : str
+				assignment-method : str
+				dns-server
+					address : str
+					origin : str
+			interface
+				+if-name : str
+				if-description : str
+				+if-type : str
+				-supporting-port : str
+				-backup-port : str
+				protection-mode : str
+				-protection-state : str
+				-vrf : str
+				ipv4-enabled : bool
+				ipv4-address-assignment-method : str
+				ipv6-enabled : bool
+				ipv6-address-assignment-method : str
+				proxy-arp-enabled : bool
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				label : str
+				ipv4-address
+					+ip : str
+					+netmask : str
+					-origin : str
+				ipv6-address
+					+ip : str
+					+prefix-length : int
+					-origin : str
+			vrf
+				name : str
+				-type : str
+				-chassis-name : unknown
+				-description : str
+			rib
+				rib-name : str
+				vrf : str
+				address-family : str
+				route
+					destination-prefix : str
+					next-hop
+						interface : str
+						next-hop-address : str
+		clock
+			-current-time : str
+			-universal-time : str
+			timezone : str
+			-uptime : str
+			-time-source : str
+			-DST-active : bool
+			-last-time-jump : str
+		ntp
+			ntp-enabled : bool
+			ntp-auth-enabled : bool
+			-ntp-active-server : str
+			assignment-method : str
+			ntp-key
+				key-id : int
+				+key-type : str
+				+key-value : str
+				is-trusted : bool
+			ntp-server
+				ip-address : str
+				origin : str
+				auth-key-id : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				ntp-server-status
+					refid : str
+					stratum : int
+					type : str
+					when : int
+					poll : int
+					reach : int
+					delay : str
+					offset : str
+					jitter : str
+					auth-status : str
+					condition : str
+		sw-services
+			sw-control-rule
+				service-name : str
+				+fail-action : str
+			sw-service
+				sv-name : str
+				equipment : unknown
+				location : str
+				state : str
+				state-details : str
+				cpu-usage : int
+				memory-usage : int
+				uptime : str
+				last-start-time : str
+				reboot-count : int
+			sw-container
+				container-name : str
+				equipment : unknown
+				state : str
+				description : str
+				cpu-usage : int
+				memory-usage : int
+				uptime : str
+		sw-management
+			downloads
+				manifest
+					manifest-file : str
+					manifest-signature : str
+					downloaded-on : str
+					information : str
+					fru-info
+						equipment-type : str
+						manifest-component
+							state : str
+							version : str
+							name : str
+							description : str
+						manifest-firmware
+							fw-name : str
+							fw-version : str
+					downloaded-image
+						name : str
+						signature : str
+						image-type : str
+			software-location
+				location-id : str
+				third-party-app-info
+					app-name : str
+					-version : str
+					-state : str
+					-information : str
+				software-load
+					swload-state : str
+					swload-version : str
+					swload-manifest : str
+					swload-prepared : bool
+					swload-status : str
+					swload-information : str
+					swload-activation-type : str
+					swload-vendor : str
+					swload-product : str
+					swload-label : str
+					swload-delta-label : str
+					swload-pkg-type : str
+					sw-component
+						state : str
+						version : str
+						name : str
+						description : str
+						sw-subcomponent
+							state : str
+							version : str
+							name : str
+							description : str
+					packaged-fw
+						equipment-type : str
+						fw-name : str
+						fw-version : str
+			third-party-app
+				-vendor : str
+				-product : str
+				-label : str
+				enable : bool
+				app-name : str
+				-version : str
+				-state : str
+				-information : str
+			third-party-fw
+				fw-name : str
+				file-status : str
+				path : str
+				version : str
+				crc : str
+				vendor : str
+				nsa-upgrade-version : str
+				part-number : str
+				present-in-eqpt : str
+				applicable-eqpt : str
+			software-load
+				swload-state : str
+				swload-version : str
+				swload-manifest : str
+				swload-prepared : bool
+				swload-status : str
+				swload-information : str
+				swload-activation-type : str
+				swload-vendor : str
+				swload-product : str
+				swload-label : str
+				swload-delta-label : str
+				swload-pkg-type : str
+				sw-component
+					state : str
+					version : str
+					name : str
+					description : str
+					sw-subcomponent
+						state : str
+						version : str
+						name : str
+						description : str
+				packaged-fw
+					equipment-type : str
+					fw-name : str
+					fw-version : str
+		file-servers
+			file-server
+				name : str
+				+server-address : str
+				server-port : int
+				+protocol : str
+				user-name : str
+				password : str
+				initial-path : str
+				label : str
+		telemetry
+			subscriptions
+				current-subscription
+					subscription-name : str
+					related-session-id : str
+					related-dial-out-server : unknown
+					+session-type : str
+					session-protocol : str
+					encoding : str
+					transfer-mode : str
+					updates-only : bool
+					user-access : str
+					subscription-path
+						subscription-path-name : str
+						+subscription-path : str
+						subscription-path-origin : str
+						subscription-path-mode : str
+						sample-interval : int
+						heartbeat-interval : int
+						suppress-redundant : bool
+		fdr
+			streaming-mode : str
+		recovery
+			restore-from-chassis-storage : str
+			-restore-status : str
+			-backup-status : str
+			-last-backup : str
+			-next-backup : str
+		database
+			database-type : str
+			database-state : str
+			database-version : str
+			database-vendor : str
+			database-product : str
+			ne-name : str
+			node-controller-serial-number : str
+			loopback-ipv4 : str
+			loopback-ipv6 : str
+			backup-time : str
+			fips-mode : str
+			description : str
+	ne-function
+		amplifier
+			amplifier-enable : str
+			control-mode : str
+			-amplifier-mode : str
+			-pump-state : str
+			gain-range-control : str
+			span-loss-control : str
+			gain-range-target : str
+			-gain-range-actual : str
+			gain-target : str
+			-gain-operating : str
+			-optimum-edfa-gain : str
+			gain-adjustment : str
+			+-amplifier-type : str
+			-output-power-mon : str
+			-output-power-mon-with-ase : str
+			-input-power-mon : str
+			output-voa-attenuation : str
+			-output-voa-actual : str
+			-power-before-output-voa : str
+			-interstage-loss : str
+			tilt-control-mode : str
+			tilt-target : str
+			tilt-adjustment : str
+			-tilt-actual : str
+			raman-signal-gain : str
+			raman-osc-gain : str
+			-function : str
+			name : str
+			-supporting-card : unknown
+			-supporting-input-port : unknown
+			-supporting-output-port : unknown
+			-AID : str
+			admin-state : str
+			-avail-state : str
+			-oper-state : str
+			label : str
+			alarm-report-control : str
+			supported-gain-range
+				gain-range-type : str
+				gain-range-min : str
+				gain-range-max : str
+		amplifier-raman
+			control-mode : str
+			-raman-state : str
+			amplifier-enable : str
+			-connected-amplifier : str
+			connected-amp-edfa-optimum-gain : str
+			-total-pump-power : str
+			target-raman-gain : str
+			-actual-raman-signal-gain : str
+			-actual-raman-osc-gain : str
+			-function : str
+			name : str
+			-supporting-card : unknown
+			-supporting-input-port : unknown
+			-supporting-output-port : unknown
+			-AID : str
+			admin-state : str
+			-avail-state : str
+			-oper-state : str
+			label : str
+			alarm-report-control : str
+			pump-power
+				pump-id : int
+				target-pump-power : str
+				-configured-pump-power : str
+				-actual-pump-power : str
+		degree
+			degree-number : int
+			-slot-width-granularity : int
+			-center-freq-granularity : int
+			-min-slots : int
+			-max-slots : int
+			label : str
+			connection-ports
+				index : int
+				+port-name : str
+			modules-degree
+				index : int
+				+supported-card : str
+		adg
+			adg-number : int
+			-max-add-drop-ports : int
+			-wavelength-duplication : str
+			label : str
+			modules-adg
+				index : int
+				+supported-card : str
+	ne
+		-ne-id : str
+		ne-name : str
+		-ne-type : str
+		node-type : str
+		-ne-vendor : str
+		ne-site : str
+		ne-location : str
+		ne-sub-location : str
+		clli : str
+		node-controller-chassis-name : str
+		altitude : int
+		latitude : str
+		longitude : str
+		-equipment-discovery-ready : bool
+		-alarm-report-ready : bool
+		contact : str
+		-recover-mode : bool
+		-original-recover-mode-reason : str
+		-recover-mode-reason : str
+		label : str
+		-avail-state : str
+		-oper-state : str
+		alarm-report-control : str
+		equipment
+			leds
+				led
+					location : str
+					name : str
+					status : str
+			equipment-policies
+				tom-auto-migration : str
+				chassis-assignment-mode : str
+				comm-eth-location : str
+				equipment-templates
+					use-serdes-templates : bool
+					serdes-template
+						tom-part-number : str
+						ports-applicable : str
+						serdes-template-entry
+							name : str
+							+value : str
+			chassis
+				name : str
+				-is-node-controller : bool
+				-chassis-role : str
+				expected-serial-number : str
+				+required-type : str
+				chassis-location : str
+				rack-name : str
+				position-in-rack : int
+				expected-pem-type : str
+				expected-fan-type : str
+				pem-under-voltage-threshold : str
+				pem-over-voltage-threshold : str
+				-available-power : str
+				configured-max-power-draw : str
+				-current-estimated-power-draw : str
+				configured-ambient-temperature : int
+				power-redundancy : str
+				no-switchover : str
+				-active-controller-slot : str
+				-equipment-discovery-ready : bool
+				-alarm-report-ready : bool
+				alias-name : str
+				-AID : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				label : str
+				inventory
+					insertion-date : str
+					number-of-lanes : int
+					vendor-compliance-code : str
+					fw-status : str
+					hardware-version : str
+					actual-type : str
+					actual-subtype : str
+					PON : str
+					serial-number : str
+					clei : str
+					vendor : str
+					part-number : str
+					manufacture-date : str
+					-sw-support-revision : int
+					current-fw
+						fw-name : str
+						fw-version : str
+						expected-fw-version : str
+						fw-status : str
+				slot
+					name : str
+					current-equipment : unknown
+					-AID : str
+					-installed-type : str
+					-supported-type : str
+					-avail-state : str
+					-oper-state : str
+					inventory
+						insertion-date : str
+						number-of-lanes : int
+						vendor-compliance-code : str
+						fw-status : str
+						hardware-version : str
+						actual-type : str
+						actual-subtype : str
+						PON : str
+						serial-number : str
+						clei : str
+						vendor : str
+						part-number : str
+						manufacture-date : str
+						-sw-support-revision : int
+						current-fw
+							fw-name : str
+							fw-version : str
+							expected-fw-version : str
+							fw-status : str
+			card
+				name : str
+				+required-type : str
+				required-subtype : str
+				card-mode : str
+				+chassis-name : unknown
+				+slot-name : str
+				subslot-name : str
+				power-profile : str
+				-last-reboot-reason : str
+				-parent-card : unknown
+				-subcard-list : unknown
+				-category : str
+				-max-power-draw : str
+				alias-name : str
+				-AID : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				label : str
+				controller-card
+					-redundancy-status : str
+					-redundancy-standby-status : str
+					-number-of-switchover-events : int
+					-time-of-last-switchover : str
+					-additional-details : str
+				console
+					baud-rate : str
+					-actual-baud-rate : str
+					-auto-sensing-state : str
+					local-switch : str
+					-status : str
+				resources
+					supported-carriers : str
+					unassigned-carriers : str
+					supported-sub-components : str
+				capabilities
+					supported-advanced-parameter
+						name : str
+						description : str
+						type : str
+						supported-values : str
+						direction : str
+						multiplicity : int
+						-configuration-impact : str
+						-service-impact : str
+					supported-carrier-mode
+						compatibility-id : int
+						status : str
+						supported-subtypes : str
+						carrier-mode : str
+						-capacity : int
+						-client-mode : str
+						-baud-rate : str
+						-application : str
+				port
+					name : str
+					-parent-port : unknown
+					-hosted-interface : str
+					connected-to : str
+					external-connectivity : str
+					-subport-list : unknown
+					alias-name : str
+					-AID : str
+					admin-state : str
+					-avail-state : str
+					-oper-state : str
+					alarm-report-control : str
+					label : str
+					-port-type : str
+					-direction : str
+					-installed-type : str
+					-supported-type : str
+					tom
+						+required-type : str
+						required-subtype : str
+						phy-mode : str
+						power-class-override : str
+						enable-serdes : bool
+						-supported-phy-modes : str
+						-upgrade-status : str
+						alias-name : str
+						-AID : str
+						admin-state : str
+						-avail-state : str
+						-oper-state : str
+						alarm-report-control : str
+						label : str
+						serdes
+							name : str
+							+value : str
+							-status : str
+					usb
+						type : str
+						present : bool
+						available-space : int
+						total-space : int
+						usb-path : str
+					comm-eth
+						auto-negotiation : str
+						mtu : int
+						duplex-mode : str
+						-operational-duplex-mode : str
+						rate : str
+						-operational-rate : str
+						flow-control : str
+						-operational-flow-control : str
+						-redundancy-state : str
+						-mac-address : str
+					inventory
+						insertion-date : str
+						number-of-lanes : int
+						vendor-compliance-code : str
+						fw-status : str
+						hardware-version : str
+						actual-type : str
+						actual-subtype : str
+						PON : str
+						serial-number : str
+						clei : str
+						vendor : str
+						part-number : str
+						manufacture-date : str
+						-sw-support-revision : int
+						current-fw
+							fw-name : str
+							fw-version : str
+							expected-fw-version : str
+							fw-status : str
+				slot
+					name : str
+					current-equipment : unknown
+					-AID : str
+					-installed-type : str
+					-supported-type : str
+					-avail-state : str
+					-oper-state : str
+					inventory
+						insertion-date : str
+						number-of-lanes : int
+						vendor-compliance-code : str
+						fw-status : str
+						hardware-version : str
+						actual-type : str
+						actual-subtype : str
+						PON : str
+						serial-number : str
+						clei : str
+						vendor : str
+						part-number : str
+						manufacture-date : str
+						-sw-support-revision : int
+						current-fw
+							fw-name : str
+							fw-version : str
+							expected-fw-version : str
+							fw-status : str
+				property
+					name : str
+					value : str
+					-description : str
+			unprovisioned-inventory
+				chassis-serial-number : str
+				slot-name : str
+				detection-timestamp : str
+				hardware-version : str
+				actual-type : str
+				actual-subtype : str
+				PON : str
+				serial-number : str
+				clei : str
+				vendor : str
+				part-number : str
+				manufacture-date : str
+				-sw-support-revision : int
+		facilities
+			ots
+				osc-less : str
+				fiber-type-rx : str
+				fiber-type-tx : str
+				fiber-length-tx : str
+				fiber-length-rx : str
+				-fiber-length-derived-rx : str
+				fiber-spectral-attenuation-tilt-tx : str
+				fiber-spectral-attenuation-tilt-rx : str
+				raman-coefficient-tx : str
+				raman-coefficient-rx : str
+				span-loss-receive : str
+				-span-loss-derived-rx : str
+				external-attenuation-tx : str
+				span-loss-aging-margin-rx : str
+				target-power-setting : str
+				-laser-safety-mode : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				span-loss-transmit : str
+				external-attenuation-rx : str
+				ots-diagnostics
+					tti-style : str
+					nmoper-alarm-reporting : str
+					expected-operator : str
+					tx-operator : str
+					-rx-operator : str
+			ots-r
+				required-fiber-type-rx : str
+				-configured-fiber-type-rx : str
+				fiber-length-rx : str
+				-configured-fiber-length-rx : str
+				span-loss-receive : str
+				-span-loss-at-amplifier : str
+				pilot-tone-span-loss : str
+				delta-pointloss : str
+				-power-actual-rx : str
+				connected-reference : int
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				external-attenuation-rx : str
+				span-loss-transmit : str
+			osc
+				-monitoring-mode : str
+				-osc-mode : str
+				-osc-wavelength : str
+				osc-control : str
+				target-output-power : str
+				voa-attenuation-target-rx : str
+				-voa-attenuation-actual-rx : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				-power-actual-rx : str
+				-power-actual-tx : str
+			ops
+				role : str
+				-supported-roles : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+			oms
+				monitoring-mode : str
+				grid-mode : str
+				attenuation-control-mode-rx : str
+				attenuation-control-mode-tx : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				-power-actual-rx : str
+				-power-actual-tx : str
+			mc
+				+parent-oms : unknown
+				-center-frequency : int
+				+lower-frequency : int
+				+upper-frequency : int
+				-slot-width : int
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+			nmc
+				+parent-facility : str
+				-monitoring-state : str
+				+center-frequency : int
+				width : int
+				input-power-min : str
+				input-power-max : str
+				input-power-typical : str
+				input-power-min-offset : str
+				-input-psd-min : str
+				-input-psd-max : str
+				-input-psd-typical : str
+				-input-attenuation-actual : str
+				input-attenuation-target : str
+				-output-attenuation-actual : str
+				output-attenuation-target : str
+				-psd-actual-rx : str
+				-psd-actual-tx : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				-power-actual-rx : str
+				-power-actual-tx : str
+			rsc
+				-rsc-power-rx : str
+				-rsc-power-tx : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+			pump
+				-pump-type : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+			super-channel-group
+				line-system-mode : str
+				openwave-contention-check : bool
+				-expected-total-tx-power : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				auto-in-service-enabled : bool
+				valid-signal-time : int
+				-remaining-valid-signal-time : int
+				alarm-report-control : str
+			super-channel
+				contention-check-status : str
+				carriers : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				carrier-mode : str
+				-capacity : int
+				-client-mode : str
+				-baud-rate : str
+				-application : str
+				-spectral-bandwidth : str
+				digital-trigger-registration
+					neighbor-id : unknown
+					remote-node-name : str
+					remote-ne-ip : str
+					remote-end-point : str
+					local-flow-id : int
+					remote-flow-id : int
+					dt-encapsulation : str
+					last-update : str
+			optical-carrier
+				frequency : str
+				frequency-offset : int
+				-wavelength : str
+				tx-power : str
+				pre-fec-q-sig-deg-threshold : str
+				pre-fec-q-sig-deg-hysteresis : str
+				-carrier-type : str
+				enable-advanced-parameters : bool
+				sop-data-collection : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				media-interface : str
+				-capacity : int
+				-baud-rate : str
+				grid-spacing : str
+				-spectral-bandwidth : str
+				loopback : str
+				tx-cd : str
+				-dgd-high-threshold : int
+				post-fec-q-sig-deg-threshold : str
+				post-fec-q-sig-deg-hysteresis : str
+				rate : str
+				modulation-format : str
+				-line-encoding : str
+				rx-frequency : str
+				rx-attenuation : str
+				tx-filter-roll-off : str
+				preemphasis : str
+				preemphasis-value : str
+				cd-range-low : int
+				cd-range-high : int
+				cd-compensation-mode : str
+				cd-compensation-value : int
+				fast-sop-mode : str
+				BICHM : int
+				propagate-shutdown : str
+				propagate-shutdown-holdoff-timer : int
+				-actual-rx-frequency : str
+				-actual-frequency : str
+				-circuit-id : str
+				advanced-parameter
+					name : str
+					+value : str
+					-status : str
+				current-advanced-parameter
+					name : str
+					value : str
+			optical-channel
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+			otu
+				-otu-type : str
+				-rate : str
+				-otu-name : str
+				-service-mode : str
+				-service-mode-qualifier : str
+				fec-mode : str
+				fec-generation-mode : str
+				fec-type : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				loopback : str
+				loopback-mode : str
+				-circuit-id : str
+				otu-diagnostics
+					direction : str
+					monitoring-mode : str
+					tti-mismatch-alarm-reporting : str
+					tim-act-enabled : str
+					tti-style : str
+					tx-tti : str
+					-rx-tti : str
+					-rx-tti-hex : str
+					expected-tti : str
+					expected-sapi : str
+					expected-dapi : str
+					tx-sapi : str
+					tx-dapi : str
+					-rx-sapi : str
+					-rx-sapi-hex : str
+					-rx-dapi : str
+					-rx-dapi-hex : str
+					-rx-operator-hex : str
+					expected-operator : str
+					tx-operator : str
+					-rx-operator : str
+					nmoper-alarm-reporting : str
+					degrade-interval : int
+					degrade-threshold : int
+			odu
+				parent-odu : unknown
+				+odu-type : str
+				-rate : str
+				-odu-name : str
+				-class : str
+				-service-mode : str
+				-service-mode-qualifier : str
+				trib-port-number : int
+				instance-id : int
+				-total-time-slots : int
+				-available-time-slots : str
+				-client-defect-indicator : str
+				-rx-payload-type : str
+				tx-payload-type : str
+				delay-measurement-enable : str
+				msim-config : str
+				client-signal-type : str
+				expected-payload-type : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				time-slots : str
+				opucn-time-slots : str
+				loopback : str
+				loopback-mode : str
+				-accepted-trib-port-number : str
+				expected-trib-port-number : int
+				-accepted-time-slots : str
+				expected-time-slots : str
+				-rx-msi : str
+				-rx-msi-hex : str
+				-expected-msi : str
+				-expected-msi-hex : str
+				-circuit-id : str
+				odu-diagnostics
+					direction : str
+					monitoring-mode : str
+					tti-mismatch-alarm-reporting : str
+					tim-act-enabled : str
+					tti-style : str
+					tx-tti : str
+					-rx-tti : str
+					-rx-tti-hex : str
+					expected-tti : str
+					expected-sapi : str
+					expected-dapi : str
+					tx-sapi : str
+					tx-dapi : str
+					-rx-sapi : str
+					-rx-sapi-hex : str
+					-rx-dapi : str
+					-rx-dapi-hex : str
+					-rx-operator-hex : str
+					expected-operator : str
+					tx-operator : str
+					-rx-operator : str
+					degrade-interval : int
+					degrade-threshold : int
+					test-signal-type : str
+					test-signal-direction : str
+					test-signal-monitoring : bool
+			ethernet
+				-client-type : str
+				-service-mode : str
+				-service-mode-qualifier : str
+				max-packet-length : int
+				-speed : str
+				-fec-ability : str
+				fec-mode : str
+				tx-mapping-mode : str
+				expected-mapping-mode : str
+				time-slots : str
+				line-port : unknown
+				fec-degraded-ser-monitoring : str
+				fec-degraded-ser-activate-threshold : str
+				fec-degraded-ser-deactivate-threshold : str
+				fec-degraded-ser-monitoring-period : int
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				loopback : str
+				loopback-mode : str
+				test-signal-type : str
+				test-signal-direction : str
+				test-signal-monitoring : bool
+				lldp-admin-status : str
+				lldp-ingress-mode : str
+				lldp-egress-mode : str
+				-circuit-id : str
+			trib-ptp
+				service-type : str
+				tributary-disable-action : str
+				tributary-disable-holdoff-timer : int
+				near-end-tda : str
+				tda-degrade-mode : str
+				forward-defect-trigger : bool
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				auto-in-service-enabled : bool
+				valid-signal-time : int
+				-remaining-valid-signal-time : int
+				alarm-report-control : str
+				-power-threshold-low : str
+				power-threshold-low-offset : str
+				-power-threshold-high : str
+				power-threshold-high-offset : str
+				-circuit-id : str
+			comm-channel
+				+type : str
+				-bandwidth : str
+				mtu : int
+				+parent : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				-fcs-length : str
+				-mru : int
+				-restart-timer : int
+				-max-failure : int
+				-peer-address : str
+			optical-ptp
+				-ptp-type : str
+				-port-direction-convention : str
+				-laser-state : str
+				-power-actual-rx : str
+				-power-actual-tx : str
+				fix-rx-attenuation : str
+				-monitoring-state : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+			line-ptp
+				service-type : str
+				line-system-mode : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				auto-in-service-enabled : bool
+				valid-signal-time : int
+				-remaining-valid-signal-time : int
+				alarm-report-control : str
+				-power-threshold-low : str
+				power-threshold-low-offset : str
+				-power-threshold-high : str
+				power-threshold-high-offset : str
+			flexo
+				-foic-type : str
+				-fec-type : str
+				iid : int
+				-accepted-group-id : int
+				-accepted-iid : int
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+			flexo-group
+				+rate : str
+				+modulation-format : str
+				fec-type : str
+				+group-id : int
+				carriers : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+			eth-zr
+				-interface-type : str
+				+rate : str
+				+modulation-format : str
+				fec-type : str
+				-total-time-slots : int
+				-available-time-slots : str
+				fdd-monitoring : str
+				fdd-threshold : str
+				fdd-clear-threshold : str
+				fed-monitoring : str
+				fed-threshold : str
+				fed-clear-threshold : str
+				-link-degrade-indication : str
+				loopback-host-interface : str
+				loopback-modem-interface : str
+				carriers : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				loopback : str
+				-circuit-id : str
+			oc
+				-oc-type : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				-speed : str
+				tx-mapping-mode : str
+				expected-mapping-mode : str
+				-service-mode : str
+				-service-mode-qualifier : str
+				tti-style : str
+				tim-monitor : str
+				tx-tti : str
+				-rx-tti : str
+				-rx-tti-hex : str
+				expected-tti : str
+				loopback : str
+				loopback-mode : str
+				test-signal-type : str
+				test-signal-direction : str
+				test-signal-monitoring : bool
+				-circuit-id : str
+			stm
+				-stm-type : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				-speed : str
+				tx-mapping-mode : str
+				expected-mapping-mode : str
+				-service-mode : str
+				-service-mode-qualifier : str
+				tti-style : str
+				tim-monitor : str
+				tx-tti : str
+				-rx-tti : str
+				-rx-tti-hex : str
+				expected-tti : str
+				loopback : str
+				loopback-mode : str
+				test-signal-type : str
+				test-signal-direction : str
+				test-signal-monitoring : bool
+				-circuit-id : str
+			fc
+				-fc-type : str
+				-service-mode : str
+				-service-mode-qualifier : str
+				-speed : str
+				tx-mapping-mode : str
+				expected-mapping-mode : str
+				name : str
+				-supporting-card : unknown
+				-managed-by : str
+				-supporting-port : unknown
+				-supporting-facilities : str
+				-supported-facilities : str
+				-AID : str
+				label : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				alarm-report-control : str
+				loopback : str
+				loopback-mode : str
+				test-signal-type : str
+				test-signal-direction : str
+				test-signal-monitoring : bool
+				-circuit-id : str
+		services
+			xcon
+				name : str
+				+source : str
+				+destination : str
+				-src-time-slots : str
+				-dst-time-slots : str
+				-managed-by : str
+				-payload-treatment : str
+				-network-mapping : str
+				-type : str
+				-protection-type : str
+				-from-adaptation : str
+				-to-adaptation : str
+				-used-resources : str
+				-AID : str
+				-avail-state : str
+				-oper-state : str
+				payload-type : str
+				direction : str
+				circuit-id-suffix : str
+				label : str
+				-circuit-id : str
+			oxcon
+				name : str
+				+source : str
+				+destination : str
+				direction : str
+				target-output-power-src : str
+				target-output-power-dst : str
+				-target-actual-power-dst : str
+				-target-actual-power-src : str
+				-target-actual-psd-dst : str
+				-target-actual-psd-src : str
+				-AID : str
+				label : str
+				-avail-state : str
+				-oper-state : str
+		system
+			security
+				security-policies
+					secure-mode : bool
+					strict-password-check : bool
+					minimum-password-length : int
+					ssh-authentication-method : str
+					enforce-password-history-check : bool
+					aaa-authentication-method : str
+					aaa-authorization-method : str
+					ssh-strict-host-key-checking : str
+					root-password : str
+					console-user-password : str
+					console-user-enabled : bool
+					csp-symmetrical-key : str
+					-max-system-sessions : int
+					-max-local-users : int
+					disable-user-lockout : bool
+					supported-tls-version : str
+					crl-based-revocation : bool
+					crl-download-timeout : int
+					ocsp-based-revocation : bool
+					default-user-group : unknown
+					ssh-ciphers : str
+					ssh-macs : str
+					ssh-key-exchanges : str
+					ssh-host-key-algorithms : str
+					ssh-public-key-algorithms : str
+					tls-1.2-cipher-suites : str
+					tls-1.3-cipher-suites : str
+					tls-curves : str
+					supported-signature-hash-algorithms : str
+					db-passphrase : str
+				niap
+					expected-niap-compliance : bool
+					-niap-compliance : bool
+					-non-compliance-reason : str
+				image-keys
+					ISKs
+						ISK
+							is-key-in-use : bool
+							is-key-verified : bool
+							being-deleted : bool
+							name : str
+							CPU : int
+							key-name : str
+							key-serial-number : str
+							issuer-name : str
+							key-length : int
+							key-payload : str
+							KRK-name : str
+							signature-hash-scheme : str
+							signature-algorithm : str
+							signature-payload : str
+							signature-gen-time : str
+					KRKs
+						KRK
+							name : str
+							CPU : int
+							key-name : str
+							key-serial-number : str
+							issuer-name : str
+							key-length : int
+							key-payload : str
+				key-replacement-package
+					KRP-name : str
+					KRP-version : int
+					install-status : str
+					key-name : str
+					key-serial-number : str
+					issuer-name : str
+					key-length : int
+					key-payload : str
+					KRK-name : str
+					signature-hash-scheme : str
+					signature-algorithm : str
+					signature-payload : str
+					signature-gen-time : str
+				certificates
+					certificate-revocation
+						crls
+							crl
+								name : str
+								issuer : str
+								crl-number : int
+								effective-date : str
+								next-update : str
+								type : str
+								status : str
+								last-used-time : str
+								associated-cdp : unknown
+								downloaded-from-uri : str
+								issuing-distribution-point-uri : str
+								-signature-key-type : str
+								-signature-hash-algorithm : str
+						cdps
+							cdp
+								name : str
+								+url : str
+								enabled : bool
+								refresh-interval : str
+								-next-update-time : str
+								-last-update-time : str
+								-last-update-result : str
+						ocsp-servers
+							ocsp-server
+								name : str
+								+url : str
+								enabled : bool
+								+priority : int
+								-last-query : str
+					secure-applications
+						secure-application
+							id : str
+							-type : str
+							-in-use : unknown
+							-status : str
+							verify-client-cert : str
+							active-certificate-id : str
+					trusted-certificate
+						id : str
+						-version : str
+						-serial-number : str
+						-subject-name : str
+						-issuer : str
+						-valid-from : str
+						-valid-to : str
+						-modification-time : str
+						-status : str
+						-public-key-length : str
+						-public-key-type : str
+						-certificate-bytes : str
+						revocation-mode : str
+						-trust-chain : unknown
+						-key-usage : str
+						-extended-key-usage : str
+						-signature-key-type : str
+						-signature-hash-algorithm : str
+						alarm-report-control : str
+						label : str
+					local-certificate
+						-self-signed : bool
+						id : str
+						-version : str
+						-serial-number : str
+						-subject-name : str
+						-issuer : str
+						-valid-from : str
+						-valid-to : str
+						-modification-time : str
+						-status : str
+						-public-key-length : str
+						-public-key-type : str
+						-certificate-bytes : str
+						revocation-mode : str
+						-trust-chain : unknown
+						-key-usage : str
+						-extended-key-usage : str
+						-signature-key-type : str
+						-signature-hash-algorithm : str
+						-used-by : str
+						-subject-alternative-names : str
+						alarm-report-control : str
+						label : str
+					peer-certificate
+						-white-listed : bool
+						id : str
+						-version : str
+						-serial-number : str
+						-subject-name : str
+						-issuer : str
+						-valid-from : str
+						-valid-to : str
+						-modification-time : str
+						-status : str
+						-public-key-length : str
+						-public-key-type : str
+						-certificate-bytes : str
+						revocation-mode : str
+						-trust-chain : unknown
+						-key-usage : str
+						-extended-key-usage : str
+						-signature-key-type : str
+						-signature-hash-algorithm : str
+						-used-by : str
+						-subject-alternative-names : str
+						alarm-report-control : str
+						label : str
+				user
+					user-name : str
+					password : str
+					password-hashed : str
+					display-name : str
+					max-invalid-login : int
+					suspension-time : int
+					timeout : int
+					password-aging-interval : int
+					-password-expiration-date : str
+					enabled : bool
+					-user-status : str
+					force-password-change : bool
+					max-sessions : int
+					-last-login-date : str
+					-failed-logins : int
+					-user-aaa-type : str
+					user-group : unknown
+					alarm-report-control : str
+					label : str
+				user-group
+					name : str
+					description : str
+				session
+					session-id : str
+					session-user : str
+					session-type : str
+					session-protocol : str
+					created-time : str
+					local-ip-address : str
+					-dial-out-server-name : unknown
+				aaa-server
+					server-name : str
+					+server-priority : int
+					+protocol-supported : str
+					+server-address : str
+					server-port : str
+					server-port-authentication : str
+					server-port-accounting : str
+					shared-secret : str
+					role-supported : str
+					enabled : bool
+					timeout : int
+					retry : int
+					source-ip : str
+					common-password : str
+					-oper-state : str
+			syslog
+				remote-logging-switch : bool
+				log-relay : bool
+				source-address : str
+				log-file-message-coalescence : bool
+				niap-compliant-logging : bool
+				assignment-method : str
+				alarm-report-control : str
+				label : str
+				log-console
+					enabled : bool
+					source-facilities : str
+					log-console-facility-filter
+						name : str
+						severity : str
+						compare-op : str
+				log-server
+					name : str
+					+address : str
+					transport : str
+					port : str
+					destination-facility-override : str
+					pattern-match : str
+					message-coalescence : bool
+					enabled : bool
+					message-format : str
+					origin : str
+					source-facilities : str
+					log-server-facility-filter
+						name : str
+						severity : str
+						compare-op : str
+				log-file
+					name : str
+					number-of-files : int
+					max-file-size : int
+					pattern-match : str
+					source-facilities : str
+					log-file-facility-filter
+						name : str
+						severity : str
+						compare-op : str
+			protocols
+				ssh
+					enabled : bool
+					port : int
+					pre-login-message : str
+					post-login-message : str
+					ssh-host-key
+						fingerprint-algorithm : str
+						fingerprint : str
+						public-key-algorithm : str
+						public-key : str
+						label : str
+					ssh-known-host
+						id : str
+						+address : str
+						public-key-algorithm : str
+						public-key : str
+						label : str
+					ssh-authorized-key
+						user-name : str
+						key-id : str
+						public-key-algorithm : str
+						public-key : str
+						label : str
+				cli
+					enabled : bool
+					port : int
+					-script-dir : str
+					default-interactive-mode : bool
+					cli-alias
+						name : str
+						value : str
+					cli-session-config
+						session-id : str
+						cli-lines : int
+						cli-columns : int
+						interactive-mode : bool
+						display-timestamp : bool
+				serial-console
+					global-switch : str
+					global-timeout : int
+				netconf
+					enabled : bool
+					port : int
+					annotate-cli-name : bool
+					hello-timeout : int
+				tl1
+					tl1-over-ssh-enabled : bool
+					ssh-interactive-port : int
+					ssh-scripting-port : int
+				restconf
+					enabled : bool
+					http-enabled : bool
+					https-enabled : bool
+					http-port : int
+					https-port : int
+					cookie-timeout : int
+					-api-root : str
+				grpc
+					enabled : bool
+					port : int
+					gnmi-get-encoding-granularity : str
+				snmp
+					enabled : bool
+					port : int
+					-snmp-engine-id : str
+					-engine-boot-count : int
+					snmp-community
+						name : str
+						+community-string : str
+						enabled : bool
+						community-string-access : str
+					snmp-target
+						target-name : str
+						enabled : bool
+						snmp-version : str
+						trap-community-string : str
+						+snmpv3-user : unknown
+						+target-address : str
+						target-port : str
+						target-transport : str
+					snmpv3-user
+						snmpv3-user-name : str
+						user-sec-level : str
+						auth-protocol : str
+						+auth-passphrase : str
+						priv-protocol : str
+						+priv-passphrase : str
+				http-file-server
+					enabled : bool
+					http-enabled : bool
+					https-enabled : bool
+					http-port : int
+					https-port : int
+					-url-base : str
+				fast-telemetry
+					enabled : bool
+					protocol : str
+					port : int
+				dial-out-server
+					name : str
+					+address : str
+					protocol : str
+					port : int
+					-transport : str
+					retry-policy : str
+					retry : int
+					timeout : int
+					auto-connect : bool
+					-connection-state : str
+					alarm-report-control : str
+					label : str
+				data-model
+					name : str
+					-description : str
+					enabled : bool
+			scheduled-tasks
+				task
+					name : str
+					enabled : bool
+					+command : str
+					command-type : str
+					frequency : str
+					start-time : str
+					end-time : str
+					persistent : bool
+					-task-status : str
+					-next-run : str
+					-previous-run : str
+					-previous-result : str
+					-previous-output : str
+					label : str
+					alarm-report-control : str
+			ztp
+				ztp-mode : str
+				ztp-state : str
+				ztp-details : str
+				ztp-completion-status : str
+			transfer
+				http-proxy : str
+				-debug-log-optional-content : str
+				transfer-status
+					filetype : str
+					operation : str
+					last-completion-status : str
+					last-transfer : str
+					last-duration : str
+					transfer-type : str
+					session-id : str
+					session-user-name : str
+					filename : str
+			networking
+				use-as-source : str
+				routing
+					ipv4-static-route
+						+ipv4-destination-prefix : str
+						advertised : bool
+						next-hop-address : str
+						vrf : unknown
+						distance : int
+						interface : unknown
+						-monitoring-state : str
+						-monitoring-instance : str
+						origin : str
+					ipv6-static-route
+						+ipv6-destination-prefix : str
+						vrf : unknown
+						advertised : bool
+						next-hop-address : str
+						distance : int
+						interface : unknown
+						-monitoring-state : str
+						-monitoring-instance : str
+						origin : str
+					ospf-instance
+						+router-id : str
+						instance-id : int
+						version : str
+						description : str
+						-vrf : unknown
+						router-id-mode : str
+						ospf-area
+							ospf-area-id : str
+							ospf-area-type : str
+							ospf-area-range
+								prefix : str
+								advertise : bool
+							ospf-interface
+								ospf-if-name : unknown
+								ospf-if-routing : str
+								enable : bool
+								hello-interval : int
+								router-dead-interval : int
+								retransmission-interval : int
+								transmit-delay : int
+								ospf-cost : int
+								-ospf-network-type : str
+								priority : int
+								ospf-auth-enable : bool
+								ospf-auth-algorithm : str
+								ospf-auth-key : str
+								ospfv3-ipsec-security-association
+									spi : int
+									ipsec-protocol : str
+									ipsec-mode : str
+									+integrity-algorithm : str
+									auth-key
+										type : str
+										+key : str
+					ip-monitoring
+						name : str
+						probe-interval : int
+						+destination : str
+						drop-rate : int
+						enabled : bool
+						-monitoring-state : str
+						action : str
+						+next-hop : str
+						static-route : str
+						alarm-report-control : str
+				access-control-list
+					acl
+						name : str
+						+type : str
+						+interface : unknown
+						admin-state : str
+						-avail-state : str
+						-oper-state : str
+						ace
+							sequence-id : int
+							direction : str
+							logging-action : bool
+							source-ip-address : str
+							source-lower-port : str
+							source-upper-port : str
+							destination-ip-address : str
+							destination-lower-port : str
+							destination-upper-port : str
+							ttl : str
+							action : str
+							protocol : str
+							label : str
+				dns
+					enabled : bool
+					search : str
+					assignment-method : str
+					dns-server
+						address : str
+						origin : str
+				interface
+					+if-name : str
+					if-description : str
+					+if-type : str
+					-supporting-port : str
+					-backup-port : str
+					protection-mode : str
+					-protection-state : str
+					-vrf : unknown
+					ipv4-enabled : bool
+					ipv4-address-assignment-method : str
+					ipv6-enabled : bool
+					ipv6-address-assignment-method : str
+					proxy-arp-enabled : bool
+					admin-state : str
+					-avail-state : str
+					-oper-state : str
+					alarm-report-control : str
+					label : str
+					ipv4-address
+						+ip : str
+						+netmask : str
+						-origin : str
+					ipv6-address
+						+ip : str
+						+prefix-length : int
+						-origin : str
+				vrf
+					name : str
+					-type : str
+					-chassis-name : unknown
+					-description : str
+				rib
+					rib-name : str
+					vrf : unknown
+					address-family : str
+					route
+						destination-prefix : str
+						next-hop
+							interface : unknown
+							next-hop-address : str
+			clock
+				-current-time : str
+				-universal-time : str
+				timezone : str
+				-uptime : str
+				-time-source : str
+				-DST-active : bool
+				-last-time-jump : str
+			ntp
+				ntp-enabled : bool
+				ntp-auth-enabled : bool
+				-ntp-active-server : str
+				assignment-method : str
+				ntp-key
+					key-id : int
+					+key-type : str
+					+key-value : str
+					is-trusted : bool
+				ntp-server
+					ip-address : str
+					origin : str
+					auth-key-id : str
+					label : str
+					admin-state : str
+					-avail-state : str
+					-oper-state : str
+					alarm-report-control : str
+					ntp-server-status
+						refid : str
+						stratum : int
+						type : str
+						when : int
+						poll : int
+						reach : int
+						delay : str
+						offset : str
+						jitter : str
+						auth-status : str
+						condition : str
+			sw-services
+				sw-control-rule
+					service-name : str
+					+fail-action : str
+				sw-service
+					sv-name : str
+					equipment : unknown
+					location : str
+					state : str
+					state-details : str
+					cpu-usage : int
+					memory-usage : int
+					uptime : str
+					last-start-time : str
+					reboot-count : int
+				sw-container
+					container-name : str
+					equipment : unknown
+					state : str
+					description : str
+					cpu-usage : int
+					memory-usage : int
+					uptime : str
+			sw-management
+				downloads
+					manifest
+						manifest-file : str
+						manifest-signature : str
+						downloaded-on : str
+						information : str
+						fru-info
+							equipment-type : str
+							manifest-component
+								state : str
+								version : str
+								name : str
+								description : str
+							manifest-firmware
+								fw-name : str
+								fw-version : str
+						downloaded-image
+							name : str
+							signature : str
+							image-type : str
+				software-location
+					location-id : str
+					third-party-app-info
+						app-name : str
+						-version : str
+						-state : str
+						-information : str
+					software-load
+						swload-state : str
+						swload-version : str
+						swload-manifest : str
+						swload-prepared : bool
+						swload-status : str
+						swload-information : str
+						swload-activation-type : str
+						swload-vendor : str
+						swload-product : str
+						swload-label : str
+						swload-delta-label : str
+						swload-pkg-type : str
+						sw-component
+							state : str
+							version : str
+							name : str
+							description : str
+							sw-subcomponent
+								state : str
+								version : str
+								name : str
+								description : str
+						packaged-fw
+							equipment-type : str
+							fw-name : str
+							fw-version : str
+				third-party-app
+					-vendor : str
+					-product : str
+					-label : str
+					enable : bool
+					app-name : str
+					-version : str
+					-state : str
+					-information : str
+				third-party-fw
+					fw-name : str
+					file-status : str
+					path : str
+					version : str
+					crc : str
+					vendor : str
+					nsa-upgrade-version : str
+					part-number : str
+					present-in-eqpt : str
+					applicable-eqpt : str
+				software-load
+					swload-state : str
+					swload-version : str
+					swload-manifest : str
+					swload-prepared : bool
+					swload-status : str
+					swload-information : str
+					swload-activation-type : str
+					swload-vendor : str
+					swload-product : str
+					swload-label : str
+					swload-delta-label : str
+					swload-pkg-type : str
+					sw-component
+						state : str
+						version : str
+						name : str
+						description : str
+						sw-subcomponent
+							state : str
+							version : str
+							name : str
+							description : str
+					packaged-fw
+						equipment-type : str
+						fw-name : str
+						fw-version : str
+			file-servers
+				file-server
+					name : str
+					+server-address : str
+					server-port : int
+					+protocol : str
+					user-name : str
+					password : str
+					initial-path : str
+					label : str
+			telemetry
+				subscriptions
+					current-subscription
+						subscription-name : str
+						related-session-id : str
+						related-dial-out-server : unknown
+						+session-type : str
+						session-protocol : str
+						encoding : str
+						transfer-mode : str
+						updates-only : bool
+						user-access : str
+						subscription-path
+							subscription-path-name : str
+							+subscription-path : str
+							subscription-path-origin : str
+							subscription-path-mode : str
+							sample-interval : int
+							heartbeat-interval : int
+							suppress-redundant : bool
+			fdr
+				streaming-mode : str
+			recovery
+				restore-from-chassis-storage : str
+				-restore-status : str
+				-backup-status : str
+				-last-backup : str
+				-next-backup : str
+			database
+				database-type : str
+				database-state : str
+				database-version : str
+				database-vendor : str
+				database-product : str
+				ne-name : str
+				node-controller-serial-number : str
+				loopback-ipv4 : str
+				loopback-ipv6 : str
+				backup-time : str
+				fips-mode : str
+				description : str
+		ne-function
+			amplifier
+				amplifier-enable : str
+				control-mode : str
+				-amplifier-mode : str
+				-pump-state : str
+				gain-range-control : str
+				span-loss-control : str
+				gain-range-target : str
+				-gain-range-actual : str
+				gain-target : str
+				-gain-operating : str
+				-optimum-edfa-gain : str
+				gain-adjustment : str
+				+-amplifier-type : str
+				-output-power-mon : str
+				-output-power-mon-with-ase : str
+				-input-power-mon : str
+				output-voa-attenuation : str
+				-output-voa-actual : str
+				-power-before-output-voa : str
+				-interstage-loss : str
+				tilt-control-mode : str
+				tilt-target : str
+				tilt-adjustment : str
+				-tilt-actual : str
+				raman-signal-gain : str
+				raman-osc-gain : str
+				-function : str
+				name : str
+				-supporting-card : unknown
+				-supporting-input-port : unknown
+				-supporting-output-port : unknown
+				-AID : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				label : str
+				alarm-report-control : str
+				supported-gain-range
+					gain-range-type : str
+					gain-range-min : str
+					gain-range-max : str
+			amplifier-raman
+				control-mode : str
+				-raman-state : str
+				amplifier-enable : str
+				-connected-amplifier : str
+				connected-amp-edfa-optimum-gain : str
+				-total-pump-power : str
+				target-raman-gain : str
+				-actual-raman-signal-gain : str
+				-actual-raman-osc-gain : str
+				-function : str
+				name : str
+				-supporting-card : unknown
+				-supporting-input-port : unknown
+				-supporting-output-port : unknown
+				-AID : str
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				label : str
+				alarm-report-control : str
+				pump-power
+					pump-id : int
+					target-pump-power : str
+					-configured-pump-power : str
+					-actual-pump-power : str
+			degree
+				degree-number : int
+				-slot-width-granularity : int
+				-center-freq-granularity : int
+				-min-slots : int
+				-max-slots : int
+				label : str
+				connection-ports
+					index : int
+					+port-name : str
+				modules-degree
+					index : int
+					+supported-card : str
+			adg
+				adg-number : int
+				-max-add-drop-ports : int
+				-wavelength-duplication : str
+				label : str
+				modules-adg
+					index : int
+					+supported-card : str
+		topology
+			lldp
+				hold-on-timer : int
+				lldp-neighbor
+					lldp-port : str
+					direction : str
+					chassis-id-subtype : str
+					chassis-id : str
+					port-id-subtype : str
+					port-id : str
+					port-description : str
+					system-name : str
+					system-description : str
+					supported-capabilities : str
+					enabled-capabilities : str
+					ttl : int
+					last-update : str
+					age : int
+					management-address
+						address-subtype : str
+						address : str
+						if-subtype : str
+						if-id : int
+						address-oid : str
+					custom-tlv
+						oui : str
+						subtype : int
+						value : str
+				lldp-port-statistics
+					lldp-port : str
+					direction : str
+					last-change-time : str
+					last-clear-time : str
+					total-ageouts : int
+					total-discarded-frames : int
+					error-frames : int
+					total-frames-in : int
+					total-frames-out : int
+					total-discarded-tlvs : int
+					total-unrecognized-tlvs : int
+			icdp
+				global-switch : bool
+				carrier-neighbor
+					local-carrier : str
+					local-carrier-id : str
+					ne-id : str
+					ne-name : str
+					ne-type : str
+					remote-carrier-id : str
+					ipv4-loopback-address : str
+					ipv6-loopback-address : str
+					last-update : str
+					age : int
+			inci
+				inci-enabled : bool
+				inci-neighbor
+					neighbor-id : str
+					+neighbor-address : str
+					-neighbor-port : int
+					-connection-status : str
+					+configured-node-name : str
+					-discovered-node-name : str
+					-discovered-node-id : str
+					-oper-state : str
+					alarm-report-control : str
+					label : str
+			links
+				fiber-connection
+					name : str
+					src-port : str
+					dst-port : str
+					fiber-connection-type : str
+					label : str
+				external-fiber-connection
+					name : str
+					src-node-id : str
+					src-card-name : str
+					src-port-name : str
+					dst-node-id : str
+					dst-card-name : str
+					dst-port-name : str
+					fiber-connection-type : str
+					label : str
+				nct-connection
+					src-port : str
+					dst-port : str
+					src-chassis : str
+					dst-chassis : str
+					src-chassis-state : str
+					dst-chassis-state : str
+		system-capabilities
+			equipment-capabilities
+				gadt
+					version : str
+					application-description
+						application : str
+						application-description : str
+				supported-chassis
+					chassis-type : str
+					description : str
+					controller-redundancy-supported : bool
+					power-control-supported : bool
+					depth : int
+					height : int
+					number-of-front-slots : int
+					number-of-rear-slots : int
+					leds : str
+					supported-subchassis-type : unknown
+					supported-slot
+						slot-name : str
+						slot-location : str
+						slot-vertical-position : int
+						slot-horizontal-position : int
+						auto-provision-capable : bool
+						default-card : str
+						requires-blank-when-empty : str
+						reset-power : str
+						virtual-slot : bool
+						possible-card-types : str
+						leds : str
+						configuration-mode : str
+				supported-card
+					card-type : str
+					description : str
+					default-card-mode : str
+					card-width : str
+					card-height : int
+					is-field-replaceable : bool
+					location-led-support : bool
+					console-port-support : str
+					default-console-baud-rate : str
+					support-serdes-config : bool
+					supported-subtype : str
+					supported-card-mode : str
+					leds : str
+					-sw-support-revision : int
+					-category : str
+					-max-power-draw : str
+					gsct
+						version : str
+						subtype-constraint
+							subtype : str
+							min-capacity : int
+							max-capacity : int
+							description : str
+							supported-applications : str
+							unsupported-applications : str
+					gcmt
+						version : str
+						golden-carrier-mode
+							compatibility-id : int
+							status : str
+							supported-subtypes : str
+							carrier-mode : str
+							-capacity : int
+							-client-mode : str
+							-baud-rate : str
+							-application : str
+					gapt
+						version : str
+						applicable-resource-type : str
+						golden-advanced-parameter
+							name : str
+							description : str
+							type : str
+							supported-values : str
+							direction : str
+							multiplicity : int
+							-configuration-impact : str
+							-service-impact : str
+					supported-power-profile
+						name : str
+						profile-description : str
+						power-draw : str
+						default : bool
+					supported-port
+						port-name : str
+						faceplate-label : str
+						present : str
+						default-tom : str
+						parent-port : str
+						leds : str
+						subport-list : str
+						-port-type : str
+						-direction : str
+						configuration-mode : str
+						supported-tom
+							tom-type : str
+							tom-subtype-group : str
+							default-phy-mode : str
+							supported-subtype : str
+							supported-phy-modes : str
+					supported-slot
+						slot-name : str
+						slot-location : str
+						slot-vertical-position : int
+						slot-horizontal-position : int
+						auto-provision-capable : bool
+						default-card : str
+						requires-blank-when-empty : str
+						reset-power : str
+						virtual-slot : bool
+						possible-card-types : str
+						leds : str
+						configuration-mode : str
+				tom-type
+					tom-type : str
+					data-rate : int
+					description : str
+					support-third-party-toms : bool
+					generic-subtype : str
+			l0-capabilities
+				oadm-capabilities
+					max-degrees : int
+					max-adgs : int

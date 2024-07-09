@@ -1,0 +1,234 @@
+{
+    "module": {
+        "@name": "ioa-data-path-encryption",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-dp-encr": "http://infinera.com/yang/ioa/data-path-encryption",
+        "@xmlns:ioa-common": "http://infinera.com/yang/ioa/common",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/data-path-encryption"
+        },
+        "prefix": {
+            "@value": "ioa-dp-encr"
+        },
+        "import": {
+            "@module": "ioa-common",
+            "prefix": {
+                "@value": "ioa-common"
+            }
+        },
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module that defines encryption related entities that are\npart of a typical optical L1 transponder and are applicable\nto all data plane encryption schemes supported on Infinera products."
+        },
+        "revision": [
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            }
+        ],
+        "grouping": {
+            "@name": "data-path-encryption",
+            "container": {
+                "@name": "data-path-encryption",
+                "description": {
+                    "text": "A top-level container for all data path encryption services and entities."
+                },
+                "list": {
+                    "@name": "secure-entity",
+                    "key": {
+                        "@value": "name"
+                    },
+                    "description": {
+                        "text": "List of l1 encryption secure entities."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "name",
+                            "type": {
+                                "@name": "ioa-common:object-name"
+                            },
+                            "description": {
+                                "text": "A name for the data path l1 encryption secure entity (SecY)."
+                            }
+                        },
+                        {
+                            "@name": "supporting-entity-type",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "wavelength-encryption",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "The secure entity type is an optical carrier."
+                                        }
+                                    },
+                                    {
+                                        "@name": "odu-encryption",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "The secure entity type is ODU."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "wavelength-encryption"
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Indicates supporting entity type."
+                            }
+                        },
+                        {
+                            "@name": "enabled",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "Indicates whether the SecY are configured and attached to any data path entity."
+                            }
+                        },
+                        {
+                            "@name": "supporting-facility",
+                            "type": {
+                                "@name": "instance-identifier"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The optical carrier that needs data path encryption."
+                            }
+                        },
+                        {
+                            "@name": "remote-secure-entity",
+                            "type": {
+                                "@name": "ioa-common:object-name"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Refers to the far-end  secure entity's object name (XPath).\nRequired by IKEv2 - This will be used by IKEv2 as a traffic selector."
+                            }
+                        },
+                        {
+                            "@name": "re-key-frequency",
+                            "type": {
+                                "@name": "uint32",
+                                "range": {
+                                    "@value": "300..86400"
+                                }
+                            },
+                            "units": {
+                                "@name": "seconds"
+                            },
+                            "default": {
+                                "@value": "300"
+                            },
+                            "description": {
+                                "text": "The re-key frequency for the data path encryption service."
+                            }
+                        },
+                        {
+                            "@name": "re-key-fail-policy",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "kill-traffic",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "Bring down the data path encrypted service if re-key was unsuccessful."
+                                        }
+                                    },
+                                    {
+                                        "@name": "continue-traffic",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "Continue the data path encrypted service even if re-key was unsuccessful."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "continue-traffic"
+                            },
+                            "description": {
+                                "text": "Indicates the NE's policy and consequent action when re-keying\nthe data path security association is unsuccessful."
+                            }
+                        },
+                        {
+                            "@name": "traffic-kill-offset",
+                            "when": {
+                                "@condition": "../re-key-fail-policy = 'kill-traffic'"
+                            },
+                            "type": {
+                                "@name": "uint32",
+                                "range": {
+                                    "@value": "0..86400"
+                                }
+                            },
+                            "units": {
+                                "@name": "seconds"
+                            },
+                            "default": {
+                                "@value": "0"
+                            },
+                            "description": {
+                                "text": "If the re-key fail policy is set to KILL-TRAFFIC, this attribute indicates the amount of time\nthe system waits before killing encrypted data path."
+                            }
+                        }
+                    ],
+                    "uses": [
+                        {
+                            "@name": "ioa-common:aid",
+                            "refine": {
+                                "@target-node": "AID",
+                                "description": {
+                                    "text": "A system-generated AID for the SecY."
+                                }
+                            }
+                        },
+                        {
+                            "@name": "ioa-common:oper-state"
+                        },
+                        {
+                            "@name": "ioa-common:arc"
+                        },
+                        {
+                            "@name": "ioa-common:label"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

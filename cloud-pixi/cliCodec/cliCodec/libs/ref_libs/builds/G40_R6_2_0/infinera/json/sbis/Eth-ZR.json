@@ -1,0 +1,475 @@
+{
+    "ne": {
+        "facilities": {
+            "eth-zr": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A generic, configurable name for every facility.",
+                        "key": true,
+                        "mandatory": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "interface-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "400ZR"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Interface type of ZR tom.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "400ZR",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "rate": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Carried signal basic rate class",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "modulation-format": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "not-applicable",
+                                "DP-QPSK",
+                                "DP-16QAM",
+                                "DP-8QAM",
+                                "BPSK",
+                                "DP-16QAM-E",
+                                "DP-16QAM-PS"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Current modulation format",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fec-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "cfec",
+                                "ofec",
+                                "G709",
+                                "noFEC",
+                                "i4",
+                                "i7",
+                                "sdfec15",
+                                "sdfec15nd",
+                                "staircase7",
+                                "ufec7",
+                                "sdfec20",
+                                "RS-528_514",
+                                "RS-544_514"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The FEC type",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "ofec",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "total-time-slots": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "The member of the slots to be supported as times of 100G: rate-class/100.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "available-time-slots": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A list of time-slots that are available for provisioning new services.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fdd-monitoring": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The configured FEC Detected Degrade (FDD) monitoring mode.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fdd-threshold": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The threshold for FEC Detected Degrade (FDD) alarm.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.0195",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fdd-clear-threshold": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The threshold for FEC Detected Degrade (FDD) alarm clear.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.01062",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fed-monitoring": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The configured FEC Excessive Degrade (FED) monitoring mode.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fed-threshold": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The threshold for FEC Excessive Degrade.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.0206",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "fed-clear-threshold": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The threshold for FEC Excessive Degrade (FED) alarm clear.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "0.01125",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "link-degrade-indication": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "none",
+                                "local-degraded",
+                                "remote-degraded",
+                                "local-and-remote-degraded"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The local and remote link degradation status.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "loopback-host-interface": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "none",
+                                "facility",
+                                "terminal"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Loopback on host interface. Useful to debug on the fiber connection.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "loopback-modem-interface": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "none",
+                                "facility",
+                                "terminal"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Loopback on modem interface. Useful to debug on the fiber connection.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "carriers": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "A list of carriers that are bound to this facilities.\nPossible values can be any card/resources/supported-carriers.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Card that holds this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "managed-by": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "system",
+                                "user"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Describes whether this facility was system created or not.\nOnly user created facilities can be user deleted.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "system",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Ports that hold this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the parent facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supported-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the children facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "loopback": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "none",
+                                "facility",
+                                "terminal"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Loopback mode.Useful to debug on the fiber connection.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "circuit-id": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "System configured circuit ID, present in XCONs and associated facilities.\nFor facilities, circuit-id is only filled in if an associated XCON exists.\n   Format of this ID is:\n   <timestamp>|<ne-name>|<XCON-AID>|<user-configured-sufix>\n   Example:\n   2020-05-05T21:06:02Z|GX|1-4-T9,1-4-L1-1-ODUji#1|my-suffix\n\n   Timestamp is the NE time at xcon creation, in UTC.\n   If necessary, ne-name will be truncated so that total length remains at 128 characters.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

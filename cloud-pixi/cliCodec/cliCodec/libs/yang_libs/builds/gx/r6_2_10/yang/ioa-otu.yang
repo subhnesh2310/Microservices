@@ -1,0 +1,129 @@
+module ioa-otu {
+    namespace "http://infinera.com/yang/ioa/otu";
+    prefix ioa-otu;
+
+    import ioa-common { prefix ioa-common; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+    import ioa-otn-common { prefix ioa-otn; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG definitions for OTN Optical channel Transport Unit (OTU) facilities 
+                 in a typical Layer 1 optical transponder.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    grouping otu {
+        description "A re-usable grouping that formulates the standard ITU-T G.709 OTUCn/OTUk facility model structure.";       
+
+        list otu {
+            key name;
+            description "Facility describing the OTUCn/OTUk according with standard ITU-T G.709.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+             leaf otu-type {
+                type ioa-otn:otu-type;
+                config false;
+                description "The protocol type of the OTUk/OTUCn client.";
+                reference "Section 7.4 in ITU-T G.875 (12/2018) and ITU-T G.709";
+            }
+
+            leaf rate {
+                type ioa-otn:rate;
+                config false;
+                description "The speed/rate of the OTUk/OTUCn client interface.";
+                reference "Table 7-1 in ITU-T G.709 (June 2016).";
+            }
+
+            leaf otu-name {
+                type string { length 0..32; }
+                config false;
+                description "A system-defined user friendly name for this otu, considering both the type and the rate.
+                             Examples: OTUC4, OTUC5i90";
+            }
+
+            leaf service-mode {
+                type ioa-fac-common:service-mode;
+                default "none";
+                config false;
+                description "This attribute is to align with legacy Infinera OTN virtualization attribute (SM). 
+                             The 'service mode' attribute indicates the OTUk/OTUCn client's treatment/processing 
+                             vis-a-vis the service type (OTN multiplexing, OTU transport, ...)";
+                reference "Infinera OTN Virtualization System Requirements Document (SRD).";
+            }
+
+            leaf service-mode-qualifier {
+                type ioa-fac-common:service-mode-qualifier;
+                default "none";
+                config false;
+                description "This attribute is to align with legacy Infinera OTN virtualization attribute (SMQ). 
+                             The 'service mode qualifier' attribute further adds to the 'service mode' attribute 
+                             to indicate the OTUk/OTUCn client's contained payload vis-a-vis the service type 
+                             (OTN multiplexing, OTU transport, ...)";
+                reference "Infinera OTN Virtualization System Requirements Document (SRD).";
+            }
+
+            leaf fec-mode {
+                type ioa-common:enable-switch;
+                default enabled;
+                description "The configured Forward Error Correction (FEC) mode on the OTUk/OTUCn client.";
+                reference "ITU-T G.709, G.709.1 and B100G standards.";
+            }
+
+            leaf fec-generation-mode {
+                type ioa-common:enable-switch;
+                default enabled;
+                description "The configured FEC generation mode on the OTUk/OTUCn client towards the far-end receiver.";
+            }
+
+            leaf fec-type {
+                type ioa-fac-common:fec-type;
+                default noFEC;
+                description "The FEC type";
+            }
+
+            uses ioa-fac-common:loopback;
+            uses ioa-fac-common:loopback-mode;
+
+            uses ioa-common:circuit-id;
+
+            list otu-diagnostics {
+                key direction;
+                description "Set of attributes associated with OTU diagnostics.Each direction has their own values.";
+
+                leaf direction {
+                    type ioa-fac-common:direction;
+                    description "Diagnostics direction.Can be ingress or egress.";
+                }
+                uses otu-diagnostics;
+            }
+        }
+    }
+
+    grouping otu-diagnostics {
+        description "Set of attributes associated with OTU diagnostics.";
+        uses ioa-otn:otn-diagnostics;
+        uses ioa-fac-common:nmoper-alarm-reporting;
+        uses ioa-otn:otn-degrade;
+    }
+}

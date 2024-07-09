@@ -1,0 +1,24 @@
+module ioa-ietf {
+    namespace "http://infinera.com/yang/ioa/common/ioa-ietf";
+    prefix ioa-ietf;
+
+    import ietf-netconf {prefix nc; }
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "Proprietary Infinera augments to IETF modules.";
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    augment "/nc:edit-config/nc:input" {
+        leaf wildcard-support {
+            type boolean;
+            default false;
+            description "If true, allow configuration data to have lists without all keys included,
+                         which acts as a wildcard edition.";
+        }
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "namespace": "http://infinera.com/yang/ioa/rpc",
+    "inputs": {
+        "template-type": {
+            "type": {
+                "ptype": "str",
+                "values": [
+                    "serdes-template"
+                ]
+            },
+            "isList": false,
+            "description": "The type of template to apply. Other parameters may be required depending on the template type.",
+            "mandatory": true
+        }
+    },
+    "cases": {
+        "serdes-template": {
+            "applicable-tom": {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": true,
+                "description": "List of TOMs to which to apply serdes-templates against.\nIf not provided (e.g. list is empty), all system TOMs will be considered for application.",
+                "mandatory": false
+            }
+        }
+    }
+}

@@ -1,0 +1,60 @@
+{
+    "system": {
+        "dns": {
+            "config": {
+                "search": {
+                    "type": {
+                        "ptype": "str"
+                    },
+                    "isList": true,
+                    "description": "An ordered list of domains to search when resolving\na host name.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": false,
+                    "default": "",
+                    "namespace": null,
+                    "hardcode": false
+                }
+            },
+            "servers": {
+                "server": [
+                    {
+                        "address": {
+                            "type": {
+                                "ptype": "str",
+                                "leafref": "../config/address"
+                            },
+                            "isList": false,
+                            "description": "References the configured address of the DNS server",
+                            "key": true,
+                            "mandatory": true,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false
+                        },
+                        "namespace": null,
+                        "config": {
+                            "address": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The address of the DNS server, can be either IPv4\nor IPv6.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "namespace": null,
+                                "hardcode": false
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/system"
+        }
+    }
+}

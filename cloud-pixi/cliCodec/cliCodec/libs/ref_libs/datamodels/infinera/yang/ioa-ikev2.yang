@@ -1,0 +1,606 @@
+module ioa-ikev2 {
+    namespace "http://infinera.com/yang/ioa/ikev2";
+    prefix ioa-ike;
+
+    import ietf-yang-types            { prefix yang;          }
+    import ietf-inet-types            { prefix inet;          }
+    import ioa-common                 { prefix ioa-common;    }
+    import ioa-ipsec                  { prefix ioa-ipsec;     }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module that defines common set of attributes for IKEv2
+                 used across (a) Data path encryption schemes (b) Management IPsec.";
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+
+    typedef ike-identity-type {
+        type enumeration {
+            enum ipv4-address {
+                value 1;
+                description "Specifies the identity as an IPv4 address.";
+            }
+
+            enum ipv6-address {
+                value 2;
+                description "Specifies the identity as an IPv6 address.";
+            }
+
+            enum fqdn {
+                value 3;
+                description "Specifies the identity as a Fully-Qualified Domain Name (FQDN) string.";
+            }
+
+            enum dnx509 {
+                value 5;
+                description "Specifies the identity as an ASN.1 X.500 Distinguished Name.";
+                reference "RFC 2247.";
+            }
+
+            enum id-key {
+                value 6;
+                description "Opaque octet stream that may be used to pass vendor-specific
+                             information for proprietary types of identification.";
+                reference "Section 3.5 in RFC 7296.";
+            }
+        }
+    }
+
+    grouping ikev2-ipsec-local-instance-host-interfaces {
+        description "A collection of attributes that provide details on
+                    the local NE IP interfaces on which this IKEv2 keying
+                    daemon is sending/receiving IKE negotiations with
+                    far-end peers.
+
+                    NOTE: Applicable to IPsec only (for now).";
+
+        list supporting-interface {
+            key "interface";
+            config false;
+
+            leaf interface {
+                type leafref {
+                    path "../../../../../networking/interface/if-name";
+                    // TODO: Relative path
+                }
+
+                description "A reference to the IPv4/IPv6 interface.";
+            }
+
+            list ipv4-endpoints {
+                key "ip-address port";
+
+                leaf ip-address {
+                    type leafref {
+                        path "../../../../../../networking/interface/ipv4-address/ip";
+                        // TODO: Relative path
+                    }
+                }
+
+                leaf port {
+                    type uint16;
+                    description "The IKEv2 UDP listen port.";
+                }
+
+                description "All local IPv4 end-points on which this IKEv2 " +
+                            "instance is listening for incoming IKE negotiations.";
+            }
+
+            list ipv6-endpoints {
+                key "ip-address port";
+
+                leaf ip-address {
+                    type leafref {
+                        path "../../../../../../networking/interface/ipv6-address/ip";
+                        // TODO: Relative path
+                    }
+                }
+
+                leaf port {
+                    type uint16;
+                    description "The IKEv2 UDP listen port.";
+                }
+
+                description "All local IPv6 end-points on which this IKEv2 " +
+                            "instance is listening for incoming IKE negotiations.";
+            }
+
+            description "List of all local interfaces on which this local " +
+                        "IKEv2 instance listens for incoming IKE negotiations.";
+        }
+    }
+
+    grouping ike-sa-protocol-proposals {
+        list ike-sa-proposal {
+            key "number";
+
+            leaf number {
+                type uint8 {
+                    range "1..max";
+                }
+                description "The proposal number for the IKE SA.";
+                reference "Section 3.3 in RFC 7296.";
+            }
+
+            leaf protocol-id {
+                type ioa-ipsec:protocol-id;
+                default "IKE";
+                config false;
+                description "The protocol ID (type) for which the IKE proposal applies to.";
+            }
+
+            list encryption-algorithm {
+                key "algorithm key-length";
+
+                leaf algorithm {
+                    type ioa-ipsec:encryption-algorithm;
+                    mandatory true;
+                    description "The encryption algorithm for the IKE SA.";
+                }
+
+                leaf key-length {
+                    type ioa-ipsec:encryption-key-length;
+                    mandatory true;
+                    description "The IKE SA encryption algorithm key length.";
+                }
+
+                description "A list of IKE SA encryption algorithms " +
+                            "advertised to the far-end IKE peer.";
+            }
+
+            leaf-list integrity-algorithm {
+                type ioa-ipsec:integrity-algorithm;
+                min-elements 1;
+                description "A list of IPsec SA integrity algorithms advertised to the far-end IKE peer.";
+            }
+
+            leaf-list dh-group {
+                type ioa-ipsec:ike-sa-dh-group;
+                min-elements 1;
+                description "A list of IKE SA Diffie-Hellman groups " +
+                            "advertised to the far-end IKE peer.";
+            }
+
+            leaf-list prf {
+                type ioa-ipsec:ike-sa-prf;
+                description "A list of IKE SA pseudo-random functions " +
+                            "advertised to the far-end IKE peer.";
+            }
+
+            description "A list of protocol proposals when negotiating the IKE SA " +
+                        "with the far-end IKE peer.";
+        }
+    }
+
+    grouping ikev2 {
+        description "Set of attributes that describe the properties of an IKEv2 protocol
+            daemon/instance that runs as part of the C-OS system software.";
+
+        container ikev2 {
+            description "Set of attributes that describe the properties of an IKEv2 protocol
+                daemon/instance that runs as part of the C-OS system software.";
+
+            leaf data-path-encryption-san-ike-id-match {
+                type enumeration {
+                    enum match {
+                        value 1;
+                    }
+                    enum ignore {
+                        value 2;
+                    }
+                }
+                default match;
+                description
+                    "A global, L1 encryption-specific policy that indicates whether the NE must
+                    validate Certificate subject alternate name to match the IKE ID (OPT-IN) or not (OPT-OUT).";
+            }
+
+            list ikev2-local-instance {
+                key "name";
+
+                description "List of local IKE protocol daemon instance.";
+
+                leaf name {
+                    type ioa-common:object-name;
+                    description "The name (ID) of the local IKE protocol daemon instance.";
+                }
+
+                leaf host-card-encryption-capability {
+                    when "../scope = 'data-path-encryption'";
+                    type enumeration {
+                        enum yes {
+                            value 1;
+                            description "Indicates that the host card supports encryption.";
+                        }
+                        enum no {
+                            value 2;
+                            description "Indicates that the host card does not support encryption.";
+                        }
+                        enum unknown {
+                            value 3;
+                            description "The host card's encryption capability is unknown.";
+                        }
+                    }
+                    default "unknown";
+                    config false;
+                    description "Indicates whether the card on which this IKEv2 local instance is
+                                running, supports the ability to do encryption.";
+                }
+
+                leaf scope {
+                    type enumeration {
+                        enum data-path-encryption {
+                            value 1;
+                            description "IKEv2 used in Infinera's data path encryption.";
+                        }
+                        enum management-ipsec {
+                            value 2;
+                            description "IKEv2 used for C-OS control and management plane security.";
+                        }
+                    }
+                    description "The scope of the IKEv2 instance for which security
+                                associations (SA) are being negotiated.";
+                }
+
+                leaf host-card {
+                    type leafref {
+                        path "../../../../../equipment/card/name";
+                    }
+
+                    config false;
+                    description "The reference to the service card on which this
+                        IKEv2 protocol instance is running.";
+                }
+
+                leaf started-time {
+                    type yang:date-and-time;
+                    config false;
+
+                    description "Local system timestamp when this IKEv2 instance
+                        was started.";
+                }
+
+                uses ioa-common:common-attributes;
+
+                uses ioa-common:admin-state {
+                    when "(./scope != 'management-ipsec')";
+                }
+
+                uses ioa-common:oper-state {
+                    when "(./scope != 'management-ipsec')";
+                }
+
+                uses ioa-common:arc;
+
+                uses ikev2-ipsec-local-instance-host-interfaces {
+                    when "(./scope = 'management-ipsec')";
+                }
+
+                container peer-authorization-database {
+                    list ikev2-peer {
+                        key "name";
+
+                        description "List of remote IKE peers associated with this local IKE instance.";
+                        reference "IETF draft-ietf-i2nsf-sdn-ipsec-flow-protection-12,
+                                   ietf-i2nsf-ike@2020-10-30.yang module and Section 4.4.3.1 in RFC 4301.";
+
+                        leaf name {
+                            type ioa-common:object-name;
+                            description "A unique identifier for each IKE peer association.";
+                        }
+
+                        leaf destination {
+                            when "(../../../scope = 'management-ipsec')";
+                            type ioa-common:host;
+                            mandatory true;
+                            description "The IPv4/IPv6 address or the domain name of the far-end IKE peer.";
+                        }
+
+                        leaf port {
+                            when "(../../../scope = 'management-ipsec')";
+                            type inet:port-number;
+                            default 500;
+                            description "The UDP port on which the IKE session exists with the far-end IKE peer.";
+                            reference "Section 2 of RFC 7296 and https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=isakmp";
+                        }
+
+                        uses ioa-common:common-attributes;
+
+                        uses ioa-common:admin-state{
+                            when "(../../scope != 'management-ipsec')";
+                        }
+
+                        uses ioa-common:oper-state;
+
+                        uses ioa-common:arc;
+
+                        leaf local-identity-type {
+                            type ike-identity-type;
+                            default "id-key";
+                            description "Type of local identity.";
+                        }
+
+                        leaf local-identity {
+                            type string{
+                                length "1..255";
+                            }
+                            description "Identity of local IKE instance.";
+                        }
+
+                        leaf peer-identity-type {
+                            type ike-identity-type;
+                            default "id-key";
+                            description "Type of peer identity.";
+                        }
+
+                        leaf peer-identity {
+                            type string{
+                                length "1..255";
+                            }
+                            description "Identity of remote IKE instance.";
+                        }
+
+                        leaf authentication-scheme {
+                            type enumeration {
+                                enum x.509-certificate {
+                                    value 1;
+                                    reference "Section 2.15 in RFC 7296.";
+                                }
+
+                                enum pre-shared-key {
+                                    value 2;
+                                    reference "Section 2.15 in RFC 7296.";
+                                }
+                            }
+                            default "x.509-certificate";
+                            description "IKEv2 authentication mechanism with the peer.";
+                        }
+
+                        leaf pre-shared-key-type {
+                            when "../authentication-scheme='pre-shared-key'";
+                            type enumeration {
+                                enum ascii { value 1; }
+                                enum hex   { value 2; }
+                            }
+                            mandatory true;
+                            description "The type of pre-shared key scheme.";
+                        }
+
+                        leaf psk-ascii {
+                            when "../pre-shared-key-type='ascii'";
+                            type string {
+                                length "8..128";
+                            }
+                            mandatory true;
+                            description "Plain-text ASCII value for the PSK.";
+                        }
+
+                        leaf psk-hex {
+                            when "../pre-shared-key-type='hex'";
+                            type string {
+                                length "16..256"; // 8..128 bytes
+                            }
+                            mandatory true;
+                            description "Binary, hexadecimal value for the PSK.";
+                        }
+
+                        leaf psk-configured-timestamp {
+                            when "../../../scope='data-path-encryption' and  ../authentication-scheme='pre-shared-key'";
+                            type yang:date-and-time;
+                            config false;
+                            description "Local NE timestamp when the PSK was configured.";
+                            reference THANOSSEC-814;
+                        }
+
+                        leaf psk-lifetime {
+                            when "../../../scope='data-path-encryption' and  ../authentication-scheme='pre-shared-key'";
+                            type uint8 {
+                                range "7..180";
+                            }
+                            units "days";
+                            default 90;
+                            description "Absolute time duration in days after which the PSK will expire.";
+                            reference THANOSSEC-85;
+                        }
+
+                        leaf psk-expiration-warning {
+                            when "../../../scope='data-path-encryption' and  ../authentication-scheme='pre-shared-key'";
+                            type uint8 {
+                                range "1..173";
+                            }
+                            units "days";
+                            default 14;
+                            description "An absolute time duration (in days) at which the NE provides a warning when the PSK is about to expire .";
+                            reference THANOSSEC-85;
+                        }
+
+                        leaf-list local-certificate {
+                            when "../../../scope!='management-ipsec' or ../authentication-scheme='x.509-certificate'";
+                            type leafref {
+                                path "../../../../../certificates/local-certificate/id";
+                            }
+                            max-elements 3;
+                            description "The locally installed certificates that the local IKEv2 instance
+                                uses with this particular IKE peer for purposes of authentication.
+                                Customers can pick one or more certificates from the list of
+                                locally installed certificates to use during IKE authentication
+                                with this far-end IKE peer. This attribute is a 'list' that
+                                allows for multiple certificates to be added → This helps in
+                                rotating the local certificate.";
+                        }
+
+                        leaf-list peer-certificate {
+                            when "../../../scope='data-path-encryption'";
+                            type leafref {
+                                path "../../../../../certificates/peer-certificate/id";
+                            }
+                            max-elements 3;
+                            description "The locally installed list of peer certificates that the
+                                instance uses to authenticate the far-end IKE peer. These
+                                certificates indicate the identity of this far-end peer.
+                                Customers can indicate multiple certificates from the list of
+                                locally installed 'peer' certificates to use during IKE
+                                authentication with this far-end IKE peer. This attribute
+                                is a 'list' that allows for multiple certificates to be
+                                added → This helps in certificate rotation and revocation.";
+                        }
+
+                        leaf last-used-local-certificate {
+                            when "../../../scope='data-path-encryption' and ../authentication-scheme='x.509-certificate'";
+                            type leafref {
+                                path "../../../../../certificates/local-certificate/id";
+                            }
+                            config false;
+                            description "A reference to the specific local entity leaf certificate
+                                that was last used during the IKE authentication with the
+                                far-end peer.";
+                        }
+
+                        leaf last-used-peer-certificate {
+                            when "../../../scope='data-path-encryption' and ../authentication-scheme='x.509-certificate'";
+                            type leafref {
+                                path "../../../../../certificates/peer-certificate/id";
+                            }
+                            config false;
+                            description "A reference to the specific peer leaf certificate
+                                that was last used to authenticate the far-end IKE peer.";
+                        }
+
+                        leaf re-key-frequency {
+                            type uint32 {
+                                range "3600..86400";
+                            }
+                            units "seconds";
+                            default "28800";
+                            description "The re-key frequency for the IKE security association with the far-end IKE peer.
+                                         Range and default values may be context-specific.";
+                        }
+
+                        leaf re-key-fail-policy {
+                            when "../../../scope='data-path-encryption'";
+                            type enumeration {
+                                enum kill-traffic {
+                                    value 1;
+                                    description "Bring down the data path encrypted service
+                                        if re-key was unsuccessful.";
+                                }
+
+                                enum continue-traffic {
+                                    value 2;
+                                    description "Continue the data path encrypted service even
+                                        if re-key was unsuccessful.";
+                                }
+                            }
+                            default "continue-traffic";
+                            description "Indicates the NE's policy and consequent action when
+                                re-keying the IKE security association is unsuccessful.";
+                        }
+
+                        leaf re-key-traffic-kill-offset {
+                            when "../../../scope='data-path-encryption' and ../re-key-fail-policy='kill-traffic'";
+
+                            type uint32 {
+                                range "0..86400";
+                            }
+                            units "seconds";
+                            default "0";
+                            description "If the re-key fail policy is set to KILL-TRAFFIC,
+                                        this attribute indicates the amount of time the
+                                            system waits before killing all encrypted data
+                                            security associations that are tied to this IKE SA.";
+                        }
+
+                        leaf re-auth-frequency {
+                            type uint32 {
+                                range "3600..604800";
+                            }
+                            units "seconds";
+                            default "43200";
+                            description "The re-authentication frequency for the IKE security association with the far-end IKE peer.
+                                         Range and default values may be context-specific";
+                        }
+
+                        leaf re-auth-fail-policy {
+                            when "../../../scope='data-path-encryption'";
+                            type enumeration {
+                                enum kill-traffic {
+                                    value 1;
+                                    description "Bring down the data path encrypted service
+                                        if re-authentication was unsuccessful.";
+                                }
+
+                                enum continue-traffic {
+                                    value 2;
+                                    description "Continue the data path encrypted service even
+                                        if re-authentication was unsuccessful.";
+                                }
+                            }
+
+                            default "kill-traffic";
+                            description "Indicates the NE's policy and consequent action when
+                                re-authenticating the far-end IKE peer is unsuccessful.";
+                        }
+
+                        leaf re-auth-traffic-kill-offset {
+                            when "../../../scope='data-path-encryption' and ../re-auth-fail-policy='kill-traffic'";
+
+                            type uint32 {
+                                range "0..86400";
+                            }
+                            units "seconds";
+                            default "0";
+                            description "If the re-authentication fail policy is set to
+                                KILL-TRAFFIC, this attribute indicates the
+                                amount of time the system waits before killing
+                                all Child SAs that are associated with this IKE SA.";
+                        }
+
+                        uses ike-sa-protocol-proposals {
+                            when "(../../scope = 'management-ipsec')";
+                        }
+
+                        container security-policy-database {
+                            description "Represents the Security Policy Database (SPD) that
+                                specifies what services are to be offered to IP datagrams
+                                (in case of management IPsec) or to data path encryption
+                                facilities.";
+                            reference "Section 4.4.1 in RFC 4301.";
+
+                            leaf-list associated-secure-entity {
+                                when "../../../../scope='data-path-encryption'";
+
+                                type leafref {
+                                    path "../../../../../../../../services/data-path-encryption/secure-entity/name";
+                                }
+
+                                description "List of all SPD entries associated with with
+                                    this far-end peer for which IKE negotiates security
+                                    associations (keys). The SAs can either be for data path
+                                    encryption, or IPsec.";
+                                reference "Section 4.4.1.2 of RFC 4301.";
+                            }
+
+                            uses ioa-ipsec:ipsec-spd-attributes {
+                                when "(../../../scope = 'management-ipsec')";
+                            }
+                       }
+                    }
+
+                }
+            }
+        }
+    }
+}

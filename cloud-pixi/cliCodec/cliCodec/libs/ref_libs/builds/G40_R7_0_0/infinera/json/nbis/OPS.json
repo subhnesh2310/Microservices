@@ -1,0 +1,76 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "A generic, configurable name for every facility.",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "role": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "general-purpose",
+                "tributary",
+                "multi-carrier"
+            ]
+        },
+        "description": "Allows the user to configure:\n- tributary: a single add/ drop to a local transponder, or to a remote transponder;\nlocal transponder: using port.external-connectivity = no;\nremote transponder: using port.external-connectivity = yes;\n\n- multi-carrier: multiple-carriers on the underlying (filter) port;\nlocally connected filter: using port.external-connectivity = no;\nremote (disaggregated) filter: using port.external-connectivity = yes;\n\n- general-purpose: other cases:\nexpress cross-connection to another filter (created, or to be created.)",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "general-purpose",
+        "hardcode": false,
+        "argName": "role"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    }
+}

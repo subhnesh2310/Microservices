@@ -1,0 +1,450 @@
+{
+    "/alarmList": {
+        "get": "get_alarmList"
+    },
+    "/alarms": {
+        "get": "get_alarms"
+    },
+    "/alarms/{alarmId}": {
+        "get": "get_alarms_by_alarmId"
+    },
+    "/ietf-alarms:alarms/alarm-list": {
+        "get": "get_ietf_alarms_alarm_list"
+    },
+    "/ietf-alarms:alarms/alarm-list/alarm": {
+        "get": "get_ietf_alarms_alarm_list_alarm"
+    },
+    "/subscriptions/events": {
+        "get": "get_subscriptions_events",
+        "post": "create_subscriptions_events"
+    },
+    "/subscriptions/events/{subscriptionIdx}": {
+        "get": "get_subscriptions_events_by_subscriptionIdx",
+        "put": "update_subscriptions_events",
+        "delete": "delete_subscriptions_events"
+    },
+    "/subscriptions/alarms": {
+        "get": "get_subscriptions_alarms",
+        "post": "create_subscriptions_alarms"
+    },
+    "/subscriptions/alarms/{subscriptionIdx}": {
+        "get": "get_subscriptions_alarms_by_subscriptionIdx",
+        "put": "update_subscriptions_alarms",
+        "delete": "delete_subscriptions_alarms"
+    },
+    "/events/{subscriptionIdx}": {},
+    "/alarms/{subscriptionIdx}": {},
+    "/hosts": {
+        "get": "get_hosts",
+        "post": "create_hosts"
+    },
+    "/hosts/{hostId}": {
+        "get": "get_hosts_by_hostId",
+        "put": "update_hosts",
+        "delete": "delete_hosts"
+    },
+    "/hosts/{hostId}/ports": {
+        "get": "get_hosts_ports",
+        "post": "create_hosts_ports"
+    },
+    "/hosts/{hostId}/ports/{portIdx}": {
+        "get": "get_hosts_ports_by_portIdx",
+        "put": "update_hosts_ports",
+        "delete": "delete_hosts_ports"
+    },
+    "/modules": {
+        "get": "get_modules"
+    },
+    "/modules/{moduleId}": {
+        "get": "get_modules_by_moduleId",
+        "put": "update_modules",
+        "delete": "delete_modules"
+    },
+    "/modules/{moduleId}/coldStart": {
+        "post": "perform_modules_coldStart"
+    },
+    "/modules/{moduleId}/warmStart": {
+        "post": "perform_modules_warmStart"
+    },
+    "/modules/{moduleId}/factoryReset": {
+        "post": "perform_modules_factoryReset"
+    },
+    "/modules/{moduleId}/linePtps": {
+        "get": "get_modules_linePtps"
+    },
+    "/modules/{moduleId}/linePtps/{linePtpColId}": {
+        "get": "get_modules_linePtps_by_linePtpColId"
+    },
+    "/modules/{moduleId}/ethernetClients": {
+        "get": "get_modules_ethernetClients"
+    },
+    "/modules/{moduleId}/ethernetClients/{ethernetColId}": {
+        "get": "get_modules_ethernetClients_by_ethernetColId",
+        "put": "update_modules_ethernetClients"
+    },
+    "/modules/{moduleId}/ethernetClients/{ethernetColId}/clrLldpStats": {
+        "post": "perform_modules_ethernetClients_clrLldpStats"
+    },
+    "/modules/{moduleId}/ethernetClients/{ethernetColId}/flushLldpHostDb": {
+        "post": "perform_modules_ethernetClients_flushLldpHostDb"
+    },
+    "/modules/{moduleId}/ethernetClients/{ethernetColId}/acs": {
+        "get": "get_modules_ethernetClients_acs"
+    },
+    "/modules/{moduleId}/ethernetClients/{ethernetColId}/acs/{acColId}": {
+        "get": "get_modules_ethernetClients_acs_by_acColId"
+    },
+    "/modules/{moduleId}/localConnections": {
+        "get": "get_modules_localConnections"
+    },
+    "/modules/{moduleId}/localConnections/{lcColId}": {
+        "get": "get_modules_localConnections_by_lcColId"
+    },
+    "/modules/{moduleId}/otus": {
+        "get": "get_modules_otus"
+    },
+    "/modules/{moduleId}/otus/{otuColId}": {
+        "get": "get_modules_otus_by_otuColId",
+        "put": "update_modules_otus"
+    },
+    "/modules/{moduleId}/otus/{otuColId}/odus": {
+        "get": "get_modules_otus_odus"
+    },
+    "/modules/{moduleId}/otus/{otuColId}/odus/{oduColId}": {
+        "get": "get_modules_otus_odus_by_oduColId",
+        "put": "update_modules_otus_odus"
+    },
+    "/modules/{moduleId}/linePtps/{linePtpColId}/carriers": {
+        "get": "get_modules_linePtps_carriers"
+    },
+    "/modules/{moduleId}/linePtps/{linePtpColId}/carriers/{carrierColId}": {
+        "get": "get_modules_linePtps_carriers_by_carrierColId",
+        "put": "update_modules_linePtps_carriers"
+    },
+    "/modules/{moduleId}/linePtps/{linePtpColId}/carriers/{carrierColId}/dscgs": {
+        "get": "get_modules_linePtps_carriers_dscgs"
+    },
+    "/modules/{moduleId}/linePtps/{linePtpColId}/carriers/{carrierColId}/dscgs/{dscgColId}": {
+        "get": "get_modules_linePtps_carriers_dscgs_by_dscgColId"
+    },
+    "/modules/{moduleId}/linePtps/{linePtpColId}/carriers/{carrierColId}/dscs": {
+        "get": "get_modules_linePtps_carriers_dscs"
+    },
+    "/modules/{moduleId}/linePtps/{linePtpColId}/carriers/{carrierColId}/dscs/{dscColId}": {
+        "get": "get_modules_linePtps_carriers_dscs_by_dscColId",
+        "put": "update_modules_linePtps_carriers_dscs"
+    },
+    "/modules/{moduleId}/resources/{resourceAid}": {
+        "get": "get_modules_resources_by_resourceAid"
+    },
+    "/network-connections": {
+        "get": "get_network_connections",
+        "post": "create_network_connections",
+        "helpers": [
+            "build_endpoint"
+        ]
+    },
+    "/network-connections/{ncId}": {
+        "get": "get_network_connections_by_ncId",
+        "put": "update_network_connections",
+        "delete": "delete_network_connections"
+    },
+    "/network-connections/{ncId}/endpoints": {
+        "get": "get_network_connections_endpoints",
+        "post": "create_network_connections_endpoints"
+    },
+    "/network-connections/{ncId}/endpoints/{epId}": {
+        "get": "get_network_connections_endpoints_by_epId",
+        "put": "update_network_connections_endpoints",
+        "delete": "delete_network_connections_endpoints"
+    },
+    "/lcs": {
+        "get": "get_lcs"
+    },
+    "/lcs/{lcId}": {
+        "get": "get_lcs_by_lcId"
+    },
+    "/acs": {
+        "get": "get_acs"
+    },
+    "/acs/{acId}": {
+        "get": "get_acs_by_acId"
+    },
+    "/ndus": {
+        "get": "get_ndus"
+    },
+    "/ndus/{nduId}": {
+        "get": "get_ndus_by_nduId",
+        "put": "update_ndus",
+        "delete": "delete_ndus"
+    },
+    "/ndus/{nduId}/fanUnit": {
+        "get": "get_ndus_fanUnit"
+    },
+    "/ndus/{nduId}/pem": {
+        "get": "get_ndus_pem"
+    },
+    "/ndus/{nduId}/leds": {
+        "get": "get_ndus_leds"
+    },
+    "/ndus/{nduId}/coldStart": {
+        "post": "perform_ndus_coldStart"
+    },
+    "/ndus/{nduId}/warmStart": {
+        "post": "perform_ndus_warmStart"
+    },
+    "/ndus/{nduId}/factoryReset": {
+        "post": "perform_ndus_factoryReset"
+    },
+    "/ndus/{nduId}/retry": {
+        "post": "perform_ndus_retry"
+    },
+    "/ndus/{nduId}/adopt": {
+        "post": "perform_ndus_adopt"
+    },
+    "/ndus/{nduId}/ports": {
+        "get": "get_ndus_ports"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}": {
+        "get": "get_ndus_ports_by_nduPortColId",
+        "put": "update_ndus_ports"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/retry": {
+        "post": "perform_ndus_ports_retry"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/adopt": {
+        "post": "perform_ndus_ports_adopt"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tom": {
+        "get": "get_ndus_ports_tom",
+        "post": "create_ndus_ports_tom"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tom/{nduTomColId}": {
+        "get": "get_ndus_ports_tom_by_nduTomColId",
+        "put": "update_ndus_ports_tom",
+        "delete": "delete_ndus_ports_tom"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tom/{nduTomColId}/retry": {
+        "post": "perform_ndus_ports_tom_retry"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tom/{nduTomColId}/adopt": {
+        "post": "perform_ndus_ports_tom_adopt"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/xr": {
+        "get": "get_ndus_ports_xr",
+        "post": "create_ndus_ports_xr"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/xr/{nduXrColId}": {
+        "get": "get_ndus_ports_xr_by_nduXrColId",
+        "put": "update_ndus_ports_xr",
+        "delete": "delete_ndus_ports_xr"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/xr/{nduXrColId}/coldStart": {
+        "post": "perform_ndus_ports_xr_coldStart"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/xr/{nduXrColId}/warmStart": {
+        "post": "perform_ndus_ports_xr_warmStart"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/xr/{nduXrColId}/factoryReset": {
+        "post": "perform_ndus_ports_xr_factoryReset"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/xr/{nduXrColId}/retry": {
+        "post": "perform_ndus_ports_xr_retry"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/xr/{nduXrColId}/adopt": {
+        "post": "perform_ndus_ports_xr_adopt"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/edfa": {
+        "get": "get_ndus_ports_edfa",
+        "post": "create_ndus_ports_edfa"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/edfa/{nduEdfaColId}": {
+        "get": "get_ndus_ports_edfa_by_nduEdfaColId",
+        "put": "update_ndus_ports_edfa",
+        "delete": "delete_ndus_ports_edfa"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/edfa/{nduEdfaColId}/retry": {
+        "post": "perform_ndus_ports_edfa_retry"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/edfa/{nduEdfaColId}/adopt": {
+        "post": "perform_ndus_ports_edfa_adopt"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/voa": {
+        "get": "get_ndus_ports_voa",
+        "post": "create_ndus_ports_voa"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/voa/{nduVoaColId}": {
+        "get": "get_ndus_ports_voa_by_nduVoaColId",
+        "put": "update_ndus_ports_voa",
+        "delete": "delete_ndus_ports_voa"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/voa/{nduVoaColId}/retry": {
+        "post": "perform_ndus_ports_voa_retry"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/voa/{nduVoaColId}/adopt": {
+        "post": "perform_ndus_ports_voa_adopt"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps": {
+        "get": "get_ndus_ports_linePtps"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps/{nduLinePtpColId}": {
+        "get": "get_ndus_ports_linePtps_by_nduLinePtpColId",
+        "put": "update_ndus_ports_linePtps"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps/{nduLinePtpColId}/retry": {
+        "post": "perform_ndus_ports_linePtps_retry"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps/{nduLinePtpColId}/adopt": {
+        "post": "perform_ndus_ports_linePtps_adopt"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/polPtps": {
+        "get": "get_ndus_ports_polPtps"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/polPtps/{nduPolPtpColId}": {
+        "get": "get_ndus_ports_polPtps_by_nduPolPtpColId",
+        "put": "update_ndus_ports_polPtps"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/polPtps/{nduPolPtpColId}/retry": {
+        "post": "perform_ndus_ports_polPtps_retry"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/polPtps/{nduPolPtpColId}/adopt": {
+        "post": "perform_ndus_ports_polPtps_adopt"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tribPtps": {
+        "get": "get_ndus_ports_tribPtps"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tribPtps/{nduTribPtpColId}": {
+        "get": "get_ndus_ports_tribPtps_by_nduTribPtpColId",
+        "put": "update_ndus_ports_tribPtps"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tribPtps/{nduTribPtpColId}/retry": {
+        "post": "perform_ndus_ports_tribPtps_retry"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/tribPtps/{nduTribPtpColId}/adopt": {
+        "post": "perform_ndus_ports_tribPtps_adopt"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps/{nduLinePtpColId}/carrier": {
+        "get": "get_ndus_ports_linePtps_carrier"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps/{nduLinePtpColId}/carrier/{nduCarrierColId}": {
+        "get": "get_ndus_ports_linePtps_carrier_by_nduCarrierColId",
+        "put": "update_ndus_ports_linePtps_carrier"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps/{nduLinePtpColId}/carrier/{nduCarrierColId}/retry": {
+        "post": "perform_ndus_ports_linePtps_carrier_retry"
+    },
+    "/ndus/{nduId}/ports/{nduPortColId}/linePtps/{nduLinePtpColId}/carrier/{nduCarrierColId}/adopt": {
+        "post": "perform_ndus_ports_linePtps_carrier_adopt"
+    },
+    "/ndus/{nduId}/otus": {
+        "get": "get_ndus_otus"
+    },
+    "/ndus/{nduId}/otus/{nduOtuColId}": {
+        "get": "get_ndus_otus_by_nduOtuColId",
+        "put": "update_ndus_otus"
+    },
+    "/ndus/{nduId}/otus/{nduOtuColId}/retry": {
+        "post": "perform_ndus_otus_retry"
+    },
+    "/ndus/{nduId}/otus/{nduOtuColId}/adopt": {
+        "post": "perform_ndus_otus_adopt"
+    },
+    "/ndus/{nduId}/ethernets": {
+        "get": "get_ndus_ethernets"
+    },
+    "/ndus/{nduId}/ethernets/{nduEthernetColId}": {
+        "get": "get_ndus_ethernets_by_nduEthernetColId",
+        "put": "update_ndus_ethernets"
+    },
+    "/ndus/{nduId}/ethernets/{nduEthernetColId}/retry": {
+        "post": "perform_ndus_ethernets_retry"
+    },
+    "/ndus/{nduId}/ethernets/{nduEthernetColId}/adopt": {
+        "post": "perform_ndus_ethernets_adopt"
+    },
+    "/ndus/{nduId}/lcs": {
+        "get": "get_ndus_lcs"
+    },
+    "/ndus/{nduId}/lcs/{nduLcColId}": {
+        "get": "get_ndus_lcs_by_nduLcColId"
+    },
+    "/xr-networks": {
+        "get": "get_xr_networks",
+        "post": "create_xr_networks",
+        "helpers": [
+            "build_hubModule",
+            "build_leafModule"
+        ]
+    },
+    "/xr-networks/{networkId}": {
+        "get": "get_xr_networks_by_networkId",
+        "put": "update_xr_networks",
+        "delete": "delete_xr_networks"
+    },
+    "/xr-networks/{networkId}/hubModule": {
+        "get": "get_xr_networks_hubModule",
+        "put": "update_xr_networks_hubModule"
+    },
+    "/xr-networks/{networkId}/leafModules": {
+        "get": "get_xr_networks_leafModules",
+        "post": "create_xr_networks_leafModules"
+    },
+    "/xr-networks/{networkId}/leafModules/{nodeId}": {
+        "get": "get_xr_networks_leafModules_by_nodeId",
+        "put": "update_xr_networks_leafModules",
+        "delete": "delete_xr_networks_leafModules"
+    },
+    "/xr-networks/{networkId}/reachableModules": {
+        "get": "get_xr_networks_reachableModules"
+    },
+    "/xr-networks/{networkId}/reachableModules/{nodeId}": {
+        "get": "get_xr_networks_reachableModules_by_nodeId"
+    },
+    "/sw/actions": {
+        "get": "get_sw_actions",
+        "post": "create_sw_actions"
+    },
+    "/sw/actions/{actionId}": {
+        "get": "get_sw_actions_by_actionId"
+    },
+    "/sw/moduleActions/": {
+        "get": "get_sw_moduleActions"
+    },
+    "/sw/moduleActions/{moduleActionId}": {
+        "get": "get_sw_moduleActions_by_moduleActionId"
+    },
+    "/sw/inventory/ctrl": {
+        "get": "get_sw_inventory_ctrl"
+    },
+    "/sw/inventory/device/{deviceId}/ctrl": {
+        "get": "get_sw_inventory_device_ctrl"
+    },
+    "/sw/inventory/device/{deviceId}/swBanks": {
+        "get": "get_sw_inventory_device_swBanks"
+    },
+    "/sw/inventory/device/{deviceId}/swBanks/{swBankColId}": {
+        "get": "get_sw_inventory_device_swBanks_by_swBankColId"
+    },
+    "/transport-capacities": {
+        "get": "get_transport_capacities",
+        "post": "create_transport_capacities"
+    },
+    "/transport-capacities/{tcId}": {
+        "get": "get_transport_capacities_by_tcId",
+        "put": "update_transport_capacities",
+        "delete": "delete_transport_capacities"
+    },
+    "/transport-capacities/{tcId}/endpoints": {
+        "get": "get_transport_capacities_endpoints"
+    },
+    "/transport-capacities/{tcId}/endpoints/{epId}": {
+        "get": "get_transport_capacities_endpoints_by_epId",
+        "put": "update_transport_capacities_endpoints"
+    },
+    "/capacity-links": {
+        "get": "get_capacity_links"
+    },
+    "/capacity-links/{clId}": {
+        "get": "get_capacity_links_by_clId"
+    }
+}

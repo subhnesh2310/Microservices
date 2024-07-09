@@ -1,0 +1,78 @@
+{
+    "server_group_name": {
+        "type": {
+            "ptype": "str",
+            "leafref": "../config/name"
+        },
+        "description": "Reference to configured name of the server group",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "TACACSPLUS",
+        "hardcode": true,
+        "argName": "server_group_name"
+    },
+    "type": {
+        "type": {
+            "ptype": "str",
+            "identityref": "oc-aaa-types:AAA_SERVER_TYPE"
+        },
+        "description": "Reference to configured name of the server group",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "TACACS",
+        "hardcode": true,
+        "argName": "type"
+    },
+    "server_address": {
+        "type": {
+            "ptype": "str",
+            "leafref": "../config/address"
+        },
+        "description": "Reference to the configured address of the AAA server",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "1.1.1.1",
+        "hardcode": false,
+        "argName": "server_address"
+    },
+    "timeout": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Reference to the configured address of the AAA server",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 5,
+        "hardcode": false,
+        "argName": "timeout"
+    },
+    "server_priority": {
+        "type": {
+            "ptype": "uint32",
+            "range": "1..10"
+        },
+        "description": "This is used to sort the servers in the order of precedence",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "server_priority"
+    },
+    "port": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Port number for authentication requests",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 1815,
+        "hardcode": false,
+        "argName": "port"
+    }
+}

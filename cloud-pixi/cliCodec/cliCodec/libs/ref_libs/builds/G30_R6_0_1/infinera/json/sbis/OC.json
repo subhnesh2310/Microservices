@@ -1,0 +1,478 @@
+{
+    "ne": {
+        "facilities": {
+            "oc": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "A generic, configurable name for every facility.",
+                        "mandatory": true,
+                        "key": true,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oc-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "OC-48",
+                                "OC-192"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Type of SONET signal.\nLevel N of OC-N (Optical Carrier level N).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-card": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/name"
+                        },
+                        "isList": false,
+                        "description": "Card that holds this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "managed-by": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "system",
+                                "user"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Describes whether this facility was system created or not.\nOnly user created facilities can be user deleted.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "system",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-port": {
+                        "type": {
+                            "ptype": "unknown",
+                            "leafref": "../../../equipment/card/port/name"
+                        },
+                        "isList": true,
+                        "description": "Ports that hold this facility",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supporting-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the parent facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "supported-facilities": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": true,
+                        "description": "An XPath reference to the children facilities.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "speed": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "The speed of client interface.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tx-mapping-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "GMP",
+                                "BMP",
+                                "openZR+",
+                                "FlexE-4x100G",
+                                "GFP-F",
+                                "GFP-F-extOPU2",
+                                "AMP"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The tx mapping mode of client port. The possible values are dependent on the HW and configuration.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "BMP",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "expected-mapping-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "GMP",
+                                "BMP",
+                                "openZR+",
+                                "FlexE-4x100G",
+                                "GFP-F",
+                                "GFP-F-extOPU2",
+                                "AMP"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The expected mapping mode of client port. The possible values are dependent on the HW and configuration.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "BMP",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "service-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "none",
+                                "network-wrapper",
+                                "adaptation",
+                                "switching",
+                                "transport"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Service mode for the tdm facility.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "service-mode-qualifier": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Service mode qualifier for the tdm facility.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tti-style": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "1",
+                                "15"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The configured mode of the TTI.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "1",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tim-monitor": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "disabled",
+                                "enabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The enable switching of tim defect monitor mode.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "tx-tti": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Transmit TTI - Sent by this facility to the far-end remote facility.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "rx-tti": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Receive TTI - Received by this facility from the far-end remote facility.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "rx-tti-hex": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Receive TTI in HEX.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "expected-tti": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Expected TTI - The TTI this facility expects to receive from the far-end remote facility.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "loopback": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "none",
+                                "facility",
+                                "terminal"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Loopback mode.Useful to debug on the fiber connection.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "loopback-mode": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "loopback",
+                                "loopback-and-continue"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Indicates loopback action for facility or terminal.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "test-signal-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "none",
+                                "PRBS31Q",
+                                "PRBS13Q",
+                                "scrambled-idles",
+                                "PRBS9",
+                                "PRBS31"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The type of test pattern that is injected.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "test-signal-direction": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "ingress",
+                                "egress",
+                                "both"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The direction of the test signal.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "ingress",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "test-signal-monitoring": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "Monitor the incoming test signals for diagnostics.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": false,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "circuit-id": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "System configured circuit ID, present in XCONs and associated facilities.\nFor facilities, circuit-id is only filled in if an associated XCON exists.\n   Format of this ID is:\n   <timestamp>|<ne-name>|<XCON-AID>|<user-configured-sufix>\n   Example:\n   2020-05-05T21:06:02Z|GX|1-4-T9,1-4-L1-1-ODUji#1|my-suffix\n\n   Timestamp is the NE time at xcon creation, in UTC.\n   If necessary, ne-name will be truncated so that total length remains at 128 characters.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

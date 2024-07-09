@@ -1,0 +1,45 @@
+{
+    "system": {
+        "ntp": {
+            "servers": {
+                "server": [
+                    {
+                        "address": {
+                            "type": {
+                                "ptype": "str",
+                                "leafref": "../config/address"
+                            },
+                            "isList": false,
+                            "description": "References the configured address or hostname of the\nNTP server.",
+                            "key": true,
+                            "mandatory": true,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false
+                        },
+                        "namespace": null,
+                        "config": {
+                            "address": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "The address or hostname of the NTP server.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "namespace": null,
+                                "hardcode": false
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/system"
+        }
+    }
+}

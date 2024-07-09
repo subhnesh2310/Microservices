@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-ipsec"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-ipsec="http://infinera.com/yang/ioa/ipsec"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:inet="urn:ietf:params:xml:ns:yang:ietf-inet-types">
+  <namespace uri="http://infinera.com/yang/ioa/ipsec"/>
+  <prefix value="ioa-ipsec"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ietf-inet-types">
+    <prefix value="inet"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module that defines the data model for IPsec used across control and management plane
+security applications supported on Infinera platforms.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-06-30">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.2</text>
+    </description>
+  </revision>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <typedef name="ike-sa-prf">
+    <type name="enumeration">
+      <enum name="hmac-sha2-256">
+        <value value="1"/>
+      </enum>
+      <enum name="hmac-sha2-384">
+        <value value="2"/>
+      </enum>
+      <enum name="hmac-sha2-512">
+        <value value="3"/>
+      </enum>
+      <enum name="hmac-sha1">
+        <value value="4"/>
+      </enum>
+    </type>
+    <description>
+      <text>All pseudo random functions used with the IKE SA.</text>
+    </description>
+    <reference>
+      <text>https://www.iana.org/assignments/ikev2-parameters/ikev2-parameters.xhtml#ikev2-parameters-6</text>
+    </reference>
+  </typedef>
+  <typedef name="ike-sa-dh-group">
+    <type name="enumeration">
+      <enum name="dhe-2048">
+        <value value="1"/>
+      </enum>
+      <enum name="dhe-3072">
+        <value value="2"/>
+      </enum>
+      <enum name="dhe-4096">
+        <value value="3"/>
+      </enum>
+      <enum name="dhe-6144">
+        <value value="4"/>
+      </enum>
+      <enum name="dhe-8192">
+        <value value="5"/>
+      </enum>
+      <enum name="ecp-256">
+        <value value="6"/>
+      </enum>
+      <enum name="ecp-384">
+        <value value="7"/>
+      </enum>
+      <enum name="ecp-521">
+        <value value="8"/>
+      </enum>
+      <enum name="curve-25519">
+        <value value="9"/>
+      </enum>
+      <enum name="curve-448">
+        <value value="10"/>
+      </enum>
+    </type>
+    <description>
+      <text>All Diffie-Hellman groups used with the IKE SA.</text>
+    </description>
+    <reference>
+      <text>https://www.iana.org/assignments/ikev2-parameters/ikev2-parameters.xhtml#ikev2-parameters-8</text>
+    </reference>
+  </typedef>
+  <typedef name="encryption-algorithm">
+    <type name="enumeration">
+      <enum name="null">
+        <value value="1"/>
+        <description>
+          <text>NULL encryption, used when authentication-only (no confidentiality) usage is desired</text>
+        </description>
+      </enum>
+      <enum name="aes-gcm-8">
+        <value value="2"/>
+        <description>
+          <text>AES-GCM with 8-byte ICV.</text>
+        </description>
+      </enum>
+      <enum name="aes-gcm-12">
+        <value value="3"/>
+        <description>
+          <text>AES-GCM with 12-byte ICV.</text>
+        </description>
+      </enum>
+      <enum name="aes-gcm-16">
+        <value value="4"/>
+        <description>
+          <text>AES-GCM with 16-byte ICV.</text>
+        </description>
+      </enum>
+      <enum name="aes-ctr">
+        <value value="5"/>
+        <description>
+          <text>AES-CTR mode.</text>
+        </description>
+      </enum>
+      <enum name="aes-cbc">
+        <value value="6"/>
+        <description>
+          <text>AES-CBC mode.</text>
+        </description>
+      </enum>
+      <enum name="aes-ccm-8">
+        <value value="7"/>
+        <description>
+          <text>AES-CCM with 8-byte ICV.</text>
+        </description>
+      </enum>
+      <enum name="aes-ccm-12">
+        <value value="8"/>
+        <description>
+          <text>AES-CCM with 12-byte ICV.</text>
+        </description>
+      </enum>
+      <enum name="aes-ccm-16">
+        <value value="9"/>
+        <description>
+          <text>AES-CCM with 16-byte ICV.</text>
+        </description>
+      </enum>
+      <enum name="chacha20-poly1305">
+        <value value="10"/>
+        <description>
+          <text>ChaCha20/Poly1305 with 128 bit ICV </text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>All encryption algorithms used with the Child SA and the IKE SA.</text>
+    </description>
+    <reference>
+      <text>https://www.iana.org/assignments/ikev2-parameters/ikev2-parameters.xhtml#ikev2-parameters-5</text>
+    </reference>
+  </typedef>
+  <typedef name="integrity-algorithm">
+    <type name="enumeration">
+      <enum name="none">
+        <value value="0"/>
+        <description>
+          <text>Can be used only when the encryption algorithm uses authenticated encryption/AEAD (such as AES-GCM). Cannot be used with other non AEAD encryption algorithms such as AES-CTR or AES-CBC.</text>
+        </description>
+      </enum>
+      <enum name="hmac-sha2-256-128">
+        <value value="1"/>
+      </enum>
+      <enum name="hmac-sha2-384-192">
+        <value value="2"/>
+      </enum>
+      <enum name="hmac-sha2-512-256">
+        <value value="3"/>
+      </enum>
+      <enum name="hmac-sha1-160">
+        <value value="4"/>
+      </enum>
+      <enum name="hmac-sha1-96">
+        <value value="5"/>
+      </enum>
+    </type>
+    <description>
+      <text>All Integrity algorithms used with the Child SA and the IKE SA.</text>
+    </description>
+    <reference>
+      <text>https://www.iana.org/assignments/ikev2-parameters/ikev2-parameters.xhtml#ikev2-parameters-7</text>
+    </reference>
+  </typedef>
+  <typedef name="child-sa-dh-group">
+    <type name="enumeration">
+      <enum name="dhe-2048">
+        <value value="1"/>
+      </enum>
+      <enum name="dhe-3072">
+        <value value="2"/>
+      </enum>
+      <enum name="dhe-4096">
+        <value value="3"/>
+      </enum>
+      <enum name="dhe-6144">
+        <value value="4"/>
+      </enum>
+      <enum name="dhe-8192">
+        <value value="5"/>
+      </enum>
+      <enum name="ecp-256">
+        <value value="6"/>
+      </enum>
+      <enum name="ecp-384">
+        <value value="7"/>
+      </enum>
+      <enum name="ecp-521">
+        <value value="8"/>
+      </enum>
+      <enum name="curve-25519">
+        <value value="9"/>
+      </enum>
+      <enum name="curve-448">
+        <value value="10"/>
+      </enum>
+    </type>
+    <description>
+      <text>All Diffie-Hellman groups used with the Child SA.</text>
+    </description>
+    <reference>
+      <text>https://www.iana.org/assignments/ikev2-parameters/ikev2-parameters.xhtml#ikev2-parameters-8</text>
+    </reference>
+  </typedef>
+  <typedef name="protocol-id">
+    <type name="enumeration">
+      <enum name="IKE">
+        <value value="1"/>
+      </enum>
+      <enum name="ESP">
+        <value value="3"/>
+      </enum>
+    </type>
+    <description>
+      <text>The protocol ID used in the IKE SA and IPsec SA protocol proposals.</text>
+    </description>
+    <reference>
+      <text>Section 3.3 in RFC 7296.</text>
+    </reference>
+  </typedef>
+  <typedef name="encryption-key-length">
+    <type name="enumeration">
+      <enum name="none">
+        <value value="0"/>
+      </enum>
+      <enum name="key-length-128">
+        <value value="128"/>
+      </enum>
+      <enum name="key-length-192">
+        <value value="192"/>
+      </enum>
+      <enum name="key-length-256">
+        <value value="256"/>
+      </enum>
+    </type>
+    <units name="bits"/>
+    <description>
+      <text>The key length (in bits) for the encryption algorithm.</text>
+    </description>
+  </typedef>
+  <typedef name="start-port">
+    <type name="union">
+      <type name="inet:port-number"/>
+      <type name="enumeration">
+        <enum name="all">
+          <value value="0"/>
+        </enum>
+        <enum name="opaque">
+          <value value="255"/>
+        </enum>
+      </type>
+    </type>
+    <description>
+      <text>The values for the starting port</text>
+    </description>
+  </typedef>
+  <grouping name="ipsec-sa-protocol-proposals">
+    <list name="ipsec-sa-proposal">
+      <key value="number"/>
+      <leaf name="number">
+        <type name="uint8">
+          <range value="1..max"/>
+        </type>
+        <description>
+          <text>The proposal number for the IPsec SA.</text>
+        </description>
+        <reference>
+          <text>Section 3.3 in RFC 7296.</text>
+        </reference>
+      </leaf>
+      <leaf name="protocol-id">
+        <type name="protocol-id"/>
+        <default value="ESP"/>
+        <config value="false"/>
+        <description>
+          <text>The protocol ID (type) for which the IPsec Child SA proposal applies to.</text>
+        </description>
+      </leaf>
+      <list name="encryption-algorithm">
+        <when condition="../../ipsec-protocol = 'ESP'"/>
+        <key value="algorithm key-length"/>
+        <leaf name="algorithm">
+          <type name="encryption-algorithm"/>
+          <mandatory value="true"/>
+          <description>
+            <text>The encryption algorithm for the IPsec SA.</text>
+          </description>
+        </leaf>
+        <leaf name="key-length">
+          <type name="encryption-key-length"/>
+          <mandatory value="true"/>
+          <description>
+            <text>The IPsec SA encryption algorithm key length.</text>
+          </description>
+        </leaf>
+        <description>
+          <text>A list of IPsec SA encryption algorithms
+advertised to the far-end IKE peer.</text>
+        </description>
+      </list>
+      <leaf-list name="integrity-algorithm">
+        <type name="integrity-algorithm"/>
+        <description>
+          <text>A list of IPsec SA integrity algorithms
+advertised to the far-end IKE peer.</text>
+        </description>
+      </leaf-list>
+      <leaf-list name="dh-group">
+        <type name="child-sa-dh-group"/>
+        <min-elements value="1"/>
+        <description>
+          <text>A list of IPsec SA Diffie-Hellman groups
+advertised to the far-end IKE peer. NOTE:
+The 'min-elements' is 1, which means perfect
+forward secrecy (PFS) for IPsec Child SA is
+always enabled.</text>
+        </description>
+      </leaf-list>
+      <description>
+        <text>A list of protocol proposals when negotiating the IPsec SA
+for this SPD entry with the far-end IKE peer.</text>
+      </description>
+    </list>
+  </grouping>
+  <grouping name="ipsec-traffic-selector-attributes">
+    <description>
+      <text>A collection of attributes associated with
+IPsec traffic selectors.</text>
+    </description>
+    <leaf name="name">
+      <type name="ioa-common:object-name"/>
+      <description>
+        <text>A unique name to identify this IPsec traffic selector entry.</text>
+      </description>
+    </leaf>
+    <uses name="ioa-common:aid">
+      <refine target-node="AID">
+        <description>
+          <text>A system-populated access identifier for this traffic selector entry.</text>
+        </description>
+      </refine>
+    </uses>
+    <list name="local-subnet">
+      <key value="prefix"/>
+      <leaf name="prefix">
+        <type name="inet:ip-prefix"/>
+      </leaf>
+      <description>
+        <text>This is a list of ranges of IPv4/IPv6
+addresses (unicast, broadcast (IPv4 only)).</text>
+      </description>
+      <reference>
+        <text>Section 4.4.1.1, 4.4.1.2 in RFC 4301</text>
+      </reference>
+    </list>
+    <list name="remote-subnet">
+      <key value="prefix"/>
+      <leaf name="prefix">
+        <type name="inet:ip-prefix"/>
+      </leaf>
+      <description>
+        <text>This is a list of ranges of IPv4/IPv6
+addresses (unicast, broadcast (IPv4 only)).</text>
+      </description>
+      <reference>
+        <text>Section 4.4.1.1, 4.4.1.2 in RFC 4301</text>
+      </reference>
+    </list>
+    <leaf name="next-layer-protocol">
+      <type name="union">
+        <type name="uint8"/>
+        <type name="enumeration">
+          <enum name="any">
+            <value value="0"/>
+          </enum>
+          <enum name="opaque">
+            <value value="255"/>
+          </enum>
+        </type>
+      </type>
+      <default value="any"/>
+      <description>
+        <text>Indicates the inner protocol (upper layer), obtained
+from the IPv4 protocol or the IPv6 next header field.</text>
+      </description>
+      <reference>
+        <text>Section 4.4.1.1, 4.4.1.2 in RFC 4301 and
+https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml</text>
+      </reference>
+    </leaf>
+    <list name="local-ports">
+      <key value="start stop"/>
+      <leaf name="start">
+        <type name="start-port"/>
+        <description>
+          <text>The port number where the range starts or a predefined value (all, opaque).</text>
+        </description>
+      </leaf>
+      <leaf name="stop">
+        <type name="inet:port-number"/>
+        <description>
+          <text>The port number where the range ends.</text>
+        </description>
+      </leaf>
+      <description>
+        <text>A list of local ports ranges associated with this traffic selector.</text>
+      </description>
+      <reference>
+        <text>Section 4.4.1.1, 4.4.1.2 in RFC 4301</text>
+      </reference>
+    </list>
+    <list name="remote-ports">
+      <key value="start stop"/>
+      <leaf name="start">
+        <type name="start-port"/>
+        <description>
+          <text>The port number where the range starts or a predefined value (all, opaque).</text>
+        </description>
+      </leaf>
+      <leaf name="stop">
+        <type name="inet:port-number"/>
+        <description>
+          <text>The port number where the range ends</text>
+        </description>
+      </leaf>
+      <description>
+        <text>A list of remote ports ranges associated with this traffic selector.</text>
+      </description>
+      <reference>
+        <text>Section 4.4.1.1, 4.4.1.2 in RFC 4301</text>
+      </reference>
+    </list>
+  </grouping>
+  <grouping name="ipsec-spd-entry">
+    <description>
+      <text>A collection of attributes that are associated
+with every IKEv2 SPD Entry.</text>
+    </description>
+    <reference>
+      <text>IETF draft-ietf-i2nsf-sdn-ipsec-flow-protection,
+12ietf-i2nsf-ike@2020-10-30.yang module and
+Section 4.4.1.2 in RFC 4301.</text>
+    </reference>
+    <leaf name="name">
+      <type name="ioa-common:object-name">
+        <length value="1..32"/>
+      </type>
+      <description>
+        <text>A unique name to identify this SPD entry.</text>
+      </description>
+    </leaf>
+    <uses name="ioa-common:aid">
+      <refine target-node="AID">
+        <description>
+          <text>A system-populated access identifier for this SPD entry.</text>
+        </description>
+      </refine>
+    </uses>
+    <leaf name="priority">
+      <type name="uint8"/>
+      <mandatory value="true"/>
+      <description>
+        <text>A priority value for each SPD entry. This is
+used to give precedence to the SPD entries.</text>
+      </description>
+      <reference>
+        <text>Section 4.4.1.2 in RFC 4301.</text>
+      </reference>
+    </leaf>
+    <leaf name="description">
+      <type name="string">
+        <length value="0..128"/>
+      </type>
+      <description>
+        <text>User configurable label/description.</text>
+      </description>
+    </leaf>
+    <list name="ipsec-traffic-selector">
+      <key value="name"/>
+      <uses name="ipsec-traffic-selector-attributes"/>
+      <description>
+        <text>A list of traffic selectors associated with an IPSec SPD entry.</text>
+      </description>
+    </list>
+    <leaf name="action">
+      <type name="enumeration">
+        <enum name="protect">
+          <value value="100"/>
+        </enum>
+        <enum name="bypass">
+          <value value="200"/>
+        </enum>
+        <enum name="discard">
+          <value value="300"/>
+        </enum>
+      </type>
+      <default value="protect"/>
+      <description>
+        <text>Indicates the IPsec treatment given to the IP datagrams.</text>
+      </description>
+      <reference>
+        <text>Section 4.4.1 ('Processing Choices') in RFC 4301.</text>
+      </reference>
+    </leaf>
+    <leaf name="ipsec-protocol">
+      <when condition="../action = 'protect'"/>
+      <type name="enumeration">
+        <enum name="ESP">
+          <value value="100"/>
+          <reference>
+            <text>RFC 4301 and RFC 4303.</text>
+          </reference>
+        </enum>
+      </type>
+      <default value="ESP"/>
+      <description>
+        <text>Indicates the use of ESP or AH IPsec protocols.</text>
+      </description>
+    </leaf>
+    <leaf name="mode">
+      <when condition="../action = 'protect'"/>
+      <type name="enumeration">
+        <enum name="tunnel">
+          <value value="100"/>
+        </enum>
+        <enum name="transport">
+          <value value="200"/>
+        </enum>
+      </type>
+      <default value="tunnel"/>
+      <description>
+        <text>Indicates if the IPsec session should operate in
+transport or tunnel mode.</text>
+      </description>
+    </leaf>
+    <uses name="ioa-common:arc"/>
+    <leaf name="esn">
+      <type name="boolean"/>
+      <default value="true"/>
+      <description>
+        <text>Extended Sequence Number (ESN) support.</text>
+      </description>
+      <reference>
+        <text>Section 2.2.1 in RFC 4303.</text>
+      </reference>
+    </leaf>
+    <container name="ipsec-sa-re-key">
+      <when condition="../action = 'protect'"/>
+      <leaf name="frequency">
+        <type name="uint32">
+          <range value="3600..86400"/>
+        </type>
+        <units name="seconds"/>
+        <default value="14400"/>
+        <description>
+          <text>The rekeying frequency for the IPsec child
+security association with the far-end peer.</text>
+        </description>
+      </leaf>
+      <leaf name="bytes">
+        <type name="union">
+          <type name="enumeration">
+            <enum name="disabled"/>
+          </type>
+          <type name="uint32">
+            <range value="1048576..max"/>
+          </type>
+        </type>
+        <units name="bytes"/>
+        <default value="1073741824"/>
+        <description>
+          <text>The rekeying frequency for the IPsec child
+security association with the far-end peer
+based on amount of bytes transmitted.</text>
+        </description>
+      </leaf>
+      <leaf name="packets">
+        <type name="union">
+          <type name="enumeration">
+            <enum name="disabled">
+              <value value="0"/>
+            </enum>
+          </type>
+          <type name="uint64">
+            <range value="1 .. 9223372036854775808"/>
+          </type>
+        </type>
+        <units name="packets"/>
+        <default value="disabled"/>
+        <description>
+          <text>The rekeying frequency for the IPsec child
+security association with the far-end peer
+based on amount of packets transmitted.</text>
+        </description>
+      </leaf>
+      <description>
+        <text>Contains the rekeying configurations of an IPSec SPD entry.</text>
+      </description>
+    </container>
+    <uses name="ioa-common:oper-state"/>
+    <uses name="ipsec-sa-protocol-proposals">
+      <when condition="action = 'protect'"/>
+    </uses>
+    <leaf name="anti-replay-window">
+      <when condition="../action = 'protect'"/>
+      <type name="union">
+        <type name="enumeration">
+          <enum name="disabled"/>
+        </type>
+        <type name="uint32">
+          <range value="32..1024"/>
+        </type>
+      </type>
+      <default value="64"/>
+      <description>
+        <text>Indicates the replay window size tolerance.</text>
+      </description>
+    </leaf>
+    <leaf name="dynamic-ts">
+      <type name="enumeration">
+        <enum name="disabled">
+          <value value="0"/>
+        </enum>
+        <enum name="enabled">
+          <value value="1"/>
+        </enum>
+      </type>
+      <default value="disabled"/>
+      <description>
+        <text>Indicates whether dynamic traffic selector is enabled in this SPD entry.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="ipsec-spd-attributes">
+    <description>
+      <text>Collection of all attributes that describe the
+IPsec security policy data (SPD).</text>
+    </description>
+    <list name="ipsec-spd-entry">
+      <key value="name"/>
+      <ordered-by value="user"/>
+      <uses name="ipsec-spd-entry"/>
+      <description>
+        <text>A list of SPD entries associated with an IPSec IKEv2 peer.</text>
+      </description>
+    </list>
+  </grouping>
+</module>

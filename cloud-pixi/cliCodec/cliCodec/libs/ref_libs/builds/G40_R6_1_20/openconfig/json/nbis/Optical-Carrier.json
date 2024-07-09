@@ -1,0 +1,155 @@
+{
+    "component_name": {
+        "type": {
+            "ptype": "str",
+            "leafref": "../config/name"
+        },
+        "description": "References the component name",
+        "mandatory": false,
+        "key": true,
+        "config": true,
+        "default": "optical-carrier-1-6-L1-1",
+        "hardcode": false
+    },
+    "frequency_offset": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "A super set range for line and client side carrier, specific sub-range is depend on application. Frequency-offset can be used for bright tuning\n   of the wavelengths.\n   Once set, the frequency will slowly change (over 1-10s) without affecting service.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false
+    },
+    "pre_fec_q_sig_deg_threshold": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The threshold based on which the PRE-FEC-Q-SIGNAL-DEGRADE alarm is raised.\n   0 implies threshold crossing alarming disabled.\n   Specific sub-range is per carrier use-case.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "6.0",
+        "hardcode": false
+    },
+    "pre_fec_q_sig_deg_hysteresis": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Hysteresis to account for raising of the PRE-FEC-Q-SIGNAL-DEGRADE alarm.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0.5",
+        "hardcode": false
+    },
+    "tx_cd": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The configured transmit pre-compensation chromatic dispersion.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "0.0",
+        "hardcode": false
+    },
+    "post_fec_q_sig_deg_threshold": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The threshold based on which the POST-FEC-Q-SIGNAL-DEGRADE alarm is raised.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "18",
+        "hardcode": false
+    },
+    "post_fec_q_sig_deg_hysteresis": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Hysteresis to account for raising of the POST-FEC-Q-SIGNAL-DEGRADE alarm.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "2.5",
+        "hardcode": false
+    },
+    "enable_advanced_parameters": {
+        "type": {
+            "ptype": "bool"
+        },
+        "description": "Controls enabling/disabling of configuring advanced parameters for this object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": false,
+        "hardcode": false
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false
+    },
+    "frequency": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Frequency of the optical channel, expressed in MHz",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false
+    },
+    "target_output_power": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Target output optical power level of the optical channel,\nexpressed in increments of 0.01 dBm (decibel-milliwats)",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "-6.00",
+        "hardcode": false
+    }
+}

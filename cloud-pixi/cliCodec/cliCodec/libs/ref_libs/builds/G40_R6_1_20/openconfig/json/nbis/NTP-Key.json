@@ -1,0 +1,43 @@
+{
+    "ntp_key_key_id": {
+        "type": {
+            "ptype": "int",
+            "leafref": "../config/key-id"
+        },
+        "description": "Reference to auth key-id list key",
+        "mandatory": true,
+        "key": true,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "ntp_key_key_id"
+    },
+    "key_type": {
+        "type": {
+            "ptype": "str",
+            "identityref": "NTP_AUTH_TYPE",
+            "values": [
+                "NTP_AUTH_MD5"
+            ]
+        },
+        "description": "Encryption type used for the NTP authentication key",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "NTP_AUTH_MD5",
+        "hardcode": false,
+        "argName": "key_type"
+    },
+    "key_value": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "NTP authentication key value",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "key_value"
+    }
+}

@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-otn-common"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-otn="http://infinera.com/yang/ioa/otn-common"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-fac-common="http://infinera.com/yang/ioa/facilities-common">
+  <namespace uri="http://infinera.com/yang/ioa/otn-common"/>
+  <prefix value="ioa-otn"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-facilities-common">
+    <prefix value="ioa-fac-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG definitions defining custom data types for OTN facilities in a typical Layer 1 optical transponder.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <typedef name="odu-type">
+    <type name="enumeration">
+      <enum name="ODUCn">
+        <value value="1"/>
+        <description>
+          <text>OTUCn protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODUCni">
+        <value value="2"/>
+        <description>
+          <text>Infinera proprietary OTUCni protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODUCni-M">
+        <value value="3"/>
+        <description>
+          <text>Infinera proprietary OTUCni protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODU4">
+        <value value="4"/>
+        <description>
+          <text>ODU4 protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODU4i">
+        <value value="5"/>
+        <description>
+          <text>Infinera proprietary ODU4i protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODUflexi">
+        <value value="6"/>
+        <description>
+          <text>Infinera proprietary ODUflexi protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODUflex">
+        <value value="7"/>
+        <description>
+          <text>ODU-flex protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODU0">
+        <value value="8"/>
+        <description>
+          <text>ODU0 protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODU1">
+        <value value="9"/>
+        <description>
+          <text>ODU1 protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODU2">
+        <value value="10"/>
+        <description>
+          <text>ODU2 protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODU2e">
+        <value value="11"/>
+        <description>
+          <text>ODU2e protocol layer.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>A custom data type for ODUk/ODUCn clients.</text>
+    </description>
+  </typedef>
+  <typedef name="otu-type">
+    <type name="enumeration">
+      <enum name="OTUCn">
+        <value value="1"/>
+        <description>
+          <text>OTUCn protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="OTUCni">
+        <value value="2"/>
+        <description>
+          <text>Infinera proprietary OTUCni protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="OTUCni-M">
+        <value value="3"/>
+        <description>
+          <text>Infinera proprietary OTUCni protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="OTU4">
+        <value value="4"/>
+        <description>
+          <text>OTU4 protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="OTU2">
+        <value value="5"/>
+        <description>
+          <text>OTU2 protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="OTU2e">
+        <value value="6"/>
+        <description>
+          <text>OTU2e protocol layer.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The protocol type of the OTUk/OTUCn client.</text>
+    </description>
+    <reference>
+      <text>Section 7.4 in ITU-T G.875 (12/2018) and ITU-T G.709</text>
+    </reference>
+  </typedef>
+  <typedef name="monitoring-mode">
+    <type name="enumeration">
+      <enum name="unused">
+        <value value="10"/>
+        <description>
+          <text>Unused</text>
+        </description>
+      </enum>
+      <enum name="intrusive">
+        <value value="20"/>
+        <description>
+          <text>Intrusive monitoring</text>
+        </description>
+      </enum>
+      <enum name="non-intrusive">
+        <value value="30"/>
+        <description>
+          <text>Non-intrusive monitoring</text>
+        </description>
+      </enum>
+      <enum name="limited-non-intrusive">
+        <value value="40"/>
+        <description>
+          <text>Non-intrusive monitoring</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Possible modes for monitoring in OTN entities.</text>
+    </description>
+  </typedef>
+  <typedef name="rate">
+    <type name="decimal64">
+      <fraction-digits value="3"/>
+    </type>
+    <units name="Gbit/s"/>
+    <description>
+      <text>Rate of a OTN facilities in GBit/s.</text>
+    </description>
+  </typedef>
+  <typedef name="payload-type">
+    <type name="string">
+      <pattern value="(0x(([0-9A-Fa-f])([0-9A-Fa-f]))*)?"/>
+    </type>
+    <description>
+      <text>Hex string with '0x' prefix.</text>
+    </description>
+  </typedef>
+  <grouping name="tti-itu">
+    <description>
+      <text>Collection of TTI attributes when the TTI style is configured to be ITU-T G.709 style.</text>
+    </description>
+    <reference>
+      <text>Section 15.2 in ITU-T-G709 (June 2016).</text>
+    </reference>
+    <leaf name="expected-sapi">
+      <type name="ioa-fac-common:tti-15"/>
+      <default value=""/>
+      <description>
+        <text>The expected SAPI (Source Access Point Identifier).</text>
+      </description>
+    </leaf>
+    <leaf name="expected-dapi">
+      <type name="ioa-fac-common:tti-15"/>
+      <default value=""/>
+      <description>
+        <text>The expected DAPI (Destination Access Point Identifier).</text>
+      </description>
+    </leaf>
+    <uses name="ioa-fac-common:tti-diagnostics-common"/>
+    <leaf name="tx-sapi">
+      <type name="ioa-fac-common:tti-15"/>
+      <default value=""/>
+      <description>
+        <text>The transmitted SAPI bytes.</text>
+      </description>
+    </leaf>
+    <leaf name="tx-dapi">
+      <type name="ioa-fac-common:tti-15"/>
+      <default value=""/>
+      <description>
+        <text>The transmitted DAPI bytes.</text>
+      </description>
+    </leaf>
+    <leaf name="rx-sapi">
+      <type name="ioa-fac-common:trail-trace-identifier-ascii">
+        <length value="0..15"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>The received SAPI bytes as an ASCII string; will not be available if bytes cannot be encoded as a printable string.</text>
+      </description>
+    </leaf>
+    <leaf name="rx-sapi-hex">
+      <type name="ioa-fac-common:trail-trace-identifier-hex">
+        <length value="0..32"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Received SAPI in HEX.</text>
+      </description>
+    </leaf>
+    <leaf name="rx-dapi">
+      <type name="ioa-fac-common:trail-trace-identifier-ascii">
+        <length value="0..15"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>The received DAPI bytes as an ASCII string; will not be available if bytes cannot be encoded as a printable string.</text>
+      </description>
+    </leaf>
+    <leaf name="rx-dapi-hex">
+      <type name="ioa-fac-common:trail-trace-identifier-hex">
+        <length value="0..32"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Received DAPI in HEX.</text>
+      </description>
+    </leaf>
+    <leaf name="rx-operator-hex">
+      <type name="ioa-fac-common:trail-trace-identifier-hex">
+        <length value="0..66"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Received operator in HEX.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="msi">
+    <leaf name="rx-msi">
+      <type name="string">
+        <length value="0..512"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Received and accepted MSI values (up to 80), including a valid/invalid indication
+(valid if acceptance process successful, invalid if not; when invalid the last accepted MSI set is shown).</text>
+      </description>
+    </leaf>
+    <leaf name="rx-msi-hex">
+      <type name="string">
+        <length value="0..512"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Received and accepted MSI hex values (up to 80) (if acceptance process was not successful the last accepted MSI set is shown).</text>
+      </description>
+    </leaf>
+    <leaf name="expected-msi">
+      <type name="string">
+        <length value="0..512"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Expected MSI values (up to 80). For format see rx-msi without valid/invalid flag.
+User-friendly representation of expected-msi-hex.</text>
+      </description>
+    </leaf>
+    <leaf name="expected-msi-hex">
+      <type name="string">
+        <length value="0..512"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Expected MSI hex values (up to 80).</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="odu-mux-info">
+    <leaf name="accepted-trib-port-number">
+      <type name="ioa-common:number-list">
+        <length value="0..255"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Received and accepted Tributary Port Number for the LO-ODU entity.</text>
+      </description>
+    </leaf>
+    <leaf name="expected-trib-port-number">
+      <type name="uint8">
+        <range value="1..max"/>
+      </type>
+      <description>
+        <text>Expected Tributary Port Number for the LO-ODU entity.</text>
+      </description>
+    </leaf>
+    <leaf name="accepted-time-slots">
+      <type name="ioa-common:number-list">
+        <length value="0..255"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Received and accepted TS for the LO-ODU entity.</text>
+      </description>
+    </leaf>
+    <leaf name="expected-time-slots">
+      <type name="ioa-common:number-list">
+        <length value="0..255"/>
+      </type>
+      <description>
+        <text>Expected TS for the LO-ODU entity.</text>
+      </description>
+    </leaf>
+    <uses name="msi"/>
+  </grouping>
+  <grouping name="otn-diagnostics">
+    <description>
+      <text>Set of attributes associated with OTU/ODU diagnostics.</text>
+    </description>
+    <leaf name="monitoring-mode">
+      <type name="monitoring-mode"/>
+      <default value="intrusive"/>
+      <description>
+        <text>The monitoring mode on the ODU/OTU client.</text>
+      </description>
+    </leaf>
+    <uses name="ioa-fac-common:otn-ots-tti-style"/>
+    <leaf name="tti-mismatch-alarm-reporting">
+      <type name="enumeration">
+        <enum name="disabled">
+          <value value="0"/>
+          <description>
+            <text>No TTI match checking</text>
+          </description>
+        </enum>
+        <enum name="full-64-bytes">
+          <value value="1"/>
+          <description>
+            <text>Compares entire TTI 64 bytes (proprietary style)</text>
+          </description>
+        </enum>
+        <enum name="SAPI">
+          <value value="2"/>
+          <description>
+            <text>Comparing SAPI only (ITU style)</text>
+          </description>
+        </enum>
+        <enum name="DAPI">
+          <value value="3"/>
+          <description>
+            <text>Comparing DAPI only (ITU style)</text>
+          </description>
+        </enum>
+        <enum name="OPER">
+          <value value="4"/>
+          <description>
+            <text>Comparing Operator Specific only (ITU style)</text>
+          </description>
+        </enum>
+        <enum name="SAPI_DAPI">
+          <value value="5"/>
+          <description>
+            <text>Comparing SAPI + DAPI (ITU style)</text>
+          </description>
+        </enum>
+        <enum name="SAPI_OPER">
+          <value value="6"/>
+          <description>
+            <text>Comparing SAPI + OPER (ITU style)</text>
+          </description>
+        </enum>
+        <enum name="DAPI_OPER">
+          <value value="7"/>
+          <description>
+            <text>Comparing DAPI + OPER (ITU style)</text>
+          </description>
+        </enum>
+        <enum name="SAPI_DAPI_OPER">
+          <value value="8"/>
+          <description>
+            <text>Comparing SAPI + DAPI + OPER (ITU style)</text>
+          </description>
+        </enum>
+      </type>
+      <default value="disabled"/>
+      <description>
+        <text>Indicates if TTI-Mismatch (TIM) alarm is reported or not.
+If it is to be reported, indicates the criteria based on with the TIM alarm is reported.</text>
+      </description>
+    </leaf>
+    <uses name="ioa-fac-common:tti-common">
+      <when condition="tti-style = 'proprietary'"/>
+    </uses>
+    <uses name="tti-itu">
+      <when condition="tti-style = 'ITU-T-G709'"/>
+    </uses>
+    <leaf name="tim-act-enabled">
+      <type name="ioa-common:enable-switch"/>
+      <default value="disabled"/>
+      <description>
+        <text>Support configurable TIM action which decide if insert maintenance signal per TIM: enable or disable, default disable</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="otn-degrade">
+    <leaf name="degrade-interval">
+      <type name="uint8">
+        <range value="2..10"/>
+      </type>
+      <units name="seconds"/>
+      <default value="7"/>
+      <description>
+        <text>The consecutive number of 1s intervals with the number of detected block errors exceeding the block error
+threshold for each of those seconds for the purposes of SDBER detection.</text>
+      </description>
+    </leaf>
+    <leaf name="degrade-threshold">
+      <type name="ioa-common:percent"/>
+      <default value="30"/>
+      <description>
+        <text>The threshold in percentage of block errors versus total blocks at which a degrade-interval number of seconds
+will be considered degraded for the purposes of SDBER detection.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="time-slots">
+    <leaf name="time-slots">
+      <type name="ioa-common:number-list">
+        <length value="0..255"/>
+      </type>
+      <description>
+        <text>Time slots of the ODU.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="opucn-time-slots">
+    <leaf name="opucn-time-slots">
+      <type name="ioa-common:decimal-list">
+        <length value="0..500"/>
+      </type>
+      <description>
+        <text>Opucn Time slots of the ODUCn.</text>
+      </description>
+    </leaf>
+  </grouping>
+</module>

@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-networking"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:networking="http://infinera.com/yang/ioa/networking"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+        xmlns:inet="urn:ietf:params:xml:ns:yang:ietf-inet-types"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-rt="http://infinera.com/yang/ioa/networking/routing"
+        xmlns:ioa-acl="http://infinera.com/yang/ioa-acl">
+  <namespace uri="http://infinera.com/yang/ioa/networking"/>
+  <prefix value="networking"/>
+  <import module="ietf-yang-types">
+    <prefix value="yang"/>
+  </import>
+  <import module="ietf-inet-types">
+    <prefix value="inet"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-routing">
+    <prefix value="ioa-rt"/>
+  </import>
+  <import module="ioa-acl">
+    <prefix value="ioa-acl"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG module with the networking model.</text>
+  </description>
+  <revision date="2023-03-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.1</text>
+    </description>
+  </revision>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <typedef name="ip-address-config-mode">
+    <type name="enumeration">
+      <enum name="static">
+        <value value="1"/>
+      </enum>
+      <enum name="dhcp">
+        <value value="2"/>
+      </enum>
+    </type>
+    <description>
+      <text>IP address assignment method.</text>
+    </description>
+  </typedef>
+  <typedef name="protection-mode">
+    <type name="enumeration">
+      <enum name="unknown">
+        <value value="0"/>
+        <description>
+          <text>Unknown/Transient protection state; output only.</text>
+        </description>
+      </enum>
+      <enum name="protected">
+        <value value="1"/>
+        <description>
+          <text>Protected by redundant ports.</text>
+        </description>
+      </enum>
+      <enum name="unprotected">
+        <value value="2"/>
+        <description>
+          <text>No port redundancy.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Protection-mode/state of interface.</text>
+    </description>
+  </typedef>
+  <grouping name="ip">
+    <description>
+      <text>IPv4 and IPv6 interface parameters.</text>
+    </description>
+    <list name="ipv4-address">
+      <key value="ip"/>
+      <description>
+        <text>The IPv4 address on the interface.</text>
+      </description>
+      <leaf name="ip">
+        <type name="inet:ipv4-address-no-zone">
+          <pattern value="[^1].*|.([^2].*)?|.{2}([^7].*)?|.{3}([^\.].*)?"/>
+          <pattern value="[^2].*|.([^2].*)?|.{2}([^4-9].*)?|.{3}([^\.].*)?"/>
+          <pattern value="[^2].*|.([^3-5].*)?|.{2}([^0-9].*)?|.{3}([^\.].*)?"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>The IPv4 addresses on the interface. The following
+addresses are disallowed from being configured:
+1. Addresses beginning with 0 (current network)
+2. Addresses beginning with 127 (loopback addresses)
+3. Addresses beginning with 224 up to 255 (broadcast,
+       multicast and experimental addresses)</text>
+        </description>
+      </leaf>
+      <leaf name="netmask">
+        <type name="yang:dotted-quad">
+          <pattern value="(((255\.){3}(255|254|252|248|240|224|192|128|0))|((255\.){2}(255|254|252|248|240|224|192|128|0)\.0)|((255\.)(255|254|252|248|240|224|192|128|0)(\.0){2})|((255|254|252|248|240|224|192|128|0)(\.0){3}))"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>The subnet specified as a netmask for a particular address.
+Only valid netmasks are allowed to be configured.</text>
+        </description>
+      </leaf>
+      <leaf name="origin">
+        <type name="enumeration">
+          <enum name="static">
+            <value value="1"/>
+            <description>
+              <text>Indicates that the address has been statically
+configured - for example, using NETCONF or a Command Line
+Interface.</text>
+            </description>
+          </enum>
+          <enum name="dhcp">
+            <value value="2"/>
+            <description>
+              <text>Indicates an address that has been assigned to this
+system by a DHCP server.</text>
+            </description>
+          </enum>
+          <enum name="auto-config">
+            <value value="3"/>
+            <description>
+              <text>Indicates an address created by autoconfiguration.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="static"/>
+        <config value="false"/>
+        <description>
+          <text>IPv4 address assignment method.</text>
+        </description>
+      </leaf>
+    </list>
+    <list name="ipv6-address">
+      <when condition="../if-type != 'ppp'"/>
+      <key value="ip"/>
+      <description>
+        <text>The IPv6 address on the interface.</text>
+      </description>
+      <leaf name="ip">
+        <type name="inet:ipv6-address-no-zone"/>
+        <mandatory value="true"/>
+        <description>
+          <text>The IPv6 address on the interface</text>
+        </description>
+      </leaf>
+      <leaf name="prefix-length">
+        <type name="uint8">
+          <range value="1..128"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>The length of the subnet prefix. Only valid prefixes are
+allowed to be configured.</text>
+        </description>
+      </leaf>
+      <leaf name="origin">
+        <type name="enumeration">
+          <enum name="static">
+            <value value="1"/>
+            <description>
+              <text>Indicates that the address has been statically
+configured - for example, using NETCONF or a Command Line
+Interface.</text>
+            </description>
+          </enum>
+          <enum name="dhcp">
+            <value value="2"/>
+            <description>
+              <text>Indicates an address that has been assigned to this
+system by a DHCP server.</text>
+            </description>
+          </enum>
+          <enum name="auto-config">
+            <value value="3"/>
+            <description>
+              <text>Indicates an address created by autoconfiguration.</text>
+            </description>
+          </enum>
+        </type>
+        <default value="static"/>
+        <config value="false"/>
+        <description>
+          <text>IPv6 address assignment method.</text>
+        </description>
+      </leaf>
+    </list>
+  </grouping>
+  <grouping name="interface">
+    <description>
+      <text>Interface parameters.</text>
+    </description>
+    <list name="interface">
+      <key value="if-name"/>
+      <description>
+        <text>The list of configured interfaces on the device.</text>
+      </description>
+      <leaf name="if-name">
+        <type name="string">
+          <length value="1..64"/>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>The name of the interface.</text>
+        </description>
+      </leaf>
+      <leaf name="if-description">
+        <type name="string">
+          <length value="0..255"/>
+        </type>
+        <description>
+          <text>A textual description of the interface.</text>
+        </description>
+        <reference>
+          <text>RFC 2863: The Interfaces Group MIB - ifAlias</text>
+        </reference>
+      </leaf>
+      <leaf name="if-type">
+        <type name="enumeration">
+          <enum name="ethernet">
+            <value value="1"/>
+            <description>
+              <text>For all Ethernet-like interfaces, regardless of speed, as per RFC 3635.</text>
+            </description>
+            <reference>
+              <text>RFC 3635 - Definitions of Managed Objects for the Ethernet-like Interface Types</text>
+            </reference>
+          </enum>
+          <enum name="software-loopback">
+            <value value="2"/>
+            <description>
+              <text>Software Loopback interface type.</text>
+            </description>
+          </enum>
+          <enum name="point-to-point">
+            <value value="3"/>
+            <description>
+              <text>Point to point interfaces associated with control channels.</text>
+            </description>
+          </enum>
+          <enum name="ppp">
+            <value value="4"/>
+            <description>
+              <text>RFC 1661 Point-to-Point Protocol (PPP) interface. A Link Control
+Protocol (LCP) for establishing and configuring the data-link connection and
+a family of Network Control Protocols (NCPs) for establishing and configuring
+different network-layer protocols will run over the interface.</text>
+            </description>
+            <reference>
+              <text>RFC 7224 - IANA Interface Type YANG Module</text>
+            </reference>
+          </enum>
+          <enum name="hdlc">
+            <value value="5"/>
+            <description>
+              <text>HDLC(High-Level Data Link Control)-like interface associated with OSCX channels.</text>
+            </description>
+          </enum>
+          <enum name="oscx">
+            <value value="6"/>
+            <description>
+              <text>Interface associated with OSCX channels.</text>
+            </description>
+          </enum>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>The type of the interface.</text>
+        </description>
+        <reference>
+          <text>RFC 2863: The Interfaces Group MIB - ifType</text>
+        </reference>
+      </leaf>
+      <leaf name="supporting-port">
+        <when condition="../if-type != 'software-loopback'"/>
+        <type name="string">
+          <length value="0..64"/>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>Reference to the physical port that interface is currently mapped to.</text>
+        </description>
+      </leaf>
+      <leaf name="backup-port">
+        <when condition="../if-type = 'ethernet'"/>
+        <type name="string">
+          <length value="0..64"/>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>Reference to the physical port that supports this interface (if applicable).</text>
+        </description>
+      </leaf>
+      <leaf name="protection-mode">
+        <when condition="../if-type = 'ethernet'"/>
+        <type name="protection-mode"/>
+        <default value="protected"/>
+        <description>
+          <text>Reference to user given protection mode for interface.</text>
+        </description>
+      </leaf>
+      <leaf name="protection-state">
+        <when condition="../if-type = 'ethernet'"/>
+        <type name="protection-mode"/>
+        <default value="unknown"/>
+        <config value="false"/>
+        <description>
+          <text> Reference to current state of protection of interface so by default its unknown.</text>
+        </description>
+      </leaf>
+      <leaf name="vrf">
+        <type name="leafref">
+          <path value="../../vrf/name"/>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>VRF to which this interface is bound.</text>
+        </description>
+      </leaf>
+      <leaf name="ipv4-enabled">
+        <type name="boolean"/>
+        <default value="true"/>
+        <description>
+          <text>Controls whether IPv4 is enabled or disabled on this
+interface. When IPv4 is enabled, this interface is
+connected to an IPv4 stack, and the interface can send
+and receive IPv4 packets.</text>
+        </description>
+      </leaf>
+      <leaf name="ipv4-address-assignment-method">
+        <type name="ip-address-config-mode"/>
+        <default value="static"/>
+        <description>
+          <text>IPv4 address assignment method.</text>
+        </description>
+      </leaf>
+      <leaf name="ipv6-enabled">
+        <when condition="../if-type != 'ppp' and ../if-type != 'hdlc'"/>
+        <type name="boolean"/>
+        <default value="true"/>
+        <description>
+          <text>Controls whether IPv6 is enabled or disabled on this
+interface. When IPv6 is enabled, this interface is
+connected to an IPv6 stack, and the interface can send
+and receive IPv6 packets.</text>
+        </description>
+      </leaf>
+      <leaf name="ipv6-address-assignment-method">
+        <when condition="../if-type != 'ppp' and ../if-type != 'hdlc'"/>
+        <type name="ip-address-config-mode"/>
+        <default value="static"/>
+        <description>
+          <text>IPv6 address assignment method.</text>
+        </description>
+      </leaf>
+      <leaf name="proxy-arp-enabled">
+        <when condition="../if-type != 'ppp' and ../if-type != 'hdlc'"/>
+        <type name="boolean"/>
+        <default value="false"/>
+        <description>
+          <text>Controls whether or not Proxy ARP is to be enabled on the interface.</text>
+        </description>
+      </leaf>
+      <uses name="ioa-common:common-states">
+        <when condition="if-type != 'software-loopback'"/>
+      </uses>
+      <uses name="ip"/>
+      <uses name="ioa-common:arc"/>
+      <uses name="ioa-common:label"/>
+    </list>
+  </grouping>
+  <grouping name="vrf">
+    <list name="vrf">
+      <key value="name"/>
+      <description>
+        <text>Virtual Routing and Forwarding instance.</text>
+      </description>
+      <leaf name="name">
+        <type name="string">
+          <length value="1..32"/>
+        </type>
+        <description>
+          <text>Name of the VRF.</text>
+        </description>
+      </leaf>
+      <leaf name="type">
+        <type name="enumeration">
+          <enum name="mgmt">
+            <value value="0"/>
+            <description>
+              <text>Management VRF.</text>
+            </description>
+          </enum>
+          <enum name="internal">
+            <value value="1"/>
+            <description>
+              <text>Internal VRF.</text>
+            </description>
+          </enum>
+          <enum name="scn">
+            <value value="2"/>
+            <description>
+              <text>SCN VRF.</text>
+            </description>
+          </enum>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>VRF type.</text>
+        </description>
+      </leaf>
+      <leaf name="chassis-name">
+        <type name="leafref">
+          <path value="../../../../equipment/chassis/name"/>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>Associated chassis name to this VRF.</text>
+        </description>
+      </leaf>
+      <leaf name="description">
+        <type name="string">
+          <length value="0..255"/>
+        </type>
+        <config value="false"/>
+        <description>
+          <text>Description of the VRF and its intended purpose.</text>
+        </description>
+      </leaf>
+    </list>
+  </grouping>
+  <grouping name="dns">
+    <container name="dns">
+      <description>
+        <text>Domain Name Server configuration</text>
+      </description>
+      <uses name="ioa-common:assignment-method"/>
+      <leaf name="enabled">
+        <type name="boolean"/>
+        <default value="true"/>
+        <description>
+          <text>Whether DNS is enabled.</text>
+        </description>
+      </leaf>
+      <leaf name="search">
+        <type name="string">
+          <length value="0..64"/>
+          <pattern value="(([A-Za-z0-9]*\.)+[A-Za-z0-9]+)?"/>
+        </type>
+        <description>
+          <text>DNS-search-suffix name, should contain atleast single dot.
+  To clear value, set to empty string.</text>
+        </description>
+      </leaf>
+      <list name="dns-server">
+        <key value="address"/>
+        <description>
+          <text>DNS server configuration.</text>
+        </description>
+        <leaf name="address">
+          <type name="inet:ip-address"/>
+          <description>
+            <text>DNS address.</text>
+          </description>
+        </leaf>
+        <leaf name="origin">
+          <type name="enumeration">
+            <enum name="manual">
+              <value value="1"/>
+              <description>
+                <text>Indicates the dns address has been manually configured.</text>
+              </description>
+            </enum>
+            <enum name="dhcp">
+              <value value="2"/>
+              <description>
+                <text>Indicates dns address that has been assigned to this
+system by a DHCP server.</text>
+              </description>
+            </enum>
+          </type>
+          <description>
+            <text>DNS address assignment method, user can convert
+DHCP configured DNS entry into a manual configured  by changing this attribute.</text>
+          </description>
+        </leaf>
+      </list>
+    </container>
+  </grouping>
+  <grouping name="rib">
+    <list name="rib">
+      <key value="rib-name"/>
+      <config value="false"/>
+      <description>
+        <text>Each entry represents a RIB identified by the 'name'
+key. All routes in a RIB belong to the same address
+family. For each routing instance, the system will
+provide one system-controlled default RIB for each
+supported address family.</text>
+      </description>
+      <leaf name="rib-name">
+        <type name="ioa-common:object-name"/>
+        <description>
+          <text>The name of the RIB.</text>
+        </description>
+      </leaf>
+      <leaf name="vrf">
+        <type name="leafref">
+          <path value="../../vrf/name"/>
+        </type>
+        <description>
+          <text>VRF to which this RIB is bound.</text>
+        </description>
+      </leaf>
+      <leaf name="address-family">
+        <type name="enumeration">
+          <enum name="ipv4-unicast">
+            <value value="1"/>
+          </enum>
+          <enum name="ipv6-unicast">
+            <value value="2"/>
+          </enum>
+        </type>
+        <default value="ipv4-unicast"/>
+        <description>
+          <text>Address family.</text>
+        </description>
+      </leaf>
+      <list name="route">
+        <key value="destination-prefix"/>
+        <description>
+          <text>A list of system routes from various source, such as dynamic protocols and static route.</text>
+        </description>
+        <leaf name="destination-prefix">
+          <type name="inet:ip-prefix"/>
+          <description>
+            <text>IP destination prefix.</text>
+          </description>
+        </leaf>
+        <list name="next-hop">
+          <key value="interface"/>
+          <description>
+            <text>Next-hop of a route item.</text>
+          </description>
+          <leaf name="interface">
+            <type name="leafref">
+              <path value="../../../../interface/if-name"/>
+            </type>
+            <description>
+              <text>Reference of the outgoing interface.</text>
+            </description>
+          </leaf>
+          <leaf name="next-hop-address">
+            <type name="inet:ip-address"/>
+            <description>
+              <text>IP address of the next-hop.</text>
+            </description>
+          </leaf>
+        </list>
+      </list>
+    </list>
+  </grouping>
+  <grouping name="networking">
+    <container name="networking">
+      <description>
+        <text>Top level container for networking model.</text>
+      </description>
+      <uses name="interface"/>
+      <uses name="vrf"/>
+      <uses name="ioa-rt:routing"/>
+      <uses name="rib"/>
+      <uses name="ioa-acl:acl-attributes"/>
+      <uses name="dns"/>
+      <leaf name="use-as-source">
+        <type name="string">
+          <length value="0..64"/>
+        </type>
+        <description>
+          <text>Interface to use as source address</text>
+        </description>
+      </leaf>
+    </container>
+  </grouping>
+</module>

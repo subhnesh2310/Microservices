@@ -1,0 +1,251 @@
+module ioa-protection {
+    namespace "http://infinera.com/yang/ioa/protection-group";
+    prefix ioa-protection;
+
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module that defines the data model for traffic protection group.";
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+
+    grouping protection {
+        container protection {
+            description "The top-level protection root node under which all other protection entities are present.";
+
+			list protection-group {
+				key name;
+				description "Protection Group associates two Protection Units that are redundant to each other, one said Working, the other Protection Unit.
+				             Each Protection Group entity forms a YPG.";
+
+				leaf name {
+					type ioa-common:object-name;
+					description "A user configured name for the protection group.";
+				}
+
+				uses ioa-common:aid;
+				uses ioa-common:label;
+
+				leaf protection-type {
+					type enumeration {
+						enum y-cable { value 10; }
+					}
+					mandatory true;
+					description "Represents the protection type this PG has.";
+				}
+
+				leaf pg-state {
+					type enumeration {
+						enum no-request           { value 10; description "No request.";}
+						enum do-not-revert        { value 20; description "Do not revert."; }
+						enum manual-to-working    { value 30; description "Manual to working."; }
+						enum manual-to-protection { value 40; description "Manual to protection."; }
+						enum forced-to-working    { value 50; description "Force to working."; }
+						enum forced-to-protection { value 60; description "Force to protection."; }
+						enum protection-lockout   { value 70; description "Lockout of protection."; }
+						enum sf-on-working        { value 80; description "Signal fail on working."; }
+						enum sf-on-protection     { value 90; description "Signal fail on protection."; }
+						enum sd-on-working        { value 100; description "Signal degrade on working."; }
+						enum sd-on-protection     { value 110; description "Signal degrade on protection."; }
+						enum wait-to-restore      { value 120; description "Wait to restore."; }
+						enum unavailable          { value 130; description "Unavailable."; }
+					}
+					default no-request;
+					config false;
+					description "Protection group state";
+				}
+
+				leaf pg-request {
+					type enumeration {
+						enum clear { value 1; }
+						enum manual-to-working { value 2; }
+						enum manual-to-protection { value 3; }
+						enum forced-to-working { value 4; }
+						enum forced-to-protection { value 5; }
+						enum protection-lockout { value 6; }
+					}
+					default clear;
+					description "The management of protection switching action.";
+				}
+
+				leaf switching-mode {
+					type enumeration {
+						enum unidirectional { value 10; }
+					}
+					default unidirectional;
+					description "Protection switching mode.";
+				}
+
+				leaf reversion-mode {
+					type enumeration {
+						enum revertive { value 10; }
+						enum non-revertive { value 20; }
+					}
+					default non-revertive;
+					description "Enable or disable automatic reversion protection status after wtr-time delay.";
+				}
+
+				leaf hold-off-timer {
+					type uint16 { range "0..10000"; }
+					units milliseconds;
+					default 0;
+					description "Switching trigger soaking time before switching, measured and set in 1-millisecond steps.";
+				}
+
+				leaf wtr-timer {
+					when "../reversion-mode = 'revertive'";
+					type uint16 { range "60..720"; }
+					units seconds;
+					default 300;
+					description "Trigger clearance soaking time before reverting to the working protection unit, measured and set in 1-second steps. Only applicable in revertive mode.";
+				}
+
+				leaf remaining-wtr {
+					when "../reversion-mode = 'revertive'";
+					type uint16 { range "0..720"; }
+					units seconds;
+					config false;
+					description "The remaining time in the WTR timer, in seconds. Only applicable in Revertive mode.";
+				}
+
+				leaf last-switch-trigger {
+					type enumeration {
+						enum clear               { value 10; }
+						enum manual-to-working   { value 20; }
+						enum manual-to-protection{ value 30; }
+						enum forced-to-working   { value 40; }
+						enum forced-to-protection{ value 50; }
+						enum lockout             { value 60; }
+						enum sf-on-working       { value 70; }
+						enum sf-on-protection    { value 80; }
+						enum sd-on-working       { value 90; }
+						enum sd-on-protection    { value 100; }
+						enum wtr                 { value 110; }
+					}
+					default 'clear';
+					config false;
+					description "Last switch trigger.";
+				}
+
+				leaf working-pu {
+					type string { length "1..32"; }
+					mandatory true;
+					description "The working unit associated with the protection group.";
+				}
+
+	            leaf protection-pu {
+					type string { length "1..32"; } 
+					mandatory true;
+					description "The protection unit associated with the protection group.";
+				}
+
+				leaf client-side-olos-trigger {
+					type ioa-common:enable-switch;
+					default disabled;
+					description "Considers a local client-side RX OLOS defect as a trigger for switch-over.";
+				}
+
+				leaf client-side-sd-trigger {
+					type ioa-common:enable-switch;
+					default disabled;
+					description "Considers a local client-side RX SD defect as a trigger for switch-over.";
+				}
+
+				leaf network-side-csf-trigger {
+					type ioa-common:enable-switch;
+					default disabled;
+					description "Considers a network-side ingress CSF defect as a trigger for switch-over.";
+				}
+
+				uses ioa-common:arc;
+
+    			list protection-unit {
+    				key name;
+    				description "Protection unit that identifier protection entitiy";
+
+    				leaf name {
+    					type ioa-common:object-name;
+    					description "Protection unit name";
+    				}
+
+    				uses ioa-common:aid;
+
+    				leaf transport-entity {
+    					type instance-identifier; 
+    					config false;
+    					description "The transport entity associated with this protection unit.";
+    				}
+
+    				leaf state {
+    					type enumeration {
+    						enum active               { value 10; }
+    						enum standby              { value 20; }
+    						enum unavailable          { value 30; }
+    						enum unknown              { value 40; }
+    					}
+    					config false;
+    					description "Protection unit state";
+    				}
+
+    				leaf role {
+    					type enumeration {
+    						enum working               { value 10; }
+    						enum protection            { value 20; }
+    					}
+    					config false;
+    					description "Protection unit role";
+    				}
+
+    				uses ioa-common:arc;
+    				uses ioa-common:label;
+    			}
+			}
+        }
+    }
+
+	rpc protection-switch {
+        description "Operating command for protection group switch";
+        input {
+            leaf protection-group {
+                type instance-identifier;
+                mandatory true;
+                description "The target of the switch command.";
+            }
+
+            leaf operation-type {
+                type enumeration {
+                    enum    force { value 1; description "Forced switch to a target, e.g. working or protection.";}
+                    enum    lockout   {value 2; description "Lockout of protection.";}
+                    enum    manual  { value 3; description "Manual switch to a target, e.g. working or protection.";}
+                    enum    clear { value 4; description "clear current command.";}
+                }
+                mandatory true;
+                description "The type of protection switch command";
+            }
+
+            leaf switch-target {
+                when "(../operation-type != 'lockout') and (../operation-type != 'clear')";
+                type enumeration {
+                    enum    working { value 1;}
+                    enum    protection   { value 2;}
+                }
+                mandatory true;
+                description "The target of the switch command, which is not needed for release and lockout operation.";
+            }
+        }
+    }
+}

@@ -1,0 +1,257 @@
+{
+    "system": {
+        "logging": {
+            "console": {
+                "selectors": {
+                    "selector": [
+                        {
+                            "facility": {
+                                "type": {
+                                    "ptype": "str",
+                                    "leafref": "../config/facility"
+                                },
+                                "isList": false,
+                                "description": "Reference to facility list key",
+                                "key": true,
+                                "mandatory": true,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false
+                            },
+                            "namespace": null,
+                            "severity": {
+                                "type": {
+                                    "ptype": "str",
+                                    "leafref": "../config/severity",
+                                    "values": [
+                                        "EMERGENCY",
+                                        "ALERT",
+                                        "CRITICAL",
+                                        "ERROR",
+                                        "WARNING",
+                                        "NOTICE",
+                                        "INFORMATIONAL",
+                                        "DEBUG"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Reference to severity list key",
+                                "key": true,
+                                "mandatory": true,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false
+                            },
+                            "config": {
+                                "facility": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "identityref": "SYSLOG_FACILITY"
+                                    },
+                                    "isList": false,
+                                    "description": "Specifies the facility, or class of messages to log",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null,
+                                    "hardcode": false
+                                },
+                                "severity": {
+                                    "type": {
+                                        "ptype": "str",
+                                        "values": [
+                                            "EMERGENCY",
+                                            "ALERT",
+                                            "CRITICAL",
+                                            "ERROR",
+                                            "WARNING",
+                                            "NOTICE",
+                                            "INFORMATIONAL",
+                                            "DEBUG"
+                                        ]
+                                    },
+                                    "isList": false,
+                                    "description": "Specifies that only messages of the given severity (or\ngreater severity) for the corresonding facility are logged",
+                                    "mandatory": false,
+                                    "key": false,
+                                    "config": true,
+                                    "default": "",
+                                    "namespace": null,
+                                    "hardcode": false
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "remote-servers": {
+                "remote-server": [
+                    {
+                        "host": {
+                            "type": {
+                                "ptype": "str",
+                                "leafref": "../config/host",
+                                "length": "1..253"
+                            },
+                            "isList": false,
+                            "description": "Reference to the host list key",
+                            "key": true,
+                            "mandatory": true,
+                            "config": true,
+                            "default": "",
+                            "hardcode": false
+                        },
+                        "config":  {
+                            "host": {
+                                "type": {
+                                    "ptype": "str",
+                                    "leafref": "../config/host",
+                                    "length": "1..253"
+                                },
+                                "isList": false,
+                                "description": "IP address or hostname of the remote log server",
+                                "key": true,
+                                "mandatory": true,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false
+                            },
+                            "source-address": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Source IP address for packets to the log server",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": "127.0.0.1",
+                                "hardcode": false
+                            },
+                            "remote-port": {
+                                "type": {
+                                    "ptype": "uint16"
+                                },
+                                "isList": false,
+                                "description": "Sets the destination port number for syslog UDP messages to the server.  The default for syslog is 514",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": 514,
+                                "hardcode": false
+                            },
+                            "transport": {
+                                "type": {
+                                    "ptype": "str",
+                                    "values": [
+                                        "udp",
+                                        "tcp"
+                                    ]
+                                },
+                                "isList": false,
+                                "description": "Transport protocol used to connect to the syslog remote server.",
+                                "key": true,
+                                "mandatory": false,
+                                "config": true,
+                                "default": "udp",
+                                "namespace": {
+                                    "namespace": "http://openconfig.net/yang/infinera/yang/extensions",
+                                    "prefix": null
+                                },
+                                "hardcode": false
+                            }
+                        },              
+                        "namespace": null,
+                        "selectors": {
+                            "selector": [
+                                {
+                                    "facility": {
+                                        "type": {
+                                            "ptype": "str",
+                                            "leafref": "../config/facility"
+                                        },
+                                        "isList": false,
+                                        "description": "Reference to facility list key",
+                                        "key": true,
+                                        "mandatory": true,
+                                        "config": true,
+                                        "default": "",
+                                        "hardcode": false
+                                    },
+                                    "namespace": null,
+                                    "severity": {
+                                        "type": {
+                                            "ptype": "str",
+                                            "leafref": "../config/severity",
+                                            "values": [
+                                                "EMERGENCY",
+                                                "ALERT",
+                                                "CRITICAL",
+                                                "ERROR",
+                                                "WARNING",
+                                                "NOTICE",
+                                                "INFORMATIONAL",
+                                                "DEBUG"
+                                            ]
+                                        },
+                                        "isList": false,
+                                        "description": "Reference to severity list key",
+                                        "key": true,
+                                        "mandatory": true,
+                                        "config": true,
+                                        "default": "",
+                                        "hardcode": false
+                                    },
+                                    "config": {
+                                        "facility": {
+                                            "type": {
+                                                "ptype": "str",
+                                                "identityref": "SYSLOG_FACILITY"
+                                            },
+                                            "isList": false,
+                                            "description": "Specifies the facility, or class of messages to log",
+                                            "mandatory": false,
+                                            "key": false,
+                                            "config": true,
+                                            "default": "",
+                                            "namespace": null,
+                                            "hardcode": false
+                                        },
+                                        "severity": {
+                                            "type": {
+                                                "ptype": "str",
+                                                "values": [
+                                                    "EMERGENCY",
+                                                    "ALERT",
+                                                    "CRITICAL",
+                                                    "ERROR",
+                                                    "WARNING",
+                                                    "NOTICE",
+                                                    "INFORMATIONAL",
+                                                    "DEBUG"
+                                                ]
+                                            },
+                                            "isList": false,
+                                            "description": "Specifies that only messages of the given severity (or\ngreater severity) for the corresonding facility are logged",
+                                            "mandatory": false,
+                                            "key": false,
+                                            "config": true,
+                                            "default": "",
+                                            "namespace": null,
+                                            "hardcode": false
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "namespace": {
+            "prefix": null,
+            "namespace": "http://openconfig.net/yang/system"
+        }
+    }
+}

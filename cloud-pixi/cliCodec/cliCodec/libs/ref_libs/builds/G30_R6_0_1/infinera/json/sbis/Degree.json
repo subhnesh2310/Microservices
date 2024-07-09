@@ -1,0 +1,119 @@
+{
+    "ne": {
+        "ne-function": {
+            "degree": [
+                {
+                    "degree-number": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Degree number should be greater than zero and not greater than max-degrees.",
+                        "mandatory": true,
+                        "key": true,
+                        "config": true,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "modules-degree": [
+                        {
+                            "index": {
+                                "type": {
+                                    "ptype": "int"
+                                },
+                                "isList": false,
+                                "description": "Card with index 1 should be the card/ subcard/ module fibered to the Degree(s).",
+                                "mandatory": false,
+                                "key": true,
+                                "config": true,
+                                "default": 1,
+                                "hardcode": true,
+                                "namespace": null
+                            },
+                            "namespace": null,
+                            "supported-card": {
+                                "type": {
+                                    "ptype": "str"
+                                },
+                                "isList": false,
+                                "description": "Instance of card or subcard that belongs to degree.",
+                                "mandatory": true,
+                                "key": false,
+                                "config": true,
+                                "default": "",
+                                "hardcode": false,
+                                "namespace": null
+                            }
+                        }
+                    ],
+                    "slot-width-granularity": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Width of a slot (measured in GHz).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 6250,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "center-freq-granularity": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Granularity of allowed center frequencies.\nThe base frequency for this computation is 193.1 THz (G.694.1).",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 3125,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "min-slots": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Minimum number of slots permitted to be joined together to form a media channel.\nMust be less than or equal to the max-slots.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 8,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "max-slots": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Maximum number of slots permitted to be joined together to form a media channel.\nMust be greater than or equal to the min-slots.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": 32,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

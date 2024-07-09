@@ -1,0 +1,339 @@
+{
+  "terminal-device":  {
+    "logical-channels":  {
+      "channel":  [{
+          "index": {
+            "type": {
+                "ptype": "int",
+                "leafref": "../config/index"
+            },
+            "isList": false,
+            "description": "Reference to the index of the logical channel",
+            "key": true,
+            "mandatory": false,
+            "config": true,
+            "default": 2147885056,
+            "namespace": null,
+            "hardcode": false
+        },
+          "config":  {
+            "index":  {
+                "type": {
+                    "ptype": "int"
+                },
+                "isList": false,
+                "description": "Index of the current logical channel",
+                "mandatory": false,
+                "key": false,
+                "config": true,
+                "default": 2147885056,
+                "namespace": null,
+                "hardcode": false
+            },
+            "description":  {
+                "type": {
+                    "ptype": "str"
+                },
+                "isList": false,
+                "description": "Description of the logical channel",
+                "mandatory": false,
+                "key": false,
+                "config": true,
+                "default": "ethernet-1-4-T1",
+                "namespace": null,
+                "hardcode": false
+            },
+            "trib-protocol": {
+                "type": {
+                    "ptype": "str",
+                    "identityref": "oc-opt-types:TRIBUTARY_PROTOCOL_TYPE"
+                },
+                "isList": false,
+                "description": "Protocol framing of the tributary signal. If this\nLogicalChannel is directly connected to a Client-Port or\nOptical-Channel, this is the protocol of the associated port.\nIf the LogicalChannel is connected to other LogicalChannels,\nthe TributaryProtocol of the LogicalChannels will define a\nspecific mapping/demapping or multiplexing/demultiplexing\nfunction.\n\nNot all protocols are valid, depending on the value\nof trib-rate-class.  The expectation is that the NMS\nwill validate that a correct combination of rate class\nand protocol are specfied.  Basic combinations are:\n\nrate class: 1G\nprotocols: 1GE\n\nrate class: 2.5G\nprotocols: OC48, STM16\n\nrate class: 10G\nprotocols:  10GE LAN, 10GE WAN, OC192, STM64, OTU2, OTU2e,\n           OTU1e, ODU2, ODU2e, ODU1e\n\nrate class: 40G\nprotocols:  40GE, OC768, STM256, OTU3, ODU3\n\nrate class: 100G\nprotocols:  100GE, 100G MLG, OTU4, OTUCn, ODU4",
+                "mandatory": true,
+                "key": false,
+                "config": true,
+                "default": "PROT_100GE",
+                "namespace": {
+                    "namespace": "http://openconfig.net/yang/transport-types",
+                    "prefix": "oc-opt-types"
+                },
+                "hardcode": false
+            },
+            "logical-channel-type": {
+                "type": {
+                    "ptype": "str",
+                    "identityref": "oc-opt-types:LOGICAL_ELEMENT_PROTOCOL_TYPE"
+                },
+                "isList": false,
+                "description": "The type / stage of the logical element determines the\nconfiguration and operational state parameters (PMs)\navailable for the logical element",
+                "mandatory": false,
+                "key": false,
+                "config": true,
+                "default": "PROT_ETHERNET",
+                "namespace": {
+                    "namespace": "http://openconfig.net/yang/transport-types",
+                    "prefix": "oc-opt-types"
+                },
+                "hardcode": false
+            },
+            "admin-state": {
+                "type": {
+                    "ptype": "str",
+                    "values": [
+                        "ENABLED",
+                        "DISABLED",
+                        "MAINT"
+                    ]
+                },
+                "isList": false,
+                "description": "Sets the admin state of the logical channel",
+                "mandatory": false,
+                "key": false,
+                "config": true,
+                "default": "ENABLED",
+                "namespace": null,
+                "hardcode": false
+            },
+            "loopback-mode": {
+                "type": {
+                    "ptype": "str",
+                    "values": [
+                        "NONE",
+                        "FACILITY",
+                        "TERMINAL"
+                    ]
+                },
+                "isList": false,
+                "description": "Sets the loopback type on the logical channel. Setting the\nmode to something besides NONE activates the loopback in\nthe specified mode.",
+                "mandatory": false,
+                "key": false,
+                "config": true,
+                "default": "NONE",
+                "namespace": null,
+                "hardcode": false
+            },
+            "test-signal": {
+                "type": {
+                    "ptype": "bool"
+                },
+                "isList": false,
+                "description": "When enabled the logical channel's DSP will generate a pseudo\nrandmon bit stream (PRBS) which can be used during testing.",
+                "mandatory": false,
+                "key": false,
+                "config": true,
+                "default": false,
+                "namespace": null,
+                "hardcode": false
+            }
+          },
+          "ethernet":  {
+            "config":  {
+              "client-als": {
+                "type": {
+                    "ptype": "enum",
+                    "values" : [
+                        "NONE",
+                        "LASER_SHUTDOWN",
+                        "ETHERNET"
+                    ]
+                },
+                "isList": false,
+                "description": "Sets the client port behavior that defines if the actions\nof automatic laser shutdown (als), ethernet fault\npropagation, or nothing will be done upon the detection\nof a failure on the line port or the upstream remote\nclient port.",
+                "mandatory": false,
+                "key": false,
+                "config": true,
+                "default": "LASER_SHUTDOWN",
+                "namespace": null,
+                "hardcode": false
+              },
+              "als-delay": {
+                "type": {
+                    "ptype": "uint32",
+                    "units": "milliseconds"
+                },
+                "isList": false,
+                "description": "The timer to delay the client-als actions on the client\nport when a local or remote fault is detected on the line\nport. The delay will only be valid when the client-als is\nset to LASER_SHUTDOWN.",
+                "mandatory": false,
+                "key": false,
+                "config": true,
+                "default": 0,
+                "namespace": null,
+                "hardcode": false
+              }
+            },
+            "lldp":  {
+              "config":  {
+                "enabled": {
+                    "type": {
+                        "ptype": "bool"
+                    },
+                    "isList": false,
+                    "description": "Enable or disable the LLDP protocol on the logical channel.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": true,
+                    "default": false,
+                    "namespace": null,
+                    "hardcode": false
+                },
+                "snooping": {
+                    "type": {
+                        "ptype": "bool"
+                    },
+                    "isList": false,
+                    "description": "If true, LLDP PDUs are only received and processed on\nthe logical-channel, but are not originated by the local\nagent. The PDUs are not dropped by the logical channel after\nprocessing, but relayed to the downstream link layer\nneighbors. The snooping mode is valid only when LLDP is\nenabled on the logical channel. The snooping mode is useful\nwhen a logical channel does not want its link layer neighbors\nto discover itself since, for example, it is a lower-layer\nlogical channel.",
+                    "mandatory": false,
+                    "key": false,
+                    "config": true,
+                    "default": false,
+                    "namespace": null,
+                    "hardcode": false
+                }
+              }
+            }
+          },
+          "logical-channel-assignments": {
+            "assignment": [
+                {
+                    "index": {
+                        "type": {
+                            "ptype": "int",
+                            "leafref": "../config/index"
+                        },
+                        "isList": false,
+                        "description": "Reference to the index for the current tributary\nassignment",
+                        "key": true,
+                        "mandatory": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false
+                    },
+                    "namespace": null,
+                    "config": {
+                        "index": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "Index of the current logical client channel to tributary\nmapping",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 0,
+                            "namespace": null,
+                            "hardcode": false
+                        },
+                        "description": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Name assigned to the logical client channel",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": null,
+                            "hardcode": false
+                        },
+                        "assignment-type": {
+                            "type": {
+                                "ptype": "str",
+                                "values": [
+                                    "LOGICAL_CHANNEL",
+                                    "OPTICAL_CHANNEL"
+                                ]
+                            },
+                            "isList": false,
+                            "description": "Each logical channel element may be assigned to subsequent\nstages of logical elements to implement further grooming, or\ncan be assigned to a line-side optical channel for\ntransmission.  Each assignment also has an associated\nbandwidth allocation.",
+                            "mandatory": true,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": null,
+                            "hardcode": false
+                        },
+                        "logical-channel": {
+                            "type": {
+                                "ptype": "unknown",
+                                "leafref": "/oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:index"
+                            },
+                            "isList": false,
+                            "description": "Reference to another stage of logical channel elements.",
+                            "mandatory": true,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": null,
+                            "hardcode": false
+                        },
+                        "optical-channel": {
+                            "type": {
+                                "ptype": "unknown",
+                                "leafref": "/oc-platform:components/oc-platform:component/oc-platform:name"
+                            },
+                            "isList": false,
+                            "description": "Reference to the line-side optical channel that should\ncarry the current logical channel element.  Use this\nreference to exit the logical element stage.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": null,
+                            "hardcode": false
+                        },
+                        "allocation": {
+                            "type": {
+                                "ptype": "str"
+                            },
+                            "isList": false,
+                            "description": "Allocation of the logical client channel to the tributary\nor sub-channel, expressed in Gbps. Please note that if the\nassignment is to an OTN logical channel, the allocation must\nbe an integer multiplication to tributary-slot-granularity\nof the OTN logical channel.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "",
+                            "namespace": null,
+                            "hardcode": false
+                        },
+                        "tributary-slot-index": {
+                            "type": {
+                                "ptype": "int"
+                            },
+                            "isList": false,
+                            "description": "Indicates the first tributary slot index allocated to the\nclient signal or logical channel in the assignment. Valid\nonly when the assignment is to an OTN logical channel.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": 0,
+                            "namespace": null,
+                            "hardcode": false
+                        },
+                        "mapping": {
+                            "type": {
+                                "ptype": "str",
+                                "identityref": "oc-opt-types:FRAME_MAPPING_PROTOCOL"
+                            },
+                            "isList": false,
+                            "description": "Logical channel mapping procedure. Valid only when the\nassignment is to an OTN logical channel.",
+                            "mandatory": false,
+                            "key": false,
+                            "config": true,
+                            "default": "AMP",
+                            "namespace": {
+                                "namespace": "http://openconfig.net/yang/transport-types",
+                                "prefix": "oc-opt-types"
+                            },
+                            "hardcode": false
+                        }
+                    }
+                }
+            ]
+        }
+        }
+    ]},
+"namespace": {
+    "prefix": null,
+    "namespace": "http://openconfig.net/yang/terminal-device"
+}
+}
+}

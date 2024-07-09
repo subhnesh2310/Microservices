@@ -1,0 +1,407 @@
+{
+    "ne": {
+        "equipment": {
+            "chassis": [
+                {
+                    "name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Chassis name.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "is-node-controller": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "Tells if this chassis the node controller of this NE.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": false,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "chassis-role": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "unknown",
+                                "main-chassis",
+                                "sub-chassis"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Identifies the role of the chassis in a multi-chassis NE.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "unknown",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "expected-serial-number": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Inform the NC the serial number of a sub-chassis. For the main-chassis, the value is auto-filled with its own serial number",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "required-type": {
+                        "type": {
+                            "ptype": "str",
+                            "identityref": "ioa-common:chassis",
+                            "values": [
+                                "G31",
+                                "G42",
+                                "G34c",
+                                "G32"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Chassis type.",
+                        "mandatory": true,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": {
+                            "namespace": "http://infinera.com/yang/ioa/common",
+                            "prefix": "ioa-common"
+                        }
+                    },
+                    "chassis-location": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User defined location",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "rack-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User defined rack name (withing the location)",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "position-in-rack": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Position of the chassis within the rack.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "expected-pem-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "DC",
+                                "AC-high-line",
+                                "AC-low-line",
+                                "HV-DC"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Defines what is the expected type of PEMs that this chassis will have.\nIt is not possible to configure each PEM slot individually, as all PEMs need to be of the same type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "DC",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "expected-fan-type": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "single-rotar",
+                                "counter-rotating"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Defines what is the expected type of FANs that this chassis will have.\nIt is not possible to configure each FAN slot individually, this needs to be done at the chassis level.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "counter-rotating",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "pem-under-voltage-threshold": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Under voltage threshold on PEM input feed.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "pem-over-voltage-threshold": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Over voltage threshold on PEM input feed.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "available-power": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Available Power at the chassis based on the current provisioned equipment.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "configured-max-power-draw": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User configured limit of power usable by this chassis.\nIf current-estimated-power-draw used in this chassis goes above the configured-max-power-draw,\nthe alarm PWRDRAW is raised. 10000W represents a 'very high' power draw that is beyond any\nchassis possibilities, so having this value means this feature is disabled, and the alarm is never raised.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "10000",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "current-estimated-power-draw": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Total estimated power of both installed and pre-provisioned FRUs",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "configured-ambient-temperature": {
+                        "type": {
+                            "ptype": "int"
+                        },
+                        "isList": false,
+                        "description": "Configured ambient temperature for the chassis, used to compute the FRU's power consumption.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": 0,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "power-redundancy": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "one-plus-one",
+                                "one-for-n"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Configuration of the PEM redundancy mode.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "one-plus-one",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "no-switchover": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "If enabled, the standby controller will be locked out from taking over the active card. This means no manual or autonomous switchovers will happen.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "active-controller-slot": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Identifies the active controller slot name. A change to this attribute implies a switchover has happened.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "none",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-ready": {
+                        "type": {
+                            "ptype": "bool"
+                        },
+                        "isList": false,
+                        "description": "Represents the alarm monitoring state for this chassis.\nAfter a system restart, alarms are kept persistent for a grace minute period,\nafter which they will be cleared, unless they are reconfirmed.\nThis state provides visibility whether that grace period has passed or not.\nWhen this state is true, there are no more cached alarms raised.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": false,
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alias-name": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "AID": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Resource Access Identifier (AID). Identifies an instance within a specific resource type.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "admin-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "lock",
+                                "unlock",
+                                "maintenance"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The administrative state of the managed object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "unlock",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "avail-state": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "Availability state of an entity.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "oper-state": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "enabled",
+                                "disabled"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "The operational state of this object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": false,
+                        "default": "disabled",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "alarm-report-control": {
+                        "type": {
+                            "ptype": "str",
+                            "values": [
+                                "allowed",
+                                "inhibited"
+                            ]
+                        },
+                        "isList": false,
+                        "description": "Controls the reporting of alarms for this particular object.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "allowed",
+                        "hardcode": false,
+                        "namespace": null
+                    },
+                    "label": {
+                        "type": {
+                            "ptype": "str"
+                        },
+                        "isList": false,
+                        "description": "User label.",
+                        "mandatory": false,
+                        "key": false,
+                        "config": true,
+                        "default": "",
+                        "hardcode": false,
+                        "namespace": null
+                    }
+                }
+            ]
+        }
+    }
+}

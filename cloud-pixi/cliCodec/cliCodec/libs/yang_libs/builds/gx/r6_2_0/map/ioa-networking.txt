@@ -1,0 +1,196 @@
+networking
+	ipv4-address
+		+ip : str
+		+netmask : str
+		-origin : str
+	ipv6-address
+		+ip : str
+		+prefix-length : int
+		-origin : str
+	interface
+		+if-name : str
+		if-description : str
+		+if-type : str
+		-supporting-port : str
+		-backup-port : str
+		protection-mode : str
+		-protection-state : str
+		-vrf : unknown
+		ipv4-enabled : bool
+		ipv4-address-assignment-method : str
+		ipv6-enabled : bool
+		ipv6-address-assignment-method : str
+		proxy-arp-enabled : bool
+		admin-state : str
+		-avail-state : str
+		-oper-state : str
+		alarm-report-control : str
+		label : str
+		ipv4-address
+			+ip : str
+			+netmask : str
+			-origin : str
+		ipv6-address
+			+ip : str
+			+prefix-length : int
+			-origin : str
+	vrf
+		name : str
+		-type : str
+		-chassis-name : unknown
+		-description : str
+	dns
+		enabled : bool
+		search : str
+		assignment-method : str
+		dns-server
+			address : str
+			origin : str
+	rib
+		rib-name : str
+		vrf : unknown
+		address-family : str
+		route
+			destination-prefix : str
+			next-hop
+				interface : unknown
+				next-hop-address : str
+	networking
+		use-as-source : str
+		routing
+			ipv4-static-route
+				+ipv4-destination-prefix : str
+				advertised : bool
+				next-hop-address : str
+				vrf : str
+				distance : int
+				interface : str
+				-monitoring-state : str
+				-monitoring-instance : str
+				origin : str
+			ipv6-static-route
+				+ipv6-destination-prefix : str
+				vrf : str
+				advertised : bool
+				next-hop-address : str
+				distance : int
+				interface : str
+				-monitoring-state : str
+				-monitoring-instance : str
+				origin : str
+			ospf-instance
+				+router-id : str
+				instance-id : int
+				version : str
+				description : str
+				-vrf : str
+				router-id-mode : str
+				ospf-area
+					ospf-area-id : str
+					ospf-area-type : str
+					ospf-area-range
+						prefix : str
+						advertise : bool
+					ospf-interface
+						ospf-if-name : str
+						ospf-if-routing : str
+						enable : bool
+						hello-interval : int
+						router-dead-interval : int
+						retransmission-interval : int
+						transmit-delay : int
+						ospf-cost : int
+						-ospf-network-type : str
+						priority : int
+						ospf-auth-enable : bool
+						ospf-auth-algorithm : str
+						ospf-auth-key : str
+						ospfv3-ipsec-security-association
+							spi : int
+							ipsec-protocol : str
+							ipsec-mode : str
+							+integrity-algorithm : str
+							auth-key
+								type : str
+								+key : str
+			ip-monitoring
+				name : str
+				probe-interval : int
+				+destination : str
+				drop-rate : int
+				enabled : bool
+				-monitoring-state : str
+				action : str
+				+next-hop : str
+				static-route : str
+				alarm-report-control : str
+		access-control-list
+			acl
+				name : str
+				+type : str
+				+interface : unknown
+				admin-state : str
+				-avail-state : str
+				-oper-state : str
+				ace
+					sequence-id : int
+					direction : str
+					logging-action : bool
+					source-ip-address : str
+					source-lower-port : str
+					source-upper-port : str
+					destination-ip-address : str
+					destination-lower-port : str
+					destination-upper-port : str
+					ttl : str
+					action : str
+					protocol : str
+					label : str
+		dns
+			enabled : bool
+			search : str
+			assignment-method : str
+			dns-server
+				address : str
+				origin : str
+		interface
+			+if-name : str
+			if-description : str
+			+if-type : str
+			-supporting-port : str
+			-backup-port : str
+			protection-mode : str
+			-protection-state : str
+			-vrf : str
+			ipv4-enabled : bool
+			ipv4-address-assignment-method : str
+			ipv6-enabled : bool
+			ipv6-address-assignment-method : str
+			proxy-arp-enabled : bool
+			admin-state : str
+			-avail-state : str
+			-oper-state : str
+			alarm-report-control : str
+			label : str
+			ipv4-address
+				+ip : str
+				+netmask : str
+				-origin : str
+			ipv6-address
+				+ip : str
+				+prefix-length : int
+				-origin : str
+		vrf
+			name : str
+			-type : str
+			-chassis-name : unknown
+			-description : str
+		rib
+			rib-name : str
+			vrf : str
+			address-family : str
+			route
+				destination-prefix : str
+				next-hop
+					interface : str
+					next-hop-address : str

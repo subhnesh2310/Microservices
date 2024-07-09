@@ -1,0 +1,311 @@
+module ioa-network-element {
+
+    namespace "http://infinera.com/yang/ioa/ne";
+    prefix ioa-ne;
+
+    import ioa-equipment          { prefix ioa-eqm;      }
+    import ioa-common             { prefix ioa-common;   }
+    import ioa-security           { prefix ioa-sec;      }
+    import ioa-syslog             { prefix ioa-syslog;   }
+    import ioa-mgmt-protocols     { prefix ioa-mgmt;     }
+    import ioa-ztp                { prefix ioa-ztp;      } 
+    import ioa-transfer           { prefix ioa-transfer; }
+    import ioa-time               { prefix ioa-time;     }
+    import ioa-networking         { prefix networking;   }
+    import ioa-sw-services        { prefix ioa-sw-svc;   }
+    import ioa-sw-management      { prefix ioa-swm;      }
+    import ioa-telemetry          { prefix ioa-tlm;      }
+    import ioa-services           { prefix ioa-services; }
+    import ioa-topology           { prefix ioa-top;      }
+    import ioa-facilities         { prefix ioa-fac;      }
+    import ioa-capabilities       { prefix ioa-cap;      }
+    import ioa-protection         { prefix ioa-prot;     }
+
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module that defines the network element top level node under which all other NE resources appear.
+                 Module also includes system level information parameters.";
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-09-17" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.1";
+    }
+
+
+    container ne {
+        description "Top level entity of the model, represents the entire Network Element.";
+
+        uses ne-info;
+        uses ioa-eqm:equipment;
+        uses ioa-fac:facilities;
+        uses ioa-services:services;
+        uses system; 
+        uses ioa-top:topology;
+        uses ioa-cap:capabilities;
+        uses ioa-prot:protection;
+        uses ioa-common:operational-states;
+        uses ioa-common:arc;
+    }
+
+
+    grouping ne-info {
+
+        leaf ne-id {
+            type string { length 0..256; }
+            config false;
+            description "Unique identifier of the NE defined by the system.";
+        }
+
+        leaf ne-name {
+            type string { length 0..256; }
+            description "User assigned name for this NE.";
+        }
+
+        uses ioa-common:label;
+
+        leaf ne-type {
+            type string { length 0..64; }
+            config false;
+            description "Type of the NE.";
+        }
+
+        leaf ne-vendor { 
+            type string { length 0..64; } 
+            config false; 
+            description "Vendor name of the NE.";
+        }
+
+        leaf ne-site { 
+            type string { length 0..64; } 
+            description "Name or CLLI of the site where this NE is located.";
+        }
+
+        leaf ne-location { 
+            type string { length 0..256; }
+            description "Name of the location of this particular NE.";
+        }
+
+        leaf ne-sub-location { 
+            type string { length 0..256; }
+            description "Name of the secondary location of this particular NE.";
+        }
+
+        leaf clli {
+            type string { length 0..20; }
+            description "Common Language Location Identifier (CLLI) is a 20-character standardized geographic
+                         identifier that uniquely identifies the functional category of the equipment.";
+        }
+
+        leaf node-controller-chassis-name {
+            type string { length 0..64; }
+            description "Selects the chassis that has the role of the NE controller.
+                         Upon initial commissioning, setting this parameter automatically provisions
+                         the current chassis with the provided name.";
+        }
+
+        leaf altitude { 
+            type int16; 
+            units meters; 
+            description "Altitude of the NE.";
+        }
+
+        leaf latitude {
+            type decimal64 {
+               fraction-digits 16;
+               range "-90 .. 90";
+            }
+            units degrees;
+            description "Latitude of the NE.";
+        }
+
+        leaf longitude {
+            type decimal64 {
+                fraction-digits 16;
+                range "-180 .. 180";
+            }
+            units degrees;
+            description "Longitude of the NE.";
+        }
+
+        leaf equipment-discovery-ready {
+            type boolean;
+            default false;
+            config false;
+            description "Represents the current equipment discovery state.
+                         It will remain as 'false' until all equipment was discovered during startup.
+                         Equipment added after startup will not contribute to the update of this state.";
+        }
+
+        leaf alarm-report-ready {
+            type boolean;
+            default false;
+            config false;
+            description "Represents the alarm monitoring state.
+                         After a system restart, alarms are kept persistent for a grace minute period, 
+                         after which they will be cleared, unless they are reconfirmed.
+                         This state provides visibility whether that grace period has passed or not.
+                         When this state is true, there are no more cached alarms raised.";
+        }
+
+        leaf contact {
+            type string { length 0..128; }
+            description "The administrator contact information for the system.";
+        }
+
+        leaf recover-mode {
+            type boolean;
+            config false;
+            description 
+               "A system is in recover-mode to represent an error state that requires manual intervention.
+                Several specific sanity checks are done during system startup, and if any of them fail
+                the system will enter recover-mode.
+
+                While in recover mode, the following happens:
+                - the reason for the recover mode can be visualized in the ne recover-mode-reason attribute
+                - a system-wide alarm RECOVER-MODE is raised
+                - CLI sessions get an extra banner at login reminding the user the current system state
+                - connection to existing line cards is severed, effectively keeping previous hardware configuration untouched
+                - new configurations are accepted, but will not take effect until the recover mode is cleared
+
+                Recover mode can be resolved in multiple ways:
+                - simply confirming that current configuration is the desired one
+                - restoring a valid Database backup
+                In all cases, the recover mode requires an explicit command to be cleared.
+
+                Use command 'clear recover-mode' to confirm current configuration and return to normal system operation.
+
+                (!) Warning: clearing the recover mode may have traffic impact; please confirm settings before this action.";
+        }
+
+        leaf original-recover-mode-reason {
+            type string{ length 0..256; }
+            config false; 
+            description "Original reason for recover mode.
+                         Displays the original recover mode reason, available only when current reason has changed.";
+        }
+
+        leaf recover-mode-reason {
+            type string{ length 0..256; }
+            config false; 
+            description "Reason for recover mode.
+                         Available only when ne is in recover mode.";
+        }
+    }
+
+    grouping system {
+        container system {
+            description "System Configuration container";
+
+            uses ioa-sec:security;
+            uses ioa-syslog:syslog;
+            uses ioa-mgmt:protocols;
+            uses ioa-ztp:ztp;
+            uses ioa-transfer:transfer;
+            uses networking:networking;
+            uses ioa-time:clock;
+            uses ioa-time:ntp;
+            uses ioa-sw-svc:sw-services;
+            uses ioa-swm:sw-management;
+            uses ioa-swm:database;
+            uses ioa-tlm:telemetry;
+            uses ioa-transfer:fdr;
+        }
+    }
+
+
+    // Notifications
+
+    notification db-change {
+        description "Generated when the system detects that the <running> configuration datastore has changed.
+                     Contains both state and config changes.";
+        uses ioa-common:notif-common;
+
+        container changed-by {
+            description "Information regarding the agent that caused this change.";
+            choice server-or-user {
+                mandatory true;
+                leaf server {
+                    type empty;
+                    description "If present, the change was caused by the server.";
+                }
+                case by-user {
+                    leaf user-name {
+                        type string;
+                        description "User name that made the change";
+                    }
+                    leaf session-id {
+                        type string;
+                        description "Session ID that made the change";
+                    }
+                    leaf message-id {
+                        type string;
+                        description "Message ID that matches the request";
+                    }
+                }
+            }
+        }
+        anyxml change {
+            description "
+                Copy of the running datastore subset and state data that changed.
+                The following metadata is used in this content:
+                - 'operation' attribute, used for containers and lists. May have values 'create' and 'delete',
+                  representing that this node was created or deleted.
+                - 'old-value' attribute, used for leaf and leaf-lists. Will contain the previous value of the
+                  attribute it refers to.
+                These two metadata attributes are qualified with the same namespace as the datastore itself, and
+                are defined according with RFC7952.
+
+                XML Example:
+                    <object operation='create'>
+                        ...
+                    </object>
+                    <attribute old-value='x'>y</attribute>
+                ";
+        }
+    }
+
+    notification audit {
+        description "Contains configuration commands performed by users.
+                     Only sent for  successful commands that have impact on system configuration.";
+
+        uses ioa-common:notif-common;
+
+        leaf user-name {
+            type string;
+            description "User name that made the change";
+        }
+
+        leaf session-id {
+            type string;
+            description "Session ID that made the change";
+        }
+
+        leaf session-type {
+            type ioa-common:session-type;
+            description "Type of the session that made the change.";
+        }
+
+        leaf message-id {
+            type string;
+            description "Message ID that associated with the request";
+        }
+
+        anyxml command {
+            description "
+                Copy of the inputted command, using an abstract XML representation.
+                Effectively, contains the command as if it was converted to NETCONF XML.
+                ";
+        }
+
+        leaf original-command {
+            type string;
+            description "Contains original command, if applicable (e.g. for CLI commands).";
+        }
+    }
+}

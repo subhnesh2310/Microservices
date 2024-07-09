@@ -1,0 +1,1259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-mgmt-protocols"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-mgmt="http://infinera.com/yang/ioa/mgmt-protocols"
+        xmlns:inet="urn:ietf:params:xml:ns:yang:ietf-inet-types"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common">
+  <namespace uri="http://infinera.com/yang/ioa/mgmt-protocols"/>
+  <prefix value="ioa-mgmt"/>
+  <import module="ietf-inet-types">
+    <prefix value="inet"/>
+  </import>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG model defining Management Protocols configurations.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-06-30">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.2</text>
+    </description>
+  </revision>
+  <revision date="2022-02-28">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.1</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-09-17">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.1</text>
+    </description>
+  </revision>
+  <typedef name="snmp-string">
+    <type name="string">
+      <length value="1..32"/>
+      <pattern value="[!-~\s]*"/>
+    </type>
+  </typedef>
+  <grouping name="ssh-public-key-attributes">
+    <leaf name="public-key-algorithm">
+      <type name="enumeration">
+        <enum name="ecdsa-sha2-nistp256">
+          <value value="1"/>
+          <reference>
+            <text>RFC 5656 and RFC 6239</text>
+          </reference>
+        </enum>
+        <enum name="ecdsa-sha2-nistp384">
+          <value value="2"/>
+          <reference>
+            <text>RFC 5656 and RFC 6239</text>
+          </reference>
+        </enum>
+        <enum name="ecdsa-sha2-nistp521">
+          <value value="3"/>
+          <reference>
+            <text>RFC 5656 and RFC 6239</text>
+          </reference>
+        </enum>
+        <enum name="ssh-rsa2048">
+          <value value="4"/>
+          <reference>
+            <text>RFC 4432</text>
+          </reference>
+        </enum>
+        <enum name="ssh-rsa3072">
+          <value value="5"/>
+          <reference>
+            <text>RFC 4432</text>
+          </reference>
+        </enum>
+        <enum name="ssh-rsa4096">
+          <value value="6"/>
+          <reference>
+            <text>RFC 4432</text>
+          </reference>
+        </enum>
+      </type>
+      <description>
+        <text>The type of host key algorithm in use.</text>
+      </description>
+    </leaf>
+    <leaf name="public-key">
+      <type name="string">
+        <length value="0..2048"/>
+      </type>
+      <description>
+        <text>SSHv2(OpenSSH Portable) host public key component encoded in PEM format:
+&lt;key type&gt;&lt;SPACE&gt;...base64 encoded OpenSSH public key....&lt;SPACE&gt;&lt;comment&gt;
+</text>
+      </description>
+    </leaf>
+    <uses name="ioa-common:label"/>
+  </grouping>
+  <grouping name="protocols">
+    <container name="protocols">
+      <description>
+        <text>Container of management protocol objects.</text>
+      </description>
+      <container name="ssh">
+        <description>
+          <text>Control of ssh access.</text>
+        </description>
+        <leaf name="enabled">
+          <type name="boolean"/>
+          <default value="false"/>
+          <description>
+            <text>Enables direct access to shell via ssh.</text>
+          </description>
+        </leaf>
+        <leaf name="port">
+          <type name="ioa-common:port-number"/>
+          <default value="8022"/>
+          <description>
+            <text>Port listening for ssh login that goes directly to shell.</text>
+          </description>
+        </leaf>
+        <leaf name="pre-login-message">
+          <type name="string">
+            <length value="0..1440"/>
+          </type>
+          <description>
+            <text>Welcome message displayed before user login.</text>
+          </description>
+        </leaf>
+        <leaf name="post-login-message">
+          <type name="string">
+            <length value="0..1440"/>
+          </type>
+          <description>
+            <text>Welcome message displayed after user login.</text>
+          </description>
+        </leaf>
+        <list name="ssh-host-key">
+          <key value="public-key-algorithm"/>
+          <config value="false"/>
+          <max-elements value="2"/>
+          <description>
+            <text>Global(for server and client side SSHv2 based apps) SSHv2 host keys.
+  There needs to be one host key per supported algorithm.
+  The system auto-generates a host-key in default DB and
+  additional host-keys can be added/overwritten via the ssh-keygen RPC.</text>
+          </description>
+          <uses name="ssh-public-key-attributes"/>
+          <leaf name="fingerprint-algorithm">
+            <type name="enumeration">
+              <enum name="md5">
+                <value value="1"/>
+              </enum>
+              <enum name="sha256">
+                <value value="2"/>
+              </enum>
+            </type>
+            <description>
+              <text>The type of hash algorithm in use for computing the key fingerprint</text>
+            </description>
+          </leaf>
+          <leaf name="fingerprint">
+            <type name="string">
+              <length value="1..95"/>
+            </type>
+            <description>
+              <text>Fingerprint string as a sequence of pairs of hex digits.
+SSHv2 public key fingerprint examples for MD5 and SHA256 hash:
+md5sum fingerprint =&gt; b2:9c:cd:30:b1:38:e3:d1:17:d6:73:eb:03:9a:80:83
+sha256sum fingerprint =&gt; f4:61:58:e4:90:65:c4:70:98:7f:d1:40:0a:d8:d9:79:14:e6:91:dc:b6:ed:91:8c:c0:df:d9:65:db:dd:a0:18
+</text>
+            </description>
+          </leaf>
+        </list>
+        <list name="ssh-known-host">
+          <key value="id"/>
+          <max-elements value="100"/>
+          <description>
+            <text>SSHv2 known hosts entry.</text>
+          </description>
+          <leaf name="id">
+            <type name="ioa-common:object-name"/>
+            <description>
+              <text>A unique identifier (name) for this entry.</text>
+            </description>
+          </leaf>
+          <leaf name="address">
+            <type name="ioa-common:host"/>
+            <mandatory value="true"/>
+            <description>
+              <text>The hostname/IPv4/IPv6 address of the allowed/known peer host.</text>
+            </description>
+          </leaf>
+          <uses name="ssh-public-key-attributes">
+            <refine target-node="public-key-algorithm">
+              <mandatory value="true"/>
+            </refine>
+            <refine target-node="public-key">
+              <mandatory value="true"/>
+            </refine>
+          </uses>
+        </list>
+        <list name="ssh-authorized-key">
+          <key value="user-name key-id"/>
+          <description>
+            <text>SSHv2 authorized key.
+Each authorized key entry contains a trusted public key for SSHv2 user authentication.</text>
+          </description>
+          <leaf name="user-name">
+            <type name="ioa-common:user-name"/>
+            <description>
+              <text>User owning the authorized key. Can be local or remote user.</text>
+            </description>
+          </leaf>
+          <leaf name="key-id">
+            <type name="ioa-common:object-name"/>
+            <description>
+              <text>A unique identifier (name) for this entry.</text>
+            </description>
+          </leaf>
+          <uses name="ssh-public-key-attributes">
+            <refine target-node="public-key-algorithm">
+              <config value="false"/>
+              <description>
+                <text>The type of key algorithm used. Auto-discovered based on provided public key.</text>
+              </description>
+            </refine>
+            <refine target-node="public-key">
+              <mandatory value="true"/>
+              <description>
+                <text>Base64-encoded OpenSSH public key.</text>
+              </description>
+            </refine>
+          </uses>
+        </list>
+      </container>
+      <container name="cli">
+        <description>
+          <text>Configuration of the Command Line Interface (CLI) management protocol.</text>
+        </description>
+        <leaf name="enabled">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>Enables/disables the CLI management protocol.</text>
+          </description>
+        </leaf>
+        <leaf name="port">
+          <type name="ioa-common:port-number"/>
+          <default value="22"/>
+          <description>
+            <text>The port which listens for CLI access via ssh.</text>
+          </description>
+        </leaf>
+        <leaf name="script-dir">
+          <type name="string">
+            <length value="1..80"/>
+          </type>
+          <config value="false"/>
+          <description>
+            <text>Location in the filesystem where CLI scripts are stored.</text>
+          </description>
+        </leaf>
+        <leaf name="default-interactive-mode">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>Defines whether CLI sessions have interactive-mode enabled or disabled by default.
+Individual sessions can deviate from this global flag by configuring the interactive-mode at the cli-session-config level.
+Note: changing this parameter will not affect existing CLI sessions, only newly created sessions.</text>
+          </description>
+        </leaf>
+        <list name="cli-alias">
+          <key value="name"/>
+          <description>
+            <text>List of aliases used in CLI.
+Can only be accessed via 'alias/unalias' CLI commands.</text>
+          </description>
+          <leaf name="name">
+            <type name="string">
+              <length value="1..256"/>
+            </type>
+            <description>
+              <text>Name of the alias</text>
+            </description>
+          </leaf>
+          <leaf name="value">
+            <type name="string">
+              <length value="1..1024"/>
+            </type>
+            <description>
+              <text>Value of the alias</text>
+            </description>
+          </leaf>
+        </list>
+        <list name="cli-session-config">
+          <key value="session-id"/>
+          <description>
+            <text>Configurations associated with individual CLI sessions.</text>
+          </description>
+          <leaf name="session-id">
+            <type name="string"/>
+            <description>
+              <text>The identifier of the CLI session</text>
+            </description>
+          </leaf>
+          <leaf name="cli-lines">
+            <type name="uint16">
+              <range value="10..1000"/>
+            </type>
+            <default value="40"/>
+            <description>
+              <text>Number of rows to be used for display. This value is automatically
+discovered when possible</text>
+            </description>
+          </leaf>
+          <leaf name="cli-columns">
+            <type name="uint16">
+              <range value="80..4000"/>
+            </type>
+            <default value="140"/>
+            <description>
+              <text>Number of columns to be used for display. This value is automatically
+discovered when possible</text>
+            </description>
+          </leaf>
+          <leaf name="interactive-mode">
+            <type name="boolean"/>
+            <description>
+              <text> This determines if the CLI shall issue interactive prompt (e.g. for prompting
+additional information, or for confirmation of user initiated actions).
+Enabled = CLI will prompt user (default)</text>
+            </description>
+          </leaf>
+          <leaf name="display-timestamp">
+            <type name="boolean"/>
+            <default value="false"/>
+            <description>
+              <text>This determines if the current timestamp will be printed on every CLI command.</text>
+            </description>
+          </leaf>
+        </list>
+      </container>
+      <container name="serial-console">
+        <description>
+          <text>Global configuration of all serial console ports in the system.</text>
+        </description>
+        <leaf name="global-switch">
+          <type name="ioa-common:enable-switch"/>
+          <default value="enabled"/>
+          <description>
+            <text>Allow access by serial-console. Note: each console port can override this global behavior.</text>
+          </description>
+        </leaf>
+        <leaf name="global-timeout">
+          <type name="uint16"/>
+          <units name="minutes"/>
+          <default value="60"/>
+          <description>
+            <text>Serial console inactivity timeout. Can be set to zero to disable inactivity timer.</text>
+          </description>
+        </leaf>
+      </container>
+      <container name="netconf">
+        <description>
+          <text>Configuration of the NETCONF management protocol.</text>
+        </description>
+        <leaf name="enabled">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>Enables/disables the NETCONF management protocol.</text>
+          </description>
+        </leaf>
+        <leaf name="port">
+          <type name="ioa-common:port-number"/>
+          <default value="830"/>
+          <description>
+            <text>The port which listens for NETCONF access via ssh.</text>
+          </description>
+        </leaf>
+        <leaf name="annotate-cli-name">
+          <type name="boolean"/>
+          <default value="false"/>
+          <description>
+            <text>If enabled, annotates NETCONF XML output with cli names for traceability.</text>
+          </description>
+        </leaf>
+        <leaf name="hello-timeout">
+          <type name="uint16">
+            <range value="1..3600"/>
+          </type>
+          <units name="seconds"/>
+          <default value="2"/>
+          <description>
+            <text>Specifies the number of seconds that a session may exist
+before the hello PDU is received/transmitted.  A session will be
+dropped if no hello PDU is received/transmitted before this number
+of seconds elapses.</text>
+          </description>
+        </leaf>
+      </container>
+      <container name="tl1">
+        <description>
+          <text>TL1 protocol configuration</text>
+        </description>
+        <leaf name="tl1-over-ssh-enabled">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>Decides whether TL1 protocol is accessible over SSH or not.</text>
+          </description>
+        </leaf>
+        <leaf name="ssh-interactive-port">
+          <type name="ioa-common:port-number"/>
+          <default value="9095"/>
+          <description>
+            <text>SSH port that gives access to interactive interface of TL1 protocol server.</text>
+          </description>
+        </leaf>
+        <leaf name="ssh-scripting-port">
+          <type name="ioa-common:port-number"/>
+          <default value="9096"/>
+          <description>
+            <text>SSH port that gives access to non-interactive or scripting interface of TL1 protocol server. This interface does not echo terminal characters to client.</text>
+          </description>
+        </leaf>
+      </container>
+      <container name="restconf">
+        <description>
+          <text>Configuration of the RESTCONF management protocol.</text>
+        </description>
+        <leaf name="enabled">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>User configurable switch to enable or disable RESTCONF access.</text>
+          </description>
+        </leaf>
+        <leaf name="http-enabled">
+          <type name="boolean"/>
+          <default value="false"/>
+          <description>
+            <text>User configurable switch to enable or disable RESTCONF HTTP access.</text>
+          </description>
+        </leaf>
+        <leaf name="https-enabled">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>User configurable switch to enable or disable RESTCONF HTTPS access.</text>
+          </description>
+        </leaf>
+        <leaf name="http-port">
+          <type name="ioa-common:port-number"/>
+          <default value="8080"/>
+          <description>
+            <text>User configurable RESTCONF HTTP port.</text>
+          </description>
+        </leaf>
+        <leaf name="https-port">
+          <type name="ioa-common:port-number"/>
+          <default value="8181"/>
+          <description>
+            <text>User configurable RESTCONF HTTPS port.</text>
+          </description>
+        </leaf>
+        <leaf name="cookie-timeout">
+          <type name="uint16">
+            <range value="1..300"/>
+          </type>
+          <units name="minutes"/>
+          <default value="5"/>
+          <description>
+            <text>Timeout of a cookie based RESTCONF session.</text>
+          </description>
+        </leaf>
+        <leaf name="api-root">
+          <type name="string">
+            <length value="0..64"/>
+          </type>
+          <config value="false"/>
+          <description>
+            <text>Root of the RESTCONF API.</text>
+          </description>
+        </leaf>
+      </container>
+      <container name="grpc">
+        <description>
+          <text>Configuration of the gNMI/gRPC management protocol.</text>
+        </description>
+        <leaf name="enabled">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>Enables/disables the gRPC management protocol.</text>
+          </description>
+        </leaf>
+        <leaf name="port">
+          <type name="ioa-common:port-number"/>
+          <default value="50051"/>
+          <description>
+            <text>The port which listens for gNMI access via gRPC.</text>
+          </description>
+        </leaf>
+        <leaf name="gnmi-get-encoding-granularity">
+          <type name="enumeration">
+            <enum name="per-path">
+              <value value="1"/>
+              <description>
+                <text>Put all path data on a Update message.</text>
+              </description>
+            </enum>
+            <enum name="per-object">
+              <value value="2"/>
+              <description>
+                <text>Divide the path data into multiple Update messages, one per YANG container/list entry.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="per-object"/>
+          <description>
+            <text>Allows to configure the granularity of data in gNMI Get responses, when encoded with JSON.</text>
+          </description>
+        </leaf>
+      </container>
+      <container name="snmp">
+        <description>
+          <text>Configuration of the SNMP management protocol.</text>
+        </description>
+        <leaf name="enabled">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>User configurable switch to enable or disable global SNMP access.</text>
+          </description>
+        </leaf>
+        <leaf name="port">
+          <type name="ioa-common:port-number"/>
+          <default value="161"/>
+          <description>
+            <text>User configurable port where the NE is listening for SNMP requests.</text>
+          </description>
+        </leaf>
+        <leaf name="snmp-engine-id">
+          <type name="string">
+            <length value="0..256"/>
+          </type>
+          <config value="false"/>
+          <description>
+            <text>SNMP EngineID of the NE.
+The EngineID will follow the EngineID format 3 defined in RFC3411.
+The MAC address in the Engine ID will be the first MAC address of the MAC addresses Pool of the NE.</text>
+          </description>
+        </leaf>
+        <leaf name="engine-boot-count">
+          <type name="uint16"/>
+          <default value="0"/>
+          <config value="false"/>
+          <description>
+            <text>SNMP engine boot count.
+Counts how many times the engine has restarted.</text>
+          </description>
+        </leaf>
+        <list name="snmp-community">
+          <key value="name"/>
+          <max-elements value="20"/>
+          <description>
+            <text>List of SNMP Community Strings.
+Note: trap-community-string is located in the snmp-target object.</text>
+          </description>
+          <leaf name="name">
+            <type name="ioa-common:object-name"/>
+            <description>
+              <text>Name for the community (different from the community string itself).</text>
+            </description>
+          </leaf>
+          <leaf name="community-string">
+            <type name="snmp-string"/>
+            <mandatory value="true"/>
+            <description>
+              <text>Community String.</text>
+            </description>
+          </leaf>
+          <leaf name="enabled">
+            <type name="boolean"/>
+            <default value="true"/>
+            <description>
+              <text>User configurable switch to enable or disable this community-string.</text>
+            </description>
+          </leaf>
+          <leaf name="community-string-access">
+            <type name="enumeration">
+              <enum name="read-only">
+                <value value="1"/>
+              </enum>
+            </type>
+            <default value="read-only"/>
+            <description>
+              <text>SNMP access right of this community string.</text>
+            </description>
+          </leaf>
+        </list>
+        <list name="snmp-target">
+          <key value="target-name"/>
+          <max-elements value="20"/>
+          <description>
+            <text>List of SNMP targets (trap listeners)</text>
+          </description>
+          <reference>
+            <text>RFC 3413: Simple Network Management Protocol (SNMP) Applications.
+SNMP-TARGET-MIB.snmpTargetAddrTable</text>
+          </reference>
+          <leaf name="target-name">
+            <type name="ioa-common:object-name">
+              <length value="1..32"/>
+            </type>
+            <description>
+              <text>Identifies the SNMP target</text>
+            </description>
+            <reference>
+              <text>RFC 3413: Simple Network Management Protocol (SNMP)
+Applications.
+SNMP-TARGET-MIB.snmpTargetAddrName</text>
+            </reference>
+          </leaf>
+          <leaf name="enabled">
+            <type name="boolean"/>
+            <default value="true"/>
+            <description>
+              <text>User configurable switch to enable or disable this snmp-target.</text>
+            </description>
+          </leaf>
+          <leaf name="snmp-version">
+            <type name="enumeration">
+              <enum name="v2c">
+                <value value="2"/>
+              </enum>
+              <enum name="v3">
+                <value value="3"/>
+              </enum>
+            </type>
+            <default value="v2c"/>
+            <description>
+              <text>snmp version.</text>
+            </description>
+          </leaf>
+          <leaf name="trap-community-string">
+            <when condition="../snmp-version = 'v2c'"/>
+            <type name="snmp-string"/>
+            <default value="infinera"/>
+            <description>
+              <text>Community string used for SNMP traps</text>
+            </description>
+          </leaf>
+          <leaf name="snmpv3-user">
+            <when condition="../snmp-version = 'v3' "/>
+            <type name="leafref">
+              <path value="../../snmpv3-user/snmpv3-user-name"/>
+            </type>
+            <mandatory value="true"/>
+            <description>
+              <text>Indicate the snmpv3 user.</text>
+            </description>
+          </leaf>
+          <leaf name="target-address">
+            <type name="ioa-common:host"/>
+            <mandatory value="true"/>
+            <description>
+              <text>IP address or hostname of the SNMP target</text>
+            </description>
+            <reference>
+              <text>RFC 3413: Simple Network Management Protocol (SNMP).
+SNMP-TARGET-MIB.snmpTargetAddrTAddress</text>
+            </reference>
+          </leaf>
+          <leaf name="target-port">
+            <type name="inet:port-number"/>
+            <default value="162"/>
+            <description>
+              <text>UDP port number.</text>
+            </description>
+            <reference>
+              <text>RFC 3413: Simple Network Management Protocol (SNMP).
+SNMP-TARGET-MIB.snmpTargetAddrTAddress</text>
+            </reference>
+          </leaf>
+          <leaf name="target-transport">
+            <type name="enumeration">
+              <enum name="udp">
+                <value value="1"/>
+              </enum>
+            </type>
+            <default value="udp"/>
+            <description>
+              <text>Type of transport for the SNMP target</text>
+            </description>
+          </leaf>
+        </list>
+        <list name="snmpv3-user">
+          <key value="snmpv3-user-name"/>
+          <max-elements value="20"/>
+          <description>
+            <text>SNMPv3 user configuration.</text>
+          </description>
+          <leaf name="snmpv3-user-name">
+            <type name="string">
+              <length value="1..32"/>
+              <pattern value="[a-z_.][a-z0-9_\-.]*[$]?"/>
+            </type>
+            <description>
+              <text>SNMPv3 user name.</text>
+            </description>
+          </leaf>
+          <leaf name="user-sec-level">
+            <type name="enumeration">
+              <enum name="auth-priv">
+                <value value="1"/>
+              </enum>
+              <enum name="auth-no-priv">
+                <value value="2"/>
+              </enum>
+              <enum name="no-auth-no-priv">
+                <value value="3"/>
+              </enum>
+            </type>
+            <default value="no-auth-no-priv"/>
+            <description>
+              <text>Specifies the SNMPv3 user security level.
+Note: when NE is in secure-mode, only auth-priv is allowed.</text>
+            </description>
+          </leaf>
+          <leaf name="auth-protocol">
+            <when condition="../user-sec-level != 'no-auth-no-priv'"/>
+            <type name="enumeration">
+              <enum name="SHA">
+                <value value="1"/>
+                <description>
+                  <text>SHA authentication protocol</text>
+                </description>
+              </enum>
+              <enum name="SHA224">
+                <value value="2"/>
+                <description>
+                  <text>SHA-224 authentication protocol</text>
+                </description>
+              </enum>
+              <enum name="SHA256">
+                <value value="3"/>
+                <description>
+                  <text>SHA-256 authentication protocol</text>
+                </description>
+              </enum>
+              <enum name="SHA384">
+                <value value="4"/>
+                <description>
+                  <text>SHA-384 authentication protocol</text>
+                </description>
+              </enum>
+              <enum name="SHA512">
+                <value value="5"/>
+                <description>
+                  <text>SHA-512 authentication protocol</text>
+                </description>
+              </enum>
+            </type>
+            <default value="SHA"/>
+            <description>
+              <text>Specifies the authentication protocol that the SNMPv3 user being created will use.</text>
+            </description>
+          </leaf>
+          <leaf name="auth-passphrase">
+            <when condition="../user-sec-level != 'no-auth-no-priv'"/>
+            <type name="string">
+              <length value="8..64"/>
+            </type>
+            <mandatory value="true"/>
+            <description>
+              <text>Specifies the SNMPv3 authentication pass phrase.</text>
+            </description>
+          </leaf>
+          <leaf name="priv-protocol">
+            <when condition="../user-sec-level = 'auth-priv'"/>
+            <type name="enumeration">
+              <enum name="AES128">
+                <value value="1"/>
+              </enum>
+              <enum name="AES192">
+                <value value="2"/>
+              </enum>
+              <enum name="AES256">
+                <value value="3"/>
+              </enum>
+              <enum name="DES">
+                <value value="4"/>
+              </enum>
+            </type>
+            <default value="AES128"/>
+            <description>
+              <text>Specifies the privacy protocol that the SNMPv3 user being created will use.</text>
+            </description>
+          </leaf>
+          <leaf name="priv-passphrase">
+            <when condition="../user-sec-level = 'auth-priv'"/>
+            <type name="string">
+              <length value="8..64"/>
+            </type>
+            <mandatory value="true"/>
+            <description>
+              <text>Specifies the SNMPv3 privacy pass phrase.</text>
+            </description>
+          </leaf>
+        </list>
+      </container>
+      <container name="http-file-server">
+        <description>
+          <text>HTTP file server configuration</text>
+        </description>
+        <leaf name="enabled">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>User configurable switch to enable or disable file server access.</text>
+          </description>
+        </leaf>
+        <leaf name="http-enabled">
+          <type name="boolean"/>
+          <default value="false"/>
+          <description>
+            <text>User configurable switch to enable or disable HTTP protocol for file server access.</text>
+          </description>
+        </leaf>
+        <leaf name="https-enabled">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>User configurable switch to enable or disable HTTPS protocol for file server access.</text>
+          </description>
+        </leaf>
+        <leaf name="http-port">
+          <type name="ioa-common:port-number"/>
+          <default value="8980"/>
+          <description>
+            <text>User configurable HTTP port.</text>
+          </description>
+        </leaf>
+        <leaf name="https-port">
+          <type name="ioa-common:port-number"/>
+          <default value="8981"/>
+          <description>
+            <text>User configurable HTTPS port.</text>
+          </description>
+        </leaf>
+        <leaf name="url-base">
+          <type name="string">
+            <length value="1..100"/>
+          </type>
+          <default value="/transfer"/>
+          <config value="false"/>
+          <description>
+            <text>The base URL use to redirect to the file transfer application.</text>
+          </description>
+        </leaf>
+      </container>
+      <list name="dial-out-server">
+        <key value="name"/>
+        <max-elements value="10"/>
+        <description>
+          <text>Dial-out server configuration and state.
+A dial-out-server configuration automatically triggers a connection against the server, with client-server functionality is inverted;
+this connection is then used to establish a normal NBI session.</text>
+        </description>
+        <leaf name="name">
+          <type name="ioa-common:object-name"/>
+          <description>
+            <text>Dial-out-server name.</text>
+          </description>
+        </leaf>
+        <leaf name="address">
+          <type name="ioa-common:host"/>
+          <mandatory value="true"/>
+          <description>
+            <text>Dial-out-server IPv4/IPv6 address or hostname.</text>
+          </description>
+        </leaf>
+        <leaf name="protocol">
+          <type name="enumeration">
+            <enum name="netconf">
+              <value value="1"/>
+            </enum>
+            <enum name="gnmi-dial-out-tunnel">
+              <value value="2"/>
+              <description>
+                <text>Dial-Out with gRPC Tunnels.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="netconf"/>
+          <description>
+            <text>Dial-out-server session type.</text>
+          </description>
+        </leaf>
+        <leaf name="port">
+          <type name="ioa-common:port-number"/>
+          <description>
+            <text>Dial-out-server session port.</text>
+          </description>
+        </leaf>
+        <leaf name="transport">
+          <type name="enumeration">
+            <enum name="ssh">
+              <value value="1"/>
+            </enum>
+            <enum name="tls">
+              <value value="2"/>
+            </enum>
+          </type>
+          <config value="false"/>
+          <description>
+            <text>Dial-out-server transport protocol.</text>
+          </description>
+        </leaf>
+        <leaf name="retry-policy">
+          <type name="enumeration">
+            <enum name="progressive-back-off">
+              <value value="1"/>
+              <description>
+                <text>Try to reconnect with an exponentional time interval.</text>
+              </description>
+            </enum>
+            <enum name="retry-then-stop">
+              <value value="2"/>
+              <description>
+                <text>Retry a fixed number of times with a fixed timeout interval.</text>
+              </description>
+            </enum>
+            <enum name="retry-forever">
+              <value value="3"/>
+              <description>
+                <text>Retry forever with a fixed timeout interval.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="progressive-back-off"/>
+          <description>
+            <text>Retry policy after a timeout.</text>
+          </description>
+        </leaf>
+        <leaf name="retry">
+          <when condition="../retry-policy = 'retry-then-stop'"/>
+          <type name="uint8">
+            <range value="0 .. 5"/>
+          </type>
+          <default value="3"/>
+          <description>
+            <text>Number of retries before giving up.</text>
+          </description>
+        </leaf>
+        <leaf name="timeout">
+          <when condition="../retry-policy != 'progressive-back-off'"/>
+          <type name="uint8">
+            <range value="2..255"/>
+          </type>
+          <units name="seconds"/>
+          <default value="10"/>
+          <description>
+            <text>Wait time until timeout.</text>
+          </description>
+        </leaf>
+        <uses name="ioa-common:arc"/>
+        <uses name="ioa-common:label"/>
+        <leaf name="auto-connect">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>If true, automatically tries to connect to this dial-out-server. Note that a server with auto-connect false can still be connected manually via the call-home RPC.</text>
+          </description>
+        </leaf>
+        <leaf name="connection-state">
+          <type name="enumeration">
+            <enum name="connected">
+              <value value="1"/>
+              <description>
+                <text>Session is currently established with 'home'.</text>
+              </description>
+            </enum>
+            <enum name="connecting">
+              <value value="2"/>
+              <description>
+                <text>Running through the retries; also used if connected, and session abruptly is terminated.</text>
+              </description>
+            </enum>
+            <enum name="failed">
+              <value value="3"/>
+              <description>
+                <text>All retries have failed, no further attempts are being done to connect to it.</text>
+              </description>
+            </enum>
+            <enum name="closed">
+              <value value="4"/>
+              <description>
+                <text>session was established, and was gracefully closed.</text>
+              </description>
+            </enum>
+            <enum name="disabled">
+              <value value="5"/>
+              <description>
+                <text>Enabled parameter is false.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="disabled"/>
+          <config value="false"/>
+          <description>
+            <text>Connection state to the dial-out-server.</text>
+          </description>
+        </leaf>
+      </list>
+      <list name="data-model">
+        <key value="name"/>
+        <description>
+          <text>Available YANG Data models for loading/unloading.</text>
+        </description>
+        <leaf name="name">
+          <type name="string">
+            <length value="0..256"/>
+          </type>
+          <description>
+            <text>Model name.</text>
+          </description>
+        </leaf>
+        <leaf name="description">
+          <type name="string">
+            <length value="0..256"/>
+          </type>
+          <config value="false"/>
+          <description>
+            <text>Data model description.</text>
+          </description>
+        </leaf>
+        <leaf name="enabled">
+          <type name="boolean"/>
+          <default value="false"/>
+          <description>
+            <text>Allows to load/unload this data model.A loaded data model means that it can be used via the management interfaces.</text>
+          </description>
+        </leaf>
+      </list>
+      <container name="fast-telemetry">
+        <description>
+          <text>Fast Telemetry provides an alternative telemetry channel that accesses the hardware directly for specific metrics.
+         Please consult documentation to see what metrics are available per card type.</text>
+        </description>
+        <leaf name="enabled">
+          <type name="boolean"/>
+          <default value="false"/>
+          <description>
+            <text>User configurable switch to enable or disable fast telemetry streaming.</text>
+          </description>
+        </leaf>
+        <leaf name="protocol">
+          <type name="enumeration">
+            <enum name="gnmi-openconfig">
+              <value value="1"/>
+              <description>
+                <text>gnmi openconfig streaming.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="gnmi-openconfig"/>
+          <description>
+            <text>User configurable attribute to select the desired protocol.</text>
+          </description>
+        </leaf>
+        <leaf name="port">
+          <type name="ioa-common:port-number"/>
+          <default value="57400"/>
+          <description>
+            <text>User configurable port.</text>
+          </description>
+        </leaf>
+      </container>
+    </container>
+    <container name="scheduled-tasks">
+      <description>
+        <text>Container of individual user-configurable scheduled commands.</text>
+      </description>
+      <list name="task">
+        <key value="name"/>
+        <description>
+          <text>User configurable scheduled task. Can define single occurrence or periodic commands.</text>
+        </description>
+        <leaf name="name">
+          <type name="ioa-common:object-name"/>
+          <description>
+            <text>Identifier of the scheduled task.</text>
+          </description>
+        </leaf>
+        <leaf name="enabled">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>Enable switch of this task; allows user to disable a task without deleting it.</text>
+          </description>
+        </leaf>
+        <uses name="ioa-common:label"/>
+        <uses name="ioa-common:arc">
+          <refine target-node="alarm-report-control">
+            <default value="inhibited"/>
+          </refine>
+        </uses>
+        <leaf name="command">
+          <type name="string">
+            <length value="1..1024"/>
+          </type>
+          <mandatory value="true"/>
+          <description>
+            <text>Command that is scheduled. Content will depend on the command-type.</text>
+          </description>
+        </leaf>
+        <leaf name="command-type">
+          <type name="enumeration">
+            <enum name="cli">
+              <value value="1"/>
+              <description>
+                <text>CLI command.</text>
+              </description>
+            </enum>
+          </type>
+          <default value="cli"/>
+          <description>
+            <text>Type of configured command.</text>
+          </description>
+        </leaf>
+        <leaf name="frequency">
+          <type name="ioa-common:time-interval"/>
+          <description>
+            <text>Frequency interval for setting up a periodic scheduled task.
+If empty (default value), represents a single-occurrence task.
+Frequency interval is provided using the following syntax:
+   '[xw] [xd] [xh] [xm] [xs]'
+where:
+    w(eeks), d(ays), h(ours), m(inutes), s(seconds).
+Examples:
+   2w          - two weeks
+   5d 12h      - 5 days and 12 hours
+   1h 7m 30s   - 1 hour and 7 minutes and 30 seconds</text>
+          </description>
+        </leaf>
+        <leaf name="start-time">
+          <type name="ioa-common:date-time-or-time-only"/>
+          <description>
+            <text>Timestamp to start the task. For periodic tasks, this is the timestamp for the first trigger of the task.
+If not provided, uses current time as start-time.</text>
+          </description>
+        </leaf>
+        <leaf name="end-time">
+          <type name="ioa-common:date-time-or-time-only-or-never"/>
+          <default value="never"/>
+          <description>
+            <text>Timestamp to stop the periodic task.
+Not relevant for single-occurrence tasks.</text>
+          </description>
+        </leaf>
+        <leaf name="persistent">
+          <type name="boolean"/>
+          <default value="true"/>
+          <description>
+            <text>If true, this scheduled task will persist a system restart.</text>
+          </description>
+        </leaf>
+        <leaf name="task-status">
+          <type name="enumeration">
+            <enum name="scheduled">
+              <value value="1"/>
+              <description>
+                <text>Task is enabled and will run when the time comes.</text>
+              </description>
+            </enum>
+            <enum name="disabled">
+              <value value="2"/>
+              <description>
+                <text>Task is disabled by user.</text>
+              </description>
+            </enum>
+            <enum name="finished">
+              <value value="3"/>
+              <description>
+                <text>Task has reached its end-time, or single occurrence task was already executed.</text>
+              </description>
+            </enum>
+            <enum name="ongoing">
+              <value value="4"/>
+              <description>
+                <text>Task is enabled and is currently running</text>
+              </description>
+            </enum>
+          </type>
+          <default value="scheduled"/>
+          <config value="false"/>
+          <description>
+            <text>Current operational state of the scheduled task.</text>
+          </description>
+        </leaf>
+        <leaf name="next-run">
+          <type name="ioa-common:date-time-or-time-only-or-never"/>
+          <default value="never"/>
+          <config value="false"/>
+          <description>
+            <text>Next run timestamp. May be 'never' for finished tasks.</text>
+          </description>
+        </leaf>
+        <leaf name="previous-run">
+          <type name="ioa-common:date-time-or-time-only-or-never"/>
+          <default value="never"/>
+          <config value="false"/>
+          <description>
+            <text>Previous task run timestamp.</text>
+          </description>
+        </leaf>
+        <leaf name="previous-result">
+          <type name="enumeration">
+            <enum name="success">
+              <value value="1"/>
+            </enum>
+            <enum name="fail">
+              <value value="2"/>
+            </enum>
+          </type>
+          <config value="false"/>
+          <description>
+            <text>Previous task run result.</text>
+          </description>
+        </leaf>
+        <leaf name="previous-output">
+          <type name="string">
+            <length value="0..1024"/>
+          </type>
+          <config value="false"/>
+          <description>
+            <text>Output of the previous task run.</text>
+          </description>
+        </leaf>
+      </list>
+    </container>
+  </grouping>
+</module>

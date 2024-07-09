@@ -1,0 +1,186 @@
+module ioa-sw-services {
+    namespace "http://infinera.com/yang/ioa/sw-services";
+    prefix ioa-sw-svc;
+    
+    import ietf-yang-types { prefix yang; }
+    import ioa-common { prefix ioa-common; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module for Software Services model.";
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    grouping sw-services { 
+        container sw-services {
+            description "Information about the software services and containers on the node.";
+
+            list sw-control-rule {
+                key service-name;
+                description "Optional service-specific custom rules to overide default action upon service failure.";
+
+                leaf service-name {
+                    type ioa-common:object-name;
+                    description "Name of the service to be monitored.";
+                }
+
+                leaf fail-action {
+                    type enumeration {
+                        enum system-restart { 
+                            value 1; 
+                            description "Warm restart the system/card software immediately upon service failure.";
+                        }
+                    
+                        enum default-action { 
+                            value 2; 
+                            description "Default policy of restarting the service, then rebooting the system if service not recovered.";
+                        }
+
+                        enum ignore { 
+                            value 3; 
+                            description "No automatic action taken in case of service failure.";
+                        }
+                    }
+                    mandatory true;
+                    description "Action profile to be used in the case of service failure.";
+                }
+            }
+
+            list sw-service {
+                key sv-name;
+                config false;
+                description "Software service running in the system.";
+
+                leaf sv-name {
+                    type string;
+                    description "A unique Id for each service instance on the NE. Contains card type, shelf, slot information.";
+                }
+
+                leaf equipment {
+                    type leafref {
+                        path "../../../../equipment/card/AID";
+                    }
+                    description "Reference to the equipment on which the service is running.";
+                }
+
+                leaf location {
+                    type union {
+                        type enumeration { enum host { value 1; } }
+                        type string { length 1..128; }    //container name
+                    }
+                    description "Location where the service is running - host/container info.";
+                }
+
+                leaf state {
+                    type enumeration {
+                        enum off { 
+                            value 1; 
+                            description "Default state of a service, indicates not being monitored.";
+                        } 
+                        enum ok { 
+                            value 2; 
+                            description "Indicates the service is ready and functional.";
+                        }
+                        enum fail { 
+                            value 3; 
+                            description "Indicates the service failed to launch/turn-up or is unresponsive.";
+                        }
+                    }
+                    description "Current status of the service.";
+                }
+   
+                leaf state-details {
+                    type string;
+                    description "Brief description of the service status.";
+                }
+  
+                leaf cpu-usage {
+                    type ioa-common:percent;
+                    description "Current usage of CPU by the service, in percentage. In a multi-core system, this indicates the overall usage relative to all cores.";
+                }
+
+                leaf memory-usage {
+                    type ioa-common:percent;
+                    description "Current usage of memory by the service, in percentage.";
+                }   
+
+                leaf uptime {
+                    type string;
+                    description "Time since the service turned up, in days:hours:minutes.";
+                }
+
+                leaf last-start-time {
+                        type yang:date-and-time;
+                        description "Time of the last service start/boot.";
+                }
+                leaf reboot-count {
+                    type uint16;
+                    description "The number of times a service has restarted.";
+                }
+
+            }
+
+            list sw-container {
+                key container-name;
+                config false;
+                description "List of OS-level containers.";
+
+                leaf container-name {
+                    type string;
+                    description "A unique Id for each container.";
+                }
+
+                leaf equipment {
+                    type leafref {
+                        path "../../../../equipment/card/AID";
+                    }
+                    description "Reference to the equipment on which the container is running.";
+                }   
+
+                leaf state {
+                    type enumeration {
+                        enum off { 
+                            value 1; 
+                            description "Default state of a container, indicates it is not launched yet.";
+                        } 
+                        enum up { 
+                            value 2; 
+                            description "Indicates the container is up and running.";
+                        }
+                        enum exited { 
+                            value 3; 
+                            description "Indicates the container has exited.";
+                        }
+                    }
+                    description "Current status of the container.";
+                }
+
+                leaf description {
+                    type string;
+                    description "Brief description of the container instance.";
+                }
+
+                leaf cpu-usage {
+                    type ioa-common:percent;
+                    description "Current usage of CPU by the container, in percentage. In a multi-core system, this indicates the overall usage relative to all cores.";
+                }
+
+                leaf memory-usage {
+                    type ioa-common:percent;
+                    description "Current usage of memory by the container, in percentage.";
+                }   
+
+                leaf uptime {
+                    type string;
+                    description "Time since the container started.";
+                }
+
+            }
+        }
+    }
+}

@@ -1,0 +1,133 @@
+module ioa-sch {
+    namespace "http://infinera.com/yang/ioa/sch";
+    prefix ioa-sch;
+
+    import ioa-common { prefix ioa-common; }
+    import ietf-inet-types { prefix inet; }
+    import ioa-facilities-common { prefix ioa-fac-common; }
+    import ioa-carrier-types { prefix ioa-carrier-types; }
+    import gx { prefix gx; }
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG module describing Super-Channel facilities.";
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    grouping sch {
+        list super-channel {
+            key name;
+            description "Unified channel of optical carriers. Can have many optical channels.";
+
+            uses ioa-fac-common:facilities-common-attributes;
+
+            uses ioa-common:arc;
+
+            leaf-list carriers {
+                type string { length "1..32"; }
+                min-elements 1;
+                description "A list of carriers that are bound to this superchannel.
+                             Possible values can be any card/resources/supported-carriers.";
+            }
+
+            uses ioa-carrier-types:carrier-mode-attributes {
+                refine carrier-mode {
+                    mandatory true;
+                    description "Unique identifier of the carrier mode this super-channel is configured as.
+                                 Possible carrier-modes are listed in the golden-carrier-mode list.";
+                }
+            }
+
+            uses ioa-fac-common:spectral-bw;
+
+            leaf contention-check-status {
+                type enumeration {
+                    enum pending { value 1; description "Contention check is pending on DNA side."; }
+                    enum success { value 2; description "Successful contention validation by DNA."; }
+                    enum failed { value 3; description "Failed contention validation by DNA."; }
+                    enum overridden { value 4; description "Explict user override of this function."; }
+                }
+                default pending;
+                description "Contention Check state, set via DNA in openwave mode.
+                             Only applicable if openwave-contention-check is enabled at super-channel-group level.";
+                reference GX-1096;
+            }
+
+            uses ioa-sch:digital-trigger-registration;
+        }
+    }
+
+    grouping digital-trigger-registration {
+        container digital-trigger-registration {
+            if-feature gx:inci-support;
+            config false;
+            description "Atttributes related to digital trigger fault registration from line system.";
+
+            leaf neighbor-id {
+                type leafref {
+                        path "/ne/topology/inci/inci-neighbor/neighbor-id";
+                }
+                description "ID of provisioned neighbor. Local reference to the neighbor.";
+            }
+
+            leaf remote-node-name {
+                type string { length 0..128; }
+                description "Remote NE Name.";
+            }
+
+            leaf remote-ne-ip {
+                type inet:ip-address;
+                default "0.0.0.0";
+                description "IP address of the remote NE that has registered for DT fault updates. 0.0.0.0 means that no ip is set to remote-ne-ip.";
+            }
+
+            leaf remote-end-point {
+                type string { length 0..128; }
+                description "Name of the remote end point that has registered for DT fault updates.";
+            }
+
+            leaf local-flow-id {
+                type uint8;
+                description "Flow ID assigned by GX node for this connection.";
+            }
+
+            leaf remote-flow-id {
+                type uint8;
+                description "Flow ID received from remote NE.";
+            }
+
+            leaf dt-encapsulation {
+                type enumeration {
+                    enum gre {
+                        value 1;
+                        description "Digital trigger encapsulation is Generic Routing Encapsulation.";
+                    }
+                    enum simple-ip {
+                        value 2;
+                        description "Digital trigger encapsulation is Simple IP.";
+                    }
+                }
+                default gre;
+                description "Encapsulation option.";
+            }
+
+            leaf last-update {
+                type ioa-common:date-time-never;
+                default never;
+                description "Time of last fault registration request.";
+            }
+        }
+    }
+}

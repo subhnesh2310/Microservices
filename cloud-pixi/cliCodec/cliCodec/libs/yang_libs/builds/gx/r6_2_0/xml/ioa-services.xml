@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ioa-services"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ioa-services="http://infinera.com/yang/ioa/services"
+        xmlns:ioa-common="http://infinera.com/yang/ioa/common"
+        xmlns:ioa-data-path-encryption="http://infinera.com/yang/ioa/data-path-encryption"
+        xmlns:ioa-l0="http://infinera.com/yang/ioa/l0">
+  <namespace uri="http://infinera.com/yang/ioa/services"/>
+  <prefix value="ioa-services"/>
+  <import module="ioa-common">
+    <prefix value="ioa-common"/>
+  </import>
+  <import module="ioa-data-path-encryption">
+    <prefix value="ioa-data-path-encryption"/>
+  </import>
+  <import module="ioa-l0">
+    <prefix value="ioa-l0"/>
+  </import>
+  <organization>
+    <text>Infinera</text>
+  </organization>
+  <contact>
+    <text>Infinera Technical Support &lt;techsupport@infinera.com&gt;</text>
+  </contact>
+  <description>
+    <text>IOA YANG definitions for for all data plane services supported by a typical Layer 1 transponder that enable traffic.
+The services enable digital client traffic (such as Ethernet, SONET/SDH, ...) to be transported through the transponder.
+Other services types include OTN services (switching, transport, multiplexing).
+The transport of native services could include OTN framing, or could bypass/skip OTN layer,
+depending upon the capability of the hardware.</text>
+  </description>
+  <revision date="2022-10-31">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R6.0</text>
+    </description>
+  </revision>
+  <revision date="2022-06-30">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.2</text>
+    </description>
+  </revision>
+  <revision date="2021-12-10">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R5.0</text>
+    </description>
+  </revision>
+  <revision date="2021-06-01">
+    <description>
+      <text>YANG Models for Infinera Open API (IOA) for release R4.0</text>
+    </description>
+  </revision>
+  <typedef name="network-mapping-type">
+    <type name="enumeration">
+      <enum name="NA">
+        <value value="0"/>
+        <description>
+          <text>To be used where mapping is not applicable</text>
+        </description>
+      </enum>
+      <enum name="ODUCn">
+        <value value="1"/>
+        <description>
+          <text>OTUCn protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODUCni">
+        <value value="2"/>
+        <description>
+          <text>Infinera proprietary OTUCni protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODUCni-M">
+        <value value="3"/>
+        <description>
+          <text>Infinera proprietary OTUCni protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODU4">
+        <value value="4"/>
+        <description>
+          <text>ODU4 protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODU4i">
+        <value value="5"/>
+        <description>
+          <text>Infinera proprietary ODU4i protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODUflexi">
+        <value value="6"/>
+        <description>
+          <text>Infinera proprietary ODUflexi protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODUflex">
+        <value value="7"/>
+        <description>
+          <text>ODU-flex protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODU0">
+        <value value="8"/>
+        <description>
+          <text>ODU0 protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODU1">
+        <value value="9"/>
+        <description>
+          <text>ODU1 protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODU2">
+        <value value="10"/>
+        <description>
+          <text>ODU2 protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODU2e">
+        <value value="11"/>
+        <description>
+          <text>ODU2e protocol layer.</text>
+        </description>
+      </enum>
+      <enum name="ODU2_AMP">
+        <value value="12"/>
+        <description>
+          <text>AMP mapping</text>
+        </description>
+      </enum>
+      <enum name="ODU2_BMP">
+        <value value="13"/>
+        <description>
+          <text>BMP mapping</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Network mapping extra values.</text>
+    </description>
+  </typedef>
+  <typedef name="target-power-type">
+    <type name="decimal64">
+      <fraction-digits value="2"/>
+      <range value="-55.0..55.00"/>
+    </type>
+    <units name="dBm"/>
+    <default value="-55.0"/>
+    <description>
+      <text>A custom data type that can be used for configuring optical Tx/Rx power attributes.</text>
+    </description>
+  </typedef>
+  <grouping name="services">
+    <container name="services">
+      <description>
+        <text>Services of multiples types commissioned in this NE.</text>
+      </description>
+      <list name="xcon">
+        <key value="name"/>
+        <description>
+          <text>Layer 1 digital services that are currently provisioned in the system.
+This includes pre-provisoned XCONs too.</text>
+        </description>
+        <leaf name="name">
+          <type name="ioa-common:object-name"/>
+          <description>
+            <text>A user configured name for the XCON.</text>
+          </description>
+        </leaf>
+        <uses name="ioa-common:aid"/>
+        <uses name="ioa-common:operational-states"/>
+        <leaf name="source">
+          <type name="instance-identifier"/>
+          <mandatory value="true"/>
+          <description>
+            <text>The source end-point between which the XCON needs to be created.</text>
+          </description>
+        </leaf>
+        <leaf name="destination">
+          <type name="instance-identifier"/>
+          <mandatory value="true"/>
+          <description>
+            <text>The destination end-point between which the XCON needs to be created.</text>
+          </description>
+        </leaf>
+        <uses name="xcon-common"/>
+        <leaf name="src-time-slots">
+          <type name="ioa-common:number-list"/>
+          <config value="false"/>
+          <status value="deprecated"/>
+          <description>
+            <text>Time-slots allocated to the source lo-oduj in this xcon. Not applicable if source facility is not an ODU facility.
+Note: parameter is deprecated - will stop being supported in a future release.</text>
+          </description>
+        </leaf>
+        <leaf name="dst-time-slots">
+          <type name="ioa-common:number-list"/>
+          <config value="false"/>
+          <status value="deprecated"/>
+          <description>
+            <text>Time-slots allocated to the destination lo-oduj in this xcon. Not applicable if destination facility is not an ODU facility.
+Note: parameter is deprecated - will stop being supported in a future release.</text>
+          </description>
+        </leaf>
+        <leaf name="managed-by">
+          <type name="enumeration">
+            <enum name="system">
+              <value value="1"/>
+            </enum>
+            <enum name="user">
+              <value value="2"/>
+            </enum>
+          </type>
+          <default value="user"/>
+          <config value="false"/>
+          <description>
+            <text>Describes whether this xcon was system created or not. Only user created xcon can be user deleted.</text>
+          </description>
+        </leaf>
+        <leaf name="payload-treatment">
+          <type name="enumeration">
+            <enum name="transport">
+              <value value="10"/>
+              <description>
+                <text>payload-treatment for ethernet ctp xcon.</text>
+              </description>
+            </enum>
+            <enum name="transport-without-fec">
+              <value value="20"/>
+              <description>
+                <text>payload-treatment for client otu4 and line odu4 xcon when PT is OTU4.</text>
+              </description>
+            </enum>
+            <enum name="switching">
+              <value value="30"/>
+              <description>
+                <text>payload-treatment for client odu4 and line odu4 xcon when PT is 100G.</text>
+              </description>
+            </enum>
+            <enum name="regen">
+              <value value="40"/>
+              <description>
+                <text>payload-treatment for two line lo-odu4 xcon when PT is OTU4.</text>
+              </description>
+            </enum>
+            <enum name="regen-switching">
+              <value value="50"/>
+              <description>
+                <text>payload-treatment for two line lo-odu4 xcon when PT is 100G.</text>
+              </description>
+            </enum>
+          </type>
+          <config value="false"/>
+          <description>
+            <text>Indicates a generic payload treatment value of the digital XCON.</text>
+          </description>
+        </leaf>
+        <leaf name="network-mapping">
+          <type name="network-mapping-type"/>
+          <config value="false"/>
+          <description>
+            <text>Indicates the server layer protocol type that supports this XCON.</text>
+          </description>
+        </leaf>
+        <leaf name="type">
+          <type name="enumeration">
+            <enum name="add">
+              <value value="1"/>
+            </enum>
+            <enum name="drop">
+              <value value="2"/>
+            </enum>
+            <enum name="add-drop">
+              <value value="3"/>
+            </enum>
+            <enum name="express">
+              <value value="4"/>
+            </enum>
+          </type>
+          <config value="false"/>
+          <description>
+            <text>Type of XCON.</text>
+          </description>
+        </leaf>
+        <leaf name="protection-type">
+          <type name="enumeration">
+            <enum name="unprotected">
+              <value value="1"/>
+            </enum>
+            <enum name="protected">
+              <value value="2"/>
+            </enum>
+          </type>
+          <default value="unprotected"/>
+          <config value="false"/>
+          <description>
+            <text>Represents the protection type this XCON has.</text>
+          </description>
+        </leaf>
+        <uses name="ioa-common:circuit-id"/>
+        <leaf name="from-adaptation">
+          <type name="ioa-common:server-layer-adaptation"/>
+          <config value="false"/>
+          <description>
+            <text>Indicate server layer adaptation at client side.</text>
+          </description>
+        </leaf>
+        <leaf name="to-adaptation">
+          <type name="ioa-common:server-layer-adaptation"/>
+          <config value="false"/>
+          <description>
+            <text>Indicate server layer adaptation at line side.</text>
+          </description>
+        </leaf>
+        <leaf-list name="used-resources">
+          <type name="string">
+            <length value="0..64"/>
+          </type>
+          <config value="false"/>
+          <description>
+            <text>List of resources being used by this XCON besides the two main source/destination end-points.</text>
+          </description>
+        </leaf-list>
+      </list>
+      <list name="oxcon">
+        <when condition="/ne/node-type = 'OADM'">
+          <description>
+            <text>Only of relevance for OADM NEs with Layer 0 support.</text>
+          </description>
+        </when>
+        <key value="name"/>
+        <description>
+          <text>List of Optical Cross Connections (OXcon).</text>
+        </description>
+        <leaf name="name">
+          <type name="ioa-common:object-name"/>
+          <description>
+            <text>A user configured name for the OXcon.</text>
+          </description>
+        </leaf>
+        <uses name="ioa-common:aid"/>
+        <uses name="ioa-common:label"/>
+        <uses name="ioa-common:operational-states"/>
+        <leaf name="source">
+          <type name="instance-identifier"/>
+          <mandatory value="true"/>
+          <description>
+            <text>The source end-point required for OXcon creation.</text>
+          </description>
+        </leaf>
+        <leaf name="destination">
+          <type name="instance-identifier"/>
+          <mandatory value="true"/>
+          <description>
+            <text>The destination end-point required for OXcon creation.</text>
+          </description>
+        </leaf>
+        <leaf name="direction">
+          <type name="enumeration">
+            <enum name="two-way">
+              <value value="1"/>
+              <description>
+                <text>Two-way indicates the OXcon is bi-directional.</text>
+              </description>
+            </enum>
+            <enum name="one-way">
+              <value value="2"/>
+              <description>
+                <text>One-way indicates the OXcon is uni-directional</text>
+              </description>
+            </enum>
+          </type>
+          <default value="two-way"/>
+          <description>
+            <text>Set-by-create OXcon type.</text>
+          </description>
+        </leaf>
+        <leaf name="target-output-power-src">
+          <when condition="../direction='two-way'">
+            <description>
+              <text>Only of relevance for power working mode and two-way OXcon.</text>
+            </description>
+          </when>
+          <type name="target-power-type">
+            <range value="-18.00..15.00"/>
+          </type>
+          <default value="0"/>
+          <description>
+            <text>The source interface target power.</text>
+          </description>
+        </leaf>
+        <leaf name="target-output-power-dst">
+          <type name="target-power-type">
+            <range value="-18.00..15.00"/>
+          </type>
+          <default value="0"/>
+          <description>
+            <text>The destination interface target power.</text>
+          </description>
+        </leaf>
+        <leaf name="target-actual-power-dst">
+          <type name="ioa-l0:optical-power-actual"/>
+          <config value="false"/>
+          <description>
+            <text>Value: as calculated by Power Control if target-power-setting = auto;
+otherwise it is the exact value configured at target-output-power-dst/ src.</text>
+          </description>
+        </leaf>
+        <leaf name="target-actual-power-src">
+          <type name="ioa-l0:optical-power-actual"/>
+          <config value="false"/>
+          <description>
+            <text>Value: as calculated by Power Control if target-power-setting = auto;
+otherwise it is the exact value configured at target-output-power-dst/ src.</text>
+          </description>
+        </leaf>
+        <leaf name="target-actual-psd-dst">
+          <type name="ioa-l0:actual-psd"/>
+          <config value="false"/>
+          <description>
+            <text>Actual PSD destination</text>
+          </description>
+        </leaf>
+        <leaf name="target-actual-psd-src">
+          <type name="ioa-l0:actual-psd"/>
+          <config value="false"/>
+          <description>
+            <text>Actual PSD source</text>
+          </description>
+        </leaf>
+      </list>
+      <uses name="ioa-data-path-encryption:data-path-encryption"/>
+    </container>
+  </grouping>
+  <grouping name="xcon-common">
+    <leaf name="payload-type">
+      <type name="enumeration">
+        <enum name="100GBE">
+          <value value="10"/>
+          <description>
+            <text>A generic payload type for all 100GBASE-X Ethernet clients when provisioning a digital XCON.</text>
+          </description>
+        </enum>
+        <enum name="400GBE">
+          <value value="20"/>
+          <description>
+            <text>A generic payload type for all 400GBASE-X Ethernet clients when provisioning a digital XCON.</text>
+          </description>
+        </enum>
+        <enum name="OTU4">
+          <value value="30"/>
+          <description>
+            <text>A generic payload type for OTU4 Transport w/o FEC service.</text>
+          </description>
+        </enum>
+        <enum name="100G">
+          <value value="40"/>
+          <description>
+            <text>A generic payload type for ODU4 switching services.</text>
+          </description>
+        </enum>
+        <enum name="ODU2">
+          <value value="50"/>
+          <description>
+            <text>A generic payload type for ODU2 switching services.</text>
+          </description>
+        </enum>
+        <enum name="ODU2e">
+          <value value="60"/>
+          <description>
+            <text>A generic payload type for ODU2e switching services.</text>
+          </description>
+        </enum>
+        <enum name="10GBE">
+          <value value="70"/>
+        </enum>
+        <enum name="OC192">
+          <value value="80"/>
+        </enum>
+        <enum name="STM64">
+          <value value="90"/>
+        </enum>
+        <enum name="10G">
+          <value value="100"/>
+        </enum>
+        <enum name="empty">
+          <value value="110"/>
+          <description>
+            <text>Not applicable for 2-step XCON approach.</text>
+          </description>
+        </enum>
+      </type>
+      <description>
+        <text>Indicates a generic, high-level source (from) client payload type of the digital XCON.</text>
+      </description>
+    </leaf>
+    <leaf name="direction">
+      <type name="enumeration">
+        <enum name="two-way">
+          <value value="2"/>
+        </enum>
+      </type>
+      <default value="two-way"/>
+      <description>
+        <text>Indicates whether the digital XCON is uni-directional (1-WAY) or bi-directional (2-WAY).</text>
+      </description>
+    </leaf>
+    <uses name="ioa-common:label"/>
+    <leaf name="circuit-id-suffix">
+      <type name="string">
+        <length value="0..48"/>
+      </type>
+      <description>
+        <text>User configured circuit ID suffix.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <rpc name="create-xcon">
+    <description>
+      <text>Command for automatic creation of xcon and associated facilities.</text>
+    </description>
+    <input>
+      <choice name="source-facility">
+        <mandatory value="true"/>
+        <case name="src-existing-facility">
+          <description>
+            <text>To be used in case this end point refers to an existing facility.</text>
+          </description>
+          <leaf name="source">
+            <type name="instance-identifier"/>
+            <mandatory value="true"/>
+            <description>
+              <text>Source end-point of the xcon. Must be an existing facility that can be used
+as a XCON end-point.</text>
+            </description>
+          </leaf>
+        </case>
+        <case name="src-non-existing-facility">
+          <description>
+            <text>To be used in case this end point needs to be automatically created implicitly.
+Applies to the automatic creation of low order ODUs for XCON end-points.</text>
+          </description>
+          <leaf name="src-parent-odu">
+            <type name="string"/>
+            <mandatory value="true"/>
+            <description>
+              <text>Name of the High Order parent ODU where to audst-create this ODU end-point.</text>
+            </description>
+          </leaf>
+          <leaf name="src-time-slots">
+            <type name="ioa-common:number-list">
+              <length value="1..255"/>
+            </type>
+            <description>
+              <text>List of time-slots to allocate to the automatically created LO-ODU.
+Value can be:
+- omitted/empty - in which case system will audst-allocate time-slots based on the src-instance-id,
+                  which becomes mandatory (this is only supported for non ODUflex scenarios.)
+- starting time-slot - system automatically allocates the rest of the time-slots sequentially
+                       from this starting point; will fail if those time-slots are not available
+- time-slot list - full list of time-slots, using a comma separated list, with 'x..y' representing
+                   ranges; the total number of time-slots need to match the associated payload-type
+                   (e.g. 80 time-slots for 100G payload, 320 time-slots for 400G payload, etc)</text>
+            </description>
+          </leaf>
+          <leaf name="src-instance-id">
+            <type name="uint8">
+              <range value="1..max"/>
+            </type>
+            <description>
+              <text>Optional parameter on LO-ODU creation, identifies the ODU within the parent/high-order ODU.
+If not provided, it is automatically derived.
+Max value depends on capacity of the HO-ODU and of the odu-type.
+(ex: for creating an ODU4 in a HO ODUC8, instance can be between 1 and 8)
+Note: instance-id becomes mandatory if time-slots are not provided.</text>
+            </description>
+          </leaf>
+        </case>
+      </choice>
+      <choice name="destination-facility">
+        <mandatory value="true"/>
+        <case name="dst-existing-facility">
+          <description>
+            <text>To be used in case this end point refers to an existing facility.</text>
+          </description>
+          <leaf name="destination">
+            <type name="instance-identifier"/>
+            <mandatory value="true"/>
+            <description>
+              <text>Destination end-point of the xcon. Must be an existing facility that can be used
+as a XCON end-point.</text>
+            </description>
+          </leaf>
+        </case>
+        <case name="dst-non-existing-facility">
+          <description>
+            <text>To be used in case this end point needs to be automatically created implicitly.
+Applies to the automatic creation of low order ODUs for XCON end-points.</text>
+          </description>
+          <leaf name="dst-parent-odu">
+            <type name="string"/>
+            <mandatory value="true"/>
+            <description>
+              <text>Name of the High Order parent ODU where to audst-create this ODU end-point.</text>
+            </description>
+          </leaf>
+          <leaf name="dst-time-slots">
+            <type name="ioa-common:number-list">
+              <length value="1..255"/>
+            </type>
+            <description>
+              <text>List of time-slots to allocate to the automatically created LO-ODU.
+Value can be:
+- omitted/empty - in which case system will audst-allocate time-slots based on the dst-instance-id,
+                  which becomes mandatory (this is only supported for non ODUflex scenarios.)
+- starting time-slot - system automatically allocates the rest of the time-slots sequentially
+                       from this starting point; will fail if those time-slots are not available
+- time-slot list - full list of time-slots, using a comma separated list, with 'x..y' representing
+                   ranges; the total number of time-slots need to match the associated payload-type
+                   (e.g. 80 time-slots for 100G payload, 320 time-slots for 400G payload, etc)</text>
+            </description>
+          </leaf>
+          <leaf name="dst-instance-id">
+            <type name="uint8">
+              <range value="1..max"/>
+            </type>
+            <description>
+              <text>Optional parameter on LO-ODU creation, identifies the ODU within the parent/high-order ODU.
+If not provided, it is automatically derived.
+Max value depends on capacity of the HO-ODU and of the odu-type.
+(ex: for creating an ODU4 in a HO ODUC8, instance can be between 1 and 8)
+Note: instance-id becomes mandatory if time-slots are not provided.</text>
+            </description>
+          </leaf>
+        </case>
+      </choice>
+      <uses name="xcon-common"/>
+    </input>
+  </rpc>
+</module>

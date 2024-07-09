@@ -1,0 +1,840 @@
+module ioa-topology {
+    namespace "http://infinera.com/yang/ioa/topology";
+    prefix ioa-top;
+
+    import iana-afn-safi { prefix iana-afn-safi; }
+    import ioa-common { prefix ioa-common; }
+    import ietf-yang-types { prefix yang; }
+    import ietf-inet-types { prefix inet; }
+    import gx { prefix gx; }
+
+    organization "Infinera";
+
+    contact "Infinera Technical Support <techsupport@infinera.com>";
+
+    description "IOA YANG model associated with Topology protocols and data.";
+
+    revision "2023-03-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.1";
+    }
+
+    revision "2022-10-31" {
+        description "YANG Models for Infinera Open API (IOA) for release R6.0";
+    }
+
+    revision "2022-06-30" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.2";
+    }
+
+    revision "2022-02-28" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.1";
+    }
+
+    revision "2021-12-10" {
+        description "YANG Models for Infinera Open API (IOA) for release R5.0";
+    }
+
+    revision "2021-06-01" {
+        description "YANG Models for Infinera Open API (IOA) for release R4.0";
+    }
+
+
+    // Typedefs
+
+    typedef lldp-sys-cap {
+        type bits {
+            bit other {
+                position 0;
+                description "The system has capabilties other than those listed below.";
+            }
+            bit repeater {
+                position 1;
+                description "The system has repeated capability.";
+            }
+            bit bridge {
+                position 2;
+                description "The system has bridge capability.";
+            }
+            bit wlan-access-point {
+                position 3;
+                description "The system has WLAN access point capability.";
+            }
+            bit router {
+                position 4;
+                description "The system has router capability.";
+            }
+            bit telephone {
+                position 5;
+                description "The system has telephone capability.";
+            }
+            bit docsis-cable-device {
+                position 6;
+                description "The system has DOCSIS Cable Device capability (IETF RFC 2669 & 2670).";
+            }
+            bit station-only {
+                position 7;
+                description "The system has only station capability and nothing else.";
+            }
+            bit c-vlan-component {
+                position 8;
+                description "The system has C-VLAN component functionality.";
+            }
+            bit s-vlan-component {
+                position 9;
+                description "The system has S-VLAN component functionality.";
+            }
+            bit two-port-mac-relay {
+                position 10;
+                description "The system has Two-port MAC Relay (TPMR) functionality.";
+            }
+        }
+        description "LLDP remote system capabilities bit set.";
+    }
+
+    typedef lldp-mode {
+        type enumeration {
+            enum disabled { value 0; }
+            enum snoop { value 1; }
+            enum drop { value 2; }
+            enum snoop-and-drop { value 3; }
+        }
+        description "Mode in which LLDP is working.";
+    }
+
+    typedef fiber-connection-type {
+        type enumeration {
+            enum two-way {
+                value 1;
+                description "Two-way indicates the link is bi-directional.";
+            }
+            enum one-way {
+                value 2;
+                description "One-way indicates the link is uni-directional";
+            }
+        }
+        description "Generic Link Directionality";
+    }
+
+
+    grouping neighbor-info {
+        description "Common parameters to all topology neighbors, independently on the discovery protocol.";
+
+        leaf last-update {
+            type yang:date-and-time;
+            description "Timestamp with the last time this neighbor info was updated.";
+        }
+
+        leaf age {
+            type uint64;
+            units seconds;
+            description "Number of seconds since discovery.";
+        }
+    }
+
+    grouping topology {
+
+        container topology {
+            description "Topology information related with this NE.";
+
+            container lldp {
+                description "Global LLDP configuration.";
+
+                leaf hold-on-timer {
+                    type uint16;
+                    units seconds;
+                    default 900;
+                    description "Time to keep neighbor information, in case neighbor does not have an explicit Time-To-Live (TTL) TLV.";
+                }
+
+
+                list lldp-neighbor {
+                    key "lldp-port direction";
+                    config false;
+                    description "LLDP remote system discovered by lldp-port.
+                                 This information is kept indefinitely, until the port is decomissioned, or the
+                                 data is manually cleared by user.";
+
+                    leaf lldp-port {
+                        type instance-identifier;
+                        description "Local port that is connected to this LLDP neighbor.";
+                    }
+
+                    leaf direction {
+                        type enumeration {
+                            enum ingress { value 1; }
+                            enum egress { value 2; }
+                        }
+                        description "Direction in which the neighbor was detected.";
+                    }
+
+                    uses neighbor-info;
+
+                    leaf chassis-id-subtype {
+                        type enumeration {
+                            enum reserved {
+                                value 0;
+                                description "Represents another subtype, not covered by the other options.
+                                             When reserved subtype is used, the chassis-id is displayed as a hex string.";
+                            }
+                            enum chassis-component {
+                                value 1;
+                                description "Represents a chassis identifier based on the value of entPhysicalAlias object
+                                            (defined in IETF RFC 2737) for a chassis component (i.e., an entPhysicalClass value
+                                            of 'chassis(3)')";
+                            }
+                            enum interface-alias {
+                                value 2;
+                                description "Represents a chassis identifier based on the value of ifAlias object (defined in
+                                            IETF RFC 2863) for an interface on the containing chassis.";
+                            }
+                            enum port-component {
+                                value 3;
+                                description "Represents a chassis identifier based on the value of entPhysicalAlias object
+                                            (defined in IETF RFC 2737) for a port or backplane component (i.e., entPhysicalClass
+                                            value of 'port(10)' or 'backplane(4)'), within the containing chassis.";
+                            }
+                            enum mac-address {
+                                value 4;
+                                description "Represents a chassis identifier based on the value of a unicast source address
+                                            (encoded in network byte order and IEEE 802.3 canonical bit order), of a port on
+                                            the containing chassis as defined in IEEE Std 802-2001.";
+                            }
+                            enum network-address {
+                                value 5;
+                                description "Represents a chassis identifier based on a network address, associated with
+                                            a particular chassis.  The encoded address is actually composed of two fields.
+                                            The first field is a single octet, representing the IANA AddressFamilyNumbers
+                                            value for the specific address type, and the second field is the network
+                                            address value.";
+                            }
+                            enum interface-name {
+                                value 6;
+                                description "Represents a chassis identifier based on the value of ifName object (defined in
+                                            IETF RFC 2863) for an interface on the containing chassis.";
+                            }
+                            enum local {
+                                value 7;
+                                description "Represents a chassis identifier based on a locally defined value.";
+                            }
+                        }
+                        description "This attribute describes the format of the chassis-id string.";
+                    }
+
+                    leaf chassis-id {
+                        type string { length 0..255; }
+                        description "
+                            This attribute identifies the chassis component withing the LLDP remote system..
+                            This value needs to be interpreted according with the associated chassis-id-subtype, which identifies
+                            the format of this value.";
+                    }
+
+                    leaf port-id-subtype {
+                        type enumeration {
+                            enum interface-alias {
+                                value 1;
+                                description "Means that the port-id string identifies a particular instance of the ifAlias object (defined in IETF
+                                            RFC 2863).  If the particular ifAlias object does not contain any values, another port identifier type should be used.";
+                            }
+                            enum port-component {
+                                value 2;
+                                description "Means that the port-id string identifies a particular instance of the entPhysicalAlias object (defined in IETF RFC 2737)
+                                            for a port or backplane component.";
+                            }
+                            enum mac-address {
+                                value 3;
+                                description "Means that the port-id string identifies a particular unicast source address (encoded in network byte order
+                                            and IEEE 802.3 canonical bit order) associated with the port (IEEE Std 802-2001).";
+                            }
+                            enum network-address {
+                                value 4;
+                                description "Means that the port-id string identifies a network address associated with the port. The first octet contains
+                                            the IANA AddressFamilyNumbers enumeration value for the specific address type, and octets 2 through N contain the
+                                            networkAddress address value in network byte order.";
+                            }
+                            enum interface-name {
+                                value 5;
+                                description "Means that the port-id string identifies a  particular instance of the ifName object (defined in IETF
+                                            RFC 2863). If the particular ifName object does not contain any values, another port identifier type should be used.";
+                            }
+                            enum agent-circuit-id {
+                                value 6;
+                                description "Means that the port-id string identifies an agent-local identifier of the circuit (defined in RFC 3046).";
+                            }
+                            enum local {
+                                value 7;
+                                description "Means that the port-id string identifies a locally assigned port ID";
+                            }
+                        }
+                        description "This attribute describes the format of the port-id string.";
+                    }
+
+                    leaf port-id {
+                        type string { length 0..255; }
+                        description "
+                            This attribute identifies the port within the LLDP remote system chassis.
+                            This value needs to be interpreted according with the associated port-id-subtype, which identifies
+                            the format of this value.";
+                    }
+
+                    leaf port-description {
+                        type string { length 0..255; }
+                        description "The string value used to identify the description of the given port associated with the remote system.";
+                    }
+
+                    leaf system-name {
+                        type string { length 0..255; }
+                        description "The string value used to identify the system name of the remote system.";
+                    }
+
+                    leaf system-description {
+                        type string { length 0..255; }
+                        description "The string value used to identify the system description of the remote system.";
+                    }
+
+                    leaf supported-capabilities {
+                        type lldp-sys-cap;
+                        description "This attribute describes the remote system supported capabilities.";
+                    }
+
+                    leaf enabled-capabilities {
+                        type lldp-sys-cap;
+                        description "This attribute describes the remote system enabled capabilities.";
+                    }
+
+                    leaf ttl {
+                        type uint32;
+                        units seconds;
+                        description "Remote system info Time-To-Live (TTL); the number of seconds until information expires.
+                                    If the remote system deosn't provide a ttl value, this parameter is set to the global hold-on-timer.";
+                    }
+
+                    list management-address {
+                        key "address-subtype address";
+                        description
+                            "Management address information about a particular chassis
+                            component.  There may be multiple management addresses
+                            configured on the remote system identified by a particular
+                            index whose information is received on the local system.
+                            Each management address should have distinct 'management address
+                            type' (subtype) and 'management address' (address).";
+
+
+                        leaf address-subtype {
+                            type iana-afn-safi:address-family;
+                            description "
+                                The type of management address identifier encoding used in the associated 'address' attribute.";
+                        }
+
+                        leaf address {
+                            type string { length 0..64; }
+                            description "
+                                The string value used to identify the management address component associated with the remote system.  The purpose
+                                of this address is to contact the management entity.";
+                        }
+
+                        leaf if-subtype {
+                            type enumeration {
+                                enum unknown {
+                                    value 1;
+                                    description "Interface is not known";
+                                }
+                                enum if-index {
+                                    value 2;
+                                    description "Interface identifier based on the ifIndex MIB object.";
+                                }
+                                enum system-port-number {
+                                    value 3;
+                                    description "Interface identifier based on the system port numbering convetion.";
+                                }
+                            }
+                            description "
+                                This attribute describes the basis of a particular type of
+                                interface associated with the management address.";
+                        }
+
+                        leaf if-id {
+                            type uint32;
+                            description "The integer value used to identify the interface number regarding the management address component associated with
+                                        the remote system.";
+                        }
+
+                        leaf address-oid {
+                            type string {
+                                length 0..128;
+                            }
+                            description "The Object Identifier (OID) value used to identify the type of hardware component or protocol entity associated with the
+                                        management address advertised by the remote system agent.";
+                        }
+                    }
+
+                    list custom-tlv {
+                        key "oui subtype";
+                        description "List of Organizational Specific TLVs (Type-Lengh-Value) parameters.";
+
+                        leaf oui {
+                            type string { length 0..6; }
+                            description "The Organization Unique Identifier (OUI) of this TLV. Hexadecimal representation of the 24 bit identier.";
+                        }
+
+                        leaf subtype {
+                            type uint8;
+                            description "The sub-type identifier of the TLV in the scope of the OUI.";
+                        }
+
+                        leaf value {
+                            type string { length 0..507; }
+                            description "The value of the TLV.";
+                        }
+                    }
+                }
+
+                list lldp-port-statistics {
+                    key "lldp-port direction";
+                    config false;
+                    description
+                        "LLDP frame reception statistics for a particular port and direction.
+
+                        All counter values in a particular entry shall be maintained on a continuing basis and shall not be deleted
+                        upon expiration of TTL timing counters associated with the LLDP neighbor information.
+
+                        All statistical counters associated with a particular port on the local LLDP agent become frozen whenever the
+                        lldp-admin-status is disabled for the same port.";
+
+                    leaf lldp-port {
+                        type instance-identifier;
+                        description "Local port that is associated with the LLDP agent.";
+                    }
+
+                    leaf direction {
+                        type enumeration {
+                            enum ingress { value 1; }
+                            enum egress { value 2; }
+                        }
+                        description "Direction associated with lldp statistics.";
+                    }
+
+                    leaf last-change-time {
+                        type yang:date-and-time;
+                        description
+                        "The timestamp associated with the last time this port received LLDP updates.";
+                    }
+
+                    leaf last-clear-time {
+                        type yang:date-and-time;
+                        default '0000-01-01T00:00:00Z';
+                        description
+                        "The timestamp associated with the last time this port was cleared.";
+                    }
+
+                    leaf total-ageouts {
+                        type yang:zero-based-counter64;
+                        description
+                            "A count of the times that a neighbor’s information
+                            is deleted from the lldp-neighbor list due to TTL timer
+                            expiration.";
+                    }
+
+                    leaf total-discarded-frames {
+                        type yang:counter64;
+                        description
+                            "A count of all LLDPDUs received and then discarded.";
+                    }
+
+                    leaf error-frames {
+                        type yang:counter64;
+                        description
+                            "A count of all LLDPDUs received at the port with one or more
+                            detectable errors.";
+                    }
+
+                    leaf total-frames-in {
+                        type yang:counter64;
+                        description
+                            "A count of all LLDP frames received at the port.";
+                    }
+
+                    leaf total-frames-out {
+                        type yang:counter64;
+                        description
+                            "A count of all LLDP frames transmitted through the port.";
+                    }
+
+                    leaf total-discarded-tlvs {
+                        type yang:counter64;
+                        description
+                            "A count of all TLVs received at the port and discarded for any
+                            reason.";
+                    }
+
+                    leaf total-unrecognized-tlvs {
+                        type yang:counter64;
+                        description
+                            "This counter provides a count of all TLVs not recognized by
+                            the receiving LLDP local agent.";
+                    }
+                }
+            }
+
+
+            container icdp {
+                description "Contains ICDP (Infinera Carrier Discovery Protocol) data.
+                             This is a proprietary mechanism that allows Network Elements to
+                             auto-discover their neighbors using carrier OFEC-GCC over L1 line interfaces.";
+
+                leaf global-switch {
+                    type boolean;
+                    default true;
+                    description "Global switch for ICDP.
+                                 If disabled, inhibits further discovery using ICDP; however, existing data will be kept.";
+                }
+
+                list carrier-neighbor {
+                    key local-carrier;
+                    config false;
+                    description "Neighbor node discovered by the local-carrier via ICDP.
+                                 This information is kept indefinitely, until the carrier is deleted, or the
+                                 data is manually cleared by user.";
+
+                    leaf local-carrier {
+                        type instance-identifier;
+                        description "Local carrier instance that has discovered this neighbor node.
+                                     Each carrier can discover up to one node.
+                                     It is possible for multiple collocated carriers to discover the same
+                                     node multiple times (each time connected to a different remote carrier).";
+                    }
+
+                    uses neighbor-info;
+
+                    leaf local-carrier-id {
+                        type string { length 1..32; }
+                        description "AID of local carrier.";
+                    }
+
+                    leaf ne-id {
+                        type string { length 0..256; }
+                        description "Id of the remote network element.";
+                    }
+
+                    leaf ne-name {
+                        type string { length 0..256; }
+                        description "Neighbor ne-name.";
+                    }
+
+                    leaf ne-type {
+                        type string { length 0..64; }
+                        description "Type of the remote network element.";
+                    }
+
+                    leaf remote-carrier-id {
+                        type string { length "0..64"; }
+                        description "AID of the remote carrier connected to the local carrier.
+                                     Implies a specific remote port id.";
+                    }
+
+                    leaf ipv4-loopback-address {
+                        type inet:ipv4-address;
+                        description "IPv4 loopback address of the neighbor; may be empty if not configured.";
+                    }
+
+                    leaf ipv6-loopback-address {
+                        type inet:ipv6-address;
+                        description "IPv6 loopback address of the neighbor; may be empty if not configured.";
+                    }
+                }
+            }
+
+            container inci {
+                if-feature gx:inci-support;
+                description "INCI is Inter-NE Communication Interface, Information related to Inter NE inter-op feature.";
+
+                leaf inci-enabled {
+                    type boolean;
+                    default false;
+                    description "This is a NE level switch to control the INCI feature.";
+                }
+
+                list inci-neighbor {
+                    key neighbor-id;
+                    max-elements 8;
+                    description "List of provisioned INCI Neighbors.";
+
+                    leaf neighbor-id {
+                        type ioa-common:object-name;
+                        description "Node-ID of provisioned neighbor.";
+                    }
+
+                    leaf neighbor-address {
+                        type inet:ip-address;
+                        mandatory true;
+                        description "IP address of the provisioned remote neighbor NE.";
+                    }
+
+                    leaf neighbor-port {
+                        type uint32;
+                        default 8800;
+                        config false;
+                        description "Port number used for communication with GX NE.";
+                    }
+
+                    leaf connection-status {
+                        type enumeration {
+                            enum connected {
+                                value 1;
+                                description "Remote NE is connected.";
+                            }
+                            enum not-connected {
+                                value 2;
+                                description "Remote NE is not connected.";
+                            }
+                            enum mismatch {
+                                value 3;
+                                description "Mismatch between provisioned Node Name with discovered node name.";
+                            }
+                            enum unknown {
+                                value 4;
+                                description "Remote NE is unknown.";
+                            }
+                        }
+                        default not-connected;
+                        config false;
+                        description "Connection status with this Neighbor.";
+                    }
+
+                    leaf configured-node-name {
+                        type string { length 0..128; }
+                        mandatory true;
+                        description "User provisioned name of remote NE. Used to compare against the discovered-node-name.";
+                    }
+
+                    leaf discovered-node-name {
+                        type string { length 0..128; }
+                        config false;
+                        description "Name of remote NE as sent by the remote NE.";
+                    }
+
+                    leaf discovered-node-id {
+                        type string { length 0..128; }
+                        config false;
+                        description "Node ID of remote node as received from remote node.";
+                    }
+
+                    uses ioa-common:arc;
+                    uses ioa-common:label;
+
+                    leaf oper-state {
+                        type enumeration {
+                            enum enabled { value 1; }
+                            enum disabled { value 2; }
+                        }
+                        default disabled;
+                        config false;
+                        description "The operational state of this object.";
+                    }
+                }
+            }
+
+
+            container links {
+                description "Links container within Topology.";
+
+                list fiber-connection {
+                    key "name";
+                    description
+                        "Fiber Connection list - connecting two ports of L0 cards, or line-port of Transponders/ Muxponders.";
+
+                    leaf name {
+                        type ioa-common:object-name;
+                        description "User defined name for the fiber-connection.";
+                    }
+
+                    uses ioa-common:label;
+
+                    leaf src-port {
+                        type instance-identifier;
+                        mandatory true;
+                        description "Source Port instance.";
+                    }
+
+                    leaf dst-port {
+                        type instance-identifier;
+                        mandatory true;
+                        description "Destination Port instance.";
+                    }
+
+                    leaf fiber-connection-type {
+                        type fiber-connection-type;
+                        default two-way;
+                        description "Type of the fiber connection - one-way or two-way.";
+                    }
+                }
+
+                list external-fiber-connection {
+                    key "name";
+                    description
+                        "External Fiber Connection name - connecting two ports of L0 cards in different NEs.";
+
+                    leaf name {
+                        type ioa-common:object-name;
+                        description "User defined name for the fiber-connection.";
+                    }
+
+                    uses ioa-common:label;
+
+                    leaf src-node-id {
+                        type string { length 1..256; }
+                        description "Should be logically the same as 'ne-name', although there is no SYSTEM business logic to correct this.";
+                    }
+
+                    leaf src-card-name {
+                        type ioa-common:object-name;
+                        description "Card identification.";
+                    }
+
+                    leaf src-port-name {
+                        type string { length 1..128; }
+                        mandatory true;
+                        description "Port identification, as used by managers.";
+                    }
+
+                    leaf dst-node-id {
+                        type string { length 1..256; }
+                        description "Should be logically the same as 'ne-name', although there is no SYSTEM business logic to correct this.";
+                    }
+
+                    leaf dst-card-name {
+                        type ioa-common:object-name;
+                        description "Card identification.";
+                    }
+
+                    leaf dst-port-name {
+                        type string { length 1..128; }
+                        mandatory true;
+                        description "Port identification, as used by managers.";
+                    }
+
+                    leaf fiber-connection-type {
+                        type fiber-connection-type;
+                        default two-way;
+                        description "Type of the fiber connection - one-way or two-way.";
+                    }
+                }
+
+                list nct-connection {
+                    key "src-port dst-port";
+                    config false;
+                    description "NCT connectivity information, providing existing links between NCT ports in a multi-chassis NE.
+                                 These links are dynamically filled in by the system, allowing to derive and display the NCT topology.
+                                 All connections defined here are bidirectional; source and destination are therefore interchangeable.";
+
+                    leaf src-port {
+                        type string { length 1..64; }
+                        description "The source port of the connection. Must be an NCT port.
+                                     If the port belongs to a commissioned chassis, it will be the AID of the port.
+                                     If the port belongs to an unprovisioned chassis, it will have the format
+                                        '<chassis-serial-number>-<slot>-NCT-<id>' ";
+                    }
+
+                    leaf dst-port {
+                        type string { length 1..64; }
+                        description "The destination port of the connection. Must be an NCT port.
+                                     If the port belongs to a commissioned chassis, it will be the AID of the port.
+                                     If the port belongs to an unprovisioned chassis, it will have the format
+                                        '<chassis-serial-number>-<slot>-NCT-<id>' ";
+                    }
+
+                    leaf src-chassis {
+                        type string { length 1..64; }
+                        description "The identifier of the chassis where the source port is located.
+                                     If it is a commissioned chassis, it will be the AID of the chassis.
+                                     If it is an unprovisioned chassis, it will have the chassis serial number.";
+                    }
+
+                    leaf dst-chassis {
+                        type string { length 1..64; }
+                        description "The identifier of the chassis where the destination port is located.
+                                     If it is a commissioned chassis, it will be the AID of the chassis.
+                                     If it is an unprovisioned chassis, it will have the chassis serial number.";
+                    }
+
+                    leaf src-chassis-state {
+                        type enumeration {
+                            enum node-controller {
+                                value 1;
+                                description "Means this chassis is the Node Controller chassis.";
+                            }
+                            enum provisioned {
+                                value 2;
+                                description "Means this chassis is provisioned as a sub-chassis.";
+                            }
+                            enum unprovisioned {
+                                value 3;
+                                description "Means this chassis is detected but not provisioned.";
+                            }
+                        }
+                        description "The state of the src-chassis.";
+                    }
+
+                    leaf dst-chassis-state {
+                        type enumeration {
+                            enum node-controller {
+                                value 1;
+                                description "Means this chassis is the Node Controller chassis.";
+                            }
+                            enum provisioned {
+                                value 2;
+                                description "Means this chassis is provisioned as a sub-chassis.";
+                            }
+                            enum unprovisioned {
+                                value 3;
+                                description "Means this chassis is detected but not provisioned.";
+                            }
+                        }
+                        description "The state of the dst-chassis.";
+                    }
+                }
+            }
+        }
+    }
+
+
+    grouping lldp-port {
+        description "Set of leafs related with port specific LLDP configuration.";
+
+        leaf lldp-admin-status {
+            type enumeration {
+                enum tx-only {
+                    value 1;
+                    description "LLDP agent transmits LLDP frames on this port but it does not store connected remote system information.";
+                }
+                enum rx-only {
+                    value 2;
+                    description "LLDP agent receives, but it does not transmit LLDP frames on this port.";
+                }
+                enum tx-and-rx {
+                    value 3;
+                    description "LLDP agent transmits and receives LLDP frames on this port.";
+                }
+                enum disabled {
+                    value 4;
+                    description "LLDP agent does not transmit or receive LLDP frames on this port.";
+                }
+            }
+            default disabled;
+            description "LLDP operational mode for this port.";
+        }
+
+        leaf lldp-ingress-mode {
+            when "../lldp-admin-status != 'disabled'";
+            type lldp-mode;
+            default disabled;
+            description "If lldp enabled, define what is the LLDP behavior for this direction.";
+        }
+
+        leaf lldp-egress-mode {
+            when "../lldp-admin-status != 'disabled'";
+            type lldp-mode;
+            default disabled;
+            description "If lldp enabled, define what is the LLDP behavior for this direction.";
+        }
+    }
+}

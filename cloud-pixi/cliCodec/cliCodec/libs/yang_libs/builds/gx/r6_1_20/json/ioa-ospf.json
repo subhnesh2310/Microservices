@@ -1,0 +1,754 @@
+{
+    "module": {
+        "@name": "ioa-ospf",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ospf": "http://infinera.com/yang/ioa/networking/ospf",
+        "@xmlns:yang": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "@xmlns:inet": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/networking/ospf"
+        },
+        "prefix": {
+            "@value": "ospf"
+        },
+        "import": [
+            {
+                "@module": "ietf-yang-types",
+                "prefix": {
+                    "@value": "yang"
+                }
+            },
+            {
+                "@module": "ietf-inet-types",
+                "prefix": {
+                    "@value": "inet"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "IOA YANG module with OSPF data model."
+        },
+        "revision": [
+            {
+                "@date": "2023-03-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.1"
+                }
+            },
+            {
+                "@date": "2022-10-31",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R6.0"
+                }
+            },
+            {
+                "@date": "2022-06-30",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.2"
+                }
+            },
+            {
+                "@date": "2022-02-28",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.1"
+                }
+            },
+            {
+                "@date": "2021-12-10",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R5.0"
+                }
+            },
+            {
+                "@date": "2021-06-01",
+                "description": {
+                    "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+                }
+            }
+        ],
+        "identity": [
+            {
+                "@name": "ospfv3-ipsec-integrity-algorithm",
+                "description": {
+                    "text": "A base identity for all OSPFv3 IPsec integrity algorithms."
+                }
+            },
+            {
+                "@name": "AUTH_HMAC_SHA2_256_128",
+                "base": {
+                    "@name": "ospfv3-ipsec-integrity-algorithm"
+                },
+                "reference": {
+                    "text": "RFC 8221, IANA IKEv2 Transform Type 3, NIST SP.800-77"
+                }
+            },
+            {
+                "@name": "AUTH_HMAC_SHA2_384_192",
+                "base": {
+                    "@name": "ospfv3-ipsec-integrity-algorithm"
+                },
+                "reference": {
+                    "text": "IANA IKEv2 Transform Type 3, NIST SP.800-77"
+                }
+            },
+            {
+                "@name": "AUTH_HMAC_SHA2_512_256",
+                "base": {
+                    "@name": "ospfv3-ipsec-integrity-algorithm"
+                },
+                "reference": {
+                    "text": "RFC 8221, IANA IKEv2 Transform Type 3, NIST SP.800-77"
+                }
+            },
+            {
+                "@name": "AUTH_HMAC_SHA1_160",
+                "base": {
+                    "@name": "ospfv3-ipsec-integrity-algorithm"
+                },
+                "reference": {
+                    "text": "IANA IKEv2 Transform Type 3, NIST SP.800-77"
+                }
+            },
+            {
+                "@name": "AUTH_HMAC_SHA1_96",
+                "base": {
+                    "@name": "ospfv3-ipsec-integrity-algorithm"
+                },
+                "reference": {
+                    "text": "IANA IKEv2 Transform Type 3, NIST SP.800-77"
+                }
+            }
+        ],
+        "grouping": [
+            {
+                "@name": "ospf-authentication",
+                "leaf": [
+                    {
+                        "@name": "ospf-auth-enable",
+                        "when": {
+                            "@condition": "(../../../version = 'ospfv2' or ../../../version = 'ospfv3')"
+                        },
+                        "type": {
+                            "@name": "boolean"
+                        },
+                        "default": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "Enable/Disable Authentication."
+                        }
+                    },
+                    {
+                        "@name": "ospf-auth-algorithm",
+                        "when": {
+                            "@condition": "(../../../version = 'ospfv2')"
+                        },
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "none",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "HMAC_SHA_256",
+                                    "value": {
+                                        "@value": "2"
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "HMAC_SHA_256"
+                        },
+                        "description": {
+                            "text": "Cryptographic algorithm associated with key"
+                        }
+                    },
+                    {
+                        "@name": "ospf-auth-key",
+                        "when": {
+                            "@condition": "(../../../version = 'ospfv2')"
+                        },
+                        "type": {
+                            "@name": "string",
+                            "length": {
+                                "@value": "0..256"
+                            }
+                        },
+                        "description": {
+                            "text": "Authentication key string in ASCII format."
+                        }
+                    }
+                ],
+                "list": {
+                    "@name": "ospfv3-ipsec-security-association",
+                    "when": {
+                        "@condition": "(../../../version = 'ospfv3') and (../ospf-auth-enable = 'true')"
+                    },
+                    "key": {
+                        "@value": "spi"
+                    },
+                    "leaf": [
+                        {
+                            "@name": "spi",
+                            "type": {
+                                "@name": "uint32",
+                                "range": {
+                                    "@value": "256..4294967295"
+                                }
+                            },
+                            "description": {
+                                "text": "A unique security parameter index (SPI) for this SA."
+                            }
+                        },
+                        {
+                            "@name": "ipsec-protocol",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": {
+                                    "@name": "ESP",
+                                    "value": {
+                                        "@value": "100"
+                                    }
+                                }
+                            },
+                            "default": {
+                                "@value": "ESP"
+                            },
+                            "description": {
+                                "text": "Indicates the use of ESP or AH protocols."
+                            }
+                        },
+                        {
+                            "@name": "ipsec-mode",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": {
+                                    "@name": "transport",
+                                    "value": {
+                                        "@value": "200"
+                                    }
+                                }
+                            },
+                            "default": {
+                                "@value": "transport"
+                            },
+                            "description": {
+                                "text": "Indicates IPsec mode. Only transport mode is supported in the initial releases."
+                            }
+                        },
+                        {
+                            "@name": "integrity-algorithm",
+                            "type": {
+                                "@name": "identityref",
+                                "base": {
+                                    "@name": "ospfv3-ipsec-integrity-algorithm"
+                                }
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "The cryptographic algorithm used to perform IPsec integrity protection."
+                            }
+                        }
+                    ],
+                    "container": {
+                        "@name": "auth-key",
+                        "leaf": [
+                            {
+                                "@name": "type",
+                                "type": {
+                                    "@name": "enumeration",
+                                    "enum": [
+                                        {
+                                            "@name": "ascii",
+                                            "value": {
+                                                "@value": "1"
+                                            }
+                                        },
+                                        {
+                                            "@name": "hex",
+                                            "value": {
+                                                "@value": "2"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "default": {
+                                    "@value": "ascii"
+                                },
+                                "description": {
+                                    "text": "Indicates whether the integrity key is ASCII or hexadecimal encoded."
+                                }
+                            },
+                            {
+                                "@name": "key",
+                                "type": {
+                                    "@name": "string",
+                                    "length": {
+                                        "@value": "8..256"
+                                    }
+                                },
+                                "mandatory": {
+                                    "@value": "true"
+                                },
+                                "description": {
+                                    "text": "The pre-shared key for OSPFv3 IPsec integrity protection.\nThe valid key length range for ascii format is 8..128 and\nfor hex format, it is 16..256."
+                                }
+                            }
+                        ]
+                    },
+                    "description": {
+                        "text": "A list of SAs created to protect OSPFv3 traffic. NOTE that\nin ThanOS, we will always create both INBOUND and OUTBOUND\nSAs automatically (i.e., for one user-created entry, there\nwill be two SAs automatically created)."
+                    }
+                }
+            },
+            {
+                "@name": "ospf-interface-attributes",
+                "leaf": [
+                    {
+                        "@name": "enable",
+                        "type": {
+                            "@name": "boolean"
+                        },
+                        "default": {
+                            "@value": "true"
+                        },
+                        "description": {
+                            "text": "Enable/disable OSPF protocol on the interface."
+                        }
+                    },
+                    {
+                        "@name": "hello-interval",
+                        "type": {
+                            "@name": "uint16",
+                            "range": {
+                                "@value": "1..32767"
+                            }
+                        },
+                        "units": {
+                            "@name": "seconds"
+                        },
+                        "default": {
+                            "@value": "10"
+                        },
+                        "description": {
+                            "text": "Specifies the Hello Interval in seconds."
+                        }
+                    },
+                    {
+                        "@name": "router-dead-interval",
+                        "type": {
+                            "@name": "uint16",
+                            "range": {
+                                "@value": "4..65535"
+                            }
+                        },
+                        "units": {
+                            "@name": "seconds"
+                        },
+                        "default": {
+                            "@value": "40"
+                        },
+                        "description": {
+                            "text": "Specifies the Router Dead Interval in seconds."
+                        }
+                    },
+                    {
+                        "@name": "retransmission-interval",
+                        "type": {
+                            "@name": "uint16",
+                            "range": {
+                                "@value": "2..3600"
+                            }
+                        },
+                        "units": {
+                            "@name": "seconds"
+                        },
+                        "default": {
+                            "@value": "5"
+                        },
+                        "description": {
+                            "text": "Specifies the Retransmission Interval in seconds."
+                        }
+                    },
+                    {
+                        "@name": "transmit-delay",
+                        "type": {
+                            "@name": "uint16",
+                            "range": {
+                                "@value": "1..450"
+                            }
+                        },
+                        "units": {
+                            "@name": "seconds"
+                        },
+                        "default": {
+                            "@value": "1"
+                        },
+                        "description": {
+                            "text": "Estimated time needed to transmit Link State Update\n(LSU) packets on the interface (seconds). LSAs have\ntheir age incremented by this amount when advertised\non the interface. A sample value would be 1 second."
+                        }
+                    },
+                    {
+                        "@name": "ospf-cost",
+                        "type": {
+                            "@name": "uint32",
+                            "range": {
+                                "@value": "1..65535"
+                            }
+                        },
+                        "default": {
+                            "@value": "10"
+                        },
+                        "description": {
+                            "text": "OSPF link cost."
+                        }
+                    },
+                    {
+                        "@name": "ospf-network-type",
+                        "type": {
+                            "@name": "enumeration",
+                            "enum": [
+                                {
+                                    "@name": "broadcast",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                },
+                                {
+                                    "@name": "point-to-point",
+                                    "value": {
+                                        "@value": "2"
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "@value": "broadcast"
+                        },
+                        "config": {
+                            "@value": "false"
+                        },
+                        "description": {
+                            "text": "OSPF Interface Network Types."
+                        }
+                    },
+                    {
+                        "@name": "priority",
+                        "type": {
+                            "@name": "uint8",
+                            "range": {
+                                "@value": "0..255"
+                            }
+                        },
+                        "default": {
+                            "@value": "1"
+                        },
+                        "description": {
+                            "text": "Configure OSPF router priority. On multi-access network\nthis value is for Designated Router (DR) election. The\npriority is ignored on other interface types. A router\nwith a higher priority will be preferred in the election\nand a value of 0 indicates the router is not eligible to\nbecome Designated Router or Backup Designated Router\n(BDR)."
+                        }
+                    }
+                ]
+            },
+            {
+                "@name": "ospf-interface",
+                "list": {
+                    "@name": "ospf-interface",
+                    "key": {
+                        "@value": "ospf-if-name"
+                    },
+                    "description": {
+                        "text": "Configuration of interface in an ospf area."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "ospf-if-name",
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "../../../../../interface/if-name"
+                                }
+                            },
+                            "description": {
+                                "text": "Reference of the interface in OSPF area."
+                            }
+                        },
+                        {
+                            "@name": "ospf-if-routing",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "active",
+                                        "value": {
+                                            "@value": "1"
+                                        },
+                                        "description": {
+                                            "text": "ACTIVE - This link is advertised and routing messages are transported over this link."
+                                        }
+                                    },
+                                    {
+                                        "@name": "passive",
+                                        "value": {
+                                            "@value": "2"
+                                        },
+                                        "description": {
+                                            "text": "PASSIVE - This link is advertised, routing messages are not transported over this link."
+                                        }
+                                    },
+                                    {
+                                        "@name": "auto",
+                                        "value": {
+                                            "@value": "3"
+                                        },
+                                        "description": {
+                                            "text": "Auto - ospf-if-routing will be automatically derived from the interface type."
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "auto"
+                            },
+                            "description": {
+                                "text": "Specifies if routing is enabled and if so, if Routing is passive or active."
+                            }
+                        }
+                    ],
+                    "uses": [
+                        {
+                            "@name": "ospf-interface-attributes",
+                            "when": {
+                                "@condition": "(ospf-if-routing != 'passive') and (ospf-if-name != 'LO-MGMT')"
+                            }
+                        },
+                        {
+                            "@name": "ospf-authentication",
+                            "when": {
+                                "@condition": "((../../version = 'ospfv2') or (../../version = 'ospfv3')) and (ospf-if-name != 'LO-MGMT')  and (ospf-if-routing != 'passive')"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "ospf-area-config",
+                "list": {
+                    "@name": "ospf-area-range",
+                    "key": {
+                        "@value": "prefix"
+                    },
+                    "description": {
+                        "text": "Summarize routes matching address/mask -\nApplicable to Area Border Routers (ABRs) only."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "prefix",
+                            "type": {
+                                "@name": "inet:ip-prefix"
+                            },
+                            "description": {
+                                "text": "IPv4 or IPv6 prefix"
+                            }
+                        },
+                        {
+                            "@name": "advertise",
+                            "type": {
+                                "@name": "boolean"
+                            },
+                            "default": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "Advertise or hide."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "ospf-area",
+                "list": {
+                    "@name": "ospf-area",
+                    "key": {
+                        "@value": "ospf-area-id"
+                    },
+                    "description": {
+                        "text": "Configuration of ospf area."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "ospf-area-id",
+                            "type": {
+                                "@name": "yang:dotted-quad"
+                            },
+                            "description": {
+                                "text": "OSPF Router Area ID."
+                            }
+                        },
+                        {
+                            "@name": "ospf-area-type",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": {
+                                    "@name": "normal",
+                                    "value": {
+                                        "@value": "1"
+                                    }
+                                }
+                            },
+                            "default": {
+                                "@value": "normal"
+                            },
+                            "description": {
+                                "text": "OSPF Router Area Type."
+                            }
+                        }
+                    ],
+                    "uses": [
+                        {
+                            "@name": "ospf-area-config"
+                        },
+                        {
+                            "@name": "ospf-interface"
+                        }
+                    ]
+                }
+            },
+            {
+                "@name": "ospf",
+                "list": {
+                    "@name": "ospf-instance",
+                    "key": {
+                        "@value": "instance-id"
+                    },
+                    "description": {
+                        "text": "OSPF protocol instances."
+                    },
+                    "leaf": [
+                        {
+                            "@name": "router-id",
+                            "when": {
+                                "@condition": "../router-id-mode = 'manual'"
+                            },
+                            "type": {
+                                "@name": "yang:dotted-quad"
+                            },
+                            "mandatory": {
+                                "@value": "true"
+                            },
+                            "description": {
+                                "text": "OSPF Router ID."
+                            }
+                        },
+                        {
+                            "@name": "instance-id",
+                            "type": {
+                                "@name": "uint8",
+                                "range": {
+                                    "@value": "0 .. 255"
+                                }
+                            },
+                            "description": {
+                                "text": "OSPF instance ID."
+                            }
+                        },
+                        {
+                            "@name": "version",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "ospfv2",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "ospfv3",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "ospfv2"
+                            },
+                            "description": {
+                                "text": "OSPF version v2 or v3"
+                            }
+                        },
+                        {
+                            "@name": "description",
+                            "type": {
+                                "@name": "string",
+                                "length": {
+                                    "@value": "0..128"
+                                }
+                            },
+                            "description": {
+                                "text": "Textual description of the OSPF instance."
+                            }
+                        },
+                        {
+                            "@name": "vrf",
+                            "type": {
+                                "@name": "leafref",
+                                "path": {
+                                    "@value": "../../../vrf/name"
+                                }
+                            },
+                            "config": {
+                                "@value": "false"
+                            },
+                            "description": {
+                                "text": "VRF associated with this OSPF instance."
+                            }
+                        },
+                        {
+                            "@name": "router-id-mode",
+                            "type": {
+                                "@name": "enumeration",
+                                "enum": [
+                                    {
+                                        "@name": "use-loopback",
+                                        "value": {
+                                            "@value": "1"
+                                        }
+                                    },
+                                    {
+                                        "@name": "manual",
+                                        "value": {
+                                            "@value": "2"
+                                        }
+                                    }
+                                ]
+                            },
+                            "default": {
+                                "@value": "use-loopback"
+                            },
+                            "description": {
+                                "text": "Flag to indicate router-id is loopback IP or manual configured."
+                            }
+                        }
+                    ],
+                    "uses": {
+                        "@name": "ospf-area"
+                    }
+                }
+            }
+        ]
+    }
+}

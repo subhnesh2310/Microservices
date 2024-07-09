@@ -1,0 +1,264 @@
+{
+    "name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Chassis name.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "name"
+    },
+    "expected_serial_number": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Inform the NC the serial number of a sub-chassis. For the main-chassis, the value is auto-filled with its own serial number",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "expected_serial_number"
+    },
+    "required_type": {
+        "type": {
+            "ptype": "str",
+            "identityref": "ioa-common:chassis",
+            "values": [
+                "G31",
+                "G42",
+                "G34c",
+                "G32"
+            ]
+        },
+        "description": "Chassis type.",
+        "mandatory": true,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "required_type"
+    },
+    "required_subtype": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "The subtype of the chassis",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "required_subtype"
+    },
+    "chassis_location": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User defined location",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "chassis_location"
+    },
+    "rack_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User defined rack name (withing the location)",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "rack_name"
+    },
+    "position_in_rack": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Position of the chassis within the rack.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "position_in_rack"
+    },
+    "expected_pem_type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "DC",
+                "AC-high-line",
+                "AC-low-line",
+                "HV-DC"
+            ]
+        },
+        "description": "Defines what is the expected type of PEMs that this chassis will have.\nIt is not possible to configure each PEM slot individually, as all PEMs need to be of the same type.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "DC",
+        "hardcode": false,
+        "argName": "expected_pem_type"
+    },
+    "expected_fan_type": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "single-rotar",
+                "counter-rotating"
+            ]
+        },
+        "description": "Defines what is the expected type of FANs that this chassis will have.\nIt is not possible to configure each FAN slot individually, this needs to be done at the chassis level.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "counter-rotating",
+        "hardcode": false,
+        "argName": "expected_fan_type"
+    },
+    "pem_under_voltage_threshold": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Under voltage threshold on PEM input feed.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "pem_under_voltage_threshold"
+    },
+    "pem_over_voltage_threshold": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "Over voltage threshold on PEM input feed.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "pem_over_voltage_threshold"
+    },
+    "configured_max_power_draw": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User configured limit of power usable by this chassis.\nIf current-estimated-power-draw used in this chassis goes above the configured-max-power-draw,\nthe alarm PWRDRAW is raised. 10000W represents a 'very high' power draw that is beyond any\nchassis possibilities, so having this value means this feature is disabled, and the alarm is never raised.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "10000",
+        "hardcode": false,
+        "argName": "configured_max_power_draw"
+    },
+    "configured_ambient_temperature": {
+        "type": {
+            "ptype": "int"
+        },
+        "description": "Configured ambient temperature for the chassis, used to compute the FRU's power consumption.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": 0,
+        "hardcode": false,
+        "argName": "configured_ambient_temperature"
+    },
+    "power_redundancy": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "one-plus-one",
+                "one-for-n"
+            ]
+        },
+        "description": "Configuration of the PEM redundancy mode.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "one-plus-one",
+        "hardcode": false,
+        "argName": "power_redundancy"
+    },
+    "no_switchover": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "enabled",
+                "disabled"
+            ]
+        },
+        "description": "If enabled, the standby controller will be locked out from taking over the active card. This means no manual or autonomous switchovers will happen.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "disabled",
+        "hardcode": false,
+        "argName": "no_switchover"
+    },
+    "alias_name": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User defined alias for this entity. Must be an alphanumeric string with dash or underscore.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "alias_name"
+    },
+    "admin_state": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "lock",
+                "unlock",
+                "maintenance"
+            ]
+        },
+        "description": "The administrative state of the managed object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "unlock",
+        "hardcode": false,
+        "argName": "admin_state"
+    },
+    "alarm_report_control": {
+        "type": {
+            "ptype": "str",
+            "values": [
+                "allowed",
+                "inhibited"
+            ]
+        },
+        "description": "Controls the reporting of alarms for this particular object.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "allowed",
+        "hardcode": false,
+        "argName": "alarm_report_control"
+    },
+    "label": {
+        "type": {
+            "ptype": "str"
+        },
+        "description": "User label.",
+        "mandatory": false,
+        "key": false,
+        "config": true,
+        "default": "",
+        "hardcode": false,
+        "argName": "label"
+    }
+}

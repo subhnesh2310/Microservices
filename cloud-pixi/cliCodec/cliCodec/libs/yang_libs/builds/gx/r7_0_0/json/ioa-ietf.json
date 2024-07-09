@@ -1,0 +1,100 @@
+{
+    "module": {
+        "@name": "ioa-ietf",
+        "@xmlns": "urn:ietf:params:xml:ns:yang:yin:1",
+        "@xmlns:ioa-ietf": "http://infinera.com/yang/ioa/common/ioa-ietf",
+        "@xmlns:nc": "urn:ietf:params:xml:ns:netconf:base:1.0",
+        "@xmlns:ncn": "urn:ietf:params:xml:ns:yang:ietf-netconf-notifications",
+        "namespace": {
+            "@uri": "http://infinera.com/yang/ioa/common/ioa-ietf"
+        },
+        "prefix": {
+            "@value": "ioa-ietf"
+        },
+        "import": [
+            {
+                "@module": "ietf-netconf",
+                "prefix": {
+                    "@value": "nc"
+                }
+            },
+            {
+                "@module": "ietf-netconf-notifications",
+                "prefix": {
+                    "@value": "ncn"
+                }
+            }
+        ],
+        "organization": {
+            "text": "Infinera"
+        },
+        "contact": {
+            "text": "Infinera Technical Support <techsupport@infinera.com>"
+        },
+        "description": {
+            "text": "Proprietary Infinera augments to IETF modules."
+        },
+        "revision": {
+            "@date": "2021-06-01",
+            "description": {
+                "text": "YANG Models for Infinera Open API (IOA) for release R4.0"
+            }
+        },
+        "augment": [
+            {
+                "@target-node": "/nc:edit-config/nc:input",
+                "leaf": {
+                    "@name": "wildcard-support",
+                    "type": {
+                        "@name": "boolean"
+                    },
+                    "default": {
+                        "@value": "false"
+                    },
+                    "description": {
+                        "text": "If true, allow configuration data to have lists without all keys included,\nwhich acts as a wildcard edition."
+                    }
+                }
+            },
+            {
+                "@target-node": "/ncn:netconf-config-change/ncn:changed-by/ncn:server-or-user/ncn:by-user",
+                "leaf": {
+                    "@name": "internal-session-id",
+                    "type": {
+                        "@name": "string",
+                        "length": {
+                            "@value": "1..64"
+                        }
+                    },
+                    "description": {
+                        "text": "Internal Session ID of the session that caused the change."
+                    }
+                }
+            },
+            {
+                "@target-node": "/nc:get-config/nc:input",
+                "uses": {
+                    "@name": "chassis-scope-group"
+                }
+            },
+            {
+                "@target-node": "/nc:get/nc:input",
+                "uses": {
+                    "@name": "chassis-scope-group"
+                }
+            }
+        ],
+        "grouping": {
+            "@name": "chassis-scope-group",
+            "leaf": {
+                "@name": "chassis-scope",
+                "type": {
+                    "@name": "string"
+                },
+                "description": {
+                    "text": "If provided, limits the scope of the get request to data associated with the target chassis-scope.\nIf not provided, acts as the default behavior (e.g. considers all chassis).\nThis parameter can be used to retrieve data incrementally on a per chassis basis."
+                }
+            }
+        }
+    }
+}
